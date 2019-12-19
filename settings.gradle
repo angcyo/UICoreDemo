@@ -1,0 +1,2 @@
+rootProject.name='UICoreDemo'
+apply from: 'UICore/_gradle/includeAllModule.gradle'
