@@ -4,9 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    android:layout_marginTop="25dp"
     android:orientation="vertical"
     tools:context=".MainActivity">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/status_bar_color" />
 
     <com.angcyo.widget.progress.DslProgressBar
         android:layout_width="match_parent"
@@ -39,5 +44,6 @@
         app:seek_thumb_solid_color="#ff0000"
         app:seek_thumb_text_bg_drawable="@mipmap/icon_thumb"
         app:seek_thumb_text_offset_y="-4dp" />
+
 
 </LinearLayout>
