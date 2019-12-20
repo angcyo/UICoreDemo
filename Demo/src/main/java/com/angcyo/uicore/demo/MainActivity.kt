@@ -1,7 +1,7 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
-import com.angcyo.core.activity.BaseAppCompatActivity
+import com.angcyo.activity.BaseAppCompatActivity
 import com.angcyo.widget.progress.DslProgressBar
 
 /**
