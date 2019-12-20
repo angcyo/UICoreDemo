@@ -36,6 +36,7 @@
         app:progress_track_drawable_gradient_colors="@color/colorPrimaryDark"
         app:progress_value="50"
         app:seek_show_thumb_text="true"
+        app:seek_thumb_solid_color="#ff0000"
         app:seek_thumb_text_bg_drawable="@mipmap/icon_thumb"
         app:seek_thumb_text_offset_y="-4dp" />
 
