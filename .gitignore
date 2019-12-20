@@ -13,6 +13,6 @@
 .externalNativeBuild
 .cxx
 .idea
-UICore
-UICoreEx
-apk
+/UICore
+/UICoreEx
+/apk
