@@ -1,19 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <com.angcyo.widget.progress.DslProgressBar
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_margin="10dp"
-        app:progress_bg_gradient_colors="@color/colorPrimary"
-        app:progress_radius="10dp"
-        app:progress_track_drawable_gradient_colors="#898989"
-        app:progress_value="50" />
+        app:progress_bg_gradient_colors="@color/colorPrimaryDark"
+        app:progress_radius="25dp"
+        app:progress_show_text="true"
+        app:progress_text_min_width="40dp"
+        app:progress_track_drawable_gradient_colors="@color/colorPrimary"
+        tools:progress_value="50" />
 
-</FrameLayout>
+    <com.angcyo.widget.progress.DslSeekBar
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/transparent20"
+        android:paddingLeft="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
+        app:progress_bg_drawable="@color/colorPrimary"
+        app:progress_bg_gradient_colors="@color/colorPrimary"
+        app:progress_radius="25dp"
+        app:progress_show_text="true"
+        app:progress_text_offset="0dp"
+        app:progress_track_drawable="@color/colorPrimaryDark"
+        app:progress_track_drawable_gradient_colors="@color/colorPrimaryDark"
+        app:progress_value="50"
+        app:seek_show_thumb_text="true"
+        app:seek_thumb_text_bg_drawable="@mipmap/icon_thumb" />
+
+</LinearLayout>
