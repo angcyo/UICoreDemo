@@ -2,6 +2,10 @@ package com.angcyo.uicore.demo
 
 import android.os.Bundle
 import com.angcyo.activity.BaseAppCompatActivity
+import com.angcyo.base.dslFHelper
+import com.angcyo.uicore.demo.fragment.Fragment1
+import com.angcyo.uicore.demo.fragment.Fragment2
+import com.angcyo.uicore.demo.fragment.Fragment3
 import com.angcyo.widget.progress.DslProgressBar
 
 /**
@@ -32,5 +36,19 @@ class MainActivity : BaseAppCompatActivity() {
         super.onCreateAfter(savedInstanceState)
 
         val bar: DslProgressBar
+
+        dslFHelper {
+            show(Fragment1(), Fragment2(), Fragment3())
+        }
+
+    }
+
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        dslFHelper {
+            //removeAll()
+            remove(Fragment3().getFragmentTag())
+            restore(Fragment2().getFragmentTag())
+        }
     }
 }

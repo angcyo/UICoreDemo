@@ -1,49 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="25dp"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <View
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/status_bar_color" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="25dp"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
 
-    <com.angcyo.widget.progress.DslProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_margin="10dp"
-        app:progress_bg_gradient_colors="@color/colorPrimaryDark"
-        app:progress_radius="25dp"
-        app:progress_show_text="true"
-        app:progress_text_min_width="40dp"
-        app:progress_track_drawable_gradient_colors="@color/colorPrimary"
-        tools:progress_value="50" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/status_bar_color" />
 
-    <com.angcyo.widget.progress.DslSeekBar
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/transparent20"
-        android:paddingLeft="10dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp"
-        app:progress_bg_drawable="@color/colorPrimary"
-        app:progress_bg_gradient_colors="@color/colorPrimary"
-        app:progress_radius="25dp"
-        app:progress_show_text="true"
-        app:progress_text_offset="0dp"
-        app:progress_track_drawable="@color/colorPrimaryDark"
-        app:progress_track_drawable_gradient_colors="@color/colorPrimaryDark"
-        app:progress_value="50"
-        app:seek_show_thumb_text="true"
-        app:seek_thumb_solid_color="#ff0000"
-        app:seek_thumb_text_bg_drawable="@mipmap/icon_thumb"
-        app:seek_thumb_text_offset_y="-4dp" />
+        <com.angcyo.widget.progress.DslProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_margin="10dp"
+            app:progress_bg_gradient_colors="@color/colorPrimaryDark"
+            app:progress_radius="25dp"
+            app:progress_show_text="true"
+            app:progress_text_min_width="40dp"
+            app:progress_track_drawable_gradient_colors="@color/colorPrimary"
+            tools:progress_value="50" />
+
+        <com.angcyo.widget.progress.DslSeekBar
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/transparent20"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            app:progress_bg_drawable="@color/colorPrimary"
+            app:progress_bg_gradient_colors="@color/colorPrimary"
+            app:progress_radius="25dp"
+            app:progress_show_text="true"
+            app:progress_text_offset="0dp"
+            app:progress_track_drawable="@color/colorPrimaryDark"
+            app:progress_track_drawable_gradient_colors="@color/colorPrimaryDark"
+            app:progress_value="50"
+            app:seek_show_thumb_text="true"
+            app:seek_thumb_solid_color="#ff0000"
+            app:seek_thumb_text_bg_drawable="@mipmap/icon_thumb"
+            app:seek_thumb_text_offset_y="-4dp" />
 
 
-</LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>
