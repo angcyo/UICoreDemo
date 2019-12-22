@@ -47,8 +47,10 @@ class MainActivity : BaseAppCompatActivity() {
         //super.onBackPressed()
         dslFHelper {
             //removeAll()
-            remove(Fragment3().getFragmentTag())
-            restore(Fragment2().getFragmentTag())
+            //remove(Fragment3().getFragmentTag())
+            //restore(Fragment2().getFragmentTag())
+            //_test = fm.findFragmentByTag(Fragment3().getFragmentTag())
+            show(Fragment1())
         }
     }
 }
