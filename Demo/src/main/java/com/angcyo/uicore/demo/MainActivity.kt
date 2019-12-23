@@ -1,8 +1,11 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.angcyo.activity.BaseAppCompatActivity
 import com.angcyo.base.dslFHelper
+import com.angcyo.base.log
 import com.angcyo.uicore.demo.fragment.Fragment1
 import com.angcyo.uicore.demo.fragment.Fragment2
 import com.angcyo.uicore.demo.fragment.Fragment3
@@ -41,16 +44,35 @@ class MainActivity : BaseAppCompatActivity() {
             show(Fragment1(), Fragment2(), Fragment3())
         }
 
+        baseDslViewHolder.post {
+            supportFragmentManager.log()
+        }
     }
 
     override fun onBackPressed() {
         //super.onBackPressed()
+//        dslFHelper {
+//            //removeAll()
+//            //remove(Fragment3().getFragmentTag())
+//            //restore(Fragment2().getFragmentTag())
+//            //_test = fm.findFragmentByTag(Fragment3().getFragmentTag())
+//            //show(Fragment1())
+//        }
+//
+//        supportFragmentManager.beginTransaction().apply {
+//            detach(supportFragmentManager.findFragmentByTag(Fragment2().getFragmentTag())!!)
+//            commit()
+//        }
+//
+//        baseDslViewHolder.postDelay(1000) {
+//            supportFragmentManager.log()
+//        }
+
         dslFHelper {
-            //removeAll()
-            //remove(Fragment3().getFragmentTag())
-            //restore(Fragment2().getFragmentTag())
-            //_test = fm.findFragmentByTag(Fragment3().getFragmentTag())
-            show(Fragment1())
+            removeLast()
+        }
+        baseDslViewHolder.post {
+            supportFragmentManager.log()
         }
     }
 }

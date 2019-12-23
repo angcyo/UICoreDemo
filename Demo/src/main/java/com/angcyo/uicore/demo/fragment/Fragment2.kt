@@ -10,7 +10,5 @@ import com.angcyo.uicore.demo.R
  * @date 2019/12/22
  */
 class Fragment2 : AbsLifecycleFragment() {
-    init {
-        fragmentLayoutId = R.layout.fragment2_layout
-    }
+    override fun getFragmentLayoutId(): Int = R.layout.fragment2_layout
 }
