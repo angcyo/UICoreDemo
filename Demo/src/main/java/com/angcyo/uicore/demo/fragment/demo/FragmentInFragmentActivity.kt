@@ -2,6 +2,11 @@ package com.angcyo.uicore.demo.fragment.demo
 
 import android.os.Bundle
 import com.angcyo.activity.BaseAppCompatActivity
+import com.angcyo.base.dslChildFHelper
+import com.angcyo.base.dslFHelper
+import com.angcyo.base.log
+import com.angcyo.fragment.AbsLifecycleFragment
+import com.angcyo.uicore.demo.R
 
 /**
  *
@@ -13,5 +18,37 @@ import com.angcyo.activity.BaseAppCompatActivity
 class FragmentInFragmentActivity : BaseAppCompatActivity() {
     override fun onCreateAfter(savedInstanceState: Bundle?) {
         super.onCreateAfter(savedInstanceState)
+
+        dslFHelper {
+            show(FragmentParent())
+        }
+    }
+}
+
+class FragmentParent : AbsLifecycleFragment() {
+    override fun getFragmentLayoutId(): Int {
+        return R.layout.fragment_parent
+    }
+
+    override fun initBaseView(savedInstanceState: Bundle?) {
+        super.initBaseView(savedInstanceState)
+
+        baseViewHolder.click(R.id.button_view) {
+            dslChildFHelper {
+                show(FragmentChild::class.java)
+                show(FragmentChild::class.java)
+                show(FragmentChild::class.java)
+            }
+
+            it.post {
+                childFragmentManager.log()
+            }
+        }
+    }
+}
+
+class FragmentChild : AbsLifecycleFragment() {
+    override fun getFragmentLayoutId(): Int {
+        return R.layout.fragment_child
     }
 }

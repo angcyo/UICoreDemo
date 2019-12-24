@@ -1,14 +1,8 @@
 package com.angcyo.uicore.demo.fragment
 
 import com.angcyo.fragment.AbsLifecycleFragment
-
-/**
- *
- * Email:angcyo@126.com
- * @author angcyo
- * @date 2019/12/22
- */
+import com.angcyo.uicore.demo.R
 
 class Fragment3 : AbsLifecycleFragment() {
-
+    override fun getFragmentLayoutId(): Int = R.layout.fragment3_layout
 }

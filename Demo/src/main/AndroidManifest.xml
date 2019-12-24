@@ -33,6 +33,8 @@
         </activity>
 
         <activity android:name=".fragment.demo.FragmentInFragmentActivity" />
+        <activity android:name=".fragment.demo.ViewPagerInFragmentActivity" />
+        <activity android:name=".fragment.demo.ViewPager2InFragmentActivity" />
     </application>
 
 </manifest>
