@@ -7,6 +7,7 @@ import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslChildFHelper
 import com.angcyo.core.fragment.BaseDslFragment
 import com.angcyo.core.item.DslTextInfoItem
+import com.angcyo.coroutine.test
 import com.angcyo.drawable.dpi
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem
@@ -44,6 +45,11 @@ class MainFragment : BaseDslFragment() {
         }
     }
 
+    override fun onFragmentShow(bundle: Bundle?) {
+        super.onFragmentShow(bundle)
+        test()
+    }
+
     fun DslAdapter.renderMainItem(
         text: CharSequence?,
         topInsert: Int = 1 * dpi,
@@ -52,9 +58,9 @@ class MainFragment : BaseDslFragment() {
         click: ((View) -> Unit)? = null
     ) {
         this + DslTextInfoItem().apply {
-            itemInfoText = text
+            itemInfoText = "${this@renderMainItem.adapterItems.size + 1}.$text"
             itemTopInsert = topInsert
-            this.init()
+            itemInfoIcon = R.drawable.ic_logo_small
 
             onItemClick = { view ->
 
@@ -76,6 +82,8 @@ class MainFragment : BaseDslFragment() {
 
                 click?.invoke(view)
             }
+
+            this.init()
         }
     }
 }
