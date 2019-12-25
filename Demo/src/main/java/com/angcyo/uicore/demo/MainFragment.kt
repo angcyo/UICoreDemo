@@ -7,10 +7,11 @@ import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslChildFHelper
 import com.angcyo.core.fragment.BaseDslFragment
 import com.angcyo.core.item.DslTextInfoItem
-import com.angcyo.coroutine.test
+import com.angcyo.coroutine.coroutineTest
 import com.angcyo.drawable.dpi
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem
+import com.angcyo.http.rx.rxJavaTest
 import com.angcyo.uicore.demo.fragment.demo.FragmentInFragmentActivity
 import com.angcyo.uicore.demo.fragment.demo.ViewPager2InFragmentActivity
 import com.angcyo.uicore.demo.fragment.demo.ViewPagerInFragmentActivity
@@ -47,7 +48,8 @@ class MainFragment : BaseDslFragment() {
 
     override fun onFragmentShow(bundle: Bundle?) {
         super.onFragmentShow(bundle)
-        test()
+        coroutineTest()
+        rxJavaTest()
     }
 
     fun DslAdapter.renderMainItem(
