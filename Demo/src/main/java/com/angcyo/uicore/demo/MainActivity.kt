@@ -15,13 +15,13 @@ import com.angcyo.core.activity.PermissionBean
 class MainActivity : BasePermissionsActivity() {
 
     init {
-        permissions.add(
-            PermissionBean(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                R.drawable.permission_sd,
-                "SD卡存储权限"
-            )
-        )
+//        permissions.add(
+//            PermissionBean(
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                R.drawable.permission_sd,
+//                "SD卡存储权限"
+//            )
+//        )
 //        permissions.add(
 //            PermissionBean(
 //                Manifest.permission.ACCESS_FINE_LOCATION,

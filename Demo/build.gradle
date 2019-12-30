@@ -1,7 +1,7 @@
 ext {
     V_CODE = "1"
     V_NAME = "1.0.1"
-    schema = "app"
+    schema = "demo"
 
     application_id = "com.angcyo.uicore.demo"
 }

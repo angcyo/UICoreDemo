@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslChildFHelper
-import com.angcyo.core.component.DslFileHelper
+import com.angcyo.core.component.file.DslFileHelper
 import com.angcyo.core.fragment.BaseDslFragment
 import com.angcyo.core.item.DslTextInfoItem
 import com.angcyo.coroutine.coroutineTest
@@ -52,7 +52,7 @@ class MainFragment : BaseDslFragment() {
         coroutineTest()
         rxJavaTest()
 
-        DslFileHelper().init()
+        DslFileHelper.test()
     }
 
     fun DslAdapter.renderMainItem(
