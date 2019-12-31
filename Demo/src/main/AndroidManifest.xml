@@ -16,7 +16,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <service
-            android:name=".TaskService"
+            android:name=".component.TaskService"
             android:enabled="true"
             android:exported="false" />
 

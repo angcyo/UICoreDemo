@@ -1,4 +1,4 @@
-package com.angcyo.uicore.demo
+package com.angcyo.uicore.demo.component
 
 import android.app.AlarmManager
 import android.app.PendingIntent
