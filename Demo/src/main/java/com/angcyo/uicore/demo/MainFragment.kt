@@ -51,8 +51,6 @@ class MainFragment : BaseDslFragment() {
         super.onFragmentShow(bundle)
         coroutineTest()
         rxJavaTest()
-
-        DslFileHelper.test()
     }
 
     fun DslAdapter.renderMainItem(
