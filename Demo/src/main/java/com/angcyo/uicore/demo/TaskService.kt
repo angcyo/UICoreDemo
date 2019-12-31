@@ -34,6 +34,10 @@ open class TaskService : Service() {
             })
         }
 
+        fun stop(context: Context) {
+            context.stopService(Intent(context, TaskService::class.java))
+        }
+
         fun _start(context: Context) {
             context.startService(Intent(context, TaskService::class.java))
         }
@@ -58,10 +62,14 @@ open class TaskService : Service() {
         registerReceiver(alarmReceiver, IntentFilter(ACTION))
     }
 
-    override fun stopService(name: Intent?): Boolean {
+    override fun onDestroy() {
+        super.onDestroy()
         val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
         alarmManager.cancel(pendingIntent)
         unregisterReceiver(alarmReceiver)
+    }
+
+    override fun stopService(name: Intent?): Boolean {
         return super.stopService(name)
     }
 
