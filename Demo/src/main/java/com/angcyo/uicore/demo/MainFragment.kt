@@ -5,13 +5,14 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslChildFHelper
-import com.angcyo.core.component.file.DslFileHelper
 import com.angcyo.core.fragment.BaseDslFragment
 import com.angcyo.core.item.DslTextInfoItem
 import com.angcyo.coroutine.coroutineTest
 import com.angcyo.drawable.dpi
+import com.angcyo.drawable.toDpi
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem
+import com.angcyo.dsladapter.renderEmptyItem
 import com.angcyo.http.rx.rxJavaTest
 import com.angcyo.uicore.demo.fragment.demo.FragmentInFragmentActivity
 import com.angcyo.uicore.demo.fragment.demo.ViewPager2InFragmentActivity
@@ -29,7 +30,7 @@ class MainFragment : BaseDslFragment() {
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
         renderDslAdapter {
-            renderMainItem("FragmentInFragmentDemo") {
+            renderMainItem("FragmentInFragmentDemo", 10.toDpi()) {
                 dslAHelper {
                     start(FragmentInFragmentActivity::class.java)
                 }
@@ -43,6 +44,10 @@ class MainFragment : BaseDslFragment() {
                 dslAHelper {
                     start(ViewPager2InFragmentActivity::class.java)
                 }
+            }
+
+            for (i in 0..10) {
+                renderEmptyItem(100 * dpi)
             }
         }
     }
