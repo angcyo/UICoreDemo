@@ -6,14 +6,17 @@ import androidx.fragment.app.Fragment
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslChildFHelper
 import com.angcyo.core.fragment.BaseDslFragment
-import com.angcyo.core.item.DslTextInfoItem
+import com.angcyo.core.getColor
 import com.angcyo.coroutine.coroutineTest
+import com.angcyo.coroutine.launch
 import com.angcyo.drawable.dpi
 import com.angcyo.drawable.toDpi
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem
-import com.angcyo.dsladapter.renderEmptyItem
-import com.angcyo.http.rx.rxJavaTest
+import com.angcyo.http.ApiKt
+import com.angcyo.http.dslHttp
+import com.angcyo.item.DslTextInfoItem
+import com.angcyo.library.L
 import com.angcyo.uicore.demo.fragment.demo.FragmentInFragmentActivity
 import com.angcyo.uicore.demo.fragment.demo.ViewPager2InFragmentActivity
 import com.angcyo.uicore.demo.fragment.demo.ViewPagerInFragmentActivity
@@ -25,6 +28,7 @@ import com.angcyo.uicore.demo.fragment.demo.ViewPagerInFragmentActivity
  * @date 2019/12/24
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
+
 class MainFragment : BaseDslFragment() {
 
     override fun initBaseView(savedInstanceState: Bundle?) {
@@ -46,8 +50,12 @@ class MainFragment : BaseDslFragment() {
                 }
             }
 
-            for (i in 0..10) {
-                renderEmptyItem(100 * dpi)
+            for (i in 0..100) {
+                renderMainItem("ViewPager2InFragmentDemo") {
+                    dslAHelper {
+                        start(ViewPager2InFragmentActivity::class.java)
+                    }
+                }
             }
         }
     }
@@ -55,7 +63,15 @@ class MainFragment : BaseDslFragment() {
     override fun onFragmentShow(bundle: Bundle?) {
         super.onFragmentShow(bundle)
         coroutineTest()
-        rxJavaTest()
+        //rxJavaTest()
+
+        launch {
+            val response =
+                dslHttp(ApiKt::class.java).post("https://www.mxnzp.com/api/tools/system/time")
+
+            L.i(response)
+        }
+
     }
 
     fun DslAdapter.renderMainItem(
@@ -69,6 +85,8 @@ class MainFragment : BaseDslFragment() {
             itemInfoText = "${this@renderMainItem.adapterItems.size + 1}.$text"
             itemTopInsert = topInsert
             itemInfoIcon = R.drawable.ic_logo_small
+            itemDarkIcon = R.drawable.lib_next
+            itemDarkIconColor = getColor(R.color.colorPrimaryDark)
 
             onItemClick = { view ->
 

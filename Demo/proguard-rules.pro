@@ -22,3 +22,7 @@
 
 # https://ansgarlin.github.io/zh-tw/news/2018/09/15/how_does_addconfigurationdebugging_in_proguard_work/index.html
 -addconfigurationdebugging
+
+# 保持demo fragment能够跳转
+-keep class com.angcyo.uicore.demo.MainFragment
+-keep class com.angcyo.uicore.demo.fragment.*
