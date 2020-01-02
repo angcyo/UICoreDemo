@@ -17,9 +17,7 @@ import com.angcyo.http.ApiKt
 import com.angcyo.http.dslHttp
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.library.L
-import com.angcyo.uicore.demo.fragment.demo.FragmentInFragmentActivity
-import com.angcyo.uicore.demo.fragment.demo.ViewPager2InFragmentActivity
-import com.angcyo.uicore.demo.fragment.demo.ViewPagerInFragmentActivity
+import com.angcyo.uicore.demo.fragment.demo.*
 
 /**
  *
@@ -44,19 +42,30 @@ class MainFragment : BaseDslFragment() {
                     start(ViewPagerInFragmentActivity::class.java)
                 }
             }
+            renderMainItem("ViewPagerInViewPagerDemo") {
+                dslAHelper {
+                    start(ViewPagerInViewPagerActivity::class.java)
+                }
+            }
             renderMainItem("ViewPager2InFragmentDemo") {
                 dslAHelper {
                     start(ViewPager2InFragmentActivity::class.java)
                 }
             }
-
-            for (i in 0..100) {
-                renderMainItem("ViewPager2InFragmentDemo") {
-                    dslAHelper {
-                        start(ViewPager2InFragmentActivity::class.java)
-                    }
+            renderMainItem("ViewPager2InViewPager2Demo") {
+                dslAHelper {
+                    start(ViewPager2InViewPager2Activity::class.java)
                 }
             }
+
+
+//            for (i in 0..100) {
+//                renderMainItem("ViewPager2InFragmentDemo") {
+//                    dslAHelper {
+//                        start(ViewPager2InFragmentActivity::class.java)
+//                    }
+//                }
+//            }
         }
     }
 

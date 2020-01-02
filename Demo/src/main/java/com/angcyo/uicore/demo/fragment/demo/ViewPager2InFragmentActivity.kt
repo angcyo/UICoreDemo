@@ -1,17 +1,17 @@
 package com.angcyo.uicore.demo.fragment.demo
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
 import com.angcyo.activity.BaseAppCompatActivity
 import com.angcyo.base.dslFHelper
+import com.angcyo.core.viewpager2.RFragmentAdapter2
+import com.angcyo.core.viewpager2.ViewPager2Delegate
 import com.angcyo.fragment.AbsLifecycleFragment
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.demo.fragment.Fragment1
 import com.angcyo.uicore.demo.fragment.Fragment2
 import com.angcyo.uicore.demo.fragment.Fragment3
-import com.angcyo.widget.DslViewHolder
+import com.angcyo.widget.tab
+import com.angcyo.widget.vp2
 
 /**
  *
@@ -31,22 +31,18 @@ class ViewPager2InFragmentActivity : BaseAppCompatActivity() {
 }
 
 class FragmentViewPager2 : AbsLifecycleFragment() {
-    override fun getFragmentLayoutId(): Int = R.layout.fragment_view_pager2_layout
 
+    val fragments = mutableListOf(Fragment1(), Fragment2(), Fragment3())
+
+    override fun getFragmentLayoutId(): Int = R.layout.fragment_view_pager2_layout
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
 
-        val fragments = listOf(Fragment1(), Fragment2(), Fragment3())
-        baseViewHolder.v<ViewPager2>(R.id.view_pager)?.adapter = object : FragmentStateAdapter(this) {
-            override fun getItemCount(): Int {
-                return fragments.size
-            }
+        baseViewHolder.vp2(R.id.view_pager)?.apply {
+            adapter = RFragmentAdapter2(this@FragmentViewPager2, fragments)
 
-            override fun createFragment(position: Int): Fragment {
-                return fragments[position]
-            }
-
+            ViewPager2Delegate.install(this, baseViewHolder.tab(R.id.tab_layout))
         }
     }
 }

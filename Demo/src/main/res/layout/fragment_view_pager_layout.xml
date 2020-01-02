@@ -1,11 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
+    <com.angcyo.widget.layout.TitleWrapLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/action_bar_height" />
+
+        <com.angcyo.tablayout.DslTabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_bar_height"
+            app:tab_indicator_solid_color="#ff0000"
+            app:tab_item_is_equ_width="true">
+
+            <TextView
+                style="@style/LibMainTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Fragment1" />
+
+            <TextView
+                style="@style/LibMainTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Fragment2" />
+
+            <TextView
+                style="@style/LibMainTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Fragment3" />
+        </com.angcyo.tablayout.DslTabLayout>
+    </com.angcyo.widget.layout.TitleWrapLayout>
 
 </FrameLayout>
