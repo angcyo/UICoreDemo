@@ -1,6 +1,7 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import com.angcyo.core.component.toast
 import com.angcyo.core.fragment.BaseTitleFragment
 import com.angcyo.core.fragment.initDslAdapter
 import com.angcyo.drawable.dpi
@@ -25,6 +26,10 @@ class RefreshDemo : BaseTitleFragment() {
                 DslBaseInfoItem()() {
                     itemInfoText = "Text...$i"
                     itemTopInsert = 1 * dpi
+
+                    onItemClick = {
+                        toast(itemInfoText)
+                    }
                 }
             }
         }
