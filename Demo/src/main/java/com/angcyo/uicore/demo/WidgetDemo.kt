@@ -2,6 +2,8 @@ package com.angcyo.uicore.demo
 
 import android.os.Bundle
 import com.angcyo.core.fragment.BaseTitleFragment
+import com.angcyo.widget.DslButton
+import com.angcyo.widget.helper
 import com.angcyo.widget.progress.ArcLoadingView
 import com.angcyo.widget.progress.DslSeekBar
 
@@ -19,10 +21,11 @@ class WidgetDemo : BaseTitleFragment() {
         super.initBaseView(savedInstanceState)
 
         baseViewHolder.v<DslSeekBar>(R.id.seek_bar)?.config {
-            onSeekChanged = { value, fraction, fromUser ->
+            onSeekChanged = { value, _, _ ->
                 baseViewHolder.v<ArcLoadingView>(R.id.arc_load_view)?.progress = value
             }
         }
 
+        //baseViewHolder.group(R.id.wrap_layout).helper()
     }
 }
