@@ -5,8 +5,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslChildFHelper
+import com.angcyo.base.getColor
 import com.angcyo.core.fragment.BaseDslFragment
-import com.angcyo.core.getColor
 import com.angcyo.coroutine.coroutineTest
 import com.angcyo.coroutine.launch
 import com.angcyo.drawable.dpi
