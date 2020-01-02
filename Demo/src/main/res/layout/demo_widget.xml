@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <com.angcyo.widget.progress.ArcLoadingView
+        android:id="@+id/arc_load_view"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/transparent40" />
+        android:background="@color/transparent40"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
+
+    <com.angcyo.widget.progress.DslSeekBar
+        android:id="@+id/seek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:paddingLeft="@dimen/lib_xxhdpi"
+        android:paddingRight="@dimen/lib_xxhdpi"
+        android:paddingBottom="10dp"
+        app:progress_height="5dp"
+        app:progress_show_text="true"
+        app:seek_thumb_over_height="8dp" />
 
 </LinearLayout>
