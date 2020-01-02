@@ -1,9 +1,7 @@
-package com.angcyo.uicore.demo
+package com.angcyo.uicore
 
-import android.Manifest
 import com.angcyo.base.dslFHelper
 import com.angcyo.core.activity.BasePermissionsActivity
-import com.angcyo.core.activity.PermissionBean
 
 /**
  *

@@ -1,4 +1,4 @@
-package com.angcyo.uicore.demo.fragment
+package com.angcyo.uicore.fragment
 
 import com.angcyo.fragment.AbsLifecycleFragment
 import com.angcyo.uicore.demo.R

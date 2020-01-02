@@ -1,4 +1,4 @@
-package com.angcyo.uicore.demo
+package com.angcyo.uicore
 
 import com.angcyo.core.CoreApplication
 

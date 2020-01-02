@@ -1,11 +1,12 @@
-package com.angcyo.uicore.demo
+package com.angcyo.uicore
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.angcyo.base.dslAHelper
-import com.angcyo.base.dslChildFHelper
+import com.angcyo.base.dslFHelper
 import com.angcyo.base.getColor
+import com.angcyo.core.component.toast
 import com.angcyo.core.fragment.BaseDslFragment
 import com.angcyo.coroutine.coroutineTest
 import com.angcyo.coroutine.launch
@@ -17,7 +18,8 @@ import com.angcyo.http.ApiKt
 import com.angcyo.http.dslHttp
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.library.L
-import com.angcyo.uicore.demo.fragment.demo.*
+import com.angcyo.uicore.demo.R
+import com.angcyo.uicore.fragment.demo.*
 
 /**
  *
@@ -57,6 +59,8 @@ class MainFragment : BaseDslFragment() {
                     start(ViewPager2InViewPager2Activity::class.java)
                 }
             }
+
+            renderMainItem("WidgetDemo ArcLoadingView")
 
 
 //            for (i in 0..100) {
@@ -107,10 +111,11 @@ class MainFragment : BaseDslFragment() {
                     }
                 } catch (e: Exception) {
                     //Tip.tip("未找到类:\n$className")
+                    toast("未找到类:\n$className")
                 }
 
                 cls?.let {
-                    dslChildFHelper {
+                    dslFHelper {
                         show(it)
                     }
                 }

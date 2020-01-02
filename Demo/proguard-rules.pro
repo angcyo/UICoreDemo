@@ -24,5 +24,5 @@
 -addconfigurationdebugging
 
 # 保持demo fragment能够跳转
--keep class com.angcyo.uicore.demo.MainFragment
--keep class com.angcyo.uicore.demo.fragment.*
+-keep class com.angcyo.uicore.MainFragment
+-keep class com.angcyo.uicore.fragment.*

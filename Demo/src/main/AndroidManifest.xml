@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:name=".App"
+        android:name="com.angcyo.uicore.App"
         android:allowBackup="true"
         android:icon="@drawable/ic_logo"
         android:label="@string/app_name"
@@ -16,12 +16,12 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <service
-            android:name=".component.TaskService"
+            android:name="com.angcyo.uicore.component.TaskService"
             android:enabled="true"
             android:exported="false" />
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.angcyo.uicore.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|fontScale|smallestScreenSize|density|screenLayout"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize">
@@ -32,11 +32,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".fragment.demo.FragmentInFragmentActivity" />
-        <activity android:name=".fragment.demo.ViewPagerInFragmentActivity" />
-        <activity android:name=".fragment.demo.ViewPager2InFragmentActivity" />
-        <activity android:name=".fragment.demo.ViewPagerInViewPagerActivity" />
-        <activity android:name=".fragment.demo.ViewPager2InViewPager2Activity" />
+        <activity android:name="com.angcyo.uicore.fragment.demo.FragmentInFragmentActivity" />
+        <activity android:name="com.angcyo.uicore.fragment.demo.ViewPagerInFragmentActivity" />
+        <activity android:name="com.angcyo.uicore.fragment.demo.ViewPager2InFragmentActivity" />
+        <activity android:name="com.angcyo.uicore.fragment.demo.ViewPagerInViewPagerActivity" />
+        <activity android:name="com.angcyo.uicore.fragment.demo.ViewPager2InViewPager2Activity" />
     </application>
 
 </manifest>

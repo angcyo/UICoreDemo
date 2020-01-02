@@ -1,4 +1,4 @@
-package com.angcyo.uicore.demo.fragment.demo
+package com.angcyo.uicore.fragment.demo
 
 import android.os.Bundle
 import com.angcyo.activity.BaseAppCompatActivity
@@ -7,9 +7,9 @@ import com.angcyo.core.viewpager2.RFragmentAdapter2
 import com.angcyo.core.viewpager2.ViewPager2Delegate
 import com.angcyo.fragment.AbsLifecycleFragment
 import com.angcyo.uicore.demo.R
-import com.angcyo.uicore.demo.fragment.Fragment1
-import com.angcyo.uicore.demo.fragment.Fragment2
-import com.angcyo.uicore.demo.fragment.Fragment3
+import com.angcyo.uicore.fragment.Fragment1
+import com.angcyo.uicore.fragment.Fragment2
+import com.angcyo.uicore.fragment.Fragment3
 import com.angcyo.widget.tab
 import com.angcyo.widget.vp2
 
