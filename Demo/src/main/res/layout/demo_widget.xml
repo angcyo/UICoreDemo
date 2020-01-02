@@ -26,6 +26,7 @@
         app:seek_thumb_over_height="8dp" />
 
     <com.angcyo.widget.DslButton
+        android:id="@+id/button"
         style="@style/DefaultButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

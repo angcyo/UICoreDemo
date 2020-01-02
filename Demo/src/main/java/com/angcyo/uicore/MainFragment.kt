@@ -111,7 +111,9 @@ class MainFragment : BaseDslFragment() {
                     }
                 } catch (e: Exception) {
                     //Tip.tip("未找到类:\n$className")
-                    toast("未找到类:\n$className")
+                    if (click == null) {
+                        toast("未找到类:\n$className")
+                    }
                 }
 
                 cls?.let {

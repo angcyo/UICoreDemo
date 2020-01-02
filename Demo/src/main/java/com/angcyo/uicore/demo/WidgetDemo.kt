@@ -27,6 +27,10 @@ class WidgetDemo : BaseTitleFragment() {
             }
         }
 
+        baseViewHolder.click(R.id.button) {
+            baseViewHolder.v<ArcLoadingView>(R.id.arc_load_view)?.startLoading()
+        }
+
         //baseViewHolder.group(R.id.wrap_layout).helper()
     }
 }
