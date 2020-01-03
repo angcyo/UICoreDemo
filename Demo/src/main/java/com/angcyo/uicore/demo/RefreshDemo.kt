@@ -31,7 +31,13 @@ class RefreshDemo : BaseTitleFragment() {
                     itemTopInsert = 1 * dpi
 
                     onItemClick = {
-                        toast(itemInfoText)
+                        if (i % 2 == 0) {
+                            toast(itemInfoText)
+                        } else {
+                            toast(itemInfoText) {
+                                activity = getActivity()
+                            }
+                        }
                     }
                 }
             }
