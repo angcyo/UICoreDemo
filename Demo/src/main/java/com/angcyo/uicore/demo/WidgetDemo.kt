@@ -13,7 +13,10 @@ import com.angcyo.widget.progress.DslSeekBar
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
 class WidgetDemo : BaseTitleFragment() {
-    override fun getContentLayoutId(): Int = R.layout.demo_widget
+
+    init {
+        contentLayoutId = R.layout.demo_widget
+    }
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)

@@ -4,5 +4,7 @@ import com.angcyo.fragment.AbsLifecycleFragment
 import com.angcyo.uicore.demo.R
 
 class Fragment3 : AbsLifecycleFragment() {
-    override fun getFragmentLayoutId(): Int = R.layout.fragment3_layout
+    init {
+        fragmentLayoutId = R.layout.fragment3_layout
+    }
 }

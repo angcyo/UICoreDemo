@@ -26,8 +26,9 @@ class FragmentInFragmentActivity : BaseAppCompatActivity() {
 }
 
 class FragmentParent : AbsLifecycleFragment() {
-    override fun getFragmentLayoutId(): Int {
-        return R.layout.fragment_parent
+
+    init {
+        fragmentLayoutId = R.layout.fragment_parent
     }
 
     override fun initBaseView(savedInstanceState: Bundle?) {
@@ -48,7 +49,9 @@ class FragmentParent : AbsLifecycleFragment() {
 }
 
 class FragmentChild : AbsLifecycleFragment() {
-    override fun getFragmentLayoutId(): Int {
-        return R.layout.fragment_child
+
+    init {
+        fragmentLayoutId = R.layout.fragment_child
     }
+
 }

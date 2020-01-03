@@ -16,7 +16,10 @@ import com.angcyo.item.DslBaseInfoItem
  */
 
 class RefreshDemo : BaseTitleFragment() {
-    override fun getContentLayoutId() = R.layout.demo_refresh
+
+    init {
+        contentLayoutId = R.layout.demo_refresh
+    }
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)

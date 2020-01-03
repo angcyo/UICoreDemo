@@ -32,9 +32,11 @@ class ViewPager2InFragmentActivity : BaseAppCompatActivity() {
 
 class FragmentViewPager2 : AbsLifecycleFragment() {
 
-    val fragments = mutableListOf(Fragment1(), Fragment2(), Fragment3())
+    init {
+        fragmentLayoutId = R.layout.fragment_view_pager2_layout
+    }
 
-    override fun getFragmentLayoutId(): Int = R.layout.fragment_view_pager2_layout
+    val fragments = mutableListOf(Fragment1(), Fragment2(), Fragment3())
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
