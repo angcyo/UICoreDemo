@@ -61,7 +61,8 @@ class MainFragment : BaseDslFragment() {
             }
 
             renderMainItem("WidgetDemo ArcLoadingView")
-            renderMainItem("RefreshDemo RefreshBehavior")
+            renderMainItem("RefreshEffectDemo")
+            renderMainItem("RefreshDemo")
 
 
 //            for (i in 0..100) {

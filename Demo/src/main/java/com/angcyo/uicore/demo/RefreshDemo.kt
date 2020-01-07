@@ -1,9 +1,8 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
-import com.angcyo.core.component.toast
-import com.angcyo.core.fragment.BaseTitleFragment
-import com.angcyo.core.fragment.initDslAdapter
+import com.angcyo.behavior.refresh.RefreshBehavior
+import com.angcyo.core.fragment.BaseDslFragment
 import com.angcyo.drawable.dpi
 import com.angcyo.item.DslBaseInfoItem
 
@@ -11,36 +10,31 @@ import com.angcyo.item.DslBaseInfoItem
  *
  * Email:angcyo@126.com
  * @author angcyo
- * @date 2020/01/02
- * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
+ * @date 2020/01/07
  */
 
-class RefreshDemo : BaseTitleFragment() {
+class RefreshDemo : BaseDslFragment() {
 
     init {
-        contentLayoutId = R.layout.demo_refresh
+        enableRefresh = true
     }
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
 
-        _vh.rv(R.id.lib_recycler_view)?.initDslAdapter {
+        renderDslAdapter {
             for (i in 0..100) {
                 DslBaseInfoItem()() {
                     itemInfoText = "Text...$i"
                     itemTopInsert = 1 * dpi
-
-                    onItemClick = {
-                        if (i % 2 == 0) {
-                            toast(itemInfoText)
-                        } else {
-                            toast(itemInfoText) {
-                                activity = getActivity()
-                            }
-                        }
-                    }
                 }
             }
+        }
+    }
+
+    override fun onRefresh(refreshBehavior: RefreshBehavior?) {
+        _vh.postDelay(2_000) {
+            finishRefresh()
         }
     }
 }
