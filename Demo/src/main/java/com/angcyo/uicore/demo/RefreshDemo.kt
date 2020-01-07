@@ -32,6 +32,11 @@ class RefreshDemo : BaseDslFragment() {
         }
     }
 
+    override fun onFragmentFirstShow(bundle: Bundle?) {
+        super.onFragmentFirstShow(bundle)
+        startRefresh()
+    }
+
     override fun onRefresh(refreshBehavior: RefreshBehavior?) {
         _vh.postDelay(2_000) {
             finishRefresh()

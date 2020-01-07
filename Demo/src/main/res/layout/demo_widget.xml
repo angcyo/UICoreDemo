@@ -1,36 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/wrap_layout"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <com.angcyo.widget.progress.ArcLoadingView
-        android:id="@+id/arc_load_view"
+    <LinearLayout
+        android:id="@+id/wrap_layout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/transparent40"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp" />
-
-    <com.angcyo.widget.progress.DslSeekBar
-        android:id="@+id/seek_bar"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:paddingLeft="@dimen/lib_xxhdpi"
-        android:paddingRight="@dimen/lib_xxhdpi"
-        android:paddingBottom="10dp"
-        app:progress_height="5dp"
-        app:progress_show_text="true"
-        app:seek_thumb_over_height="8dp" />
-
-    <com.angcyo.widget.DslButton
-        android:id="@+id/button"
-        style="@style/DefaultButtonStyle"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:text="开始" />
+        android:orientation="vertical">
 
-</LinearLayout>
+        <com.angcyo.widget.ImageTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:r_badge_bg_drawable="@drawable/ic_bubble"
+            app:r_badge_offset_y="-10dp"
+            app:r_badge_padding_left="5dp"
+            app:r_badge_padding_top="30dp"
+            app:r_badge_text="angcyo"
+            app:r_badge_text_offset_y="-3dp"
+            app:r_show_text="angcyo"
+            app:srcCompat="@drawable/ic_logo"
+            tools:background="@color/transparent20" />
+
+        <com.angcyo.widget.progress.ArcLoadingView
+            android:id="@+id/arc_load_view"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/transparent40"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp" />
+
+        <com.angcyo.widget.progress.DslSeekBar
+            android:id="@+id/seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="@dimen/lib_xxhdpi"
+            android:paddingRight="@dimen/lib_xxhdpi"
+            android:paddingBottom="10dp"
+            app:progress_height="5dp"
+            app:progress_show_text="true"
+            app:seek_thumb_over_height="8dp" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/button"
+            style="@style/DefaultButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="开始" />
+
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
