@@ -8,11 +8,15 @@ import com.angcyo.base.dslFHelper
 import com.angcyo.base.getColor
 import com.angcyo.core.component.toast
 import com.angcyo.core.fragment.BaseDslFragment
+import com.angcyo.coroutine.launch
 import com.angcyo.drawable.dpi
 import com.angcyo.drawable.toDpi
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem
+import com.angcyo.http.ApiKt
+import com.angcyo.http.dslHttp
 import com.angcyo.item.DslTextInfoItem
+import com.angcyo.library.L
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.fragment.demo.*
 
@@ -70,17 +74,26 @@ class MainFragment : BaseDslFragment() {
         }
     }
 
+    override fun onFragmentFirstShow(bundle: Bundle?) {
+        super.onFragmentFirstShow(bundle)
+
+        launch {
+            val url = "https://www.mxnzp.com/api/tools/system/time"
+            L.i("开始请求:")
+            try {
+                val response = dslHttp(ApiKt::class.java).post(url)
+                L.i(response)
+            } catch (e: Exception) {
+                L.e("捕捉异常:$e")
+                throw  e
+            }
+        }
+    }
+
     override fun onFragmentShow(bundle: Bundle?) {
         super.onFragmentShow(bundle)
         //coroutineTest()
         //rxJavaTest()
-
-//        launch {
-//            val response =
-//                dslHttp(ApiKt::class.java).post("https://www.mxnzp.com/api/tools/system/time")
-//
-//            L.i(response)
-//        }
     }
 
     fun DslAdapter.renderMainItem(
