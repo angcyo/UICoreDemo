@@ -11,6 +11,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <com.angcyo.widget.DslTextView
+            android:id="@+id/text_view"
+            android:layout_width="wrap_content"
+            style="@style/LibBodyTextStyle"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent20" />
+
         <com.angcyo.widget.ImageTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
