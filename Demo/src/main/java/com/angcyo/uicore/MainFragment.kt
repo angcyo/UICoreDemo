@@ -17,6 +17,7 @@ import com.angcyo.http.ApiKt
 import com.angcyo.http.dslHttp
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.library.L
+import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.fragment.demo.*
 
@@ -28,7 +29,7 @@ import com.angcyo.uicore.fragment.demo.*
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
 
-class MainFragment : BaseDslFragment() {
+class MainFragment : AppDslFragment() {
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
@@ -62,6 +63,7 @@ class MainFragment : BaseDslFragment() {
             renderMainItem("WidgetDemo ArcLoadingView")
             renderMainItem("RefreshEffectDemo")
             renderMainItem("RefreshDemo")
+            renderMainItem("DslAffectDemo")
 
 
 //            for (i in 0..100) {

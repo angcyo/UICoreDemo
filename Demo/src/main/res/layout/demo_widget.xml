@@ -12,9 +12,23 @@
         android:orientation="vertical">
 
         <com.angcyo.widget.DslTextView
-            android:id="@+id/text_view"
-            android:layout_width="wrap_content"
+            android:id="@+id/text_view2"
             style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent20" />
+
+        <com.angcyo.widget.DslTextView
+            android:id="@+id/text_view3"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent10" />
+
+        <com.angcyo.widget.DslTextView
+            android:id="@+id/text_view"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/transparent20" />
 

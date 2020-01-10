@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="right|bottom"
+    android:gravity="right"
+    android:orientation="vertical">
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/affect_content"
+        style="@style/DefaultButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="内容" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/affect_empty"
+        style="@style/DefaultButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="空布局" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/affect_loading"
+        style="@style/DefaultButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="加载中" />
+
+</LinearLayout>

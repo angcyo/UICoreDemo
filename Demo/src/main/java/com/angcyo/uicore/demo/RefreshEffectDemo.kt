@@ -2,9 +2,9 @@ package com.angcyo.uicore.demo
 
 import android.os.Bundle
 import com.angcyo.core.component.toast
-import com.angcyo.core.fragment.BaseTitleFragment
 import com.angcyo.drawable.dpi
 import com.angcyo.item.DslBaseInfoItem
+import com.angcyo.uicore.base.AppTitleFragment
 import com.angcyo.widget.recycler.initDslAdapter
 
 /**
@@ -15,7 +15,7 @@ import com.angcyo.widget.recycler.initDslAdapter
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
 
-class RefreshEffectDemo : BaseTitleFragment() {
+class RefreshEffectDemo : AppTitleFragment() {
 
     init {
         contentLayoutId = R.layout.demo_refresh

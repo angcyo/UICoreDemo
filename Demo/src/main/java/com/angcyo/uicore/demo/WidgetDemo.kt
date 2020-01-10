@@ -4,10 +4,10 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.style.ForegroundColorSpan
 import android.text.style.LeadingMarginSpan
-import com.angcyo.core.fragment.BaseTitleFragment
 import com.angcyo.drawable.dpi
 import com.angcyo.drawable.getDrawable
 import com.angcyo.drawable.toDpi
+import com.angcyo.uicore.base.AppTitleFragment
 import com.angcyo.widget.progress.ArcLoadingView
 import com.angcyo.widget.progress.DslSeekBar
 import com.angcyo.widget.span.span
@@ -19,7 +19,7 @@ import com.angcyo.widget.span.span
  * @date 2020/01/02
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
-class WidgetDemo : BaseTitleFragment() {
+class WidgetDemo : AppTitleFragment() {
 
     init {
         contentLayoutId = R.layout.demo_widget
@@ -27,6 +27,15 @@ class WidgetDemo : BaseTitleFragment() {
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
+
+        //span
+
+        _vh.tv(R.id.text_view2)?.text = "angcyo"
+        _vh.tv(R.id.text_view3)?.text = span {
+            appendText("angcyo") {
+
+            }
+        }
 
         //text
 

@@ -2,9 +2,9 @@ package com.angcyo.uicore.demo
 
 import android.os.Bundle
 import com.angcyo.behavior.refresh.RefreshBehavior
-import com.angcyo.core.fragment.BaseDslFragment
 import com.angcyo.drawable.dpi
 import com.angcyo.item.DslBaseInfoItem
+import com.angcyo.uicore.base.AppDslFragment
 
 /**
  *
@@ -13,7 +13,7 @@ import com.angcyo.item.DslBaseInfoItem
  * @date 2020/01/07
  */
 
-class RefreshDemo : BaseDslFragment() {
+class RefreshDemo : AppDslFragment() {
 
     init {
         enableRefresh = true
