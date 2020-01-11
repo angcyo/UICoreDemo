@@ -13,6 +13,7 @@ import com.angcyo.drawable.toDpi
 import com.angcyo.uicore.base.AppTitleFragment
 import com.angcyo.widget.progress.ArcLoadingView
 import com.angcyo.widget.progress.DslSeekBar
+import com.angcyo.widget.span.SpanClickMethod
 import com.angcyo.widget.span.span
 
 /**
@@ -32,15 +33,53 @@ class WidgetDemo : AppTitleFragment() {
         super.initBaseView(savedInstanceState)
 
         //span
-
+        SpanClickMethod.install(_vh.tv(R.id.text_view2))
         _vh.tv(R.id.text_view2)?.text = span {
-
-            text {
-                paddingLeft = 10 * dpi
+            drawable {
                 showText = "angcyo"
+                spanWeight = 0.5f
                 backgroundDrawable = getDrawable(R.mipmap.ic_logo_png)
             }
-            text {
+            append("fg")
+            appendln()
+            text("fg")
+            text("fgabcdefghijklmnopqrstuvwxyz.angcyo abcdefghijklmnopqrstuvwxyz.angcyo") {
+                textBold = true
+                textItalic = true
+                leadingWeight(0.3f)
+            }
+//            return@span
+
+            appendln()
+            append(" label: ")
+            append("abcdefghijklmnopqrstuvwxyz.angcyo abcdefghijklmnopqrstuvwxyz.angcyo")
+            drawable(" label: ")
+            drawable("abcdefghijklmnopqrstuvwxyz.angcyo\n abcdefghijklmnopqrstuvwxyz.angcyo")
+            drawable("fg") { }
+            drawable {
+                paddingLeft = 10 * dpi
+                showText = "angcyo"
+                spanWeight = 0.5f
+                backgroundDrawable = getDrawable(R.mipmap.ic_logo_png)
+            }
+            drawable("fg") {
+                textGravity = Gravity.TOP
+                gradientStrokeColor = Color.RED
+            }
+            drawable("fg") {
+                paddingVertical(2 * dpi)
+                paddingHorizontal(4 * dpi)
+                textGravity = Gravity.CENTER
+                gradientSolidColor = Color.RED
+            }
+            drawable("g") {
+                textGravity = Gravity.CENTER
+                widthSameHeight = true
+                paddingBottom = 4 * dpi
+                gradientSolidColor = Color.RED
+                gradientStrokeColor = Color.YELLOW
+            }
+            drawable {
                 marginLeft = 20 * dpi
                 backgroundDrawable = ColorDrawable(Color.RED)
                 foregroundDrawable = getDrawable(R.drawable.ic_logo_small)
@@ -51,40 +90,42 @@ class WidgetDemo : AppTitleFragment() {
             append("fg")
             appendln()
             append("fg")
-            text("fg") {
+            drawable("fg") {
                 paddingLeft = 10 * dpi
                 textColor = Color.WHITE
+                textGravity = Gravity.CENTER
+                spanWeight = 0.5f
                 backgroundDrawable = ColorDrawable(Color.RED)
             }
             append("fg")
-            text("fg") {
+            drawable("fg") {
                 paddingRight = 10 * dpi
                 textColor = Color.WHITE
                 backgroundDrawable = ColorDrawable(Color.RED)
             }
-            text("fg") {
+            drawable("fg") {
                 paddingTop = 10 * dpi
                 textColor = Color.WHITE
                 backgroundDrawable = ColorDrawable(Color.RED)
             }
-            text("fg") {
+            drawable("fg") {
                 paddingBottom = 10 * dpi
                 textColor = Color.WHITE
                 backgroundDrawable = ColorDrawable(Color.RED)
             }
-            text("fg") {
+            drawable("fg") {
                 marginRight = 10 * dpi
                 marginLeft = 10 * dpi
                 textColor = Color.WHITE
                 backgroundDrawable = ColorDrawable(Color.RED)
             }
-            text("fg") {
+            drawable("fg") {
                 marginTop = 10 * dpi
                 textColor = Color.WHITE
                 paddingHorizontal(4 * dpi)
                 backgroundDrawable = ColorDrawable(Color.RED)
             }
-            text("fg") {
+            drawable("fg") {
                 marginBottom = 10 * dpi
                 textColor = Color.WHITE
                 paddingVertical(4 * dpi)
@@ -92,7 +133,7 @@ class WidgetDemo : AppTitleFragment() {
             }
             appendln()
             append("fg")
-            text("fg") {
+            drawable("fg") {
                 marginRight = 10 * dpi
                 marginLeft = 10 * dpi
                 marginTop = 10 * dpi
@@ -100,23 +141,23 @@ class WidgetDemo : AppTitleFragment() {
                 textColor = Color.WHITE
                 backgroundDrawable = ColorDrawable(Color.RED)
             }
-            text("fg.lb") {
+            drawable("fg.lb") {
                 spanWidth = 80 * dpi
                 spanHeight = 80 * dpi
                 textGravity = Gravity.BOTTOM
             }
-            text("fg.rb") {
+            drawable("fg.rb") {
                 backgroundDrawable = ColorDrawable(Color.RED)
                 spanWidth = 80 * dpi
                 spanHeight = 80 * dpi
                 textGravity = Gravity.RIGHT or Gravity.BOTTOM
             }
-            text("fg.rt") {
+            drawable("fg.rt") {
                 spanWidth = 80 * dpi
                 spanHeight = 80 * dpi
                 textGravity = Gravity.RIGHT
             }
-            text("fg.lt") {
+            drawable("fg.lt") {
                 backgroundDrawable = ColorDrawable(Color.RED).apply {
                     setBounds(0, 0, 0, 20 * dpi)
                 }
@@ -124,35 +165,35 @@ class WidgetDemo : AppTitleFragment() {
                 spanHeight = 80 * dpi
                 textGravity = Gravity.LEFT
             }
-            text("fg.c") {
+            drawable("fg.c") {
                 backgroundDrawable = getDrawable(R.drawable.app_round_shape)
                 spanWidth = 80 * dpi
                 spanHeight = 80 * dpi
                 textGravity = Gravity.CENTER
             }
-            text("abcdefghijklmnopqrstuvwxyz.angcyo")
-            text("a") {
+            drawable("abcdefghijklmnopqrstuvwxyz.angcyo")
+            drawable("a") {
                 showText = "angcyo"
                 offsetY = -10 * dp
             }
-            text {
+            drawable {
                 paddingLeft = 10 * dpi
                 showText = "angcyo"
                 backgroundDrawable = getDrawable(R.mipmap.ic_logo_png)
             }
-            text {
+            drawable {
                 marginLeft = 20 * dpi
                 foregroundDrawable = getDrawable(R.drawable.ic_logo_small)
             }
         }
         _vh.tv(R.id.text_view3)?.text = span {
-            text("angcyo") {
-                marginLeft = 10 * dpi
-                paddingLeft = 10 * dpi
-
-                marginRight = 10 * dpi
-                paddingRight = 10 * dpi
-            }
+//            drawable("angcyo") {
+//                marginLeft = 10 * dpi
+//                paddingLeft = 10 * dpi
+//
+//                marginRight = 10 * dpi
+//                paddingRight = 10 * dpi
+//            }
         }
 
         //text
