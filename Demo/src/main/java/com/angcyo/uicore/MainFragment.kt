@@ -7,7 +7,6 @@ import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.base.getColor
 import com.angcyo.core.component.toast
-import com.angcyo.core.fragment.BaseDslFragment
 import com.angcyo.coroutine.launch
 import com.angcyo.drawable.dpi
 import com.angcyo.drawable.toDpi
@@ -60,6 +59,7 @@ class MainFragment : AppDslFragment() {
                 }
             }
 
+            renderMainItem("DrawableSpanDemo")
             renderMainItem("WidgetDemo ArcLoadingView")
             renderMainItem("RefreshEffectDemo")
             renderMainItem("RefreshDemo")

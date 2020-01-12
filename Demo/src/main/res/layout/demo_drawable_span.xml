@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/wrap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.angcyo.widget.DslTextView
+            android:id="@+id/scroll_text_view"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/transparent20"
+            app:r_text_scroll="true"
+            app:r_text_scroll_start="true"
+            tools:text="angcyo" />
+
+        <com.angcyo.widget.DslTextView
+            android:id="@+id/text_view2"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent20"
+            tools:text="angcyo" />
+
+        <com.angcyo.widget.DslTextView
+            android:id="@+id/text_view3"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/lib_bg2_selector"
+            android:clickable="true" />
+
+        <com.angcyo.widget.DslTextView
+            android:id="@+id/text_view4"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/lib_bg_selector"
+            android:clickable="true"
+            android:gravity="center" />
+
+        <com.angcyo.widget.DslTextView
+            android:id="@+id/text_view"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent20" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
