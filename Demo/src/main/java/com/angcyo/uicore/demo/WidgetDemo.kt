@@ -30,9 +30,23 @@ class WidgetDemo : AppTitleFragment() {
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
 
+        //scroll
+        _vh.tv(R.id.scroll_text_view)?.text = span {
+            drawable {
+                foregroundDrawable = getDrawable(R.drawable.ic_logo_small)
+            }
+            drawable("angcyo")
+            drawable(" 跑马灯滚动起来")
+            text("fgabcdefghijklmnopqrstuvwxyz.angcyo") {
+                textBold = true
+            }
+        }
+
         //span
         SpanClickMethod.install(_vh.tv(R.id.text_view2))
         _vh.tv(R.id.text_view2)?.text = span {
+            append("fg")
+
             drawable {
                 showText = "angcyo"
                 spanWeight = 0.5f
@@ -46,6 +60,7 @@ class WidgetDemo : AppTitleFragment() {
                 textItalic = true
                 leadingWeight(0.3f)
             }
+
 //            return@span
 
             appendln()
