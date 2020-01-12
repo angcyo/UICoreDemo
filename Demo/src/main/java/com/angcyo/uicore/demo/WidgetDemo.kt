@@ -6,11 +6,9 @@ import android.os.Bundle
 import android.text.style.ForegroundColorSpan
 import android.text.style.LeadingMarginSpan
 import android.view.Gravity
-import com.angcyo.drawable.dp
-import com.angcyo.drawable.dpi
-import com.angcyo.drawable.getDrawable
-import com.angcyo.drawable.toDpi
+import com.angcyo.drawable.*
 import com.angcyo.uicore.base.AppTitleFragment
+import com.angcyo.widget.base.clickIt
 import com.angcyo.widget.progress.ArcLoadingView
 import com.angcyo.widget.progress.DslSeekBar
 import com.angcyo.widget.span.SpanClickMethod
@@ -187,13 +185,31 @@ class WidgetDemo : AppTitleFragment() {
             }
         }
         _vh.tv(R.id.text_view3)?.text = span {
-//            drawable("angcyo") {
-//                marginLeft = 10 * dpi
-//                paddingLeft = 10 * dpi
-//
-//                marginRight = 10 * dpi
-//                paddingRight = 10 * dpi
-//            }
+
+            drawable {
+                backgroundDrawable =
+                    getDrawable(R.drawable.lib_back).colorFilter(getColor(R.color.text_general_color))
+            }
+            drawable("返回") {
+                textGravity = Gravity.CENTER
+                marginLeft = -8 * dpi
+            }
+        }
+
+        _vh.tv(R.id.text_view3)?.clickIt {
+            it.isSelected = !it.isSelected
+        }
+
+        _vh.tv(R.id.text_view4)?.text = span {
+            drawable {
+                foregroundDrawable = getDrawable(R.drawable.logo_selector)
+            }
+            appendln()
+            drawable("checked")
+        }
+
+        _vh.tv(R.id.text_view4)?.clickIt {
+            it.isSelected = !it.isSelected
         }
 
         //text

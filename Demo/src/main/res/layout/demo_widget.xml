@@ -23,7 +23,17 @@
             style="@style/LibBodyTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/transparent10" />
+            android:background="@drawable/lib_bg2_selector"
+            android:clickable="true" />
+
+        <com.angcyo.widget.DslTextView
+            android:id="@+id/text_view4"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/lib_bg_selector"
+            android:clickable="true" />
 
         <com.angcyo.widget.DslTextView
             android:id="@+id/text_view"
