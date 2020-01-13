@@ -6,6 +6,7 @@ import com.angcyo.uicore.base.AppTitleFragment
 import com.angcyo.widget.progress.ArcLoadingView
 import com.angcyo.widget.progress.DslSeekBar
 import com.angcyo.widget.span.span
+import com.angcyo.widget.spinner
 
 /**
  *
@@ -22,6 +23,12 @@ class WidgetDemo : AppTitleFragment() {
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
+
+        //spinner
+        _vh.spinner(R.id.spinner)
+            ?.setStrings(listOf("angcyo1", "angcyo2", "测试文本1", "测试文本2", "22222", "333333333"))
+        _vh.spinner(R.id.spinner2)
+            ?.setStrings(listOf("angcyo1", "angcyo2", "测试文本1", "测试文本2", "22222", "333333333"))
 
         //scroll
         _vh.tv(R.id.scroll_text_view)?.text = span {

@@ -11,6 +11,32 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <com.angcyo.widget.RSpinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/lib_hdpi"
+            android:background="@drawable/app_theme_border_fill_selector"
+            android:minHeight="@dimen/lib_item_min_height" />
+
+        <com.angcyo.widget.RSpinner
+            android:id="@+id/spinner2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/lib_hdpi"
+            android:background="@drawable/app_theme_border_fill_selector"
+            android:minHeight="@dimen/lib_item_min_height"
+            android:popupBackground="@color/transparent"
+            android:spinnerMode="dialog" />
+
+        <com.angcyo.widget.edit.AutoCompleteEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:completionThreshold="1"
+            android:minHeight="@dimen/lib_item_min_height"
+            app:r_auto_complete_show_on_focus="true"
+            app:r_auto_complete_text="aa1|aa2|bb3|bb4|测试1|测试2" />
+
         <com.angcyo.widget.edit.ClearCompleteEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
