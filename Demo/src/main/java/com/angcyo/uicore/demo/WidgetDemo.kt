@@ -1,9 +1,11 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import com.angcyo.drawable.getDrawable
 import com.angcyo.uicore.base.AppTitleFragment
 import com.angcyo.widget.progress.ArcLoadingView
 import com.angcyo.widget.progress.DslSeekBar
+import com.angcyo.widget.span.span
 
 /**
  *
@@ -20,6 +22,18 @@ class WidgetDemo : AppTitleFragment() {
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
+
+        //scroll
+        _vh.tv(R.id.scroll_text_view)?.text = span {
+            drawable {
+                foregroundDrawable = getDrawable(R.drawable.ic_logo_small)
+            }
+            drawable("angcyo")
+            drawable(" 跑马灯滚动起来")
+            text("fgabcdefghijklmnopqrstuvwxyz.angcyo") {
+                textBold = true
+            }
+        }
 
         //---
 
