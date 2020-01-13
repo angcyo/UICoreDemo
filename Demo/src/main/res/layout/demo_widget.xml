@@ -11,19 +11,36 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.angcyo.widget.DslTextView
+        <com.angcyo.widget.edit.ClearCompleteEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/app_bottom_line_selector"
+            android:minHeight="@dimen/lib_item_min_height"
+            android:padding="4dp" />
+
+        <com.angcyo.widget.edit.ClearCompleteEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/app_bottom_line_selector"
+            android:inputType="textWebPassword"
+            android:minHeight="@dimen/lib_item_min_height"
+            android:padding="4dp" />
+
+        <com.angcyo.widget.text.DslTextView
             android:id="@+id/scroll_text_view"
             style="@style/LibBodyTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="4dp"
             android:layout_marginRight="20dp"
             android:background="@color/transparent20"
             app:r_text_scroll="true"
             app:r_text_scroll_start="true"
             tools:text="angcyo" />
 
-        <com.angcyo.widget.DslTextView
+        <com.angcyo.widget.text.DslTextView
             android:id="@+id/text_view2"
             style="@style/LibBodyTextStyle"
             android:layout_width="wrap_content"
@@ -31,7 +48,7 @@
             android:background="@color/transparent20"
             tools:text="angcyo" />
 
-        <com.angcyo.widget.DslTextView
+        <com.angcyo.widget.text.DslTextView
             android:id="@+id/text_view3"
             style="@style/LibBodyTextStyle"
             android:layout_width="wrap_content"
@@ -39,7 +56,7 @@
             android:background="@drawable/lib_bg2_selector"
             android:clickable="true" />
 
-        <com.angcyo.widget.DslTextView
+        <com.angcyo.widget.text.DslTextView
             android:id="@+id/text_view4"
             style="@style/LibBodyTextStyle"
             android:layout_width="wrap_content"
@@ -48,7 +65,7 @@
             android:clickable="true"
             android:gravity="center" />
 
-        <com.angcyo.widget.DslTextView
+        <com.angcyo.widget.text.DslTextView
             android:id="@+id/text_view"
             style="@style/LibBodyTextStyle"
             android:layout_width="wrap_content"

@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.angcyo.widget.DslTextView
+        <com.angcyo.widget.text.DslTextView
             android:id="@+id/scroll_text_view"
             style="@style/LibBodyTextStyle"
             android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             app:r_text_scroll_start="true"
             tools:text="angcyo" />
 
-        <com.angcyo.widget.DslTextView
+        <com.angcyo.widget.text.DslTextView
             android:id="@+id/text_view2"
             style="@style/LibBodyTextStyle"
             android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
             android:background="@color/transparent20"
             tools:text="angcyo" />
 
-        <com.angcyo.widget.DslTextView
+        <com.angcyo.widget.text.DslTextView
             android:id="@+id/text_view3"
             style="@style/LibBodyTextStyle"
             android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
             android:background="@drawable/lib_bg2_selector"
             android:clickable="true" />
 
-        <com.angcyo.widget.DslTextView
+        <com.angcyo.widget.text.DslTextView
             android:id="@+id/text_view4"
             style="@style/LibBodyTextStyle"
             android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
             android:clickable="true"
             android:gravity="center" />
 
-        <com.angcyo.widget.DslTextView
+        <com.angcyo.widget.text.DslTextView
             android:id="@+id/text_view"
             style="@style/LibBodyTextStyle"
             android:layout_width="wrap_content"
