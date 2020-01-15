@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/emoji_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.angcyo.widget.DslButton
+        style="@style/DefaultButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="左上" />
+
+    <com.angcyo.widget.DslButton
+        style="@style/DefaultButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="右上" />
+
+    <com.angcyo.widget.DslButton
+        style="@style/DefaultButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="居中" />
+
+    <com.angcyo.widget.DslButton
+        style="@style/DefaultButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="左下" />
+
+    <com.angcyo.widget.DslButton
+        style="@style/DefaultButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:text="右下" />
+
+</FrameLayout>

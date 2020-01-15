@@ -1,7 +1,6 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
-import com.angcyo.core.fragment.BaseDslFragment
 import com.angcyo.dsladapter.dslItem
 import com.angcyo.library.L
 import com.angcyo.widget.base.clearListeners
@@ -15,9 +14,16 @@ import com.angcyo.widget.edit.ValueTextWatcher
  * @date 2020/01/14
  */
 
-class ValueTextWatcherDemo : BaseDslFragment() {
+class ValueTextWatcherDemo : DslSoftInputDemo() {
+
+    init {
+        enableSoftInput = false
+        contentLayoutId = R.layout.demo_soft_input_multi_layout
+    }
+
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
+
         renderDslAdapter {
             dslItem(R.layout.item_number_input_filter_layout) {
 

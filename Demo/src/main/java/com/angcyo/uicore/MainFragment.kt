@@ -64,7 +64,8 @@ class MainFragment : AppDslFragment() {
             renderMainItem("RefreshEffectDemo")
             renderMainItem("RefreshDemo")
             renderMainItem("DslAffectDemo")
-            renderMainItem("ValueTextWatcherDemo")
+            renderMainItem("ValueTextWatcherDemo DslSoftInputLayout")
+            renderMainItem("DslSoftInputDemo")
 
 
 //            for (i in 0..100) {
