@@ -2,11 +2,14 @@ package com.angcyo.uicore
 
 import android.os.Bundle
 import android.view.View
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.base.getColor
+import com.angcyo.behavior.HideTitleBarBehavior
 import com.angcyo.core.component.toast
+import com.angcyo.core.dslitem.DslLastDeviceInfoItem
 import com.angcyo.coroutine.launch
 import com.angcyo.drawable.dpi
 import com.angcyo.drawable.toDpi
@@ -30,8 +33,8 @@ import com.angcyo.uicore.fragment.demo.*
 
 class MainFragment : AppDslFragment() {
 
-    override fun initBaseView(savedInstanceState: Bundle?) {
-        super.initBaseView(savedInstanceState)
+    override fun onInitFragment() {
+        super.onInitFragment()
         renderDslAdapter {
             renderMainItem("FragmentInFragmentDemo", 10.toDpi()) {
                 dslAHelper {
@@ -66,7 +69,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("DslAffectDemo")
             renderMainItem("ValueTextWatcherDemo DslSoftInputLayout")
             renderMainItem("DslSoftInputDemo")
-
+            renderMainItem("ViewModelDemo")
 
 //            for (i in 0..100) {
 //                renderMainItem("ViewPager2InFragmentDemo") {
@@ -75,7 +78,19 @@ class MainFragment : AppDslFragment() {
 //                    }
 //                }
 //            }
+
+            DslLastDeviceInfoItem()()
         }
+    }
+
+    override fun onCreateBehavior(child: View): CoordinatorLayout.Behavior<*>? {
+        if (child.id == R.id.lib_title_wrap_layout) {
+            return HideTitleBarBehavior(fContext()).apply {
+                enableOverScroll = true
+                enableEdgeScroll = enableOverScroll
+            }
+        }
+        return super.onCreateBehavior(child)
     }
 
     override fun onFragmentFirstShow(bundle: Bundle?) {

@@ -28,8 +28,8 @@ open class DslSoftInputDemo : AppDslFragment() {
         contentLayoutId = R.layout.demo_soft_input_layout
     }
 
-    override fun initBehavior() {
-        super.initBehavior()
+    override fun onInitBehavior() {
+        super.onInitBehavior()
 
         _vh.view(R.id.lib_title_wrap_layout)?.setBehavior(TitleBarPlaceholderBehavior())
     }
