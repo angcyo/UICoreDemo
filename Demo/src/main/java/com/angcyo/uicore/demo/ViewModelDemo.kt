@@ -12,7 +12,7 @@ import com.angcyo.item.DslTextInfoItem
 import com.angcyo.library.L
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.viewmodel.ScopeViewModel
-import com.angcyo.viewmodel.vmShare
+import com.angcyo.viewmodel.vma
 import com.angcyo.widget.base.setInputText
 
 /**
@@ -51,7 +51,7 @@ class ViewModelDemo : AppDslFragment() {
     override fun onFragmentShow(bundle: Bundle?) {
         super.onFragmentShow(bundle)
 
-        val demoViewModel: DemoViewModel = vmShare()
+        val demoViewModel: DemoViewModel = vma()
 
         demoViewModel.demoData.observe {
             L.i("数据监听:$it")
@@ -71,7 +71,7 @@ class ViewModelLoadDemo : AppDslFragment() {
     override fun onFragmentShow(bundle: Bundle?) {
         super.onFragmentShow(bundle)
 
-        val demoViewModel: DemoViewModel = vmShare()
+        val demoViewModel: DemoViewModel = vma()
 
         renderDslAdapter {
             DslTextInfoItem()() {

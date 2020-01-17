@@ -22,6 +22,7 @@ import com.angcyo.library.L
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.fragment.demo.*
+import com.angcyo.widget.base.reveal
 import com.angcyo.widget.recycler.allViewHolder
 import com.angcyo.widget.recycler.get
 
@@ -34,6 +35,15 @@ import com.angcyo.widget.recycler.get
  */
 
 class MainFragment : AppDslFragment() {
+
+    companion object {
+        var CREATE_COUNT = 0
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        CREATE_COUNT++
+    }
 
     override fun onInitFragment() {
         super.onInitFragment()
@@ -95,6 +105,10 @@ class MainFragment : AppDslFragment() {
         return super.onCreateBehavior(child)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+    }
+
     override fun onFragmentFirstShow(bundle: Bundle?) {
         super.onFragmentFirstShow(bundle)
 
@@ -107,6 +121,13 @@ class MainFragment : AppDslFragment() {
             } catch (e: Exception) {
                 L.e("捕捉异常:$e")
                 throw  e
+            }
+        }
+
+        if (CREATE_COUNT % 2 != 0) {
+            //偶数次
+            _vh.itemView.reveal {
+                animator?.duration = 1000
             }
         }
     }
@@ -123,8 +144,6 @@ class MainFragment : AppDslFragment() {
 
             L.i("first:${this[0]?.adapterPosition} last:${this[-1]?.adapterPosition}")
         }
-
-
     }
 
     fun DslAdapter.renderMainItem(
