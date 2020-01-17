@@ -22,6 +22,8 @@ import com.angcyo.library.L
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.fragment.demo.*
+import com.angcyo.widget.recycler.allViewHolder
+import com.angcyo.widget.recycler.get
 
 /**
  *
@@ -113,6 +115,16 @@ class MainFragment : AppDslFragment() {
         super.onFragmentShow(bundle)
         //coroutineTest()
         //rxJavaTest()
+
+        _vh.rv(R.id.lib_recycler_view)?.apply {
+            allViewHolder().forEachIndexed { index, dslViewHolder ->
+                //L.i("$index ${dslViewHolder.adapterPosition}")
+            }
+
+            L.i("first:${this[0]?.adapterPosition} last:${this[-1]?.adapterPosition}")
+        }
+
+
     }
 
     fun DslAdapter.renderMainItem(
