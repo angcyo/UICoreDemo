@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.base.getColor
@@ -45,6 +46,9 @@ class MainFragment : AppDslFragment() {
         CREATE_COUNT++
     }
 
+    /**锁定Demo的位置, 每次启动时自动跳转到这个Demo*/
+    var lockDemoPosition: Int = RecyclerView.NO_POSITION
+
     override fun onInitFragment() {
         super.onInitFragment()
         renderDslAdapter {
@@ -82,6 +86,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("ValueTextWatcherDemo DslSoftInputLayout")
             renderMainItem("DslSoftInputDemo")
             renderMainItem("ViewModelDemo")
+            renderMainItem("ViewGroupOverlayDemo √")
 
 //            for (i in 0..100) {
 //                renderMainItem("ViewPager2InFragmentDemo") {
@@ -127,7 +132,14 @@ class MainFragment : AppDslFragment() {
         if (CREATE_COUNT % 2 != 0) {
             //偶数次
             _vh.itemView.reveal {
-                animator?.duration = 1000
+                animator?.duration = 700
+            }
+        }
+
+        //自动跳转至指定Demo
+        if (lockDemoPosition >= 0) {
+            _adapter.onDispatchUpdatesAfterOnce = {
+                _adapter[lockDemoPosition]?.onItemClick?.invoke(_vh.itemView)
             }
         }
     }
@@ -185,6 +197,10 @@ class MainFragment : AppDslFragment() {
             }
 
             this.init()
+        }
+
+        if (text?.contains('√', true) == true) {
+            lockDemoPosition = this.adapterItems.lastIndex
         }
     }
 }

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.angcyo.widget.layout.RLinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@color/transparent20" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_view"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:srcCompat="@drawable/ic_logo_png" />
+
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent10"
+            android:padding="20dp">
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/button"
+                style="@style/DefaultButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="start" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_view2"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_gravity="right|bottom"
+                app:srcCompat="@drawable/ic_logo_png" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/button2"
+                style="@style/DefaultButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="test" />
+
+        </FrameLayout>
+
+        <com.angcyo.widget.text.DslTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试文本,测试文本,测试文本,测试文本!!"
+            app:r_text_scroll="true"
+            app:r_text_scroll_start="true" />
+
+    </com.angcyo.widget.layout.RLinearLayout>
+
+</androidx.core.widget.NestedScrollView>
