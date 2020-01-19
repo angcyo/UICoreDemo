@@ -40,6 +40,15 @@ class TransitionDetailActivity : BasePermissionsActivity() {
                 else -> null
             }
         }
+
+        fun getTransitionAnimx(anim: Int): androidx.transition.Transition? {
+            return when (anim) {
+                ANIM_EXPLODE -> androidx.transition.Explode()
+                ANIM_FADE -> androidx.transition.Fade()
+                ANIM_SLIDE -> androidx.transition.Slide()
+                else -> null
+            }
+        }
     }
 
 //    val transitionDetailFragment = TransitionDetailFragment()

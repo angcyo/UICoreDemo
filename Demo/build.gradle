@@ -21,5 +21,6 @@ dependencies {
 
     implementation project(allModule.material)
     implementation project(allModule.viewmodel)
+    implementation project(allModule.transition)
 
 }

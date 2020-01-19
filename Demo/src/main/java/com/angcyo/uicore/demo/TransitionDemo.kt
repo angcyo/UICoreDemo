@@ -1,15 +1,22 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import android.view.Gravity
+import android.view.View
+import android.view.ViewGroup
+import androidx.transition.*
 import com.angcyo.base.dslAHelper
+import com.angcyo.drawable.dpi
 import com.angcyo.library.ex.hawkGet
 import com.angcyo.library.ex.hawkPut
 import com.angcyo.noAnim
 import com.angcyo.putData
 import com.angcyo.transition
+import com.angcyo.transition.dslTransition
 import com.angcyo.uicore.activity.TransitionDetailActivity
 import com.angcyo.uicore.activity.TransitionDetailActivity2
 import com.angcyo.uicore.base.AppTitleFragment
+import com.angcyo.widget.base.*
 import com.angcyo.widget.spinner
 
 /**
@@ -84,6 +91,138 @@ open class TransitionDemo : AppTitleFragment() {
                     transition(_vh.view(R.id.to_activity_share), "button2")
                 }
             }
+        }
+
+        //transition
+        _vh.click(R.id.transition_button) {
+            dslTransition(_vh.group(R.id.transition_layout)) {
+                onCaptureEndValues = {
+                    if (it.isSelected) {
+                        it.setHeight(100 * dpi)
+                        it.isSelected = false
+                        _vh.img(R.id.transition_image)?.apply {
+                            setImageResource(R.drawable.ic_logo_small)
+                            frameParams {
+                                gravity = Gravity.RIGHT or Gravity.BOTTOM
+                            }
+                        }
+                        _vh.view(R.id.transition_button)?.apply {
+                            frameParams {
+                                gravity = Gravity.CENTER
+                            }
+                        }
+                    } else {
+                        it.setHeight(150 * dpi)
+                        it.isSelected = true
+                        _vh.img(R.id.transition_image)?.apply {
+                            setImageResource(R.drawable.ic_logo)
+                            frameParams {
+                                gravity = Gravity.CENTER
+                            }
+                        }
+                        _vh.view(R.id.transition_button)?.apply {
+                            frameParams {
+                                topMargin = 0
+                                gravity = Gravity.LEFT or Gravity.TOP
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        //scene
+        _vh.postDelay(1_000) {
+            toScene1()
+        }
+    }
+
+    fun toScene1() {
+        dslTransition(_vh.group(R.id.scene_layout), R.layout.scene_layout1) {
+            onSetTransition = {
+                TransitionSet().apply {
+                    TransitionDetailActivity.getTransitionAnimx(animExit)
+                        ?.run { addTransition(this) }
+                    addTransition(ChangeBounds())
+                    addTransition(ChangeTransform())
+                    addTransition(ChangeClipBounds())
+                    addTransition(ChangeImageTransform())
+                }
+            }
+            sceneEnter = {
+                it.find<View>(R.id.to_scene2)?.clickIt {
+                    toScene2()
+                }
+            }
+        }
+    }
+
+    fun toScene2() {
+        dslTransition(_vh.group(R.id.scene_layout), R.layout.scene_layout2) {
+            onSetTransition = {
+                TransitionSet().apply {
+                    TransitionDetailActivity.getTransitionAnimx(animEnter)
+                        ?.run { addTransition(this) }
+                    addTransition(ChangeBounds())
+                    addTransition(ChangeTransform())
+                    addTransition(ChangeClipBounds())
+                    addTransition(ChangeImageTransform())
+                }
+            }
+            sceneEnter = {
+                it.find<View>(R.id.to_scene1)?.clickIt {
+                    toScene1()
+                }
+                it.find<View>(R.id.to_scene3)?.clickIt {
+                    toScene3()
+                }
+            }
+        }
+    }
+
+    fun toScene3() {
+        _vh.group(R.id.scene_layout)?.apply {
+            dslTransition(this, SceneLayout3(this))
+        }
+    }
+}
+
+class SceneLayout1(val viewGroup: ViewGroup) : Scene(viewGroup) {
+    override fun enter() {
+        //必须要removeAllViews才有动画
+        viewGroup.removeAllViews()
+        viewGroup.inflate(R.layout.scene_layout1)
+        super.enter()
+
+        viewGroup.find<View>(R.id.to_scene2)?.clickIt {
+            dslTransition(viewGroup, SceneLayout2(viewGroup))
+        }
+    }
+}
+
+class SceneLayout2(val viewGroup: ViewGroup) : Scene(viewGroup) {
+    override fun enter() {
+        viewGroup.removeAllViews()
+        viewGroup.inflate(R.layout.scene_layout2)
+        super.enter()
+
+        viewGroup.find<View>(R.id.to_scene1)?.clickIt {
+            dslTransition(viewGroup, SceneLayout1(viewGroup))
+        }
+        viewGroup.find<View>(R.id.to_scene3)?.clickIt {
+            dslTransition(viewGroup, SceneLayout3(viewGroup))
+        }
+    }
+}
+
+class SceneLayout3(val viewGroup: ViewGroup) : Scene(viewGroup) {
+    override fun enter() {
+        viewGroup.removeAllViews()
+        viewGroup.inflate(R.layout.scene_layout3)
+        super.enter()
+
+        viewGroup.find<View>(R.id.to_scene1)?.clickIt {
+            dslTransition(viewGroup, SceneLayout1(viewGroup))
         }
     }
 }

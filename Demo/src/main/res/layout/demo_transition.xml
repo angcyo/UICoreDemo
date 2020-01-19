@@ -11,7 +11,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="20dp"
             android:background="@color/transparent20" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -82,6 +82,46 @@
                 android:text="to_activity2" />
 
         </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/transition_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/lib_xxhdpi"
+            android:background="@color/transparent10">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/transition_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_logo_small" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/transition_button"
+                style="@style/DefaultButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:layout_marginTop="80dp"
+                android:text="transition" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/scene_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/lib_xxhdpi"
+            android:layout_marginRight="@dimen/lib_xxhdpi"
+            android:background="@color/transparent10">
+
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@color/transparent20" />
+
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
