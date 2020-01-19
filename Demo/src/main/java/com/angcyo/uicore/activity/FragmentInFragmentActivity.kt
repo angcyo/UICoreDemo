@@ -1,4 +1,4 @@
-package com.angcyo.uicore.fragment.demo
+package com.angcyo.uicore.activity
 
 import android.os.Bundle
 import com.angcyo.activity.BaseAppCompatActivity

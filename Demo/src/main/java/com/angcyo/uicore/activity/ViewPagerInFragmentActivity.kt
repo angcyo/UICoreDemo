@@ -1,17 +1,17 @@
-package com.angcyo.uicore.fragment.demo
+package com.angcyo.uicore.activity
 
 import android.os.Bundle
 import com.angcyo.activity.BaseAppCompatActivity
 import com.angcyo.base.dslFHelper
-import com.angcyo.core.viewpager2.RFragmentAdapter2
-import com.angcyo.core.viewpager2.ViewPager2Delegate
+import com.angcyo.core.viewpager.RFragmentAdapter
+import com.angcyo.core.viewpager.ViewPager1Delegate
 import com.angcyo.fragment.AbsLifecycleFragment
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.fragment.Fragment1
 import com.angcyo.uicore.fragment.Fragment2
 import com.angcyo.uicore.fragment.Fragment3
 import com.angcyo.widget.tab
-import com.angcyo.widget.vp2
+import com.angcyo.widget.vp
 
 /**
  *
@@ -20,20 +20,20 @@ import com.angcyo.widget.vp2
  * @date 2019/12/23
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
-class ViewPager2InFragmentActivity : BaseAppCompatActivity() {
+class ViewPagerInFragmentActivity : BaseAppCompatActivity() {
     override fun onCreateAfter(savedInstanceState: Bundle?) {
         super.onCreateAfter(savedInstanceState)
 
         dslFHelper {
-            show(FragmentViewPager2())
+            show(FragmentViewPager())
         }
     }
 }
 
-class FragmentViewPager2 : AbsLifecycleFragment() {
+class FragmentViewPager : AbsLifecycleFragment() {
 
     init {
-        fragmentLayoutId = R.layout.fragment_view_pager2_layout
+        fragmentLayoutId = R.layout.fragment_view_pager_layout
     }
 
     val fragments = mutableListOf(Fragment1(), Fragment2(), Fragment3())
@@ -41,10 +41,10 @@ class FragmentViewPager2 : AbsLifecycleFragment() {
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
 
-        baseViewHolder.vp2(R.id.view_pager)?.apply {
-            adapter = RFragmentAdapter2(this@FragmentViewPager2, fragments)
+        baseViewHolder.vp(R.id.view_pager)?.apply {
+            adapter = RFragmentAdapter(childFragmentManager, fragments)
 
-            ViewPager2Delegate.install(this, baseViewHolder.tab(R.id.tab_layout))
+            ViewPager1Delegate.install(this, baseViewHolder.tab(R.id.tab_layout))
         }
     }
 }

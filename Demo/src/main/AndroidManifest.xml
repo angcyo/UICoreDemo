@@ -15,6 +15,17 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
+        <activity
+            android:name="com.angcyo.uicore.SplashActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|fontScale|smallestScreenSize|density|screenLayout"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <service
             android:name="com.angcyo.uicore.component.TaskService"
             android:enabled="true"
@@ -24,19 +35,15 @@
             android:name="com.angcyo.uicore.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|fontScale|smallestScreenSize|density|screenLayout"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:windowSoftInputMode="adjustResize" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name="com.angcyo.uicore.fragment.demo.FragmentInFragmentActivity" />
-        <activity android:name="com.angcyo.uicore.fragment.demo.ViewPagerInFragmentActivity" />
-        <activity android:name="com.angcyo.uicore.fragment.demo.ViewPager2InFragmentActivity" />
-        <activity android:name="com.angcyo.uicore.fragment.demo.ViewPagerInViewPagerActivity" />
-        <activity android:name="com.angcyo.uicore.fragment.demo.ViewPager2InViewPager2Activity" />
+        <activity android:name="com.angcyo.uicore.activity.FragmentInFragmentActivity" />
+        <activity android:name="com.angcyo.uicore.activity.ViewPagerInFragmentActivity" />
+        <activity android:name="com.angcyo.uicore.activity.ViewPager2InFragmentActivity" />
+        <activity android:name="com.angcyo.uicore.activity.ViewPagerInViewPagerActivity" />
+        <activity android:name="com.angcyo.uicore.activity.ViewPager2InViewPager2Activity" />
+        <activity android:name="com.angcyo.uicore.activity.TransitionDetailActivity" />
+        <activity android:name="com.angcyo.uicore.activity.TransitionDetailActivity2" />
     </application>
 
 </manifest>

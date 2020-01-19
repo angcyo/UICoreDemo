@@ -20,9 +20,9 @@ import com.angcyo.http.ApiKt
 import com.angcyo.http.dslHttp
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.library.L
+import com.angcyo.uicore.activity.*
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.R
-import com.angcyo.uicore.fragment.demo.*
 import com.angcyo.widget.base.reveal
 import com.angcyo.widget.recycler.allViewHolder
 import com.angcyo.widget.recycler.get
@@ -39,6 +39,7 @@ class MainFragment : AppDslFragment() {
 
     companion object {
         var CREATE_COUNT = 0
+        const val GO = "√"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,7 +87,8 @@ class MainFragment : AppDslFragment() {
             renderMainItem("ValueTextWatcherDemo DslSoftInputLayout")
             renderMainItem("DslSoftInputDemo")
             renderMainItem("ViewModelDemo")
-            renderMainItem("ViewGroupOverlayDemo √")
+            renderMainItem("ViewGroupOverlayDemo")
+            renderMainItem("TransitionDemo $GO")
 
 //            for (i in 0..100) {
 //                renderMainItem("ViewPager2InFragmentDemo") {
@@ -129,6 +131,7 @@ class MainFragment : AppDslFragment() {
             }
         }
 
+        //揭露动画
         if (CREATE_COUNT % 2 != 0) {
             //偶数次
             _vh.itemView.reveal {
@@ -138,7 +141,7 @@ class MainFragment : AppDslFragment() {
 
         //自动跳转至指定Demo
         if (lockDemoPosition >= 0) {
-            _adapter.onDispatchUpdatesAfterOnce = {
+            _vh.postDelay(300) {
                 _adapter[lockDemoPosition]?.onItemClick?.invoke(_vh.itemView)
             }
         }

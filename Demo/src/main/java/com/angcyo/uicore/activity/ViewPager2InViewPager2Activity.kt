@@ -1,4 +1,4 @@
-package com.angcyo.uicore.fragment.demo
+package com.angcyo.uicore.activity
 
 import android.os.Bundle
 import com.angcyo.activity.BaseAppCompatActivity
@@ -13,14 +13,15 @@ import com.angcyo.uicore.fragment.Fragment3
  * @date 2020/01/02
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
-class ViewPagerInViewPagerActivity : BaseAppCompatActivity() {
+
+class ViewPager2InViewPager2Activity : BaseAppCompatActivity() {
     override fun onCreateAfter(savedInstanceState: Bundle?) {
         super.onCreateAfter(savedInstanceState)
 
         dslFHelper {
-            show(FragmentViewPager().apply {
+            show(FragmentViewPager2().apply {
                 fragments.clear()
-                fragments.add(FragmentViewPager())
+                fragments.add(FragmentViewPager2())
                 fragments.add(Fragment2())
                 fragments.add(Fragment3())
             })
