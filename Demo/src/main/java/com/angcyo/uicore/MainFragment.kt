@@ -82,13 +82,13 @@ class MainFragment : AppDslFragment() {
             renderMainItem("DrawableSpanDemo")
             renderMainItem("WidgetDemo ArcLoadingView")
             renderMainItem("RefreshEffectDemo")
-            renderMainItem("RefreshDemo")
+            renderMainItem("RefreshDemo $GO")
             renderMainItem("DslAffectDemo")
             renderMainItem("ValueTextWatcherDemo DslSoftInputLayout")
             renderMainItem("DslSoftInputDemo")
             renderMainItem("ViewModelDemo")
             renderMainItem("ViewGroupOverlayDemo")
-            renderMainItem("TransitionDemo $GO")
+            renderMainItem("TransitionDemo")
 
 //            for (i in 0..100) {
 //                renderMainItem("ViewPager2InFragmentDemo") {
