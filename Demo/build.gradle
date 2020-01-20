@@ -22,5 +22,7 @@ dependencies {
     implementation project(allModule.material)
     implementation project(allModule.viewmodel)
     implementation project(allModule.transition)
+    implementation project(allModule.glide)
+    implementation project(allModule.dslitem)
 
 }

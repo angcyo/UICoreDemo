@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.angcyo.glide.GlideImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="2dp"
+        android:scaleType="centerCrop"
+        app:r_border_color="@color/colorPrimaryDark"
+        tools:background="@color/transparent20"
+        tools:r_mask_drawable="@drawable/ic_logo"
+        tools:r_overlay_drawable_center="@drawable/ic_logo_small"
+        tools:r_overlay_drawable_lb="@drawable/ic_logo_small"
+        tools:r_overlay_drawable_lt="@drawable/ic_logo_small"
+        tools:r_overlay_drawable_offset_x="@dimen/lib_xhdpi"
+        tools:r_overlay_drawable_offset_y="@dimen/lib_xhdpi"
+        tools:r_overlay_drawable_rb="@drawable/ic_logo_small"
+        tools:r_overlay_drawable_rt="@drawable/ic_logo_small"
+        tools:srcCompat="@drawable/image_manhua_nv" />
+
+</FrameLayout>

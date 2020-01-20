@@ -10,7 +10,6 @@ import com.angcyo.base.dslFHelper
 import com.angcyo.base.getColor
 import com.angcyo.behavior.HideTitleBarBehavior
 import com.angcyo.core.component.toast
-import com.angcyo.core.dslitem.DslLastDeviceInfoItem
 import com.angcyo.coroutine.launch
 import com.angcyo.drawable.dpi
 import com.angcyo.drawable.toDpi
@@ -18,6 +17,7 @@ import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.http.ApiKt
 import com.angcyo.http.dslHttp
+import com.angcyo.item.DslLastDeviceInfoItem
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.library.L
 import com.angcyo.uicore.activity.*
@@ -82,13 +82,14 @@ class MainFragment : AppDslFragment() {
             renderMainItem("DrawableSpanDemo")
             renderMainItem("WidgetDemo ArcLoadingView")
             renderMainItem("RefreshEffectDemo")
-            renderMainItem("RefreshDemo $GO")
+            renderMainItem("RefreshDemo")
             renderMainItem("DslAffectDemo")
             renderMainItem("ValueTextWatcherDemo DslSoftInputLayout")
             renderMainItem("DslSoftInputDemo")
             renderMainItem("ViewModelDemo")
             renderMainItem("ViewGroupOverlayDemo")
             renderMainItem("TransitionDemo")
+            renderMainItem("ImageDemo $GO")
 
 //            for (i in 0..100) {
 //                renderMainItem("ViewPager2InFragmentDemo") {
