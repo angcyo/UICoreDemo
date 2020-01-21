@@ -89,7 +89,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("ViewModelDemo")
             renderMainItem("ViewGroupOverlayDemo")
             renderMainItem("TransitionDemo")
-            renderMainItem("ImageDemo $GO")
+            renderMainItem("GlideImageDemo $GO")
 
 //            for (i in 0..100) {
 //                renderMainItem("ViewPager2InFragmentDemo") {

@@ -17,7 +17,7 @@ import com.angcyo.widget.recycler.resetLayoutManager
  * @date 2020/01/20
  */
 
-class ImageDemo : AppDslFragment() {
+class GlideImageDemo : AppDslFragment() {
 
     override fun onInitDslLayout() {
         super.onInitDslLayout()
@@ -29,14 +29,14 @@ class ImageDemo : AppDslFragment() {
         super.onActivityCreated(savedInstanceState)
 
         renderDslAdapter {
-            for (i in 0..125) {
+            for (i in 0..100) {
                 AppImageItem()() {
                     imageUrl = image()
                     imageHeight = if (i % 2 == 0) 280 * dpi else 240 * dpi
 
                     onConfigGlideImage = {
-                        it.placeholderDrawable = ColorDrawable(randomColorAlpha())
-                        it.errorDrawable = ColorDrawable(randomColorAlpha())
+                        it.dslGlide.placeholderDrawable = ColorDrawable(randomColorAlpha())
+                        it.dslGlide.errorDrawable = ColorDrawable(randomColorAlpha())
 
                         it.maskDrawable = when {
                             i % 5 == 0 -> getDrawable(R.drawable.ic_logo)

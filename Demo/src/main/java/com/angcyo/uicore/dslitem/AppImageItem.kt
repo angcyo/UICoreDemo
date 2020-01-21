@@ -1,8 +1,11 @@
 package com.angcyo.uicore.dslitem
 
+import android.view.Gravity
+import com.angcyo.drawable.toDpi
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.glide.GlideImageView
 import com.angcyo.glide.giv
+import com.angcyo.http.OkType
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.base.setHeight
@@ -34,9 +37,24 @@ class AppImageItem : DslAdapterItem() {
         itemHolder.itemView.setHeight(imageHeight)
 
         itemHolder.giv(R.id.image_view)?.apply {
-            reset()
+            clearOverlay()
             onConfigGlideImage(this)
-            url = imageUrl
+
+            val url = imageUrl
+            //"http://5b0988e595225.cdn.sohucs.com/images/20171227/157724ff25b9415e8853050a58e4a581.gif"
+
+            load(url) {
+                onTypeCallback = {
+                    if (it == OkType.ImageType.GIF) {
+                        addOverlayDrawable(
+                            com.angcyo.drawable.getDrawable(R.drawable.gif),
+                            Gravity.RIGHT or Gravity.BOTTOM,
+                            6.toDpi(), 6.toDpi()
+                        )
+                    }
+                }
+                checkGifType = url?.endsWith("gif") ?: false
+            }
         }
     }
 }
