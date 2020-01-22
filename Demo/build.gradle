@@ -24,5 +24,5 @@ dependencies {
     implementation project(allModule.transition)
     implementation project(allModule.glide)
     implementation project(allModule.dslitem)
-
+    implementation project(allModule.pager)
 }

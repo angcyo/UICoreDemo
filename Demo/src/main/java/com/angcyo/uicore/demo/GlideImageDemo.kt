@@ -1,6 +1,8 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import com.angcyo.dsladapter.itemViewHolder
+import com.angcyo.pager.dslPager
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.AppFlatImageItem
 import com.angcyo.uicore.dslitem.AppImageItem
@@ -26,11 +28,19 @@ class GlideImageDemo : AppDslFragment() {
 
         renderDslAdapter {
             for (i in 0..100) {
-                AppImageItem(i)()
+                AppImageItem(i)() {
+                    onItemClick = {
+                        dslPager(itemViewHolder(_recyclerView)?.img(R.id.image_view), imageUrl)
+                    }
+                }
             }
 
             for (i in 0..2) {
-                AppFlatImageItem(i)()
+                AppFlatImageItem(i)() {
+                    onItemClick = {
+                        dslPager(itemViewHolder(_recyclerView)?.img(R.id.image_view), imageUrl)
+                    }
+                }
             }
         }
     }

@@ -85,6 +85,7 @@ open class AppImageItem(index: Int) : DslAdapterItem() {
                     grayscale()
                 }
             }
+            setOnClickListener(_clickListener)
         }
     }
 }

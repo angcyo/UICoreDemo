@@ -149,7 +149,7 @@ open class TransitionDemo : AppTitleFragment() {
                     addTransition(ChangeImageTransform())
                 }
             }
-            sceneEnter = {
+            onSceneEnter = {
                 it.find<View>(R.id.to_scene2)?.clickIt {
                     toScene2()
                 }
@@ -169,7 +169,7 @@ open class TransitionDemo : AppTitleFragment() {
                     addTransition(ChangeImageTransform())
                 }
             }
-            sceneEnter = {
+            onSceneEnter = {
                 it.find<View>(R.id.to_scene1)?.clickIt {
                     toScene1()
                 }
