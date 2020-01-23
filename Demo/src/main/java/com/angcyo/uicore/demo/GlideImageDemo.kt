@@ -30,6 +30,10 @@ class GlideImageDemo : AppDslFragment() {
                 AppImageItem(i)() {
                     onItemClick = {
                         pager()
+//                        dslPager {
+//                            fromView = it
+//                            addMedia(imageUrl)
+//                        }
                     }
                 }
             }
