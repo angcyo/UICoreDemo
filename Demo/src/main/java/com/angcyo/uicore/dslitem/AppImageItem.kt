@@ -57,7 +57,7 @@ open class AppImageItem(index: Int) : DslAdapterItem() {
 
         itemHolder.itemView.setHeight(imageHeight)
 
-        itemHolder.giv(R.id.image_view)?.apply {
+        itemHolder.giv(R.id.lib_image_view)?.apply {
             clearOverlay()
             onConfigGlideImage(this)
 
@@ -68,7 +68,7 @@ open class AppImageItem(index: Int) : DslAdapterItem() {
                 onTypeCallback = {
                     if (it == OkType.ImageType.GIF) {
                         addOverlayDrawable(
-                            com.angcyo.drawable.getDrawable(R.drawable.gif),
+                            getDrawable(R.drawable.gif),
                             Gravity.RIGHT or Gravity.BOTTOM,
                             6.toDpi(), 6.toDpi()
                         )

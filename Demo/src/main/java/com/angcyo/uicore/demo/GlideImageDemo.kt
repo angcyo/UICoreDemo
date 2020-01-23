@@ -1,7 +1,6 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
-import com.angcyo.dsladapter.itemViewHolder
 import com.angcyo.pager.dslPager
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.AppFlatImageItem
@@ -30,7 +29,7 @@ class GlideImageDemo : AppDslFragment() {
             for (i in 0..100) {
                 AppImageItem(i)() {
                     onItemClick = {
-                        dslPager(itemViewHolder(_recyclerView)?.img(R.id.image_view), imageUrl)
+                        pager()
                     }
                 }
             }
@@ -38,8 +37,24 @@ class GlideImageDemo : AppDslFragment() {
             for (i in 0..2) {
                 AppFlatImageItem(i)() {
                     onItemClick = {
-                        dslPager(itemViewHolder(_recyclerView)?.img(R.id.image_view), imageUrl)
+                        pager()
                     }
+                }
+            }
+        }
+    }
+
+    /**启动大图浏览*/
+    fun AppImageItem.pager() {
+        val item = this
+        dslPager {
+            fromRecyclerView = _vh.rv(R.id.lib_recycler_view)
+            _adapter.getValidFilterDataList().forEachIndexed { index, dslAdapterItem ->
+                if (dslAdapterItem is AppImageItem) {
+                    if (item == dslAdapterItem) {
+                        startPosition = index
+                    }
+                    addMedia(dslAdapterItem.imageUrl)
                 }
             }
         }
