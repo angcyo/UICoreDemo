@@ -24,7 +24,7 @@ class AppFlatImageItem(index: Int) : AppImageItem(index) {
     ) {
         super.onItemBind(itemHolder, itemPosition, adapterItem)
 
-        itemHolder.giv(R.id.image_view)?.apply {
+        itemHolder.giv(R.id.lib_image_view)?.apply {
             maskDrawable = null
             drawBorder = false
         }

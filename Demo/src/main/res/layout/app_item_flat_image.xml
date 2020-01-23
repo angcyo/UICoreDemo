@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <com.angcyo.glide.FlatImageView
-        android:id="@+id/image_view"
+        android:id="@+id/lib_image_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true"
