@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="2dp">
 
     <com.angcyo.glide.FlatImageView
         android:id="@+id/lib_image_view"
@@ -11,7 +12,6 @@
         android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="true"
-        android:padding="2dp"
         android:scaleType="centerCrop"
         app:r_border_color="@color/colorPrimaryDark"
         tools:background="@color/transparent20"

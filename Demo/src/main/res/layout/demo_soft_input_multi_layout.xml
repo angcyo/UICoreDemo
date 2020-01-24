@@ -8,7 +8,7 @@
         android:id="@+id/lib_soft_input_layout2"
         android:layout_width="200dp"
         android:layout_height="match_parent"
-        android:background="@color/transparent60"
+        android:background="@color/transparent50"
         app:r_handler_mode="MODE_HEIGHT"
         app:r_hide_emoji_view_on_soft_input="true"
         app:r_soft_input_padding_top="100dp">

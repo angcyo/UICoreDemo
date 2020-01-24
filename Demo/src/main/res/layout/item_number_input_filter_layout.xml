@@ -8,7 +8,7 @@
         style="@style/LibBodyTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
         android:hint="占位"
         android:minHeight="@dimen/lib_item_height" />
 
@@ -17,7 +17,7 @@
         style="@style/LibBodyTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
         android:hint="输入值"
         android:inputType="numberDecimal"
         android:minHeight="@dimen/lib_item_height" />
@@ -27,7 +27,7 @@
         style="@style/LibBodyTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
         android:hint="设置最大值"
         android:inputType="numberDecimal"
         android:minHeight="@dimen/lib_item_height" />
@@ -37,7 +37,7 @@
         style="@style/LibBodyTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
         android:hint="设置最小值"
         android:inputType="numberDecimal"
         android:minHeight="@dimen/lib_item_height" />
@@ -46,13 +46,15 @@
         android:id="@+id/text_view"
         style="@style/LibBodyTextStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="@dimen/lib_hdpi"
+        android:text="->" />
 
     <androidx.appcompat.widget.AppCompatEditText
         style="@style/LibBodyTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
         android:hint="占位"
         android:minHeight="@dimen/lib_item_height" />
 
@@ -60,7 +62,7 @@
         style="@style/LibBodyTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
         android:hint="占位"
         android:minHeight="@dimen/lib_item_height" />
 
@@ -68,7 +70,7 @@
         style="@style/LibBodyTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
         android:hint="占位"
         android:minHeight="@dimen/lib_item_height" />
 
@@ -76,7 +78,7 @@
         style="@style/LibBodyTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
         android:hint="占位"
         android:minHeight="@dimen/lib_item_height" />
 
@@ -84,7 +86,7 @@
         style="@style/LibBodyTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
         android:hint="占位"
         android:minHeight="@dimen/lib_item_height" />
 
@@ -92,7 +94,7 @@
         style="@style/LibBodyTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
         android:hint="占位"
         android:minHeight="@dimen/lib_item_height" />
 
