@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.widget.layout.RConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/lib_xhdpi"
+    android:layout_marginTop="@dimen/lib_xhdpi"
+    android:layout_marginRight="@dimen/lib_xhdpi"
+    android:layout_marginBottom="@dimen/lib_hdpi"
+    android:background="@drawable/lib_bg_selector"
+    android:elevation="@dimen/lib_elevation"
+    android:padding="@dimen/lib_ldpi"
+    app:r_background="@drawable/lib_white_round_shape">
+
+    <com.angcyo.widget.text.DslTextView
+        android:id="@+id/url_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/button"
+        tools:text="http://package.mac.wpscdn.cn/mac_wps_pkg/1.3.1/WPS_Office_1.3.1(1688).dmg" />
+
+    <com.angcyo.widget.text.DslTextView
+        android:id="@+id/file_view"
+        style="@style/LibSubTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/button"
+        app:layout_constraintTop_toBottomOf="@id/url_view"
+        tools:text="http://package.mac.wpscdn.cn/mac_wps_pkg/1.3.1/WPS_Office_1.3.1(1688).dmg" />
+
+    <com.angcyo.widget.progress.DslProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="@dimen/lib_ldpi"
+        app:layout_constraintTop_toBottomOf="@id/file_view"
+        app:progress_radius="5dp" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/button"
+        style="@style/DefaultButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="start"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</com.angcyo.widget.layout.RConstraintLayout>

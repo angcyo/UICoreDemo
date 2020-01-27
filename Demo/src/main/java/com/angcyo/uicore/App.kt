@@ -1,6 +1,7 @@
 package com.angcyo.uicore
 
 import com.angcyo.core.CoreApplication
+import com.angcyo.download.DslDownload
 
 /**
  *
@@ -10,5 +11,9 @@ import com.angcyo.core.CoreApplication
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
 class App : CoreApplication() {
+    override fun onCreate() {
+        super.onCreate()
 
+        DslDownload.init(this)
+    }
 }

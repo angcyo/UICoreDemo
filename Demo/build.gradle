@@ -25,4 +25,5 @@ dependencies {
     implementation project(allModule.glide)
     implementation project(allModule.dslitem)
     implementation project(allModule.pager)
+    implementation project(allModule.download)
 }
