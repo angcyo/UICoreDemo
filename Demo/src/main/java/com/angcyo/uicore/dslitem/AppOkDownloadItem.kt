@@ -94,13 +94,12 @@ class AppOkDownloadItem : DslAdapterItem() {
                 DslDownload.cancel(downloadUrl)
                 return@click
             }
-            //下载完成是个APK, 则安装
-            if (DslDownload.getStatus(downloadUrl) == StatusUtil.Status.COMPLETED) {
-                if (DslDownload.findTask(downloadUrl)?.file?.absolutePath?.endsWith("apk") == true) {
-                    installApk(app(), DslDownload.findTask(downloadUrl)?.file)
-                    return@click
-                }
-            }
+//            if (DslDownload.getStatus(downloadUrl) == StatusUtil.Status.COMPLETED) {
+//                if (DslDownload.findTask(downloadUrl)?.file?.absolutePath?.endsWith("apk") == true) {
+//                    installApk(app(), DslDownload.findTask(downloadUrl)?.file)
+//                    return@click
+//                }
+//            }
             //下载流程
             dslDownload(downloadUrl) {
                 onConfigTask = {
@@ -118,6 +117,11 @@ class AppOkDownloadItem : DslAdapterItem() {
                 onTaskFinish = { downloadTask, cause, exception ->
                     if (cause == EndCause.COMPLETED) {
                         itemHolder.v<DslProgressBar>(R.id.progress_bar)?.setProgress(100)
+
+                        //下载完成是个APK, 则安装
+                        if (downloadTask.file?.absolutePath?.endsWith("apk") == true) {
+                            installApk(app(), DslDownload.findTask(downloadUrl)?.file)
+                        }
                     }
                     itemHolder.tv(R.id.button)?.text = "$cause"
                 }
