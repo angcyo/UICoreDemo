@@ -92,6 +92,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("GlideImageDemo $GO")
             renderMainItem("RegularPatternDemo")
             renderMainItem("OkDownloadDemo")
+            renderMainItem("MediaPickerDemo $GO")
 
 //            for (i in 0..100) {
 //                renderMainItem("ViewPager2InFragmentDemo") {

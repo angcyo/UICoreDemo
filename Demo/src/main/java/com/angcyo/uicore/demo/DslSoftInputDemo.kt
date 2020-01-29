@@ -4,8 +4,8 @@ import android.graphics.Color
 import android.os.Bundle
 import com.angcyo.behavior.placeholder.TitleBarPlaceholderBehavior
 import com.angcyo.drawable.toDpi
-import com.angcyo.http.base.fullTime
-import com.angcyo.http.base.nowTime
+import com.angcyo.library.ex.fullTime
+import com.angcyo.library.ex.nowTime
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.base.clickIt
 import com.angcyo.widget.base.setBehavior

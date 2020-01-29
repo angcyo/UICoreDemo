@@ -3,10 +3,10 @@ package com.angcyo.uicore.demo
 import android.os.Bundle
 import com.angcyo.behavior.refresh.RefreshBehavior
 import com.angcyo.drawable.dpi
-import com.angcyo.http.base.fullTime
-import com.angcyo.http.base.nowTime
 import com.angcyo.item.DslBaseInfoItem
 import com.angcyo.library.L
+import com.angcyo.library.ex.fullTime
+import com.angcyo.library.ex.nowTime
 import com.angcyo.uicore.base.AppDslFragment
 
 /**
