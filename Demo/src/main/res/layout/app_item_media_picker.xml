@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.widget.layout.DslFlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/flow_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent20"
+    android:padding="@dimen/lib_hdpi"
+    app:r_flow_item_horizontal_space="@dimen/lib_xhdpi"
+    app:r_flow_item_vertical_space="@dimen/lib_xhdpi">
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/image_button"
+        style="@style/DefaultButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="30dp"
+        android:paddingLeft="@dimen/lib_hdpi"
+        android:paddingRight="@dimen/lib_hdpi"
+        android:tag="1"
+        android:text="image"
+        android:textColor="@color/text_general_color"
+        app:button_normal_gradient_colors=""
+        app:button_normal_stroke_color="@color/colorPrimaryDark"
+        app:button_normal_stroke_width="2dp"
+        app:button_select_text_color="@color/lib_white" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/video_button"
+        style="@style/DefaultButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="30dp"
+        android:paddingLeft="@dimen/lib_hdpi"
+        android:paddingRight="@dimen/lib_hdpi"
+        android:tag="2"
+        android:text="video"
+        android:textColor="@color/text_general_color"
+        app:button_normal_gradient_colors=""
+        app:button_normal_stroke_color="@color/colorPrimaryDark"
+        app:button_normal_stroke_width="2dp"
+        app:button_select_text_color="@color/lib_white" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/audio_button"
+        style="@style/DefaultButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="30dp"
+        android:paddingLeft="@dimen/lib_hdpi"
+        android:paddingRight="@dimen/lib_hdpi"
+        android:tag="4"
+        android:text="audio"
+        android:textColor="@color/text_general_color"
+        app:button_normal_gradient_colors=""
+        app:button_normal_stroke_color="@color/colorPrimaryDark"
+        app:button_normal_stroke_width="2dp"
+        app:button_select_text_color="@color/lib_white" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/do_it_button"
+        style="@style/DefaultButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="30dp"
+        android:paddingLeft="@dimen/lib_hdpi"
+        android:paddingRight="@dimen/lib_hdpi"
+        android:text="doIt" />
+
+</com.angcyo.widget.layout.DslFlowLayout>

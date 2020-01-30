@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.text.style.ForegroundColorSpan
 import android.text.style.LeadingMarginSpan
 import android.view.Gravity
-import com.angcyo.drawable.*
+import com.angcyo.library.ex.*
 import com.angcyo.uicore.base.AppTitleFragment
 import com.angcyo.widget.base.clickIt
 import com.angcyo.widget.progress.ArcLoadingView

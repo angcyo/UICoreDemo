@@ -3,7 +3,7 @@ package com.angcyo.uicore.demo
 import android.graphics.Color
 import android.os.Bundle
 import com.angcyo.behavior.placeholder.TitleBarPlaceholderBehavior
-import com.angcyo.drawable.toDpi
+import com.angcyo.library.ex.toDpi
 import com.angcyo.library.ex.fullTime
 import com.angcyo.library.ex.nowTime
 import com.angcyo.uicore.base.AppDslFragment

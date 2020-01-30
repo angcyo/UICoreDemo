@@ -1,10 +1,10 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
-import com.angcyo.core.component.toast
-import com.angcyo.drawable.dp
-import com.angcyo.drawable.dpi
-import com.angcyo.drawable.getDrawable
+import com.angcyo.library.ex.dp
+import com.angcyo.library.ex.dpi
+import com.angcyo.library.ex.getDrawable
+import com.angcyo.library.toast
 import com.angcyo.uicore.base.AppTitleFragment
 import com.angcyo.widget.base.addTo
 

@@ -1,7 +1,7 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
-import com.angcyo.drawable.getDrawable
+import com.angcyo.library.ex.getDrawable
 import com.angcyo.uicore.base.AppTitleFragment
 import com.angcyo.widget.progress.ArcLoadingView
 import com.angcyo.widget.progress.DslSeekBar

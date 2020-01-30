@@ -9,10 +9,9 @@ import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.base.getColor
 import com.angcyo.behavior.HideTitleBarBehavior
-import com.angcyo.core.component.toast
 import com.angcyo.coroutine.launch
-import com.angcyo.drawable.dpi
-import com.angcyo.drawable.toDpi
+import com.angcyo.library.ex.dpi
+import com.angcyo.library.ex.toDpi
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.http.ApiKt
@@ -20,6 +19,7 @@ import com.angcyo.http.dslHttp
 import com.angcyo.item.DslLastDeviceInfoItem
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.library.L
+import com.angcyo.library.toast
 import com.angcyo.uicore.activity.*
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.R
