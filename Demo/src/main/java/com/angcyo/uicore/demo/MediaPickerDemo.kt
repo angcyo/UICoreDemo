@@ -1,8 +1,10 @@
 package com.angcyo.uicore.demo
 
+import android.content.Intent
 import android.os.Bundle
-import com.angcyo.base.dslAHelper
-import com.angcyo.picker.PickerActivity
+import com.angcyo.library.L
+import com.angcyo.picker.DslPicker
+import com.angcyo.picker.dslPicker
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.AppMediaPickerItem
 
@@ -20,11 +22,14 @@ class MediaPickerDemo : AppDslFragment() {
         renderDslAdapter {
             AppMediaPickerItem()() {
                 onStartPicker = {
-                    dslAHelper {
-                        start(PickerActivity::class.java)
-                    }
+                    dslPicker(it)
                 }
             }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        L.i(DslPicker.onActivityResult(requestCode, resultCode, data))
     }
 }

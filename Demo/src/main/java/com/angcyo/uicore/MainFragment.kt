@@ -19,6 +19,7 @@ import com.angcyo.http.dslHttp
 import com.angcyo.item.DslLastDeviceInfoItem
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.library.L
+import com.angcyo.library.ex.getColor
 import com.angcyo.library.toast
 import com.angcyo.uicore.activity.*
 import com.angcyo.uicore.base.AppDslFragment

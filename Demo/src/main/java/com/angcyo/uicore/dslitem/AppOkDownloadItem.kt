@@ -1,12 +1,12 @@
 package com.angcyo.uicore.dslitem
 
-import com.angcyo.core.installApk
 import com.angcyo.download.DslDownload
 import com.angcyo.download.DslListener
 import com.angcyo.download.dslDownload
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.library.L
 import com.angcyo.library.app
+import com.angcyo.library.ex.installApk
 import com.angcyo.library.ex.simpleHash
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder

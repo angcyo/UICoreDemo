@@ -41,8 +41,8 @@ class AppMediaPickerItem : DslAdapterItem() {
             loaderConfig.mediaLoaderType = 0
             itemHolder.group(R.id.flow_layout)?.each {
                 if (it.isSelected) {
-                    if (it.tag is Int) {
-                        loaderConfig.mediaLoaderType = loaderConfig.mediaLoaderType or it.tag as Int
+                    it.tag?.toString()?.toIntOrNull()?.apply {
+                        loaderConfig.mediaLoaderType = loaderConfig.mediaLoaderType or this
                     }
                 }
             }
