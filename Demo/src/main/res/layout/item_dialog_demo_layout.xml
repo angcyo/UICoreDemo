@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:background="@color/transparent60">
+
+    <RadioGroup
+        android:id="@+id/flow_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkedButton="@id/style_appcompat"
+        android:orientation="horizontal"
+        android:padding="@dimen/lib_hdpi">
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/style_appcompat"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AppCompat" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/style_alert"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AlertDialog" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/style_sheet"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BottomSheet" />
+
+    </RadioGroup>
+
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:id="@+id/flow_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/lib_hdpi"
+        app:layout_constraintTop_toBottomOf="@id/flow_style"
+        app:r_flow_item_horizontal_space="@dimen/lib_hdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_hdpi">
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/normal_dialog"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="普通确认对话框框" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/normal_ios_dialog"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="普通IOS确认对话框" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/normal_ios_dialog2"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IOS对话框" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/wheel_dialog"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wheel选择对话框" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/item_dialog"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Items对话框" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/item_dialog_full"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Items对话框(全屏)" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/menu_dialog"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="菜单对话框" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/menu_ico_dialog"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="菜单对话框Ico" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/menu_ico2_dialog"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="菜单对话框Ico2" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/menu_choice_dialog"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="菜单单选确认对话框" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/menu_multi_dialog"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="菜单多选确认对话框" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/input_single_dialog"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="单行输入对话框" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/input_multi_dialog"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="多行输入对话框" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/grid_dialog"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="网格对话框" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/all_dialog"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日期时间" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/date_dialog"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日期选择" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/time_dialog"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="时间选择" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/option_dialog_single"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="多级选项对话框Single" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/option_dialog"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="多级选项对话框" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/option_dialog2"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="多级选项对话框(带半默认)" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/option_dialog3"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="多级选项对话框(带全默认)" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/calendar_dialog"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日历选择对话框" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/calendar_dialog1"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日历选择对话框(带默认1)" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/calendar_dialog2"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日历选择对话框(带默认2)" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
+
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:id="@+id/flow_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_item_min_height"
+        android:padding="@dimen/lib_hdpi"
+        app:layout_constraintTop_toBottomOf="@id/flow_1"
+        app:r_flow_item_horizontal_space="@dimen/lib_hdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_hdpi">
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/normal_popup"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="普通Popup" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/width_full_popup"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Width全屏Popup" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/full_popup"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全屏Popup" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/full_popup2"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全屏Popup fix" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/full_popup_title"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全屏Popup fix width TitleBar" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/bottom_popup"
+        style="@style/DefaultButtonStyleNormal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/lib_item_height"
+        android:text="Bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/bottom"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/lib_bg_selector"
+        android:text="bottom"
+        android:textColor="@color/transparent60"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,4 +26,5 @@ dependencies {
     implementation project(allModule.dslitem)
     implementation project(allModule.picker)
     implementation project(allModule.download)
+    implementation project(allModule.dialog)
 }
