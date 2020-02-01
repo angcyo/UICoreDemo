@@ -37,12 +37,62 @@
 
     </RadioGroup>
 
+    <LinearLayout
+        android:id="@+id/edit_wrap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/flow_style">
+
+        <com.angcyo.widget.edit.DslEditText
+            android:id="@+id/title_edit"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="输入对话框标题"
+            android:text="对话框标题" />
+
+        <com.angcyo.widget.edit.DslEditText
+            android:id="@+id/message_edit"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="输入对话框内容"
+            android:text="对话框内容" />
+
+    </LinearLayout>
+
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:id="@+id/flow_config"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/lib_hdpi"
+        app:layout_constraintTop_toBottomOf="@id/edit_wrap_layout"
+        app:r_flow_item_horizontal_space="@dimen/lib_hdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_hdpi">
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cancel_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="允许关闭" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cancel_outside_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="允许关闭(窗口外)" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
+
     <com.angcyo.widget.layout.DslFlowLayout
         android:id="@+id/flow_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/lib_hdpi"
-        app:layout_constraintTop_toBottomOf="@id/flow_style"
+        app:layout_constraintTop_toBottomOf="@id/flow_config"
         app:r_flow_item_horizontal_space="@dimen/lib_hdpi"
         app:r_flow_item_vertical_space="@dimen/lib_hdpi">
 
@@ -59,13 +109,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="普通IOS确认对话框" />
-
-        <com.angcyo.widget.DslButton
-            android:id="@+id/normal_ios_dialog2"
-            style="@style/DefaultButtonStyleNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="IOS对话框" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/wheel_dialog"

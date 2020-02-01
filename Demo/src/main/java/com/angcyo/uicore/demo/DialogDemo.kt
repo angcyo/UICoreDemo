@@ -4,16 +4,14 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.RadioGroup
-import com.angcyo.dialog.BaseDialogConfig
-import com.angcyo.dialog.normalDialog
-import com.angcyo.dialog.normalIosDialog
-import com.angcyo.dialog.popupWindow
+import com.angcyo.dialog.*
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.library.L
 import com.angcyo.library.ex.getColor
 import com.angcyo.library.toast
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.DslViewHolder
+import com.angcyo.widget.base.string
 
 /**
  *
@@ -33,7 +31,7 @@ class DialogDemo : AppDslFragment() {
         }
     }
 
-    var dialogType = BaseDialogConfig.DIALOG_TYPE_APPCOMPAT
+    var dialogType = DslDialogConfig.DIALOG_TYPE_APPCOMPAT
 
     fun _bindDialogDemoItem(
         holder: DslViewHolder,
@@ -44,65 +42,21 @@ class DialogDemo : AppDslFragment() {
 
         holder.v<RadioGroup>(R.id.flow_style)?.setOnCheckedChangeListener { _, checkedId ->
             dialogType = when (checkedId) {
-                R.id.style_alert -> BaseDialogConfig.DIALOG_TYPE_ALERT_DIALOG
-                R.id.style_sheet -> BaseDialogConfig.DIALOG_TYPE_BOTTOM_SHEET_DIALOG
-                else -> BaseDialogConfig.DIALOG_TYPE_APPCOMPAT
+                R.id.style_alert -> DslDialogConfig.DIALOG_TYPE_ALERT_DIALOG
+                R.id.style_sheet -> DslDialogConfig.DIALOG_TYPE_BOTTOM_SHEET_DIALOG
+                else -> DslDialogConfig.DIALOG_TYPE_APPCOMPAT
             }
         }
 
         holder.click(R.id.normal_dialog) {
             fContext().normalDialog {
-                dialogTitle = "标题"
-                dialogMessage = "内容"
-
-                positiveButton { dialog, _ ->
-                    toast("Test...")
-
-                    dialog.cancel()
-                }
-
-                negativeButton { dialog, _ ->
-                    dialog.dismiss()
-                }
-
-                dialogType = this@DialogDemo.dialogType
+                _defaultConfig(holder, this)
             }
         }
 
         holder.click(R.id.normal_ios_dialog) {
             fContext().normalIosDialog {
-                dialogTitle = "标题"
-                dialogMessage = "内容"
-
-                positiveButton { dialog, _ ->
-                    toast("Test...")
-
-                    dialog.cancel()
-                }
-
-                negativeButton { dialog, _ ->
-                    dialog.dismiss()
-                }
-
-                dialogType = this@DialogDemo.dialogType
-            }
-        }
-
-        holder.click(R.id.normal_ios_dialog2) {
-            fContext().normalIosDialog {
-                dialogMessage = "内容"
-
-                positiveButton { dialog, _ ->
-                    toast("Test...")
-
-                    dialog.cancel()
-                }
-
-                negativeButton { dialog, _ ->
-                    dialog.dismiss()
-                }
-
-                dialogType = this@DialogDemo.dialogType
+                _defaultConfig(holder, this)
             }
         }
 
@@ -603,6 +557,20 @@ class DialogDemo : AppDslFragment() {
                     popupViewHolder.view(R.id.flow_style)?.setBackgroundColor(Color.RED)
                     popupViewHolder.view(R.id.flow_1)?.setBackgroundColor(Color.RED)
                 }
+            }
+        }
+    }
+
+    fun _defaultConfig(viewHolder: DslViewHolder, config: DslDialogConfig) {
+        config.apply {
+            dialogTitle = viewHolder.tv(R.id.title_edit)?.string()
+            dialogMessage = viewHolder.tv(R.id.message_edit)?.string()
+
+            cancelable = viewHolder.cb(R.id.cancel_cb)?.isChecked ?: true
+            canceledOnTouchOutside = viewHolder.cb(R.id.cancel_outside_cb)?.isChecked ?: true
+
+            if (this is BaseDialogConfig) {
+                dialogType = this@DialogDemo.dialogType
             }
         }
     }
