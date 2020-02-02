@@ -12,6 +12,7 @@ import com.angcyo.library.toast
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.base.string
+import com.angcyo.widget.progress.DslSeekBar
 
 /**
  *
@@ -475,6 +476,11 @@ class DialogDemo : AppDslFragment() {
             cancelable = viewHolder.cb(R.id.cancel_cb)?.isChecked ?: true
             canceledOnTouchOutside = viewHolder.cb(R.id.cancel_outside_cb)?.isChecked ?: true
 
+            if (viewHolder.cb(R.id.amount_cb)?.isChecked == true) {
+                config.amount =
+                    (viewHolder.v<DslSeekBar>(R.id.amount_progress_bar)?.progressValue ?: 0) / 100f
+            }
+
             if (this is BaseDialogConfig) {
                 dialogType = this@DialogDemo.dialogType
             }
@@ -613,6 +619,11 @@ class DialogDemo : AppDslFragment() {
         config.apply {
             showWithActivity = viewHolder.cb(R.id.with_activity_cb)?.isChecked ?: false
             outsideTouchable = viewHolder.cb(R.id.cancel_outside_cb)?.isChecked ?: false
+
+            if (_vh.cb(R.id.amount_cb)?.isChecked == true) {
+                config.amount =
+                    (_vh.v<DslSeekBar>(R.id.amount_progress_bar)?.progressValue ?: 0) / 100f
+            }
         }
     }
 }
