@@ -269,62 +269,8 @@
         app:r_flow_item_horizontal_space="@dimen/lib_hdpi"
         app:r_flow_item_vertical_space="@dimen/lib_hdpi">
 
-        <com.angcyo.widget.DslButton
-            android:id="@+id/normal_popup"
-            style="@style/DefaultButtonStyleNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="普通Popup" />
-
-        <com.angcyo.widget.DslButton
-            android:id="@+id/width_full_popup"
-            style="@style/DefaultButtonStyleNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Width全屏Popup" />
-
-        <com.angcyo.widget.DslButton
-            android:id="@+id/full_popup"
-            style="@style/DefaultButtonStyleNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="全屏Popup" />
-
-        <com.angcyo.widget.DslButton
-            android:id="@+id/full_popup2"
-            style="@style/DefaultButtonStyleNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="全屏Popup fix" />
-
-        <com.angcyo.widget.DslButton
-            android:id="@+id/full_popup_title"
-            style="@style/DefaultButtonStyleNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="全屏Popup fix width TitleBar" />
 
     </com.angcyo.widget.layout.DslFlowLayout>
 
-    <com.angcyo.widget.DslButton
-        android:id="@+id/bottom_popup"
-        style="@style/DefaultButtonStyleNormal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/lib_item_height"
-        android:text="Bottom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/bottom"
-        style="@style/LibBodyTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/lib_bg_selector"
-        android:text="bottom"
-        android:textColor="@color/transparent60"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

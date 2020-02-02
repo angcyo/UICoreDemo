@@ -28,6 +28,11 @@ class DialogDemo : AppDslFragment() {
 
                 onItemBindOverride = this@DialogDemo::_bindDialogDemoItem
             }
+            DslAdapterItem()() {
+                itemLayoutId = R.layout.item_popup_demo_layout
+
+                onItemBindOverride = this@DialogDemo::_bindPopupDemoItem
+            }
         }
     }
 
@@ -38,8 +43,6 @@ class DialogDemo : AppDslFragment() {
         itemPosition: Int,
         adapterItem: DslAdapterItem
     ) {
-        val titleBarLayout = titleControl()!!.itemView
-
         holder.v<RadioGroup>(R.id.flow_style)?.setOnCheckedChangeListener { _, checkedId ->
             dialogType = when (checkedId) {
                 R.id.style_alert -> DslDialogConfig.DIALOG_TYPE_ALERT_DIALOG
@@ -462,103 +465,6 @@ class DialogDemo : AppDslFragment() {
 //                _defaultConfig(holder, this)
 //            }
 //        }
-
-        //popup
-        holder.click(R.id.bottom) {
-            fContext().popupWindow(it) {
-                layoutId = R.layout.item_dialog_demo_layout
-                background = ColorDrawable(Color.RED)
-                exactlyHeight = true
-                onDismiss = {
-                    L.i("...dismiss...")
-                    toast("...dismiss...")
-                }
-                xoff = 200
-                yoff = 200
-            }
-        }
-        holder.click(R.id.bottom_popup) {
-            fContext().popupWindow(it) {
-                layoutId = R.layout.item_dialog_demo_layout
-                background = ColorDrawable(Color.RED)
-                exactlyHeight = true
-                onDismiss = {
-                    L.i("...dismiss...")
-                    toast("...dismiss...")
-                }
-                xoff = 200
-                yoff = 200
-            }
-        }
-        holder.click(R.id.normal_popup) {
-            fContext().popupWindow(it) {
-                layoutId = R.layout.item_dialog_demo_layout
-                background = ColorDrawable(Color.RED)
-                onDismiss = {
-                    L.i("...dismiss...")
-                    toast("...dismiss...")
-                }
-            }
-        }
-
-        holder.click(R.id.width_full_popup) {
-            fContext().popupWindow(it) {
-                layoutId = R.layout.item_dialog_demo_layout
-                background = ColorDrawable(Color.RED)
-                width = -1
-                onDismiss = {
-                    L.i("...dismiss...")
-                    toast("...dismiss...")
-                }
-            }
-        }
-
-        holder.click(R.id.full_popup) {
-            fContext().popupWindow(it) {
-                layoutId = R.layout.item_dialog_demo_layout
-                background = ColorDrawable(Color.RED)
-                width = -1
-                height = -1
-                onDismiss = {
-                    L.i("...dismiss...")
-                    toast("...dismiss...")
-                }
-                popupInit = { popupWindow, popupViewHolder ->
-                    popupWindow.isClippingEnabled = false
-                }
-            }
-        }
-
-        holder.click(R.id.full_popup2) {
-            fContext().popupWindow(it) {
-                layoutId = R.layout.item_dialog_demo_layout
-                width = -1
-                background = ColorDrawable(getColor(R.color.transparent40))
-                exactlyHeight = true
-                onDismiss = {
-                    L.i("...dismiss...")
-                    toast("...dismiss...")
-                }
-            }
-        }
-
-        holder.click(R.id.full_popup_title) {
-            fContext().popupWindow(titleBarLayout) {
-                layoutId = R.layout.item_dialog_demo_layout
-                width = -1
-                background = ColorDrawable(getColor(R.color.transparent40))
-                exactlyHeight = true
-                onDismiss = {
-                    L.i("...dismiss...")
-                    toast("...dismiss...")
-                }
-
-                popupInit = { popupWindow, popupViewHolder ->
-                    popupViewHolder.view(R.id.flow_style)?.setBackgroundColor(Color.RED)
-                    popupViewHolder.view(R.id.flow_1)?.setBackgroundColor(Color.RED)
-                }
-            }
-        }
     }
 
     fun _defaultConfig(viewHolder: DslViewHolder, config: DslDialogConfig) {
@@ -572,6 +478,141 @@ class DialogDemo : AppDslFragment() {
             if (this is BaseDialogConfig) {
                 dialogType = this@DialogDemo.dialogType
             }
+        }
+    }
+
+    fun _bindPopupDemoItem(
+        holder: DslViewHolder,
+        itemPosition: Int,
+        adapterItem: DslAdapterItem
+    ) {
+        val titleBarLayout = titleControl()!!.itemView
+
+        //popup
+        holder.click(R.id.bottom) {
+            fContext().popupWindow(it) {
+                layoutId = R.layout.item_dialog_demo_layout
+                background = ColorDrawable(Color.RED)
+                exactlyHeight = true
+                onDismiss = {
+                    L.i("...dismiss...")
+                    toast("...dismiss...")
+                    false
+                }
+                xoff = 200
+                yoff = 200
+                _defaultConfig(holder, this)
+            }
+        }
+        holder.click(R.id.bottom_popup) {
+            fContext().popupWindow(it) {
+                layoutId = R.layout.item_dialog_demo_layout
+                background = ColorDrawable(Color.RED)
+                exactlyHeight = true
+                onDismiss = {
+                    L.i("...dismiss...")
+                    toast("...dismiss...")
+                    false
+                }
+                xoff = 200
+                yoff = 200
+                _defaultConfig(holder, this)
+            }
+        }
+        holder.click(R.id.normal_popup) {
+            fContext().popupWindow(it) {
+                layoutId = R.layout.item_dialog_demo_layout
+                background = ColorDrawable(Color.RED)
+                animationStyle = -1
+                onDismiss = {
+                    L.i("...dismiss...")
+                    toast("...dismiss...")
+                    false
+                }
+                _defaultConfig(holder, this)
+            }
+        }
+
+        holder.click(R.id.width_full_popup) {
+            fContext().popupWindow(it) {
+                layoutId = R.layout.item_dialog_demo_layout
+                background = ColorDrawable(Color.RED)
+                width = -1
+                onDismiss = {
+                    L.i("...dismiss...")
+                    toast("...dismiss...")
+                    false
+                }
+                _defaultConfig(holder, this)
+            }
+        }
+
+        holder.click(R.id.full_popup) {
+            fContext().popupWindow(it) {
+                layoutId = R.layout.item_dialog_demo_layout
+                background = ColorDrawable(Color.RED)
+                width = -1
+                height = -1
+                onDismiss = {
+                    L.i("...dismiss...")
+                    toast("...dismiss...")
+                    false
+                }
+                onInitLayout = { popupWindow, popupViewHolder ->
+
+                }
+                _defaultConfig(holder, this)
+            }
+        }
+
+        holder.click(R.id.full_popup2) {
+            fContext().popupWindow(it) {
+                layoutId = R.layout.item_dialog_demo_layout
+                width = -1
+                background = ColorDrawable(getColor(R.color.transparent40))
+                exactlyHeight = true
+                onDismiss = {
+                    L.i("...dismiss...")
+                    toast("...dismiss...")
+                    false
+                }
+                _defaultConfig(holder, this)
+            }
+        }
+
+        holder.click(R.id.full_popup_title) {
+            fContext().popupWindow(titleBarLayout) {
+                layoutId = R.layout.item_dialog_demo_layout
+                width = -1
+                background = ColorDrawable(getColor(R.color.transparent40))
+                exactlyHeight = true
+                onDismiss = {
+                    L.i("...dismiss...")
+                    toast("...dismiss...")
+                    false
+                }
+
+                onInitLayout = { popupWindow, popupViewHolder ->
+                    popupViewHolder.view(R.id.flow_style)?.setBackgroundColor(Color.RED)
+                    popupViewHolder.view(R.id.flow_1)?.setBackgroundColor(Color.RED)
+                }
+                _defaultConfig(holder, this)
+            }
+        }
+
+        //FullPopupConfig
+        holder.click(R.id.full_popup_config) {
+            fContext().fullPopupWindow(titleBarLayout) {
+                layoutId = R.layout.item_popup_demo_layout
+                _defaultConfig(holder, this)
+            }
+        }
+    }
+
+    fun _defaultConfig(viewHolder: DslViewHolder, config: PopupConfig) {
+        config.apply {
+            showWithActivity = viewHolder.cb(R.id.with_activity_cb)?.isChecked ?: false
+            outsideTouchable = viewHolder.cb(R.id.cancel_outside_cb)?.isChecked ?: false
         }
     }
 }
