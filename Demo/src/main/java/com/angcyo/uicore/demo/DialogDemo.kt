@@ -82,7 +82,7 @@ class DialogDemo : AppDslFragment() {
 //                    false
 //                }
 //
-//                dialogType = this@DialogDemo.dialogType
+//                _defaultConfig(holder, this)
 //            }
 //        }
 //
@@ -118,7 +118,7 @@ class DialogDemo : AppDslFragment() {
 //                    false
 //                }
 //
-//                dialogType = this@DialogDemo.dialogType
+//                _defaultConfig(holder, this)
 //
 //                dialogInit = { dialog, dialogViewHolder ->
 //                    ActivityHelper.enableLayoutFullScreen(dialog.window, true)
@@ -144,7 +144,7 @@ class DialogDemo : AppDslFragment() {
 //                    false
 //                }
 //
-//                dialogType = this@DialogDemo.dialogType
+//                _defaultConfig(holder, this)
 //            }
 //        }
 //
@@ -161,7 +161,7 @@ class DialogDemo : AppDslFragment() {
 //                    false
 //                }
 //
-//                dialogType = this@DialogDemo.dialogType
+//                _defaultConfig(holder, this)
 //            }
 //        }
 //
@@ -179,7 +179,7 @@ class DialogDemo : AppDslFragment() {
 //                    false
 //                }
 //
-//                dialogType = this@DialogDemo.dialogType
+//                _defaultConfig(holder, this)
 //            }
 //        }
 //
@@ -198,7 +198,7 @@ class DialogDemo : AppDslFragment() {
 //                    false
 //                }
 //
-//                dialogType = this@DialogDemo.dialogType
+//                _defaultConfig(holder, this)
 //            }
 //        }
 //
@@ -213,12 +213,12 @@ class DialogDemo : AppDslFragment() {
 //                    false
 //                }
 //
-//                dialogType = this@DialogDemo.dialogType
+//                _defaultConfig(holder, this)
 //            }
 //        }
 //
 //        holder.click(R.id.menu_multi_dialog) {
-//            multiChoiceDialog {
+//            fContext().multiChoiceDialog {
 //                dialogTitle = "弟弟"
 //
 //                items = mutableListOf("Item1", "Item2", "Item3")
@@ -230,37 +230,37 @@ class DialogDemo : AppDslFragment() {
 //                    false
 //                }
 //
-//                dialogType = this@DialogDemo.dialogType
+//                _defaultConfig(holder, this)
 //            }
 //        }
 //
-//        holder.click(R.id.input_single_dialog) {
-//            inputDialog {
-//                showSoftInput = true
-//
-//                hintInputString = "客官输入点东西吧..."
-//
-//                onInputResult = { dialog, inputText ->
-//                    toast.show(inputText)
-//                    false
-//                }
-//
-//                dialogType = this@DialogDemo.dialogType
-//            }
-//        }
-//
-//        holder.click(R.id.input_multi_dialog) {
-//            multiInputDialog {
-//                dialogTitle = "请输入"
-//
-//                onInputResult = { dialog, inputText ->
-//                    toast.show(inputText)
-//                    false
-//                }
-//
-//                dialogType = this@DialogDemo.dialogType
-//            }
-//        }
+        holder.click(R.id.input_single_dialog) {
+            fContext().inputDialog {
+                showSoftInput = true
+
+                hintInputString = "客官输入点东西吧..."
+
+                onInputResult = { dialog, inputText ->
+                    toast(inputText)
+                    false
+                }
+
+                _defaultConfig(holder, this)
+            }
+        }
+
+        holder.click(R.id.input_multi_dialog) {
+            fContext().multiInputDialog {
+                dialogTitle = "请输入"
+
+                onInputResult = { dialog, inputText ->
+                    toast(inputText)
+                    false
+                }
+
+                _defaultConfig(holder, this)
+            }
+        }
 //
 //        holder.click(R.id.grid_dialog) {
 //            gridDialog {
@@ -295,7 +295,7 @@ class DialogDemo : AppDslFragment() {
 //                    gridItemText = "房屋相册"
 //                }
 //
-//                dialogType = this@DialogDemo.dialogType
+//                _defaultConfig(holder, this)
 //            }
 //        }
 //
@@ -308,7 +308,7 @@ class DialogDemo : AppDslFragment() {
 //                    false
 //                }
 //
-//                dialogType = this@DialogDemo.dialogType
+//                _defaultConfig(holder, this)
 //            }
 //        }
 //
@@ -320,7 +320,7 @@ class DialogDemo : AppDslFragment() {
 //                    false
 //                }
 //
-//                dialogType = this@DialogDemo.dialogType
+//                _defaultConfig(holder, this)
 //            }
 //        }
 //
@@ -333,7 +333,7 @@ class DialogDemo : AppDslFragment() {
 //                    false
 //                }
 //
-//                dialogType = this@DialogDemo.dialogType
+//                _defaultConfig(holder, this)
 //            }
 //        }
 //
@@ -358,7 +358,7 @@ class DialogDemo : AppDslFragment() {
 //                    false
 //                }
 //
-//                dialogType = this@DialogDemo.dialogType
+//                _defaultConfig(holder, this)
 //            }
 //        }
 //        holder.click(R.id.option_dialog) {
@@ -375,7 +375,7 @@ class DialogDemo : AppDslFragment() {
 //                    false
 //                }
 //
-//                dialogType = this@DialogDemo.dialogType
+//                _defaultConfig(holder, this)
 //            }
 //        }
 //        holder.click(R.id.option_dialog2) {
@@ -393,7 +393,7 @@ class DialogDemo : AppDslFragment() {
 //                    false
 //                }
 //
-//                dialogType = this@DialogDemo.dialogType
+//                _defaultConfig(holder, this)
 //
 //                anySelector = true
 //            }
@@ -413,7 +413,7 @@ class DialogDemo : AppDslFragment() {
 //                    false
 //                }
 //
-//                dialogType = this@DialogDemo.dialogType
+//                _defaultConfig(holder, this)
 //            }
 //        }
 //
@@ -432,7 +432,7 @@ class DialogDemo : AppDslFragment() {
 //            calendarDialog {
 //                dialogTitle = "日历选择"
 //                onCalendarResult = calendarResult
-//                dialogType = this@DialogDemo.dialogType
+//                _defaultConfig(holder, this)
 //            }
 //        }
 //
@@ -444,7 +444,7 @@ class DialogDemo : AppDslFragment() {
 //                calendarList = mutableListOf(RCalendarView.today())
 //
 //                onCalendarResult = calendarResult
-//                dialogType = this@DialogDemo.dialogType
+//                _defaultConfig(holder, this)
 //            }
 //        }
 //
@@ -459,7 +459,7 @@ class DialogDemo : AppDslFragment() {
 //                calendarList = mutableListOf(Calendar(2019, 2, 1), Calendar(2019, 5, 1))
 //
 //                onCalendarResult = calendarResult
-//                dialogType = this@DialogDemo.dialogType
+//                _defaultConfig(holder, this)
 //            }
 //        }
 
