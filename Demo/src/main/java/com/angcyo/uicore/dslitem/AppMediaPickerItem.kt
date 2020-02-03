@@ -1,6 +1,9 @@
 package com.angcyo.uicore.dslitem
 
 import com.angcyo.dsladapter.DslAdapterItem
+import com.angcyo.library.ex.have
+import com.angcyo.library.ex.hawkGet
+import com.angcyo.library.ex.hawkPut
 import com.angcyo.loader.LoaderConfig
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
@@ -14,6 +17,11 @@ import com.angcyo.widget.base.each
  */
 
 class AppMediaPickerItem : DslAdapterItem() {
+
+    companion object {
+        const val MEDIA_LOADER_TYPE = "media_loader_type"
+    }
+
     init {
         itemLayoutId = R.layout.app_item_media_picker
     }
@@ -26,6 +34,16 @@ class AppMediaPickerItem : DslAdapterItem() {
         adapterItem: DslAdapterItem
     ) {
         super.onItemBind(itemHolder, itemPosition, adapterItem)
+
+        MEDIA_LOADER_TYPE.hawkGet()?.apply {
+            if (this.isNotBlank()) {
+                val type = toInt()
+
+                itemHolder.selected(R.id.image_button, type.have(1))
+                itemHolder.selected(R.id.video_button, type.have(2))
+                itemHolder.selected(R.id.audio_button, type.have(4))
+            }
+        }
 
         itemHolder.click(R.id.image_button) {
             it.isSelected = !it.isSelected
@@ -46,6 +64,7 @@ class AppMediaPickerItem : DslAdapterItem() {
                     }
                 }
             }
+            MEDIA_LOADER_TYPE.hawkPut("${loaderConfig.mediaLoaderType}")
             onStartPicker(loaderConfig)
         }
     }
