@@ -42,7 +42,8 @@ class DialogDemo : AppDslFragment() {
     fun _bindDialogDemoItem(
         holder: DslViewHolder,
         itemPosition: Int,
-        adapterItem: DslAdapterItem
+        adapterItem: DslAdapterItem,
+        payloads: List<Any>
     ) {
         holder.v<RadioGroup>(R.id.flow_style)?.setOnCheckedChangeListener { _, checkedId ->
             dialogType = when (checkedId) {
@@ -490,7 +491,8 @@ class DialogDemo : AppDslFragment() {
     fun _bindPopupDemoItem(
         holder: DslViewHolder,
         itemPosition: Int,
-        adapterItem: DslAdapterItem
+        adapterItem: DslAdapterItem,
+        payloads: List<Any>
     ) {
         val titleBarLayout = titleControl()!!.itemView
 

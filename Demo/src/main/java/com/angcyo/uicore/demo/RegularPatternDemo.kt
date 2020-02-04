@@ -46,7 +46,7 @@ class RegularPatternDemo : AppDslFragment() {
             renderItem {
                 itemLayoutId = R.layout.item_regular_pattern_layout
 
-                onItemBindOverride = { itemHolder, _, _ ->
+                onItemBindOverride = { itemHolder, _, _, _ ->
                     itemHolder.auto(R.id.pattern_edit, KEY_PATTERN.hawkGetList())
                         ?.setInputText(KEY_PATTERN.hawkGetList().first())
                     itemHolder.auto(R.id.content_edit, KEY_CONTENT.hawkGetList())

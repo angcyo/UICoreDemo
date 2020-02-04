@@ -28,7 +28,7 @@ class ViewModelDemo : AppDslFragment() {
         renderDslAdapter {
             dslItem(R.layout.item_view_model_layout) {
                 itemTag = "view_model"
-                onItemBindOverride = { itemHolder, _, _ ->
+                onItemBindOverride = { itemHolder, _, _, _ ->
                     itemHolder.et(R.id.edit_text)?.setInputText(itemData?.toString())
 
                     itemHolder.click(R.id.button) {

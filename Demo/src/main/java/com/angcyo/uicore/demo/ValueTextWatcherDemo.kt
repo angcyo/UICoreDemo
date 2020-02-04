@@ -33,7 +33,7 @@ class ValueTextWatcherDemo : DslSoftInputDemo() {
                 var itemMaxValue = ValueTextWatcher.MAX_VALUE
                 var itemMinValue = ValueTextWatcher.MIN_VALUE
 
-                onItemBindOverride = { itemHolder, _, _ ->
+                onItemBindOverride = { itemHolder, _, _,_ ->
                     val editText = itemHolder.et(R.id.edit_text)
                     val maxEditText = itemHolder.et(R.id.max_edit_text)
                     val minEditText = itemHolder.et(R.id.min_edit_text)
