@@ -2,8 +2,10 @@ package com.angcyo.uicore.demo
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.core.R
 import com.angcyo.core.utils.resultString
+import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.findItemByTag
 import com.angcyo.library.ex._color
@@ -24,9 +26,9 @@ import com.angcyo.widget.span.span
 
 class MediaPickerDemo : AppDslFragment() {
 
-    override fun onInitDslLayout() {
-        super.onInitDslLayout()
-        _vh.rv(R.id.lib_recycler_view)?.resetLayoutManager("GV4")
+    override fun onInitDslLayout(recyclerView: RecyclerView, dslAdapter: DslAdapter) {
+        super.onInitDslLayout(recyclerView, dslAdapter)
+        recyclerView.resetLayoutManager("GV4")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

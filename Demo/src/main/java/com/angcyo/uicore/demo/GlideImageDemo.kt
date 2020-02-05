@@ -1,6 +1,8 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import androidx.recyclerview.widget.RecyclerView
+import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.pager.dslPager
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.AppFlatImageItem
@@ -16,10 +18,10 @@ import com.angcyo.widget.recycler.resetLayoutManager
 
 class GlideImageDemo : AppDslFragment() {
 
-    override fun onInitDslLayout() {
-        super.onInitDslLayout()
+    override fun onInitDslLayout(recyclerView: RecyclerView, dslAdapter: DslAdapter) {
+        super.onInitDslLayout(recyclerView, dslAdapter)
 
-        _vh.rv(R.id.lib_recycler_view)?.resetLayoutManager("SV2")
+        recyclerView.resetLayoutManager("SV2")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

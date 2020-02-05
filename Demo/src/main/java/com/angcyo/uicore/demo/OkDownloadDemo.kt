@@ -1,10 +1,8 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
-import com.angcyo.core.R
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.AppOkDownloadItem
-import com.angcyo.widget.recycler.noItemAnim
 import kotlin.random.Random.Default.nextInt
 
 /**
@@ -26,11 +24,6 @@ class OkDownloadDemo : AppDslFragment() {
         fun downloadUrl(): String {
             return urlList[nextInt(urlList.size)]
         }
-    }
-
-    override fun onInitDslLayout() {
-        super.onInitDslLayout()
-        _vh.rv(R.id.lib_recycler_view)?.noItemAnim()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
