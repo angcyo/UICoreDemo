@@ -20,7 +20,6 @@ class GlideImageDemo : AppDslFragment() {
 
     override fun onInitDslLayout(recyclerView: RecyclerView, dslAdapter: DslAdapter) {
         super.onInitDslLayout(recyclerView, dslAdapter)
-
         recyclerView.resetLayoutManager("SV2")
     }
 

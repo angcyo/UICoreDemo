@@ -9,6 +9,43 @@
     app:r_flow_item_horizontal_space="@dimen/lib_xhdpi"
     app:r_flow_item_vertical_space="@dimen/lib_xhdpi">
 
+    <com.angcyo.widget.edit.DslEditText
+        android:id="@+id/max_selector_limit"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/lib_item_min_height"
+        android:layout_weight="0.47"
+        android:hint="最多选中"
+        android:inputType="numberDecimal" />
+
+    <com.angcyo.widget.edit.DslEditText
+        android:id="@+id/min_file_size"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/lib_item_min_height"
+        android:layout_weight="0.47"
+        android:hint="文件最小(kb)"
+        android:inputType="numberDecimal" />
+
+    <com.angcyo.widget.edit.DslEditText
+        android:id="@+id/max_file_size"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/lib_item_min_height"
+        android:layout_weight="0.47"
+        android:hint="文件最大(kb)"
+        android:inputType="numberDecimal" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/size_model_cb"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.47"
+        android:text="SIZE_MODEL_MEDIA"
+        app:switchPadding="@dimen/lib_hdpi" />
+
     <com.angcyo.widget.DslButton
         android:id="@+id/image_button"
         style="@style/DefaultButtonStyle"
