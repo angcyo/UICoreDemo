@@ -15,10 +15,6 @@ dependencies {
 
     debugImplementation "androidx.emoji:emoji:1.0.0"
 
-    //https://stackoverflow.com/questions/51957944/android-view-viewonunhandledkeyeventlistener
-    //https://github.com/DonaldDu/FixUnhandledEvent/
-    debugImplementation 'com.github.DonaldDu:FixUnhandledEvent:1.0'
-
     implementation project(allModule.material)
     implementation project(allModule.dslitem)
     implementation project(allModule.picker)
