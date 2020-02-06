@@ -65,7 +65,7 @@ class RegularPatternDemo : AppDslFragment() {
                         KEY_PATTERN.hawkPutList(regexList.first())
                         KEY_CONTENT.hawkPutList(contentString)
 
-                        itemHolder.tv(R.id.text_view)?.text = span {
+                        itemHolder.tv(R.id.lib_text_view)?.text = span {
                             append("匹配结果:$pattern")
                             appendln()
                             contentString.patternList(regexList.first()).forEach {

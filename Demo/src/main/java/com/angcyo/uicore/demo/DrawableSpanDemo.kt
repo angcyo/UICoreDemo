@@ -229,7 +229,7 @@ class DrawableSpanDemo : AppTitleFragment() {
 
         //text
 
-        _vh.tv(R.id.text_view)?.text = span {
+        _vh.tv(R.id.lib_text_view)?.text = span {
             append("\t测试") {
                 foregroundColor = Color.WHITE
                 tabStopOffset = 20 * dpi

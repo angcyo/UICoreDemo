@@ -25,7 +25,7 @@ class ViewGroupOverlayDemo : AppTitleFragment() {
         _vh.click(R.id.button) { button ->
             _vh.group(R.id.linear_layout)?.overlay?.apply {
                 //image
-                add(_vh.view(R.id.image_view)!!.apply {
+                add(_vh.view(R.id.lib_image_view)!!.apply {
                     animate().translationXBy(100 * dp)
                         .translationYBy(60 * dp)
                         .setDuration(3000)

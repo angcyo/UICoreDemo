@@ -55,7 +55,7 @@ class ValueTextWatcherDemo : DslSoftInputDemo() {
                     //设置最大输入值
                     maxEditText?.onTextChange {
                         L.i("max:$it")
-                        itemHolder.tv(R.id.text_view)?.text = "max:$it"
+                        itemHolder.tv(R.id.lib_text_view)?.text = "max:$it"
                         itemMaxValue = it.toString().toFloatOrNull() ?: itemMaxValue
                         updateFilter()
                     }
@@ -63,14 +63,14 @@ class ValueTextWatcherDemo : DslSoftInputDemo() {
                     //社会最小输入值
                     minEditText?.onTextChange {
                         L.i("min:$it")
-                        itemHolder.tv(R.id.text_view)?.text = "min:$it"
+                        itemHolder.tv(R.id.lib_text_view)?.text = "min:$it"
                         itemMinValue = it.toString().toFloatOrNull() ?: itemMinValue
                         updateFilter()
                     }
 
                     //文件大小格式化输出
                     editText?.onTextChange {
-                        itemHolder.tv(R.id.text_view)?.text = span {
+                        itemHolder.tv(R.id.lib_text_view)?.text = span {
                             it.toString().toFloatOrNull()?.toLong()?.let {
                                 append(Formatter.formatFileSize(fContext(), it))
                                 appendln()
