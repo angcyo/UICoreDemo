@@ -12,7 +12,15 @@
         android:layout_height="wrap_content"
         android:checkedButton="@id/style_appcompat"
         android:orientation="horizontal"
-        android:padding="@dimen/lib_hdpi">
+        android:paddingTop="@dimen/lib_hdpi"
+        android:paddingBottom="@dimen/lib_hdpi">
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/style_dialog"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dialog" />
 
         <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/style_appcompat"

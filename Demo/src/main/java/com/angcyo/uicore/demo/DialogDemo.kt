@@ -47,6 +47,7 @@ class DialogDemo : AppDslFragment() {
     ) {
         holder.v<RadioGroup>(R.id.flow_style)?.setOnCheckedChangeListener { _, checkedId ->
             dialogType = when (checkedId) {
+                R.id.style_dialog -> DslDialogConfig.DIALOG_TYPE_DIALOG
                 R.id.style_alert -> DslDialogConfig.DIALOG_TYPE_ALERT_DIALOG
                 R.id.style_sheet -> DslDialogConfig.DIALOG_TYPE_BOTTOM_SHEET_DIALOG
                 else -> DslDialogConfig.DIALOG_TYPE_APPCOMPAT
