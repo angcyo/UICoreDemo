@@ -18,7 +18,7 @@ fun coroutineTest() {
 
 /**串行协程线程调度测试*/
 fun blockTest() {
-    launch {
+    launchGlobal {
 
         val i = onBlock {
             L.i("run....1..1")
@@ -52,7 +52,7 @@ fun blockTest() {
 
 /**并发协程测试*/
 fun backTest() {
-    launch(Dispatchers.Main + CoroutineErrorHandler {
+    launchGlobal(Dispatchers.Main + CoroutineErrorHandler {
         L.e("自定义捕捉异常:$it")
     }) {
 

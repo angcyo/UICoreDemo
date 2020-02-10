@@ -64,7 +64,7 @@ class MediaPickerDemo : AppDslFragment() {
         super.onActivityResult(requestCode, resultCode, data)
         DslPicker.onActivityResult(requestCode, resultCode, data)?.apply {
             renderDslAdapter {
-                loadSingleData(this@apply, 1, 20) { oldItem, _ ->
+                loadSingleData<DslPickerImageItem>(this@apply, 1, 20) { oldItem, _ ->
                     oldItem ?: DslPickerImageItem().apply {
                         checkModel = false
                     }

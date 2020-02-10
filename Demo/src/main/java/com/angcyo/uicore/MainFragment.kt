@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.behavior.HideTitleBarBehavior
-import com.angcyo.coroutine.launch
+import com.angcyo.coroutine.launchGlobal
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.http.ApiKt
@@ -124,7 +124,7 @@ class MainFragment : AppDslFragment() {
     override fun onFragmentFirstShow(bundle: Bundle?) {
         super.onFragmentFirstShow(bundle)
 
-        launch {
+        launchGlobal {
             val url = "https://www.mxnzp.com/api/tools/system/time"
             L.i("开始请求:")
             try {
