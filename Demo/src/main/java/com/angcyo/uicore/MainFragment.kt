@@ -94,6 +94,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("OkDownloadDemo")
             renderMainItem("MediaPickerDemo $GO")
             renderMainItem("DialogDemo")
+            renderMainItem("NotifyDemo $GO")
 
 //            for (i in 0..100) {
 //                renderMainItem("ViewPager2InFragmentDemo") {
@@ -162,7 +163,7 @@ class MainFragment : AppDslFragment() {
                 //L.i("$index ${dslViewHolder.adapterPosition}")
             }
 
-            L.i("first:${this[0]?.adapterPosition} last:${this[-1]?.adapterPosition}")
+            L.i("first:${this[0, true]?.adapterPosition} last:${this[-1, true]?.adapterPosition}")
         }
     }
 

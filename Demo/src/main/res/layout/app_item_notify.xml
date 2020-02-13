@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.widget.layout.DslFlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/lib_hdpi"
+    app:r_flow_item_horizontal_space="@dimen/lib_hdpi"
+    app:r_flow_item_vertical_space="@dimen/lib_hdpi">
+
+    <com.angcyo.widget.RSpinner
+        android:id="@+id/defaults_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.4"
+        android:background="@drawable/app_theme_border_fill_selector" />
+
+    <com.angcyo.widget.RSpinner
+        android:id="@+id/priority_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.56"
+        android:background="@drawable/app_theme_border_fill_selector" />
+
+    <com.angcyo.widget.RSpinner
+        android:id="@+id/visibility_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:background="@drawable/app_theme_border_fill_selector" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/click_cb"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/ongoing_cb"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ongoing" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/action_cb"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Action" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/large_icon_cb"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LargeIcon" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/big_large_icon_cb"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BigLargeIcon" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/full_screen_intent_cb"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FullScreenIntent" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/notify_normal"
+        style="@style/DefaultButtonStyleNormal"
+        android:text="标准通知" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/notify_normal_intent"
+        style="@style/DefaultButtonStyleNormal"
+        android:text="标准通知带Intent" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/notify_big_text"
+        style="@style/DefaultButtonStyleNormal"
+        android:text="BigTextStyle" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/notify_big_picture"
+        style="@style/DefaultButtonStyleNormal"
+        android:text="BigPictureStyle" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/notify_inbox"
+        style="@style/DefaultButtonStyleNormal"
+        android:text="InboxStyle" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/notify_message"
+        style="@style/DefaultButtonStyleNormal"
+        android:text="MessagingStyle" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/notify_media"
+        style="@style/DefaultButtonStyleNormal"
+        android:text="MediaStyle" />
+
+    <com.angcyo.widget.edit.DslEditText
+        android:id="@+id/notify_title_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.48"
+        android:hint="通知标题"
+        android:text="通知标题" />
+
+    <com.angcyo.widget.edit.DslEditText
+        android:id="@+id/notify_message_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.48"
+        android:hint="通知消息"
+        android:text="通知消息" />
+
+</com.angcyo.widget.layout.DslFlowLayout>
