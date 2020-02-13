@@ -104,4 +104,43 @@
         android:paddingRight="@dimen/lib_hdpi"
         android:text="doIt" />
 
+    <com.angcyo.widget.DslButton
+        android:id="@+id/do_take_photo"
+        style="@style/DefaultButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="30dp"
+        android:paddingLeft="@dimen/lib_hdpi"
+        android:paddingRight="@dimen/lib_hdpi"
+        android:text="takePhoto" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/do_take_video"
+        style="@style/DefaultButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="30dp"
+        android:paddingLeft="@dimen/lib_hdpi"
+        android:paddingRight="@dimen/lib_hdpi"
+        android:text="takeVideo" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/do_share"
+        style="@style/DefaultButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="30dp"
+        android:paddingLeft="@dimen/lib_hdpi"
+        android:paddingRight="@dimen/lib_hdpi"
+        android:text="doShare" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/do_share_email"
+        style="@style/DefaultButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="30dp"
+        android:paddingLeft="@dimen/lib_hdpi"
+        android:paddingRight="@dimen/lib_hdpi"
+        android:text="doShareEmail" />
 </com.angcyo.widget.layout.DslFlowLayout>

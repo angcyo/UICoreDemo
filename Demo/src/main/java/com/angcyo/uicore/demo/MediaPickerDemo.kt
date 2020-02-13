@@ -3,12 +3,16 @@ package com.angcyo.uicore.demo
 import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
-import com.angcyo.core.R
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.findItemByTag
+import com.angcyo.dsladapter.getAllItemData
+import com.angcyo.library.component.DslIntent
+import com.angcyo.library.component.dslIntentShare
 import com.angcyo.library.ex._color
 import com.angcyo.library.utils.resultString
+import com.angcyo.loader.LoaderMedia
+import com.angcyo.pager.dslPager
 import com.angcyo.picker.DslPicker
 import com.angcyo.picker.dslPicker
 import com.angcyo.picker.dslitem.DslPickerImageItem
@@ -47,6 +51,58 @@ class MediaPickerDemo : AppDslFragment() {
                         }
                         dslPicker(loaderConfig)
                     }
+                    onItemBindOverride = { itemHolder, _, _, _ ->
+                        //拍照
+                        itemHolder.click(R.id.do_take_photo) {
+                            DslPicker.takePhoto(requireActivity()) {
+                                //渲染结果
+                                renderDslAdapter {
+                                    loadSingleData(
+                                        mutableListOf(
+                                            LoaderMedia(
+                                                localUri = it,
+                                                mimeType = "image/jpeg"
+                                            )
+                                        ),
+                                        initOrCreateDslItem = this@MediaPickerDemo::initOrCreateItem
+                                    )
+                                }
+                            }
+                        }
+                        //录像
+                        itemHolder.click(R.id.do_take_video) {
+                            DslPicker.takeVideo(requireActivity()) {
+                                renderDslAdapter {
+                                    loadSingleData(
+                                        mutableListOf(
+                                            LoaderMedia(
+                                                localUri = it,
+                                                mimeType = "video/mp4"
+                                            )
+                                        ),
+                                        initOrCreateDslItem = this@MediaPickerDemo::initOrCreateItem
+                                    )
+                                }
+                            }
+                        }
+                        //分享文本
+                        itemHolder.click(R.id.do_share) {
+                            dslIntentShare(fContext()) {
+                                shareTitle = "shareTitle...."
+                                shareText = "shareText...."
+                            }
+                            DslIntent.openUrl(fContext(), "https://www.angcyo.com")
+                        }
+                        //邮件分享
+                        itemHolder.click(R.id.do_share_email) {
+                            dslIntentShare(fContext()) {
+                                shareTitle = "shareTitle...."
+                                shareText = "shareText...."
+                                shareEmail = "angcyo@126.com"
+                                shareEmailSubject = "邮件主题"
+                            }
+                        }
+                    }
                 })
                 it.add(DslAdapterItem().apply {
                     itemSpanCount = -1
@@ -64,11 +120,10 @@ class MediaPickerDemo : AppDslFragment() {
         super.onActivityResult(requestCode, resultCode, data)
         DslPicker.onActivityResult(requestCode, resultCode, data)?.apply {
             renderDslAdapter {
-                loadSingleData<DslPickerImageItem>(this@apply, 1, 20) { oldItem, _ ->
-                    oldItem ?: DslPickerImageItem().apply {
-                        checkModel = false
-                    }
-                }
+                loadSingleData(
+                    this@apply,
+                    initOrCreateDslItem = this@MediaPickerDemo::initOrCreateItem
+                )
             }
         }
 
@@ -92,12 +147,29 @@ class MediaPickerDemo : AppDslFragment() {
                 }
                 appendln()
 
+
                 DslPicker.onActivityResult(requestCode, resultCode, data)?.run {
                     append(this.toString())
                 }
             }
 
             updateAdapterItem()
+        }
+    }
+
+    fun initOrCreateItem(oldItem: DslPickerImageItem?, data: Any): DslPickerImageItem {
+        return oldItem ?: DslPickerImageItem().apply {
+            checkModel = false
+            onItemClick = {
+                dslPager {
+                    fromRecyclerView = _recyclerView
+                    onPositionConvert = {
+                        it + _adapter.headerItems.size
+                    }
+                    loaderMediaList.addAll(_adapter.getAllItemData())
+                    startPosition = loaderMediaList.indexOf(loaderMedia)
+                }
+            }
         }
     }
 }
