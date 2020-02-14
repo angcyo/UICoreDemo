@@ -18,4 +18,5 @@ dependencies {
     implementation project(allModule.material)
     implementation project(allModule.dslitem)
     implementation project(allModule.picker)
+    implementation project(allModule.camerax)
 }

@@ -94,7 +94,8 @@ class MainFragment : AppDslFragment() {
             renderMainItem("OkDownloadDemo")
             renderMainItem("MediaPickerDemo $GO")
             renderMainItem("DialogDemo")
-            renderMainItem("NotifyDemo $GO")
+            renderMainItem("NotifyDemo")
+            renderMainItem("CameraXDemo $GO")
 
 //            for (i in 0..100) {
 //                renderMainItem("ViewPager2InFragmentDemo") {
