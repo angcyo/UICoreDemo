@@ -46,6 +46,18 @@
         <activity android:name="com.angcyo.uicore.activity.ViewPager2InViewPager2Activity" />
         <activity android:name="com.angcyo.uicore.activity.TransitionDetailActivity" />
         <activity android:name="com.angcyo.uicore.activity.TransitionDetailActivity2" />
+
+        <receiver
+            android:name="com.angcyo.uicore.app.AppBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="app.action.demo" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.angcyo.uicore.app.AppService"
+            android:exported="false" />
     </application>
 
 </manifest>

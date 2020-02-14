@@ -11,21 +11,21 @@
         android:id="@+id/defaults_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.4"
+        android:layout_weight="0.45"
         android:background="@drawable/app_theme_border_fill_selector" />
 
     <com.angcyo.widget.RSpinner
         android:id="@+id/priority_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.56"
+        android:layout_weight="0.45"
         android:background="@drawable/app_theme_border_fill_selector" />
 
     <com.angcyo.widget.RSpinner
         android:id="@+id/visibility_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5"
+        android:layout_weight="0.45"
         android:background="@drawable/app_theme_border_fill_selector" />
 
     <androidx.appcompat.widget.AppCompatCheckBox
@@ -41,6 +41,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ongoing" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/sub_text_cb"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SubText" />
 
     <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/action_cb"
@@ -70,15 +77,50 @@
         android:layout_height="wrap_content"
         android:text="FullScreenIntent" />
 
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/progress_indeterminate_cb"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ProgressIndeterminate" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/custom_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ContentView" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/custom_content_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CustomContentView" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/custom_big_content_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CustomBigContentView" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/custom_heads_up_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CustomHeadsUpView" />
+
     <com.angcyo.widget.DslButton
         android:id="@+id/notify_normal"
         style="@style/DefaultButtonStyleNormal"
         android:text="标准通知" />
 
     <com.angcyo.widget.DslButton
-        android:id="@+id/notify_normal_intent"
+        android:id="@+id/notify_progress"
         style="@style/DefaultButtonStyleNormal"
-        android:text="标准通知带Intent" />
+        android:text="进度通知" />
 
     <com.angcyo.widget.DslButton
         android:id="@+id/notify_big_text"

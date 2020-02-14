@@ -7,16 +7,23 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.Person
 import androidx.core.graphics.drawable.IconCompat
+import com.angcyo.component.hawkInstall
+import com.angcyo.component.hawkRestore
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.library.component.DslNotify
 import com.angcyo.library.component.dslNotify
+import com.angcyo.library.component.dslRemoteView
 import com.angcyo.library.ex.nowTime
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.uicore.MainActivity
+import com.angcyo.uicore.app.AppBroadcastReceiver
+import com.angcyo.uicore.app.AppService
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
+import com.angcyo.widget.base.anim
 import com.angcyo.widget.base.string
 import com.angcyo.widget.spinner
+import kotlin.random.Random.Default.nextInt
 
 /**
  *
@@ -41,16 +48,20 @@ class AppNotifyItem : DslAdapterItem() {
         val bitmap =
             BitmapFactory.decodeResource(itemHolder.content.resources, R.drawable.image_manhua_nv)
 
+        //默认配置
+
         fun config(notify: DslNotify) {
             notify.apply {
 
-                notifyOngoing = itemHolder.cb(R.id.ongoing_cb)?.isChecked == true
+                notifyNumber = nextInt(0, 10)
 
-                if (itemHolder.cb(R.id.large_icon_cb)?.isChecked == true) {
+                notifyOngoing = itemHolder.isChecked(R.id.ongoing_cb)
+
+                if (itemHolder.isChecked(R.id.large_icon_cb)) {
                     notifyLargeIcon = bitmap
                 }
 
-                if (itemHolder.cb(R.id.big_large_icon_cb)?.isChecked == true) {
+                if (itemHolder.isChecked(R.id.big_large_icon_cb)) {
                     styleBigLargeIcon = bitmap
                 }
 
@@ -58,8 +69,10 @@ class AppNotifyItem : DslAdapterItem() {
                 notifyText =
                     "${itemHolder.tv(R.id.notify_message_view).string()} ${nowTimeString()}"
 
-                notifyInfo = "notifyInfo"
-                notifySubText = "notifySubText"
+                if (itemHolder.isChecked(R.id.sub_text_cb)) {
+                    notifyInfo = "notifyInfo"
+                    notifySubText = "notifySubText"
+                }
 
                 itemHolder.spinner(R.id.defaults_spinner)?.getSelectedData<String>()?.run {
                     notifyDefaults = split(" ")[1].toInt()
@@ -73,34 +86,76 @@ class AppNotifyItem : DslAdapterItem() {
                     notifyVisibility = split(" ")[1].toInt()
                 }
 
-                if (itemHolder.cb(R.id.click_cb)?.isChecked == true) {
+                if (itemHolder.isChecked(R.id.click_cb)) {
                     notifyContentIntent =
                         DslNotify.pendingActivity(itemHolder.content, MainActivity::class.java)
                 }
 
-                if (itemHolder.cb(R.id.full_screen_intent_cb)?.isChecked == true) {
+                if (itemHolder.isChecked(R.id.full_screen_intent_cb)) {
                     notifyFullScreenIntent = DslNotify.pendingActivity(itemHolder.content, Intent())
                 }
 
-                if (itemHolder.cb(R.id.action_cb)?.isChecked == true) {
+                if (itemHolder.isChecked(R.id.progress_indeterminate_cb)) {
+                    notifyProgressIndeterminate = true
+                }
+
+                if (itemHolder.isChecked(R.id.action_cb)) {
                     notifyActions = listOf(
                         DslNotify.action(
                             "action1",
-                            DslNotify.pendingActivity(itemHolder.content, Intent())
+                            DslNotify.pendingActivity(itemHolder.content, MainActivity::class.java),
+                            android.R.drawable.ic_media_pause
                         ),
                         DslNotify.action(
                             "action2",
-                            DslNotify.pendingActivity(itemHolder.content, Intent())
+                            DslNotify.pendingBroadcast(
+                                itemHolder.content,
+                                Intent(AppBroadcastReceiver.ACTION_DEMO)
+                            ),
+                            android.R.drawable.ic_media_play
                         ),
                         DslNotify.action(
                             "action3",
-                            DslNotify.pendingActivity(itemHolder.content, Intent()),
-                            android.R.drawable.sym_action_call
+                            DslNotify.pendingService(itemHolder.content, AppService::class.java),
+                            android.R.drawable.ic_media_next
+                        ),
+                        DslNotify.action(
+                            "action4",
+                            DslNotify.pendingService(itemHolder.content, Intent()),
+                            android.R.drawable.ic_media_previous
+                        ),
+                        DslNotify.action(
+                            "action5",
+                            DslNotify.pendingService(itemHolder.content, Intent()),
+                            android.R.drawable.ic_media_ff
+                        ),
+                        DslNotify.action(
+                            "action5",
+                            DslNotify.pendingService(itemHolder.content, Intent()),
+                            android.R.drawable.ic_media_rew
                         )
                     )
                 }
+
+                if (itemHolder.isChecked(R.id.custom_view)) {
+                    notifyContentView = dslRemoteView { layoutId = R.layout.layout_notify_custom }
+                }
+                if (itemHolder.isChecked(R.id.custom_content_view)) {
+                    notifyCustomContentView =
+                        dslRemoteView { layoutId = R.layout.layout_notify_custom_conent }
+                }
+                if (itemHolder.isChecked(R.id.custom_big_content_view)) {
+                    notifyCustomBigContentView =
+                        dslRemoteView { layoutId = R.layout.layout_notify_custom_big }
+                }
+                if (itemHolder.isChecked(R.id.custom_heads_up_view)) {
+                    notifyCustomHeadsUpContentView =
+                        dslRemoteView { layoutId = R.layout.layout_notify_custom_heads_up }
+                }
             }
         }
+
+        //初始化
 
         itemHolder.spinner(R.id.defaults_spinner)
             ?.setStrings(
@@ -132,15 +187,27 @@ class AppNotifyItem : DslAdapterItem() {
                 )
             )
 
+        //事件
+
         itemHolder.click(R.id.notify_normal) {
             dslNotify {
                 config(this)
             }
         }
 
-        itemHolder.click(R.id.notify_normal_intent) {
-            dslNotify {
-                config(this)
+        itemHolder.click(R.id.notify_progress) {
+            val id = 0x8899
+            anim(0, 100) {
+                onAnimatorConfig = {
+                    it.duration = 3_000
+                }
+                onAnimatorUpdateValue = { value, _ ->
+                    dslNotify {
+                        config(this)
+                        notifyId = id
+                        notifyProgress = value as Int
+                    }
+                }
             }
         }
 
@@ -226,8 +293,33 @@ class AppNotifyItem : DslAdapterItem() {
         itemHolder.click(R.id.notify_media) {
             dslNotify {
                 config(this)
-                //styleBigPicture = bitmap
+                notifyActions = listOf(
+                    DslNotify.action(
+                        "action1",
+                        DslNotify.pendingActivity(itemHolder.content, MainActivity::class.java),
+                        android.R.drawable.ic_media_pause
+                    ),
+                    DslNotify.action(
+                        "action2",
+                        DslNotify.pendingBroadcast(
+                            itemHolder.content,
+                            Intent(AppBroadcastReceiver.ACTION_DEMO)
+                        ),
+                        android.R.drawable.ic_media_play
+                    ),
+                    DslNotify.action(
+                        "action3",
+                        DslNotify.pendingService(itemHolder.content, AppService::class.java),
+                        android.R.drawable.ic_media_next
+                    )
+                )
+                styleMediaShowActions = listOf(0, 1, 2)
             }
         }
+
+        //自动保存值
+        itemHolder.hawkInstall()
+        //恢复
+        itemHolder.hawkRestore()
     }
 }
