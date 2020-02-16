@@ -31,12 +31,13 @@ class AppCameraViewItem : DslCameraViewItem() {
 
         val cameraView: CameraView? = itemHolder.v(R.id.lib_camera_view)
 
-        val dslCameraView = DslCameraViewHelper()
-        dslCameraView.cameraView = cameraView
+        val dslCameraViewHelper = DslCameraViewHelper()
+        dslCameraViewHelper.cameraView = cameraView
 
         //拍照
         itemHolder.click(R.id.do_take_photo) {
-            dslCameraView.takePicture { file, exception ->
+            dslCameraViewHelper.saveToDCIM = itemHolder.isChecked(R.id.dcim_cb)
+            dslCameraViewHelper.takePicture { file, exception ->
                 if (exception == null) {
                     itemDslAdapter?.changeHeaderItems {
                         it.add(DslPickerImageItem().apply {
@@ -50,7 +51,8 @@ class AppCameraViewItem : DslCameraViewItem() {
 
         //录像
         itemHolder.click(R.id.do_take_video) {
-            dslCameraView.startRecording { file, exception ->
+            dslCameraViewHelper.saveToDCIM = itemHolder.isChecked(R.id.dcim_cb)
+            dslCameraViewHelper.startRecording { file, exception ->
                 if (exception == null) {
                     itemDslAdapter?.changeHeaderItems {
                         it.add(DslPickerImageItem().apply {
@@ -62,7 +64,7 @@ class AppCameraViewItem : DslCameraViewItem() {
             }
 
             itemHolder.postDelay(5_000) {
-                dslCameraView.stopRecording()
+                dslCameraViewHelper.stopRecording()
             }
         }
     }

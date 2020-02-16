@@ -11,6 +11,18 @@
         app:captureMode="mixed"
         app:layout_constraintDimensionRatio="1:1" />
 
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/dcim_cb"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/lib_hdpi"
+        android:text="toDCIM"
+        android:textColor="@color/lib_white"
+        app:layout_constraintBottom_toTopOf="@id/do_take_photo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
     <com.angcyo.widget.DslButton
         android:id="@+id/do_take_photo"
         style="@style/DefaultButtonStyleNormal"

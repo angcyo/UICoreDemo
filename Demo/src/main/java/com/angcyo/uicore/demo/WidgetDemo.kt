@@ -3,6 +3,7 @@ package com.angcyo.uicore.demo
 import android.os.Bundle
 import com.angcyo.library.ex.getDrawable
 import com.angcyo.uicore.base.AppTitleFragment
+import com.angcyo.widget.base.fullscreen
 import com.angcyo.widget.progress.ArcLoadingView
 import com.angcyo.widget.progress.DslSeekBar
 import com.angcyo.widget.span.span
@@ -53,10 +54,19 @@ class WidgetDemo : AppTitleFragment() {
             }
         }
 
-        _vh.click(R.id.button) {
+        _vh.click(R.id.button_start) {
             _vh.v<ArcLoadingView>(R.id.arc_load_view)?.startLoading()
         }
 
         //baseViewHolder.group(R.id.wrap_layout).helper()
+
+        _vh.click(R.id.button_full) {
+            _vh.itemView.fullscreen(true)
+
+        }
+
+        _vh.click(R.id.button_not_full) {
+            _vh.itemView.fullscreen(false)
+        }
     }
 }

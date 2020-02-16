@@ -26,6 +26,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!-- Declare notch support -->
+            <meta-data
+                android:name="android.notch_support"
+                android:value="true" />
         </activity>
 
         <service
@@ -37,6 +42,8 @@
             android:name="com.angcyo.uicore.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|fontScale|smallestScreenSize|density|screenLayout"
             android:launchMode="singleTask"
+            android:rotationAnimation="seamless"
+            android:screenOrientation="fullSensor"
             android:windowSoftInputMode="adjustResize" />
 
         <activity android:name="com.angcyo.uicore.activity.FragmentInFragmentActivity" />

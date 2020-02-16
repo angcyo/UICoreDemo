@@ -130,14 +130,35 @@
             app:progress_show_text="true"
             app:seek_thumb_over_height="8dp" />
 
-        <com.angcyo.widget.DslButton
-            android:id="@+id/button"
-            style="@style/DefaultButtonStyle"
-            android:layout_width="wrap_content"
+        <com.angcyo.widget.layout.DslFlowLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:text="开始" />
+            android:padding="@dimen/lib_hdpi">
 
+            <com.angcyo.widget.DslButton
+                android:id="@+id/button_start"
+                style="@style/DefaultButtonStyleNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="开始" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/button_full"
+                style="@style/DefaultButtonStyleNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="全屏" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/button_not_full"
+                style="@style/DefaultButtonStyleNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="非全屏" />
+        </com.angcyo.widget.layout.DslFlowLayout>
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
