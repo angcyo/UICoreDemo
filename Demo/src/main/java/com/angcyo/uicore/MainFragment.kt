@@ -16,6 +16,7 @@ import com.angcyo.http.dslHttp
 import com.angcyo.item.DslLastDeviceInfoItem
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.library.L
+import com.angcyo.library.component.work.Trackers
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.getColor
 import com.angcyo.library.ex.toDpi
@@ -105,7 +106,12 @@ class MainFragment : AppDslFragment() {
 //                }
 //            }
 
-            DslLastDeviceInfoItem()()
+            DslLastDeviceInfoItem()() {
+                onConfigDeviceInfo = {
+                    it.appendln()
+                    it.append(Trackers.getInstance().networkStateTracker.activeNetworkState.toString())
+                }
+            }
         }
     }
 

@@ -15,6 +15,21 @@ dependencies {
 
     debugImplementation "androidx.emoji:emoji:1.0.0"
 
+    //https://developer.android.google.cn/topic/libraries/architecture/workmanager.html
+    //http://mvnrepository.com/artifact/androidx.work
+    def work_version = "2.3.1"
+    // (Java only)
+    implementation "androidx.work:work-runtime:$work_version"
+    // Kotlin + coroutines
+    implementation "androidx.work:work-runtime-ktx:$work_version"
+    // optional - RxJava2 support
+    implementation "androidx.work:work-rxjava2:$work_version"
+    // optional - GCMNetworkManager support
+    implementation "androidx.work:work-gcm:$work_version"
+
+    // optional - Test helpers
+    androidTestImplementation "androidx.work:work-testing:$work_version"
+
     implementation project(allModule.material)
     implementation project(allModule.dslitem)
     implementation project(allModule.picker)
