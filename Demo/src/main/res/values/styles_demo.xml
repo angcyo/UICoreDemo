@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--声明属性-->
+    <attr name="demo_attr_color" format="color" />
+    <attr name="demo_attr_ref" format="reference" />
+    <attr name="demo_attr_dimen" format="dimension" />
+    <attr name="demo_attr_boolean" format="boolean" />
+    <attr name="demo_attr_float" format="float" />
+    <attr name="demo_attr_integer" format="integer" />
+    <attr name="demo_attr_string" format="string" />
+    <attr name="demo_attr_color_ref" format="color|reference" />
+
+    <!--定义属性的值-->
+    <style name="StylesDemo">
+        <item name="demo_attr_color">@color/lib_white</item>
+        <item name="demo_attr_ref">@drawable/ic_logo_png</item>
+        <item name="demo_attr_color_ref">@color/lib_white</item>
+        <item name="demo_attr_dimen">@dimen/lib_padding_left</item>
+        <item name="demo_attr_boolean">false</item>
+        <item name="demo_attr_float">8.8</item>
+        <item name="demo_attr_integer">9</item>
+        <item name="demo_attr_string">string_value</item>
+    </style>
+
+    <!--属性表-->
+    <declare-styleable name="StylesDemoStyleable">
+        <attr name="demo_attr_color" />
+        <attr name="demo_attr_ref" />
+        <attr name="demo_attr_dimen" />
+        <attr name="demo_attr_boolean" />
+        <attr name="demo_attr_float" />
+        <attr name="demo_attr_integer" />
+        <attr name="demo_attr_string" />
+        <attr name="demo_attr_color_ref" />
+    </declare-styleable>
+</resources>

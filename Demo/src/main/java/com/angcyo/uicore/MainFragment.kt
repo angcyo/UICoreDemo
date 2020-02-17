@@ -90,13 +90,14 @@ class MainFragment : AppDslFragment() {
             renderMainItem("ViewModelDemo")
             renderMainItem("ViewGroupOverlayDemo")
             renderMainItem("TransitionDemo")
-            renderMainItem("GlideImageDemo $GO")
+            renderMainItem("GlideImageDemo")
             renderMainItem("RegularPatternDemo")
             renderMainItem("OkDownloadDemo")
             renderMainItem("MediaPickerDemo $GO")
             renderMainItem("DialogDemo")
             renderMainItem("NotifyDemo")
-            renderMainItem("CameraXDemo $GO")
+            renderMainItem("CameraXDemo")
+            renderMainItem("StyleDemo ThemeStyledAttributes $GO")
 
 //            for (i in 0..100) {
 //                renderMainItem("ViewPager2InFragmentDemo") {
