@@ -97,7 +97,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("DialogDemo")
             renderMainItem("NotifyDemo")
             renderMainItem("CameraXDemo")
-            renderMainItem("StyleDemo ThemeStyledAttributes $GO")
+            renderMainItem("StyleDemo ThemeStyledAttributes")
 
 //            for (i in 0..100) {
 //                renderMainItem("ViewPager2InFragmentDemo") {
@@ -133,7 +133,7 @@ class MainFragment : AppDslFragment() {
     override fun onFragmentFirstShow(bundle: Bundle?) {
         super.onFragmentFirstShow(bundle)
 
-        launchGlobal {
+        launchLifecycle {
             val url = "https://www.mxnzp.com/api/tools/system/time"
             L.i("开始请求:")
             try {

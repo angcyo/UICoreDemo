@@ -46,6 +46,20 @@
         android:text="SIZE_MODEL_MEDIA"
         app:switchPadding="@dimen/lib_hdpi" />
 
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/origin_cb"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="原图" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/edit_cb"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="编辑" />
+
     <com.angcyo.widget.DslButton
         android:id="@+id/image_button"
         style="@style/DefaultButtonStyle"

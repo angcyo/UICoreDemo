@@ -3,7 +3,10 @@ package com.angcyo.uicore.dslitem
 import androidx.camera.view.CameraView
 import com.angcyo.camerax.dslitem.DslCameraViewHelper
 import com.angcyo.camerax.dslitem.DslCameraViewItem
+import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.dsladapter.DslAdapterItem
+import com.angcyo.library.ex.simpleClassName
+import com.angcyo.library.toast
 import com.angcyo.loader.LoaderMedia
 import com.angcyo.picker.dslitem.DslPickerImageItem
 import com.angcyo.uicore.demo.R
@@ -46,6 +49,7 @@ class AppCameraViewItem : DslCameraViewItem() {
                         })
                     }
                 }
+                toast("$file")
             }
         }
 
@@ -61,11 +65,14 @@ class AppCameraViewItem : DslCameraViewItem() {
                         })
                     }
                 }
+                toast("$file")
             }
 
             itemHolder.postDelay(5_000) {
                 dslCameraViewHelper.stopRecording()
             }
         }
+
+        itemHolder.hawkInstallAndRestore(this.simpleClassName())
     }
 }
