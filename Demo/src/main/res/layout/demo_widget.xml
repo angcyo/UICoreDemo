@@ -158,6 +158,23 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:text="非全屏" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/button_low"
+                style="@style/DefaultButtonStyleNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="低调模式" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/button_not_low"
+                style="@style/DefaultButtonStyleNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="非低调模式" />
+
         </com.angcyo.widget.layout.DslFlowLayout>
 
     </LinearLayout>

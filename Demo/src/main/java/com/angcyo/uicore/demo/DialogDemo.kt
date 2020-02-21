@@ -7,6 +7,7 @@ import android.widget.RadioGroup
 import com.angcyo.dialog.*
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.library.L
+import com.angcyo.library.ex._color
 import com.angcyo.library.ex.getColor
 import com.angcyo.library.toast
 import com.angcyo.uicore.base.AppDslFragment
@@ -57,12 +58,14 @@ class DialogDemo : AppDslFragment() {
         holder.click(R.id.normal_dialog) {
             fContext().normalDialog {
                 _defaultConfig(holder, this)
+                navigationBarColor = _color(R.color.lib_white)
             }
         }
 
         holder.click(R.id.normal_ios_dialog) {
             fContext().normalIosDialog {
                 _defaultConfig(holder, this)
+                navigationBarColor = _color(R.color.lib_white)
             }
         }
 

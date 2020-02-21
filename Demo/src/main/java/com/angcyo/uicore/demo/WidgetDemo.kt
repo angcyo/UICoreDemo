@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.angcyo.library.ex.getDrawable
 import com.angcyo.uicore.base.AppTitleFragment
 import com.angcyo.widget.base.fullscreen
+import com.angcyo.widget.base.lowProfile
 import com.angcyo.widget.progress.ArcLoadingView
 import com.angcyo.widget.progress.DslSeekBar
 import com.angcyo.widget.span.span
@@ -62,11 +63,18 @@ class WidgetDemo : AppTitleFragment() {
 
         _vh.click(R.id.button_full) {
             _vh.itemView.fullscreen(true)
-
         }
 
         _vh.click(R.id.button_not_full) {
             _vh.itemView.fullscreen(false)
+        }
+
+        _vh.click(R.id.button_low) {
+            _vh.itemView.lowProfile(true)
+        }
+
+        _vh.click(R.id.button_not_low) {
+            _vh.itemView.lowProfile(false)
         }
     }
 }
