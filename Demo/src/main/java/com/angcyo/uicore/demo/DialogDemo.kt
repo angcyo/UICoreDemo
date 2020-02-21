@@ -516,6 +516,20 @@ class DialogDemo : AppDslFragment() {
                 _defaultConfig(holder, this)
             }
         }
+        holder.click(R.id.normal_popup_style) {
+            fContext().popupWindow(it) {
+                layoutId = R.layout.item_dialog_demo_layout
+                background = ColorDrawable(Color.RED)
+                onDismiss = {
+                    L.i("...dismiss...")
+                    toast("...dismiss...")
+                    false
+                }
+                popupStyleAttr = R.style.LibPopupWindowStyle
+                animationStyle = -1
+                _defaultConfig(holder, this)
+            }
+        }
         holder.click(R.id.bottom_popup) {
             fContext().popupWindow(it) {
                 layoutId = R.layout.item_dialog_demo_layout

@@ -81,7 +81,7 @@ class MainFragment : AppDslFragment() {
             }
 
             renderMainItem("DrawableSpanDemo")
-            renderMainItem("WidgetDemo ArcLoadingView")
+            renderMainItem("WidgetDemo ArcLoadingView $GO")
             renderMainItem("RefreshEffectDemo")
             renderMainItem("RefreshDemo")
             renderMainItem("DslAffectDemo")
@@ -93,7 +93,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("GlideImageDemo")
             renderMainItem("RegularPatternDemo")
             renderMainItem("OkDownloadDemo")
-            renderMainItem("MediaPickerDemo $GO")
+            renderMainItem("MediaPickerDemo")
             renderMainItem("DialogDemo")
             renderMainItem("NotifyDemo")
             renderMainItem("CameraXDemo")

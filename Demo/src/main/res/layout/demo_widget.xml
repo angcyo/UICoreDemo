@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:background="@color/lib_white">
 
     <LinearLayout
         android:id="@+id/wrap_layout"
@@ -175,6 +176,23 @@
                 android:layout_margin="4dp"
                 android:text="非低调模式" />
 
+        </com.angcyo.widget.layout.DslFlowLayout>
+
+        <com.angcyo.widget.progress.HSProgressView
+            android:id="@+id/hs_progress_view"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            app:r_progress_color="@color/colorAccent" />
+
+        <com.angcyo.widget.layout.DslFlowLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/start_hs"
+                style="@style/LibButtonBorderSelectorStyle"
+                android:layout_margin="@dimen/lib_hdpi"
+                android:text="Start" />
         </com.angcyo.widget.layout.DslFlowLayout>
 
     </LinearLayout>

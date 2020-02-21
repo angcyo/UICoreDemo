@@ -1,5 +1,7 @@
 package com.angcyo.uicore.demo
 
+import android.content.res.TypedArray
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import com.angcyo.dsladapter.DslAdapterItem
@@ -30,34 +32,53 @@ class StyleDemo : AppDslFragment() {
                             R.styleable.StylesDemoStyleable
                         )
 
-                        for (i in 0 until typedArray.length()) {
-                            appendln()
+                        val typedArray2 = fContext().obtainStyledAttributes(
+                            null,
+                            R.styleable.StylesDemoStyleable,
+                            0,
+                            R.style.StylesDemo
+                        )
 
-                            val index = typedArray.getIndex(i)
-                            val type = typedArray.getType(index)
-                            val value = typedArray.peekValue(index)
+                        fun log(typedArray: TypedArray) {
+                            for (i in 0 until typedArray.length()) {
+                                appendln()
 
-                            append("$i->")
-                            append(" type:") {
-                                foregroundColor = _color(R.color.colorPrimaryDark)
+                                val index = typedArray.getIndex(i)
+                                val type = typedArray.getType(index)
+                                val value = typedArray.peekValue(index)
+
+                                append("$i->")
+                                append(" type:") {
+                                    foregroundColor = _color(R.color.colorPrimaryDark)
+                                }
+                                append("$type")
+                                append(" value:") {
+                                    foregroundColor = _color(R.color.colorPrimaryDark)
+                                }
+                                append("$value")
+
+                                appendln()
+
+                                append("${value.string}") {
+                                    foregroundColor = _color(R.color.colorPrimaryDark)
+                                }
+                                append(" ${typedArray.getString(index)}")
+
+                                appendln()
                             }
-                            append("$type")
-                            append(" value:") {
-                                foregroundColor = _color(R.color.colorPrimaryDark)
-                            }
-                            append("$value")
 
-                            appendln()
-
-                            append("${value.string}") {
-                                foregroundColor = _color(R.color.colorPrimaryDark)
-                            }
-                            append(" ${typedArray.getString(index)}")
-
-                            appendln()
+                            typedArray.recycle()
                         }
 
-                        typedArray.recycle()
+                        append("TypedArray1:") {
+                            foregroundColor = Color.RED
+                        }
+                        log(typedArray)
+                        appendln()
+                        append("TypedArray2:") {
+                            foregroundColor = Color.RED
+                        }
+                        log(typedArray2)
                     }
                 }
             }

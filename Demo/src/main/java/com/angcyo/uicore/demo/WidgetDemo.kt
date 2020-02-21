@@ -7,6 +7,7 @@ import com.angcyo.widget.base.fullscreen
 import com.angcyo.widget.base.lowProfile
 import com.angcyo.widget.progress.ArcLoadingView
 import com.angcyo.widget.progress.DslSeekBar
+import com.angcyo.widget.progress.HSProgressView
 import com.angcyo.widget.span.span
 import com.angcyo.widget.spinner
 
@@ -75,6 +76,16 @@ class WidgetDemo : AppTitleFragment() {
 
         _vh.click(R.id.button_not_low) {
             _vh.itemView.lowProfile(false)
+        }
+
+        //hs progress
+        _vh.selectorClick(R.id.start_hs) {
+            if (it) {
+                _vh.v<HSProgressView>(R.id.hs_progress_view)?.startAnimator()
+            } else {
+                _vh.v<HSProgressView>(R.id.hs_progress_view)?.stopAnimator()
+            }
+            false
         }
     }
 }
