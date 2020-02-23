@@ -28,12 +28,12 @@ class DialogDemo : AppDslFragment() {
             DslAdapterItem()() {
                 itemLayoutId = R.layout.item_dialog_demo_layout
 
-                onItemBindOverride = this@DialogDemo::_bindDialogDemoItem
+                itemBindOverride = this@DialogDemo::_bindDialogDemoItem
             }
             DslAdapterItem()() {
                 itemLayoutId = R.layout.item_popup_demo_layout
 
-                onItemBindOverride = this@DialogDemo::_bindPopupDemoItem
+                itemBindOverride = this@DialogDemo::_bindPopupDemoItem
             }
         }
     }

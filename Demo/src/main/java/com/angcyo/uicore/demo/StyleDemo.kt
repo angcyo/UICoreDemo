@@ -24,7 +24,7 @@ class StyleDemo : AppDslFragment() {
             DslAdapterItem()() {
                 itemLayoutId = R.layout.lib_text_layout
 
-                onItemBindOverride = { itemHolder, _, _, _ ->
+                itemBindOverride = { itemHolder, _, _, _ ->
                     itemHolder.tv(R.id.lib_text_view)?.text = span {
 
                         val typedArray = fContext().obtainStyledAttributes(

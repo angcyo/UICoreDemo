@@ -51,7 +51,7 @@ class MediaPickerDemo : AppDslFragment() {
                         }
                         dslPicker(loaderConfig)
                     }
-                    onItemBindOverride = { itemHolder, _, _, _ ->
+                    itemBindOverride = { itemHolder, _, _, _ ->
                         //拍照
                         itemHolder.click(R.id.do_take_photo) {
                             DslPicker.takePhoto(requireActivity()) {
@@ -108,7 +108,7 @@ class MediaPickerDemo : AppDslFragment() {
                     itemSpanCount = -1
                     itemTag = "result"
                     itemLayoutId = R.layout.lib_text_layout
-                    onItemBindOverride = { itemHolder, _, _, _ ->
+                    itemBindOverride = { itemHolder, _, _, _ ->
                         itemHolder.tv(R.id.lib_text_view)?.text = itemData as? CharSequence
                     }
                 })

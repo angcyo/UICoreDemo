@@ -51,7 +51,7 @@ class AppOkDownloadItem : DslAdapterItem() {
 //            L.i("添加监听:${this@AppOkDownloadItem.simpleHash()}")
 //            DslDownload.listener(downloadUrl, listener)
 //        }
-        onItemViewDetachedToWindow = {
+        itemViewDetachedToWindow = { _, _ ->
             L.i("移除监听:${this@AppOkDownloadItem.simpleHash()}")
             DslDownload.removeListener(downloadUrl, listener)
             //DslDownload.cancel(downloadUrl)
