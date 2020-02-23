@@ -27,7 +27,7 @@
             app:progress_radius="25dp"
             app:progress_show_text="true"
             app:progress_text_min_width="40dp"
-            app:progress_track_drawable_gradient_colors="@color/colorPrimary"
+            app:progress_track_gradient_colors="@color/colorPrimary"
             tools:progress_value="50" />
 
         <com.angcyo.widget.progress.DslSeekBar
@@ -44,7 +44,7 @@
             app:progress_show_text="true"
             app:progress_text_offset="0dp"
             app:progress_track_drawable="@color/colorPrimaryDark"
-            app:progress_track_drawable_gradient_colors="@color/colorPrimaryDark"
+            app:progress_track_gradient_colors="@color/colorPrimaryDark"
             app:progress_value="50"
             app:seek_show_thumb_text="true"
             app:seek_thumb_solid_color="#ff0000"

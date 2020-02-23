@@ -126,10 +126,44 @@
             android:layout_height="40dp"
             android:paddingLeft="@dimen/lib_xxhdpi"
             android:paddingRight="@dimen/lib_xxhdpi"
-            android:paddingBottom="10dp"
             app:progress_height="5dp"
             app:progress_show_text="true"
             app:seek_thumb_over_height="8dp" />
+
+        <com.angcyo.widget.progress.DslProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:progress_value="70" />
+
+        <com.angcyo.widget.progress.DslProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:progress_bg_gradient_colors="@color/transparent10"
+            app:progress_radius="10dp"
+            app:progress_second_value="60"
+            app:progress_value="30" />
+
+        <com.angcyo.widget.progress.DslSeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:progress_radius="10dp"
+            app:progress_value="80" />
+
+        <com.angcyo.widget.progress.DslProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:progress_bg_gradient_colors="@color/transparent10"
+            app:progress_radius="10dp"
+            app:progress_second_value="60"
+            app:progress_value="30" />
+
+        <com.angcyo.widget.progress.DslSeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:progress_radius="10dp"
+            app:progress_second_value="60"
+            app:progress_value="20"
+            app:seek_thumb_touch_halo_gradient_colors="#6200EE,#00000000" />
 
         <com.angcyo.widget.layout.DslFlowLayout
             android:layout_width="match_parent"
