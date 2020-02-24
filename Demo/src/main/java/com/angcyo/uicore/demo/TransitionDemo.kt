@@ -141,7 +141,7 @@ open class TransitionDemo : AppTitleFragment() {
         dslTransition(_vh.group(R.id.scene_layout), R.layout.scene_layout1) {
             onSetTransition = {
                 TransitionSet().apply {
-                    TransitionDetailActivity.getTransitionAnimx(animExit)
+                    TransitionDetailActivity.getTransitionAnimX(animExit)
                         ?.run { addTransition(this) }
                     addTransition(ChangeBounds())
                     addTransition(ChangeTransform())
@@ -161,7 +161,7 @@ open class TransitionDemo : AppTitleFragment() {
         dslTransition(_vh.group(R.id.scene_layout), R.layout.scene_layout2) {
             onSetTransition = {
                 TransitionSet().apply {
-                    TransitionDetailActivity.getTransitionAnimx(animEnter)
+                    TransitionDetailActivity.getTransitionAnimX(animEnter)
                         ?.run { addTransition(this) }
                     addTransition(ChangeBounds())
                     addTransition(ChangeTransform())

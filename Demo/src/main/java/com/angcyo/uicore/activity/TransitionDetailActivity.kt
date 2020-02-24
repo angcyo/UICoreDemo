@@ -41,7 +41,7 @@ class TransitionDetailActivity : BasePermissionsActivity() {
             }
         }
 
-        fun getTransitionAnimx(anim: Int): androidx.transition.Transition? {
+        fun getTransitionAnimX(anim: Int): androidx.transition.Transition? {
             return when (anim) {
                 ANIM_EXPLODE -> androidx.transition.Explode()
                 ANIM_FADE -> androidx.transition.Fade()

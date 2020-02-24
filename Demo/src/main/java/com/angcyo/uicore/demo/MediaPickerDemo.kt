@@ -5,11 +5,11 @@ import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem
-import com.angcyo.dsladapter.findItemByTag
 import com.angcyo.dsladapter.getAllItemData
 import com.angcyo.library.component.DslIntent
 import com.angcyo.library.component.dslIntentShare
 import com.angcyo.library.ex._color
+import com.angcyo.library.ex.dpi
 import com.angcyo.library.utils.resultString
 import com.angcyo.loader.LoaderMedia
 import com.angcyo.pager.dslPager
@@ -18,6 +18,7 @@ import com.angcyo.picker.dslPicker
 import com.angcyo.picker.dslitem.DslPickerImageItem
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.AppMediaPickerItem
+import com.angcyo.widget.base.setHeight
 import com.angcyo.widget.recycler.resetLayoutManager
 import com.angcyo.widget.span.span
 
@@ -113,6 +114,17 @@ class MediaPickerDemo : AppDslFragment() {
                     }
                 })
             }
+
+            //占位item
+            changeFooterItems {
+                it.add(DslAdapterItem().apply {
+                    itemSpanCount = -1
+                    itemLayoutId = R.layout.lib_empty_item
+                    itemBindOverride = { itemHolder, _, _, _ ->
+                        itemHolder.itemView.setHeight(100 * dpi)
+                    }
+                })
+            }
         }
     }
 
@@ -124,10 +136,16 @@ class MediaPickerDemo : AppDslFragment() {
                     this@apply,
                     initOrCreateDslItem = this@MediaPickerDemo::initOrCreateItem
                 )
+
+                onDispatchUpdatesAfterOnce = {
+                    _recycler.scrollHelper.lockPositionByDraw {
+                        lockDuration = 360
+                    }
+                }
             }
         }
 
-        _adapter.findItemByTag("result")?.apply {
+        _adapter["result"]?.apply {
             itemData = span {
                 append("requestCode:")
                 append("$requestCode") {
@@ -162,7 +180,7 @@ class MediaPickerDemo : AppDslFragment() {
             checkModel = false
             onItemClick = {
                 dslPager {
-                    fromRecyclerView = _recyclerView
+                    fromRecyclerView = _recycler
                     onPositionConvert = {
                         it + _adapter.headerItems.size
                     }
