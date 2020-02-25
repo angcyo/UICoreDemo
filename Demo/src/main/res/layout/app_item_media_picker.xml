@@ -14,7 +14,7 @@
         style="@style/LibBodyTextStyle"
         android:layout_width="0dp"
         android:layout_height="@dimen/lib_item_min_height"
-        android:layout_weight="0.47"
+        android:layout_weight="0.45"
         android:hint="最多选中"
         android:inputType="numberDecimal" />
 
@@ -23,7 +23,7 @@
         style="@style/LibBodyTextStyle"
         android:layout_width="0dp"
         android:layout_height="@dimen/lib_item_min_height"
-        android:layout_weight="0.47"
+        android:layout_weight="0.45"
         android:hint="文件最小(kb)"
         android:inputType="numberDecimal" />
 
@@ -32,7 +32,7 @@
         style="@style/LibBodyTextStyle"
         android:layout_width="0dp"
         android:layout_height="@dimen/lib_item_min_height"
-        android:layout_weight="0.47"
+        android:layout_weight="0.45"
         android:hint="文件最大(kb)"
         android:inputType="numberDecimal" />
 
