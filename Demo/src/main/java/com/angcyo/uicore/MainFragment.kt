@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.behavior.HideTitleBarBehavior
-import com.angcyo.coroutine.launchGlobal
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.http.ApiKt
