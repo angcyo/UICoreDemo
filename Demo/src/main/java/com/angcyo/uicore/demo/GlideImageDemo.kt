@@ -1,6 +1,7 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.pager.dslPager
@@ -23,9 +24,8 @@ open class GlideImageDemo : AppDslFragment() {
         recyclerView.resetLayoutManager("SV2")
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         renderDslAdapter {
             for (i in 0..100) {
                 AppImageItem(i)() {

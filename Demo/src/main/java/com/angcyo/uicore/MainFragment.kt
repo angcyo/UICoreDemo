@@ -99,6 +99,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("CameraXDemo")
             renderMainItem("StyleDemo ThemeStyledAttributes")
             renderMainItem("ShortcutDemo $GO")
+            renderMainItem("DslDrawItemDecorationDemo $GO")
 
             DslLastDeviceInfoItem()() {
                 onConfigDeviceInfo = {
