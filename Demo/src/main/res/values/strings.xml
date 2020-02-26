@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">UICoreDemo</string>
+
+    <string name="compose_disabled_message">快捷方式不可用</string>
+    <string name="compose_shortcut_long_label">shortcut_long_label</string>
+    <string name="compose_shortcut_short_label">shortcut_short_label</string>
+
+    <string name="compose_shortcut_long_label2">快捷方式</string>
 </resources>

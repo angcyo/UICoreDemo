@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.widget.layout.DslFlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/lib_xhdpi"
+    app:r_flow_item_horizontal_space="@dimen/lib_hdpi"
+    app:r_flow_item_vertical_space="@dimen/lib_hdpi">
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/action_pin_shortcut"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tag="1"
+        android:text="ACTION_TYPE_PIN_SHORTCUT API21" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/action_install_shortcut"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tag="32"
+        android:text="ACTION_TYPE_INSTALL_SHORTCUT API21" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/action_dynamic_shortcut"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tag="2"
+        android:text="ACTION_TYPE_DYNAMIC_SHORTCUT API25" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/action_remove_shortcut"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tag="4"
+        android:text="ACTION_TYPE_REMOVE_SHORTCUT API25" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/action_update_shortcut"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tag="8"
+        android:text="ACTION_TYPE_UPDATE_SHORTCUT API25" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/action_remove_all_shortcut"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tag="16"
+        android:text="ACTION_TYPE_REMOVE_ALL_SHORTCUT API25" />
+
+    <com.angcyo.widget.edit.DslEditText
+        android:id="@+id/shortcut_id"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="快捷方式的id"
+        android:text="shortcut_id" />
+
+    <com.angcyo.widget.edit.DslEditText
+        android:id="@+id/shortcut_label"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="快捷方式的label"
+        android:text="快捷方式" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/button1"
+        style="@style/DefaultButtonStyleNormal"
+        android:text="快捷方式" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/button2"
+        style="@style/DefaultButtonStyleNormal"
+        android:text="随机Label快捷方式" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/button3"
+        style="@style/DefaultButtonStyleNormal"
+        android:enabled="false"
+        android:text="快捷方式" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/button4"
+        style="@style/DefaultButtonStyleNormal"
+        android:enabled="false"
+        android:text="快捷方式" />
+
+</com.angcyo.widget.layout.DslFlowLayout>

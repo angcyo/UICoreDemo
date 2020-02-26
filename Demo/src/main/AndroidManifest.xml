@@ -30,6 +30,11 @@
             <meta-data
                 android:name="android.notch_support"
                 android:value="true" />
+
+            <!--静态注册快捷方式-->
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
         </activity>
 
         <service
@@ -58,12 +63,27 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="app.action.demo" />
+                <action android:name="${applicationId}.request_pin_shortcut" />
             </intent-filter>
         </receiver>
 
         <service
             android:name="com.angcyo.uicore.app.AppService"
             android:exported="false" />
+
+        <!--快捷方式测试-->
+        <activity
+            android:name="com.angcyo.uicore.activity.ShortcutActivity"
+            android:label="ShortcutActivity">
+            <intent-filter>
+                <!--[MAIN] [VIEW] 二选一都可以-->
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <!--可以不添加-->
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

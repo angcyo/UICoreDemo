@@ -1,7 +1,15 @@
 package com.angcyo.uicore
 
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
 import com.angcyo.base.dslFHelper
 import com.angcyo.core.activity.BasePermissionsActivity
+import com.angcyo.library.component.DslShortcut
+import com.angcyo.library.component.dslShortcut
+import com.angcyo.library.utils.RUtils
+import com.angcyo.library.utils.checkApkExist
+import com.angcyo.uicore.demo.R
 
 /**
  *
@@ -43,6 +51,60 @@ class MainActivity : BasePermissionsActivity() {
 //        )
     }
 
+    override fun onCreateAfter(savedInstanceState: Bundle?) {
+        super.onCreateAfter(savedInstanceState)
+
+        dslShortcut(this) {
+            //清空之前, 防止max崩溃
+            shortcutAction = DslShortcut.ACTION_TYPE_REMOVE_ALL_SHORTCUT
+        }
+
+        dslShortcut(this) {
+            shortcutAction = DslShortcut.ACTION_TYPE_DYNAMIC_SHORTCUT
+            shortcutLabel = "CSDN博客"
+            shortcutIconId = R.drawable.ic_logo_small
+            shortcutIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://angcyo.blog.csdn.net"))
+        }
+
+
+
+        dslShortcut(this) {
+            shortcutAction = DslShortcut.ACTION_TYPE_DYNAMIC_SHORTCUT
+            shortcutLabel = "官网"
+            shortcutIconId = R.drawable.ic_logo_small
+            shortcutIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.angcyo.com"))
+        }
+
+        if (checkApkExist("com.tencent.mobileqq")) {
+            dslShortcut(this) {
+                shortcutAction = DslShortcut.ACTION_TYPE_DYNAMIC_SHORTCUT
+                shortcutLabel = "QQ咨询"
+                shortcutIconId = R.drawable.ic_logo_small
+                shortcutIntent = RUtils.chatQQIntent(this@MainActivity)
+            }
+
+            dslShortcut(this) {
+                shortcutAction = DslShortcut.ACTION_TYPE_DYNAMIC_SHORTCUT
+                shortcutLabel = "QQ入群学习"
+                shortcutIconId = R.drawable.ic_logo_small
+                shortcutIntent = RUtils.joinQQGroupIntent(this@MainActivity)
+            }
+        } else {
+            dslShortcut(this) {
+                shortcutAction = DslShortcut.ACTION_TYPE_DYNAMIC_SHORTCUT
+                shortcutLabel = "Github"
+                shortcutIconId = R.drawable.ic_logo_small
+                shortcutIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/angcyo"))
+            }
+            dslShortcut(this) {
+                shortcutAction = DslShortcut.ACTION_TYPE_DYNAMIC_SHORTCUT
+                shortcutLabel = "掘金"
+                shortcutIconId = R.drawable.ic_logo_small
+                shortcutIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://juejin.im/user/576a151b2e958a00699c11f0"))
+            }
+        }
+    }
+
     override fun onPermissionGranted() {
         super.onPermissionGranted()
         dslFHelper {
@@ -50,4 +112,5 @@ class MainActivity : BasePermissionsActivity() {
             restore(MainFragment())
         }
     }
+
 }

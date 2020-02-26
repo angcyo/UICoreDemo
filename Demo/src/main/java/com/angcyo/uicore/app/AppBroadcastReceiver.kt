@@ -6,6 +6,7 @@ import android.content.Intent
 import com.angcyo.library.L
 import com.angcyo.library.component.dslNotify
 import com.angcyo.library.ex.simpleHash
+import com.angcyo.uicore.demo.R
 
 /**
  * https://developer.android.google.cn/guide/components/broadcasts.html
@@ -27,7 +28,11 @@ class AppBroadcastReceiver : BroadcastReceiver() {
         L.i("${this.simpleHash()} 广播:$context $intent")
 
         dslNotify(context) {
-            notifyText = "收到广播${intent?.action}"
+            notifySmallIcon = R.drawable.ic_logo_small
+            notifyTitle = "收到广播"
+            notifyText = "${intent?.action}"
+
+            styleBigText = "$intent"
         }
     }
 }

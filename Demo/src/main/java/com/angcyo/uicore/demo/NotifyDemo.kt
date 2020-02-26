@@ -11,6 +11,10 @@ import com.angcyo.uicore.dslitem.AppNotifyItem
  * @date 2020/02/13
  */
 class NotifyDemo : AppDslFragment() {
+    init {
+        enableSoftInput = true
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         _adapter + AppNotifyItem()

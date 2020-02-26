@@ -23,6 +23,7 @@ import com.angcyo.library.toast
 import com.angcyo.uicore.activity.*
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.R
+import com.angcyo.widget.base.onDoubleTap
 import com.angcyo.widget.base.reveal
 import com.angcyo.widget.recycler.allViewHolder
 import com.angcyo.widget.recycler.get
@@ -97,14 +98,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("NotifyDemo")
             renderMainItem("CameraXDemo")
             renderMainItem("StyleDemo ThemeStyledAttributes")
-
-//            for (i in 0..100) {
-//                renderMainItem("ViewPager2InFragmentDemo") {
-//                    dslAHelper {
-//                        start(ViewPager2InFragmentActivity::class.java)
-//                    }
-//                }
-//            }
+            renderMainItem("ShortcutDemo $GO")
 
             DslLastDeviceInfoItem()() {
                 onConfigDeviceInfo = {
@@ -127,6 +121,10 @@ class MainFragment : AppDslFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        titleControl()?.selectorView?.onDoubleTap {
+            _jumpToLockPosition()
+            true
+        }
     }
 
     override fun onFragmentFirstShow(bundle: Bundle?) {
@@ -153,6 +151,10 @@ class MainFragment : AppDslFragment() {
         }
 
         //自动跳转至指定Demo
+        _jumpToLockPosition()
+    }
+
+    fun _jumpToLockPosition() {
         if (lockDemoPosition >= 0) {
             _vh.postDelay(300) {
                 _adapter[lockDemoPosition]?.onItemClick?.invoke(_vh.itemView)
