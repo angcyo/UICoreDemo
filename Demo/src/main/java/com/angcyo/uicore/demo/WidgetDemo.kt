@@ -1,7 +1,10 @@
 package com.angcyo.uicore.demo
 
+import android.content.Intent
 import android.os.Bundle
+import com.angcyo.core.activity.JumpActivity
 import com.angcyo.library.ex.getDrawable
+import com.angcyo.uicore.activity.ShortcutActivity
 import com.angcyo.uicore.base.AppTitleFragment
 import com.angcyo.widget.base.fullscreen
 import com.angcyo.widget.base.lowProfile
@@ -86,6 +89,14 @@ class WidgetDemo : AppTitleFragment() {
                 _vh.v<HSProgressView>(R.id.hs_progress_view)?.stopAnimator()
             }
             false
+        }
+
+        //跳板测试
+        _vh.click(R.id.jump) {
+            JumpActivity.jump(fContext(), Intent(fContext(), ShortcutActivity::class.java))
+        }
+        _vh.click(R.id.jump_fragment) {
+
         }
     }
 }
