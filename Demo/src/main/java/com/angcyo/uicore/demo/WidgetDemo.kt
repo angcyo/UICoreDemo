@@ -2,10 +2,14 @@ package com.angcyo.uicore.demo
 
 import android.content.Intent
 import android.os.Bundle
+import com.angcyo.core.activity.FragmentWrapActivity
 import com.angcyo.core.activity.JumpActivity
 import com.angcyo.library.ex.getDrawable
+import com.angcyo.library.ex.nowTimeString
+import com.angcyo.putData
 import com.angcyo.uicore.activity.ShortcutActivity
 import com.angcyo.uicore.base.AppTitleFragment
+import com.angcyo.uicore.fragment.ShortcutFragment
 import com.angcyo.widget.base.fullscreen
 import com.angcyo.widget.base.lowProfile
 import com.angcyo.widget.progress.ArcLoadingView
@@ -96,7 +100,22 @@ class WidgetDemo : AppTitleFragment() {
             JumpActivity.jump(fContext(), Intent(fContext(), ShortcutActivity::class.java))
         }
         _vh.click(R.id.jump_fragment) {
-
+            FragmentWrapActivity.jump(
+                fContext(),
+                Intent(fContext(), ShortcutFragment::class.java).apply {
+                    putData(nowTimeString())
+                },
+                false
+            )
+        }
+        _vh.click(R.id.jump_fragment_single_task) {
+            FragmentWrapActivity.jump(
+                fContext(),
+                Intent(fContext(), ShortcutFragment::class.java).apply {
+                    putData(nowTimeString())
+                },
+                true
+            )
         }
     }
 }

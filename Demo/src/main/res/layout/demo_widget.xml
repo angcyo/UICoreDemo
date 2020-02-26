@@ -239,6 +239,12 @@
                 style="@style/DefaultButtonStyleNormal"
                 android:layout_margin="@dimen/lib_hdpi"
                 android:text="JumpFragment" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/jump_fragment_single_task"
+                style="@style/DefaultButtonStyleNormal"
+                android:layout_margin="@dimen/lib_hdpi"
+                android:text="JumpFragmentSingleTask" />
         </com.angcyo.widget.layout.DslFlowLayout>
 
     </LinearLayout>
