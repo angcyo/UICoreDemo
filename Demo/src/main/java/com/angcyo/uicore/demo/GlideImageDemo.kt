@@ -29,6 +29,7 @@ class GlideImageDemo : AppDslFragment() {
         renderDslAdapter {
             for (i in 0..100) {
                 AppImageItem(i)() {
+                    imageMask = true
                     onItemClick = {
                         pager()
 //                        dslPager {
@@ -53,7 +54,7 @@ class GlideImageDemo : AppDslFragment() {
     fun AppImageItem.pager() {
         val item = this
         dslPager {
-            transitionShowDelay = 300
+            transitionShowDelay = 30
             fromRecyclerView = _vh.rv(R.id.lib_recycler_view)
             _adapter.getValidFilterDataList().forEachIndexed { index, dslAdapterItem ->
                 if (dslAdapterItem is AppImageItem) {

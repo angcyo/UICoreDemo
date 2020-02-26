@@ -2,14 +2,14 @@ package com.angcyo.uicore.dslitem
 
 import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
-import com.angcyo.library.ex.dpi
-import com.angcyo.library.ex.toDpi
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.glide.GlideImageView
 import com.angcyo.glide.giv
 import com.angcyo.http.OkType
+import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.getDrawable
 import com.angcyo.library.ex.randomColorAlpha
+import com.angcyo.library.ex.toDpi
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.base.setHeight
@@ -25,6 +25,8 @@ open class AppImageItem(index: Int) : DslAdapterItem() {
 
     var imageHeight = -1
 
+    var imageMask: Boolean = false
+
     var onConfigGlideImage: (GlideImageView) -> Unit = {}
 
     init {
@@ -39,6 +41,7 @@ open class AppImageItem(index: Int) : DslAdapterItem() {
             it.dslGlide.errorDrawable = ColorDrawable(randomColorAlpha())
 
             it.maskDrawable = when {
+                !imageMask -> null
                 index % 5 == 0 -> getDrawable(R.drawable.ic_logo)
                 index % 4 == 0 -> getDrawable(R.drawable.qipao_guosheng)
                 index % 3 == 0 -> getDrawable(R.drawable.qipao1)
