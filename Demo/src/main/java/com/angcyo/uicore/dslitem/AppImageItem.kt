@@ -13,6 +13,7 @@ import com.angcyo.library.ex.toDpi
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.base.setHeight
+import com.angcyo.widget.layout.RFrameLayout
 
 /**
  *
@@ -20,7 +21,7 @@ import com.angcyo.widget.base.setHeight
  * @author angcyo
  * @date 2020/01/20
  */
-open class AppImageItem(index: Int) : DslAdapterItem() {
+open class AppImageItem(index: Int = -1) : DslAdapterItem() {
     var imageUrl: String? = null
 
     var imageHeight = -1
@@ -34,7 +35,9 @@ open class AppImageItem(index: Int) : DslAdapterItem() {
 
         imageUrl = image()
 
-        imageHeight = if (index % 2 == 0) 280 * dpi else 240 * dpi
+        if (index >= 0) {
+            imageHeight = if (index % 2 == 0) 280 * dpi else 240 * dpi
+        }
 
         onConfigGlideImage = {
             it.dslGlide.placeholderDrawable = ColorDrawable(randomColorAlpha())
@@ -58,7 +61,14 @@ open class AppImageItem(index: Int) : DslAdapterItem() {
     ) {
         super.onItemBind(itemHolder, itemPosition, adapterItem)
 
-        itemHolder.itemView.setHeight(imageHeight)
+        if (imageHeight == 0) {
+            //等宽
+            if (itemHolder.itemView is RFrameLayout) {
+                (itemHolder.itemView as RFrameLayout).layoutDelegate.layoutDimensionRatio = "1"
+            }
+        } else {
+            itemHolder.itemView.setHeight(imageHeight)
+        }
 
         itemHolder.giv(R.id.lib_image_view)?.apply {
             clearOverlay()

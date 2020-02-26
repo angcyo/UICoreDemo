@@ -16,7 +16,7 @@ import com.angcyo.widget.recycler.resetLayoutManager
  * @date 2020/01/20
  */
 
-class GlideImageDemo : AppDslFragment() {
+open class GlideImageDemo : AppDslFragment() {
 
     override fun onInitDslLayout(recyclerView: RecyclerView, dslAdapter: DslAdapter) {
         super.onInitDslLayout(recyclerView, dslAdapter)
