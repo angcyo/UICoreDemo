@@ -98,8 +98,8 @@ class MainFragment : AppDslFragment() {
             renderMainItem("NotifyDemo")
             renderMainItem("CameraXDemo")
             renderMainItem("StyleDemo ThemeStyledAttributes")
-            renderMainItem("ShortcutDemo $GO")
-            renderMainItem("DslDrawItemDecorationDemo $GO")
+            renderMainItem("ShortcutDemo")
+            renderMainItem("DslDrawItemDecorationDemo")
 
             DslLastDeviceInfoItem()() {
                 onConfigDeviceInfo = {
