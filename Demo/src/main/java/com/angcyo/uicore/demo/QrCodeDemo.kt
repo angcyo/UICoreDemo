@@ -6,7 +6,9 @@ import android.view.View
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.getData
 import com.angcyo.library.ex.copy
+import com.angcyo.library.ex.save
 import com.angcyo.library.toast
+import com.angcyo.pager.dslPager
 import com.angcyo.qrcode.dslCode
 import com.angcyo.rcode.RCode
 import com.angcyo.uicore.base.AppDslFragment
@@ -23,6 +25,9 @@ class QrCodeDemo : AppDslFragment() {
 
     /**外部传过来的数据*/
     var codeResult: String? = null
+
+    /**创建的二维码保存路径*/
+    var codeSavePath: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +71,9 @@ class QrCodeDemo : AppDslFragment() {
 
                                 codeResult = null
                             }
+                            AsyncTask.execute {
+                                codeSavePath = bitmap?.save()?.absolutePath
+                            }
                         }
                     }
 
@@ -74,6 +82,16 @@ class QrCodeDemo : AppDslFragment() {
                         itemHolder.tv(R.id.text_view)?.text?.run {
                             copy()
                             toast("已复制:$this", R.drawable.lib_ic_info, R.layout.lib_qq_toast_layout)
+                        }
+                    }
+
+                    //大图浏览
+                    itemHolder.click(R.id.image_view) {
+                        codeSavePath?.run {
+                            dslPager {
+                                fromView = it
+                                addMedia(codeSavePath)
+                            }
                         }
                     }
                 }
