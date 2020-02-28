@@ -58,8 +58,13 @@ class QrCodeDemo : AppDslFragment() {
                             )
                             activity?.runOnUiThread {
                                 itemHolder.img(R.id.image_view)?.setImageBitmap(bitmap)
-                                itemHolder.tv(R.id.text_view)?.text =
-                                    "${itemHolder.tv(R.id.text_view)?.text}\n创建二维码耗时:${System.currentTimeMillis() - time}ms"
+
+                                if (codeResult.isNullOrBlank()) {
+                                    itemHolder.tv(R.id.text_view)?.text =
+                                        "${itemHolder.tv(R.id.text_view)?.text}\n创建二维码耗时:${System.currentTimeMillis() - time}ms"
+                                }
+
+                                codeResult = null
                             }
                         }
                     }
