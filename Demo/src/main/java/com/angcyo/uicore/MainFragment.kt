@@ -48,6 +48,10 @@ class MainFragment : AppDslFragment() {
         CREATE_COUNT++
     }
 
+    override fun enableBackItem(): Boolean {
+        return false
+    }
+
     /**锁定Demo的位置, 每次启动时自动跳转到这个Demo*/
     var lockDemoPosition: Int = RecyclerView.NO_POSITION
 
