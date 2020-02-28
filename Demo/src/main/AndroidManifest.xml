@@ -84,6 +84,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <!--扫一扫-->
+        <activity
+            android:name="com.angcyo.uicore.AppScanActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|fontScale|smallestScreenSize|density|screenLayout"
+            android:excludeFromRecents="false"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 
 </manifest>

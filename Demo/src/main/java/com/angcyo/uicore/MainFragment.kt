@@ -82,7 +82,7 @@ class MainFragment : AppDslFragment() {
 
             renderMainItem("DrawableSpanDemo")
             renderMainItem("WidgetDemo ArcLoadingView")
-            renderMainItem("RefreshEffectDemo")
+            renderMainItem("RefreshEffectDemo DslToast")
             renderMainItem("RefreshDemo")
             renderMainItem("DslAffectDemo")
             renderMainItem("ValueTextWatcherDemo DslSoftInputLayout")
@@ -100,6 +100,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("StyleDemo ThemeStyledAttributes")
             renderMainItem("ShortcutDemo")
             renderMainItem("DslDrawItemDecorationDemo")
+            renderMainItem("QrCodeDemo $GO")
 
             DslLastDeviceInfoItem()() {
                 onConfigDeviceInfo = {

@@ -35,4 +35,5 @@ dependencies {
     implementation project(allModule.picker)
     implementation project(allModule.camerax)
     //implementation project(allModule.bmob)
+    implementation project(allModule.qrcode)
 }
