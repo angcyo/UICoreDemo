@@ -84,13 +84,19 @@
     <com.angcyo.widget.DslButton
         android:id="@+id/button3"
         style="@style/DefaultButtonStyleNormal"
-        android:enabled="false"
-        android:text="快捷方式" />
+        android:enabled="true"
+        android:text="检查是否存在" />
 
     <com.angcyo.widget.DslButton
         android:id="@+id/button4"
         style="@style/DefaultButtonStyleNormal"
         android:enabled="false"
         android:text="快捷方式" />
+
+    <com.angcyo.widget.text.DslTextView
+        android:id="@+id/text_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </com.angcyo.widget.layout.DslFlowLayout>

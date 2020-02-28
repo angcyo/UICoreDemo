@@ -8,11 +8,13 @@ import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.library.component.DslShortcut
 import com.angcyo.library.component.dslShortcut
 import com.angcyo.library.ex.nowTimeString
+import com.angcyo.library.utils.ShortcutUtil
 import com.angcyo.putData
 import com.angcyo.uicore.activity.ShortcutActivity
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.base.string
+import com.angcyo.widget.span.span
 
 /**
  *
@@ -41,6 +43,21 @@ class ShortcutDemo : AppDslFragment() {
                         _shortcut(itemHolder) {
                             shortcutLabel = nowTimeString("HH:mm:ss")
                             shortcutIconId = R.drawable.ic_logo
+                        }
+                    }
+
+                    itemHolder.click(R.id.button3) {
+                        itemHolder.tv(R.id.text_view)?.text = span {
+                            val title = itemHolder.tv(R.id.shortcut_label)?.string()
+                            append("找到快捷方式名:$title")
+
+                            val count = ShortcutUtil.getShortcutCount(
+                                attachContext,
+                                title
+                            )
+                            append(" $count")
+                            append("个 ")
+                            append(nowTimeString())
                         }
                     }
 
