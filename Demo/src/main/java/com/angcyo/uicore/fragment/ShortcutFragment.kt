@@ -1,9 +1,8 @@
 package com.angcyo.uicore.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.angcyo.core.activity.FragmentWrapActivity
+import com.angcyo.base.dslAHelper
 import com.angcyo.dsladapter.marginVertical
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.library.ex.dpi
@@ -35,13 +34,11 @@ class ShortcutFragment : AppDslFragment() {
                 itemDarkText = nowTimeString()
 
                 onItemClick = {
-                    FragmentWrapActivity.jump(
-                        fContext(),
-                        Intent(fContext(), ShortcutFragment::class.java).apply {
-                            putData(nowTimeString())
-                        },
-                        false
-                    )
+                    dslAHelper {
+                        start(ShortcutFragment::class.java, false) {
+                            intent.putData(nowTimeString())
+                        }
+                    }
                 }
             }
 
@@ -52,13 +49,11 @@ class ShortcutFragment : AppDslFragment() {
                 itemDarkText = nowTimeString()
 
                 onItemClick = {
-                    FragmentWrapActivity.jump(
-                        fContext(),
-                        Intent(fContext(), ShortcutFragment::class.java).apply {
-                            putData(nowTimeString())
-                        },
-                        true
-                    )
+                    dslAHelper {
+                        start(ShortcutFragment::class.java, true) {
+                            intent.putData(nowTimeString())
+                        }
+                    }
                 }
             }
 
@@ -68,13 +63,12 @@ class ShortcutFragment : AppDslFragment() {
                 itemDarkText = nowTimeString()
 
                 onItemClick = {
-                    FragmentWrapActivity.jump(
-                        fContext(),
-                        Intent(fContext(), MainFragment::class.java).apply {
-                            putData(nowTimeString())
-                        },
-                        false
-                    )
+
+                    dslAHelper {
+                        start(MainFragment::class.java, false) {
+                            intent.putData(nowTimeString())
+                        }
+                    }
                 }
             }
 
@@ -85,13 +79,13 @@ class ShortcutFragment : AppDslFragment() {
                 itemDarkText = nowTimeString()
 
                 onItemClick = {
-                    FragmentWrapActivity.jump(
-                        fContext(),
-                        Intent(fContext(), MainFragment::class.java).apply {
-                            putData(nowTimeString())
-                        },
-                        true
-                    )
+
+                    dslAHelper {
+                        start(MainFragment::class.java, true) {
+                            intent.putData(nowTimeString())
+                        }
+                    }
+
                 }
             }
         }

@@ -1,9 +1,7 @@
 package com.angcyo.uicore.demo
 
-import android.content.Intent
 import android.os.Bundle
-import com.angcyo.core.activity.FragmentWrapActivity
-import com.angcyo.core.activity.JumpActivity
+import com.angcyo.base.dslAHelper
 import com.angcyo.library.ex.getDrawable
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.putData
@@ -97,25 +95,25 @@ class WidgetDemo : AppTitleFragment() {
 
         //跳板测试
         _vh.click(R.id.jump) {
-            JumpActivity.jump(fContext(), Intent(fContext(), ShortcutActivity::class.java))
+            dslAHelper {
+                start(ShortcutActivity::class.java) {
+                    useJumpActivity = true
+                }
+            }
         }
         _vh.click(R.id.jump_fragment) {
-            FragmentWrapActivity.jump(
-                fContext(),
-                Intent(fContext(), ShortcutFragment::class.java).apply {
-                    putData(nowTimeString())
-                },
-                false
-            )
+            dslAHelper {
+                start(ShortcutFragment::class.java, false) {
+                    intent.putData(nowTimeString())
+                }
+            }
         }
         _vh.click(R.id.jump_fragment_single_task) {
-            FragmentWrapActivity.jump(
-                fContext(),
-                Intent(fContext(), ShortcutFragment::class.java).apply {
-                    putData(nowTimeString())
-                },
-                true
-            )
+            dslAHelper {
+                start(ShortcutFragment::class.java, true) {
+                    intent.putData(nowTimeString())
+                }
+            }
         }
     }
 }
