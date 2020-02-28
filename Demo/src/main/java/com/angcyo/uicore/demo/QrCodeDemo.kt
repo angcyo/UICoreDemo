@@ -4,6 +4,7 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.view.View
 import com.angcyo.dsladapter.DslAdapterItem
+import com.angcyo.getData
 import com.angcyo.library.ex.copy
 import com.angcyo.library.toast
 import com.angcyo.qrcode.dslCode
@@ -19,12 +20,24 @@ import com.angcyo.widget.recycler.get
  */
 
 class QrCodeDemo : AppDslFragment() {
+
+    /**外部传过来的数据*/
+    var codeResult: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        codeResult = getData()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         renderDslAdapter {
             DslAdapterItem()() {
                 itemLayoutId = R.layout.item_qr_code_demo
                 itemBindOverride = { itemHolder, _, _, _ ->
+
+                    itemHolder.focus<View>(R.id.scan_button)
+
                     //扫一扫
                     itemHolder.click(R.id.scan_button) {
                         dslCode(activity) {
@@ -46,7 +59,7 @@ class QrCodeDemo : AppDslFragment() {
                             activity?.runOnUiThread {
                                 itemHolder.img(R.id.image_view)?.setImageBitmap(bitmap)
                                 itemHolder.tv(R.id.text_view)?.text =
-                                    "创建二维码耗时:${System.currentTimeMillis() - time}ms"
+                                    "${itemHolder.tv(R.id.text_view)?.text}\n创建二维码耗时:${System.currentTimeMillis() - time}ms"
                             }
                         }
                     }
@@ -68,7 +81,10 @@ class QrCodeDemo : AppDslFragment() {
 
         _adapter.onDispatchUpdates {
             _vh.post {
-                _recycler[0]?.clickView(R.id.create_qrcode)
+                _recycler[0]?.apply {
+                    codeResult?.run { tv(R.id.text_view)?.text = this }
+                    clickView(R.id.create_qrcode)
+                }
             }
         }
     }

@@ -66,13 +66,18 @@ class MainActivity : BasePermissionsActivity() {
             shortcutIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://angcyo.blog.csdn.net"))
         }
 
-
+//        dslShortcut(this) {
+//            shortcutAction = DslShortcut.ACTION_TYPE_DYNAMIC_SHORTCUT
+//            shortcutLabel = "官网"
+//            shortcutIconId = R.drawable.ic_logo_small
+//            shortcutIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.angcyo.com"))
+//        }
 
         dslShortcut(this) {
             shortcutAction = DslShortcut.ACTION_TYPE_DYNAMIC_SHORTCUT
-            shortcutLabel = "官网"
-            shortcutIconId = R.drawable.ic_logo_small
-            shortcutIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.angcyo.com"))
+            shortcutLabel = "扫一扫"
+            shortcutIconId = R.drawable.app_ic_scan_frame
+            shortcutIntent = Intent(this@MainActivity, AppScanActivity::class.java)
         }
 
         if (checkApkExist("com.tencent.mobileqq")) {
@@ -100,7 +105,10 @@ class MainActivity : BasePermissionsActivity() {
                 shortcutAction = DslShortcut.ACTION_TYPE_DYNAMIC_SHORTCUT
                 shortcutLabel = "掘金"
                 shortcutIconId = R.drawable.ic_logo_small
-                shortcutIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://juejin.im/user/576a151b2e958a00699c11f0"))
+                shortcutIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://juejin.im/user/576a151b2e958a00699c11f0")
+                )
             }
         }
     }
