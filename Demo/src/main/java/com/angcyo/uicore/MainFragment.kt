@@ -120,8 +120,8 @@ class MainFragment : AppDslFragment() {
             renderMainItem("CameraXDemo")
             renderMainItem("StyleDemo ThemeStyledAttributes")
             renderMainItem("ShortcutDemo")
-            renderMainItem("DslDrawItemDecorationDemo")
-            renderMainItem("QrCodeDemo $GO")
+            renderMainItem("DslDrawItemDecorationDemo $GO")
+            renderMainItem("QrCodeDemo")
 
             //设备信息.
             DslLastDeviceInfoItem()()

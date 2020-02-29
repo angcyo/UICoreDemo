@@ -1,5 +1,6 @@
 package com.angcyo.uicore.dslitem
 
+import com.angcyo.uicore.demo.R
 import kotlin.random.Random.Default.nextInt
 
 /**
@@ -51,6 +52,22 @@ val imageUrlList = listOf(
     "http://5b0988e595225.cdn.sohucs.com/images/20171227/157724ff25b9415e8853050a58e4a581.gif"
 )
 
+val imageResList = listOf(
+    R.drawable.angry,
+    R.drawable.calm,
+    R.drawable.happy,
+    R.drawable.heart,
+    R.drawable.light,
+    R.drawable.melancholy,
+    R.drawable.tire,
+    R.drawable.wink,
+    R.drawable.worry
+)
+
 fun image(): String {
     return imageUrlList[nextInt(imageUrlList.size)]
+}
+
+fun res(): Int {
+    return imageResList[nextInt(imageResList.size)]
 }
