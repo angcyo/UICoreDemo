@@ -1,5 +1,6 @@
 package com.angcyo.uicore
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -18,10 +19,15 @@ import com.angcyo.library.L
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.getColor
 import com.angcyo.library.ex.toDpi
+import com.angcyo.library.ex.urlIntent
 import com.angcyo.library.toast
+import com.angcyo.library.toastQQ
+import com.angcyo.library.utils.RUtils
+import com.angcyo.library.utils.checkApkExist
 import com.angcyo.uicore.activity.*
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.R
+import com.angcyo.uicore.dslitem.AppMenuFooterItem
 import com.angcyo.uicore.dslitem.AppMenuHeaderItem
 import com.angcyo.widget.base.onDoubleTap
 import com.angcyo.widget.base.padding
@@ -135,6 +141,87 @@ class MainFragment : AppDslFragment() {
             menuAdapter = this
 
             AppMenuHeaderItem()()
+
+            val insert = 4 * dpi
+            val subInsert = 2 * dpi
+            DslTextInfoItem()() {
+                itemInfoText = "扫一扫"
+                onItemClick = {
+                    dslAHelper {
+                        start(Intent(context, AppScanActivity::class.java))
+                    }
+                }
+            }
+
+            DslTextInfoItem()() {
+                itemTopInsert = insert
+                itemInfoText = "QQ咨询"
+                onItemClick = {
+                    if (fContext().checkApkExist("com.tencent.mobileqq")) {
+                        dslAHelper {
+                            start(RUtils.chatQQIntent(context)!!)
+                        }
+                    } else {
+                        toastQQ("请安装QQ")
+                    }
+                }
+            }
+
+            DslTextInfoItem()() {
+                itemTopInsert = subInsert
+                itemInfoText = "QQ入群学习"
+                onItemClick = {
+                    if (fContext().checkApkExist("com.tencent.mobileqq")) {
+                        dslAHelper {
+                            start(RUtils.joinQQGroupIntent(context)!!)
+                        }
+                    } else {
+                        toastQQ("请安装QQ")
+                    }
+                }
+            }
+
+            DslTextInfoItem()() {
+                itemTopInsert = insert
+                itemInfoText = "CSDN博客"
+                onItemClick = {
+                    dslAHelper {
+                        start("https://angcyo.blog.csdn.net".urlIntent())
+                    }
+                }
+            }
+
+            DslTextInfoItem()() {
+                itemTopInsert = subInsert
+                itemInfoText = "Github"
+                onItemClick = {
+                    dslAHelper {
+                        start("https://github.com/angcyo".urlIntent())
+                    }
+                }
+            }
+
+            DslTextInfoItem()() {
+                itemTopInsert = subInsert
+                itemInfoText = "掘金"
+                onItemClick = {
+                    dslAHelper {
+                        start("https://juejin.im/user/576a151b2e958a00699c11f0".urlIntent())
+                    }
+                }
+            }
+
+            DslTextInfoItem()() {
+                itemTopInsert = subInsert
+                itemInfoText = "官网"
+                onItemClick = {
+                    dslAHelper {
+                        start("https://www.angcyo.com".urlIntent())
+                    }
+                }
+            }
+
+            AppMenuFooterItem()()
         }
     }
 
