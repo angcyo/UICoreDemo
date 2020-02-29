@@ -120,8 +120,8 @@ class MainFragment : AppDslFragment() {
             renderMainItem("CameraXDemo")
             renderMainItem("StyleDemo ThemeStyledAttributes")
             renderMainItem("ShortcutDemo")
-            renderMainItem("DslDrawItemDecorationDemo $GO")
-            renderMainItem("QrCodeDemo")
+            renderMainItem("DslDrawItemDecorationDemo")
+            renderMainItem("QrCodeDemo $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()()
@@ -142,9 +142,10 @@ class MainFragment : AppDslFragment() {
 
             AppMenuHeaderItem()()
 
-            val insert = 4 * dpi
+            val insert = 10 * dpi
             val subInsert = 2 * dpi
             DslTextInfoItem()() {
+                itemTopInsert = insert
                 itemInfoText = "扫一扫"
                 onItemClick = {
                     dslAHelper {
