@@ -15,7 +15,6 @@ import com.angcyo.http.dslHttp
 import com.angcyo.item.DslLastDeviceInfoItem
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.library.L
-import com.angcyo.library.component.work.Trackers
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.getColor
 import com.angcyo.library.ex.toDpi
@@ -23,10 +22,14 @@ import com.angcyo.library.toast
 import com.angcyo.uicore.activity.*
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.R
+import com.angcyo.uicore.dslitem.AppMenuHeaderItem
 import com.angcyo.widget.base.onDoubleTap
+import com.angcyo.widget.base.padding
 import com.angcyo.widget.base.reveal
+import com.angcyo.widget.layout.SliderMenuLayout
 import com.angcyo.widget.recycler.allViewHolder
 import com.angcyo.widget.recycler.get
+import com.angcyo.widget.recycler.initDslAdapter
 
 /**
  *
@@ -43,6 +46,10 @@ class MainFragment : AppDslFragment() {
         const val GO = "√"
     }
 
+    init {
+        fragmentLayoutId = R.layout.fragment_main
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         CREATE_COUNT++
@@ -50,6 +57,10 @@ class MainFragment : AppDslFragment() {
 
     override fun enableBackItem(): Boolean {
         return false
+    }
+
+    override fun onBackPressed(): Boolean {
+        return _vh.v<SliderMenuLayout>(R.id.menu_layout)?.requestBackPressed() == true
     }
 
     /**锁定Demo的位置, 每次启动时自动跳转到这个Demo*/
@@ -106,12 +117,24 @@ class MainFragment : AppDslFragment() {
             renderMainItem("DslDrawItemDecorationDemo")
             renderMainItem("QrCodeDemo $GO")
 
-            DslLastDeviceInfoItem()() {
-                onConfigDeviceInfo = {
-                    it.appendln()
-                    it.append(Trackers.getInstance().networkStateTracker.activeNetworkState.toString())
-                }
-            }
+            //设备信息.
+            DslLastDeviceInfoItem()()
+        }
+    }
+
+    lateinit var menuAdapter: DslAdapter
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        leftControl()?.appendItem(ico = R.drawable.app_ic_menu, action = {
+            padding(0)
+        }) {
+            _vh.v<SliderMenuLayout>(R.id.menu_layout)?.openMenu()
+        }
+        _vh.rv(R.id.menu_recycler_view)?.initDslAdapter() {
+            menuAdapter = this
+
+            AppMenuHeaderItem()()
         }
     }
 

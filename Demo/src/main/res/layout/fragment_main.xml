@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.widget.layout.SliderMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/menu_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:r_enable_menu_parallax="true">
+
+    <com.angcyo.widget.recycler.DslRecyclerView
+        android:id="@+id/menu_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_primary_color">
+
+        <include layout="@layout/lib_title_fragment" />
+    </FrameLayout>
+
+</com.angcyo.widget.layout.SliderMenuLayout>
