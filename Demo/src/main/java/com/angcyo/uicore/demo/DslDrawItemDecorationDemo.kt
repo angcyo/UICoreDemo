@@ -32,7 +32,7 @@ class DslDrawItemDecorationDemo : GlideImageDemo() {
         recyclerView.resetLayoutManager("GV5")
     }
 
-    fun initDrawItemDecorationPosition(columns: Int = 5, rows: Int = 10) {
+    fun initDrawItemDecorationPosition(columns: Int = 5, rows: Int = 30) {
         for (i in 0 until rows) {
             val position = i * columns + nextInt(columns)
             drawItemDecorationList.add(DrawItemConfig(position, tx(), gravity()))
@@ -47,23 +47,19 @@ class DslDrawItemDecorationDemo : GlideImageDemo() {
 
             for (i in 0..24) {
                 AppResImageItem()() {
-                    imageHeight = 0
-
                     itemImageRes = res()
                 }
             }
 
             for (i in 0 until 20) {
                 AppImageItem()() {
-                    imageHeight = 0
-
                     onItemClick = {
                         pager()
                     }
                 }
             }
 
-            updateItemDepend(FilterParams(just = true, async = false))
+            //updateItemDepend(FilterParams(just = true, async = false))
         }
 
         dslDrawItemDecoration(_recycler) {

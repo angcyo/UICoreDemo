@@ -24,7 +24,7 @@ import com.angcyo.widget.layout.RFrameLayout
 open class AppImageItem(index: Int = -1) : DslAdapterItem() {
     var imageUrl: String? = null
 
-    var imageHeight = -1
+    var imageHeight = 0
 
     var imageMask: Boolean = false
 
