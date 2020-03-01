@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.widget.layout.DslFlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/lib_hdpi"
+    app:r_flow_item_horizontal_space="@dimen/lib_hdpi"
+    app:r_flow_item_vertical_space="@dimen/lib_hdpi">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.angcyo.widget.edit.AutoCompleteEditText
+            android:id="@+id/edit_text"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="需要打开的网址"
+            android:text="https://www.baidu.com"
+            app:r_auto_complete_show_item_delete="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/open_url"
+        style="@style/DefaultButtonStyleNormal"
+        android:text="打开url" />
+
+</com.angcyo.widget.layout.DslFlowLayout>

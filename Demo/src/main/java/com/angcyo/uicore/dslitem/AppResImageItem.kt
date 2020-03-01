@@ -1,6 +1,8 @@
 package com.angcyo.uicore.dslitem
 
 import androidx.annotation.DrawableRes
+import com.angcyo.coroutine.launchGlobal
+import com.angcyo.coroutine.onBack
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.glide.clear
 import com.angcyo.glide.gifOfRes
@@ -35,7 +37,12 @@ class AppResImageItem : AppImageItem() {
             clear()
             clearOverlay()
             //dslGlide._glide().load(itemImageRes).into(this)
-            setImageDrawable(gifOfRes(resources, itemImageRes))
+
+            launchGlobal {
+                onBack { gifOfRes(resources, itemImageRes) }.await()?.run {
+                    setImageDrawable(this)
+                }
+            }
         }
     }
 }

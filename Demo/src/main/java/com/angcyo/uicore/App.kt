@@ -4,6 +4,7 @@ import androidx.camera.camera2.Camera2Config
 import androidx.camera.core.CameraXConfig
 import com.angcyo.core.CoreApplication
 import com.angcyo.download.DslDownload
+import com.angcyo.tbs.DslTbs
 
 /**
  *
@@ -18,6 +19,7 @@ class App : CoreApplication(), CameraXConfig.Provider {
         super.onCreate()
 
         DslDownload.init(this)
+        DslTbs.init(this)
     }
 
     /**

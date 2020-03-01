@@ -36,4 +36,5 @@ dependencies {
     implementation project(allModule.camerax)
     //implementation project(allModule.bmob)
     implementation project(allModule.qrcode)
+    implementation project(allModule.tbs)
 }
