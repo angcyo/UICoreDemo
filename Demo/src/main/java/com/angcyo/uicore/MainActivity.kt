@@ -49,6 +49,8 @@ class MainActivity : BasePermissionsActivity() {
 //                "麦克风权限"
 //            )
 //        )
+
+        doubleBackTime = 1_000
     }
 
     override fun onCreateAfter(savedInstanceState: Bundle?) {
