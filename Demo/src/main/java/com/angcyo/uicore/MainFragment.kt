@@ -116,13 +116,15 @@ class MainFragment : AppDslFragment() {
             renderMainItem("OkDownloadDemo")
             renderMainItem("MediaPickerDemo $GO")
             renderMainItem("DialogDemo")
-            renderMainItem("NotifyDemo ContentObserver $GO")
+            renderMainItem("NotifyDemo ContentObserver")
             renderMainItem("CameraXDemo")
             renderMainItem("StyleDemo ThemeStyledAttributes")
             renderMainItem("ShortcutDemo")
             renderMainItem("DslDrawItemDecorationDemo")
             renderMainItem("QrCodeDemo")
             renderMainItem("TbsWebDemo")
+            renderMainItem("IntentDemo $GO")
+            renderMainItem("LauncherDemo $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()()

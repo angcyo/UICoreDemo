@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="2dp"
-    tools:r_layout_dimension_ratio="0.2">
+    tools:r_dimension_ratio="0.2">
 
     <com.angcyo.glide.GlideImageView
         android:id="@+id/lib_image_view"
