@@ -4,7 +4,9 @@ import androidx.camera.camera2.Camera2Config
 import androidx.camera.core.CameraXConfig
 import com.angcyo.core.CoreApplication
 import com.angcyo.download.DslDownload
+import com.angcyo.library.component.DslNotify
 import com.angcyo.tbs.DslTbs
+import com.angcyo.uicore.demo.R
 
 /**
  *
@@ -20,6 +22,8 @@ class App : CoreApplication(), CameraXConfig.Provider {
 
         DslDownload.init(this)
         DslTbs.init(this)
+
+        DslNotify.DEFAULT_NOTIFY_ICON = R.drawable.ic_logo_small
     }
 
     /**

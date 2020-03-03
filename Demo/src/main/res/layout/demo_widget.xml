@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/lib_hdpi"
-            android:background="@drawable/app_theme_border_fill_selector"
+            android:background="@drawable/lib_theme_border_fill_selector"
             android:minHeight="@dimen/lib_item_min_height" />
 
         <com.angcyo.widget.RSpinner
@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/lib_hdpi"
-            android:background="@drawable/app_theme_border_fill_selector"
+            android:background="@drawable/lib_theme_border_fill_selector"
             android:minHeight="@dimen/lib_item_min_height"
             android:popupBackground="@color/transparent"
             android:spinnerMode="dialog" />
@@ -41,7 +41,7 @@
         <com.angcyo.widget.edit.ClearCompleteEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/app_bottom_line_selector"
+            android:background="@drawable/lib_bottom_line_selector"
             android:minHeight="@dimen/lib_item_min_height"
             android:padding="4dp" />
 
@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:background="@drawable/app_bottom_line_selector"
+            android:background="@drawable/lib_bottom_line_selector"
             android:inputType="textWebPassword"
             android:minHeight="@dimen/lib_item_min_height"
             android:padding="4dp" />

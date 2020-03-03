@@ -12,21 +12,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0.45"
-        android:background="@drawable/app_theme_border_fill_selector" />
+        android:background="@drawable/lib_theme_border_fill_selector" />
 
     <com.angcyo.widget.RSpinner
         android:id="@+id/priority_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0.45"
-        android:background="@drawable/app_theme_border_fill_selector" />
+        android:background="@drawable/lib_theme_border_fill_selector" />
 
     <com.angcyo.widget.RSpinner
         android:id="@+id/visibility_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0.45"
-        android:background="@drawable/app_theme_border_fill_selector" />
+        android:background="@drawable/lib_theme_border_fill_selector" />
+
+    <com.angcyo.widget.RSpinner
+        android:id="@+id/importance_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.45"
+        android:background="@drawable/lib_theme_border_fill_selector" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/lights_cb"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="enableLights" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/vibration_cb"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="enableVibration" />
 
     <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/click_cb"
@@ -147,22 +168,56 @@
         style="@style/DefaultButtonStyleNormal"
         android:text="MediaStyle" />
 
-    <com.angcyo.widget.edit.DslEditText
-        android:id="@+id/notify_title_view"
-        style="@style/LibBodyTextStyle"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.48"
-        android:hint="通知标题"
-        android:text="通知标题" />
+        android:layout_height="wrap_content">
 
-    <com.angcyo.widget.edit.DslEditText
-        android:id="@+id/notify_message_view"
-        style="@style/LibBodyTextStyle"
+        <com.angcyo.widget.edit.DslEditText
+            android:id="@+id/notify_channel_view"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="输入通知通道"
+            android:text="通知通道" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.48"
-        android:hint="通知消息"
-        android:text="通知消息" />
+        android:layout_height="wrap_content">
+
+        <com.angcyo.widget.edit.DslEditText
+            android:id="@+id/notify_channel_des_view"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="输入通知通道描述"
+            android:text="通知通道描述" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.angcyo.widget.edit.DslEditText
+            android:id="@+id/notify_title_view"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="输入通知标题"
+            android:text="通知标题" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.angcyo.widget.edit.DslEditText
+            android:id="@+id/notify_message_view"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="输入通知消息"
+            android:text="通知消息" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 </com.angcyo.widget.layout.DslFlowLayout>

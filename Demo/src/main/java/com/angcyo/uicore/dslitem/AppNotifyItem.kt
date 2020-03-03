@@ -5,10 +5,10 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.Icon
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.Person
 import androidx.core.graphics.drawable.IconCompat
-import com.angcyo.component.hawkInstall
-import com.angcyo.component.hawkRestore
+import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.library.component.DslNotify
 import com.angcyo.library.component.dslNotify
@@ -53,6 +53,9 @@ class AppNotifyItem : DslAdapterItem() {
         fun config(notify: DslNotify) {
             notify.apply {
 
+                channelEnableLights = itemHolder.isChecked(R.id.lights_cb)
+                channelEnableVibration = itemHolder.isChecked(R.id.vibration_cb)
+
                 notifyNumber = nextInt(0, 10)
 
                 notifyOngoing = itemHolder.isChecked(R.id.ongoing_cb)
@@ -69,6 +72,10 @@ class AppNotifyItem : DslAdapterItem() {
                 notifyText =
                     "${itemHolder.tv(R.id.notify_message_view).string()} ${nowTimeString()}"
 
+                channelName = itemHolder.tv(R.id.notify_channel_view).string()
+
+                channelDescription = itemHolder.tv(R.id.notify_channel_des_view).string()
+
                 if (itemHolder.isChecked(R.id.sub_text_cb)) {
                     notifyInfo = "notifyInfo"
                     notifySubText = "notifySubText"
@@ -84,6 +91,10 @@ class AppNotifyItem : DslAdapterItem() {
 
                 itemHolder.spinner(R.id.visibility_spinner)?.getSelectedData<String>()?.run {
                     notifyVisibility = split(" ")[1].toInt()
+                }
+
+                itemHolder.spinner(R.id.importance_spinner)?.getSelectedData<String>()?.run {
+                    channelImportance = split(" ")[1].toInt()
                 }
 
                 if (itemHolder.isChecked(R.id.click_cb)) {
@@ -187,6 +198,19 @@ class AppNotifyItem : DslAdapterItem() {
                 )
             )
 
+        itemHolder.spinner(R.id.importance_spinner)
+            ?.setStrings(
+                listOf(
+                    "IMPORTANCE_DEFAULT ${NotificationManagerCompat.IMPORTANCE_DEFAULT}",
+                    "IMPORTANCE_UNSPECIFIED ${NotificationManagerCompat.IMPORTANCE_UNSPECIFIED}",
+                    "IMPORTANCE_NONE ${NotificationManagerCompat.IMPORTANCE_NONE}",
+                    "IMPORTANCE_LOW ${NotificationManagerCompat.IMPORTANCE_LOW}",
+                    "IMPORTANCE_MIN ${NotificationManagerCompat.IMPORTANCE_MIN}",
+                    "IMPORTANCE_HIGH ${NotificationManagerCompat.IMPORTANCE_HIGH}",
+                    "IMPORTANCE_MAX ${NotificationManagerCompat.IMPORTANCE_MAX}"
+                )
+            )
+
         //事件
 
         itemHolder.click(R.id.notify_normal) {
@@ -206,6 +230,8 @@ class AppNotifyItem : DslAdapterItem() {
                         config(this)
                         notifyId = id
                         notifyProgress = value as Int
+
+                        notifyWhen = 0
                     }
                 }
             }
@@ -318,8 +344,6 @@ class AppNotifyItem : DslAdapterItem() {
         }
 
         //自动保存值
-        itemHolder.hawkInstall()
-        //恢复
-        itemHolder.hawkRestore()
+        itemHolder.hawkInstallAndRestore("notify")
     }
 }
