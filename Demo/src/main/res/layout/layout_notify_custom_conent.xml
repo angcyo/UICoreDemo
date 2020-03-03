@@ -29,4 +29,22 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right|center_vertical"
         android:src="@drawable/ic_logo_png" />
+
+    <!--
+    <style name="Widget.ProgressBar.Horizontal">
+        <item name="indeterminateOnly">false</item>
+        <item name="progressDrawable">@drawable/progress_horizontal</item>
+        <item name="indeterminateDrawable">@drawable/progress_indeterminate_horizontal</item>
+        <item name="minHeight">20dip</item>
+        <item name="maxHeight">20dip</item>
+        <item name="mirrorForRtl">true</item>
+    </style>
+    -->
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:indeterminate="true" />
 </FrameLayout>

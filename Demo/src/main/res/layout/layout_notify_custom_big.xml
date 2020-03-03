@@ -29,4 +29,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right|center_vertical"
         android:src="@drawable/ic_logo_png" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:progress="50" />
+
 </FrameLayout>
