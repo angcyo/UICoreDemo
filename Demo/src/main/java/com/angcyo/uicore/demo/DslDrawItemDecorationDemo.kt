@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.angcyo.coroutine.onBack
 import com.angcyo.dsladapter.DslAdapter
-import com.angcyo.dsladapter.FilterParams
 import com.angcyo.library.ex._drawable
 import com.angcyo.library.utils.gravityString
 import com.angcyo.uicore.dslitem.*
@@ -45,20 +45,23 @@ class DslDrawItemDecorationDemo : GlideImageDemo() {
         renderDslAdapter {
             clearItems()
 
-            for (i in 0..24) {
-                AppResImageItem()() {
-                    itemImageRes = res()
-                }
-            }
+            launchLifecycle {
+                onBack {
+                    for (i in 0..24) {
+                        AppResImageItem()() {
+                            itemImageRes = res()
+                        }
+                    }
 
-            for (i in 0 until 20) {
-                AppImageItem()() {
-                    onItemClick = {
-                        pager()
+                    for (i in 0 until 20) {
+                        AppImageItem()() {
+                            onItemClick = {
+                                pager()
+                            }
+                        }
                     }
                 }
             }
-
             //updateItemDepend(FilterParams(just = true, async = false))
         }
 

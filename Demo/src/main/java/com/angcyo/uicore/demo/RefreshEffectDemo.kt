@@ -45,7 +45,7 @@ class RefreshEffectDemo : AppTitleFragment() {
 
                         when (type) {
                             1 -> toast(itemInfoText, R.drawable.lib_ic_info) {
-                                activity = getActivity()
+                                withActivity = getActivity()
                             }
                             2 -> toast(
                                 itemInfoText,

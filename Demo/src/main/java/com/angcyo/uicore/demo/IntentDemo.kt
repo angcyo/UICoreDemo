@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import com.angcyo.base.dslAHelper
+import com.angcyo.coroutine.onBack
 import com.angcyo.dsladapter.renderItem
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.library.component.appBean
@@ -23,46 +24,54 @@ class IntentDemo : AppDslFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         renderDslAdapter {
-            dslIntentQuery {
+            launchLifecycle {
+                onBack {
+                    dslIntentQuery {
 
-            }.forEachIndexed { index, resolveInfo ->
-                DslTextInfoItem()() {
-                    itemTopInsert = 2 * dpi
-                    itemInfoText = span {
-                        append(resolveInfo.toString())
-                        resolveInfo.activityInfo?.run {
-                            packageName?.appBean()?.run {
-                                appendln()
-                                append("->")
-                                append(appName)
-                                append(" ")
-                                append(versionName)
-                                append(" ")
-                                append("$versionCode")
-                                append(" ")
+                    }.apply {
+                        forEachIndexed { index, resolveInfo ->
+                            DslTextInfoItem()() {
+                                itemTopInsert = 2 * dpi
+                                itemInfoText = span {
+                                    append(resolveInfo.toString())
+                                    resolveInfo.activityInfo?.run {
+                                        packageName?.appBean()?.run {
+                                            appendln()
+                                            append("->")
+                                            append(appName)
+                                            append(" ")
+                                            append(versionName)
+                                            append(" ")
+                                            append("$versionCode")
+                                            append(" ")
+                                        }
+                                        targetActivity?.run {
+                                            appendln()
+                                            append(this)
+                                        }
+                                    }
+                                }
+
+                                itemDarkText = span {
+                                    append("$index") {
+                                        foregroundColor = Color.RED
+                                    }
+                                }
+
+                                onItemClick = {
+                                    dslAHelper {
+                                        start(resolveInfo.activityInfo?.packageName)
+                                    }
+                                }
                             }
-                            targetActivity?.run {
-                                appendln()
-                                append(this)
-                            }
+                        }
+                        renderItem {
+                            itemLayoutId = R.layout.demo_intent
                         }
                     }
-
-                    itemDarkText = span {
-                        append("$index") {
-                            foregroundColor = Color.RED
-                        }
-                    }
-
-                    onItemClick = {
-                        dslAHelper {
-                            start(resolveInfo.activityInfo?.packageName)
-                        }
-                    }
+                }.await().apply {
+                    fragmentTitle = "$fragmentTitle $size"
                 }
-            }
-            renderItem {
-                itemLayoutId = R.layout.demo_intent
             }
         }
     }
