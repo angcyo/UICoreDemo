@@ -32,6 +32,22 @@ class TbsWebDemo : AppDslFragment() {
                         }
                     }
 
+                    itemHolder.click(R.id.open_url2) {
+                        dslAHelper {
+                            open {
+                                uri = Uri.parse(itemHolder.tv(R.id.edit_text2).string())
+                            }
+                        }
+                    }
+
+                    itemHolder.click(R.id.open_url3) {
+                        dslAHelper {
+                            open {
+                                uri = Uri.parse(itemHolder.tv(R.id.edit_text3).string())
+                            }
+                        }
+                    }
+
                     itemHolder.hawkInstallAndRestore("tbs_")
                 }
             }

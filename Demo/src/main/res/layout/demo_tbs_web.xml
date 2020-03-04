@@ -21,9 +21,47 @@
             app:r_auto_complete_show_item_delete="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.angcyo.widget.edit.AutoCompleteEditText
+            android:id="@+id/edit_text2"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="需要打开的网址2"
+            android:text="https://angcyo.blog.csdn.net"
+            app:r_auto_complete_show_item_delete="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.angcyo.widget.edit.AutoCompleteEditText
+            android:id="@+id/edit_text3"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="需要打开的网址3"
+            android:text="https://juejin.im/user/576a151b2e958a00699c11f0"
+            app:r_auto_complete_show_item_delete="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <com.angcyo.widget.DslButton
         android:id="@+id/open_url"
-        style="@style/DefaultButtonStyleNormal"
+        style="@style/DefaultButtonMinStyle"
         android:text="打开url" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/open_url2"
+        style="@style/DefaultButtonMinStyle"
+        android:text="打开url2" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/open_url3"
+        style="@style/DefaultButtonMinStyle"
+        android:text="打开url3" />
 
 </com.angcyo.widget.layout.DslFlowLayout>
