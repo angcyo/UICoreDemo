@@ -64,4 +64,19 @@
         style="@style/DefaultButtonMinStyle"
         android:text="打开url3" />
 
+    <com.angcyo.widget.DslButton
+        android:id="@+id/local_file_chooser"
+        style="@style/DefaultButtonMinStyle"
+        android:text="本地文件选择器" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/local_file_play"
+        style="@style/DefaultButtonMinStyle"
+        android:text="本地全屏播放" />
+
+   <com.angcyo.widget.DslButton
+        android:id="@+id/open_file"
+        style="@style/DefaultButtonMinStyle"
+        android:text="打开文件" />
+
 </com.angcyo.widget.layout.DslFlowLayout>
