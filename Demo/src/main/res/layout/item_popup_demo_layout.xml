@@ -42,49 +42,49 @@
 
         <com.angcyo.widget.DslButton
             android:id="@+id/normal_popup"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="普通Popup" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/width_full_popup"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Width全屏Popup" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/normal_popup_style"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="普通Popup(Style)" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/full_popup"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="全屏Popup" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/full_popup2"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="全屏Popup fix" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/full_popup_config"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="全屏FullPopup" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/full_popup_title"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="全屏Popup fix width TitleBar" />
@@ -93,7 +93,7 @@
 
     <com.angcyo.widget.DslButton
         android:id="@+id/bottom_popup"
-        style="@style/DefaultButtonStyleNormal"
+        style="@style/DefaultButtonMinStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bottom"

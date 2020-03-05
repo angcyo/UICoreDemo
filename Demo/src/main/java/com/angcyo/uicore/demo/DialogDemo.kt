@@ -3,10 +3,12 @@ package com.angcyo.uicore.demo
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.Gravity
 import android.widget.RadioGroup
 import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.dialog.*
 import com.angcyo.dsladapter.DslAdapterItem
+import com.angcyo.dsladapter.ItemSelectorHelper
 import com.angcyo.library.L
 import com.angcyo.library.ex._color
 import com.angcyo.library.ex._drawable
@@ -89,55 +91,34 @@ class DialogDemo : AppDslFragment() {
             }
         }
 
-//        holder.click(R.id.menu_dialog) {
-//            menuDialog {
-//                dialogTitle = "你要干啥?"
-//
-//                items = mutableListOf("Item1", "Item2", "Item3")
-//
-//                onItemClick = { _, _, item ->
-//                    toast.show(item as CharSequence)
-//                    false
-//                }
-//
-//                _defaultConfig(holder, this)
-//            }
-//        }
-//
-//        holder.click(R.id.menu_ico_dialog) {
-//            menuDialog {
-//                //dialogTitle = "你要干啥?"
-//
-//                items = mutableListOf("Item1", "Item2", "Item3")
-//                itemIcons =
-//                    mutableListOf(R.drawable.ic_delete_photo, R.drawable.ic_delete_photo)
-//
-//                onItemClick = { _, _, item ->
-//                    toast.show(item as CharSequence)
-//                    false
-//                }
-//
-//                _defaultConfig(holder, this)
-//            }
-//        }
-//
-//        holder.click(R.id.menu_ico2_dialog) {
-//            menuDialog {
-//                //dialogTitle = "你要干啥?"
-//
-//                items = mutableListOf("Item1", "Item2", "Item3")
-//                itemIcons =
-//                    mutableListOf(R.drawable.ic_delete_photo, R.drawable.ic_delete_photo)
-//                itemTextGravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
-//
-//                onItemClick = { _, _, item ->
-//                    toast.show(item as CharSequence)
-//                    false
-//                }
-//
-//                _defaultConfig(holder, this)
-//            }
-//        }
+        holder.click(R.id.menu_dialog) {
+            fContext().itemsDialog {
+                _initItemDialog(false, Gravity.LEFT or Gravity.CENTER_VERTICAL)
+                _defaultConfig(holder, this)
+            }
+        }
+
+        holder.click(R.id.menu_ico_dialog) {
+            fContext().itemsDialog {
+                _initItemDialog(true, Gravity.LEFT or Gravity.CENTER_VERTICAL)
+                _defaultConfig(holder, this)
+            }
+        }
+
+        holder.click(R.id.menu_ico2_dialog) {
+            fContext().itemsDialog {
+                addDialogItem {
+                    itemText = tx()
+                    itemLeftDrawable = _drawable(R.drawable.lib_ic_info)
+                }
+                addDialogItem {
+                    itemText = tx()
+                    itemLeftDrawable = _drawable(R.drawable.lib_ic_error)
+                }
+                _initItemDialog(true, Gravity.RIGHT or Gravity.CENTER_VERTICAL)
+                _defaultConfig(holder, this)
+            }
+        }
 //
 //        holder.click(R.id.wheel_dialog) {
 //            wheelDialog {
@@ -157,39 +138,23 @@ class DialogDemo : AppDslFragment() {
 //                _defaultConfig(holder, this)
 //            }
 //        }
-//
-//        holder.click(R.id.menu_choice_dialog) {
-//            singleChoiceDialog {
-//                dialogTitle = "小分队出发"
-//
-//                items = mutableListOf("Item1", "Item2", "Item3")
-//
-//                onChoiceItemList = { _, indexList ->
-//                    toast.show(indexList.toString())
-//                    false
-//                }
-//
-//                _defaultConfig(holder, this)
-//            }
-//        }
-//
-//        holder.click(R.id.menu_multi_dialog) {
-//            fContext().multiChoiceDialog {
-//                dialogTitle = "弟弟"
-//
-//                items = mutableListOf("Item1", "Item2", "Item3")
-//
-//                defaultSelectorIndexList = mutableListOf(0, 2)
-//
-//                onChoiceItemList = { _, indexList ->
-//                    toast.show(indexList.toString())
-//                    false
-//                }
-//
-//                _defaultConfig(holder, this)
-//            }
-//        }
-//
+
+        holder.click(R.id.menu_choice_dialog) {
+            fContext().itemsDialog {
+                dialogSelectorModel = ItemSelectorHelper.MODEL_SINGLE
+                _initItemDialog(true, Gravity.LEFT or Gravity.CENTER_VERTICAL)
+                _defaultConfig(holder, this)
+            }
+        }
+
+        holder.click(R.id.menu_multi_dialog) {
+            fContext().itemsDialog {
+                dialogSelectorModel = ItemSelectorHelper.MODEL_MULTI
+                _initItemDialog(false, Gravity.CENTER)
+                _defaultConfig(holder, this)
+            }
+        }
+
         holder.click(R.id.input_single_dialog) {
             fContext().inputDialog {
                 showSoftInput = true
@@ -422,9 +387,13 @@ class DialogDemo : AppDslFragment() {
         holder.hawkInstallAndRestore("dialog_")
     }
 
-    fun BaseRecyclerDialogConfig._initItemDialog(ico: Boolean = false) {
-        for (i in 0..nextInt(2, 8)) {
+    fun BaseRecyclerDialogConfig._initItemDialog(
+        ico: Boolean = false,
+        gravity: Int = Gravity.CENTER
+    ) {
+        for (i in 0..nextInt(2, 28)) {
             addDialogItem {
+                itemTextGravity = gravity
                 itemText = span {
                     if (ico) {
                         drawable {
@@ -473,7 +442,7 @@ class DialogDemo : AppDslFragment() {
 
             if (this is BaseRecyclerDialogConfig) {
                 onDialogResult = { _, indexList ->
-                    toastQQ("返回:$indexList")
+                    toastQQ("返回:$indexList", R.drawable.lib_ic_info)
                 }
             }
         }

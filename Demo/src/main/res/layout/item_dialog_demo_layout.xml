@@ -142,161 +142,161 @@
 
         <com.angcyo.widget.DslButton
             android:id="@+id/normal_dialog"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="普通确认对话框框" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/normal_ios_dialog"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="普通IOS确认对话框" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/wheel_dialog"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Wheel选择对话框" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/item_dialog"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Items对话框" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/item_dialog_icon"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Items对话框(icon)" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/menu_dialog"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="菜单对话框" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/menu_ico_dialog"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="菜单对话框Ico" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/menu_ico2_dialog"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="菜单对话框Ico2" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/menu_choice_dialog"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="菜单单选确认对话框" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/menu_multi_dialog"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="菜单多选确认对话框" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/input_single_dialog"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="单行输入对话框" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/input_multi_dialog"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="多行输入对话框" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/grid_dialog"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="网格对话框" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/all_dialog"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="日期时间" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/date_dialog"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="日期选择" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/time_dialog"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="时间选择" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/option_dialog_single"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="多级选项对话框Single" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/option_dialog"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="多级选项对话框" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/option_dialog2"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="多级选项对话框(带半默认)" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/option_dialog3"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="多级选项对话框(带全默认)" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/calendar_dialog"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="日历选择对话框" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/calendar_dialog1"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="日历选择对话框(带默认1)" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/calendar_dialog2"
-            style="@style/DefaultButtonStyleNormal"
+            style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="日历选择对话框(带默认2)" />
@@ -312,7 +312,6 @@
         app:layout_constraintTop_toBottomOf="@id/flow_1"
         app:r_flow_item_horizontal_space="@dimen/lib_hdpi"
         app:r_flow_item_vertical_space="@dimen/lib_hdpi">
-
 
     </com.angcyo.widget.layout.DslFlowLayout>
 
