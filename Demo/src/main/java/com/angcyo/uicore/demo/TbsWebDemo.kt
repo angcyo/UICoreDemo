@@ -6,6 +6,7 @@ import android.view.View
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.component.hawkInstallAndRestore
+import com.angcyo.core.component.file.file
 import com.angcyo.core.component.fileSelector
 import com.angcyo.dsladapter.renderItem
 import com.angcyo.tbs.open
@@ -61,15 +62,20 @@ class TbsWebDemo : AppDslFragment() {
                     itemHolder.click(R.id.local_file_play) {
                         dslAHelper {
                             open {
-                                uri = Uri.parse("file:///android_asset/webpage/fullscreenVideo.html")
+                                uri =
+                                    Uri.parse("file:///android_asset/webpage/fullscreenVideo.html")
                             }
                         }
                     }
 
                     itemHolder.click(R.id.open_file) {
                         dslFHelper {
-                            fileSelector {
-
+                            fileSelector({
+                                showFileMd5 = true
+                                showFileMenu = true
+                                showHideFile = false
+                            }) {
+                                itemHolder.tv(R.id.result_text_view)?.text = it.file()?.absolutePath
                             }
                         }
                     }

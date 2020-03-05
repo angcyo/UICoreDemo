@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.behavior.HideTitleBarBehavior
+import com.angcyo.core.component.fileSelector
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.http.ApiKt
@@ -22,6 +23,7 @@ import com.angcyo.library.ex.toDpi
 import com.angcyo.library.ex.urlIntent
 import com.angcyo.library.toast
 import com.angcyo.library.toastQQ
+import com.angcyo.library.utils.FileUtils
 import com.angcyo.library.utils.RUtils
 import com.angcyo.library.utils.checkApkExist
 import com.angcyo.uicore.activity.*
@@ -127,7 +129,19 @@ class MainFragment : AppDslFragment() {
             renderMainItem("LauncherDemo")
 
             //设备信息.
-            DslLastDeviceInfoItem()()
+            DslLastDeviceInfoItem()() {
+                onItemClick = {
+                    dslFHelper {
+                        fileSelector({
+                            showFileMd5 = true
+                            showFileMenu = true
+                            showHideFile = true
+                            targetPath =
+                                FileUtils.appRootExternalFolder()?.absolutePath ?: storageDirectory
+                        })
+                    }
+                }
+            }
         }
     }
 
