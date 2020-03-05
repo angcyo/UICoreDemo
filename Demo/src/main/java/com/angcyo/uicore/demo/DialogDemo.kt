@@ -182,43 +182,13 @@ class DialogDemo : AppDslFragment() {
                 _defaultConfig(holder, this)
             }
         }
-//
-//        holder.click(R.id.grid_dialog) {
-//            gridDialog {
-//                appendItem {
-//                    gridItemIcon = R.drawable.ic_building_collect
-//                    gridItemBgDrawable =
-//                        RDrawable.get(requireContext()).circle("#3796F6".toColor()).get()
-//                    gridItemText = "走 访"
-//                }
-//                appendItem {
-//                    gridItemIcon = R.drawable.ic_building_collect
-//                    gridItemBgDrawable =
-//                        RDrawable.get(requireContext()).circle("#00BA8A".toColor()).get()
-//                    gridItemText = "添加人口"
-//                }
-//                appendItem {
-//                    gridItemIcon = R.drawable.ic_building_collect
-//                    gridItemBgDrawable =
-//                        RDrawable.get(requireContext()).circle("#F5BA00".toColor()).get()
-//                    gridItemText = "注销人口"
-//                }
-//                appendItem {
-//                    gridItemIcon = R.drawable.ic_building_collect
-//                    gridItemBgDrawable =
-//                        RDrawable.get(requireContext()).circle("#00BA8A".toColor()).get()
-//                    gridItemText = "房屋信息"
-//                }
-//                appendItem {
-//                    gridItemIcon = R.drawable.ic_building_collect
-//                    gridItemBgDrawable =
-//                        RDrawable.get(requireContext()).circle("#3796F6".toColor()).get()
-//                    gridItemText = "房屋相册"
-//                }
-//
-//                _defaultConfig(holder, this)
-//            }
-//        }
+
+        holder.click(R.id.grid_dialog) {
+            fContext().gridDialog {
+                _initItemDialog(true, Gravity.CENTER)
+                _defaultConfig(holder, this)
+            }
+        }
 //
 //        holder.click(R.id.all_dialog) {
 //            dateDialog {
@@ -392,20 +362,37 @@ class DialogDemo : AppDslFragment() {
         gravity: Int = Gravity.CENTER
     ) {
         for (i in 0..nextInt(2, 28)) {
-            addDialogItem {
-                itemTextGravity = gravity
-                itemText = span {
-                    if (ico) {
-                        drawable {
-                            backgroundDrawable = when (i % 4) {
-                                1 -> _drawable(R.drawable.lib_ic_info)
-                                2 -> _drawable(R.drawable.lib_ic_error)
-                                3 -> _drawable(R.drawable.lib_ic_waring)
-                                else -> _drawable(R.drawable.lib_ic_succeed)
+            if (this is ItemDialogConfig) {
+                addDialogItem {
+                    itemTextGravity = gravity
+                    itemText = span {
+                        if (ico) {
+                            drawable {
+                                backgroundDrawable = when (i % 4) {
+                                    1 -> _drawable(R.drawable.lib_ic_info)
+                                    2 -> _drawable(R.drawable.lib_ic_error)
+                                    3 -> _drawable(R.drawable.lib_ic_waring)
+                                    else -> _drawable(R.drawable.lib_ic_succeed)
+                                }
                             }
                         }
+                        append(" ${tx()} $i")
                     }
-                    append(" ${tx()} $i")
+                }
+            } else if (this is GridDialogConfig) {
+                addDialogItem {
+                    itemText = span {
+                        append(" ${tx()} $i")
+                    }
+
+                    if (ico) {
+                        itemGridIcon = when (i % 4) {
+                            1 -> R.drawable.lib_ic_info
+                            2 -> R.drawable.lib_ic_error
+                            3 -> R.drawable.lib_ic_waring
+                            else -> R.drawable.lib_ic_succeed
+                        }
+                    }
                 }
             }
         }
