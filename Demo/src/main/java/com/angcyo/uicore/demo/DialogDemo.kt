@@ -4,16 +4,22 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.RadioGroup
+import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.dialog.*
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.library.L
 import com.angcyo.library.ex._color
+import com.angcyo.library.ex._drawable
 import com.angcyo.library.ex.getColor
 import com.angcyo.library.toast
+import com.angcyo.library.toastQQ
 import com.angcyo.uicore.base.AppDslFragment
+import com.angcyo.uicore.dslitem.tx
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.base.string
 import com.angcyo.widget.progress.DslSeekBar
+import com.angcyo.widget.span.span
+import kotlin.random.Random.Default.nextInt
 
 /**
  *
@@ -69,79 +75,20 @@ class DialogDemo : AppDslFragment() {
             }
         }
 
-//        holder.click(R.id.item_dialog) {
-//            itemsDialog {
-//                dialogTitle = "标题标题标题标题标题"
-//
-//                items = mutableListOf(
-//                    "Item1",
-//                    "Item2",
-//                    "Item3",
-//                    "Item4",
-//                    "Item5",
-//                    "Item6",
-//                    "Item7",
-//                    "Item8",
-//                    "Item9",
-//                    "Item10"
-//                )
-//
-//                onItemClick = { _, _, item ->
-//                    toast.show(item as CharSequence)
-//                    false
-//                }
-//
-//                _defaultConfig(holder, this)
-//            }
-//        }
-//
-//        holder.click(R.id.item_dialog_full) {
-//            itemsDialog {
-//                dialogWidth = -1
-//                //指定dialogHeight 可以解决状态栏变黑, 但是~高度的计算会受到影响...
-//                dialogHeight = RUtils.getScreenHeight(activity)
-//                dialogBgDrawable = ColorDrawable(Color.TRANSPARENT)
-//                dialogTitle = "标题标题标题标题标题(全屏)"
-//                windowFlags = intArrayOf(
-//                    WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS,
-//                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-//                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
-//                    WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-//                )
-//
-//                items = mutableListOf(
-//                    "Item1",
-//                    "Item2",
-//                    "Item3",
-//                    "Item4",
-//                    "Item5",
-//                    "Item6",
-//                    "Item7",
-//                    "Item8",
-//                    "Item9",
-//                    "Item10"
-//                )
-//
-//                onItemClick = { _, _, item ->
-//                    toast.show(item as CharSequence)
-//                    false
-//                }
-//
-//                _defaultConfig(holder, this)
-//
-//                dialogInit = { dialog, dialogViewHolder ->
-//                    ActivityHelper.enableLayoutFullScreen(dialog.window, true)
-//
-//                    dialogViewHolder.itemView.apply {
-//                        fitsSystemWindows = false
-//                        setBackgroundColor(Color.GREEN)
-//                        setPadding(0, 0, 0, 0)
-//                        layoutParams = WindowManager.LayoutParams(-1, -2)
-//                    }
-//                }
-//            }
-//        }
-//
+        holder.click(R.id.item_dialog) {
+            fContext().itemsDialog {
+                _initItemDialog(false)
+                _defaultConfig(holder, this)
+            }
+        }
+
+        holder.click(R.id.item_dialog_icon) {
+            fContext().itemsDialog {
+                _initItemDialog(true)
+                _defaultConfig(holder, this)
+            }
+        }
+
 //        holder.click(R.id.menu_dialog) {
 //            menuDialog {
 //                dialogTitle = "你要干啥?"
@@ -471,6 +418,28 @@ class DialogDemo : AppDslFragment() {
 //                _defaultConfig(holder, this)
 //            }
 //        }
+
+        holder.hawkInstallAndRestore("dialog_")
+    }
+
+    fun BaseRecyclerDialogConfig._initItemDialog(ico: Boolean = false) {
+        for (i in 0..nextInt(2, 8)) {
+            addDialogItem {
+                itemText = span {
+                    if (ico) {
+                        drawable {
+                            backgroundDrawable = when (i % 4) {
+                                1 -> _drawable(R.drawable.lib_ic_info)
+                                2 -> _drawable(R.drawable.lib_ic_error)
+                                3 -> _drawable(R.drawable.lib_ic_waring)
+                                else -> _drawable(R.drawable.lib_ic_succeed)
+                            }
+                        }
+                    }
+                    append(" ${tx()} $i")
+                }
+            }
+        }
     }
 
     fun _defaultConfig(viewHolder: DslViewHolder, config: DslDialogConfig) {
@@ -478,16 +447,34 @@ class DialogDemo : AppDslFragment() {
             dialogTitle = viewHolder.tv(R.id.title_edit)?.string()
             dialogMessage = viewHolder.tv(R.id.message_edit)?.string()
 
-            cancelable = viewHolder.cb(R.id.cancel_cb)?.isChecked ?: true
-            canceledOnTouchOutside = viewHolder.cb(R.id.cancel_outside_cb)?.isChecked ?: true
+            cancelable = viewHolder.isChecked(R.id.close_cb)
+            canceledOnTouchOutside = viewHolder.isChecked(R.id.cancel_outside_cb)
 
-            if (viewHolder.cb(R.id.amount_cb)?.isChecked == true) {
+            if (viewHolder.isChecked(R.id.amount_cb)) {
                 config.amount =
                     (viewHolder.v<DslSeekBar>(R.id.amount_progress_bar)?.progressValue ?: 0) / 100f
             }
 
-            if (this is BaseDialogConfig) {
-                dialogType = this@DialogDemo.dialogType
+            dialogType = this@DialogDemo.dialogType
+
+            if (viewHolder.isChecked(R.id.title_cb)) {
+                dialogTitle = null
+            }
+
+            if (viewHolder.isChecked(R.id.message_cb)) {
+                dialogMessage = null
+            }
+
+            if (viewHolder.isChecked(R.id.cancel_cb)) {
+                if (this is BaseRecyclerDialogConfig) {
+                    dialogBottomCancelItem = null
+                }
+            }
+
+            if (this is BaseRecyclerDialogConfig) {
+                onDialogResult = { _, indexList ->
+                    toastQQ("返回:$indexList")
+                }
             }
         }
     }

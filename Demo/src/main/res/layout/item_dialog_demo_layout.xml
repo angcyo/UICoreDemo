@@ -80,7 +80,28 @@
         app:r_flow_item_vertical_space="@dimen/lib_hdpi">
 
         <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/title_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="关闭标题" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/message_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="关闭内容" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/cancel_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="关闭取消按钮" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/close_cb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
@@ -148,11 +169,11 @@
             android:text="Items对话框" />
 
         <com.angcyo.widget.DslButton
-            android:id="@+id/item_dialog_full"
+            android:id="@+id/item_dialog_icon"
             style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Items对话框(全屏)" />
+            android:text="Items对话框(icon)" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/menu_dialog"
