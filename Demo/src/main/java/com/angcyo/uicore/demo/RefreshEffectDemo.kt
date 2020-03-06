@@ -4,6 +4,8 @@ import android.os.Bundle
 import com.angcyo.item.DslBaseInfoItem
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.toast
+import com.angcyo.library.toastQQ
+import com.angcyo.library.toastWX
 import com.angcyo.uicore.base.AppTitleFragment
 import com.angcyo.widget.recycler.initDslAdapter
 
@@ -27,32 +29,32 @@ class RefreshEffectDemo : AppTitleFragment() {
         _vh.rv(R.id.lib_recycler_view)?.initDslAdapter {
             for (i in 0..100) {
                 DslBaseInfoItem()() {
-                    val type = when {
-                        i % 2 == 0 -> 1
-                        i % 3 == 0 -> 2
-                        else -> 0
-                    }
+                    val type = i % 4
+                    val withAcy = i % 3 == 0
 
                     itemInfoText = "Text...$i" + when (type) {
                         1 -> " _activity"
                         2 -> " _qq"
+                        3 -> " _wx"
                         else -> " _normal"
-                    }
+                    } + if (withAcy) " _widthActivity" else " _toast"
 
                     itemTopInsert = 1 * dpi
 
                     onItemClick = {
-
                         when (type) {
                             1 -> toast(itemInfoText, R.drawable.lib_ic_info) {
-                                withActivity = getActivity()
+                                withActivity = if (withAcy) activity else null
                             }
-                            2 -> toast(
-                                itemInfoText,
-                                R.drawable.lib_ic_succeed,
-                                R.layout.lib_qq_toast_layout
-                            )
-                            else -> toast(itemInfoText, R.drawable.lib_ic_waring)
+                            2 -> toastQQ(itemInfoText, R.drawable.lib_ic_succeed) {
+                                withActivity = if (withAcy) activity else null
+                            }
+                            3 -> toastWX(itemInfoText, R.drawable.lib_ic_error) {
+                                withActivity = if (withAcy) activity else null
+                            }
+                            else -> toast(itemInfoText, R.drawable.lib_ic_waring) {
+                                withActivity = if (withAcy) activity else null
+                            }
                         }
                     }
                 }

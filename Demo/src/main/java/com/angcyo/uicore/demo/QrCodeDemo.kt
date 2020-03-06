@@ -81,7 +81,7 @@ class QrCodeDemo : AppDslFragment() {
                     itemHolder.click(R.id.text_view) {
                         itemHolder.tv(R.id.text_view)?.text?.run {
                             copy()
-                            toast("已复制:$this", R.drawable.lib_ic_info, R.layout.lib_qq_toast_layout)
+                            toast("已复制:$this", R.drawable.lib_ic_info, R.layout.lib_toast_qq_layout)
                         }
                     }
 

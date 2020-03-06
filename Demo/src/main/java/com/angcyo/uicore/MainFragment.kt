@@ -71,80 +71,6 @@ class MainFragment : AppDslFragment() {
         return _vh.v<SliderMenuLayout>(R.id.menu_layout)?.requestBackPressed() == true
     }
 
-    /**锁定Demo的位置, 每次启动时自动跳转到这个Demo*/
-    var lockDemoPosition: Int = RecyclerView.NO_POSITION
-
-    override fun onInitFragment() {
-        super.onInitFragment()
-        renderDslAdapter {
-            renderMainItem("FragmentInFragmentDemo", 10.toDpi()) {
-                dslAHelper {
-                    start(FragmentInFragmentActivity::class.java)
-                }
-            }
-            renderMainItem("ViewPagerInFragmentDemo") {
-                dslAHelper {
-                    start(ViewPagerInFragmentActivity::class.java)
-                }
-            }
-            renderMainItem("ViewPagerInViewPagerDemo") {
-                dslAHelper {
-                    start(ViewPagerInViewPagerActivity::class.java)
-                }
-            }
-            renderMainItem("ViewPager2InFragmentDemo") {
-                dslAHelper {
-                    start(ViewPager2InFragmentActivity::class.java)
-                }
-            }
-            renderMainItem("ViewPager2InViewPager2Demo") {
-                dslAHelper {
-                    start(ViewPager2InViewPager2Activity::class.java)
-                }
-            }
-
-            renderMainItem("DrawableSpanDemo")
-            renderMainItem("WidgetDemo ArcLoadingView")
-            renderMainItem("RefreshEffectDemo DslToast")
-            renderMainItem("RefreshDemo")
-            renderMainItem("DslAffectDemo")
-            renderMainItem("ValueTextWatcherDemo DslSoftInputLayout")
-            renderMainItem("DslSoftInputDemo")
-            renderMainItem("ViewModelDemo")
-            renderMainItem("ViewGroupOverlayDemo")
-            renderMainItem("TransitionDemo")
-            renderMainItem("GlideImageDemo")
-            renderMainItem("RegularPatternDemo")
-            renderMainItem("OkDownloadDemo")
-            renderMainItem("MediaPickerDemo $GO")
-            renderMainItem("DialogDemo $GO")
-            renderMainItem("NotifyDemo ContentObserver")
-            renderMainItem("CameraXDemo")
-            renderMainItem("StyleDemo ThemeStyledAttributes")
-            renderMainItem("ShortcutDemo")
-            renderMainItem("DslDrawItemDecorationDemo")
-            renderMainItem("QrCodeDemo")
-            renderMainItem("TbsWebDemo")
-            renderMainItem("IntentDemo")
-            renderMainItem("LauncherDemo")
-
-            //设备信息.
-            DslLastDeviceInfoItem()() {
-                onItemClick = {
-                    dslFHelper {
-                        fileSelector({
-                            showFileMd5 = true
-                            showFileMenu = true
-                            showHideFile = true
-                            targetPath =
-                                FileUtils.appRootExternalFolder()?.absolutePath ?: storageDirectory
-                        })
-                    }
-                }
-            }
-        }
-    }
-
     lateinit var menuAdapter: DslAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -240,6 +166,80 @@ class MainFragment : AppDslFragment() {
             }
 
             AppMenuFooterItem()()
+        }
+    }
+
+    /**锁定Demo的位置, 每次启动时自动跳转到这个Demo*/
+    var lockDemoPosition: Int = RecyclerView.NO_POSITION
+
+    override fun onInitFragment() {
+        super.onInitFragment()
+        renderDslAdapter {
+            renderMainItem("FragmentInFragmentDemo", 10.toDpi()) {
+                dslAHelper {
+                    start(FragmentInFragmentActivity::class.java)
+                }
+            }
+            renderMainItem("ViewPagerInFragmentDemo") {
+                dslAHelper {
+                    start(ViewPagerInFragmentActivity::class.java)
+                }
+            }
+            renderMainItem("ViewPagerInViewPagerDemo") {
+                dslAHelper {
+                    start(ViewPagerInViewPagerActivity::class.java)
+                }
+            }
+            renderMainItem("ViewPager2InFragmentDemo") {
+                dslAHelper {
+                    start(ViewPager2InFragmentActivity::class.java)
+                }
+            }
+            renderMainItem("ViewPager2InViewPager2Demo") {
+                dslAHelper {
+                    start(ViewPager2InViewPager2Activity::class.java)
+                }
+            }
+
+            renderMainItem("DrawableSpanDemo")
+            renderMainItem("WidgetDemo ArcLoadingView")
+            renderMainItem("RefreshEffectDemo DslToast")
+            renderMainItem("RefreshDemo")
+            renderMainItem("DslAffectDemo")
+            renderMainItem("ValueTextWatcherDemo DslSoftInputLayout")
+            renderMainItem("DslSoftInputDemo")
+            renderMainItem("ViewModelDemo")
+            renderMainItem("ViewGroupOverlayDemo")
+            renderMainItem("TransitionDemo")
+            renderMainItem("GlideImageDemo")
+            renderMainItem("RegularPatternDemo")
+            renderMainItem("OkDownloadDemo")
+            renderMainItem("MediaPickerDemo $GO")
+            renderMainItem("DialogDemo $GO")
+            renderMainItem("NotifyDemo ContentObserver")
+            renderMainItem("CameraXDemo")
+            renderMainItem("StyleDemo ThemeStyledAttributes $GO")
+            renderMainItem("ShortcutDemo")
+            renderMainItem("DslDrawItemDecorationDemo")
+            renderMainItem("QrCodeDemo")
+            renderMainItem("TbsWebDemo")
+            renderMainItem("IntentDemo")
+            renderMainItem("LauncherDemo")
+
+            //设备信息.
+            DslLastDeviceInfoItem()() {
+                onItemClick = {
+                    dslFHelper {
+                        fileSelector({
+                            showFileMd5 = true
+                            showFileMenu = true
+                            showHideFile = true
+                            targetPath =
+                                FileUtils.appRootExternalFolder()?.absolutePath ?: storageDirectory
+                        })
+                    }
+                }
+            }
         }
     }
 
