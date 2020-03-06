@@ -63,10 +63,6 @@ class MainFragment : AppDslFragment() {
         CREATE_COUNT++
     }
 
-    override fun enableBackItem(): Boolean {
-        return false
-    }
-
     override fun onBackPressed(): Boolean {
         return _vh.v<SliderMenuLayout>(R.id.menu_layout)?.requestBackPressed() == true
     }
