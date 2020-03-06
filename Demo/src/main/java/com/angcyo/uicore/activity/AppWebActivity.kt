@@ -1,5 +1,7 @@
 package com.angcyo.uicore.activity
 
+import android.content.Intent
+import com.angcyo.library.L
 import com.angcyo.tbs.core.TbsWebActivity
 
 /**
@@ -10,5 +12,9 @@ import com.angcyo.tbs.core.TbsWebActivity
  */
 
 class AppWebActivity : TbsWebActivity() {
+    override fun onHandleIntent(intent: Intent, fromNew: Boolean) {
+        super.onHandleIntent(intent, fromNew)
 
+        L.d("$intent ${intent.data}")
+    }
 }

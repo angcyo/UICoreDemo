@@ -222,7 +222,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("ShortcutDemo")
             renderMainItem("DslDrawItemDecorationDemo")
             renderMainItem("QrCodeDemo")
-            renderMainItem("TbsWebDemo")
+            renderMainItem("TbsWebDemo $GO")
             renderMainItem("IntentDemo")
             renderMainItem("LauncherDemo")
 

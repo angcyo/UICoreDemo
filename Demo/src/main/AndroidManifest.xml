@@ -160,7 +160,7 @@
                 <data android:scheme="javascript" />
             </intent-filter>
 
-            <intent-filter android:label="search_pic">
+            <intent-filter android:label="使用TBS打开">
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="image/*" />
