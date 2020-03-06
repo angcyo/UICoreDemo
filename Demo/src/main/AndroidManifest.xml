@@ -103,6 +103,7 @@
             android:name="com.angcyo.uicore.activity.AppWebActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|fontScale|smallestScreenSize|density|screenLayout"
             android:launchMode="standard"
+            android:noHistory="false"
             android:rotationAnimation="seamless"
             android:screenOrientation="fullSensor"
             android:windowSoftInputMode="adjustResize">
