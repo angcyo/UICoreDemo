@@ -27,18 +27,6 @@ class StyleDemo : AppDslFragment() {
                 itemBindOverride = { itemHolder, _, _, _ ->
                     itemHolder.tv(R.id.lib_text_view)?.text = span {
 
-                        val typedArray = fContext().obtainStyledAttributes(
-                            R.style.StylesDemo,
-                            R.styleable.StylesDemoStyleable
-                        )
-
-                        val typedArray2 = fContext().obtainStyledAttributes(
-                            null,
-                            R.styleable.StylesDemoStyleable,
-                            0,
-                            R.style.StylesDemo
-                        )
-
                         fun log(typedArray: TypedArray) {
                             for (i in 0 until typedArray.length()) {
                                 appendln()
@@ -59,7 +47,7 @@ class StyleDemo : AppDslFragment() {
 
                                 appendln()
 
-                                append("${value.string}") {
+                                append("${value?.string}") {
                                     foregroundColor = _color(R.color.colorPrimaryDark)
                                 }
                                 append(" ${typedArray.getString(index)}")
@@ -69,6 +57,35 @@ class StyleDemo : AppDslFragment() {
 
                             typedArray.recycle()
                         }
+
+                        val animTypedArray = fContext().obtainStyledAttributes(
+                            R.style.LibToastTopAnimation,
+                            intArrayOf(
+                                android.R.attr.windowEnterAnimation,
+                                android.R.attr.windowExitAnimation
+                            )
+                        )
+                        append("AnimTypedArray:") {
+                            foregroundColor = Color.RED
+                        }
+                        log(animTypedArray)
+                        appendln()
+
+                        /*
+                        * value存在[StylesDemo]资源中
+                        * key存在[StylesDemoStyleable]数组中
+                        * */
+                        val typedArray = fContext().obtainStyledAttributes(
+                            R.style.StylesDemo,
+                            R.styleable.StylesDemoStyleable
+                        )
+
+                        val typedArray2 = fContext().obtainStyledAttributes(
+                            null,
+                            R.styleable.StylesDemoStyleable,
+                            0,
+                            R.style.StylesDemo
+                        )
 
                         append("TypedArray1:") {
                             foregroundColor = Color.RED
