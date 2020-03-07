@@ -6,9 +6,9 @@
     android:layout_height="wrap_content"
     tools:background="@color/transparent60">
 
-    <RadioGroup
+    <com.angcyo.widget.layout.DslRadioFlowLayout
         android:id="@+id/flow_style"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checkedButton="@id/style_appcompat"
         android:orientation="horizontal"
@@ -43,7 +43,15 @@
             android:layout_height="wrap_content"
             android:text="BottomSheet" />
 
-    </RadioGroup>
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/style_activity"
+            style="@style/LibBodyTextStyle"
+            android:layout_gravity="left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Activity" />
+
+    </com.angcyo.widget.layout.DslRadioFlowLayout>
 
     <LinearLayout
         android:id="@+id/edit_wrap_layout"
