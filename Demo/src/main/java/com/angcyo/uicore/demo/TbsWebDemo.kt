@@ -9,6 +9,7 @@ import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.core.component.file.file
 import com.angcyo.core.component.fileSelector
 import com.angcyo.dsladapter.renderItem
+import com.angcyo.library.ex.nowTimeString
 import com.angcyo.tbs.open
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.base.string
@@ -75,7 +76,17 @@ class TbsWebDemo : AppDslFragment() {
                                 showFileMenu = true
                                 showHideFile = false
                             }) {
-                                itemHolder.tv(R.id.result_text_view)?.text = it.file()?.absolutePath
+
+                                itemHolder.tv(R.id.result_text_view)?.text =
+                                    it.file()?.absolutePath ?: "选择被取消 ${nowTimeString()}"
+
+                                it?.run {
+                                    dslAHelper {
+                                        open {
+                                            uri = fileUri
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

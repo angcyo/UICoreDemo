@@ -30,7 +30,7 @@ class AppOkDownloadItem : DslAdapterItem() {
             updateAdapterItem()
         }
 
-        onTaskProgress = { downloadTask, progress ->
+        onTaskProgress = { downloadTask, progress, speed ->
             L.i("进度回调:${this@AppOkDownloadItem.simpleHash()}", downloadTask, progress)
             updateAdapterItem()
         }
@@ -110,7 +110,7 @@ class AppOkDownloadItem : DslAdapterItem() {
                     itemHolder.tv(R.id.button)?.text = "ing..."
                 }
 
-                onTaskProgress = { downloadTask, progress ->
+                onTaskProgress = { downloadTask, progress, speed ->
                     itemHolder.v<DslProgressBar>(R.id.progress_bar)?.setProgress(progress)
                 }
 

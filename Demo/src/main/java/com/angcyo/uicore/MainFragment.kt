@@ -210,7 +210,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("GlideImageDemo")
             renderMainItem("RegularPatternDemo")
             renderMainItem("OkDownloadDemo")
-            renderMainItem("MediaPickerDemo $GO")
+            renderMainItem("MediaPickerDemo")
             renderMainItem("DialogDemo")
             renderMainItem("NotifyDemo ContentObserver")
             renderMainItem("CameraXDemo")
@@ -218,7 +218,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("ShortcutDemo")
             renderMainItem("DslDrawItemDecorationDemo")
             renderMainItem("QrCodeDemo")
-            renderMainItem("TbsWebDemo")
+            renderMainItem("TbsWebDemo $GO")
             renderMainItem("IntentDemo")
             renderMainItem("LauncherDemo")
 

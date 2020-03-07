@@ -17,7 +17,7 @@ dependencies {
 
     //https://developer.android.google.cn/topic/libraries/architecture/workmanager.html
     //http://mvnrepository.com/artifact/androidx.work
-    def work_version = "2.3.2"
+    def work_version = "2.3.3"
     // (Java only)
     implementation "androidx.work:work-runtime:$work_version"
     // Kotlin + coroutines
