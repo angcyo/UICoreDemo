@@ -38,3 +38,5 @@ dependencies {
     implementation project(allModule.qrcode)
     implementation project(allModule.tbs)
 }
+
+//apply from: allGradle.v7a
