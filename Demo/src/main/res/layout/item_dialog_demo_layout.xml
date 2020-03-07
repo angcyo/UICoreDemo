@@ -12,8 +12,9 @@
         android:layout_height="wrap_content"
         android:checkedButton="@id/style_appcompat"
         android:orientation="horizontal"
-        android:paddingTop="@dimen/lib_hdpi"
-        android:paddingBottom="@dimen/lib_hdpi">
+        android:padding="@dimen/lib_hdpi"
+        app:r_flow_item_horizontal_space="@dimen/lib_hdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_hdpi">
 
         <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/style_dialog"
@@ -27,7 +28,7 @@
             style="@style/LibBodyTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="AppCompat" />
+            android:text="AppCompatDialog" />
 
         <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/style_alert"
@@ -41,15 +42,15 @@
             style="@style/LibBodyTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="BottomSheet" />
+            android:text="BottomSheetDialog" />
 
         <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/style_activity"
             style="@style/LibBodyTextStyle"
-            android:layout_gravity="left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Activity" />
+            android:layout_gravity="left"
+            android:text="DialogActivity" />
 
     </com.angcyo.widget.layout.DslRadioFlowLayout>
 
