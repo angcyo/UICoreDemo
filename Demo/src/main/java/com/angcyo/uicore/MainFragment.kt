@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.behavior.HideTitleBarBehavior
+import com.angcyo.behavior.refresh.RefreshBehavior
+import com.angcyo.behavior.refresh.ScaleHeaderRefreshEffectConfig
 import com.angcyo.core.component.fileSelector
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem
@@ -31,6 +33,7 @@ import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.dslitem.AppMenuFooterItem
 import com.angcyo.uicore.dslitem.AppMenuHeaderItem
+import com.angcyo.widget.base.behavior
 import com.angcyo.widget.base.onDoubleTap
 import com.angcyo.widget.base.padding
 import com.angcyo.widget.base.reveal
@@ -76,92 +79,98 @@ class MainFragment : AppDslFragment() {
         }) {
             _vh.v<SliderMenuLayout>(R.id.menu_layout)?.openMenu()
         }
-        _vh.rv(R.id.menu_recycler_view)?.initDslAdapter() {
-            menuAdapter = this
-
-            AppMenuHeaderItem()()
-
-            val insert = 10 * dpi
-            val subInsert = 2 * dpi
-            DslTextInfoItem()() {
-                itemTopInsert = insert
-                itemInfoText = "扫一扫"
-                onItemClick = {
-                    dslAHelper {
-                        start(Intent(context, AppScanActivity::class.java))
-                    }
+        _vh.rv(R.id.menu_recycler_view)?.apply {
+            behavior()?.also {
+                if (it is RefreshBehavior) {
+                    it.refreshBehaviorConfig = ScaleHeaderRefreshEffectConfig()
                 }
             }
+            initDslAdapter() {
+                menuAdapter = this
+                AppMenuHeaderItem()()
 
-            DslTextInfoItem()() {
-                itemTopInsert = insert
-                itemInfoText = "QQ咨询"
-                onItemClick = {
-                    if (fContext().checkApkExist("com.tencent.mobileqq")) {
+                val insert = 10 * dpi
+                val subInsert = 2 * dpi
+                DslTextInfoItem()() {
+                    itemTopInsert = insert
+                    itemInfoText = "扫一扫"
+                    onItemClick = {
                         dslAHelper {
-                            start(RUtils.chatQQIntent(context)!!)
+                            start(Intent(context, AppScanActivity::class.java))
                         }
-                    } else {
-                        toastQQ("请安装QQ")
                     }
                 }
-            }
 
-            DslTextInfoItem()() {
-                itemTopInsert = subInsert
-                itemInfoText = "QQ入群学习"
-                onItemClick = {
-                    if (fContext().checkApkExist("com.tencent.mobileqq")) {
+                DslTextInfoItem()() {
+                    itemTopInsert = insert
+                    itemInfoText = "QQ咨询"
+                    onItemClick = {
+                        if (fContext().checkApkExist("com.tencent.mobileqq")) {
+                            dslAHelper {
+                                start(RUtils.chatQQIntent(context)!!)
+                            }
+                        } else {
+                            toastQQ("请安装QQ")
+                        }
+                    }
+                }
+
+                DslTextInfoItem()() {
+                    itemTopInsert = subInsert
+                    itemInfoText = "QQ入群学习"
+                    onItemClick = {
+                        if (fContext().checkApkExist("com.tencent.mobileqq")) {
+                            dslAHelper {
+                                start(RUtils.joinQQGroupIntent(context)!!)
+                            }
+                        } else {
+                            toastQQ("请安装QQ")
+                        }
+                    }
+                }
+
+                DslTextInfoItem()() {
+                    itemTopInsert = insert
+                    itemInfoText = "CSDN博客"
+                    onItemClick = {
                         dslAHelper {
-                            start(RUtils.joinQQGroupIntent(context)!!)
+                            start("https://angcyo.blog.csdn.net".urlIntent())
                         }
-                    } else {
-                        toastQQ("请安装QQ")
                     }
                 }
-            }
 
-            DslTextInfoItem()() {
-                itemTopInsert = insert
-                itemInfoText = "CSDN博客"
-                onItemClick = {
-                    dslAHelper {
-                        start("https://angcyo.blog.csdn.net".urlIntent())
+                DslTextInfoItem()() {
+                    itemTopInsert = subInsert
+                    itemInfoText = "Github"
+                    onItemClick = {
+                        dslAHelper {
+                            start("https://github.com/angcyo".urlIntent())
+                        }
                     }
                 }
-            }
 
-            DslTextInfoItem()() {
-                itemTopInsert = subInsert
-                itemInfoText = "Github"
-                onItemClick = {
-                    dslAHelper {
-                        start("https://github.com/angcyo".urlIntent())
+                DslTextInfoItem()() {
+                    itemTopInsert = subInsert
+                    itemInfoText = "掘金"
+                    onItemClick = {
+                        dslAHelper {
+                            start("https://juejin.im/user/576a151b2e958a00699c11f0".urlIntent())
+                        }
                     }
                 }
-            }
 
-            DslTextInfoItem()() {
-                itemTopInsert = subInsert
-                itemInfoText = "掘金"
-                onItemClick = {
-                    dslAHelper {
-                        start("https://juejin.im/user/576a151b2e958a00699c11f0".urlIntent())
+                DslTextInfoItem()() {
+                    itemTopInsert = subInsert
+                    itemInfoText = "官网"
+                    onItemClick = {
+                        dslAHelper {
+                            start("https://www.angcyo.com".urlIntent())
+                        }
                     }
                 }
-            }
 
-            DslTextInfoItem()() {
-                itemTopInsert = subInsert
-                itemInfoText = "官网"
-                onItemClick = {
-                    dslAHelper {
-                        start("https://www.angcyo.com".urlIntent())
-                    }
-                }
+                AppMenuFooterItem()()
             }
-
-            AppMenuFooterItem()()
         }
     }
 

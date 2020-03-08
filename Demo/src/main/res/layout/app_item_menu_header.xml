@@ -4,14 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/app_header_bg_shape"
-    android:padding="@dimen/lib_xhdpi">
+    android:paddingLeft="@dimen/lib_xhdpi"
+    android:paddingTop="@dimen/title_bar_height"
+    android:paddingRight="@dimen/lib_xhdpi"
+    android:paddingBottom="@dimen/lib_xhdpi">
 
     <com.angcyo.widget.image.ShapeImageView
         android:id="@+id/header_view"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="@dimen/title_bar_height"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1"
         app:r_image_radius="@dimen/lib_radius_big"
         app:srcCompat="@drawable/face" />
 
