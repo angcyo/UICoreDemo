@@ -82,7 +82,9 @@ class MainFragment : AppDslFragment() {
         _vh.rv(R.id.menu_recycler_view)?.apply {
             behavior()?.also {
                 if (it is RefreshBehavior) {
-                    it.refreshBehaviorConfig = ScaleHeaderRefreshEffectConfig()
+                    it.refreshBehaviorConfig = ScaleHeaderRefreshEffectConfig().apply {
+                        scaleThreshold = -1f
+                    }
                 }
             }
             initDslAdapter() {
