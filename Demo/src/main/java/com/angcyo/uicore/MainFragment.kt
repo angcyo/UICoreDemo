@@ -232,6 +232,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("TbsWebDemo $GO")
             renderMainItem("IntentDemo")
             renderMainItem("LauncherDemo")
+            renderMainItem("GameRenderEngineDemo $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()() {

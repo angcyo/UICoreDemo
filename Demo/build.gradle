@@ -48,6 +48,7 @@ dependencies {
     //implementation project(allModule.bmob)
     implementation project(allModule.qrcode)
     implementation project(allModule.tbs)
+    implementation project(allModule.game)
 }
 
 //apply from: allGradle.v7a

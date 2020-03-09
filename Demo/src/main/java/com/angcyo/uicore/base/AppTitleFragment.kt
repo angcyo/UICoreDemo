@@ -9,5 +9,7 @@ import com.angcyo.core.fragment.BaseTitleFragment
  * @date 2020/01/10
  */
 open class AppTitleFragment : BaseTitleFragment() {
-
+    init {
+        //contentLayoutId =
+    }
 }
