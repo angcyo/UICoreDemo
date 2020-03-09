@@ -1,7 +1,9 @@
 package com.angcyo.uicore.game.layer
 
 import android.graphics.Color
+import com.angcyo.game.core.UpdateParams
 import com.angcyo.game.layer.BaseLayer
+import com.angcyo.library.ex.abs
 import com.angcyo.library.ex.dpi
 import com.angcyo.uicore.game.spirit.ColorMatrixSpirit
 
@@ -37,7 +39,14 @@ class ColorMatrixLayer : BaseLayer() {
                 addSpirit(ColorMatrixSpirit().apply {
                     spiritRectF.set(left, top, left + spiritSize, top + spiritSize)
 
-                    if (top < 1 * height / 3) {
+                    val spiritWidth = (spiritSize + spiritSpace)
+                    if (left < (width / 2 + spiritWidth / 2) &&
+                        ((left - top).abs() <= spiritWidth * 5 ||
+                                (left - (width - top)).abs() <= spiritWidth * 5)
+                    ) {
+                        spiritStartColor = Color.BLACK
+                        spiritEndColor = Color.BLACK
+                    } else if (top < 1 * height / 3) {
                         spiritStartColor = Color.RED
                         spiritEndColor = Color.BLUE
                     } else if (top < 2 * height / 3) {
@@ -54,5 +63,10 @@ class ColorMatrixLayer : BaseLayer() {
             useWidth = 0f
             useHeight = top + spiritSize
         }
+    }
+
+    override fun update(updateParams: UpdateParams) {
+        super.update(updateParams)
+
     }
 }

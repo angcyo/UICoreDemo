@@ -72,6 +72,7 @@ class GameRenderView(context: Context, attributeSet: AttributeSet? = null) :
             color = Color.RED
             strokeWidth = 1 * dp
             style = Paint.Style.FILL_AND_STROKE
+            setShadowLayer(1 * dp, 1 * dp, 1 * dp, Color.BLACK)
         }
     }
 
@@ -81,7 +82,7 @@ class GameRenderView(context: Context, attributeSet: AttributeSet? = null) :
 
         if (showFps) {
             val text = "${gameRenderEngine.fps}"
-            canvas.drawText(text, 10 * dp, measuredHeight - 10 * dp, fpsPaint)
+            canvas.drawText(text, 10 * dp, 20 * dp, fpsPaint)
         }
     }
 }

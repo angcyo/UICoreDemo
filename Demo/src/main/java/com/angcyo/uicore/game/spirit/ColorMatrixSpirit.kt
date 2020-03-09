@@ -3,6 +3,8 @@ package com.angcyo.uicore.game.spirit
 import android.animation.ArgbEvaluator
 import android.graphics.Canvas
 import android.graphics.Paint
+import com.angcyo.game.core.DrawParams
+import com.angcyo.game.core.UpdateParams
 import com.angcyo.game.spirit.ColorSpirit
 import com.angcyo.library.ex.dp
 
@@ -30,16 +32,16 @@ class ColorMatrixSpirit : ColorSpirit() {
         roundY = 25 * dp
     }
 
-    override fun draw(canvas: Canvas) {
+    override fun draw(canvas: Canvas, drawParams: DrawParams) {
         spiritPaint.style = Paint.Style.FILL_AND_STROKE
-        super.draw(canvas)
+        super.draw(canvas, drawParams)
     }
 
     override fun getSpiritColor(): Int {
         return spiritDrawColor
     }
 
-    override fun update() {
+    override fun update(updateParams: UpdateParams) {
         fraction += step
         if (fraction > 1f || fraction < 0f) {
             step = -step

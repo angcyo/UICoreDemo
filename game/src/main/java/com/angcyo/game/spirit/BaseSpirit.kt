@@ -3,6 +3,8 @@ package com.angcyo.game.spirit
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
+import com.angcyo.game.core.DrawParams
+import com.angcyo.game.core.UpdateParams
 import com.angcyo.game.layer.BaseLayer
 import com.angcyo.library.ex.dp
 
@@ -49,7 +51,7 @@ abstract class BaseSpirit {
         _layer = null
     }
 
-    abstract fun draw(canvas: Canvas)
+    abstract fun draw(canvas: Canvas, drawParams: DrawParams)
 
-    abstract fun update()
+    abstract fun update(updateParams: UpdateParams)
 }

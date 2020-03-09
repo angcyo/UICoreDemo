@@ -2,6 +2,8 @@ package com.angcyo.game.layer
 
 import android.graphics.Canvas
 import android.graphics.RectF
+import com.angcyo.game.core.DrawParams
+import com.angcyo.game.core.UpdateParams
 import com.angcyo.game.spirit.BaseSpirit
 import com.angcyo.game.spirit.BaseSpirit.Companion.SPIRIT_STATUS_PAUSE_DRAW
 import com.angcyo.game.spirit.BaseSpirit.Companion.SPIRIT_STATUS_PAUSE_UPDATE
@@ -63,23 +65,23 @@ abstract class BaseLayer {
         layerRectF.set(0f, 0f, width, height)
     }
 
-    open fun draw(canvas: Canvas) {
+    open fun draw(canvas: Canvas, drawParams: DrawParams) {
         val iterator = spiritList.iterator()
         while (iterator.hasNext()) {
             iterator.next()?.also { spirit ->
                 if (!spirit.spiritStatus.have(SPIRIT_STATUS_PAUSE_DRAW)) {
-                    spirit.draw(canvas)
+                    spirit.draw(canvas, drawParams)
                 }
             }
         }
     }
 
-    open fun update() {
+    open fun update(updateParams: UpdateParams) {
         val iterator = spiritList.iterator()
         while (iterator.hasNext()) {
             iterator.next()?.also { spirit ->
                 if (!spirit.spiritStatus.have(SPIRIT_STATUS_PAUSE_UPDATE)) {
-                    spirit.update()
+                    spirit.update(updateParams)
                 }
             }
         }

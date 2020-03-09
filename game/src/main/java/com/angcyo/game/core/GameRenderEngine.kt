@@ -23,6 +23,8 @@ class GameRenderEngine : Runnable, Choreographer.FrameCallback {
 
         //状态 开始
         const val RENDER_STATUS_START = 1
+
+        fun engineTime(): Long = SystemClock.uptimeMillis()
     }
 
     //当前引擎状态
@@ -42,7 +44,7 @@ class GameRenderEngine : Runnable, Choreographer.FrameCallback {
 
     val fps: Float
         get() {
-            val nowTime = SystemClock.elapsedRealtime()
+            val nowTime = engineTime()
             return _frame * 1000 * 1f / (nowTime - _engineParams.engineStartTime)
         }
 
@@ -56,7 +58,7 @@ class GameRenderEngine : Runnable, Choreographer.FrameCallback {
                 //已经开始了
                 return
             }
-            _engineParams.engineStartTime = SystemClock.elapsedRealtime()
+            _engineParams.engineStartTime = engineTime()
             _renderThread =
                 HandlerThread("GameRenderEngine_${_engineParams.engineStartTime}").apply {
                     start()

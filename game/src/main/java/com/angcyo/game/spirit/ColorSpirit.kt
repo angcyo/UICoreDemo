@@ -1,6 +1,8 @@
 package com.angcyo.game.spirit
 
 import android.graphics.Canvas
+import com.angcyo.game.core.DrawParams
+import com.angcyo.game.core.UpdateParams
 import com.angcyo.library.ex.randomColor
 
 /**
@@ -15,7 +17,7 @@ open class ColorSpirit : BaseSpirit() {
     var roundX = 0f
     var roundY = 0f
 
-    override fun draw(canvas: Canvas) {
+    override fun draw(canvas: Canvas, drawParams: DrawParams) {
         spiritPaint.color = getSpiritColor()
         canvas.drawRoundRect(spiritRectF, roundX, roundY, spiritPaint)
     }
@@ -24,7 +26,7 @@ open class ColorSpirit : BaseSpirit() {
         return randomColor()
     }
 
-    override fun update() {
+    override fun update(updateParams: UpdateParams) {
 
     }
 

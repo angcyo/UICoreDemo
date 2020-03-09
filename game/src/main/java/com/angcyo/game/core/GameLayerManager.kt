@@ -18,6 +18,9 @@ class GameLayerManager(val engine: GameRenderEngine) {
 
     val layerList = CopyOnWriteArrayList<BaseLayer>()
 
+    var _drawParams: DrawParams? = null
+    var _updateParams: UpdateParams? = null
+
     /**引擎参数更新*/
     fun onEngineUpdate(engineParams: EngineParams) {
         val iterator = layerList.iterator()
@@ -38,24 +41,36 @@ class GameLayerManager(val engine: GameRenderEngine) {
     }
 
     fun draw(canvas: Canvas) {
+        if (_drawParams == null) {
+            _drawParams = DrawParams(GameRenderEngine.engineTime())
+        }
+        _drawParams?.drawCurrentTime = GameRenderEngine.engineTime()
+
         val iterator = layerList.iterator()
         while (iterator.hasNext()) {
             iterator.next()?.also { layer ->
                 if (!layer.layerStatus.have(LAYER_STATUS_PAUSE_DRAW)) {
-                    layer.draw(canvas)
+                    layer.draw(canvas, _drawParams!!)
                 }
             }
         }
+        _drawParams?.drawPrevTime = _drawParams!!.drawCurrentTime
     }
 
     fun update() {
+        if (_updateParams == null) {
+            _updateParams = UpdateParams(GameRenderEngine.engineTime())
+        }
+        _updateParams?.updateCurrentTime = GameRenderEngine.engineTime()
+
         val iterator = layerList.iterator()
         while (iterator.hasNext()) {
             iterator.next()?.also { layer ->
                 if (!layer.layerStatus.have(LAYER_STATUS_PAUSE_UPDATE)) {
-                    layer.update()
+                    layer.update(_updateParams!!)
                 }
             }
         }
+        _updateParams?.updatePrevTime = _updateParams!!.updateCurrentTime
     }
 }
