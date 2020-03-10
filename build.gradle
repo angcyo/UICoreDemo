@@ -4,6 +4,7 @@ apply from: 'UICore/_gradle/init.gradle'
 
 buildscript { 
     repositories {
+        //https://maven.aliyun.com/mvn/view
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
 
         google()
