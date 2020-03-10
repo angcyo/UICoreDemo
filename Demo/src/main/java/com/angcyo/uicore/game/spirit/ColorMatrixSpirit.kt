@@ -18,9 +18,12 @@ import com.angcyo.library.ex.dp
 class ColorMatrixSpirit : ColorSpirit() {
 
     var spiritStartColor: Int = -1
-    var spiritEndColor: Int = -1
+    var spiritEndColor: Int = 1
 
     var spiritDrawColor: Int = -1
+
+    var spiritRow = 1
+    var spiritColumn = 1
 
     var step = 0.08f
     var fraction = 0f
@@ -47,6 +50,10 @@ class ColorMatrixSpirit : ColorSpirit() {
             step = -step
             fraction += step
         }
-        spiritDrawColor = argbEvaluator.evaluate(fraction, spiritStartColor, spiritEndColor) as Int
+        spiritDrawColor = if (spiritEndColor <= 0) {
+            argbEvaluator.evaluate(fraction, spiritStartColor, spiritEndColor) as Int
+        } else {
+            spiritStartColor
+        }
     }
 }
