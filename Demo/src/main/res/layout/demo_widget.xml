@@ -10,7 +10,8 @@
         android:id="@+id/wrap_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/title_bar_height">
 
         <com.angcyo.widget.RSpinner
             android:id="@+id/spinner"
@@ -246,6 +247,13 @@
                 android:layout_margin="@dimen/lib_hdpi"
                 android:text="JumpFragmentSingleTask" />
         </com.angcyo.widget.layout.DslFlowLayout>
+
+        <com.angcyo.widget.progress.DYProgressView
+            android:id="@+id/dy_progress_view"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            app:r_auto_start_animator="true"
+            app:r_progress_color="@color/colorAccent" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
