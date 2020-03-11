@@ -30,6 +30,11 @@ class OkDownloadDemo : AppDslFragment() {
         super.onActivityCreated(savedInstanceState)
         renderDslAdapter {
             AppOkDownloadItem()() {
+                itemNoEdit = false
+                downloadUrl = urlList.first()
+            }
+
+            AppOkDownloadItem()() {
                 downloadUrl = urlList.first()
             }
             AppOkDownloadItem()() {

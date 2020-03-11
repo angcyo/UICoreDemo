@@ -33,6 +33,7 @@ import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.dslitem.AppMenuFooterItem
 import com.angcyo.uicore.dslitem.AppMenuHeaderItem
+import com.angcyo.uicore.test.test
 import com.angcyo.widget.base.behavior
 import com.angcyo.widget.base.onDoubleTap
 import com.angcyo.widget.base.padding
@@ -308,6 +309,7 @@ class MainFragment : AppDslFragment() {
         super.onFragmentShow(bundle)
         //coroutineTest()
         //rxJavaTest()
+        //test()
 
         _vh.rv(R.id.lib_recycler_view)?.apply {
             allViewHolder().forEachIndexed { index, dslViewHolder ->

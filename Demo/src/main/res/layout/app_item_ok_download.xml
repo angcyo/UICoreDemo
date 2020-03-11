@@ -13,14 +13,16 @@
     android:padding="@dimen/lib_ldpi"
     app:r_background="@drawable/lib_white_round_shape">
 
-    <com.angcyo.widget.text.DslTextView
+    <com.angcyo.widget.edit.DslEditText
         android:id="@+id/url_view"
         style="@style/LibBodyTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constrainedWidth="true"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:r_is_no_edit_mode="true"
         tools:text="http://package.mac.wpscdn.cn/mac_wps_pkg/1.3.1/WPS_Office_1.3.1(1688).dmg" />
 
     <com.angcyo.widget.text.DslTextView
@@ -29,8 +31,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constrainedWidth="true"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/button"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/url_view"
         tools:text="http://package.mac.wpscdn.cn/mac_wps_pkg/1.3.1/WPS_Office_1.3.1(1688).dmg" />
 
@@ -47,9 +50,41 @@
         style="@style/DefaultButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_hdpi"
         android:text="start"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progress_bar" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/pass_cb"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="跳过已完成"
+        app:layout_constraintBottom_toBottomOf="@id/button"
+        app:layout_constraintLeft_toRightOf="@id/button"
+        app:layout_constraintTop_toTopOf="@id/button" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/notify_cb"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="显示通知"
+        app:layout_constraintBottom_toBottomOf="@id/button"
+        app:layout_constraintLeft_toRightOf="@id/pass_cb"
+        app:layout_constraintTop_toTopOf="@id/button" />
+
+    <com.angcyo.widget.text.DslTextView
+        android:id="@+id/speed_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/lib_xhdpi"
+        app:layout_constraintBottom_toBottomOf="@id/button"
+        app:layout_constraintLeft_toRightOf="@id/notify_cb"
+        app:layout_constraintTop_toTopOf="@id/button"
+        tools:text="10Mb/s" />
 
 </com.angcyo.widget.layout.RConstraintLayout>
