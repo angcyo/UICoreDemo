@@ -33,7 +33,6 @@ import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.dslitem.AppMenuFooterItem
 import com.angcyo.uicore.dslitem.AppMenuHeaderItem
-import com.angcyo.uicore.test.test
 import com.angcyo.widget.base.behavior
 import com.angcyo.widget.base.onDoubleTap
 import com.angcyo.widget.base.padding
@@ -223,17 +222,17 @@ class MainFragment : AppDslFragment() {
             renderMainItem("RegularPatternDemo")
             renderMainItem("OkDownloadDemo")
             renderMainItem("MediaPickerDemo")
-            renderMainItem("DialogDemo")
+            renderMainItem("DialogDemo $GO")
             renderMainItem("NotifyDemo ContentObserver")
             renderMainItem("CameraXDemo")
             renderMainItem("StyleDemo ThemeStyledAttributes")
             renderMainItem("ShortcutDemo")
             renderMainItem("DslDrawItemDecorationDemo")
             renderMainItem("QrCodeDemo")
-            renderMainItem("TbsWebDemo $GO")
+            renderMainItem("TbsWebDemo")
             renderMainItem("IntentDemo")
             renderMainItem("LauncherDemo")
-            renderMainItem("GameRenderEngineDemo $GO")
+            renderMainItem("GameRenderEngineDemo")
 
             //设备信息.
             DslLastDeviceInfoItem()() {

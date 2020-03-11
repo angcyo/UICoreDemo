@@ -120,25 +120,15 @@ class DialogDemo : AppDslFragment() {
                 _defaultConfig(holder, this)
             }
         }
-//
-//        holder.click(R.id.wheel_dialog) {
-//            wheelDialog {
-//                dialogTitle = "今晚谁陪朕?"
-//
-//                wheelItems = mutableListOf("Item1", "Item2", "Item3")
-//
-//                wheelCyclic = false
-//
-//                defaultIndex = 1
-//
-//                onWheelItemSelector = { _, _, item ->
-//                    toast.show(item as CharSequence)
-//                    false
-//                }
-//
-//                _defaultConfig(holder, this)
-//            }
-//        }
+
+        holder.click(R.id.wheel_dialog) {
+            fContext().wheelDialog {
+                for (i in 0..nextInt(2, 28)) {
+                    addDialogItem("${tx()} $i")
+                }
+                _defaultConfig(holder, this)
+            }
+        }
 
         holder.click(R.id.menu_choice_dialog) {
             fContext().itemsDialog {

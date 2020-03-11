@@ -49,6 +49,7 @@ dependencies {
     implementation project(allModule.qrcode)
     implementation project(allModule.tbs)
     implementation project(allModule.game)
+    implementation project(allModule.github)
 }
 
 //apply from: allGradle.v7a
