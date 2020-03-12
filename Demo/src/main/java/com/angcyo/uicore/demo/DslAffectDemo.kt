@@ -1,9 +1,9 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
-import com.angcyo.core.component.DslAffect
-import com.angcyo.library.ex.dpi
+import com.angcyo.component.DslAffect
 import com.angcyo.item.DslBaseInfoItem
+import com.angcyo.library.ex.dpi
 import com.angcyo.uicore.base.AppDslFragment
 
 /**

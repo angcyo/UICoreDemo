@@ -222,13 +222,11 @@ class DialogDemo : AppDslFragment() {
                 _defaultConfig(holder, this)
             }
         }
-//
-//        var index = 0
-//        holder.click(R.id.option_dialog_single) {
-//            optionDialog {
-//                dialogTitle = "多级选项选择Single"
-//                singleOption = true
-//
+
+        var index = 0
+        holder.click(R.id.option_dialog_single) {
+            fContext().optionDialog {
+
 //                if (index++ > 1) {
 //                    optionList = mutableListOf("1级e")
 //                }
@@ -243,10 +241,10 @@ class DialogDemo : AppDslFragment() {
 //                    toast(RUtils.connect(optionList))
 //                    false
 //                }
-//
-//                _defaultConfig(holder, this)
-//            }
-//        }
+
+                _defaultConfig(holder, this)
+            }
+        }
 //        holder.click(R.id.option_dialog) {
 //            optionDialog {
 //                dialogTitle = "多级选项选择"
