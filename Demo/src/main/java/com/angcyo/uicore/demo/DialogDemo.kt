@@ -6,16 +6,15 @@ import android.os.Bundle
 import android.view.Gravity
 import android.widget.RadioGroup
 import com.angcyo.component.hawkInstallAndRestore
+import com.angcyo.coroutine.onBack
+import com.angcyo.coroutine.sleep
 import com.angcyo.dialog.*
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.ItemSelectorHelper
 import com.angcyo.library.L
 import com.angcyo.library.component.nowCalendar
 import com.angcyo.library.component.toCalendar
-import com.angcyo.library.ex._color
-import com.angcyo.library.ex._drawable
-import com.angcyo.library.ex.fullTime
-import com.angcyo.library.ex.getColor
+import com.angcyo.library.ex.*
 import com.angcyo.library.toast
 import com.angcyo.library.toastQQ
 import com.angcyo.library.toastWX
@@ -242,64 +241,32 @@ class DialogDemo : AppDslFragment() {
 //                    false
 //                }
 
+                _initOptionDialog(false, 1)
+
                 _defaultConfig(holder, this)
             }
         }
-//        holder.click(R.id.option_dialog) {
-//            optionDialog {
-//                dialogTitle = "多级选项选择"
-//                onLoadOptionList = { options, level, callback, _ ->
-//                    callback(loadOptionList(level))
-//                }
-//                onCheckOptionEnd = { options, level ->
-//                    options.size == 4
-//                }
-//                onOptionResult = { _, optionList ->
-//                    toast(RUtils.connect(optionList))
-//                    false
-//                }
-//
-//                _defaultConfig(holder, this)
-//            }
-//        }
-//        holder.click(R.id.option_dialog2) {
-//            optionDialog {
-//                dialogTitle = "多级选项选择(半默认)"
-//                optionList = mutableListOf("1级a", "2级b")
-//                onLoadOptionList = { options, level, callback, _ ->
-//                    callback(loadOptionList(level))
-//                }
-//                onCheckOptionEnd = { options, level ->
-//                    options.size == 4
-//                }
-//                onOptionResult = { _, optionList ->
-//                    toast(RUtils.connect(optionList))
-//                    false
-//                }
-//
-//                _defaultConfig(holder, this)
-//
-//                anySelector = true
-//            }
-//        }
-//        holder.click(R.id.option_dialog3) {
-//            optionDialog {
-//                dialogTitle = "多级选项选择(全默认)"
-//                optionList = mutableListOf("1级a", "2级b", "3级c", "4级d")
-//                onLoadOptionList = { options, level, callback, _ ->
-//                    callback(loadOptionList(level))
-//                }
-//                onCheckOptionEnd = { options, level ->
-//                    options.size == 4
-//                }
-//                onOptionResult = { _, optionList ->
-//                    toast(RUtils.connect(optionList))
-//                    false
-//                }
-//
-//                _defaultConfig(holder, this)
-//            }
-//        }
+        holder.click(R.id.option_dialog) {
+            fContext().optionDialog {
+                _initOptionDialog(false)
+
+                _defaultConfig(holder, this)
+            }
+        }
+        holder.click(R.id.option_dialog2) {
+            fContext().optionDialog {
+                _initOptionDialog(true)
+
+                _defaultConfig(holder, this)
+            }
+        }
+        holder.click(R.id.option_dialog3) {
+            fContext().optionDialog {
+                _initOptionDialog(true)
+
+                _defaultConfig(holder, this)
+            }
+        }
 //
 //        //日历接收
 //        val calendarResult = { _: Dialog, calendarList: MutableList<Calendar> ->
@@ -386,6 +353,56 @@ class DialogDemo : AppDslFragment() {
                             else -> R.drawable.lib_ic_succeed
                         }
                     }
+                }
+            }
+        }
+    }
+
+    fun OptionDialogConfig._initOptionDialog(needDefault: Boolean = false, maxLevel: Int = 4) {
+
+        fun loadOptionList(level: Int): MutableList<out Any> {
+            val mutableList = when (level) {
+                0 -> mutableListOf("1级级级级级级级a", "1级级级级级级级b", "1级级级级级级c", "1级d", "1级e")
+                1 -> mutableListOf("2级a", "2级级级级级级级级级级b", "2级c", "2级d", "2级e")
+                2 -> mutableListOf("3级a", "3级级级级级级级级级b", "3级c", "3级d", "3级e")
+                3 -> mutableListOf("4级a", "4级级级级级级级级级级b", "4级c", "4级d", "4级级级级级级级级e")
+                else -> mutableListOf(
+                    "${level + 1}级a",
+                    "${level + 1}级b",
+                    "${level + 1}级c",
+                    "${level + 1}级d",
+                    "${level + 1}级e"
+                )
+            }
+            return mutableList
+        }
+
+        if (needDefault) {
+            val int = nextInt(1, 4)
+            optionList = when (int) {
+                1 -> mutableListOf("1级d", "2级d")
+                2 -> mutableListOf("1级d", "2级d", "3级d")
+                3 -> mutableListOf("1级d", "2级d", "3级d", "4级d")
+                else -> mutableListOf("1级d")
+            }
+        }
+
+        onCheckOptionEnd = { options, loadLevel ->
+            loadLevel >= maxLevel
+        }
+
+        onOptionResult = { dialog, options ->
+            toastQQ(options.connect())
+            false
+        }
+
+        onLoadOptionList = { options, loadLevel, itemsCallback, errorCallback ->
+            launchLifecycle {
+                onBack {
+                    sleep(1000)
+                    loadOptionList(loadLevel)
+                }.await().apply {
+                    itemsCallback(this)
                 }
             }
         }
