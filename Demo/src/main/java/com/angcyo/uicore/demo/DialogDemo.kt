@@ -10,11 +10,15 @@ import com.angcyo.dialog.*
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.ItemSelectorHelper
 import com.angcyo.library.L
+import com.angcyo.library.component.nowCalendar
+import com.angcyo.library.component.toCalendar
 import com.angcyo.library.ex._color
 import com.angcyo.library.ex._drawable
+import com.angcyo.library.ex.fullTime
 import com.angcyo.library.ex.getColor
 import com.angcyo.library.toast
 import com.angcyo.library.toastQQ
+import com.angcyo.library.toastWX
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.tx
 import com.angcyo.widget.DslViewHolder
@@ -180,44 +184,44 @@ class DialogDemo : AppDslFragment() {
                 _defaultConfig(holder, this)
             }
         }
-//
-//        holder.click(R.id.all_dialog) {
-//            dateDialog {
-//                dialogTitle = "日期时间"
-//                type = booleanArrayOf(true, true, true, true, true, true)
-//                onDateSelectListener = { dialog, date ->
-//                    toast.show(WheelTime.dateFormat.format(date))
-//                    false
-//                }
-//
-//                _defaultConfig(holder, this)
-//            }
-//        }
-//
-//        holder.click(R.id.date_dialog) {
-//            dateDialog {
-//                dialogTitle = "出生日期"
-//                onDateSelectListener = { dialog, date ->
-//                    toast.show(WheelTime.dateFormat.format(date))
-//                    false
-//                }
-//
-//                _defaultConfig(holder, this)
-//            }
-//        }
-//
-//        holder.click(R.id.time_dialog) {
-//            dateDialog {
-//                dialogTitle = "时间选择"
-//                type = booleanArrayOf(false, false, false, true, true, true)
-//                onDateSelectListener = { dialog, date ->
-//                    toast.show(WheelTime.dateFormat.format(date))
-//                    false
-//                }
-//
-//                _defaultConfig(holder, this)
-//            }
-//        }
+
+        holder.click(R.id.all_dialog) {
+            fContext().wheelDateDialog {
+                dateStartYear = 1800
+                dateEndYear = 2800
+                dateType = booleanArrayOf(true, true, true, true, true, true)
+                onDateSelectListener = { dialog, date ->
+                    toastWX(date.time.fullTime())
+                    false
+                }
+                _defaultConfig(holder, this)
+            }
+        }
+
+        holder.click(R.id.date_dialog) {
+            fContext().wheelDateDialog {
+                dateStartYear = 2000
+                dateEndYear = 2030
+                dateCurrent = nowCalendar()
+                dateEndDate = "2022-2-2".toCalendar()
+                onDateSelectListener = { dialog, date ->
+                    toastWX(date.time.fullTime())
+                    false
+                }
+                _defaultConfig(holder, this)
+            }
+        }
+
+        holder.click(R.id.time_dialog) {
+            fContext().wheelDateDialog {
+                dateType = booleanArrayOf(false, false, false, true, true, true)
+                onDateSelectListener = { dialog, date ->
+                    toastWX(date.time.fullTime())
+                    false
+                }
+                _defaultConfig(holder, this)
+            }
+        }
 //
 //        var index = 0
 //        holder.click(R.id.option_dialog_single) {
