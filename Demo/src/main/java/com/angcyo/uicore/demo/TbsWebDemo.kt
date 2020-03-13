@@ -9,6 +9,7 @@ import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.core.component.file.file
 import com.angcyo.core.component.fileSelector
 import com.angcyo.dsladapter.renderItem
+import com.angcyo.dsladapter.updateItem
 import com.angcyo.library.ex.getPrimaryClip
 import com.angcyo.library.ex.logClipboard
 import com.angcyo.library.ex.nowTimeString
@@ -72,6 +73,7 @@ class TbsWebDemo : AppDslFragment() {
                         }
                     }
 
+                    //文件选择, 打开文件
                     itemHolder.click(R.id.open_file) {
                         dslFHelper {
                             fileSelector({
@@ -94,8 +96,9 @@ class TbsWebDemo : AppDslFragment() {
                         }
                     }
 
+                    //获取剪切板信息
                     itemHolder.tv(R.id.clip_text_view)?.apply {
-                        text = logClipboard()
+                        text = "${nowTimeString()}\n${logClipboard()}"
                         clickIt {
                             try {
                                 dslAHelper {
@@ -112,6 +115,13 @@ class TbsWebDemo : AppDslFragment() {
                     itemHolder.hawkInstallAndRestore("tbs_")
                 }
             }
+        }
+    }
+
+    override fun onFragmentNotFirstShow(bundle: Bundle?) {
+        super.onFragmentNotFirstShow(bundle)
+        _adapter.updateItem {
+            true
         }
     }
 }
