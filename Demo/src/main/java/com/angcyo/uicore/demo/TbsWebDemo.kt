@@ -9,9 +9,12 @@ import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.core.component.file.file
 import com.angcyo.core.component.fileSelector
 import com.angcyo.dsladapter.renderItem
+import com.angcyo.library.ex.getPrimaryClip
+import com.angcyo.library.ex.logClipboard
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.tbs.open
 import com.angcyo.uicore.base.AppDslFragment
+import com.angcyo.widget.base.clickIt
 import com.angcyo.widget.base.string
 
 /**
@@ -87,6 +90,21 @@ class TbsWebDemo : AppDslFragment() {
                                         }
                                     }
                                 }
+                            }
+                        }
+                    }
+
+                    itemHolder.tv(R.id.clip_text_view)?.apply {
+                        text = logClipboard()
+                        clickIt {
+                            try {
+                                dslAHelper {
+                                    open {
+                                        uri = Uri.parse(getPrimaryClip().toString())
+                                    }
+                                }
+                            } catch (e: Exception) {
+                                text = e.toString()
                             }
                         }
                     }

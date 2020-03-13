@@ -86,4 +86,12 @@
         android:layout_height="wrap_content"
         android:hint="选择文件返回结果" />
 
+    <com.angcyo.widget.text.DslTextView
+        android:id="@+id/clip_text_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        android:hint="剪切板信息" />
+
 </com.angcyo.widget.layout.DslFlowLayout>
