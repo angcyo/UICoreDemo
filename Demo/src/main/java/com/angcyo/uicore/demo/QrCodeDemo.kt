@@ -102,7 +102,7 @@ class QrCodeDemo : AppDslFragment() {
     override fun onFragmentFirstShow(bundle: Bundle?) {
         super.onFragmentFirstShow(bundle)
 
-        _adapter.onDispatchUpdates {
+        _adapter.onDispatchUpdatesOnce {
             _vh.post {
                 _recycler[0]?.apply {
                     codeResult?.run { tv(R.id.text_view)?.text = this }

@@ -25,6 +25,7 @@ import com.angcyo.widget.base.string
 import com.angcyo.widget.progress.DslSeekBar
 import com.angcyo.widget.span.span
 import kotlin.random.Random.Default.nextInt
+import kotlin.random.Random.Default.nextLong
 
 /**
  *
@@ -241,14 +242,29 @@ class DialogDemo : AppDslFragment() {
 //                    false
 //                }
 
-                _initOptionDialog(false, 1)
+                _initOptionDialog(false, nextInt(5))
 
                 _defaultConfig(holder, this)
             }
         }
         holder.click(R.id.option_dialog) {
             fContext().optionDialog {
-                _initOptionDialog(false)
+                _initOptionDialog(false, Int.MAX_VALUE)
+
+                onLoadOptionList = { options, loadLevel, itemsCallback, errorCallback ->
+                    launchLifecycle {
+                        onBack {
+                            sleep(1000)
+                            if (loadLevel < nextInt(5)) {
+                                loadOptionList(loadLevel)
+                            } else {
+                                mutableListOf()
+                            }
+                        }.await().apply {
+                            itemsCallback(this)
+                        }
+                    }
+                }
 
                 _defaultConfig(holder, this)
             }
@@ -256,14 +272,14 @@ class DialogDemo : AppDslFragment() {
         holder.click(R.id.option_dialog2) {
             fContext().optionDialog {
                 _initOptionDialog(true)
-
                 _defaultConfig(holder, this)
             }
         }
         holder.click(R.id.option_dialog3) {
             fContext().optionDialog {
                 _initOptionDialog(true)
-
+                optionList = mutableListOf("1级d", "2级d", "3级d", "4级d")
+                optionAnySelector = true
                 _defaultConfig(holder, this)
             }
         }
@@ -358,25 +374,30 @@ class DialogDemo : AppDslFragment() {
         }
     }
 
-    fun OptionDialogConfig._initOptionDialog(needDefault: Boolean = false, maxLevel: Int = 4) {
-
-        fun loadOptionList(level: Int): MutableList<out Any> {
-            val mutableList = when (level) {
-                0 -> mutableListOf("1级级级级级级级a", "1级级级级级级级b", "1级级级级级级c", "1级d", "1级e")
-                1 -> mutableListOf("2级a", "2级级级级级级级级级级b", "2级c", "2级d", "2级e")
-                2 -> mutableListOf("3级a", "3级级级级级级级级级b", "3级c", "3级d", "3级e")
-                3 -> mutableListOf("4级a", "4级级级级级级级级级级b", "4级c", "4级d", "4级级级级级级级级e")
-                else -> mutableListOf(
-                    "${level + 1}级a",
-                    "${level + 1}级b",
-                    "${level + 1}级c",
-                    "${level + 1}级d",
-                    "${level + 1}级e"
-                )
-            }
-            return mutableList
+    fun loadOptionList(level: Int): MutableList<out Any> {
+        val mutableList = when (level) {
+            0 -> mutableListOf("1级级级级级级级a", "1级级级级级级级b", "1级级级级级级c", "1级d", "1级e")
+            1 -> mutableListOf("2级a", "2级级级级级级级级级级b", "2级c", "2级d", "2级e")
+            2 -> mutableListOf("3级a", "3级级级级级级级级级b", "3级c", "3级d", "3级e")
+            3 -> mutableListOf("4级a", "4级级级级级级级级级级b", "4级c", "4级d", "4级级级级级级级级e")
+            else -> mutableListOf(
+                "${level + 1}级a",
+                "${level + 1}级b",
+                "${level + 1}级c",
+                "${level + 1}级d",
+                "${level + 1}级e"
+            )
         }
+        for (i in 0..nextInt(2, 28)) {
+            val str = "$level ${tx()}"
+            if (!mutableList.contains(str)) {
+                mutableList.add(str)
+            }
+        }
+        return mutableList
+    }
 
+    fun OptionDialogConfig._initOptionDialog(needDefault: Boolean = false, maxLevel: Int = 4) {
         if (needDefault) {
             val int = nextInt(1, 4)
             optionList = when (int) {
@@ -399,7 +420,7 @@ class DialogDemo : AppDslFragment() {
         onLoadOptionList = { options, loadLevel, itemsCallback, errorCallback ->
             launchLifecycle {
                 onBack {
-                    sleep(1000)
+                    sleep(nextLong(300, 2000))
                     loadOptionList(loadLevel)
                 }.await().apply {
                     itemsCallback(this)
