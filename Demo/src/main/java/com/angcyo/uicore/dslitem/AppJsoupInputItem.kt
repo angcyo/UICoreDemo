@@ -6,6 +6,7 @@ import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.tbs.open
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
+import com.angcyo.widget.auto
 import com.angcyo.widget.base.clearListeners
 import com.angcyo.widget.base.onTextChange
 import com.angcyo.widget.base.setInputText
@@ -20,7 +21,17 @@ import org.jsoup.nodes.Document
  */
 class AppJsoupInputItem : DslAdapterItem() {
 
-    var jsoupData = JsoupData("https://www.wo03.com/", selectCss = "title")
+    val htmlList = mutableListOf(
+        "https://www.wo03.com/",
+        "https://www.baidu.com/",
+        "https://blog.csdn.net/angcyo"
+    )
+
+    val cssList = mutableListOf(
+        "body .carousel-inner .item a"
+    )
+
+    var jsoupData = JsoupData()
 
     init {
         itemLayoutId = R.layout.item_jsoup_input
@@ -37,6 +48,8 @@ class AppJsoupInputItem : DslAdapterItem() {
         payloads: List<Any>
     ) {
         super.onItemBind(itemHolder, itemPosition, adapterItem, payloads)
+
+        //输入的网址
         itemHolder.ev(R.id.url_edit)?.apply {
             clearListeners()
             onTextChange {
@@ -44,10 +57,19 @@ class AppJsoupInputItem : DslAdapterItem() {
 
                 itemChanging = true
             }
-            setInputText(jsoupData.jsoupUrl)
+            setInputText(jsoupData.jsoupUrl ?: htmlList.first())
         }
+        itemHolder.auto(R.id.url_edit, htmlList, notifyFirst = false)
 
-        itemHolder.ev(R.id.select_edit)?.setInputText(jsoupData.selectCss)
+        //css
+        itemHolder.ev(R.id.select_edit)?.apply {
+            clearListeners()
+            onTextChange {
+                jsoupData.selectCss = it.toString()
+            }
+            setInputText(jsoupData.selectCss ?: cssList.first())
+        }
+        itemHolder.auto(R.id.select_edit, cssList, notifyFirst = false)
 
         //获取url网页的内容
         itemHolder.click(R.id.get_button) {

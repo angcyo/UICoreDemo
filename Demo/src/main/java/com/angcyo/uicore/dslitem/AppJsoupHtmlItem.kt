@@ -6,14 +6,17 @@ import com.angcyo.coroutine.onBack
 import com.angcyo.coroutine.onMain
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.jsoup.dslJsoup
+import com.angcyo.jsoup.toAbsUrl
 import com.angcyo.library.LTime
 import com.angcyo.library.ex._color
 import com.angcyo.library.ex.elseNull
+import com.angcyo.library.ex.patternList
 import com.angcyo.library.ex.string
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.progress.DYProgressView
 import com.angcyo.widget.span.span
+import org.jsoup.nodes.Document
 
 /**
  *
@@ -66,11 +69,7 @@ class AppJsoupHtmlItem : DslAdapterItem() {
                     val title = document.title()
                     val html = document.html()
 
-                    val elements = if (jsoupData.selectCss.isNullOrEmpty()) {
-                        null
-                    } else {
-                        document.select(jsoupData.selectCss)
-                    }
+                    val select = _parseCss(document, jsoupData.selectCss)
 
                     onMain {
                         itemHolder.v<DYProgressView>(R.id.lib_progress_view)?.stopAnimator()
@@ -79,7 +78,7 @@ class AppJsoupHtmlItem : DslAdapterItem() {
                         itemHolder.tv(R.id.select_view)?.text = span {
                             append("耗时:${LTime.time()}")
                             appendln()
-                            append("$elements")
+                            append(select)
                         }
 
                         //获取html原始内容
@@ -96,7 +95,7 @@ class AppJsoupHtmlItem : DslAdapterItem() {
                                 foregroundColor = _color(R.color.colorAccent)
                             }
                             appendln()
-                            append(document.documentType().toString()) {
+                            append(document.documentType()?.toString()) {
                                 foregroundColor = _color(R.color.colorAccent)
                             }
                             appendln()
@@ -113,17 +112,13 @@ class AppJsoupHtmlItem : DslAdapterItem() {
                 LifecycleScope(this@AppJsoupHtmlItem).launchSafe {
                     LTime.tick()
                     onBack {
-                        if (jsoupData.selectCss.isNullOrEmpty()) {
-                            null
-                        } else {
-                            select(jsoupData.selectCss)
-                        }
-                    }.await()?.also { elements ->
+                        _parseCss(jsoupData.document!!, jsoupData.selectCss)
+                    }.await().also { select ->
                         //选中内容
                         itemHolder.tv(R.id.select_view)?.text = span {
                             append("耗时:${LTime.time()}")
                             appendln()
-                            append("$elements")
+                            append(select)
                         }
                     }
                 }
@@ -140,6 +135,31 @@ class AppJsoupHtmlItem : DslAdapterItem() {
         super.onItemUpdateFrom(fromItem)
         if (fromItem is AppJsoupInputItem) {
             jsoupData = fromItem.jsoupData
+        }
+    }
+
+    fun _parseCss(document: Document, select: String?): String {
+        return if (select.isNullOrEmpty()) {
+            ""
+        } else {
+            val elements = document.select(select)
+            buildString {
+                elements.forEachIndexed { index, element ->
+                    append("$index->")
+                    append(element.absUrl("href"))
+                    appendln()
+
+                    val style = element.attr("style")
+                    append(style)
+                    appendln()
+
+                    append(
+                        style.patternList("(?<=url\\(').*(?=')").firstOrNull()
+                            ?.toAbsUrl(document.baseUri())
+                    )
+                    appendln()
+                }
+            }
         }
     }
 }
