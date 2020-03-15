@@ -50,6 +50,7 @@ dependencies {
     implementation project(allModule.tbs)
     implementation project(allModule.game)
     implementation project(allModule.github)
+    implementation project(allModule.jsoup)
 }
 
 //apply from: allGradle.v7a

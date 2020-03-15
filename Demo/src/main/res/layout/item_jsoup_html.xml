@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.angcyo.widget.progress.DYProgressView
+        android:id="@+id/lib_progress_view"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        app:r_progress_color="@color/colorAccent" />
+
+    <com.angcyo.widget.text.DslTextView
+        android:id="@+id/lib_sub_text_view"
+        style="@style/LibSubTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="要加载的网页" />
+
+    <com.angcyo.widget.text.DslTextView
+        android:id="@+id/select_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        android:hint="选中的内容" />
+
+    <com.angcyo.widget.text.DslTextView
+        android:id="@+id/html_view"
+        style="@style/LibPlaceTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        android:hint="网页的内容" />
+
+</LinearLayout>
