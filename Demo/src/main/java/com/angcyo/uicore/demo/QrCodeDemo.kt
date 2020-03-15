@@ -3,6 +3,7 @@ package com.angcyo.uicore.demo
 import android.os.AsyncTask
 import android.os.Bundle
 import android.view.View
+import com.angcyo.base.dslAHelper
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.getData
 import com.angcyo.library.ex.copy
@@ -11,6 +12,7 @@ import com.angcyo.library.toast
 import com.angcyo.pager.dslPager
 import com.angcyo.qrcode.dslCode
 import com.angcyo.rcode.RCode
+import com.angcyo.tbs.open
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.recycler.get
 
@@ -82,6 +84,10 @@ class QrCodeDemo : AppDslFragment() {
                         itemHolder.tv(R.id.text_view)?.text?.run {
                             copy()
                             toast("已复制:$this", R.drawable.lib_ic_info, R.layout.lib_toast_qq_layout)
+
+                            dslAHelper {
+                                open(this.toString())
+                            }
                         }
                     }
 
