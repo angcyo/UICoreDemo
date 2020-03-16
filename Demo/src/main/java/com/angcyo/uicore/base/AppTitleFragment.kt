@@ -10,6 +10,9 @@ import com.angcyo.core.fragment.BaseTitleFragment
  */
 open class AppTitleFragment : BaseTitleFragment() {
     init {
-        //contentLayoutId =
+        fragmentLayoutId
+        titleLayoutId
+        contentLayoutId
+        contentOverlayLayoutId
     }
 }
