@@ -2,6 +2,7 @@ package com.angcyo.uicore.demo
 
 import android.os.Bundle
 import com.angcyo.base.dslAHelper
+import com.angcyo.base.lightStatusBar
 import com.angcyo.library.ex.getDrawable
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.putData
@@ -81,6 +82,12 @@ class WidgetDemo : AppTitleFragment() {
 
         _vh.click(R.id.button_not_low) {
             _vh.itemView.lowProfile(false)
+        }
+
+        _vh.click(R.id.light_button) {
+            val light = !it.isSelected
+            activity?.lightStatusBar(light)
+            it.isSelected = light
         }
 
         //hs progress

@@ -3,8 +3,6 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="BaseWhiteAppTheme">
         <!-- Customize your theme here. -->
-        <item name="android:statusBarColor">@color/colorPrimary</item>
-        <item name="android:navigationBarColor">@color/colorPrimary</item>
         <item name="android:windowBackground">@drawable/app_splash_bg</item>
     </style>
 
