@@ -33,6 +33,7 @@ import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.dslitem.AppMenuFooterItem
 import com.angcyo.uicore.dslitem.AppMenuHeaderItem
+import com.angcyo.uicore.test.testHttp
 import com.angcyo.widget.base.behavior
 import com.angcyo.widget.base.onDoubleTap
 import com.angcyo.widget.base.padding
@@ -209,7 +210,7 @@ class MainFragment : AppDslFragment() {
             }
 
             renderMainItem("DrawableSpanDemo")
-            renderMainItem("WidgetDemo ArcLoadingView")
+            renderMainItem("WidgetDemo ArcLoadingView $GO")
             renderMainItem("RefreshEffectDemo DslToast")
             renderMainItem("RefreshDemo")
             renderMainItem("DslAffectDemo")
@@ -222,7 +223,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("RegularPatternDemo")
             renderMainItem("OkDownloadDemo")
             renderMainItem("MediaPickerDemo")
-            renderMainItem("DialogDemo $GO")
+            renderMainItem("DialogDemo")
             renderMainItem("NotifyDemo ContentObserver")
             renderMainItem("CameraXDemo")
             renderMainItem("StyleDemo ThemeStyledAttributes")
@@ -310,6 +311,7 @@ class MainFragment : AppDslFragment() {
         //coroutineTest()
         //rxJavaTest()
         //test()
+        //testHttp()
 
         _vh.rv(R.id.lib_recycler_view)?.apply {
             allViewHolder().forEachIndexed { index, dslViewHolder ->
