@@ -33,7 +33,7 @@ class DrawableSpanDemo : AppTitleFragment() {
         //scroll
         _vh.tv(R.id.scroll_text_view)?.text = span {
             drawable {
-                foregroundDrawable = getDrawable(R.drawable.ic_logo_small)
+                foregroundDrawable = _drawable(R.drawable.ic_logo_small)
             }
             drawable("angcyo")
             drawable(" 跑马灯滚动起来")
@@ -50,7 +50,7 @@ class DrawableSpanDemo : AppTitleFragment() {
             drawable {
                 showText = "angcyo"
                 spanWeight = 0.5f
-                backgroundDrawable = getDrawable(R.mipmap.ic_logo_png)
+                backgroundDrawable = _drawable(R.mipmap.ic_logo_png)
             }
             append("fg")
             appendln()
@@ -73,7 +73,7 @@ class DrawableSpanDemo : AppTitleFragment() {
                 paddingLeft = 10 * dpi
                 showText = "angcyo"
                 spanWeight = 0.5f
-                backgroundDrawable = getDrawable(R.mipmap.ic_logo_png)
+                backgroundDrawable = _drawable(R.mipmap.ic_logo_png)
             }
             drawable("fg") {
                 textGravity = Gravity.TOP
@@ -95,7 +95,7 @@ class DrawableSpanDemo : AppTitleFragment() {
             drawable {
                 marginLeft = 20 * dpi
                 backgroundDrawable = ColorDrawable(Color.RED)
-                foregroundDrawable = getDrawable(R.drawable.ic_logo_small)
+                foregroundDrawable = _drawable(R.drawable.ic_logo_small)
             }
 
 //            return@span
@@ -179,7 +179,7 @@ class DrawableSpanDemo : AppTitleFragment() {
                 textGravity = Gravity.LEFT
             }
             drawable("fg.c") {
-                backgroundDrawable = getDrawable(R.drawable.app_round_shape)
+                backgroundDrawable = _drawable(R.drawable.app_round_shape)
                 spanWidth = 80 * dpi
                 spanHeight = 80 * dpi
                 textGravity = Gravity.CENTER
@@ -192,18 +192,18 @@ class DrawableSpanDemo : AppTitleFragment() {
             drawable {
                 paddingLeft = 10 * dpi
                 showText = "angcyo"
-                backgroundDrawable = getDrawable(R.mipmap.ic_logo_png)
+                backgroundDrawable = _drawable(R.mipmap.ic_logo_png)
             }
             drawable {
                 marginLeft = 20 * dpi
-                foregroundDrawable = getDrawable(R.drawable.ic_logo_small)
+                foregroundDrawable = _drawable(R.drawable.ic_logo_small)
             }
         }
         _vh.tv(R.id.text_view3)?.text = span {
 
             drawable {
                 backgroundDrawable =
-                    getDrawable(R.drawable.lib_back).colorFilter(getColor(R.color.text_general_color))
+                    _drawable(R.drawable.lib_back).colorFilter(getColor(R.color.text_general_color))
             }
             drawable("返回") {
                 textGravity = Gravity.CENTER
@@ -217,7 +217,7 @@ class DrawableSpanDemo : AppTitleFragment() {
 
         _vh.tv(R.id.text_view4)?.text = span {
             drawable {
-                foregroundDrawable = getDrawable(R.drawable.logo_selector)
+                foregroundDrawable = _drawable(R.drawable.logo_selector)
             }
             appendln()
             drawable("checked")
@@ -288,13 +288,13 @@ class DrawableSpanDemo : AppTitleFragment() {
                 quoteGapLeftWidth = 2 * dpi
                 quoteColor = Color.RED
             }
-            appendImage(getDrawable(R.mipmap.ic_logo_png))
+            appendImage(_drawable(R.mipmap.ic_logo_png))
             append("a") {
                 fontSize = 16 * dpi
             }
-            appendImage(getDrawable(R.drawable.ic_logo_small))
+            appendImage(_drawable(R.drawable.ic_logo_small))
             append("A")
-            appendImage(getDrawable(R.drawable.ic_logo_small), 2)
+            appendImage(_drawable(R.drawable.ic_logo_small), 2)
         }
 
         //---

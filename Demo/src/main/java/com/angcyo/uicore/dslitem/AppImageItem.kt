@@ -7,8 +7,8 @@ import com.angcyo.github.dslitem.ILoopAdapterItem
 import com.angcyo.glide.GlideImageView
 import com.angcyo.glide.giv
 import com.angcyo.http.OkType
+import com.angcyo.library.ex._drawable
 import com.angcyo.library.ex.dpi
-import com.angcyo.library.ex.getDrawable
 import com.angcyo.library.ex.randomColorAlpha
 import com.angcyo.library.ex.toDpi
 import com.angcyo.uicore.demo.R
@@ -48,10 +48,10 @@ open class AppImageItem(index: Int = -1) : DslAdapterItem(), ILoopAdapterItem {
 
             it.maskDrawable = when {
                 !imageMask -> null
-                index % 5 == 0 -> getDrawable(R.drawable.ic_logo)
-                index % 4 == 0 -> getDrawable(R.drawable.qipao_guosheng)
-                index % 3 == 0 -> getDrawable(R.drawable.qipao1)
-                index % 2 == 0 -> getDrawable(R.drawable.qipao)
+                index % 5 == 0 -> _drawable(R.drawable.ic_logo)
+                index % 4 == 0 -> _drawable(R.drawable.qipao_guosheng)
+                index % 3 == 0 -> _drawable(R.drawable.qipao1)
+                index % 2 == 0 -> _drawable(R.drawable.qipao)
                 else -> null
             }
         }
@@ -86,7 +86,7 @@ open class AppImageItem(index: Int = -1) : DslAdapterItem(), ILoopAdapterItem {
                 onTypeCallback = {
                     if (it == OkType.ImageType.GIF) {
                         addOverlayDrawable(
-                            getDrawable(R.drawable.gif),
+                            _drawable(R.drawable.gif),
                             Gravity.RIGHT or Gravity.BOTTOM,
                             6.toDpi(), 6.toDpi()
                         )

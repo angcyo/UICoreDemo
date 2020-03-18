@@ -3,7 +3,7 @@ package com.angcyo.uicore.demo
 import android.os.Bundle
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.lightStatusBar
-import com.angcyo.library.ex.getDrawable
+import com.angcyo.library.ex._drawable
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.putData
 import com.angcyo.uicore.activity.ShortcutActivity
@@ -42,7 +42,7 @@ class WidgetDemo : AppTitleFragment() {
         //scroll
         _vh.tv(R.id.scroll_text_view)?.text = span {
             drawable {
-                foregroundDrawable = getDrawable(R.drawable.ic_logo_small)
+                foregroundDrawable = _drawable(R.drawable.ic_logo_small)
             }
             drawable("angcyo")
             drawable(" 跑马灯滚动起来")
