@@ -26,4 +26,12 @@
         tools:r_overlay_drawable_rt="@drawable/ic_logo_small"
         tools:srcCompat="@drawable/image_manhua_nv" />
 
+    <com.angcyo.widget.text.DslTextView
+        android:id="@+id/lib_text_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        tools:text="angcyo" />
+
 </com.angcyo.widget.layout.RFrameLayout>

@@ -3,6 +3,7 @@ package com.angcyo.uicore.dslitem
 import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
 import com.angcyo.dsladapter.DslAdapterItem
+import com.angcyo.github.dslitem.ILoopAdapterItem
 import com.angcyo.glide.GlideImageView
 import com.angcyo.glide.giv
 import com.angcyo.http.OkType
@@ -21,12 +22,14 @@ import com.angcyo.widget.layout.RFrameLayout
  * @author angcyo
  * @date 2020/01/20
  */
-open class AppImageItem(index: Int = -1) : DslAdapterItem() {
+open class AppImageItem(index: Int = -1) : DslAdapterItem(), ILoopAdapterItem {
     var imageUrl: String? = null
 
     var imageHeight = 0
 
     var imageMask: Boolean = false
+
+    var imageText: CharSequence? = null
 
     var onConfigGlideImage: (GlideImageView) -> Unit = {}
 
@@ -70,6 +73,8 @@ open class AppImageItem(index: Int = -1) : DslAdapterItem() {
             itemHolder.itemView.setHeight(imageHeight)
         }
 
+        itemHolder.tv(R.id.lib_text_view)?.text = imageText
+
         itemHolder.giv(R.id.lib_image_view)?.apply {
             clearOverlay()
             onConfigGlideImage(this)
@@ -100,5 +105,9 @@ open class AppImageItem(index: Int = -1) : DslAdapterItem() {
             }
             setOnClickListener(_clickListener)
         }
+    }
+
+    override fun getLoopInterval(): Int {
+        return 5000
     }
 }

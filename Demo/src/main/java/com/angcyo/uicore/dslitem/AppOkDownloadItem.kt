@@ -77,7 +77,7 @@ class AppOkDownloadItem : DslAdapterItem() {
         itemHolder.tv(R.id.url_view)?.apply {
             text = downloadUrl
             if (this is IEditDelegate) {
-                this.getREditDelegate().isNoEditMode = itemNoEdit
+                this.getCustomEditDelegate().isNoEditMode = itemNoEdit
             }
         }
 
