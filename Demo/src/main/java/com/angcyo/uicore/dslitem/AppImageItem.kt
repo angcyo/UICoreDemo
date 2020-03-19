@@ -70,7 +70,7 @@ open class AppImageItem(index: Int = -1) : DslAdapterItem(), ILoopAdapterItem {
             if (itemHolder.itemView is RFrameLayout) {
                 (itemHolder.itemView as RFrameLayout).layoutDelegate.layoutDimensionRatio = "1"
             }
-        } else {
+        } else if (imageHeight > 0) {
             itemHolder.itemView.setHeight(imageHeight)
         }
 
