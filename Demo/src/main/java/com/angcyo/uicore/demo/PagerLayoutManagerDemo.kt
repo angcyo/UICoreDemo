@@ -37,21 +37,30 @@ class PagerLayoutManagerDemo : AppDslFragment() {
         }
 
         renderDslAdapter {
-//            DslBannerItem()() {
-//                itemBannerAdapter.data()
-//            }
             DslBannerItem()() {
-                itemBannerAdapter.data(getScreenWidth() - 200 * dpi)
+                itemBannerAdapter.data()
+            }
+
+            DslBannerItem()() {
+                val width = getScreenWidth() - 200 * dpi
+                itemBannerAdapter.data(width)
                 (itemBannerLayoutManager as? ScaleLayoutManager)?.apply {
-                    itemSpace = -100 * dpi
+                    itemSpace = -width / 3
                     minScale = 0.6f
                     isFullItem = false
                 }
             }
 
-//            DslBannerItem()() {
-//                itemBannerAdapter.data()
-//            }
+            DslBannerItem()() {
+                val width = getScreenWidth() - 200 * dpi
+                itemBannerAdapter.data(width)
+                (itemBannerLayoutManager as? ScaleLayoutManager)?.apply {
+                    itemSpace = -width / 3
+                    minScale = 0.6f
+                    isFullItem = false
+                    forceSpaceMain = 0
+                }
+            }
 
             for (i in 0..10) {
                 AppImageItem(i)() {
