@@ -33,7 +33,7 @@ class ShortcutFragment : AppDslFragment() {
                 itemInfoText = "FragmentWrapActivity测试"
                 itemDarkText = nowTimeString()
 
-                onItemClick = {
+                itemClick = {
                     dslAHelper {
                         start(ShortcutFragment::class.java, false) {
                             intent.putData(nowTimeString())
@@ -48,7 +48,7 @@ class ShortcutFragment : AppDslFragment() {
                 itemInfoText = "FragmentWrapActivity测试(singleTask)"
                 itemDarkText = nowTimeString()
 
-                onItemClick = {
+                itemClick = {
                     dslAHelper {
                         start(ShortcutFragment::class.java, true) {
                             intent.putData(nowTimeString())
@@ -62,7 +62,7 @@ class ShortcutFragment : AppDslFragment() {
                 itemInfoText = "FragmentWrapActivity测试2"
                 itemDarkText = nowTimeString()
 
-                onItemClick = {
+                itemClick = {
 
                     dslAHelper {
                         start(MainFragment::class.java, false) {
@@ -78,7 +78,7 @@ class ShortcutFragment : AppDslFragment() {
                 itemInfoText = "FragmentWrapActivity测试2(singleTask)"
                 itemDarkText = nowTimeString()
 
-                onItemClick = {
+                itemClick = {
 
                     dslAHelper {
                         start(MainFragment::class.java, true) {

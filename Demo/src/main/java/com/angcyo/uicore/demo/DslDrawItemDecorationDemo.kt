@@ -55,7 +55,7 @@ class DslDrawItemDecorationDemo : GlideImageDemo() {
 
                     for (i in 0 until 20) {
                         AppImageItem()() {
-                            onItemClick = {
+                            itemClick = {
                                 pager()
                             }
                         }

@@ -58,7 +58,7 @@ class IntentDemo : AppDslFragment() {
                                     }
                                 }
 
-                                onItemClick = {
+                                itemClick = {
                                     dslAHelper {
                                         start(resolveInfo.activityInfo?.packageName)
                                     }

@@ -22,7 +22,7 @@ class AppItem : DslAdapterItem() {
     init {
         itemLayoutId = R.layout.app_item_app_layout
 
-        onItemClick = {
+        itemClick = {
             appBean?.run {
                 it.context.dslAHelper {
                     start(packageName)
@@ -30,7 +30,7 @@ class AppItem : DslAdapterItem() {
             }
         }
 
-        onItemLongClick = {
+        itemLongClick = {
             appBean?.run {
                 toString().copy()
                 it.longFeedback()

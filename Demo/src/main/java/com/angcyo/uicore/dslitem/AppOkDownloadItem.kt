@@ -53,7 +53,7 @@ class AppOkDownloadItem : DslAdapterItem() {
     init {
         itemLayoutId = R.layout.app_item_ok_download
 
-        onItemClick = {
+        itemClick = {
 
         }
     }

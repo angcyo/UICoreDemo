@@ -30,7 +30,7 @@ open class GlideImageDemo : AppDslFragment() {
             for (i in 0..100) {
                 AppImageItem(i)() {
                     imageMask = true
-                    onItemClick = {
+                    itemClick = {
                         pager()
 //                        dslPager {
 //                            fromView = it
@@ -42,7 +42,7 @@ open class GlideImageDemo : AppDslFragment() {
 
             for (i in 0..2) {
                 AppFlatImageItem(i)() {
-                    onItemClick = {
+                    itemClick = {
                         pager()
                     }
                 }

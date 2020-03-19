@@ -7,6 +7,7 @@ import com.angcyo.github.dslitem.ILoopAdapterItem
 import com.angcyo.glide.GlideImageView
 import com.angcyo.glide.giv
 import com.angcyo.http.OkType
+import com.angcyo.library.L
 import com.angcyo.library.ex._drawable
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.randomColorAlpha
@@ -109,5 +110,20 @@ open class AppImageItem(index: Int = -1) : DslAdapterItem(), ILoopAdapterItem {
 
     override fun getLoopInterval(): Int {
         return 5000
+    }
+
+    override fun onItemViewAttachedToWindow(itemHolder: DslViewHolder, itemPosition: Int) {
+        super.onItemViewAttachedToWindow(itemHolder, itemPosition)
+        L.i(itemPosition)
+    }
+
+    override fun onItemViewDetachedToWindow(itemHolder: DslViewHolder, itemPosition: Int) {
+        super.onItemViewDetachedToWindow(itemHolder, itemPosition)
+        L.w(itemPosition)
+    }
+
+    override fun onItemViewRecycled(itemHolder: DslViewHolder, itemPosition: Int) {
+        super.onItemViewRecycled(itemHolder, itemPosition)
+        L.e(itemPosition)
     }
 }

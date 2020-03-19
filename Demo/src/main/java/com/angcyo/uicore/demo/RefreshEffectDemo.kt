@@ -41,7 +41,7 @@ class RefreshEffectDemo : AppTitleFragment() {
 
                     itemTopInsert = 1 * dpi
 
-                    onItemClick = {
+                    itemClick = {
                         when (type) {
                             1 -> toast(itemInfoText, R.drawable.lib_ic_info) {
                                 withActivity = if (withAcy) activity else null

@@ -33,7 +33,6 @@ import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.dslitem.AppMenuFooterItem
 import com.angcyo.uicore.dslitem.AppMenuHeaderItem
-import com.angcyo.uicore.test.testHttp
 import com.angcyo.widget.base.behavior
 import com.angcyo.widget.base.onDoubleTap
 import com.angcyo.widget.base.padding
@@ -97,7 +96,7 @@ class MainFragment : AppDslFragment() {
                 DslTextInfoItem()() {
                     itemTopInsert = insert
                     itemInfoText = "扫一扫"
-                    onItemClick = {
+                    itemClick = {
                         dslAHelper {
                             start(Intent(context, AppScanActivity::class.java))
                         }
@@ -107,7 +106,7 @@ class MainFragment : AppDslFragment() {
                 DslTextInfoItem()() {
                     itemTopInsert = insert
                     itemInfoText = "QQ咨询"
-                    onItemClick = {
+                    itemClick = {
                         if (fContext().checkApkExist("com.tencent.mobileqq")) {
                             dslAHelper {
                                 start(RUtils.chatQQIntent(context)!!)
@@ -121,7 +120,7 @@ class MainFragment : AppDslFragment() {
                 DslTextInfoItem()() {
                     itemTopInsert = subInsert
                     itemInfoText = "QQ入群学习"
-                    onItemClick = {
+                    itemClick = {
                         if (fContext().checkApkExist("com.tencent.mobileqq")) {
                             dslAHelper {
                                 start(RUtils.joinQQGroupIntent(context)!!)
@@ -135,7 +134,7 @@ class MainFragment : AppDslFragment() {
                 DslTextInfoItem()() {
                     itemTopInsert = insert
                     itemInfoText = "CSDN博客"
-                    onItemClick = {
+                    itemClick = {
                         dslAHelper {
                             start("https://angcyo.blog.csdn.net".urlIntent())
                         }
@@ -145,7 +144,7 @@ class MainFragment : AppDslFragment() {
                 DslTextInfoItem()() {
                     itemTopInsert = subInsert
                     itemInfoText = "Github"
-                    onItemClick = {
+                    itemClick = {
                         dslAHelper {
                             start("https://github.com/angcyo".urlIntent())
                         }
@@ -155,7 +154,7 @@ class MainFragment : AppDslFragment() {
                 DslTextInfoItem()() {
                     itemTopInsert = subInsert
                     itemInfoText = "掘金"
-                    onItemClick = {
+                    itemClick = {
                         dslAHelper {
                             start("https://juejin.im/user/576a151b2e958a00699c11f0".urlIntent())
                         }
@@ -165,7 +164,7 @@ class MainFragment : AppDslFragment() {
                 DslTextInfoItem()() {
                     itemTopInsert = subInsert
                     itemInfoText = "官网"
-                    onItemClick = {
+                    itemClick = {
                         dslAHelper {
                             start("https://www.angcyo.com".urlIntent())
                         }
@@ -239,7 +238,7 @@ class MainFragment : AppDslFragment() {
 
             //设备信息.
             DslLastDeviceInfoItem()() {
-                onItemClick = {
+                itemClick = {
                     dslFHelper {
                         fileSelector({
                             showFileMd5 = true
@@ -302,7 +301,7 @@ class MainFragment : AppDslFragment() {
     fun _jumpToLockPosition() {
         if (lockDemoPosition >= 0) {
             _vh.postDelay(300) {
-                _adapter[lockDemoPosition]?.onItemClick?.invoke(_vh.itemView)
+                _adapter[lockDemoPosition]?.itemClick?.invoke(_vh.itemView)
             }
         }
     }
@@ -337,7 +336,7 @@ class MainFragment : AppDslFragment() {
             itemDarkIcon = R.drawable.lib_next
             itemDarkIconColor = getColor(R.color.colorPrimaryDark)
 
-            onItemClick = { view ->
+            itemClick = { view ->
 
                 var cls: Class<out Fragment>? = fragment
                 val className = "com.angcyo.uicore.demo.${text?.split(" ")?.get(0)}"

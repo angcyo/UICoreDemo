@@ -181,7 +181,7 @@ class MediaPickerDemo : AppDslFragment() {
     fun initOrCreateItem(oldItem: DslPickerImageItem?, data: Any): DslPickerImageItem {
         return oldItem ?: DslPickerImageItem().apply {
             checkModel = false
-            onItemClick = {
+            itemClick = {
                 dslPager {
                     fromRecyclerView = _recycler
                     onPositionConvert = {
