@@ -1,5 +1,6 @@
 package com.angcyo.uicore.dslitem
 
+import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.uicore.demo.R
 import kotlin.random.Random.Default.nextInt
 
@@ -70,4 +71,14 @@ fun image(): String {
 
 fun res(): Int {
     return imageResList[nextInt(imageResList.size)]
+}
+
+/**快速加载demo数据*/
+fun DslAdapter.loadImageItem(count: Int = nextInt(2, 40), action: AppImageItem.() -> Unit = {}) {
+    for (i in 0 until count) {
+        AppImageItem()() {
+            imageText = "Position:$i ${tx()}"
+            action()
+        }
+    }
 }

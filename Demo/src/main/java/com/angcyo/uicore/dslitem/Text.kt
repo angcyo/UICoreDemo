@@ -1,6 +1,9 @@
 package com.angcyo.uicore.dslitem
 
 import android.view.Gravity
+import com.angcyo.dsladapter.DslAdapter
+import com.angcyo.item.DslTextInfoItem
+import com.angcyo.library.ex.nowTimeString
 import kotlin.random.Random.Default.nextInt
 
 /**
@@ -75,4 +78,15 @@ fun gravity(): Int {
         3 -> result = result or Gravity.CENTER_VERTICAL
     }
     return result
+}
+
+/**快速加载demo数据*/
+fun DslAdapter.loadTextItem(count: Int = nextInt(2, 40), action: DslTextInfoItem.() -> Unit = {}) {
+    for (i in 0 until count) {
+        DslTextInfoItem()() {
+            itemInfoText = "Position:$i ${tx()}"
+            itemDarkText = nowTimeString()
+            action()
+        }
+    }
 }

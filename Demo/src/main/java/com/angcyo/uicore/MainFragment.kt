@@ -235,6 +235,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("GameRenderEngineDemo")
             renderMainItem("JsoupDemo $GO")
             renderMainItem("PagerLayoutManagerDemo $GO")
+            renderMainItem("LinkageSingleBehaviorDemo $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()() {
