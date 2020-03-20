@@ -5,15 +5,18 @@
     android:layout_height="match_parent"
     android:background="@color/transparent40">
 
-    <androidx.core.widget.NestedScrollView
+    <FrameLayout
         android:id="@+id/header_wrap_layout"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:fillViewport="true"
+        android:layout_height="wrap_content"
         app:layout_behavior="com.angcyo.behavior.linkage.LinkageHeaderBehavior">
 
-        <include layout="@layout/emoji_layout" />
-    </androidx.core.widget.NestedScrollView>
+        <com.angcyo.widget.recycler.DslRecyclerView
+            android:id="@+id/recycler_header_view"
+            style="@style/LibRecyclerViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/footer_wrap_layout"

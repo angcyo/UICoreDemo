@@ -15,17 +15,26 @@
         <include layout="@layout/emoji_layout" />
     </androidx.core.widget.NestedScrollView>
 
-    <FrameLayout
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/footer_wrap_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_behavior="com.angcyo.behavior.linkage.LinkageFooterBehavior">
 
-        <com.angcyo.widget.recycler.DslRecyclerView
-            android:id="@+id/recycler_footer_view"
-            style="@style/LibRecyclerViewStyle"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </FrameLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1400dp"
+                android:background="@color/info">
+
+                <include layout="@layout/emoji_layout" />
+            </FrameLayout>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </com.angcyo.widget.layout.RCoordinatorLayout>
