@@ -20,4 +20,17 @@
         <item name="r_flow_item_vertical_space">@dimen/lib_hdpi</item>
         <item name="r_flow_item_horizontal_space">@dimen/lib_hdpi</item>
     </style>
+
+    <style name="DslTabItemStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#FFF</item>
+    </style>
+
+    <style name="TabSlidingItemStyle" parent="DslTabItemStyle">
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+    </style>
+
 </resources>
