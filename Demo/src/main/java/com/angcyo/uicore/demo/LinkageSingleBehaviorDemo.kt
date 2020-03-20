@@ -27,11 +27,12 @@ class LinkageSingleBehaviorDemo : AppFragment() {
         }
 
         _vh.rv(R.id.recycler_footer_view)?.initDslAdapter {
-            loadImageItem(22) {
+            loadImageItem(1) {
                 imageHeight = undefined_size
                 itemHeight = 100 * dpi
                 imageUrl = null
             }
+            loadTextItem(24)
         }
     }
 }
