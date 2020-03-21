@@ -18,7 +18,9 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:fillViewport="true"
-        app:layout_behavior="com.angcyo.behavior.linkage.LinkageHeaderBehavior">
+        app:layout_behavior="com.angcyo.behavior.linkage.LinkageHeaderBehavior"
+        app:layout_enable_bottom_over_scroll="true"
+        app:layout_enable_top_over_scroll="true">
 
         <include layout="@layout/emoji_layout" />
     </androidx.core.widget.NestedScrollView>
@@ -65,5 +67,27 @@
 
     </FrameLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:orientation="vertical">
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/open_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="打开" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/close_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/lib_hdpi"
+            android:text="关闭" />
+
+    </LinearLayout>
 
 </com.angcyo.widget.layout.RCoordinatorLayout>

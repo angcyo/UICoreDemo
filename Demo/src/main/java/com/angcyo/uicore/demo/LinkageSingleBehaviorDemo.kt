@@ -1,11 +1,14 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import com.angcyo.behavior.linkage.LinkageFooterBehavior
+import com.angcyo.behavior.linkage.LinkageHeaderBehavior
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.undefined_size
 import com.angcyo.uicore.base.AppFragment
 import com.angcyo.uicore.dslitem.loadImageItem
 import com.angcyo.uicore.dslitem.loadTextItem
+import com.angcyo.widget.base.behavior
 import com.angcyo.widget.recycler.initDslAdapter
 
 /**
@@ -29,6 +32,14 @@ class LinkageSingleBehaviorDemo : AppFragment() {
                 imageUrl = null
             }
             loadTextItem()
+        }
+
+        _vh.click(R.id.open_button) {
+            (_vh.view(R.id.header_wrap_layout).behavior() as? LinkageHeaderBehavior)?.open()
+        }
+
+        _vh.click(R.id.close_button) {
+            (_vh.view(R.id.header_wrap_layout).behavior() as? LinkageHeaderBehavior)?.close()
         }
     }
 }
