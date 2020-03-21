@@ -22,17 +22,13 @@ class LinkageSingleBehaviorDemo : AppFragment() {
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
-        _vh.rv(R.id.recycler_header_view)?.initDslAdapter {
-            loadTextItem(4)
-        }
-
         _vh.rv(R.id.recycler_footer_view)?.initDslAdapter {
             loadImageItem(1) {
                 imageHeight = undefined_size
                 itemHeight = 100 * dpi
                 imageUrl = null
             }
-            loadTextItem(6)
+            loadTextItem()
         }
     }
 }
