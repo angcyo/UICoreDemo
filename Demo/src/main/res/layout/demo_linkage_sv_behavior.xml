@@ -15,18 +15,25 @@
         <include layout="@layout/emoji_layout" />
     </androidx.core.widget.NestedScrollView>
 
-    <FrameLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@color/transparent20"
+        android:fillViewport="true"
         app:layout_behavior="com.angcyo.behavior.linkage.LinkageStickyBehavior">
 
-        <include
-            layout="@layout/layout_sliding_tab"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center" />
-    </FrameLayout>
+            android:layout_height="wrap_content">
+
+            <include
+                layout="@layout/layout_sliding_tab"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center" />
+
+        </FrameLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/footer_wrap_layout"
