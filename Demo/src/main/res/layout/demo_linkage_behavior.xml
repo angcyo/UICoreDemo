@@ -5,6 +5,14 @@
     android:layout_height="match_parent"
     android:background="@color/transparent40">
 
+    <!--背景放大层-->
+    <FrameLayout
+        android:id="@+id/background_wrap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/app_bg_shape"
+        app:layout_behavior="com.angcyo.behavior.effect.ScaleBehavior" />
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/header_wrap_layout"
         android:layout_width="match_parent"
@@ -45,7 +53,6 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar_height"
-        android:background="@color/success"
         app:layout_behavior="com.angcyo.behavior.HideTitleBarBehavior">
 
         <TextView
@@ -57,5 +64,6 @@
             android:textColor="@color/lib_white" />
 
     </FrameLayout>
+
 
 </com.angcyo.widget.layout.RCoordinatorLayout>

@@ -9,7 +9,9 @@
         android:id="@+id/header_wrap_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="com.angcyo.behavior.linkage.LinkageHeaderBehavior">
+        app:layout_behavior="com.angcyo.behavior.linkage.LinkageHeaderBehavior"
+        app:layout_fix_status_bar="false"
+        app:layout_scroll_top_offset="@dimen/action_bar_height">
 
         <com.angcyo.widget.recycler.DslRecyclerView
             android:id="@+id/recycler_header_view"
