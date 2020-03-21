@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.widget.layout.RCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent40">
+
+    <FrameLayout
+        android:id="@+id/header_wrap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.angcyo.behavior.linkage.LinkageHeaderBehavior">
+
+        <com.angcyo.widget.recycler.DslRecyclerView
+            android:id="@+id/recycler_header_view"
+            style="@style/LibRecyclerViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/transparent20"
+        app:layout_behavior="com.angcyo.behavior.linkage.LinkageStickyBehavior">
+
+        <include
+            layout="@layout/layout_sliding_tab"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/footer_wrap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.angcyo.behavior.linkage.LinkageFooterBehavior">
+
+        <com.angcyo.widget.pager.DslViewPager
+            android:id="@+id/lib_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+</com.angcyo.widget.layout.RCoordinatorLayout>

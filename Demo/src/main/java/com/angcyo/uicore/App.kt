@@ -2,12 +2,18 @@ package com.angcyo.uicore
 
 import androidx.camera.camera2.Camera2Config
 import androidx.camera.core.CameraXConfig
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.viewpager.widget.ViewPager
 import com.angcyo.DslAHelper
+import com.angcyo.base.restore
 import com.angcyo.core.CoreApplication
+import com.angcyo.core.viewpager.RFragmentAdapter
 import com.angcyo.download.DslDownload
 import com.angcyo.library.component.DslNotify
 import com.angcyo.tbs.DslTbs
-import com.angcyo.uicore.demo.R
+import com.angcyo.uicore.demo.*
+import com.angcyo.uicore.fragment.RecyclerTextFragment
 
 /**
  *
@@ -36,4 +42,24 @@ class App : CoreApplication(), CameraXConfig.Provider {
     override fun getCameraXConfig(): CameraXConfig {
         return Camera2Config.defaultConfig()
     }
+}
+
+fun ViewPager.initAdapter(fragmentManager: FragmentManager, count: Int = 5) {
+    val fragments = mutableListOf<Fragment>()
+    for (i in 0 until count) {
+        val f2 = RecyclerTextFragment()
+
+        val f1 = fragmentManager.restore(
+            when (i) {
+                1 -> RefreshDemo()
+                2 -> MediaPickerDemo()
+                3 -> NotifyDemo()
+                4 -> GlideImageDemo()
+                else -> f2
+            }
+        ).first()
+
+        fragments.add(f2)
+    }
+    adapter = RFragmentAdapter(fragmentManager, fragments)
 }

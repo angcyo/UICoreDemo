@@ -32,7 +32,7 @@ class LinkageSingleBehaviorDemo : AppFragment() {
                 itemHeight = 100 * dpi
                 imageUrl = null
             }
-            loadTextItem(24)
+            loadTextItem()
         }
     }
 }
