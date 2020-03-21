@@ -57,4 +57,21 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <!--标题栏-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/success"
+        app:layout_behavior="com.angcyo.behavior.placeholder.TitleBarPlaceholderBehavior">
+
+        <TextView
+            style="@style/LibPrimaryTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="标题栏"
+            android:textColor="@color/lib_white" />
+
+    </FrameLayout>
+
 </com.angcyo.widget.layout.RCoordinatorLayout>
