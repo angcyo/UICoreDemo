@@ -4,8 +4,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.itemIndexPosition
 import com.angcyo.github.dslitem.DslBannerItem
+import com.angcyo.library._screenWidth
 import com.angcyo.library.ex.dpi
-import com.angcyo.library.getScreenWidth
 import com.angcyo.library.toastQQ
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.AppImageItem
@@ -45,7 +45,7 @@ class PagerLayoutManagerDemo : AppDslFragment() {
             }
 
             DslBannerItem()() {
-                val width = getScreenWidth() - 200 * dpi
+                val width = _screenWidth - 200 * dpi
                 itemNestedAdapter.data(width)
                 (pagerLayoutManager as? ScaleLayoutManager)?.apply {
                     itemSpace = -width / 3
@@ -55,7 +55,7 @@ class PagerLayoutManagerDemo : AppDslFragment() {
             }
 
             DslBannerItem()() {
-                val width = getScreenWidth() - 200 * dpi
+                val width = _screenWidth - 200 * dpi
                 itemNestedAdapter.data(width)
                 (pagerLayoutManager as? ScaleLayoutManager)?.apply {
                     itemSpace = -width / 3
