@@ -1,7 +1,7 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
-import com.angcyo.library.component._delay
+import com.angcyo.base.delay
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.undefined_size
 import com.angcyo.uicore.base.AppFragment
@@ -23,7 +23,7 @@ class LinkageRvBehaviorDemo : AppFragment() {
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
-        _delay {
+        delay {
             _vh.rv(R.id.recycler_header_view)?.initDslAdapter {
                 loadTextItem()
             }
