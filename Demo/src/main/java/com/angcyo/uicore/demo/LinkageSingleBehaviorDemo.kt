@@ -1,7 +1,6 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
-import com.angcyo.behavior.linkage.LinkageFooterBehavior
 import com.angcyo.behavior.linkage.LinkageHeaderBehavior
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.undefined_size
@@ -12,7 +11,7 @@ import com.angcyo.widget.base.behavior
 import com.angcyo.widget.recycler.initDslAdapter
 
 /**
- *
+ * NestedScrollView + RecyclerView
  * Email:angcyo@126.com
  * @author angcyo
  * @date 2020/03/20

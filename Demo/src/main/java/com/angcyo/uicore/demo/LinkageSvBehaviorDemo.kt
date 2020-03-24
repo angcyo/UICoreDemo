@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.angcyo.uicore.base.AppFragment
 
 /**
- *
+ * NestedScrollView + NestedScrollView
  * Email:angcyo@126.com
  * @author angcyo
  * @date 2020/03/20

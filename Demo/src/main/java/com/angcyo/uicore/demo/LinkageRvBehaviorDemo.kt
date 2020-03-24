@@ -10,7 +10,7 @@ import com.angcyo.uicore.dslitem.loadTextItem
 import com.angcyo.widget.recycler.initDslAdapter
 
 /**
- *
+ * RecyclerView + RecyclerView
  * Email:angcyo@126.com
  * @author angcyo
  * @date 2020/03/20

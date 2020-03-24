@@ -9,7 +9,7 @@ import com.angcyo.widget.recycler.initDslAdapter
 import com.angcyo.widget.vp
 
 /**
- *
+ * RecyclerView + TabLayout + ViewPager
  * Email:angcyo@126.com
  * @author angcyo
  * @date 2020/03/21
