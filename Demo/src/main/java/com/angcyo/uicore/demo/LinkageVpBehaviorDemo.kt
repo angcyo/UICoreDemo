@@ -1,6 +1,7 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import com.angcyo.library.component._delay
 import com.angcyo.uicore.base.AppFragment
 import com.angcyo.uicore.dslitem.loadTextItem
 import com.angcyo.uicore.initAdapter
@@ -22,11 +23,13 @@ class LinkageVpBehaviorDemo : AppFragment() {
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
 
-        _vh.rv(R.id.recycler_header_view)?.initDslAdapter {
-            loadTextItem()
-        }
+        _delay {
+            _vh.rv(R.id.recycler_header_view)?.initDslAdapter {
+                loadTextItem()
+            }
 
-        _vh.vp(R.id.lib_view_pager)?.initAdapter(childFragmentManager)
+            _vh.vp(R.id.lib_view_pager)?.initAdapter(childFragmentManager)
+        }
     }
 
     override fun canFlingBack(): Boolean {

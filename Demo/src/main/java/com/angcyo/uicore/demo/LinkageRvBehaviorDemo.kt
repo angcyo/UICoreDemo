@@ -1,6 +1,7 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import com.angcyo.library.component._delay
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.undefined_size
 import com.angcyo.uicore.base.AppFragment
@@ -22,17 +23,18 @@ class LinkageRvBehaviorDemo : AppFragment() {
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
-        _vh.rv(R.id.recycler_header_view)?.initDslAdapter {
-            loadTextItem()
-        }
-
-        _vh.rv(R.id.recycler_footer_view)?.initDslAdapter {
-            loadImageItem(1) {
-                imageHeight = undefined_size
-                itemHeight = 100 * dpi
-                imageUrl = null
+        _delay {
+            _vh.rv(R.id.recycler_header_view)?.initDslAdapter {
+                loadTextItem()
             }
-            loadTextItem()
+            _vh.rv(R.id.recycler_footer_view)?.initDslAdapter {
+                loadImageItem(1) {
+                    imageHeight = undefined_size
+                    itemHeight = 100 * dpi
+                    imageUrl = null
+                }
+                loadTextItem()
+            }
         }
     }
 }
