@@ -43,4 +43,30 @@
             android:layout_height="match_parent" />
     </FrameLayout>
 
+    <com.angcyo.widget.layout.TitleWrapLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_height"
+        app:layout_behavior="com.angcyo.behavior.linkage.LinkageGradientTitleBehavior">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/lib_title_back_view"
+            style="@style/LibItemStyle"
+            android:layout_gravity="center_vertical"
+            android:clickable="true"
+            android:src="@drawable/lib_back" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/lib_title_text_view"
+            style="@style/LibItemStyle"
+            android:layout_gravity="center"
+            android:text="标题" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            style="@style/LibItemStyle"
+            android:layout_gravity="center_vertical|right"
+            android:clickable="true"
+            android:src="@drawable/lib_ic_file" />
+
+    </com.angcyo.widget.layout.TitleWrapLayout>
+
 </com.angcyo.widget.layout.RCoordinatorLayout>
