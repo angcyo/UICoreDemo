@@ -461,8 +461,9 @@ class DialogDemo : AppDslFragment() {
             }
 
             if (this is BaseRecyclerDialogConfig) {
-                onDialogResult = { _, indexList ->
+                onDialogResult = { _, _, indexList ->
                     toastQQ("返回:$indexList", R.drawable.lib_ic_info)
+                    false
                 }
             }
         }
