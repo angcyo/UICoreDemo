@@ -2,6 +2,7 @@ package com.angcyo.uicore
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
@@ -75,6 +76,7 @@ class MainFragment : AppDslFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         leftControl()?.appendItem(ico = R.drawable.app_ic_menu, action = {
+            gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
             padding(0)
         }) {
             _vh.v<SliderMenuLayout>(R.id.menu_layout)?.openMenu()

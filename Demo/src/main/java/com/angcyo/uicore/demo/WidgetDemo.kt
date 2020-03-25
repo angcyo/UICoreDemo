@@ -9,6 +9,7 @@ import com.angcyo.putData
 import com.angcyo.uicore.activity.ShortcutActivity
 import com.angcyo.uicore.base.AppTitleFragment
 import com.angcyo.uicore.fragment.ShortcutFragment
+import com.angcyo.widget.base.animatorOf
 import com.angcyo.widget.base.fullscreen
 import com.angcyo.widget.base.lowProfile
 import com.angcyo.widget.progress.ArcLoadingView
@@ -88,6 +89,11 @@ class WidgetDemo : AppTitleFragment() {
             val light = !it.isSelected
             activity?.lightStatusBar(light)
             it.isSelected = light
+
+            animatorOf(fContext(), R.animator.lib_translate_x_show_enter_animator)?.apply {
+                setTarget(it)
+                start()
+            }
         }
 
         //hs progress
