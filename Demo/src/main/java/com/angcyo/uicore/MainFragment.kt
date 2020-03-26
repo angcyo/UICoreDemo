@@ -241,6 +241,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("LinkageSingleBehaviorDemo Sv+Rv $GO")
             renderMainItem("LinkageRvBehaviorDemo Rv+Rv")
             renderMainItem("LinkageVpBehaviorDemo Rv+Vp $GO")
+            renderMainItem("WaveLayerDemo $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()() {
