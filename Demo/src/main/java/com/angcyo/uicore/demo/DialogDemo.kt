@@ -335,7 +335,7 @@ class DialogDemo : AppDslFragment() {
         holder.hawkInstallAndRestore("dialog_")
     }
 
-    fun BaseRecyclerDialogConfig._initItemDialog(
+    fun RecyclerDialogConfig._initItemDialog(
         ico: Boolean = false,
         gravity: Int = Gravity.CENTER
     ) {
@@ -455,12 +455,12 @@ class DialogDemo : AppDslFragment() {
             }
 
             if (viewHolder.isChecked(R.id.cancel_cb)) {
-                if (this is BaseRecyclerDialogConfig) {
+                if (this is RecyclerDialogConfig) {
                     dialogBottomCancelItem = null
                 }
             }
 
-            if (this is BaseRecyclerDialogConfig) {
+            if (this is RecyclerDialogConfig) {
                 onDialogResult = { _, _, indexList ->
                     toastQQ("返回:$indexList", R.drawable.lib_ic_info)
                     false
