@@ -24,9 +24,9 @@ class LineChartDemo : AppDslFragment() {
 
             //1
             renderItem {
-                itemLayoutId = R.layout.demo_line_chart1
+                itemLayoutId = R.layout.demo_line_chart
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
-                    dslLineChart(itemHolder.v(R.id.line_chart)) {
+                    dslLineChart(itemHolder.v(R.id.chart)) {
                         chartXAxisLabelTextColor = Color.RED
                         chartDesText = "(h)"
                         chartDesEnabled = true
@@ -60,9 +60,9 @@ class LineChartDemo : AppDslFragment() {
 
             //2
             renderItem {
-                itemLayoutId = R.layout.demo_line_chart1
+                itemLayoutId = R.layout.demo_line_chart
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
-                    dslLineChart(itemHolder.v(R.id.line_chart)) {
+                    dslLineChart(itemHolder.v(R.id.chart)) {
                         chartXAxisEnable = false
                         lineMode = LineDataSet.Mode.CUBIC_BEZIER
                         lineDrawValues = true
@@ -101,9 +101,9 @@ class LineChartDemo : AppDslFragment() {
 
             //3
             renderItem {
-                itemLayoutId = R.layout.demo_line_chart1
+                itemLayoutId = R.layout.demo_line_chart
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
-                    dslLineChart(itemHolder.v(R.id.line_chart)) {
+                    dslLineChart(itemHolder.v(R.id.chart)) {
                         lineMode = LineDataSet.Mode.STEPPED
                         chartXAxisEnable = false
                         lineDrawValues = true
@@ -134,13 +134,14 @@ class LineChartDemo : AppDslFragment() {
 
             //4
             renderItem {
-                itemLayoutId = R.layout.demo_line_chart1
+                itemLayoutId = R.layout.demo_line_chart
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
-                    dslLineChart(itemHolder.v(R.id.line_chart)) {
+                    dslLineChart(itemHolder.v(R.id.chart)) {
                         lineMode = LineDataSet.Mode.HORIZONTAL_BEZIER
                         chartXAxisEnable = false
                         lineDrawValues = true
                         lineDrawCircleEnable = false
+                        lineDrawFilled = true
 
                         for (i in 0..3) {
                             addLineEntry(1f + i * nextInt(0, 3), 1f + i * nextInt(0, 3))
@@ -164,10 +165,10 @@ class LineChartDemo : AppDslFragment() {
 
             //5
             renderItem {
-                itemLayoutId = R.layout.demo_line_chart1
+                itemLayoutId = R.layout.demo_line_chart
 
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
-                    dslLineChart(itemHolder.v(R.id.line_chart))
+                    dslLineChart(itemHolder.v(R.id.chart))
                 }
             }
         }
