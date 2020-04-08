@@ -15,15 +15,13 @@ import com.angcyo.behavior.refresh.ScaleHeaderRefreshEffectConfig
 import com.angcyo.core.component.fileSelector
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem
+import com.angcyo.github.window.dslFloatWindow
 import com.angcyo.http.ApiKt
 import com.angcyo.http.dslHttp
 import com.angcyo.item.DslLastDeviceInfoItem
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.library.L
-import com.angcyo.library.ex.dpi
-import com.angcyo.library.ex.getColor
-import com.angcyo.library.ex.toDpi
-import com.angcyo.library.ex.urlIntent
+import com.angcyo.library.ex.*
 import com.angcyo.library.toast
 import com.angcyo.library.toastQQ
 import com.angcyo.library.utils.FileUtils
@@ -42,6 +40,7 @@ import com.angcyo.widget.layout.SliderMenuLayout
 import com.angcyo.widget.recycler.allViewHolder
 import com.angcyo.widget.recycler.get
 import com.angcyo.widget.recycler.initDslAdapter
+import com.yhao.floatwindow.IFloatWindowImpl
 
 /**
  *
@@ -244,6 +243,22 @@ class MainFragment : AppDslFragment() {
             renderMainItem("WaveLayerDemo $GO")
             renderMainItem("LineChartDemo $GO")
             renderMainItem("BarChartDemo $GO")
+            renderMainItem("FloatWindowDemo") {
+                fContext().dslFloatWindow {
+                    floatLayoutId = R.layout.float_window_layout
+
+                    initFloatLayout = { holder ->
+                        holder.clickItem {
+                            toastQQ("click...${nowTimeString()}")
+                        }
+                    }
+                }.apply {
+                    show()
+                    if (this is IFloatWindowImpl) {
+                        this.resetPosition(getView(), false)
+                    }
+                }
+            }
 
             //设备信息.
             DslLastDeviceInfoItem()() {
