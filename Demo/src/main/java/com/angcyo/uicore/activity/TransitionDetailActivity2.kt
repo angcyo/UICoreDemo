@@ -13,8 +13,8 @@ import com.angcyo.uicore.demo.R
  */
 class TransitionDetailActivity2 : BaseAppCompatActivity() {
 
-    override fun getActivityLayoutId(): Int {
-        return R.layout.activity_transition_detail2
+    init {
+        activityLayoutId = R.layout.activity_transition_detail2
     }
 
     override fun onCreateAfter(savedInstanceState: Bundle?) {
