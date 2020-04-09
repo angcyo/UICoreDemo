@@ -65,8 +65,8 @@ class LineChartDemo : AppDslFragment() {
                     dslLineChart(itemHolder.v(R.id.chart)) {
                         chartXAxisEnable = false
                         lineMode = LineDataSet.Mode.CUBIC_BEZIER
-                        lineDrawValues = true
-                        lineHighlightEnabled = true
+                        chartDrawValues = true
+                        chartHighlightEnabled = true
 
                         //X轴, 网格(竖线)颜色
                         chartXAxisGridLineColor = randomColor()
@@ -113,8 +113,8 @@ class LineChartDemo : AppDslFragment() {
                     dslLineChart(itemHolder.v(R.id.chart)) {
                         lineMode = LineDataSet.Mode.STEPPED
                         chartXAxisEnable = false
-                        lineDrawValues = true
-                        lineHighlightEnabled = true
+                        chartDrawValues = true
+                        chartHighlightEnabled = true
                         lineDrawCircleEnable = false
 
                         for (i in 0..3) {
@@ -146,7 +146,7 @@ class LineChartDemo : AppDslFragment() {
                     dslLineChart(itemHolder.v(R.id.chart)) {
                         lineMode = LineDataSet.Mode.HORIZONTAL_BEZIER
                         chartXAxisEnable = false
-                        lineDrawValues = true
+                        chartDrawValues = true
                         lineDrawCircleEnable = false
                         lineDrawFilled = true
 
@@ -170,7 +170,7 @@ class LineChartDemo : AppDslFragment() {
                 }
             }
 
-            //5
+            //no data
             renderItem {
                 itemLayoutId = R.layout.demo_line_chart
 
