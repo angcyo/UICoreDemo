@@ -1,25 +1,38 @@
 package com.angcyo.uicore.demo
 
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
-import com.angcyo.chart.dslBarChart
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
+import android.text.style.StyleSpan
+import com.angcyo.chart.dslPieChart
 import com.angcyo.dsladapter.renderItem
 import com.angcyo.library.ex.randomColor
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.colors
+import com.github.mikephil.charting.utils.ColorTemplate
 import kotlin.random.Random.Default.nextInt
 
 /**
  *
  * Email:angcyo@126.com
  * @author angcyo
- * @date 2020/04/07
+ * @date 2020/04/09
  * Copyright (c) 2020 ShenZhen Wayto Ltd. All rights reserved.
  */
-class BarChartDemo : AppDslFragment() {
+class PieChartDemo : AppDslFragment() {
 
-    init {
-        //创建字体
-        //val typeface = Typeface.createFromAsset(fContext().assets, "OpenSans-Light.ttf")
+    private fun generateCenterSpannableText(): SpannableString? {
+        val s = SpannableString("MPAndroidChart\ndeveloped by Philipp Jahoda")
+        s.setSpan(RelativeSizeSpan(1.7f), 0, 14, 0)
+        s.setSpan(StyleSpan(Typeface.NORMAL), 14, s.length - 15, 0)
+        s.setSpan(ForegroundColorSpan(Color.GRAY), 14, s.length - 15, 0)
+        s.setSpan(RelativeSizeSpan(.8f), 14, s.length - 15, 0)
+        s.setSpan(StyleSpan(Typeface.ITALIC), s.length - 14, s.length, 0)
+        s.setSpan(ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length - 14, s.length, 0)
+        return s
     }
 
     override fun initBaseView(savedInstanceState: Bundle?) {
@@ -27,34 +40,32 @@ class BarChartDemo : AppDslFragment() {
         renderDslAdapter {
             //1
             renderItem {
-                itemLayoutId = R.layout.demo_bar_chart
+                itemLayoutId = R.layout.demo_pie_chart
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
-                    dslBarChart(itemHolder.v(R.id.chart)) {
-                        chartDrawValues = true
+                    dslPieChart(itemHolder.v(R.id.chart)) {
                         chartDataSetColors = colors()
-                        barDrawValueAboveBar = false
-
-                        for (i in 0..0) {
-                            for (j in 0..10) {
-                                val value = nextInt(0, 100) * Math.random()
-                                addEntry(j.toFloat() * 2, value.toFloat())
+                        chartAnimateDurationY = 2000
+                        pieCenterText = generateCenterSpannableText()
+                        for (i in 0..3) {
+                            val value = nextInt(0, 100) * Math.random()
+                            addEntry(value.toFloat()) {
+                                label = "Pie $i"
                             }
-                            addDataSet("B$i")
                         }
+                        addDataSet("P1")
                     }
                 }
             }
 
             //2
             renderItem {
-                itemLayoutId = R.layout.demo_bar_chart
+                itemLayoutId = R.layout.demo_pie_chart
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
-                    dslBarChart(itemHolder.v(R.id.chart)) {
+                    dslPieChart(itemHolder.v(R.id.chart)) {
                         chartDrawValues = true
                         //chartDataSetWidth = 0.5f
                         chartLeftAxisMinimum = 0f
                         chartLeftAxisMaximum = 20f
-                        barGroupFromX = 0f
                         barFitBars = true
                         for (i in 0..3) {
                             for (j in 0..10) {
@@ -71,9 +82,9 @@ class BarChartDemo : AppDslFragment() {
 
             //3
             renderItem {
-                itemLayoutId = R.layout.demo_bar_chart
+                itemLayoutId = R.layout.demo_pie_chart
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
-                    dslBarChart(itemHolder.v(R.id.chart)) {
+                    dslPieChart(itemHolder.v(R.id.chart)) {
                         chartDrawValues = true
                         chartDataSetWidth = 2f
                         for (i in 0..10) {
@@ -87,31 +98,11 @@ class BarChartDemo : AppDslFragment() {
                 }
             }
 
-            //4 horizontal
-            renderItem {
-                itemLayoutId = R.layout.demo_horizontal_bar_chart
-                itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
-                    dslBarChart(itemHolder.v(R.id.chart)) {
-                        chartDrawValues = true
-                        chartDataSetColors = colors()
-                        chartAnimateDurationY = 2000
-                        barDrawValueAboveBar = true
-                        for (i in 0..0) {
-                            for (j in 0..10) {
-                                val value = nextInt(0, 20) * Math.random()
-                                addEntry(j.toFloat() + 3 * i, value.toFloat())
-                            }
-                            addDataSet("B$i")
-                        }
-                    }
-                }
-            }
-
             //5
             renderItem {
-                itemLayoutId = R.layout.demo_bar_chart
+                itemLayoutId = R.layout.demo_pie_chart
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
-                    dslBarChart(itemHolder.v(R.id.chart)) {
+                    dslPieChart(itemHolder.v(R.id.chart)) {
                         chartDrawValues = true
                         chartAnimateDurationY = 2000
                         chartHighlightEnabled = true
@@ -130,9 +121,9 @@ class BarChartDemo : AppDslFragment() {
 
             //no data
             renderItem {
-                itemLayoutId = R.layout.demo_bar_chart
+                itemLayoutId = R.layout.demo_pie_chart
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
-                    dslBarChart(itemHolder.v(R.id.chart)) {
+                    dslPieChart(itemHolder.v(R.id.chart)) {
                     }
                 }
             }

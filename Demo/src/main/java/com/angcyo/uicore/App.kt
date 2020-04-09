@@ -11,6 +11,7 @@ import com.angcyo.core.CoreApplication
 import com.angcyo.core.viewpager.RFragmentAdapter
 import com.angcyo.download.DslDownload
 import com.angcyo.library.component.DslNotify
+import com.angcyo.library.ex.randomColor
 import com.angcyo.tbs.DslTbs
 import com.angcyo.uicore.demo.*
 import com.angcyo.uicore.fragment.RecyclerTextFragment
@@ -62,4 +63,12 @@ fun ViewPager.initAdapter(fragmentManager: FragmentManager, count: Int = 5) {
         fragments.add(f2)
     }
     adapter = RFragmentAdapter(fragmentManager, fragments)
+}
+
+fun colors(count: Int = 5): List<Int> {
+    val result = mutableListOf<Int>()
+    for (i in 0 until count) {
+        result.add(randomColor())
+    }
+    return result
 }

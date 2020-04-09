@@ -240,9 +240,10 @@ class MainFragment : AppDslFragment() {
             renderMainItem("LinkageSingleBehaviorDemo Sv+Rv $GO")
             renderMainItem("LinkageRvBehaviorDemo Rv+Rv")
             renderMainItem("LinkageVpBehaviorDemo Rv+Vp $GO")
-            renderMainItem("WaveLayerDemo $GO")
-            renderMainItem("LineChartDemo $GO")
-            renderMainItem("BarChartDemo $GO")
+            renderMainItem("WaveLayerDemo")
+            renderMainItem("LineChartDemo")
+            renderMainItem("BarChartDemo")
+            renderMainItem("PieChartDemo $GO")
             renderMainItem("FloatWindowDemo") {
                 fContext().dslFloatWindow {
                     floatLayoutId = R.layout.float_window_layout

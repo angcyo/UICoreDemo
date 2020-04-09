@@ -33,10 +33,10 @@ class LineChartDemo : AppDslFragment() {
                         lineMode = LineDataSet.Mode.LINEAR
 
                         for (i in 0..3) {
-                            addLineEntry(1f + i * nextInt(0, 3), 1f + i * nextInt(0, 3))
-                            addLineEntry(2f + i * nextInt(0, 3), 2f + i * nextInt(0, 3))
-                            addLineEntry(3f + i * nextInt(0, 3), 3f + i * nextInt(0, 3))
-                            addLineDataSet("L$i")
+                            addEntry(1f + i * nextInt(0, 3), 1f + i * nextInt(0, 3))
+                            addEntry(2f + i * nextInt(0, 3), 2f + i * nextInt(0, 3))
+                            addEntry(3f + i * nextInt(0, 3), 3f + i * nextInt(0, 3))
+                            addDataSet("L$i")
                         }
 
                         addLimitLine(2.5f) {
@@ -76,10 +76,10 @@ class LineChartDemo : AppDslFragment() {
                         chartLeftAxisLineColor = randomColor()
 
                         for (i in 0..3) {
-                            addLineEntry(1f + i * nextInt(0, 3), 1f + i * nextInt(0, 3))
-                            addLineEntry(2f + i * nextInt(0, 3), 2f + i * nextInt(0, 3))
-                            addLineEntry(3f + i * nextInt(0, 3), 3f + i * nextInt(0, 3))
-                            addLineDataSet("L$i") {
+                            addEntry(1f + i * nextInt(0, 3), 1f + i * nextInt(0, 3))
+                            addEntry(2f + i * nextInt(0, 3), 2f + i * nextInt(0, 3))
+                            addEntry(3f + i * nextInt(0, 3), 3f + i * nextInt(0, 3))
+                            addDataSet("L$i") {
                                 color = randomColor()
                             }
                         }
@@ -118,10 +118,10 @@ class LineChartDemo : AppDslFragment() {
                         lineDrawCircleEnable = false
 
                         for (i in 0..3) {
-                            addLineEntry(1f + i * nextInt(0, 3), 1f + i * nextInt(0, 3))
-                            addLineEntry(2f + i * nextInt(0, 3), 2f + i * nextInt(0, 3))
-                            addLineEntry(3f + i * nextInt(0, 3), 3f + i * nextInt(0, 3))
-                            addLineDataSet("L$i") {
+                            addEntry(1f + i * nextInt(0, 3), 1f + i * nextInt(0, 3))
+                            addEntry(2f + i * nextInt(0, 3), 2f + i * nextInt(0, 3))
+                            addEntry(3f + i * nextInt(0, 3), 3f + i * nextInt(0, 3))
+                            addDataSet("L$i") {
                                 color = randomColor()
                             }
                         }
@@ -151,10 +151,10 @@ class LineChartDemo : AppDslFragment() {
                         lineDrawFilled = true
 
                         for (i in 0..3) {
-                            addLineEntry(1f + i * nextInt(0, 3), 1f + i * nextInt(0, 3))
-                            addLineEntry(2f + i * nextInt(0, 3), 2f + i * nextInt(0, 3))
-                            addLineEntry(3f + i * nextInt(0, 3), 3f + i * nextInt(0, 3))
-                            addLineDataSet("L$i") {
+                            addEntry(1f + i * nextInt(0, 3), 1f + i * nextInt(0, 3))
+                            addEntry(2f + i * nextInt(0, 3), 2f + i * nextInt(0, 3))
+                            addEntry(3f + i * nextInt(0, 3), 3f + i * nextInt(0, 3))
+                            addDataSet("L$i") {
                                 color = randomColor()
                             }
                         }
