@@ -21,6 +21,14 @@ class BarChartDemo : AppDslFragment() {
         //val typeface = Typeface.createFromAsset(fContext().assets, "OpenSans-Light.ttf")
     }
 
+    fun colors(count: Int = 5): List<Int> {
+        val result = mutableListOf<Int>()
+        for (i in 0 until count) {
+            result.add(randomColor())
+        }
+        return result
+    }
+
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
         renderDslAdapter {
@@ -30,14 +38,9 @@ class BarChartDemo : AppDslFragment() {
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
                     dslBarChart(itemHolder.v(R.id.chart)) {
                         chartDrawValues = true
-                        chartDataSetColors =
-                            listOf(
-                                randomColor(),
-                                randomColor(),
-                                randomColor(),
-                                randomColor(),
-                                randomColor()
-                            )
+                        chartDataSetColors = colors()
+                        barDrawValueAboveBar = false
+
                         for (i in 0..0) {
                             for (j in 0..10) {
                                 val value = nextInt(0, 100) * Math.random()
@@ -86,6 +89,47 @@ class BarChartDemo : AppDslFragment() {
                             addBarDataSet("B$i") {
                                 color = randomColor()
                             }
+                        }
+                    }
+                }
+            }
+
+            //4 horizontal
+            renderItem {
+                itemLayoutId = R.layout.demo_horizontal_bar_chart
+                itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
+                    dslBarChart(itemHolder.v(R.id.chart)) {
+                        chartDrawValues = true
+                        chartDataSetColors = colors()
+                        chartAnimateDurationY = 2000
+                        barDrawValueAboveBar = true
+                        for (i in 0..0) {
+                            for (j in 0..10) {
+                                val value = nextInt(0, 20) * Math.random()
+                                addBarEntry(j.toFloat() + 3 * i, value.toFloat())
+                            }
+                            addBarDataSet("B$i")
+                        }
+                    }
+                }
+            }
+
+            //5
+            renderItem {
+                itemLayoutId = R.layout.demo_bar_chart
+                itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
+                    dslBarChart(itemHolder.v(R.id.chart)) {
+                        chartDrawValues = true
+                        chartAnimateDurationY = 2000
+                        chartHighlightEnabled = true
+                        barHighlightFullEnabled = true
+                        for (i in 0..3) {
+                            for (j in 0..10) {
+                                val value = nextInt(0, 20) * Math.random()
+                                addBarEntry(j.toFloat() + 3 * i, value.toFloat() * i)
+                            }
+                            chartDataSetColors = colors()
+                            addBarDataSet("B$i")
                         }
                     }
                 }
