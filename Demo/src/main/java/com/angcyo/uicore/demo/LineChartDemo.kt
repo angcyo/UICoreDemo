@@ -68,6 +68,13 @@ class LineChartDemo : AppDslFragment() {
                         lineDrawValues = true
                         lineHighlightEnabled = true
 
+                        //X轴, 网格(竖线)颜色
+                        chartXAxisGridLineColor = randomColor()
+                        //左边Y轴, 网格(横线)颜色
+                        chartLeftAxisGridLineColor = randomColor()
+                        //左边Y轴, 轴线颜色
+                        chartLeftAxisLineColor = randomColor()
+
                         for (i in 0..3) {
                             addLineEntry(1f + i * nextInt(0, 3), 1f + i * nextInt(0, 3))
                             addLineEntry(2f + i * nextInt(0, 3), 2f + i * nextInt(0, 3))
