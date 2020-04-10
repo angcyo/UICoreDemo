@@ -7,11 +7,16 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
+import com.angcyo.chart.BaseChartConfig
 import com.angcyo.chart.dslPieChart
 import com.angcyo.dsladapter.renderItem
-import com.angcyo.library.ex.randomColor
+import com.angcyo.library.ex._color
+import com.angcyo.library.ex._drawable
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.colors
+import com.angcyo.widget.span.span
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
 import kotlin.random.Random.Default.nextInt
 
@@ -45,6 +50,7 @@ class PieChartDemo : AppDslFragment() {
                     dslPieChart(itemHolder.v(R.id.chart)) {
                         chartDataSetColors = colors()
                         chartAnimateDurationY = 2000
+                        pieUsePercentValues = true
                         pieCenterText = generateCenterSpannableText()
                         for (i in 0..3) {
                             val value = nextInt(0, 100) * Math.random()
@@ -62,21 +68,31 @@ class PieChartDemo : AppDslFragment() {
                 itemLayoutId = R.layout.demo_pie_chart
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
                     dslPieChart(itemHolder.v(R.id.chart)) {
-                        chartDrawValues = true
-                        //chartDataSetWidth = 0.5f
-                        chartLeftAxisMinimum = 0f
-                        chartLeftAxisMaximum = 20f
-                        barFitBars = true
-                        for (i in 0..3) {
-                            for (j in 0..10) {
-                                val value = nextInt(0, 20) * Math.random()
-                                addEntry(j.toFloat() * 2 + 3 * i, value.toFloat())
+                        chartDataSetColors = colors()
+                        chartAnimateDurationX = 2000
+                        chartAnimateDurationY = 2000
+                        pieUsePercentValues = false
+                        pieDrawRoundedSlices = true
+                        chartLegendEnable = true
+                        chartLegendHorizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
+                        chartLegendVerticalAlignment = Legend.LegendVerticalAlignment.TOP
+                        chartLegendOrientation = Legend.LegendOrientation.VERTICAL
+                        pieCenterText = span {
+                            append("span...") {
+                                foregroundColor = ColorTemplate.getHoloBlue()
                             }
-                            addDataSet("B$i") {
-                                color = randomColor()
+                            drawable {
+                                backgroundDrawable = _drawable(R.drawable.ic_logo)
                             }
                         }
-                    }?.animateXY(300, 300)
+                        for (i in 0..3) {
+                            val value = nextInt(0, 100) * Math.random()
+                            addEntry(value.toFloat()) {
+                                label = "Pie $i"
+                            }
+                        }
+                        addDataSet("P1")
+                    }
                 }
             }
 
@@ -85,15 +101,73 @@ class PieChartDemo : AppDslFragment() {
                 itemLayoutId = R.layout.demo_pie_chart
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
                     dslPieChart(itemHolder.v(R.id.chart)) {
-                        chartDrawValues = true
-                        chartDataSetWidth = 2f
-                        for (i in 0..10) {
-                            val value = nextInt(0, 100) * Math.random()
-                            addEntry(i.toFloat() * 3, value.toFloat())
-                            addDataSet("B$i") {
-                                color = randomColor()
+                        chartDataSetColors = colors()
+                        chartAnimateDurationX = 2000
+                        chartAnimateDurationY = 2000
+                        pieUsePercentValues = false
+                        pieDrawRoundedSlices = true
+                        pieValuePositionY = PieDataSet.ValuePosition.OUTSIDE_SLICE
+                        chartLegendEnable = true
+                        chartLegendHorizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
+                        chartLegendVerticalAlignment = Legend.LegendVerticalAlignment.CENTER
+                        chartLegendOrientation = Legend.LegendOrientation.VERTICAL
+                        pieCenterText = span {
+                            append("span...") {
+                                foregroundColor = ColorTemplate.getHoloBlue()
+                            }
+                            drawable {
+                                backgroundDrawable = _drawable(R.drawable.ic_logo)
+                            }
+                            text("text") {
+                                textColor = BaseChartConfig.DEFAULT_TEXT_COLOR
                             }
                         }
+                        for (i in 0..3) {
+                            val value = nextInt(0, 100) * Math.random()
+                            addEntry(value.toFloat()) {
+                                label = "Pie $i"
+                            }
+                        }
+                        addDataSet("P1")
+                    }
+                }
+            }
+
+            //4
+            renderItem {
+                itemLayoutId = R.layout.demo_pie_chart
+                itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
+                    dslPieChart(itemHolder.v(R.id.chart)) {
+                        chartDataSetColors = colors()
+                        chartAnimateDurationX = 2000
+                        chartAnimateDurationY = 2000
+                        pieUsePercentValues = false
+                        pieDrawRoundedSlices = true
+                        pieValuePositionY = PieDataSet.ValuePosition.OUTSIDE_SLICE
+                        chartLegendEnable = true
+                        chartLegendHorizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
+                        chartLegendVerticalAlignment = Legend.LegendVerticalAlignment.TOP
+                        chartLegendOrientation = Legend.LegendOrientation.HORIZONTAL
+                        chartLegendDirection = Legend.LegendDirection.RIGHT_TO_LEFT
+                        pieTransparentCircleColor = _color(R.color.info)
+                        pieCenterText = span {
+                            append("span...") {
+                                foregroundColor = ColorTemplate.getHoloBlue()
+                            }
+                            text("\ntext") {
+                                textColor = BaseChartConfig.DEFAULT_TEXT_COLOR
+                            }
+                        }
+                        pieRotationAngle = 180f
+                        pieMaxAngle = 90f
+                        pieCenterTextOffsetY = -20f
+                        for (i in 0..3) {
+                            val value = nextInt(0, 100) * Math.random()
+                            addEntry(value.toFloat()) {
+                                label = "Pie $i"
+                            }
+                        }
+                        addDataSet("P1")
                     }
                 }
             }
@@ -103,18 +177,36 @@ class PieChartDemo : AppDslFragment() {
                 itemLayoutId = R.layout.demo_pie_chart
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
                     dslPieChart(itemHolder.v(R.id.chart)) {
-                        chartDrawValues = true
+                        chartDataSetColors = colors()
+                        chartAnimateDurationX = 2000
                         chartAnimateDurationY = 2000
-                        chartHighlightEnabled = true
-                        barHighlightFullEnabled = true
-                        for (i in 0..3) {
-                            for (j in 0..10) {
-                                val value = nextInt(0, 20) * Math.random()
-                                addEntry(j.toFloat() + 3 * i, value.toFloat() * i)
+                        pieUsePercentValues = false
+                        pieDrawRoundedSlices = false
+                        pieValuePositionY = PieDataSet.ValuePosition.OUTSIDE_SLICE
+                        chartLegendEnable = true
+                        chartLegendHorizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
+                        chartLegendVerticalAlignment = Legend.LegendVerticalAlignment.TOP
+                        chartLegendOrientation = Legend.LegendOrientation.HORIZONTAL
+                        pieTransparentCircleColor = _color(R.color.info)
+                        pieHoleColor = _color(R.color.warning)
+                        pieCenterText = span {
+                            append("span...") {
+                                foregroundColor = ColorTemplate.getHoloBlue()
                             }
-                            chartDataSetColors = colors()
-                            addDataSet("B$i")
+                            text("\ntext") {
+                                textColor = BaseChartConfig.DEFAULT_TEXT_COLOR
+                            }
                         }
+                        pieRotationAngle = 180f
+                        pieMaxAngle = 180f
+                        pieCenterTextOffsetY = -20f
+                        for (i in 0..3) {
+                            val value = nextInt(0, 100) * Math.random()
+                            addEntry(value.toFloat()) {
+                                label = "Pie $i"
+                            }
+                        }
+                        addDataSet("P1")
                     }
                 }
             }
