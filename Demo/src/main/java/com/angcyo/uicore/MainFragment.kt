@@ -244,6 +244,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("LineChartDemo")
             renderMainItem("BarChartDemo")
             renderMainItem("PieChartDemo $GO")
+            renderMainItem("OtherChartDemo $GO")
             renderMainItem("FloatWindowDemo") {
                 fContext().dslFloatWindow {
                     floatLayoutId = R.layout.float_window_layout

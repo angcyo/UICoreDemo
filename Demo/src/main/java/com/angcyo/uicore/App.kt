@@ -15,6 +15,7 @@ import com.angcyo.library.ex.randomColor
 import com.angcyo.tbs.DslTbs
 import com.angcyo.uicore.demo.*
 import com.angcyo.uicore.fragment.RecyclerTextFragment
+import kotlin.random.Random
 
 /**
  *
@@ -72,3 +73,5 @@ fun colors(count: Int = 5): List<Int> {
     }
     return result
 }
+
+fun value(min: Int = 0, max: Int = 100) = Random.nextInt(min, max)
