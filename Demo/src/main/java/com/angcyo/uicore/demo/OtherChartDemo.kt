@@ -3,10 +3,7 @@ package com.angcyo.uicore.demo
 import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
-import com.angcyo.chart.dslBubbleChart
-import com.angcyo.chart.dslCandleStickChart
-import com.angcyo.chart.dslRadarChart
-import com.angcyo.chart.dslScatterChart
+import com.angcyo.chart.*
 import com.angcyo.chart.formatter.ArrayFormatter
 import com.angcyo.dsladapter.renderEmptyItem
 import com.angcyo.dsladapter.renderItem
@@ -17,6 +14,7 @@ import com.angcyo.uicore.colors
 import com.angcyo.uicore.test.RadarMarkerView
 import com.angcyo.uicore.value
 import com.github.mikephil.charting.charts.ScatterChart
+import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.MarkerView
 
 /**
@@ -35,10 +33,56 @@ class OtherChartDemo : AppDslFragment() {
             renderItem {
                 itemLayoutId = R.layout.demo_combined_chart
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
-//                    dslBarChart(itemHolder.v(R.id.chart)) {
-//                        chartDrawValues = true
-//                        chartDataSetColors = colors()
-//                    }
+                    dslCombinedChart(itemHolder.v(R.id.chart)) {
+                        chartDrawValues = true
+                        chartDataSetColors = colors()
+                        chartDesText = "CombinedChart 合并图表"
+
+                        chartLegendOrientation = Legend.LegendOrientation.VERTICAL
+
+                        chartAnimateDurationX = 2000
+                        chartAnimateDurationY = 2000
+
+                        for (i in 0..1) {
+                            for (j in 0..10) {
+                                addLineEntry(j.toFloat(), value().toFloat())
+                                addBarEntry(j.toFloat(), value().toFloat())
+                                addScatterEntry(j.toFloat(), value().toFloat())
+                                scatterShape = when (i) {
+                                    0 -> ScatterChart.ScatterShape.CIRCLE
+                                    1 -> ScatterChart.ScatterShape.CHEVRON_DOWN
+                                    2 -> ScatterChart.ScatterShape.CHEVRON_UP
+                                    3 -> ScatterChart.ScatterShape.CROSS
+                                    4 -> ScatterChart.ScatterShape.SQUARE
+                                    5 -> ScatterChart.ScatterShape.TRIANGLE
+                                    else -> ScatterChart.ScatterShape.X
+                                }
+
+                                addBubbleEntry(
+                                    j.toFloat(),
+                                    value().toFloat(),
+                                    value(20, 100).toFloat()
+                                )
+
+                                val v = value().toFloat()
+                                val open = value(10, 60).toFloat()
+                                val close = value(10, 60).toFloat()
+                                val even = j % 2 == 0
+                                addCandleEntry(
+                                    (j).toFloat() + i * 10,
+                                    (v + value(60, 100)),
+                                    (v - value(60, 100)),
+                                    if (even) v + open else v - open,
+                                    if (even) v - close else v + close
+                                )
+                            }
+                            addLineDataSet("L$i")
+                            addBarDataSet("B$i")
+                            addScatterDataSet("S$i")
+                            addCandleDataSet("C$i")
+                            addBubbleDataSet("Q$i")
+                        }
+                    }
                 }
             }
 
@@ -146,7 +190,7 @@ class OtherChartDemo : AppDslFragment() {
                         chartDesText = "RadarChart 雷达图表"
                         chartAnimateDurationX = 2000
                         chartAnimateDurationY = 2000
-                        radarDrawFill = true
+                        chartDrawFilled = true
 
                         val values = mutableListOf<String>()
                         chartXAxisValueFormatter = ArrayFormatter(values)
@@ -161,7 +205,7 @@ class OtherChartDemo : AppDslFragment() {
                             }
 
                             chartDataSetColors = colors()
-                            radarFillColor = chartDataSetColors.first()
+                            chartFillColor = chartDataSetColors.first()
 
                             addDataSet("B$i")
                         }

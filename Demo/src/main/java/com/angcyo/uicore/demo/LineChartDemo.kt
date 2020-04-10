@@ -148,7 +148,7 @@ class LineChartDemo : AppDslFragment() {
                         chartXAxisEnable = false
                         chartDrawValues = true
                         lineDrawCircleEnable = false
-                        lineDrawFilled = true
+                        chartDrawFilled = true
 
                         for (i in 0..3) {
                             addEntry(1f + i * nextInt(0, 3), 1f + i * nextInt(0, 3))
