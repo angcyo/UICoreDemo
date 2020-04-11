@@ -1,14 +1,12 @@
 package com.angcyo.uicore.demo
 
 import android.graphics.Color
-import android.graphics.Paint
 import android.os.Bundle
+import android.view.Gravity
 import com.angcyo.chart.*
 import com.angcyo.chart.formatter.ArrayFormatter
 import com.angcyo.dsladapter.renderEmptyItem
 import com.angcyo.dsladapter.renderItem
-import com.angcyo.library._screenWidth
-import com.angcyo.library.ex.dp
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.colors
 import com.angcyo.uicore.test.RadarMarkerView
@@ -86,15 +84,72 @@ class OtherChartDemo : AppDslFragment() {
                 }
             }
 
+            //1.1 CombinedChart
+            renderItem {
+                itemLayoutId = R.layout.demo_combined_chart
+                itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
+                    dslCombinedChart(itemHolder.v(R.id.chart)) {
+                        chartDrawValues = true
+                        chartDataSetColors = colors()
+                        chartDesText = "CombinedChart 合并图表"
+
+                        chartLegendOrientation = Legend.LegendOrientation.VERTICAL
+
+                        chartAnimateDurationX = 2000
+                        chartAnimateDurationY = 2000
+
+                        chartDesPositionGravity = Gravity.CENTER
+
+                        for (i in 0..1) {
+                            for (j in 0..3) {
+                                addLineEntry(j.toFloat(), value().toFloat())
+                                addBarEntry(j.toFloat(), value().toFloat())
+                                addScatterEntry(j.toFloat(), value().toFloat())
+                            }
+                            addLineDataSet("L$i")
+                            addBarDataSet("B$i")
+                            addScatterDataSet("S$i")
+                        }
+                    }
+                }
+            }
+
+            //1.2 CombinedChart
+            renderItem {
+                itemLayoutId = R.layout.demo_combined_chart
+                itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
+                    dslCombinedChart(itemHolder.v(R.id.chart)) {
+                        chartDrawValues = true
+                        chartDataSetColors = colors()
+                        chartDesText = "CombinedChart 合并图表"
+                        chartDesTextColor = Color.RED
+
+                        chartLegendOrientation = Legend.LegendOrientation.VERTICAL
+
+                        chartAnimateDurationX = 2000
+                        chartAnimateDurationY = 2000
+
+                        chartDesPositionGravity = Gravity.LEFT or Gravity.BOTTOM
+
+                        for (i in 0..1) {
+                            for (j in 0..3) {
+                                addLineEntry(j.toFloat(), value().toFloat())
+                                addScatterEntry(j.toFloat(), value().toFloat())
+                            }
+                            addLineDataSet("L$i")
+                            addScatterDataSet("S$i")
+                        }
+                    }
+                }
+            }
+
             //2 ScatterChart
             renderItem {
                 itemLayoutId = R.layout.demo_scatter_chart
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
                     dslScatterChart(itemHolder.v(R.id.chart)) {
                         chartDesText = "ScatterChart 散列图表"
-                        chartDesPositionX = 24f * dp
-                        chartDesPositionY = 24f * dp
-                        chartDesTextAlign = Paint.Align.LEFT
+                        chartDesPositionGravity = Gravity.LEFT
                         chartAnimateDurationX = 2000
                         chartAnimateDurationY = 2000
                         for (i in 0..6) {
@@ -124,6 +179,7 @@ class OtherChartDemo : AppDslFragment() {
                     dslCandleStickChart(itemHolder.v(R.id.chart)) {
                         chartDrawValues = true
                         chartDesText = "CandleStickChart 蜡烛图表"
+                        chartDesPositionGravity = Gravity.RIGHT
                         chartAnimateDurationX = 2000
                         chartAnimateDurationY = 2000
                         for (i in 0..0) {
@@ -160,8 +216,7 @@ class OtherChartDemo : AppDslFragment() {
                         chartDesText = "BubbleChart 气泡图表"
                         chartAnimateDurationX = 2000
                         chartAnimateDurationY = 2000
-                        chartDesPositionY = 18f * dp
-                        chartDesPositionX = _screenWidth.toFloat() - chartDesPositionY
+                        chartDesPositionGravity = Gravity.CENTER_HORIZONTAL or Gravity.TOP
                         chartDesTextColor = Color.YELLOW
                         for (i in 0..2) {
                             for (j in 0..10) {
@@ -192,9 +247,10 @@ class OtherChartDemo : AppDslFragment() {
                         chartAnimateDurationY = 2000
                         chartDrawFilled = true
 
+                        chartDesPositionGravity = Gravity.CENTER_HORIZONTAL or Gravity.BOTTOM
+
                         val values = mutableListOf<String>()
                         chartXAxisValueFormatter = ArrayFormatter(values)
-
 
                         for (i in 0..2) {
                             values.clear()
