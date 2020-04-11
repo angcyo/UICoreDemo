@@ -39,11 +39,11 @@ class LineChartDemo : AppDslFragment() {
                             addDataSet("L$i")
                         }
 
-                        addLimitLine(2.5f) {
+                        addXAxisLimitLine(2.5f) {
                             lineColor = Color.RED
                         }
 
-                        addLimitLine(3.5f, "Limit") {
+                        addXAxisLimitLine(3.5f, "Limit") {
                             lineColor = Color.GREEN
                         }
                     }?.apply {
@@ -84,11 +84,11 @@ class LineChartDemo : AppDslFragment() {
                             }
                         }
 
-                        addLimitLine(2.5f) {
+                        addXAxisLimitLine(2.5f) {
                             lineColor = Color.RED
                         }
 
-                        addLimitLine(3.5f, "Limit") {
+                        addXAxisLimitLine(3.5f, "Limit") {
                             lineColor = Color.GREEN
                         }
                     }?.apply {
@@ -126,11 +126,11 @@ class LineChartDemo : AppDslFragment() {
                             }
                         }
 
-                        addLimitLine(2.5f) {
+                        addXAxisLimitLine(2.5f) {
                             lineColor = Color.RED
                         }
 
-                        addLimitLine(3.5f, "Limit") {
+                        addXAxisLimitLine(3.5f, "Limit") {
                             lineColor = Color.GREEN
                         }
                     }?.apply {
@@ -159,11 +159,11 @@ class LineChartDemo : AppDslFragment() {
                             }
                         }
 
-                        addLimitLine(2.5f) {
+                        addXAxisLimitLine(2.5f) {
                             lineColor = Color.RED
                         }
 
-                        addLimitLine(3.5f, "Limit") {
+                        addXAxisLimitLine(3.5f, "Limit") {
                             lineColor = Color.GREEN
                         }
                     }

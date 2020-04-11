@@ -1,5 +1,6 @@
 package com.angcyo.uicore
 
+import android.graphics.DashPathEffect
 import androidx.camera.camera2.Camera2Config
 import androidx.camera.core.CameraXConfig
 import androidx.fragment.app.Fragment
@@ -11,6 +12,7 @@ import com.angcyo.core.CoreApplication
 import com.angcyo.core.viewpager.RFragmentAdapter
 import com.angcyo.download.DslDownload
 import com.angcyo.library.component.DslNotify
+import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.randomColor
 import com.angcyo.tbs.DslTbs
 import com.angcyo.uicore.demo.*
@@ -75,3 +77,6 @@ fun colors(count: Int = 5): List<Int> {
 }
 
 fun value(min: Int = 0, max: Int = 100) = Random.nextInt(min, max)
+
+fun dash(lineLength: Float = 2 * dp, spaceLength: Float = 3 * dp, phase: Float = 0f) =
+    DashPathEffect(floatArrayOf(lineLength, spaceLength), phase)

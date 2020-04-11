@@ -2,10 +2,13 @@ package com.angcyo.uicore.demo
 
 import android.os.Bundle
 import com.angcyo.chart.dslBarChart
+import com.angcyo.chart.formatter.ArrayFormatter
 import com.angcyo.dsladapter.renderItem
+import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.randomColor
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.colors
+import com.angcyo.uicore.value
 import kotlin.random.Random.Default.nextInt
 
 /**
@@ -127,6 +130,47 @@ class BarChartDemo : AppDslFragment() {
                     }
                 }
             }
+
+            //6 让X轴的Label, 一一对应Bar
+            renderItem {
+                itemLayoutId = R.layout.demo_bar_chart
+                itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
+                    dslBarChart(itemHolder.v(R.id.chart)) {
+                        chartAnimateDurationY = 2000
+                        chartDrawValues = true
+                        chartXAxisCenterLabels = false
+
+                        chartLeftAxisForceLabels = false
+                        chartDataSetWidth = 0.5f
+                        //label和entry的数量相等, 那么Label就会在Entry下面绘制
+                        chartXAxisLabelCount = 6
+                        //左右预览一半BarWidth的空隙
+                        barFitBars = true
+                        for (i in 0..0) {
+                            val labels = mutableListOf<String>()
+                            for (j in 0..5) {
+                                val value = value(0, 20)
+                                addEntry(j.toFloat(), value.toFloat())
+
+                                labels.add("$j 级")
+                            }
+                            chartXAxisValueFormatter = ArrayFormatter(labels)
+                            chartDataSetColors = colors()
+                            addLeftAxisLimitLine(5f, "L$i") {
+                                enableDashedLine(2 * dp, 3 * dp, 0f)
+                            }
+                            addLeftAxisLimitLine(15f, "L$i") {
+                                enableDashedLine(3 * dp, 2 * dp, 10f)
+                            }
+                            addXAxisLimitLine(5f, "L$i") {
+                                enableDashedLine(3 * dp, 4 * dp, 10f)
+                            }
+                            addDataSet("B$i")
+                        }
+                    }
+                }
+            }
+
 
             //no data
             renderItem {
