@@ -9,6 +9,7 @@ import com.angcyo.library.ex.randomColor
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.colors
 import com.angcyo.uicore.value
+import com.github.mikephil.charting.components.Legend
 import kotlin.random.Random.Default.nextInt
 
 /**
@@ -228,6 +229,46 @@ class BarChartDemo : AppDslFragment() {
                             addXAxisLimitLine(5f, "L$i") {
                                 enableDashedLine(3 * dp, 4 * dp, 10f)
                             }
+                            addDataSet("B$i")
+                        }
+                    }
+                }
+            }
+
+            //8
+            renderItem {
+                itemLayoutId = R.layout.demo_bar_chart
+                itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
+                    dslBarChart(itemHolder.v(R.id.chart)) {
+                        chartAnimateDurationY = 2000
+                        chartDrawValues = true
+                        chartXAxisCenterLabels = false
+
+                        chartLeftAxisForceLabels = false
+                        chartDataSetWidth = 0.5f
+                        //label和entry的数量相等, 那么Label就会在Entry下面绘制
+                        chartXAxisLabelCount = 6
+                        //左右预览一半BarWidth的空隙
+                        barFitBars = true
+
+                        chartScaleXEnabled = false
+                        chartDragXEnabled = true
+
+                        chartLegendOrientation = Legend.LegendOrientation.VERTICAL
+
+                        val entryCount = 30
+
+                        chartScaleMinimumX = entryCount * 1f / chartXAxisLabelCount
+
+                        val labels = mutableListOf<String>()
+                        for (i in 0 until entryCount) {
+                            for (j in 0 until 1) {
+                                val value = value(4, 20)
+                                addEntry(i.toFloat(), value.toFloat())
+                                labels.add("$i 级")
+                            }
+                            chartDataSetColors = colors()
+                            chartXAxisValueFormatter = ArrayFormatter(labels)
                             addDataSet("B$i")
                         }
                     }
