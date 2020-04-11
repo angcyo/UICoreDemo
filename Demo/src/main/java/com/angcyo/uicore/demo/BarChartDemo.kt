@@ -140,15 +140,78 @@ class BarChartDemo : AppDslFragment() {
                         chartDrawValues = true
                         chartXAxisCenterLabels = false
 
+                        chartScaleXEnabled = false
+                        chartDragXEnabled = true
+
                         chartLeftAxisForceLabels = false
                         chartDataSetWidth = 0.5f
                         //label和entry的数量相等, 那么Label就会在Entry下面绘制
                         chartXAxisLabelCount = 6
                         //左右预览一半BarWidth的空隙
                         barFitBars = true
+
+                        val entryCount = 3
+
                         for (i in 0..0) {
                             val labels = mutableListOf<String>()
-                            for (j in 0..5) {
+                            for (j in 0 until entryCount) {
+                                val value = value(0, 20)
+                                addEntry(j.toFloat(), value.toFloat())
+
+                                labels.add("$j 级")
+                            }
+
+                            //补位
+                            for (j in entryCount until chartXAxisLabelCount) {
+                                labels.add("$j 补")
+                                addEntry(j.toFloat(), 0f) {
+                                    isDrawValue = false
+                                }
+                            }
+
+                            chartXAxisValueFormatter = ArrayFormatter(labels)
+                            chartDataSetColors = colors()
+                            addLeftAxisLimitLine(5f, "L$i") {
+                                enableDashedLine(2 * dp, 3 * dp, 0f)
+                            }
+                            addLeftAxisLimitLine(15f, "L$i") {
+                                enableDashedLine(3 * dp, 2 * dp, 10f)
+                            }
+                            addXAxisLimitLine(5f, "L$i") {
+                                enableDashedLine(3 * dp, 4 * dp, 10f)
+                            }
+                            addDataSet("B$i")
+                        }
+                    }
+                }
+            }
+
+            //7
+            renderItem {
+                itemLayoutId = R.layout.demo_bar_chart
+                itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
+                    dslBarChart(itemHolder.v(R.id.chart)) {
+                        chartAnimateDurationY = 2000
+                        chartDrawValues = true
+                        chartXAxisCenterLabels = false
+
+                        chartLeftAxisForceLabels = false
+                        chartDataSetWidth = 0.5f
+                        //label和entry的数量相等, 那么Label就会在Entry下面绘制
+                        chartXAxisLabelCount = 6
+                        //左右预览一半BarWidth的空隙
+                        barFitBars = true
+
+                        chartScaleXEnabled = false
+                        chartDragXEnabled = true
+
+                        val entryCount = 30
+
+                        chartScaleMinimumX = entryCount * 1f / chartXAxisLabelCount
+
+                        for (i in 0..0) {
+                            val labels = mutableListOf<String>()
+                            for (j in 0 until entryCount) {
                                 val value = value(0, 20)
                                 addEntry(j.toFloat(), value.toFloat())
 
@@ -170,7 +233,6 @@ class BarChartDemo : AppDslFragment() {
                     }
                 }
             }
-
 
             //no data
             renderItem {
