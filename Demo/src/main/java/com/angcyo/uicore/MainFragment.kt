@@ -261,7 +261,7 @@ class MainFragment : AppDslFragment() {
                     }
                 }
             }
-            //renderMainItem("RealtimeBlurDemo $GO")
+            renderMainItem("ObjectBoxDemo $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()() {

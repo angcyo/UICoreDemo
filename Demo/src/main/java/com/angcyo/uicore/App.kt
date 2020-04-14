@@ -14,9 +14,11 @@ import com.angcyo.download.DslDownload
 import com.angcyo.library.component.DslNotify
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.randomColor
+import com.angcyo.objectbox.DslBox
 import com.angcyo.tbs.DslTbs
 import com.angcyo.uicore.demo.*
 import com.angcyo.uicore.fragment.RecyclerTextFragment
+import io.objectbox.Box
 import kotlin.random.Random
 
 /**
@@ -36,6 +38,9 @@ class App : CoreApplication(), CameraXConfig.Provider {
 
         DslNotify.DEFAULT_NOTIFY_ICON = R.drawable.ic_logo_small
         DslAHelper.mainActivityClass = MainActivity::class.java
+
+        DslBox.default_package_name = BuildConfig.APPLICATION_ID
+        DslBox.init(this)
     }
 
     /**
@@ -80,3 +85,14 @@ fun value(min: Int = 0, max: Int = 100) = Random.nextInt(min, max)
 
 fun dash(lineLength: Float = 2 * dp, spaceLength: Float = 3 * dp, phase: Float = 0f) =
     DashPathEffect(floatArrayOf(lineLength, spaceLength), phase)
+
+/**快速获取[Box]*/
+fun <T> boxOf(
+    entityClass: Class<T>,
+    packageName: String = BuildConfig.APPLICATION_ID,
+    action: Box<T>.() -> Unit = {}
+): Box<T> {
+    val box = DslBox.getBox(packageName, entityClass)
+    box.action()
+    return box
+}
