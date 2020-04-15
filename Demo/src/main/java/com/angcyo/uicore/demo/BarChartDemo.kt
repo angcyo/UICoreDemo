@@ -237,7 +237,7 @@ class BarChartDemo : AppDslFragment() {
 
             //8
             renderItem {
-                itemLayoutId = R.layout.demo_bar_chart
+                itemLayoutId = R.layout.demo_bar_chart_wrap
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
                     dslBarChart(itemHolder.v(R.id.chart)) {
                         chartAnimateDurationY = 2000
