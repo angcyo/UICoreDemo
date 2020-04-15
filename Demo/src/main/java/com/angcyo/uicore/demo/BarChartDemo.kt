@@ -10,6 +10,7 @@ import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.colors
 import com.angcyo.uicore.value
 import com.github.mikephil.charting.components.Legend
+import kotlin.math.max
 import kotlin.random.Random.Default.nextInt
 
 /**
@@ -208,7 +209,8 @@ class BarChartDemo : AppDslFragment() {
 
                         val entryCount = 30
 
-                        chartScaleMinimumX = entryCount * 1f / chartXAxisLabelCount
+                        chartScaleMinimumX =
+                            max(entryCount, chartXAxisLabelCount) * 1f / chartXAxisLabelCount
 
                         for (i in 0..0) {
                             val labels = mutableListOf<String>()
@@ -258,7 +260,8 @@ class BarChartDemo : AppDslFragment() {
 
                         val entryCount = 30
 
-                        chartScaleMinimumX = entryCount * 1f / chartXAxisLabelCount
+                        chartScaleMinimumX =
+                            max(entryCount, chartXAxisLabelCount) * 1f / chartXAxisLabelCount
 
                         val labels = mutableListOf<String>()
                         for (i in 0 until entryCount) {
