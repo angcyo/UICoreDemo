@@ -228,11 +228,31 @@
 
         </com.angcyo.widget.layout.DslFlowLayout>
 
+        <TextView
+            style="@style/LibPlaceTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="火山进度条" />
+
         <com.angcyo.widget.progress.HSProgressView
             android:id="@+id/hs_progress_view"
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            app:r_progress_color="@color/colorAccent" />
+            app:r_auto_start_animator="true"
+            app:r_progress_color="@color/colorPrimaryDark" />
+
+        <TextView
+            style="@style/LibPlaceTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="抖音进度条" />
+
+        <com.angcyo.widget.progress.DYProgressView
+            android:id="@+id/dy_progress_view"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            app:r_auto_start_animator="true"
+            app:r_progress_color="@color/colorPrimary" />
 
         <com.angcyo.widget.layout.DslFlowLayout
             android:layout_width="match_parent"
@@ -264,7 +284,6 @@
         </com.angcyo.widget.layout.DslFlowLayout>
 
         <com.angcyo.widget.progress.DYProgressView
-            android:id="@+id/dy_progress_view"
             android:layout_width="match_parent"
             android:layout_height="10dp"
             app:r_auto_start_animator="true"
