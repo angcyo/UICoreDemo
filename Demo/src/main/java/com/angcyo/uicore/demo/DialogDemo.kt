@@ -1,5 +1,6 @@
 package com.angcyo.uicore.demo
 
+import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -11,6 +12,8 @@ import com.angcyo.coroutine.sleep
 import com.angcyo.dialog.*
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.ItemSelectorHelper
+import com.angcyo.github.dialog.CalendarDialogConfig
+import com.angcyo.github.dialog.calendarDialog
 import com.angcyo.github.dialog.wheelDateDialog
 import com.angcyo.github.dialog.wheelDialog
 import com.angcyo.library.L
@@ -26,6 +29,8 @@ import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.base.string
 import com.angcyo.widget.progress.DslSeekBar
 import com.angcyo.widget.span.span
+import com.haibin.calendarview.Calendar
+import com.haibin.calendarview.RCalendarView
 import kotlin.random.Random.Default.nextInt
 import kotlin.random.Random.Default.nextLong
 
@@ -285,52 +290,48 @@ class DialogDemo : AppDslFragment() {
                 _defaultConfig(holder, this)
             }
         }
-//
-//        //日历接收
-//        val calendarResult = { _: Dialog, calendarList: MutableList<Calendar> ->
-//            toast(buildString {
-//                append("始:")
-//                CalendarDialogConfig.ymd(this, calendarList[0])
-//                appendln()
-//                append("止:")
-//                CalendarDialogConfig.ymd(this, calendarList[1])
-//            })
-//            false
-//        }
-//        holder.click(R.id.calendar_dialog) {
-//            calendarDialog {
-//                dialogTitle = "日历选择"
-//                onCalendarResult = calendarResult
-//                _defaultConfig(holder, this)
-//            }
-//        }
-//
-//        holder.click(R.id.calendar_dialog1) {
-//            calendarDialog {
-//                dialogTitle = "日历选择对话框(带默认1)"
-//                setCalendarRange(2018, 2020)
-//
-//                calendarList = mutableListOf(RCalendarView.today())
-//
-//                onCalendarResult = calendarResult
-//                _defaultConfig(holder, this)
-//            }
-//        }
-//
-//        holder.click(R.id.calendar_dialog2) {
-//            calendarDialog {
-//                dialogTitle = "日历选择对话框(带默认2)"
-//
-//                //设置日历选择范围
-//                setCalendarRange(2018, 2020, 4, 8)
-//
-//                //设置日历默认选择范围
-//                calendarList = mutableListOf(Calendar(2019, 2, 1), Calendar(2019, 5, 1))
-//
-//                onCalendarResult = calendarResult
-//                _defaultConfig(holder, this)
-//            }
-//        }
+
+        //日历接收
+        val calendarResult = { _: Dialog, calendarList: List<Calendar> ->
+            toast(buildString {
+                append("始:")
+                CalendarDialogConfig.ymd(this, calendarList[0])
+                appendln()
+                append("止:")
+                CalendarDialogConfig.ymd(this, calendarList[1])
+            })
+            false
+        }
+        holder.click(R.id.calendar_dialog) {
+            fContext().calendarDialog {
+                onCalendarResult = calendarResult
+                _defaultConfig(holder, this)
+            }
+        }
+
+        holder.click(R.id.calendar_dialog1) {
+            fContext().calendarDialog {
+                setCalendarRange(2018, 2020)
+
+                calendarList = mutableListOf(RCalendarView.today())
+
+                onCalendarResult = calendarResult
+                _defaultConfig(holder, this)
+            }
+        }
+
+        holder.click(R.id.calendar_dialog2) {
+            fContext().calendarDialog {
+                //设置日历选择范围
+                setCalendarRange(2018, 2020, 4, 8)
+
+                //设置日历默认选择范围
+                calendarList = mutableListOf(Calendar(2020, 2, 1), Calendar(2020, 5, 1))
+
+                onCalendarResult = calendarResult
+                _defaultConfig(holder, this)
+            }
+        }
 
         holder.hawkInstallAndRestore("dialog_")
     }
