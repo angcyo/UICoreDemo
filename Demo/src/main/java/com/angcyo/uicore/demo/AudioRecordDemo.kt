@@ -2,6 +2,7 @@ package com.angcyo.uicore.demo
 
 import android.graphics.Color
 import android.os.Bundle
+import com.angcyo.dsladapter.filter.BatchLoadFilterInterceptor
 import com.angcyo.dsladapter.margin
 import com.angcyo.dsladapter.renderEmptyItem
 import com.angcyo.library.L
@@ -24,6 +25,8 @@ class AudioRecordDemo : AppDslFragment() {
         renderDslAdapter {
             val uri1 = "http://ting6.yymp3.net:86/new27/nzbz/2.mp3".toUri()
             val uri2 = "http://ting6.yymp3.net:86/new27/gdys/1.mp3".toUri()
+
+            dslDataFilter?.afterFilterInterceptorList?.add(BatchLoadFilterInterceptor())
 
             DslPlayAudioItem()() {
                 //http://www.yymp3.com/

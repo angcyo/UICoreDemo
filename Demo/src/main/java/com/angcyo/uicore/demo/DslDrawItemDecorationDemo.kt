@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.coroutine.onBack
 import com.angcyo.dsladapter.DslAdapter
+import com.angcyo.dsladapter.filter.BatchLoadFilterInterceptor
 import com.angcyo.library.ex._drawable
 import com.angcyo.library.utils.gravityString
 import com.angcyo.uicore.dslitem.*
@@ -43,6 +44,8 @@ class DslDrawItemDecorationDemo : GlideImageDemo() {
         super.onViewCreated(view, savedInstanceState)
         initDrawItemDecorationPosition()
         renderDslAdapter {
+            dslDataFilter?.afterFilterInterceptorList?.add(BatchLoadFilterInterceptor())
+
             clearItems()
 
             launchLifecycle {
