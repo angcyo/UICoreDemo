@@ -12,7 +12,7 @@ import com.angcyo.library.component.dslIntentShare
 import com.angcyo.library.ex._color
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.utils.resultString
-import com.angcyo.loader.LoaderMedia
+import com.angcyo.library.model.LoaderMedia
 import com.angcyo.pager.dslPager
 import com.angcyo.picker.DslPicker
 import com.angcyo.picker.dslPicker

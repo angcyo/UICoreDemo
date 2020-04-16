@@ -7,7 +7,7 @@ import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.library.ex.simpleClassName
 import com.angcyo.library.toast
-import com.angcyo.loader.LoaderMedia
+import com.angcyo.library.model.LoaderMedia
 import com.angcyo.picker.dslitem.DslPickerImageItem
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder

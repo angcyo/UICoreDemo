@@ -1,12 +1,13 @@
 package com.angcyo.uicore.demo
 
+import android.graphics.Color
 import android.os.Bundle
 import com.angcyo.dsladapter.margin
 import com.angcyo.dsladapter.renderEmptyItem
 import com.angcyo.library.L
 import com.angcyo.library.ex.*
 import com.angcyo.media.dslitem.DslPlayAudioItem
-import com.angcyo.tablayout.logi
+import com.angcyo.media.dslitem.DslRecordAudioItem
 import com.angcyo.tablayout.logw
 import com.angcyo.uicore.base.AppDslFragment
 
@@ -53,6 +54,12 @@ class AudioRecordDemo : AppDslFragment() {
                 margin(10 * dpi)
             }
 
+            DslRecordAudioItem()() {
+                itemTopInsert = 10 * dpi
+                itemDecorationColor = Color.RED
+                itemFragment = this@AudioRecordDemo
+            }
+
             for (i in 0..10) {
                 renderEmptyItem(168 * dpi, randomColor())
             }
@@ -83,6 +90,12 @@ class AudioRecordDemo : AppDslFragment() {
                 itemAudioDuration = 20 * 1_000
                 itemShowDelete = true
                 margin(10 * dpi)
+            }
+
+            DslRecordAudioItem()() {
+                itemTopInsert = 10 * dpi
+                itemDecorationColor = Color.RED
+                itemFragment = this@AudioRecordDemo
             }
         }
 
