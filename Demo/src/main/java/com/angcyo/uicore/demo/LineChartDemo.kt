@@ -264,6 +264,8 @@ class LineChartDemo : AppDslFragment() {
 
                             chartLegendEnable = false
 
+                            chartMaxVisibleCount = 60
+
                             //chartPinchZoomEnabled = true
 
                             for (i in 0..0) {
