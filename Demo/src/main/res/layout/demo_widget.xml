@@ -13,6 +13,41 @@
         android:orientation="vertical"
         android:paddingBottom="@dimen/title_bar_height">
 
+        <com.angcyo.widget.edit.DslEditText
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="获取到焦点时, 高亮动效提示"
+            android:padding="@dimen/lib_xhdpi"
+            app:r_drawable_margin_bottom="24dp"
+            app:r_drawable_margin_left="10dp"
+            app:r_drawable_margin_right="10dp"
+            app:r_focus_drawable="@drawable/lib_bottom_focus_shape"
+            app:r_no_focus_drawable="@drawable/lib_bottom_no_focus_shape" />
+
+        <com.angcyo.widget.edit.DslEditText
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="获取到焦点时, 高亮动效提示"
+            android:padding="@dimen/lib_xhdpi"
+            app:r_focus_drawable="@drawable/lib_bottom_focus_shape"
+            app:r_no_focus_drawable="@drawable/lib_bottom_no_focus_shape" />
+
+        <com.angcyo.widget.edit.DslEditText
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/lib_xhdpi"
+            android:background="@null"
+            android:hint="获取到焦点时, 高亮动效提示"
+            android:padding="@dimen/lib_xhdpi"
+            app:r_drawable_height="4dp"
+            app:r_focus_drawable="@color/error"
+            app:r_no_focus_drawable="@color/info" />
+
         <com.angcyo.widget.RSpinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
@@ -32,25 +67,31 @@
             android:spinnerMode="dialog" />
 
         <com.angcyo.widget.edit.AutoCompleteEditText
+            style="@style/LibBodyTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:completionThreshold="1"
+            android:hint="AutoCompleteEditText"
             android:minHeight="@dimen/lib_item_min_height"
             app:r_auto_complete_show_on_focus="true"
             app:r_auto_complete_text="aa1|aa2|bb3|bb4|测试1|测试2" />
 
         <com.angcyo.widget.edit.ClearCompleteEditText
+            style="@style/LibBodyTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/lib_bottom_line_selector"
+            android:hint="ClearCompleteEditText"
             android:minHeight="@dimen/lib_item_min_height"
             android:padding="4dp" />
 
         <com.angcyo.widget.edit.ClearCompleteEditText
+            style="@style/LibBodyTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:background="@drawable/lib_bottom_line_selector"
+            android:hint="ClearCompleteEditText textWebPassword"
             android:inputType="textWebPassword"
             android:minHeight="@dimen/lib_item_min_height"
             android:padding="4dp" />
