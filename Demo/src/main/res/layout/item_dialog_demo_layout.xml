@@ -164,6 +164,13 @@
             android:text="普通IOS确认对话框" />
 
         <com.angcyo.widget.DslButton
+            android:id="@+id/ios_full_screen_dialog"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IOS全屏对话框" />
+
+        <com.angcyo.widget.DslButton
             android:id="@+id/wheel_dialog"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"

@@ -89,6 +89,13 @@ class DialogDemo : AppDslFragment() {
             }
         }
 
+        holder.click(R.id.ios_full_screen_dialog) {
+            fContext().iosFullScreenDialog {
+                _defaultConfig(holder, this)
+                navigationBarColor = _color(R.color.error)
+            }
+        }
+
         holder.click(R.id.item_dialog) {
             fContext().itemsDialog {
                 _initItemDialog(false)
@@ -197,7 +204,7 @@ class DialogDemo : AppDslFragment() {
                 dateStartYear = 1800
                 dateEndYear = 2800
                 dateType = booleanArrayOf(true, true, true, true, true, true)
-                onDateSelectListener = { dialog, date ->
+                dateSelectAction = { dialog, date ->
                     toastWX(date.time.fullTime())
                     false
                 }
@@ -211,7 +218,7 @@ class DialogDemo : AppDslFragment() {
                 dateEndYear = 2030
                 dateCurrent = nowCalendar()
                 dateEndDate = "2022-2-2".toCalendar()
-                onDateSelectListener = { dialog, date ->
+                dateSelectAction = { dialog, date ->
                     toastWX(date.time.fullTime())
                     false
                 }
@@ -222,7 +229,7 @@ class DialogDemo : AppDslFragment() {
         holder.click(R.id.time_dialog) {
             fContext().wheelDateDialog {
                 dateType = booleanArrayOf(false, false, false, true, true, true)
-                onDateSelectListener = { dialog, date ->
+                dateSelectAction = { dialog, date ->
                     toastWX(date.time.fullTime())
                     false
                 }
@@ -304,7 +311,7 @@ class DialogDemo : AppDslFragment() {
         }
         holder.click(R.id.calendar_dialog) {
             fContext().calendarDialog {
-                onCalendarResult = calendarResult
+                dialogResult = calendarResult
                 _defaultConfig(holder, this)
             }
         }
@@ -315,7 +322,7 @@ class DialogDemo : AppDslFragment() {
 
                 calendarList = mutableListOf(RCalendarView.today())
 
-                onCalendarResult = calendarResult
+                dialogResult = calendarResult
                 _defaultConfig(holder, this)
             }
         }
@@ -328,7 +335,7 @@ class DialogDemo : AppDslFragment() {
                 //设置日历默认选择范围
                 calendarList = mutableListOf(Calendar(2020, 2, 1), Calendar(2020, 5, 1))
 
-                onCalendarResult = calendarResult
+                dialogResult = calendarResult
                 _defaultConfig(holder, this)
             }
         }
@@ -462,7 +469,7 @@ class DialogDemo : AppDslFragment() {
             }
 
             if (this is RecyclerDialogConfig) {
-                onDialogResult = { _, _, indexList ->
+                dialogResult = { _, _, indexList ->
                     toastQQ("返回:$indexList", R.drawable.lib_ic_info)
                     false
                 }

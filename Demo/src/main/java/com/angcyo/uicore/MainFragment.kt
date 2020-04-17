@@ -57,6 +57,9 @@ class MainFragment : AppDslFragment() {
         const val GO = "√"
     }
 
+    /**调转首次遇到的[GO], 否则则是最后一次*/
+    var goFirst = true
+
     init {
         fragmentLayoutId = R.layout.fragment_main
     }
@@ -210,7 +213,7 @@ class MainFragment : AppDslFragment() {
             }
 
             renderMainItem("DrawableSpanDemo")
-            renderMainItem("WidgetDemo ArcLoadingView $GO")
+            renderMainItem("WidgetDemo ArcLoadingView")
             renderMainItem("RefreshEffectDemo DslToast")
             renderMainItem("RefreshDemo")
             renderMainItem("DslAffectDemo")
@@ -223,7 +226,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("RegularPatternDemo")
             renderMainItem("OkDownloadDemo")
             renderMainItem("MediaPickerDemo")
-            renderMainItem("DialogDemo")
+            renderMainItem("DialogDemo $GO")
             renderMainItem("NotifyDemo ContentObserver")
             renderMainItem("CameraXDemo")
             renderMainItem("StyleDemo ThemeStyledAttributes")
@@ -397,6 +400,9 @@ class MainFragment : AppDslFragment() {
         }
 
         if (text?.contains('√', true) == true) {
+            if (goFirst && lockDemoPosition >= 0) {
+                return
+            }
             lockDemoPosition = this.adapterItems.lastIndex
         }
     }
