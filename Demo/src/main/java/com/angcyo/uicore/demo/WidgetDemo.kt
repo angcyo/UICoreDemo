@@ -1,15 +1,18 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import android.widget.TextView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.lightStatusBar
 import com.angcyo.library.ex._drawable
 import com.angcyo.library.ex.nowTimeString
+import com.angcyo.library.toastQQ
 import com.angcyo.putData
 import com.angcyo.uicore.activity.ShortcutActivity
 import com.angcyo.uicore.base.AppTitleFragment
 import com.angcyo.uicore.fragment.ShortcutFragment
 import com.angcyo.widget.base.animatorOf
+import com.angcyo.widget.base.clickIt
 import com.angcyo.widget.base.fullscreen
 import com.angcyo.widget.base.lowProfile
 import com.angcyo.widget.progress.ArcLoadingView
@@ -128,5 +131,65 @@ class WidgetDemo : AppTitleFragment() {
                 }
             }
         }
+
+        //max line
+        _vh.tv(R.id.text_max_line_view)?.text = span {
+            for (i in 0..10) {
+                drawable {
+                    foregroundDrawable = _drawable(R.drawable.ic_logo_small)
+                }
+                drawable("angcyo")
+                drawable(" 跑马灯滚动起来")
+                text("fgabcdefghijklmnopqrstuvwxyz.angcyo") {
+                    textBold = true
+                }
+            }
+        }
+
+        //max line
+        _vh.tv(R.id.text_max_line_view1)?.setText(span {
+            for (i in 0..10) {
+                drawable {
+                    foregroundDrawable = _drawable(R.drawable.ic_logo_small)
+                }
+                drawable("angcyo")
+                drawable(" 跑马灯滚动起来")
+                text("fgabcdefghijklmnopqrstuvwxyz.angcyo") {
+                    textBold = true
+                }
+            }
+        }, TextView.BufferType.EDITABLE)
+
+        //max line
+        _vh.tv(R.id.text_max_line_view2)?.apply {
+            text = span {
+                for (i in 0..10) {
+                    drawable {
+                        foregroundDrawable = _drawable(R.drawable.ic_logo_small)
+                    }
+                    drawable("angcyo")
+                    drawable(" 跑马灯滚动起来")
+                    text("fgabcdefghijklmnopqrstuvwxyz.angcyo") {
+                        textBold = true
+                    }
+                }
+            }
+            clickIt {
+                toastQQ("click it ${nowTimeString()}")
+            }
+        }
+
+        //max line
+        _vh.tv(R.id.text_max_line_view3)?.text = """
+            很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试1
+            很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试2
+            很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试3
+            很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试4
+            很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试5
+            很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试6
+            很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试7
+            很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试8
+            很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试,很长的文本测试9
+        """.trimIndent()
     }
 }

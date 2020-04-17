@@ -289,5 +289,72 @@
             app:r_auto_start_animator="true"
             app:r_progress_color="@color/colorAccent" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/lib_line"
+            android:background="@color/lib_line" />
+
+        <!--最大行数-->
+        <com.angcyo.widget.text.DslTextView
+            android:id="@+id/text_max_line_view"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:r_install_span_click_method="true"
+            app:r_max_line="1" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/lib_line"
+            android:background="@color/lib_line" />
+
+        <com.angcyo.widget.text.DslTextView
+            android:id="@+id/text_max_line_view1"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:r_fold_text="展开"
+            app:r_install_span_click_method="true"
+            app:r_max_line="2" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/lib_line"
+            android:background="@color/lib_line" />
+
+        <com.angcyo.widget.text.DslTextView
+            android:id="@+id/text_max_line_view2"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/lib_bg_selector"
+            app:r_fold_text="全部"
+            app:r_fold_text_color="@color/error"
+            app:r_install_span_click_method="true"
+            app:r_max_line="3"
+            app:r_more_text_color="@color/info" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/lib_line"
+            android:background="@color/lib_line" />
+
+        <com.angcyo.widget.text.DslTextView
+            android:id="@+id/text_max_line_view3"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/lib_bg_selector"
+            app:r_fold_text="点击全部"
+            app:r_fold_text_color="@color/warning"
+            app:r_install_span_click_method="true"
+            app:r_max_line="4"
+            app:r_more_text_color="@color/error" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/lib_line"
+            android:background="@color/lib_line" />
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

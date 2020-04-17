@@ -2,12 +2,12 @@ package com.angcyo.uicore.demo
 
 import android.graphics.Color
 import android.os.Bundle
-import com.angcyo.dsladapter.filter.BatchLoadFilterInterceptor
 import com.angcyo.dsladapter.filter.batchLoad
 import com.angcyo.dsladapter.margin
 import com.angcyo.dsladapter.renderEmptyItem
 import com.angcyo.library.L
 import com.angcyo.library.ex.*
+import com.angcyo.library.utils.audioFocusString
 import com.angcyo.media.dslitem.DslPlayAudioItem
 import com.angcyo.media.dslitem.DslRecordAudioItem
 import com.angcyo.tablayout.logw
@@ -104,7 +104,7 @@ class AudioRecordDemo : AppDslFragment() {
         }
 
         fContext().requestAudioFocus() { focusChange ->
-            L.w("${simpleHash()} 音频焦点回调:$focusChange")
+            L.w("${simpleHash()} 音频焦点回调:$focusChange ${focusChange.audioFocusString()}")
         }.logw()
     }
 }
