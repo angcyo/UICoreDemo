@@ -10,6 +10,8 @@ import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.coroutine.onBack
 import com.angcyo.coroutine.sleep
 import com.angcyo.dialog.*
+import com.angcyo.download.download
+import com.angcyo.download.downloadNotify
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.ItemSelectorHelper
 import com.angcyo.github.dialog.CalendarDialogConfig
@@ -23,6 +25,7 @@ import com.angcyo.library.ex.*
 import com.angcyo.library.toast
 import com.angcyo.library.toastQQ
 import com.angcyo.library.toastWX
+import com.angcyo.tbs.core.inner.TbsWeb
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.tx
 import com.angcyo.widget.DslViewHolder
