@@ -9,6 +9,7 @@ import androidx.viewpager.widget.ViewPager
 import com.angcyo.DslAHelper
 import com.angcyo.base.restore
 import com.angcyo.core.CoreApplication
+import com.angcyo.core.fragment.BaseUI
 import com.angcyo.core.viewpager.RFragmentAdapter
 import com.angcyo.download.DslDownload
 import com.angcyo.library.component.DslNotify
@@ -18,6 +19,7 @@ import com.angcyo.objectbox.DslBox
 import com.angcyo.tbs.DslTbs
 import com.angcyo.uicore.demo.*
 import com.angcyo.uicore.fragment.RecyclerTextFragment
+import com.angcyo.widget.base.padding
 import io.objectbox.Box
 import kotlin.random.Random
 
@@ -32,6 +34,12 @@ class App : CoreApplication(), CameraXConfig.Provider {
 
     override fun onCreate() {
         super.onCreate()
+
+        BaseUI.fragmentUI.fragmentCreateBackItem = {
+            BaseUI.fragmentUI.onFragmentCreateBackItem(it)?.apply {
+                padding(0)
+            }
+        }
 
         DslDownload.init(this)
         DslTbs.init(this)
