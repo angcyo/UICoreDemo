@@ -1,9 +1,14 @@
 package com.angcyo.uicore.activity
 
 import android.content.Intent
-import android.os.Bundle
+import com.angcyo.base.dslAHelper
 import com.angcyo.library.L
+import com.angcyo.library.ex.runningTasks
+import com.angcyo.noAnim
+import com.angcyo.setTargetIntent
 import com.angcyo.tbs.core.TbsWebActivity
+import com.angcyo.uicore.MainActivity
+
 
 /**
  *
@@ -14,13 +19,27 @@ import com.angcyo.tbs.core.TbsWebActivity
 
 class AppWebActivity : TbsWebActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onHandleIntent(intent: Intent, fromNew: Boolean) {
         super.onHandleIntent(intent, fromNew)
 
         L.d("$intent ${intent.data}")
+
+        runningTasks(1).firstOrNull()?.apply {
+            val callingPackageName = baseActivity?.packageName
+
+            if (callingPackageName != packageName) {
+                //从别的程序启动的[Activity]
+
+                dslAHelper {
+                    start(MainActivity::class.java) {
+                        this.intent.setTargetIntent(intent)
+                        finishSelf = true
+                        finishWithFinish = true
+                        finishToActivity = null
+                        noAnim()
+                    }
+                }
+            }
+        }
     }
 }
