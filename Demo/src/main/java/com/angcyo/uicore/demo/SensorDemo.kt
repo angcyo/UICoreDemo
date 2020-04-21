@@ -10,6 +10,8 @@ import com.angcyo.library.ex._color
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.nowTime
 import com.angcyo.library.ex.simpleClassName
+import com.angcyo.library.utils.orientationString
+import com.angcyo.library.utils.rotationString
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.span.span
 
@@ -31,8 +33,17 @@ class SensorDemo : AppDslFragment() {
         dslSensor.listenerOrientation(fContext()) {
             _adapter.findItemByTag("orientation")?.apply {
                 this as DslBaseLabelItem
+                /*传感器旋转角度*/
+                val orientation = dslSensor.lastOrientation
+                /*显示器旋转角度*/
+                val rotation = activity?.windowManager?.defaultDisplay?.rotation?.rotationString()
+                val time = LTime.time(startTime, nowTime())
+
+                /*布局方向*/
+                val resOrientation = resources.configuration.orientation.orientationString()
+
                 itemLabelText =
-                    "${LTime.time(startTime, nowTime())} orientation:${dslSensor.lastOrientation}"
+                    "$time orientation:$orientation rotation:$rotation $resOrientation"
 
                 updateAdapterItem()
             }
