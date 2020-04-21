@@ -267,6 +267,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("ObjectBoxDemo $GO")
             renderMainItem("AudioRecordDemo Player $GO")
             renderMainItem("TakeMediaDemo $GO")
+            renderMainItem("SensorDemo $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()() {
