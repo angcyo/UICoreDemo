@@ -48,9 +48,17 @@
             android:name="com.angcyo.uicore.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|fontScale|smallestScreenSize|density|screenLayout"
             android:launchMode="singleTask"
-            android:rotationAnimation="seamless"
-            android:screenOrientation="fullSensor"
-            android:windowSoftInputMode="adjustResize" />
+            android:rotationAnimation="rotate"
+            android:resizeableActivity="true"
+            android:screenOrientation="fullUser"
+            android:windowSoftInputMode="adjustResize">
+
+            <!-- Declare notch support -->
+            <meta-data
+                android:name="android.notch_support"
+                android:value="true" />
+
+        </activity>
 
         <activity android:name="com.angcyo.uicore.activity.FragmentInFragmentActivity" />
         <activity android:name="com.angcyo.uicore.activity.ViewPagerInFragmentActivity" />
