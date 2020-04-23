@@ -232,20 +232,20 @@ class MainFragment : AppDslFragment() {
             renderMainItem("StyleDemo ThemeStyledAttributes")
             renderMainItem("ShortcutDemo")
             renderMainItem("DslDrawItemDecorationDemo")
-            renderMainItem("QrCodeDemo")
-            renderMainItem("TbsWebDemo")
+            renderMainItem("QrCodeDemo $GO")
+            renderMainItem("TbsWebDemo $GO")
             renderMainItem("IntentDemo")
             renderMainItem("LauncherDemo")
             renderMainItem("GameRenderEngineDemo")
-            renderMainItem("JsoupDemo $GO")
-            renderMainItem("PagerLayoutManagerDemo $GO")
+            renderMainItem("JsoupDemo")
+            renderMainItem("PagerLayoutManagerDemo")
             renderMainItem("LinkageSvBehaviorDemo Sv+Sv")
-            renderMainItem("LinkageSingleBehaviorDemo Sv+Rv $GO")
+            renderMainItem("LinkageSingleBehaviorDemo Sv+Rv")
             renderMainItem("LinkageRvBehaviorDemo Rv+Rv")
-            renderMainItem("LinkageVpBehaviorDemo Rv+Vp $GO")
+            renderMainItem("LinkageVpBehaviorDemo Rv+Vp")
             renderMainItem("WaveLayerDemo")
             renderMainItem("LineChartDemo")
-            renderMainItem("BarChartDemo $GO")
+            renderMainItem("BarChartDemo")
             renderMainItem("PieChartDemo")
             renderMainItem("OtherChartDemo")
             renderMainItem("FloatWindowDemo") {
@@ -264,10 +264,10 @@ class MainFragment : AppDslFragment() {
                     }
                 }
             }
-            renderMainItem("ObjectBoxDemo $GO")
-            renderMainItem("AudioRecordDemo Player $GO")
-            renderMainItem("TakeMediaDemo $GO")
-            renderMainItem("SensorDemo $GO")
+            renderMainItem("ObjectBoxDemo")
+            renderMainItem("AudioRecordDemo Player")
+            renderMainItem("TakeMediaDemo")
+            renderMainItem("SensorDemo")
 
             //设备信息.
             DslLastDeviceInfoItem()() {

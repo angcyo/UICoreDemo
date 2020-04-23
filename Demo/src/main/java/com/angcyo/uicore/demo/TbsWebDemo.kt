@@ -3,6 +3,7 @@ package com.angcyo.uicore.demo
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.component.hawkInstallAndRestore
@@ -10,13 +11,12 @@ import com.angcyo.core.component.file.file
 import com.angcyo.core.component.fileSelector
 import com.angcyo.dsladapter.renderItem
 import com.angcyo.dsladapter.updateItem
-import com.angcyo.library.ex.getPrimaryClip
-import com.angcyo.library.ex.logClipboard
-import com.angcyo.library.ex.nowTimeString
+import com.angcyo.library.ex.*
 import com.angcyo.tbs.open
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.base.clickIt
 import com.angcyo.widget.base.string
+import kotlin.toString
 
 /**
  *
@@ -96,6 +96,20 @@ class TbsWebDemo : AppDslFragment() {
                         }
                     }
 
+                    //点击的时候, 判断之前是否选择过文件, 直接打开之前选择过的文件
+                    itemHolder.click(R.id.result_text_view) {
+                        if (it is TextView) {
+                            val path = it.text.toString()
+                            if (path.isFileExist()) {
+                                dslAHelper {
+                                    open {
+                                        uri = fileUri(context, path)
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     //获取剪切板信息
                     itemHolder.tv(R.id.clip_text_view)?.apply {
                         text = "${nowTimeString()}\n${logClipboard()}"
@@ -104,6 +118,7 @@ class TbsWebDemo : AppDslFragment() {
                                 dslAHelper {
                                     open {
                                         uri = Uri.parse(getPrimaryClip().toString())
+                                        mimeType = "text/plain"
                                     }
                                 }
                             } catch (e: Exception) {
