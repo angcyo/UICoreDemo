@@ -1,11 +1,19 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import com.angcyo.base.dslAHelper
 import com.angcyo.camerax.dslitem.DslCameraViewHelper
+import com.angcyo.camerax.recordVideoCameraX
 import com.angcyo.dsladapter.renderEmptyItem
+import com.angcyo.dsladapter.updateOrInsertItem
 import com.angcyo.fragment.requestPermissions
+import com.angcyo.item.DslButtonItem
+import com.angcyo.item.DslImageItem
+import com.angcyo.item.DslTextItem
 import com.angcyo.library.ex.dpi
+import com.angcyo.library.ex.fileSizeString
 import com.angcyo.library.ex.randomColorAlpha
+import com.angcyo.library.ex.toUri
 import com.angcyo.library.toastQQ
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.AppCameraViewItem
@@ -26,6 +34,38 @@ class CameraXDemo : AppDslFragment() {
                 if (it) {
                     _adapter + AppCameraViewItem().apply {
                         cameraLifecycleOwner = this@CameraXDemo
+                    }
+
+                    _adapter + DslButtonItem().apply {
+                        itemButtonText = "拍照or摄像"
+                        itemClick = {
+                            dslAHelper {
+                                recordVideoCameraX { path ->
+                                    if (path.isNullOrEmpty()) {
+                                        _adapter.updateOrInsertItem<DslTextItem>(
+                                            "result",
+                                            2
+                                        ) { item ->
+                                            item.itemText = "录制取消"
+                                            item
+                                        }
+                                    } else {
+                                        _adapter.updateOrInsertItem<DslTextItem>(
+                                            "result",
+                                            2
+                                        ) { item ->
+                                            item.itemText = "$path ${path.fileSizeString()}"
+                                            item
+                                        }
+                                        _adapter.changeHeaderItems {
+                                            it.add(DslImageItem().apply {
+                                                itemLoadUri = path.toUri()
+                                            })
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     for (i in 0..5) {

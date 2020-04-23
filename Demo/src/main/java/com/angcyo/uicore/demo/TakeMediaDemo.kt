@@ -1,11 +1,15 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import androidx.core.net.toUri
 import com.angcyo.base.dslAHelper
+import com.angcyo.dsladapter.updateOrInsertItem
 import com.angcyo.dslitem.DslLabelMediaItem
 import com.angcyo.item.DslBaseLabelItem
-import com.angcyo.library.L
-import com.angcyo.media.video.record.RecordVideoActivity
+import com.angcyo.item.DslImageItem
+import com.angcyo.item.DslTextItem
+import com.angcyo.library.ex.fileSizeString
+import com.angcyo.media.video.record.recordVideo
 import com.angcyo.uicore.base.AppDslFragment
 
 /**
@@ -30,16 +34,22 @@ class TakeMediaDemo : AppDslFragment() {
                 itemLabelText = "录像"
                 itemClick = {
                     dslAHelper {
-                        start(RecordVideoActivity::class.java) {
-                            requestCode = RecordVideoActivity.REQUEST_CODE
-                            onActivityResult = { resultCode, data ->
-                                L.w(
-                                    RecordVideoActivity.getResultPath(
-                                        requestCode,
-                                        resultCode,
-                                        data
-                                    )
-                                )
+                        recordVideo { path ->
+                            if (path.isNullOrEmpty()) {
+                                updateOrInsertItem<DslTextItem>("result", 2) { item ->
+                                    item.itemText = "录制取消"
+                                    item
+                                }
+                            } else {
+                                updateOrInsertItem<DslTextItem>("result", 2) { item ->
+                                    item.itemText = "$path ${path.fileSizeString()}"
+                                    item
+                                }
+                                changeFooterItems {
+                                    it.add(DslImageItem().apply {
+                                        itemLoadUri = path.toUri()
+                                    })
+                                }
                             }
                         }
                     }
