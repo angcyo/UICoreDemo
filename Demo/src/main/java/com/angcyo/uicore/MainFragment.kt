@@ -12,6 +12,7 @@ import com.angcyo.base.dslFHelper
 import com.angcyo.behavior.HideTitleBarBehavior
 import com.angcyo.behavior.refresh.RefreshBehavior
 import com.angcyo.behavior.refresh.ScaleHeaderRefreshEffectConfig
+import com.angcyo.core.activity.BaseCoreAppCompatActivity
 import com.angcyo.core.component.fileSelector
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem
@@ -327,8 +328,10 @@ class MainFragment : AppDslFragment() {
             }
         }
 
-        //自动跳转至指定Demo
-        _jumpToLockPosition()
+        if (!BaseCoreAppCompatActivity.haveLastCrash) {
+            //自动跳转至指定Demo
+            _jumpToLockPosition()
+        }
     }
 
     fun _jumpToLockPosition() {

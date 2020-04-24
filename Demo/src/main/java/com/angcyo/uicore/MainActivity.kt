@@ -123,4 +123,10 @@ class MainActivity : BasePermissionsActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        //densityAdapter(750, 2f)
+        //densityRestore()
+        //densityAdapterFrom(2183)
+    }
 }
