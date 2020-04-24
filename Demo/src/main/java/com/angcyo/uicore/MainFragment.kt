@@ -228,7 +228,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("MediaPickerDemo")
             renderMainItem("DialogDemo $GO")
             renderMainItem("NotifyDemo ContentObserver")
-            renderMainItem("CameraXDemo $GO")
+            renderMainItem("CameraXDemo")
             renderMainItem("StyleDemo ThemeStyledAttributes")
             renderMainItem("ShortcutDemo")
             renderMainItem("DslDrawItemDecorationDemo")
@@ -266,7 +266,7 @@ class MainFragment : AppDslFragment() {
             }
             renderMainItem("ObjectBoxDemo")
             renderMainItem("AudioRecordDemo Player")
-            renderMainItem("TakeMediaDemo")
+            renderMainItem("TakeMediaDemo $GO")
             renderMainItem("SensorDemo")
 
             //设备信息.

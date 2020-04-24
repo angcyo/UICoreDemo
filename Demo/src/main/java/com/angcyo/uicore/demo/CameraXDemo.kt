@@ -15,6 +15,7 @@ import com.angcyo.library.ex.fileSizeString
 import com.angcyo.library.ex.randomColorAlpha
 import com.angcyo.library.ex.toUri
 import com.angcyo.library.toastQQ
+import com.angcyo.pager.dslPager
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.AppCameraViewItem
 
@@ -60,6 +61,11 @@ class CameraXDemo : AppDslFragment() {
                                         _adapter.changeHeaderItems {
                                             it.add(DslImageItem().apply {
                                                 itemLoadUri = path.toUri()
+                                                itemClick = {
+                                                    dslPager {
+                                                        addMedia(itemLoadUri)
+                                                    }
+                                                }
                                             })
                                         }
                                     }
