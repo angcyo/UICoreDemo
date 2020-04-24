@@ -59,7 +59,7 @@ class MainFragment : AppDslFragment() {
     }
 
     /**调转首次遇到的[GO], 否则则是最后一次*/
-    var goFirst = false
+    var goFirst = true
 
     init {
         fragmentLayoutId = R.layout.fragment_main
@@ -214,7 +214,7 @@ class MainFragment : AppDslFragment() {
             }
 
             renderMainItem("DrawableSpanDemo")
-            renderMainItem("WidgetDemo ArcLoadingView")
+            renderMainItem("WidgetDemo ArcLoadingView $GO")
             renderMainItem("RefreshEffectDemo DslToast")
             renderMainItem("RefreshDemo")
             renderMainItem("DslAffectDemo")

@@ -13,6 +13,38 @@
         android:orientation="vertical"
         android:paddingBottom="@dimen/title_bar_height">
 
+        <com.angcyo.widget.progress.DslProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/lib_xhdpi"
+            app:progress_bg_drawable="@drawable/lib_theme_stroke_round_shape"
+            app:progress_center_text_format="当前进度:%1$s%%"
+            app:progress_clip_mode="true"
+            app:progress_radius="10dp"
+            app:progress_show_center_text="true"
+            app:progress_track_drawable="@drawable/lib_theme_solid_round_shape"
+            app:progress_value="50" />
+
+        <com.angcyo.widget.progress.DslProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/lib_xhdpi"
+            app:progress_bg_drawable="@drawable/lib_theme_stroke_round_shape"
+            app:progress_clip_mode="true"
+            app:progress_radius="10dp"
+            app:progress_show_center_text="true"
+            app:progress_show_text="true"
+            app:progress_track_drawable="@drawable/lib_theme_solid_round_shape"
+            app:progress_value="50" />
+
+        <com.angcyo.widget.progress.DslProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/lib_xhdpi"
+            app:progress_radius="10dp"
+            app:progress_track_gradient_colors="@color/colorPrimaryDark"
+            app:progress_value="70" />
+
         <com.angcyo.widget.edit.DslEditText
             style="@style/LibBodyTextStyle"
             android:layout_width="match_parent"
