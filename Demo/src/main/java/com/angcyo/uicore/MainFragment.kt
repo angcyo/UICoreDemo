@@ -62,9 +62,6 @@ class MainFragment : AppDslFragment() {
         const val GO = "√"
     }
 
-    /**调转首次遇到的[GO], 否则则是最后一次*/
-    var goFirst = true
-
     init {
         fragmentLayoutId = R.layout.fragment_main
     }
@@ -188,109 +185,6 @@ class MainFragment : AppDslFragment() {
     /**锁定Demo的位置, 每次启动时自动跳转到这个Demo*/
     var lockDemoPosition: Int = RecyclerView.NO_POSITION
 
-    override fun onInitFragment() {
-        super.onInitFragment()
-        renderDslAdapter {
-            renderMainItem("FragmentInFragmentDemo", 10.toDpi()) {
-                dslAHelper {
-                    start(FragmentInFragmentActivity::class.java)
-                }
-            }
-            renderMainItem("ViewPagerInFragmentDemo") {
-                dslAHelper {
-                    start(ViewPagerInFragmentActivity::class.java)
-                }
-            }
-            renderMainItem("ViewPagerInViewPagerDemo") {
-                dslAHelper {
-                    start(ViewPagerInViewPagerActivity::class.java)
-                }
-            }
-            renderMainItem("ViewPager2InFragmentDemo") {
-                dslAHelper {
-                    start(ViewPager2InFragmentActivity::class.java)
-                }
-            }
-            renderMainItem("ViewPager2InViewPager2Demo") {
-                dslAHelper {
-                    start(ViewPager2InViewPager2Activity::class.java)
-                }
-            }
-
-            renderMainItem("DrawableSpanDemo")
-            renderMainItem("WidgetDemo ArcLoadingView $GO")
-            renderMainItem("RefreshEffectDemo DslToast")
-            renderMainItem("RefreshDemo")
-            renderMainItem("DslAffectDemo")
-            renderMainItem("ValueTextWatcherDemo DslSoftInputLayout")
-            renderMainItem("DslSoftInputDemo")
-            renderMainItem("ViewModelDemo")
-            renderMainItem("ViewGroupOverlayDemo")
-            renderMainItem("TransitionDemo")
-            renderMainItem("GlideImageDemo")
-            renderMainItem("RegularPatternDemo")
-            renderMainItem("OkDownloadDemo")
-            renderMainItem("MediaPickerDemo")
-            renderMainItem("DialogDemo $GO")
-            renderMainItem("NotifyDemo ContentObserver")
-            renderMainItem("CameraXDemo")
-            renderMainItem("StyleDemo ThemeStyledAttributes")
-            renderMainItem("ShortcutDemo")
-            renderMainItem("DslDrawItemDecorationDemo")
-            renderMainItem("QrCodeDemo")
-            renderMainItem("TbsWebDemo")
-            renderMainItem("IntentDemo")
-            renderMainItem("LauncherDemo")
-            renderMainItem("GameRenderEngineDemo")
-            renderMainItem("JsoupDemo")
-            renderMainItem("PagerLayoutManagerDemo")
-            renderMainItem("LinkageSvBehaviorDemo Sv+Sv")
-            renderMainItem("LinkageSingleBehaviorDemo Sv+Rv")
-            renderMainItem("LinkageRvBehaviorDemo Rv+Rv")
-            renderMainItem("LinkageVpBehaviorDemo Rv+Vp")
-            renderMainItem("WaveLayerDemo")
-            renderMainItem("LineChartDemo")
-            renderMainItem("BarChartDemo")
-            renderMainItem("PieChartDemo")
-            renderMainItem("OtherChartDemo")
-            renderMainItem("FloatWindowDemo") {
-                fContext().dslFloatWindow {
-                    floatLayoutId = R.layout.float_window_layout
-
-                    initFloatLayout = { holder ->
-                        holder.clickItem {
-                            toastQQ("click...${nowTimeString()}")
-                        }
-                    }
-                }.apply {
-                    show()
-                    if (this is IFloatWindowImpl) {
-                        this.resetPosition(getView(), false)
-                    }
-                }
-            }
-            renderMainItem("ObjectBoxDemo")
-            renderMainItem("AudioRecordDemo Player")
-            renderMainItem("TakeMediaDemo $GO")
-            renderMainItem("SensorDemo")
-
-            //设备信息.
-            DslLastDeviceInfoItem()() {
-                itemClick = {
-                    dslFHelper {
-                        fileSelector({
-                            showFileMd5 = true
-                            showFileMenu = true
-                            showHideFile = true
-                            targetPath =
-                                FileUtils.appRootExternalFolder()?.absolutePath ?: storageDirectory
-                        })
-                    }
-                }
-            }
-        }
-    }
-
     override fun onCreateBehavior(child: View): CoordinatorLayout.Behavior<*>? {
         if (child.id == R.id.lib_title_wrap_layout) {
             return HideTitleBarBehavior(fContext()).apply {
@@ -413,6 +307,112 @@ class MainFragment : AppDslFragment() {
                 return
             }
             lockDemoPosition = this.adapterItems.lastIndex
+        }
+    }
+
+    /**调转首次遇到的[GO], 否则则是最后一次*/
+    var goFirst = false
+
+    override fun onInitFragment() {
+        super.onInitFragment()
+        renderDslAdapter {
+            renderMainItem("FragmentInFragmentDemo", 10.toDpi()) {
+                dslAHelper {
+                    start(FragmentInFragmentActivity::class.java)
+                }
+            }
+            renderMainItem("ViewPagerInFragmentDemo") {
+                dslAHelper {
+                    start(ViewPagerInFragmentActivity::class.java)
+                }
+            }
+            renderMainItem("ViewPagerInViewPagerDemo") {
+                dslAHelper {
+                    start(ViewPagerInViewPagerActivity::class.java)
+                }
+            }
+            renderMainItem("ViewPager2InFragmentDemo") {
+                dslAHelper {
+                    start(ViewPager2InFragmentActivity::class.java)
+                }
+            }
+            renderMainItem("ViewPager2InViewPager2Demo") {
+                dslAHelper {
+                    start(ViewPager2InViewPager2Activity::class.java)
+                }
+            }
+
+            renderMainItem("DrawableSpanDemo")
+            renderMainItem("WidgetDemo ArcLoadingView $GO")
+            renderMainItem("RefreshEffectDemo DslToast")
+            renderMainItem("RefreshDemo")
+            renderMainItem("DslAffectDemo")
+            renderMainItem("ValueTextWatcherDemo DslSoftInputLayout")
+            renderMainItem("DslSoftInputDemo")
+            renderMainItem("ViewModelDemo")
+            renderMainItem("ViewGroupOverlayDemo")
+            renderMainItem("TransitionDemo")
+            renderMainItem("GlideImageDemo")
+            renderMainItem("RegularPatternDemo")
+            renderMainItem("OkDownloadDemo")
+            renderMainItem("MediaPickerDemo")
+            renderMainItem("DialogDemo $GO")
+            renderMainItem("NotifyDemo ContentObserver")
+            renderMainItem("CameraXDemo")
+            renderMainItem("StyleDemo ThemeStyledAttributes")
+            renderMainItem("ShortcutDemo")
+            renderMainItem("DslDrawItemDecorationDemo")
+            renderMainItem("QrCodeDemo")
+            renderMainItem("TbsWebDemo")
+            renderMainItem("IntentDemo")
+            renderMainItem("LauncherDemo")
+            renderMainItem("GameRenderEngineDemo")
+            renderMainItem("JsoupDemo")
+            renderMainItem("PagerLayoutManagerDemo")
+            renderMainItem("LinkageSvBehaviorDemo Sv+Sv")
+            renderMainItem("LinkageSingleBehaviorDemo Sv+Rv")
+            renderMainItem("LinkageRvBehaviorDemo Rv+Rv")
+            renderMainItem("LinkageVpBehaviorDemo Rv+Vp $GO")
+            renderMainItem("WaveLayerDemo")
+            renderMainItem("LineChartDemo")
+            renderMainItem("BarChartDemo")
+            renderMainItem("PieChartDemo")
+            renderMainItem("OtherChartDemo")
+            renderMainItem("FloatWindowDemo") {
+                fContext().dslFloatWindow {
+                    floatLayoutId = R.layout.float_window_layout
+
+                    initFloatLayout = { holder ->
+                        holder.clickItem {
+                            toastQQ("click...${nowTimeString()}")
+                        }
+                    }
+                }.apply {
+                    show()
+                    if (this is IFloatWindowImpl) {
+                        this.resetPosition(getView(), false)
+                    }
+                }
+            }
+            renderMainItem("ObjectBoxDemo")
+            renderMainItem("AudioRecordDemo Player")
+            renderMainItem("TakeMediaDemo")
+            renderMainItem("SensorDemo")
+
+            //设备信息.
+            DslLastDeviceInfoItem()() {
+                itemClick = {
+                    dslFHelper {
+                        fileSelector({
+                            showFileMd5 = true
+                            showFileMenu = true
+                            showHideFile = true
+                            targetPath =
+                                FileUtils.appRootExternalFolder()?.absolutePath ?: storageDirectory
+                        })
+                    }
+                }
+            }
         }
     }
 }
