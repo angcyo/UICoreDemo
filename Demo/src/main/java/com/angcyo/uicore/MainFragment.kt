@@ -33,6 +33,10 @@ import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.dslitem.AppMenuFooterItem
 import com.angcyo.uicore.dslitem.AppMenuHeaderItem
+import com.angcyo.uicore.test.coroutineTest
+import com.angcyo.uicore.test.rxJavaTest
+import com.angcyo.uicore.test.test
+import com.angcyo.uicore.test.testHttp
 import com.angcyo.widget.base.behavior
 import com.angcyo.widget.base.onDoubleTap
 import com.angcyo.widget.base.padding
@@ -344,10 +348,10 @@ class MainFragment : AppDslFragment() {
 
     override fun onFragmentShow(bundle: Bundle?) {
         super.onFragmentShow(bundle)
-        //coroutineTest()
-        //rxJavaTest()
-        //test()
-        //testHttp()
+        coroutineTest()
+        rxJavaTest()
+        test()
+        testHttp()
 
         _vh.rv(R.id.lib_recycler_view)?.apply {
             allViewHolder().forEachIndexed { index, dslViewHolder ->

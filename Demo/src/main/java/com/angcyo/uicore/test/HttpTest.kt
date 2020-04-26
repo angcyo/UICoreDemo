@@ -15,10 +15,17 @@ import com.angcyo.library.L
  */
 
 fun testHttp() {
+    //testGet()
+    //testCoroutineHttp()
+}
+
+fun testGet() {
     get {
         url = "https://www.baidu.com/"
     }.subscribe(BaseObserver())
+}
 
+fun testCoroutineHttp() {
     launchGlobal {
         val url1 = "https://www.mxnzp.com/api/tools/system/time"
         val url2 = "https://www.baidu.com/"
@@ -30,13 +37,13 @@ fun testHttp() {
             e.printStackTrace()
         }
 
-//        try {
-//            L.d("开始请求2:$url2")
-//            val result2 = url2.get()
-//            L.i("返回2:${result2.body()}")
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//        }
+        try {
+            L.d("开始请求2:$url2")
+            val result2 = url2.get()
+            L.i("返回2:${result2.body()}")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         try {
             L.d("开始请求3:$url2")

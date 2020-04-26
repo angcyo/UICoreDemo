@@ -12,6 +12,10 @@ import com.angcyo.http.rx.observer
  */
 
 fun rxJavaTest() {
+    //testPost()
+}
+
+fun testPost() {
     post {
         url = "https://www.mxnzp.com/api/tools/system/time"
 //        url = "https://blog.csdn.net/sinat_31057219/article/details/101304867/"

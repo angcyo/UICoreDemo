@@ -1,6 +1,7 @@
 package com.angcyo.uicore.test
 
 import com.angcyo.library.L
+import com.google.gson.Gson
 
 /**
  *
@@ -11,6 +12,11 @@ import com.angcyo.library.L
  */
 
 fun test() {
+    //testInt()
+    //testJson()
+}
+
+fun testInt() {
     val colorArray = Array(4) { Array(4) { 0 } }
 
     for (i in colorArray.indices) { //根据下标遍历
@@ -23,4 +29,14 @@ fun test() {
             // Log.e("TAG","==22==,$i, $j")
         }
     }
+}
+
+fun testJson() {
+    val text = "{\"ABC\":\"\"}"
+    val obj = Gson().fromJson(text, TestJson::class.java)
+    L.i(obj)
+}
+
+class TestJson {
+    var ABC: String? = null
 }

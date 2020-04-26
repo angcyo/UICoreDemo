@@ -12,8 +12,8 @@ import kotlinx.coroutines.Dispatchers
  */
 
 fun coroutineTest() {
-    backTest()
-    blockTest()
+    //backTest()
+    //blockTest()
 }
 
 /**串行协程线程调度测试*/
