@@ -1,10 +1,16 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import android.view.View
 import com.angcyo.base.delay
+import com.angcyo.behavior.linkage.LinkageHeaderBehavior
+import com.angcyo.library.L
+import com.angcyo.library.ex.fullTime
+import com.angcyo.library.ex.nowTime
 import com.angcyo.uicore.base.AppFragment
 import com.angcyo.uicore.dslitem.loadTextItem
 import com.angcyo.uicore.initAdapter
+import com.angcyo.widget.base.behavior
 import com.angcyo.widget.recycler.initDslAdapter
 import com.angcyo.widget.vp
 
@@ -29,6 +35,21 @@ class LinkageVpBehaviorDemo : AppFragment() {
             }
 
             _vh.vp(R.id.lib_view_pager)?.initAdapter(childFragmentManager)
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        _vh.view(R.id.header_wrap_layout).behavior()?.apply {
+            if (this is LinkageHeaderBehavior) {
+                onRefresh = {
+                    L.i("收到刷新回调...${nowTime().fullTime()}")
+                    _vh.postDelay(2_000) {
+                        L.i("请求结束刷新!")
+                        finishRefresh()
+                    }
+                }
+            }
         }
     }
 

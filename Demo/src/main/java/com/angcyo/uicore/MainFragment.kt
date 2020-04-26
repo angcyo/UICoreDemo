@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.behavior.HideTitleBarBehavior
-import com.angcyo.behavior.refresh.RefreshBehavior
+import com.angcyo.behavior.refresh.RefreshContentBehavior
 import com.angcyo.behavior.refresh.ScaleHeaderRefreshEffectConfig
 import com.angcyo.core.activity.BaseCoreAppCompatActivity
 import com.angcyo.core.component.fileSelector
@@ -87,7 +87,7 @@ class MainFragment : AppDslFragment() {
         }
         _vh.rv(R.id.menu_recycler_view)?.apply {
             behavior()?.also {
-                if (it is RefreshBehavior) {
+                if (it is RefreshContentBehavior) {
                     it.refreshBehaviorConfig = ScaleHeaderRefreshEffectConfig().apply {
                         scaleThreshold = -1f
                     }

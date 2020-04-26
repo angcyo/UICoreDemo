@@ -1,7 +1,8 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
-import com.angcyo.behavior.refresh.RefreshBehavior
+import com.angcyo.behavior.BaseScrollBehavior
+import com.angcyo.behavior.refresh.RefreshContentBehavior
 import com.angcyo.library.ex.dpi
 import com.angcyo.item.DslBaseInfoItem
 import com.angcyo.library.L
@@ -40,10 +41,10 @@ class RefreshDemo : AppDslFragment() {
         startRefresh()
     }
 
-    override fun onRefresh(refreshBehavior: RefreshBehavior?) {
-        L.i("刷新...${nowTime().fullTime()}")
+    override fun onRefresh(refreshContentBehavior: BaseScrollBehavior<*>?) {
+        L.i("收到刷新回调...${nowTime().fullTime()}")
         _vh.postDelay(2_000) {
-            L.i("结束刷新!")
+            L.i("请求结束刷新!")
             finishRefresh()
         }
     }
