@@ -10,7 +10,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@color/info"
-        android:src="@drawable/ic_logo"
+        app:srcCompat="@drawable/ic_logo"
         app:r_is_circle="true" />
 
 </androidx.cardview.widget.CardView>

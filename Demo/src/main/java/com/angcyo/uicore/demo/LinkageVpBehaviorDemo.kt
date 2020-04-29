@@ -46,7 +46,7 @@ class LinkageVpBehaviorDemo : AppFragment() {
         super.onViewCreated(view, savedInstanceState)
         _vh.view(R.id.header_wrap_layout).behavior()?.apply {
             if (this is LinkageHeaderBehavior) {
-                onRefresh = {
+                onRefreshAction = {
                     L.i("收到刷新回调...${nowTime().fullTime()}")
                     _vh.postDelay(2_000) {
                         L.i("请求结束刷新!")

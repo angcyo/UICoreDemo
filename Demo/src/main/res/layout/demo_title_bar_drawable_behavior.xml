@@ -31,7 +31,7 @@
             style="@style/LibItemStyle"
             android:layout_gravity="bottom"
             android:clickable="true"
-            android:src="@drawable/lib_back" />
+            app:srcCompat="@drawable/lib_back" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/lib_title_text_view"
@@ -43,7 +43,7 @@
             style="@style/LibItemStyle"
             android:layout_gravity="bottom|right"
             android:clickable="true"
-            android:src="@drawable/lib_ic_file" />
+            app:srcCompat="@drawable/lib_ic_file" />
 
     </com.angcyo.widget.layout.TitleWrapLayout>
 
