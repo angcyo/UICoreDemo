@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.angcyo.base.delay
 import com.angcyo.behavior.linkage.LinkageHeaderBehavior
+import com.angcyo.core.viewpager.ViewPager1Delegate
 import com.angcyo.library.L
 import com.angcyo.library.ex.fullTime
 import com.angcyo.library.ex.nowTime
@@ -34,7 +35,10 @@ class LinkageVpBehaviorDemo : AppFragment() {
                 loadTextItem()
             }
 
-            _vh.vp(R.id.lib_view_pager)?.initAdapter(childFragmentManager)
+            _vh.vp(R.id.lib_view_pager)?.apply {
+                initAdapter(childFragmentManager)
+                ViewPager1Delegate.install(this, _vh.v(R.id.lib_tab_layout))
+            }
         }
     }
 

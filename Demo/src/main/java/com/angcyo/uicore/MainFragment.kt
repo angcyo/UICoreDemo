@@ -373,6 +373,8 @@ class MainFragment : AppDslFragment() {
             renderMainItem("LinkageSingleBehaviorDemo Sv+Rv")
             renderMainItem("LinkageRvBehaviorDemo Rv+Rv")
             renderMainItem("LinkageVpBehaviorDemo Rv+Vp $GO")
+            renderMainItem("TitleBarBehaviorDemo")
+            renderMainItem("TitleBarDrawableBehaviorDemo")
             renderMainItem("WaveLayerDemo")
             renderMainItem("LineChartDemo")
             renderMainItem("BarChartDemo")

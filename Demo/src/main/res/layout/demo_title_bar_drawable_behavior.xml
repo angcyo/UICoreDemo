@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.widget.layout.RCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent40">
+
+    <!--联动头部布局包裹-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.angcyo.behavior.refresh.RefreshContentBehavior"
+        app:layout_exclude_title_bar_height="false">
+
+        <com.angcyo.widget.recycler.DslRecyclerView
+            android:id="@+id/lib_recycler_view"
+            style="@style/LibRecyclerViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+    <!--联动标题布局包裹-->
+    <com.angcyo.widget.layout.TitleWrapLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/face"
+        app:layout_behavior="com.angcyo.behavior.linkage.LinkageGradientTitleBehavior">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/lib_title_back_view"
+            style="@style/LibItemStyle"
+            android:layout_gravity="bottom"
+            android:clickable="true"
+            android:src="@drawable/lib_back" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/lib_title_text_view"
+            style="@style/LibItemStyle"
+            android:layout_gravity="center_horizontal|bottom"
+            android:text="标题" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            style="@style/LibItemStyle"
+            android:layout_gravity="bottom|right"
+            android:clickable="true"
+            android:src="@drawable/lib_ic_file" />
+
+    </com.angcyo.widget.layout.TitleWrapLayout>
+
+    <!--动态显示标题栏下面的控件-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/lib_line"
+        android:background="@color/lib_line"
+        app:layout_behavior="com.angcyo.behavior.linkage.LinkageTitleLineBehavior" />
+
+</com.angcyo.widget.layout.RCoordinatorLayout>
