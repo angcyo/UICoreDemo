@@ -89,7 +89,7 @@ class MainFragment : AppDslFragment() {
             behavior()?.also {
                 if (it is RefreshContentBehavior) {
                     it.refreshBehaviorConfig = ScaleHeaderRefreshEffectConfig().apply {
-                        scaleThreshold = -1f
+                        scaleThreshold = Float.MAX_VALUE
                     }
                 }
             }
