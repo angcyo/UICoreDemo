@@ -2,12 +2,11 @@ package com.angcyo.uicore.demo
 
 import android.os.Bundle
 import com.angcyo.behavior.refresh.IRefreshContentBehavior
-import com.angcyo.item.DslBaseInfoItem
+import com.angcyo.item.DslTextInfoItem
 import com.angcyo.library.L
-import com.angcyo.library.ex.dpi
-import com.angcyo.library.ex.fullTime
-import com.angcyo.library.ex.nowTime
+import com.angcyo.library.ex.*
 import com.angcyo.uicore.base.AppDslFragment
+import kotlin.random.Random.Default.nextInt
 
 /**
  *
@@ -24,15 +23,7 @@ class RefreshDemo : AppDslFragment() {
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
-
-        renderDslAdapter {
-            for (i in 0..100) {
-                DslBaseInfoItem()() {
-                    itemInfoText = "Text...$i"
-                    itemTopInsert = 1 * dpi
-                }
-            }
-        }
+        loadData()
     }
 
     override fun onFragmentFirstShow(bundle: Bundle?) {
@@ -44,7 +35,22 @@ class RefreshDemo : AppDslFragment() {
         L.i("收到刷新回调...${nowTime().fullTime()}")
         _vh.postDelay(2_000) {
             L.i("请求结束刷新!")
+            loadData()
             finishRefresh()
+        }
+    }
+
+    fun loadData() {
+        renderDslAdapter {
+            clearItems()
+            for (i in 0..nextInt(0, 100)) {
+                DslTextInfoItem()() {
+                    itemInfoText = "Text...$i"
+                    itemDarkText = nowTimeString()
+                    itemTopInsert = 1 * dpi
+                }
+            }
+            fragmentTitle = "${this@RefreshDemo.simpleClassName()}(${adapterItems.size})"
         }
     }
 }
