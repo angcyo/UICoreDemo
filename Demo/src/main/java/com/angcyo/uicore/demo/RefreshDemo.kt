@@ -1,11 +1,14 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.behavior.refresh.IRefreshContentBehavior
-import com.angcyo.item.DslTextInfoItem
+import com.angcyo.dsladapter.DslAdapter
+import com.angcyo.dsladapter.SwipeMenuHelper
 import com.angcyo.library.L
 import com.angcyo.library.ex.*
 import com.angcyo.uicore.base.AppDslFragment
+import com.angcyo.uicore.dslitem.DslSwipeMenuItem
 import kotlin.random.Random.Default.nextInt
 
 /**
@@ -40,11 +43,16 @@ class RefreshDemo : AppDslFragment() {
         }
     }
 
+    override fun onInitDslLayout(recyclerView: RecyclerView, dslAdapter: DslAdapter) {
+        super.onInitDslLayout(recyclerView, dslAdapter)
+        SwipeMenuHelper.install(recyclerView)
+    }
+
     fun loadData() {
         renderDslAdapter {
             clearItems()
             for (i in 0..nextInt(0, 100)) {
-                DslTextInfoItem()() {
+                DslSwipeMenuItem()() {
                     itemInfoText = "Text...$i"
                     itemDarkText = nowTimeString()
                     itemTopInsert = 1 * dpi
