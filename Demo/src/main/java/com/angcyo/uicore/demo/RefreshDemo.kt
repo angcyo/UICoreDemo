@@ -36,9 +36,11 @@ class RefreshDemo : AppDslFragment() {
 
     override fun onRefresh(refreshContentBehavior: IRefreshContentBehavior?) {
         L.i("收到刷新回调...${nowTime().fullTime()}")
+        _vh.postDelay(300) {
+            loadData()
+        }
         _vh.postDelay(2_000) {
             L.i("请求结束刷新!")
-            loadData()
             finishRefresh()
         }
     }
