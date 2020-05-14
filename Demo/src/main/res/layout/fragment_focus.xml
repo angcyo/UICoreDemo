@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lib_coordinator_wrap_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--标题栏放在后面, 可以保证显示在内容之上-->
+    <FrameLayout
+        android:id="@+id/lib_title_wrap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_behavior="com.angcyo.behavior.HideTitleBarBehavior">
+
+        <com.angcyo.widget.layout.TitleWrapLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_bar_height">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/lib_title_text_view"
+                style="@style/LibMainTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                tools:text="标题栏文本" />
+
+            <LinearLayout
+                android:id="@+id/lib_left_wrap_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" />
+
+            <LinearLayout
+                android:id="@+id/lib_right_wrap_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" />
+
+        </com.angcyo.widget.layout.TitleWrapLayout>
+    </FrameLayout>
+
+    <com.angcyo.widget.recycler.DslRecyclerView
+        android:id="@+id/recycler_header_view"
+        style="@style/LibRecyclerViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        app:r_layout_manager="GV4" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05" />
+
+    <com.angcyo.widget.recycler.DslRecyclerView
+        android:id="@+id/lib_recycler_view"
+        style="@style/LibRecyclerViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        app:r_layout_manager="V" />
+
+</LinearLayout>
