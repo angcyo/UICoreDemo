@@ -5,6 +5,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.angcyo.behavior.HideTitleBarBehavior
 import com.angcyo.core.R
 import com.angcyo.core.fragment.BaseDslFragment
+import com.angcyo.widget.base.behavior
 
 /**
  *
@@ -14,7 +15,7 @@ import com.angcyo.core.fragment.BaseDslFragment
  */
 open class AppDslFragment : BaseDslFragment() {
     override fun onCreateBehavior(child: View): CoordinatorLayout.Behavior<*>? {
-        return if (child.id == R.id.lib_title_wrap_layout) {
+        return child.behavior() ?: if (child.id == R.id.lib_title_wrap_layout) {
             HideTitleBarBehavior(fContext())
         } else {
             super.onCreateBehavior(child)

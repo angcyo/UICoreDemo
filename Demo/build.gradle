@@ -53,6 +53,7 @@ dependencies {
     implementation project(allModule.jsoup)
     implementation project(allModule.mpchart)
     implementation project(allModule.objectbox)
+    implementation project(allModule.rabbitmq)
 
     debugImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
     pretestImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"

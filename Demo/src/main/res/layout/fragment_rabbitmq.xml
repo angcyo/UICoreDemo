@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.widget.layout.RCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lib_coordinator_wrap_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--内容布局包裹-->
+    <FrameLayout
+        android:id="@+id/lib_content_wrap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_behavior="com.angcyo.behavior.refresh.RefreshContentBehavior">
+
+        <com.angcyo.widget.layout.DslSoftInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:r_handler_mode="MODE_CONTENT_HEIGHT">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.angcyo.widget.recycler.DslRecyclerView
+                    android:id="@+id/lib_recycler_view"
+                    style="@style/LibRecyclerViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@color/transparent20"
+                    app:r_layout_manager="V" />
+
+                <com.angcyo.widget.layout.RConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.angcyo.widget.edit.DslEditText
+                        android:id="@+id/url_edit"
+                        style="@style/LibBodyTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="输入连接地址"
+                        android:minHeight="40dp"
+                        android:text="amqp://47.107.208.147:5672"
+                        app:layout_constraintBottom_toTopOf="@id/queue_edit"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/connect_button"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.angcyo.widget.DslButton
+                        android:id="@+id/connect_button"
+                        style="@style/DefaultButtonMinStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="连接"
+                        app:layout_constraintBottom_toBottomOf="@id/url_edit"
+                        app:layout_constraintLeft_toRightOf="@id/url_edit"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/url_edit" />
+
+                    <com.angcyo.widget.edit.DslEditText
+                        android:id="@+id/queue_edit"
+                        style="@style/LibBodyTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="输入队列"
+                        android:minHeight="40dp"
+                        android:text="examle.queue.all"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/connect_queue_button"
+                        app:layout_constraintTop_toBottomOf="@id/url_edit" />
+
+                    <com.angcyo.widget.edit.DslEditText
+                        android:id="@+id/route_edit"
+                        style="@style/LibBodyTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="输入路由"
+                        android:minHeight="40dp"
+                        android:text="examle.routing.#"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/connect_queue_button"
+                        app:layout_constraintTop_toBottomOf="@id/queue_edit" />
+
+                    <com.angcyo.widget.DslButton
+                        android:id="@+id/connect_queue_button"
+                        style="@style/DefaultButtonMinStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="监听"
+                        app:layout_constraintBottom_toBottomOf="@id/route_edit"
+                        app:layout_constraintLeft_toRightOf="@id/route_edit"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/route_edit" />
+
+                    <com.angcyo.widget.edit.DslEditText
+                        android:id="@+id/edit_text"
+                        style="@style/LibBodyTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="输入要发送的消息"
+                        android:minHeight="40dp"
+                        android:text="message...test"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/send_button"
+                        app:layout_constraintTop_toBottomOf="@id/route_edit" />
+
+                    <com.angcyo.widget.DslButton
+                        android:id="@+id/send_button"
+                        style="@style/DefaultButtonMinStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="发送"
+                        app:layout_constraintBottom_toBottomOf="@id/edit_text"
+                        app:layout_constraintLeft_toRightOf="@id/edit_text"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/edit_text" />
+                </com.angcyo.widget.layout.RConstraintLayout>
+
+            </LinearLayout>
+        </com.angcyo.widget.layout.DslSoftInputLayout>
+
+    </FrameLayout>
+
+    <!--覆盖在内容上面的布局包裹, 不跟随内容滑动-->
+    <FrameLayout
+        android:id="@+id/lib_content_overlay_wrap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_anchor="@id/lib_title_wrap_layout"
+        app:layout_anchorGravity="bottom"
+        app:layout_behavior="com.angcyo.behavior.placeholder.TitleBarBelowBehavior" />
+
+    <!--刷新头布局包裹-->
+    <FrameLayout
+        android:id="@+id/lib_refresh_wrap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_behavior=".behavior.ArcLoadingHeaderBehavior">
+
+        <com.angcyo.widget.progress.ArcLoadingView
+            android:id="@+id/lib_arc_loading_view"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/lib_xxhdpi"
+            app:arc_auto_start="false" />
+
+    </FrameLayout>
+
+    <!--标题栏放在后面, 可以保证显示在内容之上-->
+    <FrameLayout
+        android:id="@+id/lib_title_wrap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.angcyo.behavior.placeholder.TitleBarPlaceholderBehavior">
+
+        <com.angcyo.widget.layout.TitleWrapLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_bar_height">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/lib_title_text_view"
+                style="@style/LibMainTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                tools:text="标题栏文本" />
+
+            <LinearLayout
+                android:id="@+id/lib_left_wrap_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" />
+
+            <LinearLayout
+                android:id="@+id/lib_right_wrap_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" />
+
+        </com.angcyo.widget.layout.TitleWrapLayout>
+    </FrameLayout>
+
+</com.angcyo.widget.layout.RCoordinatorLayout>
