@@ -27,6 +27,12 @@ open class GlideImageDemo : AppDslFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         renderDslAdapter {
+
+            AppImageItem()() {
+                imageUrl =
+                    "https://shangbang-dev-1301614530.cos.ap-chongqing.myqcloud.com/0519/361.mp4"
+            }
+
             for (i in 0..100) {
                 AppImageItem(i)() {
                     imageMask = true
