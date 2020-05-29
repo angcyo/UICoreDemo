@@ -9,4 +9,11 @@
         android:layout_height="match_parent"
         app:mwhProgress="0.5" />
 
+    <com.angcyo.widget.layout.RFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_gravity="bottom"
+        android:background="@color/transparent20"
+        app:r_draw_line="TOP" />
+
 </FrameLayout>
