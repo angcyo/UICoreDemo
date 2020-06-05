@@ -46,7 +46,7 @@ class AppNotifyItem : DslAdapterItem() {
         super.onItemBind(itemHolder, itemPosition, adapterItem, payloads)
 
         val bitmap =
-            BitmapFactory.decodeResource(itemHolder.content.resources, R.drawable.image_manhua_nv)
+            BitmapFactory.decodeResource(itemHolder.context.resources, R.drawable.image_manhua_nv)
 
         //默认配置
 
@@ -99,11 +99,11 @@ class AppNotifyItem : DslAdapterItem() {
 
                 if (itemHolder.isChecked(R.id.click_cb)) {
                     notifyContentIntent =
-                        DslNotify.pendingActivity(itemHolder.content, MainActivity::class.java)
+                        DslNotify.pendingActivity(itemHolder.context, MainActivity::class.java)
                 }
 
                 if (itemHolder.isChecked(R.id.full_screen_intent_cb)) {
-                    notifyFullScreenIntent = DslNotify.pendingActivity(itemHolder.content, Intent())
+                    notifyFullScreenIntent = DslNotify.pendingActivity(itemHolder.context, Intent())
                 }
 
                 if (itemHolder.isChecked(R.id.progress_indeterminate_cb)) {
@@ -114,35 +114,35 @@ class AppNotifyItem : DslAdapterItem() {
                     notifyActions = listOf(
                         DslNotify.action(
                             "action1",
-                            DslNotify.pendingActivity(itemHolder.content, MainActivity::class.java),
+                            DslNotify.pendingActivity(itemHolder.context, MainActivity::class.java),
                             android.R.drawable.ic_media_pause
                         ),
                         DslNotify.action(
                             "action2",
                             DslNotify.pendingBroadcast(
-                                itemHolder.content,
+                                itemHolder.context,
                                 Intent(AppBroadcastReceiver.ACTION_DEMO)
                             ),
                             android.R.drawable.ic_media_play
                         ),
                         DslNotify.action(
                             "action3",
-                            DslNotify.pendingService(itemHolder.content, AppService::class.java),
+                            DslNotify.pendingService(itemHolder.context, AppService::class.java),
                             android.R.drawable.ic_media_next
                         ),
                         DslNotify.action(
                             "action4",
-                            DslNotify.pendingService(itemHolder.content, Intent()),
+                            DslNotify.pendingService(itemHolder.context, Intent()),
                             android.R.drawable.ic_media_previous
                         ),
                         DslNotify.action(
                             "action5",
-                            DslNotify.pendingService(itemHolder.content, Intent()),
+                            DslNotify.pendingService(itemHolder.context, Intent()),
                             android.R.drawable.ic_media_ff
                         ),
                         DslNotify.action(
                             "action5",
-                            DslNotify.pendingService(itemHolder.content, Intent()),
+                            DslNotify.pendingService(itemHolder.context, Intent()),
                             android.R.drawable.ic_media_rew
                         )
                     )
@@ -293,7 +293,7 @@ class AppNotifyItem : DslAdapterItem() {
                                         setIcon(
                                             IconCompat.createFromIcon(
                                                 Icon.createWithResource(
-                                                    itemHolder.content,
+                                                    itemHolder.context,
                                                     R.drawable.image_manhua_nv
                                                 )
                                             )
@@ -322,20 +322,20 @@ class AppNotifyItem : DslAdapterItem() {
                 notifyActions = listOf(
                     DslNotify.action(
                         "action1",
-                        DslNotify.pendingActivity(itemHolder.content, MainActivity::class.java),
+                        DslNotify.pendingActivity(itemHolder.context, MainActivity::class.java),
                         android.R.drawable.ic_media_pause
                     ),
                     DslNotify.action(
                         "action2",
                         DslNotify.pendingBroadcast(
-                            itemHolder.content,
+                            itemHolder.context,
                             Intent(AppBroadcastReceiver.ACTION_DEMO)
                         ),
                         android.R.drawable.ic_media_play
                     ),
                     DslNotify.action(
                         "action3",
-                        DslNotify.pendingService(itemHolder.content, AppService::class.java),
+                        DslNotify.pendingService(itemHolder.context, AppService::class.java),
                         android.R.drawable.ic_media_next
                     )
                 )

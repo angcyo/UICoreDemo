@@ -86,7 +86,7 @@ class AppJsoupInputItem : DslAdapterItem() {
 
         //打开页面
         itemHolder.click(R.id.open_button) {
-            itemHolder.content.dslAHelper {
+            itemHolder.context.dslAHelper {
                 open {
                     uri = Uri.parse(jsoupData.jsoupUrl.toString())
                 }
