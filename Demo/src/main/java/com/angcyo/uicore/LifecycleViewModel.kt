@@ -40,6 +40,15 @@ open class LifecycleViewModel : ViewModel(), LifecycleOwner {
         return lifecycleRegistry
     }
 
+    /**取消所有Rx 和 协程 / 恢复初始状态*/
+    fun reset() {
+        if (lifecycleRegistry.currentState == Lifecycle.State.DESTROYED) {
+            setCurrentState(Lifecycle.State.CREATED)
+        } else {
+            cancel()
+        }
+    }
+
     /**取消所有Rx 和 协程*/
     fun cancel() {
         onCleared()
