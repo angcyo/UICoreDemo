@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.widget.layout.RCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lib_coordinator_wrap_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="bottom">
+
+        <com.angcyo.widget.DslButton
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:text="angcyo" />
+
+    </FrameLayout>
+
+    <!--内容布局包裹-->
+    <com.angcyo.widget.layout.RCoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <FrameLayout
+            android:id="@+id/lib_content_wrap_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/info" />
+
+        </FrameLayout>
+    </com.angcyo.widget.layout.RCoordinatorLayout>
+
+    <TextView
+        android:id="@+id/lib_tip_text_view"
+        style="@style/LibMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="angcyo" />
+
+    <!--标题栏放在后面, 可以保证显示在内容之上-->
+    <FrameLayout
+        android:id="@+id/lib_title_wrap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_behavior="com.angcyo.behavior.HideTitleBarBehavior">
+
+        <com.angcyo.widget.layout.TitleWrapLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_bar_height">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/lib_title_text_view"
+                style="@style/LibMainTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                tools:text="标题栏文本" />
+
+            <LinearLayout
+                android:id="@+id/lib_left_wrap_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" />
+
+            <LinearLayout
+                android:id="@+id/lib_right_wrap_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" />
+
+        </com.angcyo.widget.layout.TitleWrapLayout>
+    </FrameLayout>
+
+</com.angcyo.widget.layout.RCoordinatorLayout>
