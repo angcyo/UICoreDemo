@@ -404,6 +404,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("RabbitMQDemo $GO")
             renderMainItem("WaveViewDemo $GO")
             renderMainItem("MoveBehaviorDemo $GO")
+            renderMainItem("AMapDemo $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()() {

@@ -54,6 +54,7 @@ dependencies {
     implementation project(allModule.mpchart)
     implementation project(allModule.objectbox)
     implementation project(allModule.rabbitmq)
+    implementation project(allModule.amap3d)
 
     debugImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
     pretestImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
