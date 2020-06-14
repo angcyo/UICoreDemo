@@ -5,7 +5,10 @@ import com.amap.api.maps.model.BitmapDescriptorFactory
 import com.amap.api.maps.model.LatLng
 import com.angcyo.amap3d.addNavigateArrow
 import com.angcyo.amap3d.core.RTextureMapView
+import com.angcyo.amap3d.fragment.aMapSelector
 import com.angcyo.amap3d.onMapLoadedListener
+import com.angcyo.base.dslFHelper
+import com.angcyo.library.ex.nowTimeString
 import com.angcyo.uicore.base.AppTitleFragment
 
 /**
@@ -33,6 +36,21 @@ class AMapDemo : AppTitleFragment() {
                     width(100f)
                 }
             }
+        }
+
+        _vh.click(R.id.button) {
+            dslFHelper {
+                aMapSelector {
+                    if (it == null) {
+                        _vh.tv(R.id.result_text_view)?.text = "取消选址:${nowTimeString()}"
+                    } else {
+                        _vh.tv(R.id.result_text_view)?.text = it.toString()
+                    }
+                }
+            }
+        }
+        _vh.click(R.id.result_text_view) {
+
         }
     }
 
