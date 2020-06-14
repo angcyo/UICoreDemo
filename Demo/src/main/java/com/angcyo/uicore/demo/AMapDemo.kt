@@ -4,7 +4,10 @@ import android.os.Bundle
 import com.amap.api.maps.model.BitmapDescriptorFactory
 import com.amap.api.maps.model.LatLng
 import com.angcyo.amap3d.addNavigateArrow
+import com.angcyo.amap3d.bindControlLayout
+import com.angcyo.amap3d.core.MapLocation
 import com.angcyo.amap3d.core.RTextureMapView
+import com.angcyo.amap3d.fragment.aMapDetail
 import com.angcyo.amap3d.fragment.aMapSelector
 import com.angcyo.amap3d.onMapLoadedListener
 import com.angcyo.base.dslFHelper
@@ -23,12 +26,18 @@ class AMapDemo : AppTitleFragment() {
         contentLayoutId = R.layout.fragment_amap
     }
 
+    var _mapLocation: MapLocation? = null
+
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
         _vh.v<RTextureMapView>(R.id.map_view)?.apply {
-            dslAMap.locationIcon = BitmapDescriptorFactory.fromResource(R.drawable.map_gps_point)
+            dslAMap.apply {
+                locationIcon = BitmapDescriptorFactory.fromResource(R.drawable.map_gps_point)
+            }
 
             bindLifecycle(this@AMapDemo, savedInstanceState)
+
+            map.bindControlLayout(_vh)
 
             map.onMapLoadedListener {
                 map.addNavigateArrow {
@@ -41,6 +50,7 @@ class AMapDemo : AppTitleFragment() {
         _vh.click(R.id.button) {
             dslFHelper {
                 aMapSelector {
+                    _mapLocation = it
                     if (it == null) {
                         _vh.tv(R.id.result_text_view)?.text = "取消选址:${nowTimeString()}"
                     } else {
@@ -49,8 +59,12 @@ class AMapDemo : AppTitleFragment() {
                 }
             }
         }
-        _vh.click(R.id.result_text_view) {
-
+        _vh.throttleClick(R.id.result_text_view) {
+            _mapLocation?.let {
+                dslFHelper {
+                    aMapDetail(it)
+                }
+            }
         }
     }
 
