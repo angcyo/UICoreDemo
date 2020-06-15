@@ -52,6 +52,8 @@ class AMapDemo : AppTitleFragment() {
 
     lateinit var dslMarker: DslMarker
 
+
+
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
 
