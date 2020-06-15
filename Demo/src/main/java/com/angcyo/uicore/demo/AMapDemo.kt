@@ -63,7 +63,7 @@ class AMapDemo : AppTitleFragment() {
 
             bindLifecycle(this@AMapDemo, savedInstanceState)
 
-            map.bindControlLayout(_vh)
+            map.bindControlLayout(_vh, dslAMap.customStyleOptions)
 
             map.onMapLoadedListener {
                 map.addNavigateArrow {
