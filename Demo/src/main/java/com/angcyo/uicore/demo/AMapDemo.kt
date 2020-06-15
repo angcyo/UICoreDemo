@@ -54,6 +54,22 @@ class AMapDemo : AppTitleFragment() {
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
+
+        val iconList = listOf(
+            markerIcon(R.drawable.icon_marker_1),
+            markerIcon(R.drawable.icon_marker_2),
+            markerIcon(R.drawable.icon_marker_3),
+            markerIcon(R.drawable.icon_marker_4),
+            markerIcon(R.drawable.icon_marker_5),
+            markerIcon(R.drawable.icon_marker_6),
+            markerIcon(R.drawable.icon_marker_7),
+            markerIcon(R.drawable.icon_marker_8),
+            markerIcon(R.drawable.icon_marker_9),
+            markerIcon(R.drawable.icon_marker_10),
+            markerIcon(R.drawable.icon_marker_11),
+            markerIcon(R.drawable.icon_marker_12)
+        )
+
         _vh.v<RTextureMapView>(R.id.map_view)?.apply {
             this@AMapDemo.dslMarker = dslMarker
 
@@ -72,9 +88,15 @@ class AMapDemo : AppTitleFragment() {
                 }
 
                 dslMarker.apply {
-                    latLngList.forEach {
-                        addMarker(it)
+                    markerSelectOptions = markerOptions {
+                        icon(markerIcon(R.drawable.icon_marker_danger))
                     }
+                    latLngList.forEach {
+                        addMarker(it) {
+                            icons(iconList, 24)
+                        }
+                    }
+                    moveToShowAllMarker()
                 }
             }
 
