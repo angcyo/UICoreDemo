@@ -53,7 +53,6 @@ class AMapDemo : AppTitleFragment() {
     lateinit var dslMarker: DslMarker
 
 
-
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
 
@@ -90,7 +89,7 @@ class AMapDemo : AppTitleFragment() {
                 }
 
                 dslMarker.apply {
-                    markerSelectOptions = markerOptions {
+                    markerSelectedOptions = markerOptions {
                         icon(markerIcon(R.drawable.icon_marker_danger))
                     }
                     latLngList.forEach {
