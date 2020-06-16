@@ -12,6 +12,7 @@ import com.angcyo.amap3d.fragment.aMapDetail
 import com.angcyo.amap3d.fragment.aMapSelector
 import com.angcyo.base.dslFHelper
 import com.angcyo.library.L
+import com.angcyo.library.ex._color
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.uicore.base.AppTitleFragment
 
@@ -75,6 +76,8 @@ class AMapDemo : AppTitleFragment() {
             this@AMapDemo.dslMarker = dslMarker
 
             dslAMap.apply {
+                showCompass = true
+                showScaleControl = true
                 locationIcon = BitmapDescriptorFactory.fromResource(R.drawable.map_gps_point)
             }
 
@@ -83,9 +86,15 @@ class AMapDemo : AppTitleFragment() {
             map.bindControlLayout(_vh, dslAMap.customStyleOptions)
 
             map.onMapLoadedListener {
-                map.addNavigateArrow {
-                    add(LatLng(map.myLocation.latitude, map.myLocation.longitude))
-                    width(100f)
+
+                map.myLatLng()?.let {
+                    //在地图上添加一个导航指示箭头对象（navigateArrow）对象。
+                    map.addNavigateArrow {
+                        add(it)
+                        add(latLngList.first().offsetDistance(5f, -5f))
+                        topColor(_color(R.color.colorAccent))
+                        width(10f)
+                    }
                 }
 
                 dslMarker.apply {
@@ -97,7 +106,7 @@ class AMapDemo : AppTitleFragment() {
                             icons(iconList, 24)
                         }
                     }
-                    moveToShowAllMarker()
+                    moveToShowAllMarker(true)
                 }
             }
 
