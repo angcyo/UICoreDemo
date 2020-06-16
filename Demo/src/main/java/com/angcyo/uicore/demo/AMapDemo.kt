@@ -6,7 +6,6 @@ import com.amap.api.maps.model.LatLng
 import com.angcyo.amap3d.*
 import com.angcyo.amap3d.DslMarker
 import com.angcyo.amap3d.core.MapLocation
-import com.angcyo.amap3d.core.RTextureMapView
 import com.angcyo.amap3d.core.latLng
 import com.angcyo.amap3d.fragment.aMapDetail
 import com.angcyo.amap3d.fragment.aMapSelector
@@ -72,7 +71,7 @@ class AMapDemo : AppTitleFragment() {
             markerIcon(R.drawable.icon_marker_12)
         )
 
-        _vh.v<RTextureMapView>(R.id.map_view)?.apply {
+        _vh.initMapView(this, savedInstanceState) {
             this@AMapDemo.dslMarker = dslMarker
 
             dslAMap.apply {
@@ -80,10 +79,6 @@ class AMapDemo : AppTitleFragment() {
                 showScaleControl = true
                 locationIcon = BitmapDescriptorFactory.fromResource(R.drawable.map_gps_point)
             }
-
-            bindLifecycle(this@AMapDemo, savedInstanceState)
-
-            map.bindControlLayout(_vh, dslAMap.customStyleOptions)
 
             map.onMapLoadedListener {
 
@@ -145,6 +140,6 @@ class AMapDemo : AppTitleFragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        _vh.v<RTextureMapView>(R.id.map_view)?.saveInstanceState(outState)
+        _vh.saveMapInstanceState(outState)
     }
 }

@@ -24,7 +24,7 @@
         android:layout_weight="1">
 
         <com.angcyo.amap3d.core.RTextureMapView
-            android:id="@+id/map_view"
+            android:id="@+id/lib_map_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
