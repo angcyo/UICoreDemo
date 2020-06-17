@@ -5,9 +5,13 @@ import android.os.Bundle
 import com.angcyo.activity.lockNotify
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.fullscreen
+import com.angcyo.dsladapter.findItemByTag
 import com.angcyo.item.DslButtonItem
+import com.angcyo.item.DslLabelEditItem
+import com.angcyo.item.itemEditText
 import com.angcyo.library.ex.nowTime
 import com.angcyo.putData
+import com.angcyo.speech.TTS
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.tx
 import com.angcyo.uicore.test.TestActivity
@@ -72,6 +76,23 @@ class LockDemo : AppDslFragment() {
                         it.fullscreen(true)
                     }
                     itemIsSelected = !itemIsSelected
+                }
+            }
+
+            DslLabelEditItem()() {
+                itemTag = "TTS"
+                itemLabelText = "TTS文本"
+                configEditTextStyle {
+                    hint = "请输入要转换成语音的文本"
+                }
+                itemEditText = "您有一个新的任务."
+            }
+
+            DslButtonItem()() {
+                itemButtonText = "TTS(文本转语音)"
+
+                itemClick = {
+                    TTS.startSpeaking(findItemByTag("TTS")?.itemEditText()?.toString())
                 }
             }
         }
