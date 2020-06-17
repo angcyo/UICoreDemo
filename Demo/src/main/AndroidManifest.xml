@@ -180,6 +180,8 @@
                 <data android:mimeType="video/*" />
             </intent-filter>
         </activity>
+
+        <activity android:name="com.angcyo.uicore.test.TestActivity" />
     </application>
 
 </manifest>
