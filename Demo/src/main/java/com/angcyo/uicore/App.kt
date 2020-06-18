@@ -16,6 +16,7 @@ import com.angcyo.library.component.DslNotify
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.randomColor
 import com.angcyo.objectbox.DslBox
+import com.angcyo.speech.TTS
 import com.angcyo.tbs.DslTbs
 import com.angcyo.uicore.demo.*
 import com.angcyo.uicore.fragment.RecyclerTextFragment
@@ -49,6 +50,13 @@ class App : CoreApplication(), CameraXConfig.Provider {
 
         DslBox.default_package_name = BuildConfig.APPLICATION_ID
         DslBox.init(this)
+
+        TTS.init(
+            this,
+            1251235618,
+            "AKIDWVomMV0edaGbFT5dSowGvGpmjC49pBCb",
+            "0WbCzyN1ICYiFkSZ9Kv890GY1BPqUbsV"
+        )
     }
 
     /**

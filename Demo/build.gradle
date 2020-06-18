@@ -55,6 +55,7 @@ dependencies {
     implementation project(allModule.objectbox)
     implementation project(allModule.rabbitmq)
     implementation project(allModule.amap3d)
+    implementation project(allModule.speech)
 
     debugImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
     pretestImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"

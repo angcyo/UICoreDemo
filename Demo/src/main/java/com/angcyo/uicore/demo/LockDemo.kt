@@ -5,9 +5,15 @@ import android.os.Bundle
 import com.angcyo.activity.lockNotify
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.fullscreen
+import com.angcyo.dsladapter.findItemByTag
+import com.angcyo.github.dslitem.DslLabelWheelItem
+import com.angcyo.github.dslitem.itemWheelBean
 import com.angcyo.item.DslButtonItem
+import com.angcyo.item.DslLabelEditItem
+import com.angcyo.item.itemEditText
 import com.angcyo.library.ex.nowTime
 import com.angcyo.putData
+import com.angcyo.speech.TTS
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.tx
 import com.angcyo.uicore.test.TestActivity
@@ -72,6 +78,51 @@ class LockDemo : AppDslFragment() {
                         it.fullscreen(true)
                     }
                     itemIsSelected = !itemIsSelected
+                }
+            }
+
+            DslLabelWheelItem()() {
+                itemSelectedIndex = 0
+                itemLabelText = "选择音色"
+                itemWheelList = mutableListOf(
+                    "0-云小宁，亲和女声(默认)",
+                    "1-云小奇，亲和男声",
+                    "2-云小晚，成熟男声",
+                    "4-云小叶，温暖女声",
+                    "5-云小欣，情感女声",
+                    "6-云小龙，情感男声",
+                    "7-云小曼，客服女声",
+                    "1000-智侠，情感男声",
+                    "1001-智瑜，情感女声",
+                    "1002-智聆，通用女声",
+                    "1003-智美，客服女声",
+                    "1050-WeJack，英文男声",
+                    "1051-WeRose，英文女声"
+                )
+                itemChangeListener = {
+                    it.onItemChangeListener(it)
+                    it.itemWheelBean<String>()?.let {
+                        TTS.configParams {
+                            setVoiceType(it.split("-").getOrNull(0)?.toIntOrNull() ?: 0)
+                        }
+                    }
+                }
+            }
+
+            DslLabelEditItem()() {
+                itemTag = "TTS"
+                itemLabelText = "TTS文本"
+                configEditTextStyle {
+                    hint = "请输入要转换成语音的文本"
+                }
+                itemEditText = "您有一个新的任务,请注意查收!"
+            }
+
+            DslButtonItem()() {
+                itemButtonText = "TTS(文本转语音)"
+
+                itemClick = {
+                    TTS.startSpeaking(findItemByTag("TTS")?.itemEditText()?.toString())
                 }
             }
         }
