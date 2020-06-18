@@ -20,6 +20,7 @@ class TestActivity : BasePermissionsActivity() {
 
     override fun onPermissionGranted() {
         _vh.tv(R.id.lib_text_view)?.text = span {
+            append("TestActivity->")
             append(nowTimeString())
             appendln()
             append(intent?.toString())
