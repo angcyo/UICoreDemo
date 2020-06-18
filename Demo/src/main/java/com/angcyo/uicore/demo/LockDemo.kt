@@ -10,7 +10,10 @@ import com.angcyo.github.dslitem.DslLabelWheelItem
 import com.angcyo.github.dslitem.itemWheelBean
 import com.angcyo.item.DslButtonItem
 import com.angcyo.item.DslLabelEditItem
+import com.angcyo.item.DslLabelTextItem
 import com.angcyo.item.itemEditText
+import com.angcyo.library.ex.dp
+import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.nowTime
 import com.angcyo.putData
 import com.angcyo.speech.TTS
@@ -18,6 +21,7 @@ import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.tx
 import com.angcyo.uicore.test.TestActivity
 import com.angcyo.widget.base.postDelay
+import com.angcyo.widget.span.span
 
 /**
  *
@@ -123,6 +127,31 @@ class LockDemo : AppDslFragment() {
 
                 itemClick = {
                     TTS.startSpeaking(findItemByTag("TTS")?.itemEditText()?.toString())
+                }
+            }
+
+            DslLabelEditItem()() {
+                itemLabelText = "Label"
+                itemEditText = "Edit"
+                itemEditTipIcon = -1
+                itemRightText = span {
+                    append("m")
+                    append("2") {
+                        isSuperscript = true
+                        fontSize = 9 * dpi
+                    }
+                }
+            }
+
+            DslLabelTextItem()() {
+                itemLabelText = "Label"
+                itemText = "Edit"
+                itemRightText = span {
+                    append("m")
+                    text("2") {
+                        isSuperscript = true
+                        textSize = 9 * dp
+                    }
                 }
             }
         }
