@@ -3,6 +3,7 @@ package com.angcyo.uicore
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import com.angcyo.base.dslFHelper
 import com.angcyo.core.activity.BasePermissionsActivity
 import com.angcyo.library.component.DslShortcut
@@ -113,6 +114,8 @@ class MainActivity : BasePermissionsActivity() {
                 )
             }
         }
+
+        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
     override fun onPermissionGranted() {
