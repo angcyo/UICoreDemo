@@ -2,19 +2,23 @@ package com.angcyo.uicore.demo
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import com.angcyo.activity.lockNotify
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.fullscreen
+import com.angcyo.core.component.model.BatteryModel
+import com.angcyo.core.component.model.toBatteryHealthStr
+import com.angcyo.core.component.model.toBatteryPluggedStr
+import com.angcyo.core.component.model.toBatteryStatusStr
+import com.angcyo.core.vmCore
 import com.angcyo.dsladapter.findItemByTag
 import com.angcyo.github.dslitem.DslLabelWheelItem
 import com.angcyo.github.dslitem.itemWheelBean
-import com.angcyo.item.DslButtonItem
-import com.angcyo.item.DslLabelEditItem
-import com.angcyo.item.DslLabelTextItem
-import com.angcyo.item.itemEditText
+import com.angcyo.item.*
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.nowTime
+import com.angcyo.library.ex.nowTimeString
 import com.angcyo.putData
 import com.angcyo.speech.TTS
 import com.angcyo.uicore.base.AppDslFragment
@@ -154,6 +158,35 @@ class LockDemo : AppDslFragment() {
                     }
                 }
             }
+
+            DslTextItem()() {
+                itemTag = "battery"
+                itemText = vmCore<BatteryModel>().batteryData.value?.toString() ?: "电量提示"
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        vmCore<BatteryModel>().remove()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        vmCore<BatteryModel>().apply {
+            batteryData.observe {
+                it?.let {
+                    _adapter.findItemByTag("battery")?.apply {
+                        if (this is DslTextItem) {
+                            itemText =
+                                "$it\n${it.health.toBatteryHealthStr()}\n${it.plugged.toBatteryPluggedStr()}\n${it.status.toBatteryStatusStr()}\n${nowTimeString()}"
+                            updateAdapterItem()
+                        }
+                    }
+                }
+            }
+
+            observe(fContext())
         }
     }
 }
