@@ -20,6 +20,14 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+
+# 中文混淆 https://blog.csdn.net/MyselfGang/article/details/83276530
+# https://www.jianshu.com/p/b499b46203ed
+#-obfuscationdictionary ./proguard-keys.txt #指定外部模糊字典
+#-classobfuscationdictionary ./proguard-keys.txt #指定class模糊字典
+#-packageobfuscationdictionary ./proguard-keys.txt #指定package模糊字典
+
+
 # https://ansgarlin.github.io/zh-tw/news/2018/09/15/how_does_addconfigurationdebugging_in_proguard_work/index.html
 -addconfigurationdebugging
 
