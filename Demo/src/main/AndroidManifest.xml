@@ -182,6 +182,12 @@
         </activity>
 
         <activity android:name="com.angcyo.uicore.test.TestActivity" />
+
+        <service
+            android:name="com.angcyo.core.component.accessibility.RAccessibilityService"
+            android:enabled="true"
+            android:exported="true"
+            tools:replace="android:enabled,android:exported" />
     </application>
 
 </manifest>

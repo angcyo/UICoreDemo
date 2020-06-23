@@ -406,6 +406,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("MoveBehaviorDemo $GO")
             renderMainItem("AMapDemo $GO")
             renderMainItem("LockDemo Speech $GO")
+            renderMainItem("AccessibilityDemo $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()() {

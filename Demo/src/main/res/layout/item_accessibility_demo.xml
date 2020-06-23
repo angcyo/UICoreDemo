@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.widget.layout.DslFlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/lib_xhdpi"
+    android:paddingBottom="@dimen/lib_xhdpi"
+    app:r_flow_item_horizontal_space="@dimen/lib_xhdpi"
+    app:r_flow_item_vertical_space="@dimen/lib_xhdpi">
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/cb_enable"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="无障碍是否已打开" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/set_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打开无障碍设置" />
+
+</com.angcyo.widget.layout.DslFlowLayout>
