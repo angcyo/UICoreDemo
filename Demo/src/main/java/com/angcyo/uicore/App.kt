@@ -12,6 +12,7 @@ import com.angcyo.core.CoreApplication
 import com.angcyo.core.fragment.BaseUI
 import com.angcyo.core.viewpager.RFragmentAdapter
 import com.angcyo.download.DslDownload
+import com.angcyo.jpush.JPush
 import com.angcyo.library.component.DslNotify
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.randomColor
@@ -57,6 +58,8 @@ class App : CoreApplication(), CameraXConfig.Provider {
             "AKIDWVomMV0edaGbFT5dSowGvGpmjC49pBCb",
             "0WbCzyN1ICYiFkSZ9Kv890GY1BPqUbsV"
         )
+
+        JPush.init(this)
     }
 
     /**
