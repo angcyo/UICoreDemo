@@ -1,25 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.angcyo.widget.layout.DslFlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/lib_xhdpi"
-    android:paddingBottom="@dimen/lib_xhdpi"
+    android:padding="@dimen/lib_xhdpi"
     app:r_flow_item_horizontal_space="@dimen/lib_xhdpi"
     app:r_flow_item_vertical_space="@dimen/lib_xhdpi">
 
     <androidx.appcompat.widget.AppCompatCheckBox
-        android:id="@+id/cb_enable"
+        android:id="@+id/overlays_enable"
         style="@style/LibBodyTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="无障碍是否已打开" />
+        android:text="浮窗权限是否已打开" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/accessibility_enable"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="无障碍服务是否已打开" />
 
     <com.angcyo.widget.DslButton
-        android:id="@+id/set_button"
+        android:id="@+id/overlays_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打开浮窗设置" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/accessibility_button"
         style="@style/DefaultButtonMinStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="打开无障碍设置" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/check_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="检查权限" />
+
+    <com.angcyo.widget.edit.DslEditText
+        android:id="@+id/dy_edit"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="抖音口令"
+        android:text="强肾壮腰，面色光润#艾灸 #艾灸师梁老师 #艾灸养生 #古法艾灸 https://v.douyin.com/J8NGHsx/ 复制此链接，打开【抖音短视频】，直接观看视频！" />
+
+    <com.angcyo.widget.edit.DslEditText
+        android:id="@+id/ks_edit"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="快手口令"
+        android:text="颈椎病的艾灸调理方法！ #古法艾灸 #艾灸 #艾灸养生 #艾灸师梁老师 https://v.kuaishou.com/6a3Ejd 复制此链接，打开【快手App】直接观看！" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/dy_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打开抖音" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/ks_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打开快手" />
+
+    <com.angcyo.widget.text.DslTextView
+        android:id="@+id/lib_text_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="angcyo" />
 
 </com.angcyo.widget.layout.DslFlowLayout>
