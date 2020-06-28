@@ -33,6 +33,7 @@ class DouYinInterceptor : BaseAccessibilityInterceptor() {
         actionOtherList.add(DYProtectAction())
         actionOtherList.add(DYGuideAction())
         actionOtherList.add(DYUpdateAction())
+        actionOtherList.add(DYContactsAction())
     }
 
     override fun onAccessibilityEvent(

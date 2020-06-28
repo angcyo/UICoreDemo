@@ -48,8 +48,8 @@
         style="@style/LibBodyTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="抖音口令"
-        android:text="强肾壮腰，面色光润#艾灸 #艾灸师梁老师 #艾灸养生 #古法艾灸 https://v.douyin.com/J8NGHsx/ 复制此链接，打开【抖音短视频】，直接观看视频！"
+        android:hint="抖音链接"
+        android:text="老员工第一集 杀鸡儆猴，刘组长居然对老员工做出这样的事情？ https://v.douyin.com/J839XSq/ 复制此链接，打开【抖音短视频】，直接观看视频！"
         tools:background="@color/transparent10" />
 
     <com.angcyo.widget.edit.DslEditText
@@ -57,8 +57,8 @@
         style="@style/LibBodyTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="抖音口令2"
-        android:text="有钱就能脚不丑？@抖音小助手 #鹤叔 #吐槽 #奇葩 #有钱人 #学霸秘籍；##Mw8vzCcZs98##抖音"
+        android:hint="抖音口令"
+        android:text="崔娃猛批美国抗疫：6个月了，我们总统还在研究病毒名字#美国 #新型冠状病毒；##YFlWyeCjw98##抖音"
         tools:background="@color/transparent10" />
 
     <com.angcyo.widget.edit.DslEditText

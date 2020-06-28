@@ -3,7 +3,7 @@ package com.angcyo.uicore.demo.accessibility
 import android.view.accessibility.AccessibilityEvent
 import com.angcyo.core.component.accessibility.BaseAccessibilityAction
 import com.angcyo.core.component.accessibility.BaseAccessibilityService
-import com.angcyo.core.component.accessibility.findNodeByText
+import com.angcyo.core.component.accessibility.haveNode
 import com.angcyo.core.component.accessibility.move
 import com.angcyo.library._screenHeight
 import com.angcyo.library._screenWidth
@@ -21,7 +21,9 @@ class DYGuideAction : BaseAccessibilityAction() {
         service: BaseAccessibilityService,
         event: AccessibilityEvent
     ): Boolean {
-        if (service.findNodeByText("滑动查看更多", event).isNotEmpty()) {
+        if (service.haveNode("滑动查看更多", event) ||
+            service.haveNode("上滑查看更多", event)
+        ) {
             //当前处理 [滑动查看更多] 引导界面
 
             val screenWidth = _screenWidth
