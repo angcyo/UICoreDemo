@@ -16,13 +16,13 @@ class DYPrivacyAction : BaseAccessibilityAction() {
     override fun doActionWidth(
         action: BaseAccessibilityAction,
         service: BaseAccessibilityService,
-        event: AccessibilityEvent
+        event: AccessibilityEvent?
     ): Boolean {
 
         //L.i("${event.className}")
         //L.w(event.text)
 
-        if ((event.haveText("用户服务协议") && event.haveText("隐私政策"))) {
+        if ((service.haveNodeOrText("用户服务协议") && service.haveNodeOrText("隐私政策"))) {
             val result = service.clickByText("好的", event)
 
             DouYinInterceptor.log("发现抖音隐私页[用户服务协议], 正在点击[好的] :$result")

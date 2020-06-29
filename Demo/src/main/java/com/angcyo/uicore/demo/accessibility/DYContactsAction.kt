@@ -4,7 +4,7 @@ import android.view.accessibility.AccessibilityEvent
 import com.angcyo.core.component.accessibility.BaseAccessibilityAction
 import com.angcyo.core.component.accessibility.BaseAccessibilityService
 import com.angcyo.core.component.accessibility.clickByText
-import com.angcyo.core.component.accessibility.haveText
+import com.angcyo.core.component.accessibility.haveNodeOrText
 
 /**
  * 关闭抖音 通讯录好友
@@ -17,10 +17,10 @@ class DYContactsAction : BaseAccessibilityAction() {
     override fun doActionWidth(
         action: BaseAccessibilityAction,
         service: BaseAccessibilityService,
-        event: AccessibilityEvent
+        event: AccessibilityEvent?
     ): Boolean {
 
-        if (event.haveText("发现通讯录好友")) {
+        if (service.haveNodeOrText("发现通讯录好友")) {
 
             return service.clickByText("取消", event).apply {
                 DouYinInterceptor.log("发现抖音页[发现通讯录好友], 正在点击[取消] :$this")

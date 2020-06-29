@@ -3,8 +3,8 @@ package com.angcyo.uicore.demo.accessibility
 import android.view.accessibility.AccessibilityEvent
 import com.angcyo.core.component.accessibility.BaseAccessibilityAction
 import com.angcyo.core.component.accessibility.BaseAccessibilityService
-import com.angcyo.core.component.accessibility.haveNode
-import com.angcyo.core.component.accessibility.move
+import com.angcyo.core.component.accessibility.fling
+import com.angcyo.core.component.accessibility.haveNodeOrText
 import com.angcyo.library._screenHeight
 import com.angcyo.library._screenWidth
 
@@ -19,10 +19,10 @@ class DYGuideAction : BaseAccessibilityAction() {
     override fun doActionWidth(
         action: BaseAccessibilityAction,
         service: BaseAccessibilityService,
-        event: AccessibilityEvent
+        event: AccessibilityEvent?
     ): Boolean {
-        if (service.haveNode("滑动查看更多", event) ||
-            service.haveNode("上滑查看更多", event)
+        if (service.haveNodeOrText("滑动查看更多", event) ||
+            service.haveNodeOrText("上滑查看更多", event)
         ) {
             //当前处理 [滑动查看更多] 引导界面
 
@@ -35,12 +35,11 @@ class DYGuideAction : BaseAccessibilityAction() {
 
             var result = false
 
-            service.move(fX, fY, fX, tY) { gestureDescription, cancel ->
-
+            service.fling(fX, fY, fX, tY) { gestureDescription, cancel ->
                 result = !cancel
             }
 
-            DouYinInterceptor.log("发现抖音引导页[滑动查看更多], move:$fX,$fY $fX,$tY :$result")
+            DouYinInterceptor.log("发现抖音引导页[滑动查看更多], fling:$fX,$fY $fX,$tY :$result")
 
             return result
         }

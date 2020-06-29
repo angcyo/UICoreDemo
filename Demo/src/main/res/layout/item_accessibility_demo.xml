@@ -49,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="抖音链接"
-        android:text="老员工第一集 杀鸡儆猴，刘组长居然对老员工做出这样的事情？ https://v.douyin.com/J839XSq/ 复制此链接，打开【抖音短视频】，直接观看视频！"
+        android:text="做女人长得丑也就罢了，做男人还是个丑！报废吧  太累了；##KlpuRQohy98##抖音"
         tools:background="@color/transparent10" />
 
     <com.angcyo.widget.edit.DslEditText
@@ -58,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="抖音口令"
-        android:text="崔娃猛批美国抗疫：6个月了，我们总统还在研究病毒名字#美国 #新型冠状病毒；##YFlWyeCjw98##抖音"
+        android:text="北斗导航，中国人的骄傲！#北斗卫星 #创业 #商业思维 #商业知识 @抖音小助手；##m1tsApqhy98##抖音"
         tools:background="@color/transparent10" />
 
     <com.angcyo.widget.edit.DslEditText

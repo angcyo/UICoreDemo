@@ -15,7 +15,7 @@ class DYUpdateAction : BaseAccessibilityAction() {
     override fun doActionWidth(
         action: BaseAccessibilityAction,
         service: BaseAccessibilityService,
-        event: AccessibilityEvent
+        event: AccessibilityEvent?
     ): Boolean {
         //DouYinInterceptor.log("发现抖音页[青少年模式], 正在点击[我知道了]")
         return super.doActionWidth(action, service, event)

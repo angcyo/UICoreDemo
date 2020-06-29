@@ -12,39 +12,53 @@ import com.angcyo.core.component.accessibility.*
  */
 class DYShareAction : BaseAccessibilityAction() {
 
-    override fun checkEvent(service: BaseAccessibilityService, event: AccessibilityEvent): Boolean {
-        return event.haveText("检测到") ||
-                event.haveText("检测到口令") ||
-                event.haveText("检测到链接") ||
-                event.haveText("打开看看") ||
-                event.haveText("前往")
+    override fun checkEvent(
+        service: BaseAccessibilityService,
+        event: AccessibilityEvent?
+    ): Boolean {
+        return service.haveNodeOrText("检测到") ||
+                service.haveNodeOrText("检测到口令") ||
+                service.haveNodeOrText("检测到链接") ||
+                service.haveNodeOrText("打开看看") ||
+                service.haveNodeOrText("前往")
     }
 
-    override fun doAction(service: BaseAccessibilityService, event: AccessibilityEvent) {
+    override fun doAction(service: BaseAccessibilityService, event: AccessibilityEvent?) {
         super.doAction(service, event)
 
         val clickText = when {
-            event.haveText("打开看看") -> "打开看看"
-            event.haveText("前往") -> "前往"
+            service.haveNodeOrText("打开看看") -> "打开看看"
+            service.haveNodeOrText("前往") -> "前往"
             else -> null
         }
 
+        val likeText = service.getLikeText("的作品").firstOrNull()
+
         if (clickText == null) {
-            DouYinInterceptor.log(
-                "发现抖音口令分享页[${event.getLikeText("的作品").firstOrNull()}], 未识别到跳转按钮."
-            )
+            DouYinInterceptor.log("发现抖音口令分享页[${likeText}], 未识别到跳转按钮.")
             actionFinish?.invoke(true)
         } else {
             val result = service.clickByText(clickText, event)
 
-            DouYinInterceptor.log(
-                "发现抖音口令分享页[${event.getLikeText("的作品").firstOrNull()}], 正在点击[$clickText] :$result"
-            )
+            DouYinInterceptor.log("发现抖音口令分享页[${likeText}], 正在点击[$clickText] :$result")
 
             if (result) {
                 //执行完成
                 actionFinish?.invoke(false)
             }
         }
+    }
+
+    override fun doActionWidth(
+        action: BaseAccessibilityAction,
+        service: BaseAccessibilityService,
+        event: AccessibilityEvent?
+    ): Boolean {
+        if (checkEvent(service, event)) {
+            return service.clickById("com.ss.android.ugc.aweme:id/cxw", event).apply {
+                DouYinInterceptor.log("发现多余的抖音口令分享页, 正在点击[关闭] :$this")
+            }
+        }
+        return super.doActionWidth(action, service, event)
     }
 }

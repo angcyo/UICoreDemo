@@ -1,7 +1,10 @@
 package com.angcyo.uicore.demo.accessibility
 
 import android.view.accessibility.AccessibilityEvent
-import com.angcyo.core.component.accessibility.*
+import com.angcyo.core.component.accessibility.BaseAccessibilityAction
+import com.angcyo.core.component.accessibility.BaseAccessibilityService
+import com.angcyo.core.component.accessibility.clickByText
+import com.angcyo.core.component.accessibility.haveNodeOrText
 
 /**
  * 关闭抖音青少年保护对话框[Action]
@@ -14,9 +17,9 @@ class DYProtectAction : BaseAccessibilityAction() {
     override fun doActionWidth(
         action: BaseAccessibilityAction,
         service: BaseAccessibilityService,
-        event: AccessibilityEvent
+        event: AccessibilityEvent?
     ): Boolean {
-        if (event.isClassNameContains("dialog") || event.haveText("青少年模式")) {
+        if (service.haveNodeOrText("青少年模式")) {
 
             return service.clickByText("我知道了", event).apply {
                 DouYinInterceptor.log("发现抖音页[青少年模式], 正在点击[我知道了] :$this")

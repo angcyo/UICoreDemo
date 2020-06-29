@@ -12,11 +12,11 @@ import com.angcyo.core.component.accessibility.BaseAccessibilityService
  * Copyright (c) 2020 angcyo. All rights reserved.
  */
 class DYLikeAction : BaseAccessibilityAction() {
-    override fun checkEvent(service: BaseAccessibilityService, event: AccessibilityEvent): Boolean {
+    override fun checkEvent(service: BaseAccessibilityService, event: AccessibilityEvent?): Boolean {
         return super.checkEvent(service, event)
     }
 
-    override fun doAction(service: BaseAccessibilityService, event: AccessibilityEvent) {
+    override fun doAction(service: BaseAccessibilityService, event: AccessibilityEvent?) {
         super.doAction(service, event)
     }
 }

@@ -34,17 +34,18 @@ class DouYinInterceptor : BaseAccessibilityInterceptor() {
         actionOtherList.add(DYGuideAction())
         actionOtherList.add(DYUpdateAction())
         actionOtherList.add(DYContactsAction())
+        actionOtherList.add(DYShareAction())
     }
 
     override fun onAccessibilityEvent(
         service: BaseAccessibilityService,
-        event: AccessibilityEvent
+        event: AccessibilityEvent?
     ) {
         super.onAccessibilityEvent(service, event)
 
         //L.v(event.source?.log())
 
-        if (event.isWindowStateChanged()) {
+//        if (event.isWindowStateChanged()) {
             // L.i(service.rootInActiveWindow)
             // L.w(service.windows)
             // service.windows.forEach {
@@ -52,16 +53,16 @@ class DouYinInterceptor : BaseAccessibilityInterceptor() {
             //     L.v(it.root?.debugNodeInfo())
             //     //L.v(it.root?.log())
             // }
-        }
+//        }
 
-        if (event.isWindowContentChanged()) {
+//        if (event.isWindowContentChanged()) {
             //service.rootNodeInfo(event)?.logNodeInfo()
-        }
+//        }
     }
 
     override fun onNoOtherActionHandle(
         service: BaseAccessibilityService,
-        event: AccessibilityEvent
+        event: AccessibilityEvent?
     ) {
         super.onNoOtherActionHandle(service, event)
 

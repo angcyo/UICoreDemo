@@ -1,8 +1,12 @@
 package com.angcyo.uicore.test
 
 import com.angcyo.http.post
+import com.angcyo.http.rx.BaseFlowableSubscriber
 import com.angcyo.http.rx.BaseObserver
+import com.angcyo.http.rx.flowableToMain
 import com.angcyo.http.rx.observer
+import io.reactivex.Flowable
+import java.util.concurrent.TimeUnit
 
 /**
  *
@@ -13,6 +17,7 @@ import com.angcyo.http.rx.observer
 
 fun rxJavaTest() {
     //testPost()
+    //testFlowable()
 }
 
 fun testPost() {
@@ -21,4 +26,10 @@ fun testPost() {
 //        url = "https://blog.csdn.net/sinat_31057219/article/details/101304867/"
 //        url = "https://www.baidu.com"
     }.observer(BaseObserver())
+}
+
+fun testFlowable() {
+    Flowable.interval(1, 1, TimeUnit.SECONDS)
+        .compose(flowableToMain())
+        .observer(BaseFlowableSubscriber())
 }
