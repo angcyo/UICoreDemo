@@ -36,7 +36,7 @@ class DYShareAction : BaseAccessibilityAction() {
 
         if (clickText == null) {
             DouYinInterceptor.log("发现抖音口令分享页[${likeText}], 未识别到跳转按钮.")
-            actionFinish?.invoke(true)
+            onActionFinish(true)
         } else {
             val result = service.clickByText(clickText, event)
 
@@ -44,7 +44,7 @@ class DYShareAction : BaseAccessibilityAction() {
 
             if (result) {
                 //执行完成
-                actionFinish?.invoke(false)
+                onActionFinish(false)
             }
         }
     }
