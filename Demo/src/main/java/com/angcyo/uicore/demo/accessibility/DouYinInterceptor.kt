@@ -59,13 +59,4 @@ class DouYinInterceptor : BaseAccessibilityInterceptor() {
             //service.rootNodeInfo(event)?.logNodeInfo()
 //        }
     }
-
-    override fun onNoOtherActionHandle(
-        service: BaseAccessibilityService,
-        event: AccessibilityEvent?
-    ) {
-        super.onNoOtherActionHandle(service, event)
-
-        service.rootNodeInfo(event)?.logNodeInfo()
-    }
 }

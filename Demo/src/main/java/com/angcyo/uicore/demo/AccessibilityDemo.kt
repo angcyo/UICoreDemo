@@ -1,5 +1,7 @@
 package com.angcyo.uicore.demo
 
+import android.accessibilityservice.GestureDescription
+import android.os.Build
 import android.os.Bundle
 import com.angcyo.core.component.accessibility.AccessibilityPermission
 import com.angcyo.core.component.accessibility.LogAccessibilityInterceptor
@@ -33,6 +35,8 @@ class AccessibilityDemo : AppDslFragment() {
 
     override fun onFragmentShow(bundle: Bundle?) {
         super.onFragmentShow(bundle)
+
+        //GestureInterceptor().install()
 
         StartAppAccessibilityInterceptor().install()
         LogAccessibilityInterceptor().apply {
@@ -86,6 +90,12 @@ class AccessibilityDemo : AppDslFragment() {
 
                     //tip
                     itemHolder.tv(R.id.lib_text_view)?.text = span {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            append("GestureDuration:${GestureDescription.getMaxGestureDuration()}")
+                            appendln()
+                            append("MaxStrokeCount:${GestureDescription.getMaxStrokeCount()}") //最大支持多少个手指
+                            appendln()
+                        }
                         append(DY_PACKAGE_NAME.appBean().string("未安装[抖音]"))
                         appendln()
                         append(KS_PACKAGE_NAME.appBean().string("未安装[快手]"))

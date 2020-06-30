@@ -4,6 +4,8 @@ import android.view.accessibility.AccessibilityEvent
 import com.angcyo.core.component.accessibility.BaseAccessibilityAction
 import com.angcyo.core.component.accessibility.BaseAccessibilityService
 import com.angcyo.core.component.accessibility.action.PermissionsAction
+import com.angcyo.core.component.accessibility.haveNode
+import com.angcyo.core.component.accessibility.haveText
 
 /**
  *
@@ -13,6 +15,16 @@ import com.angcyo.core.component.accessibility.action.PermissionsAction
  * Copyright (c) 2020 angcyo. All rights reserved.
  */
 class DYPermissionsAction : PermissionsAction() {
+
+    override fun isPermissionsUI(
+        service: BaseAccessibilityService,
+        event: AccessibilityEvent?
+    ): Boolean {
+        val haveNode = service.haveNode("要允许抖音短视频", event)
+        val haveEvent = event?.haveText("要允许抖音短视频") ?: false
+        return super.isPermissionsUI(service, event) || haveNode || haveEvent
+    }
+
     override fun handlePermissionsAction(
         action: BaseAccessibilityAction,
         service: BaseAccessibilityService,
