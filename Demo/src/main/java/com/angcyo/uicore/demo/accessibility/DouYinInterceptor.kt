@@ -1,12 +1,14 @@
 package com.angcyo.uicore.demo.accessibility
 
 import android.view.accessibility.AccessibilityEvent
+import com.angcyo.core.component.accessibility.*
 import com.angcyo.core.component.accessibility.AccessibilityHelper.logFolderName
-import com.angcyo.core.component.accessibility.BaseAccessibilityInterceptor
-import com.angcyo.core.component.accessibility.BaseAccessibilityService
-import com.angcyo.core.component.accessibility.home
 import com.angcyo.core.component.file.DslFileHelper
 import com.angcyo.core.component.file.wrapData
+import com.angcyo.library.L
+import com.angcyo.library.component.dslNotify
+import com.angcyo.library.component.low
+import com.angcyo.library.component.single
 import com.angcyo.library.tip
 import com.angcyo.uicore.demo.R
 
@@ -28,6 +30,8 @@ class DouYinInterceptor : BaseAccessibilityInterceptor() {
         }
     }
 
+    val dyNotifyId = 101
+
     init {
         filterPackageNameList.add(DY_PACKAGE_NAME)
         actionList.add(DYShareAction())
@@ -40,6 +44,19 @@ class DouYinInterceptor : BaseAccessibilityInterceptor() {
         actionOtherList.add(DYUpdateAction())
         actionOtherList.add(DYContactsAction())
         actionOtherList.add(DYShareAction())
+
+        ignoreInterceptor = true
+        enableInterval = true
+        intervalDelay = 4_000
+    }
+
+    fun sendNotify(content: String) {
+        dslNotify {
+            notifyId = dyNotifyId
+            notifyOngoing = actionStatus.isActionStart()
+            low()
+            single("抖音点赞任务($actionIndex/${actionList.size})", content)
+        }
     }
 
     override fun onAccessibilityEvent(
@@ -72,13 +89,25 @@ class DouYinInterceptor : BaseAccessibilityInterceptor() {
         super.onNoOtherActionHandle(service, event)
     }
 
+    override fun onDoAction(
+        action: BaseAccessibilityAction,
+        service: BaseAccessibilityService?,
+        event: AccessibilityEvent?
+    ) {
+        sendNotify("正在执行:${action.getActionTitle()}")
+        super.onDoAction(action, service, event)
+    }
+
     override fun onActionFinish() {
+        L.w("执行结束:$actionStatus")
         if (actionStatus == ACTION_STATUS_ERROR) {
             //出现异常
             tip("执行异常!", R.drawable.lib_ic_error)
+            sendNotify("执行异常!")
         } else if (actionStatus == ACTION_STATUS_FINISH) {
             //流程结束
             tip("执行完成!")
+            sendNotify("执行完成!")
             lastService?.home()
         }
     }

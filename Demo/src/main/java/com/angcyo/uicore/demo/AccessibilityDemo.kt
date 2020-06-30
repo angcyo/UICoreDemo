@@ -3,10 +3,7 @@ package com.angcyo.uicore.demo
 import android.accessibilityservice.GestureDescription
 import android.os.Build
 import android.os.Bundle
-import com.angcyo.core.component.accessibility.AccessibilityPermission
-import com.angcyo.core.component.accessibility.LogAccessibilityInterceptor
-import com.angcyo.core.component.accessibility.StartAppAccessibilityInterceptor
-import com.angcyo.core.component.accessibility.install
+import com.angcyo.core.component.accessibility.*
 import com.angcyo.dsladapter.renderItem
 import com.angcyo.library.component.appBean
 import com.angcyo.library.ex.copy
@@ -18,7 +15,7 @@ import com.angcyo.widget.base.string
 import com.angcyo.widget.span.span
 
 /**
- *
+ * 无障碍服务测试demo
  * Email:angcyo@126.com
  * @author angcyo
  * @date 2020/06/23
@@ -33,8 +30,8 @@ class AccessibilityDemo : AppDslFragment() {
 
     val douYinInterceptor = DouYinInterceptor()
 
-    override fun onFragmentShow(bundle: Bundle?) {
-        super.onFragmentShow(bundle)
+    override fun initBaseView(savedInstanceState: Bundle?) {
+        super.initBaseView(savedInstanceState)
 
         //GestureInterceptor().install()
 
@@ -43,6 +40,13 @@ class AccessibilityDemo : AppDslFragment() {
             enable = false
             install()
         }
+
+        //记录所有窗口变化, 以及窗口上所有节点信息
+        LogWindowAccessibilityInterceptor().install()
+    }
+
+    override fun onFragmentShow(bundle: Bundle?) {
+        super.onFragmentShow(bundle)
 
         renderDslAdapter(true) {
             renderItem {
@@ -103,6 +107,10 @@ class AccessibilityDemo : AppDslFragment() {
                 }
             }
         }
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        RAccessibilityService.clearInterceptor()
     }
 }
