@@ -3,14 +3,14 @@ package com.angcyo.uicore.demo.accessibility
 import android.view.accessibility.AccessibilityEvent
 import com.angcyo.core.component.accessibility.*
 import com.angcyo.core.component.accessibility.AccessibilityHelper.logFolderName
+import com.angcyo.core.component.accessibility.action.ActionException
 import com.angcyo.core.component.file.DslFileHelper
 import com.angcyo.core.component.file.wrapData
+import com.angcyo.core.vmCore
 import com.angcyo.library.L
 import com.angcyo.library.component.dslNotify
 import com.angcyo.library.component.low
 import com.angcyo.library.component.single
-import com.angcyo.library.tip
-import com.angcyo.uicore.demo.R
 
 /**
  * 抖音 复制口令->打开看看->点赞
@@ -25,15 +25,20 @@ class DouYinInterceptor : BaseAccessibilityInterceptor() {
 
         const val DY_PACKAGE_NAME = "com.ss.android.ugc.aweme"
 
+        val dyUserName: CharSequence get() = vmCore<DYModel>().userNameData.value ?: "未登录"
+
         fun log(data: String) {
-            DslFileHelper.write(logFolderName, "dy.log", data.wrapData())
+            DslFileHelper.write(logFolderName, "dy.log", "$dyUserName:$data".wrapData())
         }
     }
 
     val dyNotifyId = 101
 
+    val loginAction = DYLoginAction()
+
     init {
         filterPackageNameList.add(DY_PACKAGE_NAME)
+        actionList.add(DYLoginAction())
         actionList.add(DYShareAction())
         actionList.add(DYLikeAction())
 
@@ -44,6 +49,7 @@ class DouYinInterceptor : BaseAccessibilityInterceptor() {
         actionOtherList.add(DYUpdateAction())
         actionOtherList.add(DYContactsAction())
         actionOtherList.add(DYShareAction())
+        actionOtherList.add(DYBackAction())
 
         ignoreInterceptor = true
         enableInterval = true
@@ -55,7 +61,7 @@ class DouYinInterceptor : BaseAccessibilityInterceptor() {
             notifyId = dyNotifyId
             notifyOngoing = actionStatus.isActionStart()
             low()
-            single("抖音点赞任务($actionIndex/${actionList.size})", content)
+            single("抖音点赞任务($actionIndex/${actionList.size})[$dyUserName]", content)
         }
     }
 
@@ -64,22 +70,6 @@ class DouYinInterceptor : BaseAccessibilityInterceptor() {
         event: AccessibilityEvent?
     ) {
         super.onAccessibilityEvent(service, event)
-
-        //L.v(event.source?.log())
-
-//        if (event.isWindowStateChanged()) {
-        // L.i(service.rootInActiveWindow)
-        // L.w(service.windows)
-        // service.windows.forEach {
-        //     L.e(it.root)
-        //     L.v(it.root?.debugNodeInfo())
-        //     //L.v(it.root?.log())
-        // }
-//        }
-
-//        if (event.isWindowContentChanged()) {
-        //service.rootNodeInfo(event)?.logNodeInfo()
-//        }
     }
 
     override fun onNoOtherActionHandle(
@@ -87,6 +77,17 @@ class DouYinInterceptor : BaseAccessibilityInterceptor() {
         event: AccessibilityEvent?
     ) {
         super.onNoOtherActionHandle(service, event)
+    }
+
+    override fun checkDoAction(service: BaseAccessibilityService, event: AccessibilityEvent?) {
+        if (vmCore<DYModel>().loginData.value == false) {
+            sendNotify("请先登录抖音.")
+
+            //检查抖音是否已登录
+            loginAction.doAction(service, event)
+        } else {
+            super.checkDoAction(service, event)
+        }
     }
 
     override fun onDoAction(
@@ -98,15 +99,13 @@ class DouYinInterceptor : BaseAccessibilityInterceptor() {
         super.onDoAction(action, service, event)
     }
 
-    override fun onActionFinish() {
+    override fun onActionFinish(error: ActionException?) {
         L.w("执行结束:$actionStatus")
         if (actionStatus == ACTION_STATUS_ERROR) {
             //出现异常
-            tip("执行异常!", R.drawable.lib_ic_error)
-            sendNotify("执行异常!")
+            sendNotify("执行异常,${error?.message}.")
         } else if (actionStatus == ACTION_STATUS_FINISH) {
             //流程结束
-            tip("执行完成!")
             sendNotify("执行完成!")
             lastService?.home()
         }

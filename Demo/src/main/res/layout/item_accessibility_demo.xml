@@ -71,6 +71,13 @@
         tools:background="@color/transparent10" />
 
     <com.angcyo.widget.DslButton
+        android:id="@+id/dy_login_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="抖音登录检查" />
+
+    <com.angcyo.widget.DslButton
         android:id="@+id/dy_button"
         style="@style/DefaultButtonMinStyle"
         android:layout_width="wrap_content"

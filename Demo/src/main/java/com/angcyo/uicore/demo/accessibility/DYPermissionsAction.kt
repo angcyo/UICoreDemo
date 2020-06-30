@@ -20,7 +20,7 @@ class DYPermissionsAction : PermissionsAction() {
         service: BaseAccessibilityService,
         event: AccessibilityEvent?
     ): Boolean {
-        val haveNode = service.haveNode("要允许抖音短视频", event)
+        val haveNode = service.haveNode("允许访问") || service.haveNode("要允许抖音短视频", event)
         val haveEvent = event?.haveText("要允许抖音短视频") ?: false
         return super.isPermissionsUI(service, event) || haveNode || haveEvent
     }

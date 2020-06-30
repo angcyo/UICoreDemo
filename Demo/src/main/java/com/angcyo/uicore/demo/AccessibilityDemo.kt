@@ -70,9 +70,16 @@ class AccessibilityDemo : AppDslFragment() {
                             "${AccessibilityPermission.check(fContext())}"
                     }
 
+                    itemHolder.click(R.id.dy_login_button) {
+                        douYinInterceptor.restart()
+                        douYinInterceptor.install()
+
+                        fContext().openApp(DY_PACKAGE_NAME)
+                    }
                     itemHolder.click(R.id.dy_button) {
                         itemHolder.tv(R.id.dy_edit)?.string()?.copy()
 
+                        douYinInterceptor.restart()
                         douYinInterceptor.install()
 
                         fContext().openApp(DY_PACKAGE_NAME)
@@ -80,6 +87,7 @@ class AccessibilityDemo : AppDslFragment() {
                     itemHolder.click(R.id.dy_button2) {
                         itemHolder.tv(R.id.dy_edit2)?.string()?.copy()
 
+                        douYinInterceptor.restart()
                         douYinInterceptor.install()
 
                         fContext().openApp(DY_PACKAGE_NAME)
