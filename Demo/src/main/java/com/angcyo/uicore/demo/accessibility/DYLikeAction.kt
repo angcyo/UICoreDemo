@@ -71,12 +71,15 @@ class DYLikeAction : BaseAccessibilityAction() {
                 titleNode = it
             } else if (titleNode == null) {
                 it.getBoundsInScreen(AccessibilityHelper.tempRect)
-                if (AccessibilityHelper.tempRect.top > _screenHeight / 2 &&
-                    AccessibilityHelper.tempRect.width() > _screenWidth / 2 &&
-                    AccessibilityHelper.tempRect.bottom > _screenHeight - 60 * dp
-                ) {
-                    //在屏幕下面, 底部距离 60dp的地方
-                    titleNode = it
+                if (it.text != null && it.isTextView()) {
+
+                    if (AccessibilityHelper.tempRect.top > _screenHeight / 2 &&
+                        AccessibilityHelper.tempRect.width() > _screenWidth / 2 &&
+                        AccessibilityHelper.tempRect.bottom >= _screenHeight - 110 * dp
+                    ) {
+                        //在屏幕下面, 底部距离 60dp的地方
+                        titleNode = it
+                    }
                 }
             }
 
@@ -88,11 +91,11 @@ class DYLikeAction : BaseAccessibilityAction() {
 
             if (isSelected || isChecked) {
                 //已经点赞
-                DYLikeInterceptor.log("发现抖音视频详情页[${title}], 已点赞")
+                DYLikeInterceptor.log("发现抖音视频详情页[${title}] ${titleNode?.bounds()}, 已点赞")
                 onActionFinish()
             } else {
                 val result = likeClickNode?.unwrap()?.click() ?: false
-                DYLikeInterceptor.log("发现抖音视频详情页[${title}], 正在点赞[${likeClickNode?.viewIdName()}] :$result")
+                DYLikeInterceptor.log("发现抖音视频详情页[${title}] ${titleNode?.bounds()}, 正在点赞[${likeClickNode?.viewIdName()}] :$result")
             }
         }
     }

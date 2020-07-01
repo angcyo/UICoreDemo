@@ -1,10 +1,12 @@
 package com.angcyo.uicore.demo.accessibility
 
 import android.view.accessibility.AccessibilityEvent
-import com.angcyo.core.component.accessibility.*
+import com.angcyo.core.component.accessibility.BaseAccessibilityAction
+import com.angcyo.core.component.accessibility.BaseAccessibilityService
 import com.angcyo.core.component.accessibility.action.ActionException
-import com.angcyo.library.component.DslNotify
-import com.angcyo.library.ex.openApp
+import com.angcyo.core.component.accessibility.isActionFinish
+import com.angcyo.core.component.accessibility.openApp
+import com.angcyo.core.vmCore
 
 /**
  * 获取抖音登录用户名拦截器
@@ -13,13 +15,10 @@ import com.angcyo.library.ex.openApp
  * @date 2020/07/01
  * Copyright (c) 2020 ShenZhen Wayto Ltd. All rights reserved.
  */
-class DYUserInterceptor : BaseAccessibilityInterceptor() {
+class DYUserInterceptor : BaseDYInterceptor() {
 
     init {
-        filterPackageNameList.add(DYLikeInterceptor.DY_PACKAGE_NAME)
         actionList.add(DYLoginAction())
-
-        intervalMode()
     }
 
     fun sendNotify(content: String) {
@@ -53,8 +52,12 @@ class DYUserInterceptor : BaseAccessibilityInterceptor() {
 
     override fun onActionFinish(error: ActionException?) {
         if (actionStatus.isActionFinish()) {
-            lastService?.openApp(lastService?.packageName)
-            DslNotify.cancelNotify(lastService, notifyId)
+            openApp()
+            //DslNotify.cancelNotify(lastService, notifyId)
+
+            vmCore<DYModel>().userNameData.value?.let {
+                sendNotify(null, "抖音号:${it}")
+            }
         }
         super.onActionFinish(error)
     }

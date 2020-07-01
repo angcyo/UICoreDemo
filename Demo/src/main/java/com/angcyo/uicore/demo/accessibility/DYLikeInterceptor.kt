@@ -1,9 +1,12 @@
 package com.angcyo.uicore.demo.accessibility
 
 import android.view.accessibility.AccessibilityEvent
-import com.angcyo.core.component.accessibility.*
 import com.angcyo.core.component.accessibility.AccessibilityHelper.logFolderName
+import com.angcyo.core.component.accessibility.BaseAccessibilityAction
+import com.angcyo.core.component.accessibility.BaseAccessibilityService
 import com.angcyo.core.component.accessibility.action.ActionException
+import com.angcyo.core.component.accessibility.home
+import com.angcyo.core.component.accessibility.openApp
 import com.angcyo.core.component.file.DslFileHelper
 import com.angcyo.core.component.file.wrapData
 import com.angcyo.core.vmCore
@@ -16,7 +19,7 @@ import com.angcyo.library.L
  * @date 2020/06/25
  * Copyright (c) 2020 angcyo. All rights reserved.
  */
-class DYLikeInterceptor : BaseAccessibilityInterceptor() {
+class DYLikeInterceptor : BaseDYInterceptor() {
 
     companion object {
 
@@ -32,20 +35,8 @@ class DYLikeInterceptor : BaseAccessibilityInterceptor() {
     val loginAction = DYLoginAction()
 
     init {
-        filterPackageNameList.add(DY_PACKAGE_NAME)
         actionList.add(DYShareAction())
         actionList.add(DYLikeAction())
-
-        actionOtherList.add(DYPrivacyAction())
-        actionOtherList.add(DYPermissionsAction())
-        actionOtherList.add(DYProtectAction())
-        actionOtherList.add(DYGuideAction())
-        actionOtherList.add(DYUpdateAction())
-        actionOtherList.add(DYContactsAction())
-        actionOtherList.add(DYShareAction())
-        actionOtherList.add(DYBackAction())
-
-        intervalMode()
     }
 
     fun sendNotify(content: String) {
@@ -80,7 +71,6 @@ class DYLikeInterceptor : BaseAccessibilityInterceptor() {
     }
 
     override fun onActionFinish(error: ActionException?) {
-        super.onActionFinish(error)
         L.w("执行结束:$actionStatus")
         if (actionStatus == ACTION_STATUS_ERROR) {
             //出现异常
@@ -88,7 +78,9 @@ class DYLikeInterceptor : BaseAccessibilityInterceptor() {
         } else if (actionStatus == ACTION_STATUS_FINISH) {
             //流程结束
             sendNotify("执行完成!")
-            lastService?.home()
+            //lastService?.home()
+            openApp()
         }
+        super.onActionFinish(error)
     }
 }
