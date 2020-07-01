@@ -37,7 +37,7 @@ class DYGuideAction : BaseAccessibilityAction() {
 
             val result = service.gesture._isDispatched
 
-            DouYinInterceptor.log("发现抖音引导页[滑动查看更多], fling:$fX,$fY $fX,$tY :$result")
+            DYLikeInterceptor.log("发现抖音引导页[滑动查看更多], fling:$fX,$fY $fX,$tY :$result")
 
             return result
         }

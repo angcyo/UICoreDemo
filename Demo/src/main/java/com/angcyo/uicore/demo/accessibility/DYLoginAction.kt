@@ -6,10 +6,9 @@ import com.angcyo.core.vmCore
 import com.angcyo.library._screenHeight
 import com.angcyo.library._screenWidth
 import com.angcyo.library.component._delay
-import com.angcyo.library.ex.isListEmpty
 
 /**
- * 抖音登录状态检查
+ * 抖音登录状态检查, 并获取用户[抖音号：] [Action]
  * Email:angcyo@126.com
  * @author angcyo
  * @date 2020/06/30
@@ -17,7 +16,9 @@ import com.angcyo.library.ex.isListEmpty
  */
 class DYLoginAction : BaseAccessibilityAction() {
 
-    val dy = "抖音号："
+    companion object {
+        const val dy = "抖音号："
+    }
 
     override fun checkEvent(
         service: BaseAccessibilityService,
@@ -29,6 +30,7 @@ class DYLoginAction : BaseAccessibilityAction() {
         var haveMe = false
         var haveMessage = false
 
+        //判断是否是主页
         service.rootNodeInfo(event)?.findNode {
             if (it.haveText("首页")) {
                 haveHome = true
@@ -48,13 +50,7 @@ class DYLoginAction : BaseAccessibilityAction() {
             -1
         }
 
-        return !service.rootNodeInfo(event)?.findNode {
-            if (it.haveText(dy)) {
-                0
-            } else {
-                -1
-            }
-        }.isListEmpty() || (haveHome && haveCamera && haveMe && haveMessage)
+        return haveHome && haveCamera && haveMe && haveMessage
     }
 
     override fun doAction(service: BaseAccessibilityService, event: AccessibilityEvent?) {
@@ -64,13 +60,16 @@ class DYLoginAction : BaseAccessibilityAction() {
         service.rootNodeInfo(event)?.findNode {
             if (it.haveText("通讯录好友")) {
                 vmCore<DYModel>().loginData.postValue(true)
-            } else if (it.haveText(dy)) {
-                vmCore<DYModel>().userNameData.postValue(
-                    it.text?.split(dy, ignoreCase = true)?.getOrNull(1)
-                )
-                vmCore<DYModel>().loginData.postValue(true)
+            } else if (it.haveText(dy) && it.bounds().width() > 0 && it.bounds().height() > 0) {
+                //获取抖音账号
+                val name: String? = it.text?.split(dy, ignoreCase = true)?.getOrNull(1)
+                vmCore<DYModel>().login(name)
 
-                onActionFinish()
+                name?.let {
+                    DYLikeInterceptor.log("获取到抖音账号:[$it]")
+                    onActionFinish()
+                }
+
             } else if (it.haveText("我") &&
                 it.bounds().centerX() > _screenWidth * 3 / 4 &&
                 it.bounds().centerY() > _screenHeight * 5 / 6
@@ -80,7 +79,7 @@ class DYLoginAction : BaseAccessibilityAction() {
                 val centerY = it.bounds().centerY()
                 service.gesture.click(centerX.toFloat(), centerY.toFloat())
 
-                DouYinInterceptor.log("点击抖音导航[我], touch:$centerX,$centerY :${service.gesture._isDispatched}")
+                DYLikeInterceptor.log("点击抖音导航[我], touch:$centerX,$centerY :${service.gesture._isDispatched}")
             }
             -1
         }
@@ -108,5 +107,9 @@ class DYLoginAction : BaseAccessibilityAction() {
                 result
             }
         } ?: super.doActionWidth(action, service, event)
+    }
+
+    override fun getActionTitle(): String {
+        return "请手动登录抖音账号."
     }
 }

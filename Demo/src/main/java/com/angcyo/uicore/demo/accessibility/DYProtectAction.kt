@@ -22,7 +22,7 @@ class DYProtectAction : BaseAccessibilityAction() {
         if (service.haveNodeOrText("青少年模式")) {
 
             return service.clickByText("我知道了", event).apply {
-                DouYinInterceptor.log("发现抖音页[青少年模式], 正在点击[我知道了] :$this")
+                DYLikeInterceptor.log("发现抖音页[青少年模式], 正在点击[我知道了] :$this")
             }
         }
         return super.doActionWidth(action, service, event)

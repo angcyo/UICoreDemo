@@ -1,9 +1,11 @@
 package com.angcyo.uicore.demo.accessibility
 
 import android.view.accessibility.AccessibilityEvent
+import com.angcyo.core.component.accessibility.BaseAccessibilityAction
 import com.angcyo.core.component.accessibility.BaseAccessibilityInterceptor
 import com.angcyo.core.component.accessibility.BaseAccessibilityService
 import com.angcyo.core.component.accessibility.action.PermissionsAction
+import com.angcyo.core.component.accessibility.intervalMode
 
 /**
  *
@@ -15,8 +17,7 @@ import com.angcyo.core.component.accessibility.action.PermissionsAction
 class GestureInterceptor : BaseAccessibilityInterceptor() {
     init {
 
-        enableInterval = true
-        intervalDelay = 4_000
+        intervalMode()
 
         actionList.add(PermissionsAction())
 
@@ -31,9 +32,10 @@ class GestureInterceptor : BaseAccessibilityInterceptor() {
     }
 
     override fun onNoOtherActionHandle(
+        action: BaseAccessibilityAction,
         service: BaseAccessibilityService,
         event: AccessibilityEvent?
     ) {
-        //super.onNoOtherActionHandle(service, event)
+        //super.onNoOtherActionHandle(action, service, event)
     }
 }

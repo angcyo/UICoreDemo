@@ -10,7 +10,8 @@ import com.angcyo.library.ex.copy
 import com.angcyo.library.ex.openApp
 import com.angcyo.library.ex.string
 import com.angcyo.uicore.base.AppDslFragment
-import com.angcyo.uicore.demo.accessibility.DouYinInterceptor
+import com.angcyo.uicore.demo.accessibility.DYLikeInterceptor
+import com.angcyo.uicore.demo.accessibility.DYUserInterceptor
 import com.angcyo.widget.base.string
 import com.angcyo.widget.span.span
 
@@ -28,7 +29,8 @@ class AccessibilityDemo : AppDslFragment() {
         const val KS_PACKAGE_NAME = "com.smile.gifmaker"
     }
 
-    val douYinInterceptor = DouYinInterceptor()
+    val douYinInterceptor = DYLikeInterceptor()
+    val douYinUserInterceptor = DYUserInterceptor()
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
@@ -71,8 +73,8 @@ class AccessibilityDemo : AppDslFragment() {
                     }
 
                     itemHolder.click(R.id.dy_login_button) {
-                        douYinInterceptor.restart()
-                        douYinInterceptor.install()
+                        douYinUserInterceptor.restart()
+                        douYinUserInterceptor.install()
 
                         fContext().openApp(DY_PACKAGE_NAME)
                     }
@@ -102,6 +104,8 @@ class AccessibilityDemo : AppDslFragment() {
 
                     //tip
                     itemHolder.tv(R.id.lib_text_view)?.text = span {
+                        append(DYLikeInterceptor.dyUserName)
+                        appendln()
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             append("GestureDuration:${GestureDescription.getMaxGestureDuration()}")
                             appendln()

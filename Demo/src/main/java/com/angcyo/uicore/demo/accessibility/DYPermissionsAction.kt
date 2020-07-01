@@ -31,7 +31,7 @@ class DYPermissionsAction : PermissionsAction() {
         event: AccessibilityEvent?
     ): Boolean {
         return super.handlePermissionsAction(action, service, event).apply {
-            DouYinInterceptor.log("发现抖音权限申请页, 正在点击[允许] :$this")
+            DYLikeInterceptor.log("发现抖音权限申请页, 正在点击[允许] :$this")
         }
     }
 }

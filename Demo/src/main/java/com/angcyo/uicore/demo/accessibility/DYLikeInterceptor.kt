@@ -8,9 +8,6 @@ import com.angcyo.core.component.file.DslFileHelper
 import com.angcyo.core.component.file.wrapData
 import com.angcyo.core.vmCore
 import com.angcyo.library.L
-import com.angcyo.library.component.dslNotify
-import com.angcyo.library.component.low
-import com.angcyo.library.component.single
 
 /**
  * 抖音 复制口令->打开看看->点赞
@@ -19,7 +16,7 @@ import com.angcyo.library.component.single
  * @date 2020/06/25
  * Copyright (c) 2020 angcyo. All rights reserved.
  */
-class DouYinInterceptor : BaseAccessibilityInterceptor() {
+class DYLikeInterceptor : BaseAccessibilityInterceptor() {
 
     companion object {
 
@@ -32,13 +29,10 @@ class DouYinInterceptor : BaseAccessibilityInterceptor() {
         }
     }
 
-    val dyNotifyId = 101
-
     val loginAction = DYLoginAction()
 
     init {
         filterPackageNameList.add(DY_PACKAGE_NAME)
-        actionList.add(DYLoginAction())
         actionList.add(DYShareAction())
         actionList.add(DYLikeAction())
 
@@ -51,18 +45,11 @@ class DouYinInterceptor : BaseAccessibilityInterceptor() {
         actionOtherList.add(DYShareAction())
         actionOtherList.add(DYBackAction())
 
-        ignoreInterceptor = true
-        enableInterval = true
-        intervalDelay = 4_000
+        intervalMode()
     }
 
     fun sendNotify(content: String) {
-        dslNotify {
-            notifyId = dyNotifyId
-            notifyOngoing = actionStatus.isActionStart()
-            low()
-            single("抖音点赞任务($actionIndex/${actionList.size})[$dyUserName]", content)
-        }
+        sendNotify("抖音点赞任务[$dyUserName]($actionIndex/${actionList.size})", content)
     }
 
     override fun onAccessibilityEvent(
@@ -70,13 +57,6 @@ class DouYinInterceptor : BaseAccessibilityInterceptor() {
         event: AccessibilityEvent?
     ) {
         super.onAccessibilityEvent(service, event)
-    }
-
-    override fun onNoOtherActionHandle(
-        service: BaseAccessibilityService,
-        event: AccessibilityEvent?
-    ) {
-        super.onNoOtherActionHandle(service, event)
     }
 
     override fun checkDoAction(service: BaseAccessibilityService, event: AccessibilityEvent?) {
@@ -100,6 +80,7 @@ class DouYinInterceptor : BaseAccessibilityInterceptor() {
     }
 
     override fun onActionFinish(error: ActionException?) {
+        super.onActionFinish(error)
         L.w("执行结束:$actionStatus")
         if (actionStatus == ACTION_STATUS_ERROR) {
             //出现异常

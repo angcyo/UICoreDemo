@@ -17,4 +17,16 @@ class DYModel : LifecycleViewModel() {
 
     //抖音登录用户名
     val userNameData: MutableLiveData<CharSequence?> = MutableLiveData(null)
+
+    /**抖音是否已登录*/
+    fun isLogin() = !userNameData.value.isNullOrEmpty() || loginData.value == true
+
+    fun login(name: CharSequence?) {
+        userNameData.postValue(name)
+        if (name.isNullOrEmpty()) {
+            loginData.postValue(false)
+        } else {
+            loginData.postValue(true)
+        }
+    }
 }

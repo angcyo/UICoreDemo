@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
     android:padding="@dimen/lib_xhdpi"
     app:r_flow_item_horizontal_space="@dimen/lib_xhdpi"
     app:r_flow_item_vertical_space="@dimen/lib_xhdpi">

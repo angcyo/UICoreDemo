@@ -23,7 +23,7 @@ class DYContactsAction : BaseAccessibilityAction() {
         if (service.haveNodeOrText("发现通讯录好友")) {
 
             return service.clickByText("取消", event).apply {
-                DouYinInterceptor.log("发现抖音页[发现通讯录好友], 正在点击[取消] :$this")
+                DYLikeInterceptor.log("发现抖音页[发现通讯录好友], 正在点击[取消] :$this")
             }
         }
         return super.doActionWidth(action, service, event)

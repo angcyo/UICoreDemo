@@ -36,12 +36,12 @@ class DYShareAction : BaseAccessibilityAction() {
         val likeText = service.getLikeText("的作品").firstOrNull()
 
         if (clickText == null) {
-            DouYinInterceptor.log("发现抖音口令分享页[${likeText}], 未识别到跳转按钮.")
+            DYLikeInterceptor.log("发现抖音口令分享页[${likeText}], 未识别到跳转按钮.")
             onActionFinish(ActionException("未识别到跳转按钮"))
         } else {
             val result = service.clickByText(clickText, event)
 
-            DouYinInterceptor.log("发现抖音口令分享页[${likeText}], 正在点击[$clickText] :$result")
+            DYLikeInterceptor.log("发现抖音口令分享页[${likeText}], 正在点击[$clickText] :$result")
 
             if (result) {
                 //执行完成
@@ -57,7 +57,7 @@ class DYShareAction : BaseAccessibilityAction() {
     ): Boolean {
         if (checkEvent(service, event)) {
             return service.clickById("com.ss.android.ugc.aweme:id/cxw", event).apply {
-                DouYinInterceptor.log("发现多余的抖音口令分享页, 正在点击[关闭] :$this")
+                DYLikeInterceptor.log("发现多余的抖音口令分享页, 正在点击[关闭] :$this")
             }
         }
         return super.doActionWidth(action, service, event)
