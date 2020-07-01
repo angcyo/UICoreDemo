@@ -110,6 +110,6 @@ class DYLoginAction : BaseAccessibilityAction() {
     }
 
     override fun getActionTitle(): String {
-        return "请手动登录抖音账号."
+        return "获取抖音账号,如果需要请手动登录."
     }
 }
