@@ -37,6 +37,8 @@ class DYLikeInterceptor : BaseDYInterceptor() {
         actionList.add(DYShareAction())
         actionList.add(DYLikeAction())
         actionList.add(DYCommentAction())
+        actionList.add(DYCommentSendAction())
+        actionList.add(DYLikeFinishAction())
     }
 
     fun sendNotify(content: String) {

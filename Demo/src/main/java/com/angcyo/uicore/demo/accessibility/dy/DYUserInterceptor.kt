@@ -4,7 +4,6 @@ import android.view.accessibility.AccessibilityEvent
 import com.angcyo.core.component.accessibility.*
 import com.angcyo.core.component.accessibility.action.ActionException
 import com.angcyo.core.vmCore
-import com.angcyo.uicore.demo.accessibility.dy.BaseDYInterceptor
 
 /**
  * 获取抖音登录用户名拦截器
@@ -45,7 +44,17 @@ class DYUserInterceptor : BaseDYInterceptor() {
         //无法识别的界面, 执行back操作
 
         if (DYLikeAction().checkEvent(service, event)) {
+            //抖音视频详情页
             service.back()
+        } else {
+            service.findNode {
+                if (it.haveText("留下你的精彩评论吧") ||
+                    it.haveText("条评论") ||
+                    (it.isCheckBox() && it.haveText("评论并转发"))
+                ) {
+                    service.back()
+                }
+            }
         }
     }
 
