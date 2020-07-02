@@ -10,8 +10,8 @@ import com.angcyo.library.ex.copy
 import com.angcyo.library.ex.openApp
 import com.angcyo.library.ex.string
 import com.angcyo.uicore.base.AppDslFragment
-import com.angcyo.uicore.demo.accessibility.DYLikeInterceptor
-import com.angcyo.uicore.demo.accessibility.DYUserInterceptor
+import com.angcyo.uicore.demo.accessibility.dy.DYLikeInterceptor
+import com.angcyo.uicore.demo.accessibility.dy.DYUserInterceptor
 import com.angcyo.widget.base.string
 import com.angcyo.widget.span.span
 
@@ -38,13 +38,18 @@ class AccessibilityDemo : AppDslFragment() {
         //GestureInterceptor().install()
 
         StartAppAccessibilityInterceptor().install()
-        LogAccessibilityInterceptor().apply {
-            enable = false
-            install()
-        }
+//        LogAccessibilityInterceptor().apply {
+//            enable = false
+//            install()
+//        }
 
         //记录所有窗口变化, 以及窗口上所有节点信息
-        LogWindowAccessibilityInterceptor().install()
+        LogWindowAccessibilityInterceptor().apply {
+            filterPackageNameList.add(DY_PACKAGE_NAME)
+            filterPackageNameList.add(KS_PACKAGE_NAME)
+            logAllWindow = !BuildConfig.DEBUG
+            install()
+        }
     }
 
     override fun onFragmentShow(bundle: Bundle?) {

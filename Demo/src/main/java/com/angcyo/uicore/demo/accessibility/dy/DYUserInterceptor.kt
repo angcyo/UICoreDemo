@@ -1,12 +1,10 @@
-package com.angcyo.uicore.demo.accessibility
+package com.angcyo.uicore.demo.accessibility.dy
 
 import android.view.accessibility.AccessibilityEvent
-import com.angcyo.core.component.accessibility.BaseAccessibilityAction
-import com.angcyo.core.component.accessibility.BaseAccessibilityService
+import com.angcyo.core.component.accessibility.*
 import com.angcyo.core.component.accessibility.action.ActionException
-import com.angcyo.core.component.accessibility.isActionFinish
-import com.angcyo.core.component.accessibility.openApp
 import com.angcyo.core.vmCore
+import com.angcyo.uicore.demo.accessibility.dy.BaseDYInterceptor
 
 /**
  * 获取抖音登录用户名拦截器
@@ -37,18 +35,19 @@ class DYUserInterceptor : BaseDYInterceptor() {
         super.onDoAction(action, service, event)
     }
 
-//    override fun onNoOtherActionHandle(
-//        action: BaseAccessibilityAction,
-//        service: BaseAccessibilityService,
-//        event: AccessibilityEvent?
-//    ) {
-//        super.onNoOtherActionHandle(action, service, event)
-//
-//        if (actionIndex < 1) {
-//            //无法识别的界面, 执行back操作
-//            service.back()
-//        }
-//    }
+    override fun onNoOtherActionHandle(
+        action: BaseAccessibilityAction,
+        service: BaseAccessibilityService,
+        event: AccessibilityEvent?
+    ) {
+        super.onNoOtherActionHandle(action, service, event)
+
+        //无法识别的界面, 执行back操作
+
+        if (DYLikeAction().checkEvent(service, event)) {
+            service.back()
+        }
+    }
 
     override fun onActionFinish(error: ActionException?) {
         if (actionStatus.isActionFinish()) {

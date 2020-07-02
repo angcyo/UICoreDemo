@@ -1,4 +1,4 @@
-package com.angcyo.uicore.demo.accessibility
+package com.angcyo.uicore.demo.accessibility.dy
 
 import android.view.accessibility.AccessibilityEvent
 import com.angcyo.core.component.accessibility.BaseAccessibilityAction
@@ -37,7 +37,9 @@ class DYGuideAction : BaseAccessibilityAction() {
 
             val result = service.gesture._isDispatched
 
-            DYLikeInterceptor.log("发现抖音引导页[滑动查看更多], fling:$fX,$fY $fX,$tY :$result")
+            DYLikeInterceptor.log(
+                "发现抖音引导页[滑动查看更多], fling:$fX,$fY $fX,$tY :$result"
+            )
 
             return result
         }

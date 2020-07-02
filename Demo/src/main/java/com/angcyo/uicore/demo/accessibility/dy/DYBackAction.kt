@@ -1,4 +1,4 @@
-package com.angcyo.uicore.demo.accessibility
+package com.angcyo.uicore.demo.accessibility.dy
 
 import android.view.accessibility.AccessibilityEvent
 import com.angcyo.core.component.accessibility.*

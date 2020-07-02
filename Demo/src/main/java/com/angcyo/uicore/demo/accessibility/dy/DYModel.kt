@@ -1,4 +1,4 @@
-package com.angcyo.uicore.demo.accessibility
+package com.angcyo.uicore.demo.accessibility.dy
 
 import androidx.lifecycle.MutableLiveData
 import com.angcyo.uicore.LifecycleViewModel
@@ -22,7 +22,7 @@ class DYModel : LifecycleViewModel() {
     fun isLogin() = !userNameData.value.isNullOrEmpty() || loginData.value == true
 
     fun login(name: CharSequence?) {
-        userNameData.postValue(name)
+        userNameData.value = name
         if (name.isNullOrEmpty()) {
             loginData.postValue(false)
         } else {

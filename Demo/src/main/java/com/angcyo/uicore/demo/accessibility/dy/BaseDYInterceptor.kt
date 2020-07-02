@@ -1,7 +1,8 @@
-package com.angcyo.uicore.demo.accessibility
+package com.angcyo.uicore.demo.accessibility.dy
 
 import com.angcyo.core.component.accessibility.BaseAccessibilityInterceptor
 import com.angcyo.core.component.accessibility.intervalMode
+import com.angcyo.uicore.demo.accessibility.*
 
 /**
  *

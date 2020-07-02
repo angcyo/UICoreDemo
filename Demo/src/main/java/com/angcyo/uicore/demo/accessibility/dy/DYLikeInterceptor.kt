@@ -1,11 +1,10 @@
-package com.angcyo.uicore.demo.accessibility
+package com.angcyo.uicore.demo.accessibility.dy
 
 import android.view.accessibility.AccessibilityEvent
 import com.angcyo.core.component.accessibility.AccessibilityHelper.logFolderName
 import com.angcyo.core.component.accessibility.BaseAccessibilityAction
 import com.angcyo.core.component.accessibility.BaseAccessibilityService
 import com.angcyo.core.component.accessibility.action.ActionException
-import com.angcyo.core.component.accessibility.home
 import com.angcyo.core.component.accessibility.openApp
 import com.angcyo.core.component.file.DslFileHelper
 import com.angcyo.core.component.file.wrapData
@@ -13,7 +12,7 @@ import com.angcyo.core.vmCore
 import com.angcyo.library.L
 
 /**
- * 抖音 复制口令->打开看看->点赞
+ * 抖音 复制口令->打开看看->点赞->评论->分享->结束
  * Email:angcyo@126.com
  * @author angcyo
  * @date 2020/06/25
@@ -37,6 +36,7 @@ class DYLikeInterceptor : BaseDYInterceptor() {
     init {
         actionList.add(DYShareAction())
         actionList.add(DYLikeAction())
+        actionList.add(DYCommentAction())
     }
 
     fun sendNotify(content: String) {

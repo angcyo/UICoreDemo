@@ -1,4 +1,4 @@
-package com.angcyo.uicore.demo.accessibility
+package com.angcyo.uicore.demo.accessibility.dy
 
 import android.view.accessibility.AccessibilityEvent
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
@@ -14,35 +14,7 @@ import com.angcyo.library.ex.dp
  * @date 2020/06/25
  * Copyright (c) 2020 angcyo. All rights reserved.
  */
-class DYLikeAction : BaseAccessibilityAction() {
-    override fun checkEvent(
-        service: BaseAccessibilityService,
-        event: AccessibilityEvent?
-    ): Boolean {
-
-        var haveCommentEditView = false
-        var haveLikeView = false
-        var haveCommentView = false
-        var haveShareView = false
-
-        service.rootNodeInfo(event)?.findNode {
-            when {
-                it.haveText("留下你的精彩评论吧") -> haveCommentEditView = true
-                it.haveText("喜欢") && it.isImageView() -> haveLikeView = true
-                it.haveText("评论") && it.isImageView() -> haveCommentView = true
-                it.haveText("分享") && it.isImageView() -> haveShareView = true
-            }
-
-            -1
-        }
-
-        val result: Boolean =
-            haveCommentEditView && haveLikeView && haveCommentView && haveShareView
-
-        //DouYinInterceptor.log("检查是否是抖音视频详情页:$result")
-
-        return result
-    }
+class DYLikeAction : BaseDYVideoDetailAction() {
 
     override fun doAction(service: BaseAccessibilityService, event: AccessibilityEvent?) {
 
@@ -55,8 +27,12 @@ class DYLikeAction : BaseAccessibilityAction() {
         //视频标题的node
         var titleNode: AccessibilityNodeInfoCompat? = null
 
+        //关注node
+        var attentionNode: AccessibilityNodeInfoCompat? = null
+
         service.rootNodeInfo(event)?.findNode {
 
+            //识别点赞状态和点赞点击node
             if (it.haveText("喜欢") &&
                 it.haveText("按钮")
             ) {
@@ -83,19 +59,41 @@ class DYLikeAction : BaseAccessibilityAction() {
                 }
             }
 
+            //关注
+            if (it.isButton() &&
+                it.contentDescription.contains("关注") &&
+                it.isValid() &&
+                it.isClickable
+            ) {
+                attentionNode = it
+            }
+
             -1
         }
 
+        DYLikeInterceptor.log("[双击]抖音视频详情页: ${service.gesture.double()}")
+
+        attentionNode?.apply {
+            DYLikeInterceptor.log(
+                "发现抖音视频详情页, 正在点击关注 :${unwrap().click()}"
+            )
+        }
+
         likeNode?.apply {
+
             val title = titleNode?.text
 
             if (isSelected || isChecked) {
                 //已经点赞
-                DYLikeInterceptor.log("发现抖音视频详情页[${title}] ${titleNode?.bounds()}, 已点赞")
+                DYLikeInterceptor.log(
+                    "发现抖音视频详情页[${title}] ${titleNode?.bounds()}, 已点赞"
+                )
                 onActionFinish()
             } else {
                 val result = likeClickNode?.unwrap()?.click() ?: false
-                DYLikeInterceptor.log("发现抖音视频详情页[${title}] ${titleNode?.bounds()}, 正在点赞[${likeClickNode?.viewIdName()}] :$result")
+                DYLikeInterceptor.log(
+                    "发现抖音视频详情页[${title}] ${titleNode?.bounds()}, 正在点赞[${likeClickNode?.viewIdName()}] :$result"
+                )
             }
         }
     }
