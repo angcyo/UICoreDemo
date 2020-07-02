@@ -13,6 +13,7 @@ import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.library.component.DslNotify
 import com.angcyo.library.component.dslNotify
 import com.angcyo.library.component.dslRemoteView
+import com.angcyo.library.ex._color
 import com.angcyo.library.ex.nowTime
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.uicore.MainActivity
@@ -55,6 +56,11 @@ class AppNotifyItem : DslAdapterItem() {
 
                 channelEnableLights = itemHolder.isChecked(R.id.lights_cb)
                 channelEnableVibration = itemHolder.isChecked(R.id.vibration_cb)
+                notifyShowWhen = itemHolder.isChecked(R.id.show_when_cb)
+
+                if (itemHolder.isChecked(R.id.small_ico_cb)) {
+                    notifySmallIcon = R.mipmap.fast_green
+                }
 
                 notifyNumber = nextInt(0, 10)
 
@@ -71,6 +77,8 @@ class AppNotifyItem : DslAdapterItem() {
                 notifyTitle = "${itemHolder.tv(R.id.notify_title_view).string()} ${nowTimeString()}"
                 notifyText =
                     "${itemHolder.tv(R.id.notify_message_view).string()} ${nowTimeString()}"
+
+                notifyColor = _color(R.color.colorPrimary)
 
                 channelName = itemHolder.tv(R.id.notify_channel_view).string()
 
@@ -310,7 +318,8 @@ class AppNotifyItem : DslAdapterItem() {
                         NotificationCompat.MessagingStyle.Message(
                             "MessageText4",
                             nowTime(),
-                            Person.Builder().setName("MName4").setBot(true).setImportant(true).build()
+                            Person.Builder().setName("MName4").setBot(true).setImportant(true)
+                                .build()
                         )
                     )
             }

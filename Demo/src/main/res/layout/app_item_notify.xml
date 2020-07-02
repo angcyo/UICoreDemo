@@ -50,11 +50,25 @@
         android:text="enableVibration" />
 
     <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/show_when_cb"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ShowWhen" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/click_cb"
         style="@style/LibBodyTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Click" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/small_ico_cb"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CustomSmallIco" />
 
     <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/ongoing_cb"

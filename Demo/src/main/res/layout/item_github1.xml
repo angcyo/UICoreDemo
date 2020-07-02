@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.widget.layout.DslFlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+    <top.defaults.colorpicker.ColorPickerView
+        android:id="@+id/color_picker_view"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:background="@color/transparent10"
+        app:enableAlpha="true"
+        app:enableBrightness="true"
+        app:onlyUpdateOnTouchEventUp="false" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</com.angcyo.widget.layout.DslFlowLayout>
