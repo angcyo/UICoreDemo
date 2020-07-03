@@ -35,7 +35,7 @@ class DYCommentAction : BaseDYVideoDetailAction() {
                 DYLikeInterceptor.log("正在点击输入框, 弹出评论 :${click}")
 
                 if (click) {
-                    _interceptor?.actionList?.forEach {
+                    accessibilityInterceptor?.actionList?.forEach {
                         if (it is DYCommentSendAction) {
                             //将输入的评论, 传给[DYCommentSendAction], 很重要!
                             it.commentText = text

@@ -49,12 +49,18 @@ class DYLikeAction : BaseDYVideoDetailAction() {
             -1
         }
 
-        DYLikeInterceptor.log("[双击]抖音视频详情页: ${service.gesture.double()}")
+        if (actionDoCount < 3) {
+            DYLikeInterceptor.log("[双击 $actionDoCount]抖音视频详情页: ${service.gesture.double()}")
+            return
+        }
 
-        attentionNode?.apply {
-            DYLikeInterceptor.log(
-                "发现抖音视频详情页, 正在点击关注 :${unwrap().click()}"
-            )
+        if (actionDoCount < 4) {
+            attentionNode?.apply {
+                DYLikeInterceptor.log(
+                    "发现抖音视频详情页, 正在点击关注 :${unwrap().click()}"
+                )
+            }
+            return
         }
 
         likeNode?.apply {

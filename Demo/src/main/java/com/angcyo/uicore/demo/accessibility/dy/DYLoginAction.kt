@@ -1,11 +1,13 @@
 package com.angcyo.uicore.demo.accessibility.dy
 
 import android.view.accessibility.AccessibilityEvent
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import com.angcyo.core.component.accessibility.*
 import com.angcyo.core.vmCore
 import com.angcyo.library._screenHeight
 import com.angcyo.library._screenWidth
 import com.angcyo.library.component._delay
+import com.angcyo.library.ex.dp
 
 /**
  * 抖音登录状态检查, 并获取用户[抖音号：] [Action]
@@ -18,6 +20,61 @@ class DYLoginAction : BaseAccessibilityAction() {
 
     companion object {
         const val dy = "抖音号："
+
+        /**抖音底部导航[首页]的[Node]*/
+        fun tabHomeClickNode(node: AccessibilityNodeInfoCompat): AccessibilityNodeInfoCompat? {
+            var result: AccessibilityNodeInfoCompat? = null
+            if (node.haveText("首页")) {
+                node.getClickParent()?.let {
+                    it.bounds().apply {
+                        if (centerX() > 0 &&
+                            centerX() < _screenWidth * 1 / 5 &&
+                            bottom + 20 * dp >= _screenHeight
+                        ) {
+                            result = it
+                        }
+                    }
+                }
+            }
+            return result
+        }
+
+        /**抖音底部导航[消息]的[Node]*/
+        fun tabMessageClickNode(node: AccessibilityNodeInfoCompat): AccessibilityNodeInfoCompat? {
+            var result: AccessibilityNodeInfoCompat? = null
+            if (node.haveText("消息")) {
+                node.getClickParent()?.let {
+                    it.bounds().apply {
+                        if (centerX() > _screenWidth * 3 / 5 &&
+                            centerX() < _screenWidth * 4 / 5 &&
+                            bottom + 20 * dp >= _screenHeight
+                        ) {
+                            result = it
+                        }
+                    }
+                }
+            }
+            return result
+        }
+
+        /**抖音底部导航[我]的[Node]*/
+        fun tabMeClickNode(node: AccessibilityNodeInfoCompat): AccessibilityNodeInfoCompat? {
+            var result: AccessibilityNodeInfoCompat? = null
+            if (node.haveText("我")) {
+                node.getClickParent()?.let {
+                    it.bounds().apply {
+                        if (centerX() > _screenWidth * 4 / 5 &&
+                            centerX() < _screenWidth &&
+                            bottom + 20 * dp >= _screenHeight
+                        ) {
+                            result = it
+                        }
+                    }
+                }
+            }
+            return result
+        }
+
     }
 
     override fun checkEvent(
@@ -31,23 +88,28 @@ class DYLoginAction : BaseAccessibilityAction() {
         var haveMessage = false
 
         //判断是否是主页
-        service.rootNodeInfo(event)?.findNode {
-            if (it.haveText("首页")) {
-                haveHome = true
-            } else if (it.haveText("拍摄")) {
-                haveCamera = true
-            } else if (it.haveText("消息") &&
-                it.bounds().centerX() > _screenWidth * 1 / 2 &&
-                it.bounds().centerY() > _screenHeight * 5 / 6
-            ) {
-                haveMessage = true
-            } else if (it.haveText("我") &&
-                it.bounds().centerX() > _screenWidth * 3 / 4 &&
-                it.bounds().centerY() > _screenHeight * 5 / 6
-            ) {
-                haveMe = true
+        service.findNode {
+            if (!haveHome) {
+                tabHomeClickNode(it)?.let {
+                    haveHome = true
+                }
             }
-            -1
+            if (!haveMessage) {
+                tabMessageClickNode(it)?.let {
+                    haveMessage = true
+                }
+            }
+            if (!haveMe) {
+                tabMeClickNode(it)?.let {
+                    haveMe = true
+                }
+            }
+
+            if (!haveCamera) {
+                if (it.haveText("拍摄")) {
+                    haveCamera = true
+                }
+            }
         }
 
         return haveHome && haveCamera && haveMe && haveMessage
@@ -57,7 +119,7 @@ class DYLoginAction : BaseAccessibilityAction() {
         super.doAction(service, event)
 
         //检查抖音登录状态
-        service.rootNodeInfo(event)?.findNode {
+        service.findNode {
             if (it.haveText("通讯录好友")) {
                 vmCore<DYModel>().loginData.postValue(true)
             } else if (it.haveText(dy) && it.bounds().width() > 0 && it.bounds().height() > 0) {
@@ -70,18 +132,11 @@ class DYLoginAction : BaseAccessibilityAction() {
                     onActionFinish()
                 }
 
-            } else if (it.haveText("我") &&
-                it.bounds().centerX() > _screenWidth * 3 / 4 &&
-                it.bounds().centerY() > _screenHeight * 5 / 6
-            ) {
-                //点击tab [我]
-                val centerX = it.bounds().centerX()
-                val centerY = it.bounds().centerY()
-                service.gesture.click(centerX.toFloat(), centerY.toFloat())
-
-                DYLikeInterceptor.log("点击抖音导航[我], touch:$centerX,$centerY :${service.gesture._isDispatched}")
+            } else {
+                tabMeClickNode(it)?.let { node ->
+                    DYLikeInterceptor.log("点击抖音导航[我] :${node.click()}")
+                }
             }
-            -1
         }
     }
 
