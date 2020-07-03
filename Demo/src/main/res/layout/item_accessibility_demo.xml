@@ -67,8 +67,17 @@
         style="@style/LibBodyTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:hint="快手链接"
+        android:text="艾灸是女人的长青丹，男人的加油站！#艾灸 #艾灸养生 #艾灸师梁老师 #古法艾灸 https://v.kuaishou.com/8FOj7i 复制此链接，打开【快手App】直接观看！"
+        tools:background="@color/transparent10" />
+
+    <com.angcyo.widget.edit.DslEditText
+        android:id="@+id/ks_edit2"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:hint="快手口令"
-        android:text="颈椎病的艾灸调理方法！ #古法艾灸 #艾灸 #艾灸养生 #艾灸师梁老师 https://v.kuaishou.com/6a3Ejd 复制此链接，打开【快手App】直接观看！"
+        android:text="小朋友日常艾灸调理方法 #艾灸 #艾灸养生 #艾灸师梁老师https://v.kuaishou.com/9cjjJf"
         tools:background="@color/transparent10" />
 
     <com.angcyo.widget.DslButton
@@ -93,11 +102,25 @@
         android:text="打开抖音2" />
 
     <com.angcyo.widget.DslButton
+        android:id="@+id/ks_login_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="快手登录检查" />
+
+    <com.angcyo.widget.DslButton
         android:id="@+id/ks_button"
         style="@style/DefaultButtonMinStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="打开快手" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/ks_button2"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打开快手2" />
 
     <com.angcyo.widget.text.DslTextView
         android:id="@+id/lib_text_view"

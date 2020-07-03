@@ -1,4 +1,4 @@
-package com.angcyo.uicore.demo.accessibility.dy
+package com.angcyo.uicore.demo.accessibility.ks
 
 import androidx.lifecycle.MutableLiveData
 import com.angcyo.uicore.LifecycleViewModel
@@ -7,18 +7,18 @@ import com.angcyo.uicore.LifecycleViewModel
  *
  * Email:angcyo@126.com
  * @author angcyo
- * @date 2020/06/30
+ * @date 2020-7-3
  * Copyright (c) 2020 angcyo. All rights reserved.
  */
-class DYModel : LifecycleViewModel() {
+class KSModel : LifecycleViewModel() {
 
-    //抖音登录状态, 是否登录
+    //快手登录状态, 是否登录
     val loginData: MutableLiveData<Boolean> = MutableLiveData(true)
 
-    //抖音登录用户名
+    //快手登录用户名
     val userNameData: MutableLiveData<CharSequence?> = MutableLiveData(null)
 
-    /**抖音是否已登录*/
+    /**快手是否已登录*/
     fun isLogin() = !userNameData.value.isNullOrEmpty() || loginData.value == true
 
     /**设置登录用户名*/

@@ -20,7 +20,7 @@ class DYUserInterceptor : BaseDYInterceptor() {
 
     fun sendNotify(content: String) {
         sendNotify(
-            "抖音用户数据获取[${DYLikeInterceptor.dyUserName}]($actionIndex/${actionList.size})",
+            "抖音账号获取[${DYLikeInterceptor.dyUserName}]($actionIndex/${actionList.size})",
             content
         )
     }

@@ -13,6 +13,8 @@ import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.accessibility.AccessibilityWindow
 import com.angcyo.uicore.demo.accessibility.dy.DYLikeInterceptor
 import com.angcyo.uicore.demo.accessibility.dy.DYUserInterceptor
+import com.angcyo.uicore.demo.accessibility.ks.KSLikeInterceptor
+import com.angcyo.uicore.demo.accessibility.ks.KSUserInterceptor
 import com.angcyo.widget.base.string
 import com.angcyo.widget.span.span
 
@@ -32,6 +34,9 @@ class AccessibilityDemo : AppDslFragment() {
 
     val douYinInterceptor = DYLikeInterceptor()
     val douYinUserInterceptor = DYUserInterceptor()
+
+    val ksLikeInterceptor = KSLikeInterceptor()
+    val ksUserInterceptor = KSUserInterceptor()
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
@@ -81,6 +86,7 @@ class AccessibilityDemo : AppDslFragment() {
                             "${AccessibilityPermission.check(fContext())}"
                     }
 
+                    //抖音
                     itemHolder.click(R.id.dy_login_button) {
                         douYinUserInterceptor.restart()
                         douYinUserInterceptor.install()
@@ -103,17 +109,30 @@ class AccessibilityDemo : AppDslFragment() {
 
                         fContext().openApp(DY_PACKAGE_NAME)
                     }
+
+                    //快手
+                    itemHolder.click(R.id.ks_login_button) {
+                        ksUserInterceptor.install()
+                        fContext().openApp(KS_PACKAGE_NAME)
+                    }
+
                     itemHolder.click(R.id.ks_button) {
                         itemHolder.tv(R.id.ks_edit)?.string()?.copy()
 
-                        //douYinInterceptor.install()
+                        ksLikeInterceptor.install()
+                        fContext().openApp(KS_PACKAGE_NAME)
+                    }
 
+                    itemHolder.click(R.id.ks_button2) {
+                        itemHolder.tv(R.id.ks_edit2)?.string()?.copy()
+
+                        ksLikeInterceptor.install()
                         fContext().openApp(KS_PACKAGE_NAME)
                     }
 
                     //tip
                     itemHolder.tv(R.id.lib_text_view)?.text = span {
-                        append(DYLikeInterceptor.dyUserName)
+                        append("${DYLikeInterceptor.dyUserName}/${KSLikeInterceptor.ksUserName}")
                         appendln()
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             append("GestureDuration:${GestureDescription.getMaxGestureDuration()}")

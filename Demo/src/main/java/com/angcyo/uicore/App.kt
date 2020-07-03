@@ -50,7 +50,7 @@ class App : CoreApplication(), CameraXConfig.Provider {
         DslAHelper.mainActivityClass = MainActivity::class.java
 
         DslBox.default_package_name = BuildConfig.APPLICATION_ID
-        DslBox.init(this)
+        DslBox.init(this, debug = false)
 
         TTS.init(
             this,
