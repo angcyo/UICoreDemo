@@ -119,6 +119,9 @@ class DYLoginAction : BaseAccessibilityAction() {
         super.doAction(service, event)
 
         //检查抖音登录状态
+
+        var meClickNode: AccessibilityNodeInfoCompat? = null
+
         service.findNode {
             if (it.haveText("通讯录好友")) {
                 vmCore<DYModel>().loginData.postValue(true)
@@ -133,7 +136,15 @@ class DYLoginAction : BaseAccessibilityAction() {
                 }
 
             } else {
-                tabMeClickNode(it)?.let { node ->
+                meClickNode = meClickNode ?: tabMeClickNode(it)
+            }
+        }
+
+        if (!vmCore<DYModel>().isLogin()) {
+            meClickNode?.let { node ->
+                if (node.isSelected) {
+                    DYLikeInterceptor.log("已是抖音Tab[我], 尝试[flingDown] :${service.gesture.flingDown()}")
+                } else {
                     DYLikeInterceptor.log("点击抖音导航[我] :${node.click()}")
                 }
             }

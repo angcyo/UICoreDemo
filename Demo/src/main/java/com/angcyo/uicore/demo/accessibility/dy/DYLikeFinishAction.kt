@@ -16,6 +16,7 @@ import kotlin.random.Random.Default.nextInt
  * Copyright (c) 2020 ShenZhen Wayto Ltd. All rights reserved.
  */
 class DYLikeFinishAction : BaseAccessibilityAction() {
+
     override fun checkEvent(
         service: BaseAccessibilityService,
         event: AccessibilityEvent?
@@ -36,27 +37,24 @@ class DYLikeFinishAction : BaseAccessibilityAction() {
                 homeMessageClickNode = homeMessageClickNode ?: DYLoginAction.tabMessageClickNode(it)
             }
 
-            when (nextInt(4)) {
-                0 -> {
-                    //回到首页
-                    homeTabClickNode?.click()
+            val nextInt = nextInt(4)
+            if (nextInt == 0 && homeTabClickNode?.isSelected == false) {
+                //回到首页
+                DYLikeInterceptor.log("抖音收尾操作, 点击tab[首页] :${homeTabClickNode?.click()} $actionDoCount")
+            } else if (nextInt == 1 && homeMessageClickNode?.isSelected == false) {
+                //回到消息
+                DYLikeInterceptor.log("抖音收尾操作, 点击tab[消息] :${homeMessageClickNode?.click()} $actionDoCount")
+            } else {
+                if (homeTabClickNode?.isSelected == true) {
+                    DYLikeInterceptor.log("抖音tab[首页],随机操作: [${service.gesture.randomization()}] $actionDoCount")
+                } else if (homeMessageClickNode?.isSelected == true) {
+                    DYLikeInterceptor.log("抖音tab[消息],随机操作: [${service.gesture.randomization()}] $actionDoCount")
                 }
-                1 -> {
-                    //回到消息
-                    homeMessageClickNode?.click()
-                }
-                else -> {
-                    if (homeTabClickNode?.isSelected == true) {
-                        DYLikeInterceptor.log("抖音tab[首页],随机操作: [${service.gesture.randomization()}] $actionDoCount")
-                    } else if (homeMessageClickNode?.isSelected == true) {
-                        DYLikeInterceptor.log("抖音tab[消息],随机操作: [${service.gesture.randomization()}] $actionDoCount")
-                    }
 
-                    checkFinish()
-                }
+                checkFinish()
             }
         } else {
-            service.back()
+            DYLikeInterceptor.log("抖音收尾操作, 回退 :${service.back()} $actionDoCount")
         }
     }
 

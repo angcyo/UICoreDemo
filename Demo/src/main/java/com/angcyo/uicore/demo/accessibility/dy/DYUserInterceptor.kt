@@ -48,9 +48,13 @@ class DYUserInterceptor : BaseDYInterceptor() {
             service.back()
         } else {
             service.findNode {
+                //评论页
                 if (it.haveText("留下你的精彩评论吧") ||
                     it.haveText("条评论") ||
-                    (it.isCheckBox() && it.haveText("评论并转发"))
+                    (it.isCheckBox() && it.haveText("评论并转发")) ||
+                    it.haveText("和朋友打个招呼吧") ||
+                    it.haveText("让我们开始聊天吧") ||
+                    it.haveText("发送消息")
                 ) {
                     service.back()
                 }

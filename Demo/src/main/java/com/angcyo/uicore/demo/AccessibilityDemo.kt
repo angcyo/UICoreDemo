@@ -10,6 +10,7 @@ import com.angcyo.library.ex.copy
 import com.angcyo.library.ex.openApp
 import com.angcyo.library.ex.string
 import com.angcyo.uicore.base.AppDslFragment
+import com.angcyo.uicore.demo.accessibility.AccessibilityWindow
 import com.angcyo.uicore.demo.accessibility.dy.DYLikeInterceptor
 import com.angcyo.uicore.demo.accessibility.dy.DYUserInterceptor
 import com.angcyo.widget.base.string
@@ -55,6 +56,10 @@ class AccessibilityDemo : AppDslFragment() {
     override fun onFragmentShow(bundle: Bundle?) {
         super.onFragmentShow(bundle)
 
+        if (AccessibilityPermission.haveAccessibilityService(fContext())) {
+            AccessibilityWindow.show("准备", 0)
+        }
+
         renderDslAdapter(true) {
             renderItem {
                 itemLayoutId = R.layout.item_accessibility_demo
@@ -64,7 +69,6 @@ class AccessibilityDemo : AppDslFragment() {
                         AccessibilityPermission.haveDrawOverlays(fContext())
                     itemHolder.cb(R.id.accessibility_enable)?.isChecked =
                         AccessibilityPermission.haveAccessibilityService(fContext())
-
 
                     itemHolder.click(R.id.overlays_button) {
                         AccessibilityPermission.openOverlaysActivity(fContext())

@@ -45,13 +45,6 @@ class DYLikeInterceptor : BaseDYInterceptor() {
         sendNotify("抖音点赞任务[$dyUserName]($actionIndex/${actionList.size})", content)
     }
 
-    override fun onAccessibilityEvent(
-        service: BaseAccessibilityService,
-        event: AccessibilityEvent?
-    ) {
-        super.onAccessibilityEvent(service, event)
-    }
-
     override fun checkDoAction(service: BaseAccessibilityService, event: AccessibilityEvent?) {
         if (vmCore<DYModel>().loginData.value == false) {
             sendNotify("请先登录抖音.")
