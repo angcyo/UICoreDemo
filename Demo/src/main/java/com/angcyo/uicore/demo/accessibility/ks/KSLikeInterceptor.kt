@@ -32,6 +32,7 @@ class KSLikeInterceptor : BaseKSInterceptor() {
     init {
         intervalMode()
 
+        actionList.add(KSShareAction())
         actionList.add(KSLikeAction())
     }
 }

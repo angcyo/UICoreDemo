@@ -29,6 +29,20 @@ class KSUserInterceptor : BaseKSInterceptor() {
         super.onDoAction(action, service, event)
     }
 
+    override fun onNoOtherActionHandle(
+        action: BaseAccessibilityAction,
+        service: BaseAccessibilityService,
+        event: AccessibilityEvent?
+    ) {
+        super.onNoOtherActionHandle(action, service, event)
+
+        //无法识别的界面, 执行back操作
+
+        if (KSShareAction().checkEvent(service, event)) {
+            service.back()
+        }
+    }
+
     override fun onActionFinish(error: ActionException?) {
         if (actionStatus.isActionFinish()) {
             openApp()

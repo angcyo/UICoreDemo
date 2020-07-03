@@ -1,8 +1,8 @@
 package com.angcyo.uicore.demo.accessibility.ks
 
 import android.view.accessibility.AccessibilityEvent
-import com.angcyo.core.component.accessibility.BaseAccessibilityAction
-import com.angcyo.core.component.accessibility.BaseAccessibilityService
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
+import com.angcyo.core.component.accessibility.*
 
 /**
  * 快手分享对话框
@@ -17,10 +17,41 @@ class KSShareAction : BaseAccessibilityAction() {
         service: BaseAccessibilityService,
         event: AccessibilityEvent?
     ): Boolean {
-        return super.checkEvent(service, event)
+
+        var haveLook = false
+
+        service.findNode {
+            if (it.haveText("去看看")) {
+                haveLook = true
+            }
+        }
+
+        return haveLook
     }
 
     override fun doAction(service: BaseAccessibilityService, event: AccessibilityEvent?) {
-        super.doAction(service, event)
+
+        var titleNode: AccessibilityNodeInfoCompat? = null
+        var clickNode: AccessibilityNodeInfoCompat? = null
+
+        service.findNode {
+            if (it.haveText("的作品")) {
+                titleNode = it
+            }
+
+            if (it.haveText("去看看")) {
+                clickNode = it
+            }
+        }
+
+        clickNode?.apply {
+            val result = click()
+
+            KSLikeInterceptor.log("快手分享[${titleNode?.text}], 点击[去看看] :$result")
+
+            if (result) {
+                onActionFinish()
+            }
+        }
     }
 }
