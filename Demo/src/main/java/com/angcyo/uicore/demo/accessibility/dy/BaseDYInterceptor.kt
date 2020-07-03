@@ -1,7 +1,11 @@
 package com.angcyo.uicore.demo.accessibility.dy
 
+import android.view.accessibility.AccessibilityEvent
+import com.angcyo.core.component.accessibility.BaseAccessibilityService
 import com.angcyo.core.component.accessibility.intervalMode
+import com.angcyo.library.ex.openApp
 import com.angcyo.uicore.demo.accessibility.BaseFloatInterceptor
+import com.angcyo.uicore.demo.accessibility.ks.KSLikeInterceptor
 
 /**
  *
@@ -24,5 +28,22 @@ abstract class BaseDYInterceptor : BaseFloatInterceptor() {
         actionOtherList.add(DYBackAction())
 
         intervalMode()
+    }
+
+    override fun onLeavePackageName(
+        service: BaseAccessibilityService,
+        event: AccessibilityEvent?,
+        toPackageName: CharSequence?
+    ) {
+        super.onLeavePackageName(service, event, toPackageName)
+
+        toPackageName?.apply {
+            if (contains("system") || contains("google")) {
+                //no op
+            } else {
+                //回到快手
+                lastService?.openApp(KSLikeInterceptor.KS_PACKAGE_NAME)
+            }
+        }
     }
 }

@@ -13,7 +13,7 @@ import com.angcyo.uicore.LifecycleViewModel
 class DYModel : LifecycleViewModel() {
 
     //抖音登录状态, 是否登录
-    val loginData: MutableLiveData<Boolean> = MutableLiveData(true)
+    val loginData: MutableLiveData<Boolean> = MutableLiveData(false)
 
     //抖音登录用户名
     val userNameData: MutableLiveData<CharSequence?> = MutableLiveData(null)

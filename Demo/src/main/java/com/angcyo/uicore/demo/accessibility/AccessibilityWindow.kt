@@ -26,6 +26,9 @@ object AccessibilityWindow {
             floatLayoutId = R.layout.layout_accessibility_window
 
             initFloatLayout = { holder ->
+                //常亮
+                holder.itemView.keepScreenOn = true
+
                 if (duration > 0) {
                     holder.v<CircleLoadingView>(R.id.progress_bar)?.setProgress(100, 0, duration)
                 } else if (duration == 0L) {

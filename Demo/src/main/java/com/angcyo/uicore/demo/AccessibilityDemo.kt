@@ -1,11 +1,13 @@
 package com.angcyo.uicore.demo
 
+import android.Manifest
 import android.accessibilityservice.GestureDescription
 import android.os.Build
 import android.os.Bundle
 import com.angcyo.core.component.accessibility.*
 import com.angcyo.dsladapter.renderItem
 import com.angcyo.library.component.appBean
+import com.angcyo.library.ex.checkPermissions
 import com.angcyo.library.ex.copy
 import com.angcyo.library.ex.openApp
 import com.angcyo.library.ex.string
@@ -143,6 +145,20 @@ class AccessibilityDemo : AppDslFragment() {
                         append(DY_PACKAGE_NAME.appBean().string("未安装[抖音]"))
                         appendln()
                         append(KS_PACKAGE_NAME.appBean().string("未安装[快手]"))
+                    }
+
+                    //系统权限对话框测试
+                    itemHolder.click(R.id.lib_text_view) {
+                        fContext().checkPermissions(
+                            Manifest.permission.READ_PHONE_STATE,
+                            Manifest.permission.CALL_PHONE,
+                            Manifest.permission.READ_SMS,
+                            Manifest.permission.SEND_SMS,
+                            Manifest.permission.READ_CONTACTS,
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_SECURE_SETTINGS
+                        )
                     }
                 }
             }

@@ -27,9 +27,9 @@ class DYCommentAction : BaseDYVideoDetailAction() {
 
             editNode?.apply {
 
-                val text: String = tx()
+                val comment: String = tx()
 
-                DYLikeInterceptor.log("正在输入评论[$text] :${setNodeText(text)}")
+                DYLikeInterceptor.log("正在输入评论[$comment] :${setNodeText(comment)}")
 
                 val click: Boolean = click()
                 DYLikeInterceptor.log("正在点击输入框, 弹出评论 :${click}")
@@ -38,7 +38,7 @@ class DYCommentAction : BaseDYVideoDetailAction() {
                     accessibilityInterceptor?.actionList?.forEach {
                         if (it is DYCommentSendAction) {
                             //将输入的评论, 传给[DYCommentSendAction], 很重要!
-                            it.commentText = text
+                            it.commentText = comment
                         }
                     }
                     onActionFinish()

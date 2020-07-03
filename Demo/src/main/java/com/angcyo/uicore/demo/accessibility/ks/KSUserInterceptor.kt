@@ -38,8 +38,18 @@ class KSUserInterceptor : BaseKSInterceptor() {
 
         //无法识别的界面, 执行back操作
 
-        if (KSShareAction().checkEvent(service, event)) {
+        if (KSShareAction().checkEvent(service, event) ||
+            KSLikeAction().checkEvent(service, event) ||
+            KSCommentSendAction().checkEvent(service, event)
+        ) {
             service.back()
+        } else {
+            //低端机, 可能点击了没效果的情况, 这里弥补一下
+            KSLoginAction().apply {
+                if (checkEvent(service, event)) {
+                    doAction(service, event)
+                }
+            }
         }
     }
 

@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:r_circle_load_draw_bg="true"
-            app:r_circle_load_draw_bg_color="@color/transparent60"
+            app:r_circle_load_draw_bg_color="@color/transparent40"
             app:r_circle_load_is_indeterminate="false"
             app:r_circle_load_start_angle="-90"
             tools:r_circle_load_progress="50" />

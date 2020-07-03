@@ -1,5 +1,8 @@
 package com.angcyo.uicore.demo.accessibility.ks
 
+import android.view.accessibility.AccessibilityEvent
+import com.angcyo.core.component.accessibility.BaseAccessibilityService
+import com.angcyo.library.ex.openApp
 import com.angcyo.uicore.demo.accessibility.BaseFloatInterceptor
 
 /**
@@ -14,6 +17,26 @@ abstract class BaseKSInterceptor : BaseFloatInterceptor() {
         filterPackageNameList.add(KSLikeInterceptor.KS_PACKAGE_NAME)
 
         actionOtherList.add(KSPrivacyAction())
+        actionOtherList.add(KSProtectAction())
         actionOtherList.add(KSGetUserAction())
+        actionOtherList.add(KSBackAction())
+        actionOtherList.add(KSShareAction())
+    }
+
+    override fun onLeavePackageName(
+        service: BaseAccessibilityService,
+        event: AccessibilityEvent?,
+        toPackageName: CharSequence?
+    ) {
+        super.onLeavePackageName(service, event, toPackageName)
+
+        toPackageName?.apply {
+            if (contains("system") || contains("google")) {
+                //no op
+            } else {
+                //回到快手
+                lastService?.openApp(KSLikeInterceptor.KS_PACKAGE_NAME)
+            }
+        }
     }
 }

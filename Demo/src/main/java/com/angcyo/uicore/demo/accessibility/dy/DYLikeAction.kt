@@ -51,6 +51,8 @@ class DYLikeAction : BaseDYVideoDetailAction() {
 
         if (actionDoCount < 3) {
             DYLikeInterceptor.log("[双击 $actionDoCount]抖音视频详情页: ${service.gesture.double()}")
+
+            onRandomIntervalDelay()
             return
         }
 

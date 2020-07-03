@@ -1,10 +1,8 @@
 package com.angcyo.uicore.demo.accessibility.ks
 
 import android.view.accessibility.AccessibilityEvent
-import com.angcyo.core.component.accessibility.BaseAccessibilityAction
-import com.angcyo.core.component.accessibility.BaseAccessibilityService
-import com.angcyo.core.component.accessibility.findNode
-import com.angcyo.core.component.accessibility.haveText
+import com.angcyo.core.component.accessibility.*
+import com.angcyo.library._screenHeight
 
 /**
  * 快手点赞/关注/评论[Action]
@@ -37,5 +35,32 @@ class KSLikeAction : BaseAccessibilityAction() {
         }
 
         return haveLike && haveReport && haveShare
+    }
+
+    override fun doAction(service: BaseAccessibilityService, event: AccessibilityEvent?) {
+
+        //视频标题
+        val title = service.findNodeById("com.smile.gifmaker:id/label").firstOrNull()?.text
+
+        //快手的点赞按钮无法获取selected状态, 这里只能模拟双击操作了
+
+        if (actionDoCount < 3) {
+            KSLikeInterceptor.log("[双击 $actionDoCount]快手视频[$title] :${service.gesture.double(y = _screenHeight / 4f)}")
+
+            onRandomIntervalDelay()
+            return
+        }
+
+        //关注
+        service.findNode {
+            if (it.haveText("关注")) {
+                val result = it.getClickParent()?.click() ?: false
+                KSLikeInterceptor.log("快手视频页[$title], 点击关注 :${result}")
+
+                if (result) {
+                    onActionFinish()
+                }
+            }
+        }
     }
 }

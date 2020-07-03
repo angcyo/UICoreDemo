@@ -9,7 +9,6 @@ import com.angcyo.core.component.accessibility.openApp
 import com.angcyo.core.component.file.DslFileHelper
 import com.angcyo.core.component.file.wrapData
 import com.angcyo.core.vmCore
-import com.angcyo.library.L
 
 /**
  * 抖音 复制口令->打开看看->点赞->评论->分享->结束
@@ -66,7 +65,7 @@ class DYLikeInterceptor : BaseDYInterceptor() {
     }
 
     override fun onActionFinish(error: ActionException?) {
-        L.w("执行结束:$actionStatus")
+        log("执行结束:$actionStatus")
         if (actionStatus == ACTION_STATUS_ERROR) {
             //出现异常
             sendNotify("执行异常,${error?.message}.")

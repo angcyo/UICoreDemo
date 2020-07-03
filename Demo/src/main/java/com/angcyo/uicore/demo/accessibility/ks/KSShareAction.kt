@@ -54,4 +54,34 @@ class KSShareAction : BaseAccessibilityAction() {
             }
         }
     }
+
+    override fun doActionWidth(
+        action: BaseAccessibilityAction,
+        service: BaseAccessibilityService,
+        event: AccessibilityEvent?
+    ): Boolean {
+
+        var titleNode: AccessibilityNodeInfoCompat? = null
+        var clickNode: AccessibilityNodeInfoCompat? = null
+
+        service.findNode {
+            if (it.haveText("的作品")) {
+                titleNode = it
+            }
+
+            if (it.haveText("去看看")) {
+                clickNode = it
+            }
+        }
+
+        var result = false
+
+        if (titleNode != null) {
+            clickNode?.apply {
+                result = click()
+            }
+        }
+
+        return result || super.doActionWidth(action, service, event)
+    }
 }

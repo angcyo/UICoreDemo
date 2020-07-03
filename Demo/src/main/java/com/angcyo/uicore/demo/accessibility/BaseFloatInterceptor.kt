@@ -20,6 +20,14 @@ abstract class BaseFloatInterceptor : BaseAccessibilityInterceptor() {
         }
     }
 
+    override fun startInterval(delay: Long): Boolean {
+        return super.startInterval(delay).apply {
+            if (this) {
+                AccessibilityWindow.show("就绪", intervalDelay)
+            }
+        }
+    }
+
     override fun onServiceConnected(service: BaseAccessibilityService) {
         super.onServiceConnected(service)
         AccessibilityWindow.show("已准备", 0)
