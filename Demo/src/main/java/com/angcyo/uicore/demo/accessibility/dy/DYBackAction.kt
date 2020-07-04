@@ -29,6 +29,8 @@ class DYBackAction : BaseAccessibilityAction() {
                 vmCore<DYModel>().loginData.postValue(true)
                 //跳过通讯录好友界面
                 0
+            } else if (it.haveText("好友活跃状态")) {
+                0
             } else {
                 -1
             }

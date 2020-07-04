@@ -37,13 +37,14 @@ abstract class BaseDYInterceptor : BaseFloatInterceptor() {
     ) {
         super.onLeavePackageName(service, event, toPackageName)
 
-        toPackageName?.apply {
-            if (contains("system") || contains("google")) {
-                //no op
-            } else {
-                //回到快手
-                lastService?.openApp(KSLikeInterceptor.KS_PACKAGE_NAME)
-            }
-        }
+        //会造成无限操作
+//        toPackageName?.apply {
+//            if (contains("system") || contains("google")) {
+//                //no op
+//            } else {
+//                //回到快手
+//                lastService?.openApp(KSLikeInterceptor.KS_PACKAGE_NAME)
+//            }
+//        }
     }
 }
