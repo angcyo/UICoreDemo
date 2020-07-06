@@ -34,6 +34,11 @@ class DYUserInterceptor : BaseDYInterceptor() {
         super.onDoAction(action, service, event)
     }
 
+    override fun onActionStart() {
+        super.onActionStart()
+        sendNotify("抖音账号获取[${DYLikeInterceptor.dyUserName}]", "就绪")
+    }
+
     override fun onNoOtherActionHandle(
         action: BaseAccessibilityAction,
         service: BaseAccessibilityService,
@@ -62,7 +67,7 @@ class DYUserInterceptor : BaseDYInterceptor() {
         }
     }
 
-    override fun onActionFinish(error: ActionException?) {
+    override fun onActionFinish(action: BaseAccessibilityAction?, error: ActionException?) {
         if (actionStatus.isActionFinish()) {
             openApp()
             //DslNotify.cancelNotify(lastService, notifyId)
@@ -71,6 +76,6 @@ class DYUserInterceptor : BaseDYInterceptor() {
                 sendNotify(null, "抖音号:${it}")
             }
         }
-        super.onActionFinish(error)
+        super.onActionFinish(action, error)
     }
 }

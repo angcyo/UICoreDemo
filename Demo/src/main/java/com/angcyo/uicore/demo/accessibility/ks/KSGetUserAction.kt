@@ -53,6 +53,24 @@ class KSGetUserAction : BaseAccessibilityAction() {
     override fun doAction(service: BaseAccessibilityService, event: AccessibilityEvent?) {
         super.doAction(service, event)
 
+        var nameNode: AccessibilityNodeInfoCompat? =
+            service.findNodeById("com.smile.gifmaker:id/tab_name").firstOrNull()?.wrap()
+
+        if (nameNode != null) {
+            //获取快手账号
+            nameNode.apply {
+                val name: String? = text?.toString()
+                vmCore<KSModel>().login(text)
+
+                name?.let {
+                    KSLikeInterceptor.log("获取到快手账号:[$it]")
+                    service.back()
+                    onActionFinish()
+                }
+            }
+            return
+        }
+
         //用头像node定位
         var avatarNode: AccessibilityNodeInfoCompat? = null
 
@@ -61,8 +79,7 @@ class KSGetUserAction : BaseAccessibilityAction() {
         }
 
         //昵称
-        val nameNode: AccessibilityNodeInfoCompat? =
-            avatarNode?.getBrotherNode(1)?.getChildOrNull(0)
+        nameNode = avatarNode?.getBrotherNode(1)?.getChildOrNull(0)
 
         nameNode?.apply {
             //获取快手账号

@@ -3,6 +3,7 @@ package com.angcyo.uicore.demo.accessibility.ks
 import android.view.accessibility.AccessibilityEvent
 import com.angcyo.core.component.accessibility.*
 import com.angcyo.library._screenHeight
+import kotlin.random.Random.Default.nextInt
 
 /**
  * 快手点赞/关注/评论[Action]
@@ -44,23 +45,36 @@ class KSLikeAction : BaseAccessibilityAction() {
 
         //快手的点赞按钮无法获取selected状态, 这里只能模拟双击操作了
 
-        if (actionDoCount < 3) {
+        if (actionDoCount < nextInt(2, 5)) {
             KSLikeInterceptor.log("[双击 $actionDoCount]快手视频[$title] :${service.gesture.double(y = _screenHeight / 4f)}")
 
             onRandomIntervalDelay()
             return
         }
 
-        //关注
+        //关注 android.widget.TextView(com.smile.gifmaker:id/follow_text) [关注]
+        // android.widget.LinearLayout(com.smile.gifmaker:id/follow) [clickable ]
+
+        var isAttention = false
         service.findNode {
             if (it.haveText("关注")) {
-                val result = it.getClickParent()?.click() ?: false
-                KSLikeInterceptor.log("快手视频页[$title], 点击关注 :${result}")
-
-                if (result) {
-                    onActionFinish()
-                }
+                isAttention = isAttention || it.getClickParent()?.click() ?: false
             }
+        }
+
+        isAttention =
+            isAttention || service.findNodeById("com.smile.gifmaker:id/follow").firstOrNull()
+                ?.click() ?: false
+
+        KSLikeInterceptor.log("快手视频页[$title], 点击关注 :${isAttention}")
+
+        if (isAttention) {
+            onActionFinish()
+        } else if (actionDoCount > 6) {
+            onActionFinish()
+        } else {
+            //如果视频是全屏的, 需要移动一段距离, 才有数据
+            KSLikeInterceptor.log("快手视频可能是全屏页, 尝试向上滚动: ${service.gesture.moveUp()}")
         }
     }
 }

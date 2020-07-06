@@ -3,6 +3,7 @@ package com.angcyo.uicore.demo.accessibility.dy
 import android.view.accessibility.AccessibilityEvent
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import com.angcyo.core.component.accessibility.*
+import kotlin.random.Random
 
 /**
  * 抖音点赞[Action]
@@ -49,14 +50,15 @@ class DYLikeAction : BaseDYVideoDetailAction() {
             -1
         }
 
-        if (actionDoCount < 3) {
+        val nextInt = Random.nextInt(2, 5)
+        if (actionDoCount < nextInt) {
             DYLikeInterceptor.log("[双击 $actionDoCount]抖音视频详情页: ${service.gesture.double()}")
 
             onRandomIntervalDelay()
             return
         }
 
-        if (actionDoCount < 4) {
+        if (actionDoCount < nextInt + 2) {
             attentionNode?.apply {
                 DYLikeInterceptor.log(
                     "发现抖音视频详情页, 正在点击关注 :${unwrap().click()}"

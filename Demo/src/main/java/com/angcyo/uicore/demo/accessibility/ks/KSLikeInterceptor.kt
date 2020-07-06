@@ -6,6 +6,7 @@ import com.angcyo.core.component.accessibility.action.ActionException
 import com.angcyo.core.component.file.DslFileHelper
 import com.angcyo.core.component.file.wrapData
 import com.angcyo.core.vmCore
+import com.angcyo.uicore.demo.accessibility.ks.BaseKSInterceptor
 
 /**
  * 快手点赞拦截器
@@ -40,6 +41,12 @@ class KSLikeInterceptor : BaseKSInterceptor() {
         actionList.add(KSLikeFinishAction())
     }
 
+
+    override fun onActionStart() {
+        super.onActionStart()
+        sendNotify("快手任务[${ksUserName}]", "就绪")
+    }
+
     override fun checkDoAction(service: BaseAccessibilityService, event: AccessibilityEvent?) {
         if (vmCore<KSModel>().isLogin()) {
             super.checkDoAction(service, event)
@@ -68,7 +75,7 @@ class KSLikeInterceptor : BaseKSInterceptor() {
         super.onDoAction(action, service, event)
     }
 
-    override fun onActionFinish(error: ActionException?) {
+    override fun onActionFinish(action: BaseAccessibilityAction?, error: ActionException?) {
         log("执行结束:$actionStatus")
         if (actionStatus == ACTION_STATUS_ERROR) {
             //出现异常
@@ -79,6 +86,6 @@ class KSLikeInterceptor : BaseKSInterceptor() {
             //lastService?.home()
             openApp()
         }
-        super.onActionFinish(error)
+        super.onActionFinish(action, error)
     }
 }

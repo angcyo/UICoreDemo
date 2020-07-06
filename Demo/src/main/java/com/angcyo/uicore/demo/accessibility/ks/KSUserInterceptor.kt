@@ -4,6 +4,7 @@ import android.view.accessibility.AccessibilityEvent
 import com.angcyo.core.component.accessibility.*
 import com.angcyo.core.component.accessibility.action.ActionException
 import com.angcyo.core.vmCore
+import com.angcyo.uicore.demo.accessibility.ks.BaseKSInterceptor
 
 /**
  * 获取快手登录用户名
@@ -27,6 +28,11 @@ class KSUserInterceptor : BaseKSInterceptor() {
     ) {
         sendNotify("快手账号获取[${KSLikeInterceptor.ksUserName}]", "正在执行:${action.getActionTitle()}")
         super.onDoAction(action, service, event)
+    }
+
+    override fun onActionStart() {
+        super.onActionStart()
+        sendNotify("快手账号获取[${KSLikeInterceptor.ksUserName}]", "就绪")
     }
 
     override fun onNoOtherActionHandle(
@@ -53,13 +59,13 @@ class KSUserInterceptor : BaseKSInterceptor() {
         }
     }
 
-    override fun onActionFinish(error: ActionException?) {
+    override fun onActionFinish(action: BaseAccessibilityAction?, error: ActionException?) {
         if (actionStatus.isActionFinish()) {
             openApp()
             vmCore<KSModel>().userNameData.value?.let {
                 sendNotify(null, "快手号:${it}")
             }
         }
-        super.onActionFinish(error)
+        super.onActionFinish(action, error)
     }
 }

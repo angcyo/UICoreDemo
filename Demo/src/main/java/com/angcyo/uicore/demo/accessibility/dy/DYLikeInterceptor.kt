@@ -44,6 +44,11 @@ class DYLikeInterceptor : BaseDYInterceptor() {
         sendNotify("抖音点赞任务[$dyUserName]($actionIndex/${actionList.size})", content)
     }
 
+    override fun onActionStart() {
+        super.onActionStart()
+        sendNotify("抖音任务[${dyUserName}]", "就绪")
+    }
+
     override fun checkDoAction(service: BaseAccessibilityService, event: AccessibilityEvent?) {
         if (vmCore<DYModel>().loginData.value == false) {
             sendNotify("请先登录抖音.")
@@ -64,7 +69,7 @@ class DYLikeInterceptor : BaseDYInterceptor() {
         super.onDoAction(action, service, event)
     }
 
-    override fun onActionFinish(error: ActionException?) {
+    override fun onActionFinish(action: BaseAccessibilityAction?, error: ActionException?) {
         log("执行结束:$actionStatus")
         if (actionStatus == ACTION_STATUS_ERROR) {
             //出现异常
@@ -75,6 +80,6 @@ class DYLikeInterceptor : BaseDYInterceptor() {
             //lastService?.home()
             openApp()
         }
-        super.onActionFinish(error)
+        super.onActionFinish(action, error)
     }
 }

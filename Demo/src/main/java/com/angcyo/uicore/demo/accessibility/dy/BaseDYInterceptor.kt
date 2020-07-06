@@ -5,7 +5,6 @@ import com.angcyo.core.component.accessibility.BaseAccessibilityService
 import com.angcyo.core.component.accessibility.intervalMode
 import com.angcyo.library.ex.openApp
 import com.angcyo.uicore.demo.accessibility.BaseFloatInterceptor
-import com.angcyo.uicore.demo.accessibility.ks.KSLikeInterceptor
 
 /**
  *
@@ -28,6 +27,11 @@ abstract class BaseDYInterceptor : BaseFloatInterceptor() {
         actionOtherList.add(DYBackAction())
 
         intervalMode()
+    }
+
+    override fun onActionStart() {
+        super.onActionStart()
+        DYLikeInterceptor.DY_PACKAGE_NAME.openApp()
     }
 
     override fun onLeavePackageName(

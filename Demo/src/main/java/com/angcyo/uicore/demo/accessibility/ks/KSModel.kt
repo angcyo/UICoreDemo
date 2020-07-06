@@ -1,7 +1,7 @@
 package com.angcyo.uicore.demo.accessibility.ks
 
 import androidx.lifecycle.MutableLiveData
-import com.angcyo.uicore.LifecycleViewModel
+import com.angcyo.core.lifecycle.LifecycleViewModel
 
 /**
  *

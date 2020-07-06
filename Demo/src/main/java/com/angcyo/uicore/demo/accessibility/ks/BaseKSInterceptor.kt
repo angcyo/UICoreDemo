@@ -23,6 +23,11 @@ abstract class BaseKSInterceptor : BaseFloatInterceptor() {
         actionOtherList.add(KSShareAction())
     }
 
+    override fun onActionStart() {
+        super.onActionStart()
+        KSLikeInterceptor.KS_PACKAGE_NAME.openApp()
+    }
+
     override fun onLeavePackageName(
         service: BaseAccessibilityService,
         event: AccessibilityEvent?,
