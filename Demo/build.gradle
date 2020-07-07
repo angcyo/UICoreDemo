@@ -70,3 +70,5 @@ apply plugin: 'io.objectbox' // Apply last.
 
 //jpush
 apply from: allGradle.jpush
+//amap
+apply from: allGradle.amap3d
