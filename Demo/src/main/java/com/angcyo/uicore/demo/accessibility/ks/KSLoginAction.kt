@@ -14,6 +14,10 @@ import com.angcyo.library.ex.dp
  */
 class KSLoginAction : BaseAccessibilityAction() {
 
+    init {
+        actionTitle = "获取快手账号,如果需要请手动登录."
+    }
+
     //主页未登录情况下, 出现的左上角登录按钮
     fun AccessibilityNodeInfoCompat.loginNode(): AccessibilityNodeInfoCompat? {
         if (haveText("登录") &&
@@ -77,13 +81,9 @@ class KSLoginAction : BaseAccessibilityAction() {
             val result = click()
             KSLikeInterceptor.log("快手主页, 点击[菜单] :$result")
             if (result) {
-                onActionFinish()
+                doActionFinish()
             }
             return
         }
-    }
-
-    override fun getActionTitle(): String {
-        return "获取快手账号,如果需要请手动登录."
     }
 }

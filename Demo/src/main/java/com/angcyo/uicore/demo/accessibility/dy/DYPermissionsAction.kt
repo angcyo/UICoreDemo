@@ -6,6 +6,7 @@ import com.angcyo.core.component.accessibility.BaseAccessibilityService
 import com.angcyo.core.component.accessibility.action.PermissionsAction
 import com.angcyo.core.component.accessibility.haveNode
 import com.angcyo.core.component.accessibility.haveText
+import com.angcyo.uicore.demo.accessibility.dy.DYLikeInterceptor
 
 /**
  *

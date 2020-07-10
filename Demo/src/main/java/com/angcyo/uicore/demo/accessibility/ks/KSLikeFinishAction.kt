@@ -65,9 +65,7 @@ class KSLikeFinishAction : BaseAccessibilityAction() {
     fun checkFinish() {
         if (actionDoCount > nextInt(10, 20)) {
             //随机操作[10-20)次, 然后结束
-            onActionFinish()
-        } else {
-            randomIntervalDelay()
+            doActionFinish()
         }
     }
 }

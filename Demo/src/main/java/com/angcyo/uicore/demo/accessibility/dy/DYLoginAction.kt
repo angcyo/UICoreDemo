@@ -8,6 +8,7 @@ import com.angcyo.library._screenHeight
 import com.angcyo.library._screenWidth
 import com.angcyo.library.component._delay
 import com.angcyo.library.ex.dp
+import com.angcyo.uicore.demo.accessibility.dy.DYLikeInterceptor
 
 /**
  * 抖音登录状态检查, 并获取用户[抖音号：] [Action]
@@ -77,6 +78,10 @@ class DYLoginAction : BaseAccessibilityAction() {
 
     }
 
+    init {
+        actionTitle = "获取抖音账号,如果需要请手动登录."
+    }
+
     override fun checkEvent(
         service: BaseAccessibilityService,
         event: AccessibilityEvent?
@@ -132,7 +137,7 @@ class DYLoginAction : BaseAccessibilityAction() {
 
                 name?.let {
                     DYLikeInterceptor.log("获取到抖音账号:[$it]")
-                    onActionFinish()
+                    doActionFinish()
                 }
 
             } else {
@@ -173,9 +178,5 @@ class DYLoginAction : BaseAccessibilityAction() {
                 result
             }
         } ?: super.doActionWidth(action, service, event)
-    }
-
-    override fun getActionTitle(): String {
-        return "获取抖音账号,如果需要请手动登录."
     }
 }

@@ -7,6 +7,7 @@ import com.angcyo.core.component.accessibility.fling
 import com.angcyo.core.component.accessibility.haveNodeOrText
 import com.angcyo.library._screenHeight
 import com.angcyo.library._screenWidth
+import com.angcyo.uicore.demo.accessibility.dy.DYLikeInterceptor
 
 /**
  * 抖音 滑动查看更多 action

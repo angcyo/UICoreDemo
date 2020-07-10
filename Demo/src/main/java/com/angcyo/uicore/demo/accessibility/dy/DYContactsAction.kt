@@ -5,6 +5,7 @@ import com.angcyo.core.component.accessibility.BaseAccessibilityAction
 import com.angcyo.core.component.accessibility.BaseAccessibilityService
 import com.angcyo.core.component.accessibility.clickByText
 import com.angcyo.core.component.accessibility.haveNodeOrText
+import com.angcyo.uicore.demo.accessibility.dy.DYLikeInterceptor
 
 /**
  * 关闭抖音 通讯录好友

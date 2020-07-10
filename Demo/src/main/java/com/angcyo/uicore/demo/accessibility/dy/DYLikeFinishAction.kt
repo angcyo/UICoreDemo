@@ -3,6 +3,7 @@ package com.angcyo.uicore.demo.accessibility.dy
 import android.view.accessibility.AccessibilityEvent
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import com.angcyo.core.component.accessibility.*
+import com.angcyo.uicore.demo.accessibility.dy.DYLikeInterceptor
 import kotlin.random.Random.Default.nextInt
 
 /**
@@ -25,6 +26,7 @@ class DYLikeFinishAction : BaseAccessibilityAction() {
     }
 
     override fun doAction(service: BaseAccessibilityService, event: AccessibilityEvent?) {
+        super.doAction(service, event)
 
         if (DYLoginAction().checkEvent(service, event)) {
             //抖音首页
@@ -61,9 +63,7 @@ class DYLikeFinishAction : BaseAccessibilityAction() {
     fun checkFinish() {
         if (actionDoCount > nextInt(10, 20)) {
             //随机操作[10-20)次, 然后结束
-            onActionFinish()
-        } else {
-            randomIntervalDelay()
+            doActionFinish()
         }
     }
 }

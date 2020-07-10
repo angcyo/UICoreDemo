@@ -3,6 +3,7 @@ package com.angcyo.uicore.demo.accessibility.dy
 import android.view.accessibility.AccessibilityEvent
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import com.angcyo.core.component.accessibility.*
+import com.angcyo.uicore.demo.accessibility.dy.DYLikeInterceptor
 
 /**
  * 抖音发送评论[Action]
@@ -36,7 +37,7 @@ class DYCommentSendAction : BaseAccessibilityAction() {
     }
 
     override fun doAction(service: BaseAccessibilityService, event: AccessibilityEvent?) {
-
+        super.doAction(service, event)
         //输入框node
         var editNode: AccessibilityNodeInfoCompat? = null
 
@@ -60,7 +61,7 @@ class DYCommentSendAction : BaseAccessibilityAction() {
                 DYLikeInterceptor.log("发现抖音视频评论页, 正在点击评论 :${click}")
 
                 if (click) {
-                    onActionFinish()
+                    doActionFinish()
                 }
             }
         }

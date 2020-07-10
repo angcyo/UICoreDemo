@@ -3,6 +3,7 @@ package com.angcyo.uicore.demo.accessibility.dy
 import android.view.accessibility.AccessibilityEvent
 import com.angcyo.core.component.accessibility.*
 import com.angcyo.core.component.accessibility.action.ActionException
+import com.angcyo.uicore.demo.accessibility.dy.DYLikeInterceptor
 
 /**
  * 抖音分享口令弹窗
@@ -37,7 +38,7 @@ class DYShareAction : BaseAccessibilityAction() {
 
         if (clickText == null) {
             DYLikeInterceptor.log("发现抖音口令分享页[${likeText}], 未识别到跳转按钮.")
-            onActionFinish(ActionException("未识别到跳转按钮"))
+            doActionFinish(ActionException("未识别到跳转按钮"))
         } else {
             val result = service.clickByText(clickText, event)
 
@@ -45,7 +46,7 @@ class DYShareAction : BaseAccessibilityAction() {
 
             if (result) {
                 //执行完成
-                onActionFinish()
+                doActionFinish()
             }
         }
     }

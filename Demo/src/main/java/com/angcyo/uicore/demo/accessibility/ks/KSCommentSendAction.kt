@@ -30,6 +30,7 @@ class KSCommentSendAction : BaseAccessibilityAction() {
     }
 
     override fun doAction(service: BaseAccessibilityService, event: AccessibilityEvent?) {
+        super.doAction(service, event)
 
         service.findNode {
             if (it.isEditText() && it.haveText("说点什么")) {
@@ -46,7 +47,7 @@ class KSCommentSendAction : BaseAccessibilityAction() {
                             KSLikeInterceptor.log("快手评论页, 点击评论 :$send")
 
                             if (send) {
-                                onActionFinish()
+                                doActionFinish()
                             }
                         }
                     }

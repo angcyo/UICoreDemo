@@ -50,7 +50,7 @@ class KSShareAction : BaseAccessibilityAction() {
             KSLikeInterceptor.log("快手分享[${titleNode?.text}], 点击[去看看] :$result")
 
             if (result) {
-                onActionFinish()
+                doActionFinish()
             }
         }
     }

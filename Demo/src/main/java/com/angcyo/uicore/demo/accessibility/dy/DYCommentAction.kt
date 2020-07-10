@@ -14,7 +14,7 @@ import com.angcyo.uicore.dslitem.tx
  */
 class DYCommentAction : BaseDYVideoDetailAction() {
     override fun doAction(service: BaseAccessibilityService, event: AccessibilityEvent?) {
-
+        super.doAction(service, event)
         if (isCommentLayoutShow) {
             //输入框node
             var editNode: AccessibilityNodeInfoCompat? = null
@@ -41,7 +41,7 @@ class DYCommentAction : BaseDYVideoDetailAction() {
                             it.commentText = comment
                         }
                     }
-                    onActionFinish()
+                    doActionFinish()
                 }
             }
         } else {

@@ -4,6 +4,8 @@ import android.view.accessibility.AccessibilityEvent
 import com.angcyo.core.component.accessibility.*
 import com.angcyo.core.component.accessibility.action.ActionException
 import com.angcyo.core.vmCore
+import com.angcyo.uicore.demo.accessibility.dy.BaseDYInterceptor
+import com.angcyo.uicore.demo.accessibility.dy.DYLikeInterceptor
 
 /**
  * 获取抖音登录用户名拦截器
@@ -30,7 +32,7 @@ class DYUserInterceptor : BaseDYInterceptor() {
         service: BaseAccessibilityService?,
         event: AccessibilityEvent?
     ) {
-        sendNotify("正在执行:${action.getActionTitle()}")
+        sendNotify("正在执行:${action.actionTitle}")
         super.onDoAction(action, service, event)
     }
 
@@ -46,6 +48,20 @@ class DYUserInterceptor : BaseDYInterceptor() {
     ) {
         super.onNoOtherActionHandle(action, service, event)
 
+        //忽略当前界面
+        var jump = false
+        service.findNode {
+            if (it.haveText("登录") ||
+                it.haveText("密码")
+            ) {
+                jump = true
+            }
+        }
+
+        if (jump) {
+            return
+        }
+
         //无法识别的界面, 执行back操作
 
         if (DYLikeAction().checkEvent(service, event)) {
@@ -59,7 +75,8 @@ class DYUserInterceptor : BaseDYInterceptor() {
                     (it.isCheckBox() && it.haveText("评论并转发")) ||
                     it.haveText("和朋友打个招呼吧") ||
                     it.haveText("让我们开始聊天吧") ||
-                    it.haveText("发送消息")
+                    it.haveText("发送消息") ||
+                    it.haveText("通讯录")
                 ) {
                     service.back()
                 }

@@ -39,6 +39,7 @@ class KSLikeAction : BaseAccessibilityAction() {
     }
 
     override fun doAction(service: BaseAccessibilityService, event: AccessibilityEvent?) {
+        super.doAction(service, event)
 
         //视频标题
         val title = service.findNodeById("com.smile.gifmaker:id/label").firstOrNull()?.text
@@ -47,8 +48,6 @@ class KSLikeAction : BaseAccessibilityAction() {
 
         if (actionDoCount < nextInt(2, 5)) {
             KSLikeInterceptor.log("[双击 $actionDoCount]快手视频[$title] :${service.gesture.double(y = _screenHeight / 4f)}")
-
-            onRandomIntervalDelay()
             return
         }
 
@@ -69,9 +68,9 @@ class KSLikeAction : BaseAccessibilityAction() {
         KSLikeInterceptor.log("快手视频页[$title], 点击关注 :${isAttention}")
 
         if (isAttention) {
-            onActionFinish()
+            doActionFinish()
         } else if (actionDoCount > 6) {
-            onActionFinish()
+            doActionFinish()
         } else {
             //如果视频是全屏的, 需要移动一段距离, 才有数据
             KSLikeInterceptor.log("快手视频可能是全屏页, 尝试向上滚动: ${service.gesture.moveUp()}")

@@ -24,7 +24,6 @@ abstract class BaseDYInterceptor : BaseFloatInterceptor() {
         actionOtherList.add(DYUpdateAction())
         actionOtherList.add(DYContactsAction())
         actionOtherList.add(DYShareAction())
-        actionOtherList.add(DYBackAction())
 
         intervalMode()
     }

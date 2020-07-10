@@ -68,7 +68,8 @@ dependencies {
 apply plugin: 'kotlin-kapt'
 apply plugin: 'io.objectbox' // Apply last.
 
-//jpush
+//amap 高德的配置不在 aar里面, 所以可以不需要在此配置
+//apply from: allGradle.amap3d
+
+//jpush 极光的配置在aar里面, 所以也需要在此配置
 apply from: allGradle.jpush
-//amap
-apply from: allGradle.amap3d

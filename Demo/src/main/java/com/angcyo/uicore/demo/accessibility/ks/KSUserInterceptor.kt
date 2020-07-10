@@ -26,7 +26,7 @@ class KSUserInterceptor : BaseKSInterceptor() {
         service: BaseAccessibilityService?,
         event: AccessibilityEvent?
     ) {
-        sendNotify("快手账号获取[${KSLikeInterceptor.ksUserName}]", "正在执行:${action.getActionTitle()}")
+        sendNotify("快手账号获取[${KSLikeInterceptor.ksUserName}]", "正在执行:${action.actionTitle}")
         super.onDoAction(action, service, event)
     }
 
@@ -44,9 +44,9 @@ class KSUserInterceptor : BaseKSInterceptor() {
 
         //无法识别的界面, 执行back操作
 
-        if (KSShareAction().checkEvent(service, event) ||
-            KSLikeAction().checkEvent(service, event) ||
-            KSCommentSendAction().checkEvent(service, event)
+        if (KSShareAction().checkEvent(service, event) /*是分享页*/ ||
+            KSLikeAction().checkEvent(service, event) /*是视频页*/ ||
+            KSCommentSendAction().checkEvent(service, event) /*是发送评论页*/
         ) {
             service.back()
         } else {

@@ -38,6 +38,8 @@ class DYLikeInterceptor : BaseDYInterceptor() {
         actionList.add(DYCommentAction())
         actionList.add(DYCommentSendAction())
         actionList.add(DYLikeFinishAction())
+
+        actionOtherList.add(DYBackAction())
     }
 
     fun sendNotify(content: String) {
@@ -46,7 +48,7 @@ class DYLikeInterceptor : BaseDYInterceptor() {
 
     override fun onActionStart() {
         super.onActionStart()
-        sendNotify("抖音任务[${dyUserName}]", "就绪")
+        sendNotify("抖音任务[$dyUserName]", "就绪")
     }
 
     override fun checkDoAction(service: BaseAccessibilityService, event: AccessibilityEvent?) {
@@ -65,7 +67,7 @@ class DYLikeInterceptor : BaseDYInterceptor() {
         service: BaseAccessibilityService?,
         event: AccessibilityEvent?
     ) {
-        sendNotify("正在执行:${action.getActionTitle()}")
+        sendNotify("正在执行:${action.actionTitle}")
         super.onDoAction(action, service, event)
     }
 

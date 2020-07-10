@@ -70,7 +70,7 @@ class KSLikeInterceptor : BaseKSInterceptor() {
     ) {
         sendNotify(
             "快手点赞任务[$ksUserName]($actionIndex/${actionList.size})",
-            "正在执行:${action.getActionTitle()}"
+            "正在执行:${action.actionTitle}"
         )
         super.onDoAction(action, service, event)
     }

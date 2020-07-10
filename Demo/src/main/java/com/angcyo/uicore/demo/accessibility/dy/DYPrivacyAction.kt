@@ -2,6 +2,7 @@ package com.angcyo.uicore.demo.accessibility.dy
 
 import android.view.accessibility.AccessibilityEvent
 import com.angcyo.core.component.accessibility.*
+import com.angcyo.uicore.demo.accessibility.dy.DYLikeInterceptor
 
 /**
  * 关闭抖音隐私协议的[Action], 抖音个人信息保护对话框[Action]

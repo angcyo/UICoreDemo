@@ -1,6 +1,10 @@
 package com.angcyo.uicore.demo.accessibility
 
-import com.angcyo.core.component.accessibility.*
+import com.angcyo.core.component.accessibility.BaseAccessibilityAction
+import com.angcyo.core.component.accessibility.BaseAccessibilityInterceptor
+import com.angcyo.core.component.accessibility.BaseAccessibilityService
+import com.angcyo.core.component.accessibility.action.ActionException
+import com.angcyo.core.component.accessibility.isActionStart
 
 /**
  * 自动显示浮窗的拦截器
@@ -11,41 +15,62 @@ import com.angcyo.core.component.accessibility.*
  */
 abstract class BaseFloatInterceptor : BaseAccessibilityInterceptor() {
 
-    /**显示通知*/
-    open fun notify(title: CharSequence? = null, content: CharSequence? = null) {
-        if (!actionStatus.isActionInit()) {
-            sendNotify("${title}($actionIndex/${actionList.size})", content)
-        } else {
-            sendNotify(title, content)
-        }
-    }
-
-    override fun startInterval(delay: Long): Boolean {
-        return super.startInterval(delay).apply {
-            if (this) {
-                AccessibilityWindow.show("就绪", intervalDelay)
-            }
-        }
-    }
+//    /**显示通知*/
+//    open fun notify(title: CharSequence? = null, content: CharSequence? = null) {
+//        if (!actionStatus.isActionInit()) {
+//            sendNotify("${title}($actionIndex/${actionList.size})", content)
+//        } else {
+//            sendNotify(title, content)
+//        }
+//    }
 
     override fun onServiceConnected(service: BaseAccessibilityService) {
         super.onServiceConnected(service)
         AccessibilityWindow.show("已准备", 0)
     }
 
-    override fun onIntervalStart() {
-        if (!actionStatus.isActionInit()) {
-            AccessibilityWindow.show("$actionIndex/${actionList.size}", intervalDelay)
-        }
+    override fun onIntervalStart(delay: Long) {
+        super.onIntervalStart(delay)
+        updateWindow()
     }
 
-    override fun onInterval() {
-        super.onInterval()
-        onIntervalStart()
-        if (actionStatus.isActionFinish()) {
-            AccessibilityWindow.show("已完成", 0)
-        } else if (actionStatus.isActionError()) {
-            AccessibilityWindow.show("异常", 0)
+    override fun onActionFinish(action: BaseAccessibilityAction?, error: ActionException?) {
+        updateWindow()
+        super.onActionFinish(action, error)
+    }
+
+    override fun onDestroy() {
+        if (actionStatus.isActionStart()) {
+            AccessibilityWindow.show("中止", 0)
+        }
+        super.onDestroy()
+    }
+
+    fun updateWindow() {
+        when (actionStatus) {
+            ACTION_STATUS_INIT -> {
+                if (actionIndex < 0) {
+                    AccessibilityWindow.show("就绪", intervalDelay)
+                } else {
+                    AccessibilityWindow.show(
+                        "$actionIndex/${actionList.size}",
+                        intervalDelay
+                    )
+                }
+            }
+            ACTION_STATUS_ING -> {
+                if (actionIndex != -1) {
+                    AccessibilityWindow.show(
+                        "$actionIndex/${actionList.size}",
+                        intervalDelay
+                    )
+                } else {
+                    AccessibilityWindow.show("等待", intervalDelay)
+                }
+            }
+            ACTION_STATUS_FINISH -> AccessibilityWindow.show("已完成", 0)
+            ACTION_STATUS_ERROR -> AccessibilityWindow.show("异常", 0)
+            ACTION_STATUS_DESTROY -> AccessibilityWindow.show("结束", 0)
         }
     }
 }

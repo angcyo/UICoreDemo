@@ -14,6 +14,10 @@ import com.angcyo.core.vmCore
  */
 class KSGetUserAction : BaseAccessibilityAction() {
 
+    init {
+        actionTitle = "读取快手账号"
+    }
+
     //头像
     fun AccessibilityNodeInfoCompat.avatarNode(): AccessibilityNodeInfoCompat? {
         if (haveText("头像") && isImageView()) {
@@ -65,7 +69,7 @@ class KSGetUserAction : BaseAccessibilityAction() {
                 name?.let {
                     KSLikeInterceptor.log("获取到快手账号:[$it]")
                     service.back()
-                    onActionFinish()
+                    doActionFinish()
                 }
             }
             return
@@ -91,7 +95,7 @@ class KSGetUserAction : BaseAccessibilityAction() {
 
                 service.back()
 
-                onActionFinish()
+                doActionFinish()
             }
         }
     }
@@ -105,9 +109,5 @@ class KSGetUserAction : BaseAccessibilityAction() {
             return service.back()
         }
         return super.doActionWidth(action, service, event)
-    }
-
-    override fun getActionTitle(): String {
-        return "读取快手账号"
     }
 }

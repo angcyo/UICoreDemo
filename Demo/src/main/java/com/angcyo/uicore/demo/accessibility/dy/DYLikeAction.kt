@@ -3,6 +3,8 @@ package com.angcyo.uicore.demo.accessibility.dy
 import android.view.accessibility.AccessibilityEvent
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import com.angcyo.core.component.accessibility.*
+import com.angcyo.uicore.demo.accessibility.dy.BaseDYVideoDetailAction
+import com.angcyo.uicore.demo.accessibility.dy.DYLikeInterceptor
 import kotlin.random.Random
 
 /**
@@ -15,6 +17,7 @@ import kotlin.random.Random
 class DYLikeAction : BaseDYVideoDetailAction() {
 
     override fun doAction(service: BaseAccessibilityService, event: AccessibilityEvent?) {
+        super.doAction(service, event)
 
         //用于执行点赞的node
         var likeClickNode: AccessibilityNodeInfoCompat? = null
@@ -53,8 +56,6 @@ class DYLikeAction : BaseDYVideoDetailAction() {
         val nextInt = Random.nextInt(2, 5)
         if (actionDoCount < nextInt) {
             DYLikeInterceptor.log("[双击 $actionDoCount]抖音视频详情页: ${service.gesture.double()}")
-
-            onRandomIntervalDelay()
             return
         }
 
@@ -74,7 +75,7 @@ class DYLikeAction : BaseDYVideoDetailAction() {
                 DYLikeInterceptor.log(
                     "发现抖音视频详情页[${videoTitle}], 已点赞"
                 )
-                onActionFinish()
+                doActionFinish()
             } else {
                 val result = likeClickNode?.unwrap()?.click() ?: false
                 DYLikeInterceptor.log(

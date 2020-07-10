@@ -91,7 +91,7 @@ class AccessibilityDemo : AppDslFragment() {
                     //抖音
                     itemHolder.click(R.id.dy_login_button) {
                         douYinUserInterceptor.restart()
-                        douYinUserInterceptor.install()
+                        douYinUserInterceptor.run()
 
                         fContext().openApp(DY_PACKAGE_NAME)
                     }

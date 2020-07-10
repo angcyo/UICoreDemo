@@ -25,7 +25,7 @@ class KSCommentAction : BaseAccessibilityAction() {
                 val result = it.click()
                 KSLikeInterceptor.log("快手视频页, 弹出评论 :${result}")
                 if (result) {
-                    onActionFinish()
+                    doActionFinish()
                 }
             }
         }
