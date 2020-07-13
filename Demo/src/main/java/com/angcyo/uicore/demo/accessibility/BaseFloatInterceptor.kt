@@ -34,9 +34,9 @@ abstract class BaseFloatInterceptor : BaseAccessibilityInterceptor() {
         updateWindow()
     }
 
-    override fun onActionFinish(action: BaseAccessibilityAction?, error: ActionException?) {
+    override fun onDoActionFinish(action: BaseAccessibilityAction?, error: ActionException?) {
         updateWindow()
-        super.onActionFinish(action, error)
+        super.onDoActionFinish(action, error)
     }
 
     override fun onDestroy() {

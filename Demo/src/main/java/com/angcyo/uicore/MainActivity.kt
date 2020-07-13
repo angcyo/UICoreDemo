@@ -3,11 +3,12 @@ package com.angcyo.uicore
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatDelegate
+import com.angcyo.baidu.trace.DslBaiduTrace
 import com.angcyo.base.dslFHelper
 import com.angcyo.core.activity.BasePermissionsActivity
 import com.angcyo.library.component.DslShortcut
 import com.angcyo.library.component.dslShortcut
+import com.angcyo.library.utils.Device
 import com.angcyo.library.utils.RUtils
 import com.angcyo.library.utils.checkApkExist
 import com.angcyo.uicore.demo.R
@@ -131,5 +132,20 @@ class MainActivity : BasePermissionsActivity() {
         //densityAdapter(750, 2f)
         //densityRestore()
         //densityAdapterFrom(2183)
+    }
+
+    val dslBaiduTrace = DslBaiduTrace().apply {
+        serviceId = 222253
+        entityName = Device.androidId
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        dslBaiduTrace.startTrace(applicationContext)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        dslBaiduTrace.stopTrace()
     }
 }
