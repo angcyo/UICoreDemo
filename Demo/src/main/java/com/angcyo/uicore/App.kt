@@ -62,6 +62,10 @@ class App : CoreApplication(), CameraXConfig.Provider {
         JPush.init(this)
     }
 
+    override fun onCreateMain() {
+        super.onCreateMain()
+    }
+
     /**
      * 不重写这个, 混淆后, 会崩溃.
      * 参见:[androidx.camera.core.CameraX.getOrCreateInstance]
