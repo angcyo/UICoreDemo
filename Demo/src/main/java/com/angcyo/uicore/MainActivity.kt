@@ -135,7 +135,7 @@ class MainActivity : BasePermissionsActivity() {
     }
 
     val dslBaiduTrace = DslBaiduTrace().apply {
-        serviceId = 222253
+        serviceId = 207762
         entityName = Device.androidId
     }
 
