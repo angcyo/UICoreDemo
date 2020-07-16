@@ -408,6 +408,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("LockDemo Speech $GO")
             renderMainItem("AccessibilityDemo $GO")
             renderMainItem("GithubDemo")
+            renderMainItem("LayerDemo ILayer $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()() {
