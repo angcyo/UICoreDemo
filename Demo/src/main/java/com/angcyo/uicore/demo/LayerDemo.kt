@@ -6,7 +6,6 @@ import com.angcyo.dsladapter.dslItem
 import com.angcyo.ilayer.ILayer
 import com.angcyo.ilayer.LayerParams
 import com.angcyo.ilayer.container.DragRectFConstraint
-import com.angcyo.ilayer.container.IContainer
 import com.angcyo.ilayer.container.ViewContainer
 import com.angcyo.ilayer.container.WindowContainer
 import com.angcyo.library.L
@@ -33,12 +32,8 @@ class LayerDemo : AppDslFragment() {
                 iLayerLayoutId = R.layout.float_window_layout
             }
 
-            override fun onInitLayer(
-                container: IContainer,
-                viewHolder: DslViewHolder,
-                params: LayerParams
-            ) {
-                super.onInitLayer(container, viewHolder, params)
+            override fun onInitLayer(viewHolder: DslViewHolder, params: LayerParams) {
+                super.onInitLayer(viewHolder, params)
                 viewHolder.clickItem {
                     L.w("${this.simpleHash()} this....click")
                 }
@@ -49,33 +44,28 @@ class LayerDemo : AppDslFragment() {
             dslItem(R.layout.demo_layer) {
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
                     itemHolder.click(R.id.button) {
-                        layer.show(WindowContainer(fContext()).apply {
-                            dragContainer = DragRectFConstraint(
-                                RectF(
-                                    0f,
-                                    _satusBarHeight * 1f / _screenHeight,
-                                    0f,
-                                    0.0000001f
-                                )
+                        layer.dragContainer = DragRectFConstraint(
+                            RectF(
+                                0f,
+                                _satusBarHeight * 1f / _screenHeight,
+                                0f,
+                                0.0000001f
                             )
-                        })
+                        )
+                        layer.show(WindowContainer(fContext()))
                     }
 
-                    layer.show(ViewContainer(itemHolder.group(R.id.lib_item_root_layout)!!).apply {
-                        enableDrag = true
-                    })
+                    layer.enableDrag = true
+                    layer.show(ViewContainer(itemHolder.group(R.id.lib_item_root_layout)!!))
 
                     itemHolder.click(R.id.frame_top_layout) {
-                        layer.show(ViewContainer(itemHolder.group(R.id.frame_top_layout)!!).apply {
-                            enableDrag = true
-                            dragContainer = DragRectFConstraint(RectF(0.1f, 0.1f, 0.1f, 0.1f))
-                        })
+                        layer.dragContainer = DragRectFConstraint(RectF(0.1f, 0.1f, 0.1f, 0.1f))
+                        layer.show(ViewContainer(itemHolder.group(R.id.frame_top_layout)!!))
                     }
                     itemHolder.click(R.id.frame_bottom_layout) {
-                        layer.show(ViewContainer(itemHolder.group(R.id.frame_bottom_layout)!!).apply {
-                            enableLongPressDrag = true
-                            dragContainer = DragRectFConstraint(RectF(-0.1f, -0.1f, -0.1f, -0.1f))
-                        })
+                        layer.enableLongPressDrag = true
+                        layer.dragContainer = DragRectFConstraint(RectF(-0.1f, -0.1f, -0.1f, -0.1f))
+                        layer.show(ViewContainer(itemHolder.group(R.id.frame_bottom_layout)!!))
                     }
                 }
             }
