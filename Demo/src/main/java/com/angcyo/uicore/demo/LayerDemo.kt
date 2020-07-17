@@ -52,7 +52,9 @@ class LayerDemo : AppDslFragment() {
                                 0.0000001f
                             )
                         )
-                        layer.show(WindowContainer(fContext()))
+                        layer.show(WindowContainer(fContext()).apply {
+                            showCancelLayer = true
+                        })
                     }
 
                     layer.enableDrag = true
