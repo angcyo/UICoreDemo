@@ -11,9 +11,13 @@ import com.angcyo.ilayer.container.WindowContainer
 import com.angcyo.library.L
 import com.angcyo.library._satusBarHeight
 import com.angcyo.library._screenHeight
+import com.angcyo.library.ex.dp
+import com.angcyo.library.ex.dpi
+import com.angcyo.library.ex.randomColor
 import com.angcyo.library.ex.simpleHash
 import com.angcyo.uicore.base.AppDslFragment
-import com.angcyo.widget.DslViewHolder
+import com.angcyo.widget.*
+import kotlin.random.Random.Default.nextInt
 
 /**
  *
@@ -40,10 +44,17 @@ class LayerDemo : AppDslFragment() {
             }
         }
 
+
+        var index = 0
+
         renderDslAdapter {
             dslItem(R.layout.demo_layer) {
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
+
+                    val button = itemHolder.button(R.id.button)
+
                     itemHolder.click(R.id.button) {
+                        layer.showCancelLayer = true
                         layer.dragContainer = DragRectFConstraint(
                             RectF(
                                 0f,
@@ -52,9 +63,26 @@ class LayerDemo : AppDslFragment() {
                                 0.0000001f
                             )
                         )
-                        layer.show(WindowContainer(fContext()).apply {
-                            showCancelLayer = true
-                        })
+                        layer.show(WindowContainer(fContext()))
+
+                        button?.apply {
+                            when (index++) {
+                                0 -> updateSolidColor(randomColor())
+                                1 -> updateGradientColors(
+                                    intArrayOf(
+                                        randomColor(),
+                                        randomColor()
+                                    )
+                                )
+                                2 -> updateRadius(nextInt(0, 45) * dp)
+                                3 -> updateStrokeColor(randomColor(), nextInt(1, 10) * dpi)
+                                else -> {
+                                    updateStrokeColor(randomColor(), 0)
+                                    updateRadius(nextInt(5, 10) * dp)
+                                    index = 0
+                                }
+                            }
+                        }
                     }
 
                     layer.enableDrag = true
