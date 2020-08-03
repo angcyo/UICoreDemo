@@ -11,6 +11,7 @@ import com.angcyo.putData
 import com.angcyo.uicore.activity.ShortcutActivity
 import com.angcyo.uicore.base.AppTitleFragment
 import com.angcyo.uicore.fragment.ShortcutFragment
+import com.angcyo.widget._ev
 import com.angcyo.widget.base.animatorOf
 import com.angcyo.widget.base.clickIt
 import com.angcyo.widget.base.fullscreen
@@ -36,6 +37,21 @@ class WidgetDemo : AppTitleFragment() {
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
+
+        //hint text
+        _vh._ev(R.id.hint_edit_1)?.editDelegate?.inputHitTipTextList?.apply {
+            add("188888888")
+            add("188822888")
+        }
+
+        _vh._ev(R.id.hint_edit_2)?.editDelegate?.inputHitTipTextList?.apply {
+            add("188888888")
+            add("188822888")
+            add("182822888")
+            add("28888282")
+            add("22888282")
+            add("33888282")
+        }
 
         //spinner
         _vh.spinner(R.id.spinner)

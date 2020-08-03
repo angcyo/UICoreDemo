@@ -13,6 +13,29 @@
         android:orientation="vertical"
         android:paddingBottom="@dimen/title_bar_height">
 
+        <com.angcyo.widget.edit.DslEditText
+            android:id="@+id/hint_edit_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.angcyo.widget.edit.DslEditText
+            android:id="@+id/hint_edit_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/lib_xhdpi" />
+
+        <com.angcyo.widget.edit.DslEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="hint" />
+
+        <com.angcyo.widget.edit.DslEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:hint="hint" />
+
         <com.angcyo.widget.progress.DslProgressBar
             android:layout_width="match_parent"
             android:layout_height="40dp"
