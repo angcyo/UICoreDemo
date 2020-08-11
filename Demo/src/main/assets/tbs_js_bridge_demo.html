@@ -28,16 +28,34 @@
     <input type="button" id="enter" value="发消息给Native" onclick="testClick();"
     />
 </p>
+
 <p>
     <input type="button" id="enter1" value="调用Native方法" onclick="testClick1();"
     />
 </p>
+
 <p>
     <input type="button" id="enter2" value="显示html" onclick="testDiv();"/>
 </p>
+
 <p>
-    <input type="file" value="打开文件"/>
+<form action="demo_form.asp">
+    选择图片:<input type="file" value="选择图片" name="图片" accept="image/*"/>
+    <input type="submit">
+</form>
 </p>
+
+<p>
+<form>
+    选择图片2:<input type="file" accept="image/*"/>
+    <input type="submit">
+</form>
+</p>
+
+<p>
+    打开文件:<input type="file" value="打开文件" name="文件" accept="*"/>
+</p>
+
 </body>
 <script>
         function testDiv() {
@@ -115,6 +133,23 @@
                 }
             });
         })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </script>
 
