@@ -311,7 +311,7 @@ class MainFragment : AppDslFragment() {
     }
 
     /**调转首次遇到的[GO], 否则则是最后一次*/
-    var goFirst = false
+    var goFirst = true
 
     override fun onInitFragment() {
         super.onInitFragment()
@@ -343,9 +343,9 @@ class MainFragment : AppDslFragment() {
             }
 
             renderMainItem("DrawableSpanDemo")
-            renderMainItem("WidgetDemo ArcLoadingView $GO")
+            renderMainItem("WidgetDemo ArcLoadingView")
             renderMainItem("RefreshEffectDemo DslToast")
-            renderMainItem("RefreshDemo SwipeMenu $GO")
+            renderMainItem("RefreshDemo SwipeMenu")
             renderMainItem("DslAffectDemo")
             renderMainItem("ValueTextWatcherDemo DslSoftInputLayout")
             renderMainItem("DslSoftInputDemo")
@@ -356,14 +356,14 @@ class MainFragment : AppDslFragment() {
             renderMainItem("RegularPatternDemo")
             renderMainItem("OkDownloadDemo")
             renderMainItem("MediaPickerDemo")
-            renderMainItem("DialogDemo $GO")
+            renderMainItem("DialogDemo")
             renderMainItem("NotifyDemo ContentObserver")
             renderMainItem("CameraXDemo")
             renderMainItem("StyleDemo ThemeStyledAttributes")
             renderMainItem("ShortcutDemo")
             renderMainItem("DslDrawItemDecorationDemo")
             renderMainItem("QrCodeDemo")
-            renderMainItem("TbsWebDemo")
+            renderMainItem("TbsWebDemo $GO")
             renderMainItem("IntentDemo")
             renderMainItem("LauncherDemo")
             renderMainItem("GameRenderEngineDemo")
