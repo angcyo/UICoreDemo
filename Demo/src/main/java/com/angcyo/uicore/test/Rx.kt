@@ -5,6 +5,7 @@ import com.angcyo.http.rx.BaseFlowableSubscriber
 import com.angcyo.http.rx.BaseObserver
 import com.angcyo.http.rx.flowableToMain
 import com.angcyo.http.rx.observer
+import com.angcyo.uicore.App
 import io.reactivex.Flowable
 import java.util.concurrent.TimeUnit
 
@@ -22,6 +23,7 @@ fun rxJavaTest() {
 
 fun testPost() {
     post {
+        header = App.headerMap
         url = "https://www.mxnzp.com/api/tools/system/time"
 //        url = "https://blog.csdn.net/sinat_31057219/article/details/101304867/"
 //        url = "https://www.baidu.com"

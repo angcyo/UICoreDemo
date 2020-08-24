@@ -6,6 +6,7 @@ import com.angcyo.http.get
 import com.angcyo.http.get2Body
 import com.angcyo.http.rx.BaseObserver
 import com.angcyo.library.L
+import com.angcyo.uicore.App
 
 /**
  *
@@ -31,7 +32,7 @@ fun testCoroutineHttp() {
         val url2 = "https://www.baidu.com/"
         try {
             L.d("开始请求1:$url1")
-            val result1 = url1.get()
+            val result1 = url1.get(headerMap = App.headerMap)
             L.i("返回1:${result1.body()}")
         } catch (e: Exception) {
             e.printStackTrace()

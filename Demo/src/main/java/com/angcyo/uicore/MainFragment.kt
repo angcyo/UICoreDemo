@@ -210,7 +210,7 @@ class MainFragment : AppDslFragment() {
             val url = "https://www.mxnzp.com/api/tools/system/time"
             L.i("开始请求:")
             try {
-                val response = dslHttp(ApiKt::class.java).post(url)
+                val response = dslHttp(ApiKt::class.java).post(url, headerMap = App.headerMap)
                 L.i(response)
             } catch (e: Exception) {
                 L.e("捕捉异常:$e")

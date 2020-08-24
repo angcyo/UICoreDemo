@@ -34,6 +34,16 @@ import kotlin.random.Random
  */
 class App : CoreApplication(), CameraXConfig.Provider {
 
+    companion object {
+        //如果需要将url转成二维码, 参考以下链接, 注册app_id和app_secret
+        //https://github.com/MZCretin/RollToolsApi#%E8%A7%A3%E9%94%81%E6%96%B0%E6%96%B9%E5%BC%8F
+        const val app_id = "rhqkxdsnjnrpp3xr"
+        const val app_secret = "Rlh4c1duMDZ4YnZrRks4dU55c1NEQT09"
+
+        val headerMap: HashMap<String, String> =
+            hashMapOf("app_id" to app_id, "app_secret" to app_secret)
+    }
+
     override fun onCreate() {
         super.onCreate()
 
