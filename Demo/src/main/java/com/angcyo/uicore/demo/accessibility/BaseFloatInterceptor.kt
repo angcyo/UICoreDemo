@@ -39,11 +39,11 @@ abstract class BaseFloatInterceptor : BaseAccessibilityInterceptor() {
         super.onDoActionFinish(action, error)
     }
 
-    override fun onDestroy() {
+    override fun onDestroy(reason: String?) {
         if (actionStatus.isActionStart()) {
             AccessibilityWindow.show("中止", 0)
         }
-        super.onDestroy()
+        super.onDestroy(reason)
     }
 
     fun updateWindow() {
