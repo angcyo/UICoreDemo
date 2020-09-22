@@ -40,14 +40,14 @@ abstract class BaseFloatInterceptor : BaseAccessibilityInterceptor() {
     }
 
     override fun onDestroy(reason: String?) {
-        if (actionStatus.isActionStart()) {
+        if (runActionStatus.isActionStart()) {
             AccessibilityWindow.show("中止", 0)
         }
         super.onDestroy(reason)
     }
 
     fun updateWindow() {
-        when (actionStatus) {
+        when (runActionStatus) {
             ACTION_STATUS_INIT -> {
                 if (actionIndex < 0) {
                     AccessibilityWindow.show("就绪", intervalDelay)
