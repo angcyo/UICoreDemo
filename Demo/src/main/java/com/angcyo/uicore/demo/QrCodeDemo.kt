@@ -14,6 +14,7 @@ import com.angcyo.qrcode.dslCode
 import com.angcyo.rcode.RCode
 import com.angcyo.tbs.open
 import com.angcyo.uicore.base.AppDslFragment
+import com.angcyo.widget.base.string
 import com.angcyo.widget.recycler.get
 
 /**
@@ -60,7 +61,7 @@ class QrCodeDemo : AppDslFragment() {
                         AsyncTask.execute {
                             val time = System.currentTimeMillis()
                             val bitmap = RCode.syncEncodeQRCode(
-                                itemHolder.tv(R.id.edit_text)?.toString(),
+                                itemHolder.tv(R.id.edit_text)?.string(),
                                 500
                             )
                             activity?.runOnUiThread {
