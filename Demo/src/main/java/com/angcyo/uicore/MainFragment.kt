@@ -408,9 +408,9 @@ class MainFragment : AppDslFragment() {
             renderMainItem("LockDemo Speech $GO")
             renderMainItem("AccessibilityDemo $GO")
             renderMainItem("GithubDemo")
-            renderMainItem("LayerDemo ILayer $GO")
-            renderMainItem("TbsJsBridgeDemo $GO")
-            renderMainItem("SkeletonViewDemo $GO")
+            renderMainItem("LayerDemo ILayer Step $GO")
+            renderMainItem("TbsJsBridgeDemo")
+            renderMainItem("SkeletonViewDemo")
 
             //设备信息.
             DslLastDeviceInfoItem()() {

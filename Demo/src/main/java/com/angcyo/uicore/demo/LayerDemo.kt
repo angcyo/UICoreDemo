@@ -2,6 +2,9 @@ package com.angcyo.uicore.demo
 
 import android.graphics.RectF
 import android.os.Bundle
+import com.angcyo.core.component.step.DslStep
+import com.angcyo.core.component.step.StepModel
+import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.dslItem
 import com.angcyo.ilayer.ILayer
 import com.angcyo.ilayer.LayerParams
@@ -43,7 +46,6 @@ class LayerDemo : AppDslFragment() {
                 }
             }
         }
-
 
         var index = 0
 
@@ -100,6 +102,17 @@ class LayerDemo : AppDslFragment() {
                 }
             }
         }
+
+        //step
+        val stepModel = vmApp<StepModel>()
+        stepModel.stepCountData.observe {
+            _vh.tv(R.id.text_step_view)?.text = "计步:$it"
+        }
+        DslStep.start()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        DslStep.stop()
+    }
 }
