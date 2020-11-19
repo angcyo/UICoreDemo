@@ -4,6 +4,7 @@
     <style name="AppTheme" parent="BaseWhiteAppTheme">
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@drawable/app_splash_bg</item>
+        <item name="android:navigationBarDividerColor">@null</item>
     </style>
 
     <style name="SplashTheme" parent="AppTheme">
