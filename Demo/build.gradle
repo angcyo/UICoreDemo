@@ -1,6 +1,12 @@
+static def apkTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("Asia/Shanghai"))
+}
+
+def apk_time = apkTime()
+
 ext {
     V_CODE = "1"
-    V_NAME = "1.0.0"
+    V_NAME = "1.0.0($apk_time)"
     APP_NAME = "UICoreDemo"
     schema = "demo"
 
