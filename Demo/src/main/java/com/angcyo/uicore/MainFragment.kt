@@ -225,11 +225,6 @@ class MainFragment : AppDslFragment() {
                 animator?.duration = 700
             }
         }
-
-        if (!BaseCoreAppCompatActivity.haveLastCrash) {
-            //自动跳转至指定Demo
-            _jumpToLockPosition()
-        }
     }
 
     fun _jumpToLockPosition() {
@@ -424,6 +419,13 @@ class MainFragment : AppDslFragment() {
                                 FileUtils.appRootExternalFolder()?.absolutePath ?: storageDirectory
                         })
                     }
+                }
+            }
+
+            onDispatchUpdatesOnce {
+                if (!BaseCoreAppCompatActivity.haveLastCrash) {
+                    //自动跳转至指定Demo
+                    _jumpToLockPosition()
                 }
             }
         }
