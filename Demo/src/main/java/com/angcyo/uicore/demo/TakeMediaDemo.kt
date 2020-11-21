@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.core.net.toUri
 import com.angcyo.base.dslAHelper
 import com.angcyo.camerax.recordVideoCameraX
+import com.angcyo.dsladapter.renderEmptyItem
 import com.angcyo.dsladapter.updateOrInsertFooterItem
 import com.angcyo.dslitem.DslLabelMediaItem
 import com.angcyo.dslitem.MediaSelectorConfig
@@ -41,9 +42,9 @@ class TakeMediaDemo : AppDslFragment() {
                     itemMediaSelectorConfig.selectorMode = MediaSelectorConfig.MODE_ALL
                 }
             }
-            DslPickerCameraPreviewItem()() {
+            /*DslPickerCameraPreviewItem()() {
 
-            }
+            }*/
 
             val lastIndex = 0
 
@@ -110,6 +111,13 @@ class TakeMediaDemo : AppDslFragment() {
                     }
                 }
             }
+
+            /*renderEmptyItem()
+            renderEmptyItem()
+            renderEmptyItem()
+            renderEmptyItem()
+            renderEmptyItem()
+            renderEmptyItem()*/
         }
     }
 }
