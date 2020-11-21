@@ -4,16 +4,20 @@ import android.os.Bundle
 import androidx.core.net.toUri
 import com.angcyo.base.dslAHelper
 import com.angcyo.camerax.recordVideoCameraX
-import com.angcyo.dsladapter.updateOrInsertItem
+import com.angcyo.dsladapter.updateOrInsertFooterItem
 import com.angcyo.dslitem.DslLabelMediaItem
+import com.angcyo.dslitem.MediaSelectorConfig
 import com.angcyo.item.DslButtonItem
 import com.angcyo.item.DslImageItem
 import com.angcyo.item.DslTextItem
 import com.angcyo.library.ex.fileSizeString
+import com.angcyo.library.ex.loadUrl
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.media.video.record.RecordVideoActivity
 import com.angcyo.media.video.record.recordVideo
 import com.angcyo.pager.dslPager
+import com.angcyo.picker.DslPicker
+import com.angcyo.picker.dslitem.DslPickerCameraPreviewItem
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.component.AppWaterMarkerRecordVideoCallback
 
@@ -33,19 +37,25 @@ class TakeMediaDemo : AppDslFragment() {
                 itemLabelText = "选择媒体"
                 itemShowAddMediaItem = true
                 itemFragment = this@TakeMediaDemo
+                addMediaItem?.apply {
+                    itemMediaSelectorConfig.selectorMode = MediaSelectorConfig.MODE_ALL
+                }
+            }
+            DslPickerCameraPreviewItem()() {
+
             }
 
-            val lastIndex = 3
+            val lastIndex = 0
 
             fun result(path: String?) {
                 path.apply {
                     if (path.isNullOrEmpty()) {
-                        updateOrInsertItem<DslTextItem>("result", lastIndex) { item ->
+                        updateOrInsertFooterItem<DslTextItem>("result", lastIndex) { item ->
                             item.itemText = "操作取消 ${nowTimeString()}"
                             item
                         }
                     } else {
-                        updateOrInsertItem<DslTextItem>("result", lastIndex) { item ->
+                        updateOrInsertFooterItem<DslTextItem>("result", lastIndex) { item ->
                             item.itemText = "$path ${path.fileSizeString()}"
                             item
                         }
@@ -64,7 +74,7 @@ class TakeMediaDemo : AppDslFragment() {
             }
 
             DslButtonItem()() {
-                itemButtonText = "拍照or摄像"
+                itemButtonText = "拍照or摄像(Take)"
                 itemClick = {
                     RecordVideoActivity.recordVideoCallback = AppWaterMarkerRecordVideoCallback()
                     dslAHelper {
@@ -79,6 +89,24 @@ class TakeMediaDemo : AppDslFragment() {
                     RecordVideoActivity.recordVideoCallback = AppWaterMarkerRecordVideoCallback()
                     dslAHelper {
                         recordVideoCameraX(result = ::result)
+                    }
+                }
+            }
+
+            DslButtonItem()() {
+                itemButtonText = "拍照(System)"
+                itemClick = {
+                    DslPicker.takePhoto(activity) {
+                        result(it?.loadUrl())
+                    }
+                }
+            }
+
+            DslButtonItem()() {
+                itemButtonText = "摄像(System)"
+                itemClick = {
+                    DslPicker.takeVideo(activity) {
+                        result(it?.loadUrl())
                     }
                 }
             }
