@@ -77,7 +77,7 @@ class AMapDemo : AppTitleFragment() {
             dslAMap.apply {
                 showCompass = true
                 showScaleControl = true
-                locationIcon = BitmapDescriptorFactory.fromResource(R.drawable.map_gps_point)
+                locationIcon = BitmapDescriptorFactory.fromResource(R.drawable.map_location_gps_3d)
             }
 
             map.onMapLoadedListener {

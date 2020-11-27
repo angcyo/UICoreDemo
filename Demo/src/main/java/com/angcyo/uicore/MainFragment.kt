@@ -399,7 +399,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("RabbitMQDemo")
             renderMainItem("WaveViewDemo")
             renderMainItem("MoveBehaviorDemo")
-            renderMainItem("AMapDemo")
+            renderMainItem("AMapDemo $GO")
             renderMainItem("LockDemo Speech")
             renderMainItem("AccessibilityDemo")
             renderMainItem("GithubDemo")
