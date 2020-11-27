@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.amap.api.maps.model.BitmapDescriptorFactory
 import com.amap.api.maps.model.LatLng
 import com.angcyo.amap3d.*
-import com.angcyo.amap3d.DslMarker
 import com.angcyo.amap3d.core.MapLocation
 import com.angcyo.amap3d.core.latLng
 import com.angcyo.amap3d.fragment.aMapDetail
@@ -50,8 +49,21 @@ class AMapDemo : AppTitleFragment() {
 
     var _mapLocation: MapLocation? = null
 
-    lateinit var dslMarker: DslMarker
+    /*纵向 小值在下*/
+    var latitude = 22.588031111895674
+        get() {
+            val result = field
+            field = result + 0.0006f
+            return result
+        }
 
+    /*横向 小值在左*/
+    var longitude = 114.06615196236346
+        get() {
+            val result = field
+            field = result - 0.0002f
+            return result
+        }
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
@@ -71,12 +83,12 @@ class AMapDemo : AppTitleFragment() {
             markerIcon(R.drawable.icon_marker_12)
         )
 
-        _vh.initMapView(this, savedInstanceState) {
-            this@AMapDemo.dslMarker = dslMarker
+        val mapView = _vh.initMapView(this, savedInstanceState) {
 
             dslAMap.apply {
                 showCompass = true
                 showScaleControl = true
+                locationMoveFirst = false
                 locationIcon = BitmapDescriptorFactory.fromResource(R.drawable.map_location_gps_3d)
             }
 
@@ -93,6 +105,8 @@ class AMapDemo : AppTitleFragment() {
                 }
 
                 dslMarker.apply {
+                    toHeatMapZoom = -1f
+
                     markerSelectedOptions = markerOptions {
                         icon(markerIcon(R.drawable.icon_marker_danger))
                     }
@@ -101,6 +115,14 @@ class AMapDemo : AppTitleFragment() {
                             icons(iconList, 24)
                         }
                     }
+
+                    //2020-11-27
+                    addMarker(LatLng(latitude, longitude)) {
+                        icon(R.drawable.map_gps_point)
+                        title("Title")
+                        snippet("Snippet")
+                    }?.showInfoWindow()
+
                     moveToShowAllMarker(true)
                 }
             }
@@ -114,6 +136,7 @@ class AMapDemo : AppTitleFragment() {
             }
         }
 
+        //选择地址
         _vh.click(R.id.button) {
             dslFHelper {
                 aMapSelector {
@@ -124,17 +147,26 @@ class AMapDemo : AppTitleFragment() {
                         _vh.tv(R.id.result_text_view)?.text = it.toString()
                         L.i(it)
 
-                        dslMarker.addMarker(it.latLng())
+                        mapView?.dslMarker?.addMarker(it.latLng())
                     }
                 }
             }
         }
+        //地址详情
         _vh.throttleClick(R.id.result_text_view) {
             _mapLocation?.let {
                 dslFHelper {
                     aMapDetail(it)
                 }
             }
+        }
+        //添加Marker
+        _vh.throttleClick(R.id.add_marker_button) {
+            mapView?.dslMarker?.addMarker(LatLng(latitude, longitude)) {
+                icon(R.drawable.map_gps_point)
+                title("Title")
+                snippet("Snippet")
+            }?.showInfoWindow()
         }
     }
 
