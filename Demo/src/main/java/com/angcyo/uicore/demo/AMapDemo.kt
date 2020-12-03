@@ -1,10 +1,12 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import com.amap.api.maps.AMap
 import com.amap.api.maps.model.BitmapDescriptorFactory
 import com.amap.api.maps.model.LatLng
 import com.angcyo.amap3d.*
 import com.angcyo.amap3d.core.MapLocation
+import com.angcyo.amap3d.core.RTextureMapView
 import com.angcyo.amap3d.core.latLng
 import com.angcyo.amap3d.fragment.aMapDetail
 import com.angcyo.amap3d.fragment.aMapSelector
@@ -64,6 +66,15 @@ class AMapDemo : AppTitleFragment() {
             field = result - 0.0002f
             return result
         }
+
+    val mapView: RTextureMapView? get() = _vh.v<RTextureMapView>(com.angcyo.amap3d.R.id.lib_map_view)
+
+    val map: AMap? get() = mapView?.map
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mapView?.onDestroyR()
+    }
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
