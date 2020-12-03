@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/progress_wrap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/transparent10"
+        app:layout_constraintDimensionRatio="1:1">
+
+        <com.angcyo.widget.image.DslImageView
+            android:id="@+id/lib_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="center" />
+
+        <com.angcyo.widget.progress.HaloProgressBar
+            android:id="@+id/halo_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/finish_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        android:text="Finish"
+        app:layout_constraintTop_toBottomOf="@id/progress_wrap_layout" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/progress_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/lib_xhdpi"
+        android:text="Progress"
+        app:layout_constraintLeft_toRightOf="@id/finish_button"
+        app:layout_constraintTop_toTopOf="@id/finish_button" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/load_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/lib_xhdpi"
+        android:text="load"
+        app:layout_constraintLeft_toRightOf="@id/progress_button"
+        app:layout_constraintTop_toTopOf="@id/finish_button" />
+
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent20"
+        app:layout_constraintTop_toBottomOf="@id/finish_button"
+        app:r_flow_max_line_count="2">
+
+        <TextView
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/info"
+            android:text="长文本测试123abc" />
+
+        <TextView
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/success"
+            android:text="长文本测试123abc" />
+
+        <TextView
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/error"
+            android:text="长文本测试123abc" />
+
+        <TextView
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/success"
+            android:text="长文本测试123abc" />
+
+        <TextView
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/error"
+            android:text="长文本测试123abc" />
+
+        <TextView
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/success"
+            android:text="长文本测试123abc" />
+
+        <TextView
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/error"
+            android:text="长文本测试123abc" />
+
+        <TextView
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/info"
+            android:text="长文本测试123abc" />
+
+        <TextView
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/success"
+            android:text="长文本测试123abc" />
+
+        <TextView
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/info"
+            android:text="长文本测试123abc" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

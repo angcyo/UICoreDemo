@@ -406,6 +406,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("LayerDemo ILayer Step")
             renderMainItem("TbsJsBridgeDemo")
             renderMainItem("SkeletonViewDemo")
+            renderMainItem("OkHttpProgressDemo $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()() {
