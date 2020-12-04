@@ -17,10 +17,18 @@
             android:layout_height="match_parent"
             android:scaleType="center" />
 
+        <!--
+                 app:halo_circle_inner_radius="30dp"
+                    app:halo_circle_outer_radius="35dp"
+                    app:halo_circle_outer_radius_increase="10dp"
+                    app:halo_keep_inner_circle_width="5dp"
+                    app:halo_text_size="20dp"
+        -->
         <com.angcyo.widget.progress.HaloProgressBar
             android:id="@+id/halo_progress_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:halo_rect_round="@dimen/lib_radius_common" />
     </FrameLayout>
 
     <com.angcyo.widget.DslButton
