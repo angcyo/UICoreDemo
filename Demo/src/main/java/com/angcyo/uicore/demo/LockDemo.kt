@@ -6,10 +6,7 @@ import android.view.View
 import com.angcyo.activity.lockNotify
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.fullscreen
-import com.angcyo.core.component.model.BatteryModel
-import com.angcyo.core.component.model.toBatteryHealthStr
-import com.angcyo.core.component.model.toBatteryPluggedStr
-import com.angcyo.core.component.model.toBatteryStatusStr
+import com.angcyo.core.component.model.*
 import com.angcyo.core.vmCore
 import com.angcyo.dsladapter.findItemByTag
 import com.angcyo.github.dslitem.DslLabelWheelItem
@@ -178,8 +175,16 @@ class LockDemo : AppDslFragment() {
                 it?.let {
                     _adapter.findItemByTag("battery")?.apply {
                         if (this is DslTextItem) {
-                            itemText =
-                                "$it\n${it.health.toBatteryHealthStr()}\n${it.plugged.toBatteryPluggedStr()}\n${it.status.toBatteryStatusStr()}\n${nowTimeString()}"
+                            itemText = buildString {
+                                appendln(it)
+                                appendln(it.health.toBatteryHealthStr())
+                                appendln(it.plugged.toBatteryPluggedStr())
+                                appendln(it.status.toBatteryStatusStr())
+                                appendln(nowTimeString())
+                                if (it.isCharging()) {
+                                    appendln("正在充电...")
+                                }
+                            }
                             updateAdapterItem()
                         }
                     }

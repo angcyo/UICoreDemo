@@ -2,16 +2,21 @@ package com.angcyo.uicore
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import com.angcyo.baidu.trace.DslBaiduTrace
 import com.angcyo.base.dslFHelper
 import com.angcyo.core.activity.BasePermissionsActivity
+import com.angcyo.core.component.model.BatteryModel
+import com.angcyo.core.vmCore
+import com.angcyo.library.L
 import com.angcyo.library.component.DslShortcut
 import com.angcyo.library.component.dslShortcut
 import com.angcyo.library.utils.Device
 import com.angcyo.library.utils.RUtils
 import com.angcyo.library.utils.checkApkExist
 import com.angcyo.uicore.demo.R
+import com.baidu.trace.model.OnCustomAttributeListener
 
 /**
  *
@@ -132,11 +137,36 @@ class MainActivity : BasePermissionsActivity() {
         //densityAdapter(750, 2f)
         //densityRestore()
         //densityAdapterFrom(2183)
+
+        dslBaiduTrace.updateEntity {
+            columns = dslBaiduTrace.customAttributeListener?.onTrackAttributeCallback()
+        }
     }
 
     val dslBaiduTrace = DslBaiduTrace().apply {
         serviceId = 207762
-        entityName = Device.androidId
+        entityName = "${Build.MODEL.replace(" ", "_")}-${Device.androidId}"
+        autoTraceStart = true
+
+        customAttributeListener = object : OnCustomAttributeListener {
+            override fun onTrackAttributeCallback(): MutableMap<String, String>? {
+                val result = hashMapOf<String, String>()
+                result["test1"] = "test1"
+                result["energy1"] = "${vmCore<BatteryModel>().load(applicationContext).level}"
+                result["energy"] = result["energy1"]!!
+                L.v("onTrackAttributeCallback1:${result["energy1"]}")
+                return result
+            }
+
+            //locTime - 回调时定位点的时间戳（毫秒）
+            override fun onTrackAttributeCallback(locTime: Long): MutableMap<String, String>? {
+                val result = hashMapOf<String, String>()
+                result["test2"] = "test2"
+                result["energy2"] = "${vmCore<BatteryModel>().load(applicationContext).level}"
+                L.v("onTrackAttributeCallback2:${result["energy2"]}")
+                return result
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

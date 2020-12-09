@@ -11,6 +11,8 @@ ext {
     schema = "demo"
 
     application_id = "com.angcyo.uicore.demo"
+
+    apkName = "#an-#vn_#fn_#bn_#ka.apk"
 }
 apply from: allGradle.app
 
