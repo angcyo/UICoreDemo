@@ -164,6 +164,11 @@ class LockDemo : AppDslFragment() {
         }
     }
 
+    override fun onFragmentShow(bundle: Bundle?) {
+        super.onFragmentShow(bundle)
+        vmCore<BatteryModel>().load(fContext())
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         vmCore<BatteryModel>().remove()
