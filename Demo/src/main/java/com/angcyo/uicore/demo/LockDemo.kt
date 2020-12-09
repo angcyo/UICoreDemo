@@ -16,6 +16,7 @@ import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.nowTime
 import com.angcyo.library.ex.nowTimeString
+import com.angcyo.library.utils.RUtils
 import com.angcyo.putData
 import com.angcyo.speech.TTS
 import com.angcyo.uicore.base.AppDslFragment
@@ -184,6 +185,8 @@ class LockDemo : AppDslFragment() {
                                 if (it.isCharging()) {
                                     appendln("正在充电...")
                                 }
+                                appendln("移动信号:${RUtils.getMobileDbm(fContext())}")
+                                appendln("WIFI信号:${RUtils.getWifiRssi(fContext())}")
                             }
                             updateAdapterItem()
                         }
