@@ -33,7 +33,7 @@ fun testCoroutineHttp() {
         try {
             L.d("开始请求1:$url1")
             val result1 = url1.get(headerMap = App.headerMap)
-            L.i("返回1:${result1.body()}")
+            L.i("返回1:${result1?.body()}")
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -41,7 +41,7 @@ fun testCoroutineHttp() {
         try {
             L.d("开始请求2:$url2")
             val result2 = url2.get()
-            L.i("返回2:${result2.body()}")
+            L.i("返回2:${result2?.body()}")
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -49,7 +49,7 @@ fun testCoroutineHttp() {
         try {
             L.d("开始请求3:$url2")
             val result3 = url2.get2Body()
-            L.i("返回3:${result3.body()?.readString()}")
+            L.i("返回3:${result3?.body()?.readString()}")
         } catch (e: Exception) {
             e.printStackTrace()
         }

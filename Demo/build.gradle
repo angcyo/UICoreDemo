@@ -67,6 +67,7 @@ dependencies {
     implementation project(allModule.speech)
     implementation project(allModule.jpush)
     implementation project(allModule.bdtrace)
+    implementation project(allModule.acc)
 
     debugImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
     pretestImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"

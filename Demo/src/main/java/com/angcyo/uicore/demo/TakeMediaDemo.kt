@@ -4,12 +4,11 @@ import android.os.Bundle
 import androidx.core.net.toUri
 import com.angcyo.base.dslAHelper
 import com.angcyo.camerax.recordVideoCameraX
-import com.angcyo.dsladapter.renderEmptyItem
 import com.angcyo.dsladapter.updateOrInsertFooterItem
 import com.angcyo.dslitem.DslLabelMediaItem
 import com.angcyo.dslitem.MediaSelectorConfig
+import com.angcyo.glide.item.DslImageItem
 import com.angcyo.item.DslButtonItem
-import com.angcyo.item.DslImageItem
 import com.angcyo.item.DslTextItem
 import com.angcyo.library.ex.fileSizeString
 import com.angcyo.library.ex.loadUrl
@@ -18,7 +17,6 @@ import com.angcyo.media.video.record.RecordVideoActivity
 import com.angcyo.media.video.record.recordVideo
 import com.angcyo.pager.dslPager
 import com.angcyo.picker.DslPicker
-import com.angcyo.picker.dslitem.DslPickerCameraPreviewItem
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.component.AppWaterMarkerRecordVideoCallback
 

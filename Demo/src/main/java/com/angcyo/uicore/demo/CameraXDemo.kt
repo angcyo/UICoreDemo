@@ -7,8 +7,8 @@ import com.angcyo.camerax.recordVideoCameraX
 import com.angcyo.dsladapter.renderEmptyItem
 import com.angcyo.dsladapter.updateOrInsertItem
 import com.angcyo.fragment.requestPermissions
+import com.angcyo.glide.item.DslImageItem
 import com.angcyo.item.DslButtonItem
-import com.angcyo.item.DslImageItem
 import com.angcyo.item.DslTextItem
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.fileSizeString
