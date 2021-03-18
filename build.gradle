@@ -43,6 +43,9 @@ allprojects {
         maven { url 'https://dl.bintray.com/chaozhouzhang/maven' }
         maven { url 'http://dl.bintray.com/umsdk/release' }
         maven { url "https://gitee.com/angcyo/maven/raw/master" }
+        maven { url "https://codechina.csdn.net/angcyo/maven/-/raw/master" }
+        maven { url "https://gitlab.com/angcyo/maven/-/raw/master" }
+        //maven { url file('E:/AndroidProjects/maven') }
     }
 }
 
