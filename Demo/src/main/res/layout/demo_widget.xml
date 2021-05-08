@@ -13,6 +13,22 @@
         android:orientation="vertical"
         android:paddingBottom="@dimen/title_bar_height">
 
+        <View
+            android:id="@+id/path_loading_view"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:background="@color/transparent20" />
+
+        <com.angcyo.widget.progress.DslSeekBar
+            android:id="@+id/path_loading_seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="@dimen/lib_xxhdpi"
+            android:paddingRight="@dimen/lib_xxhdpi"
+            app:progress_height="5dp"
+            app:progress_show_text="true"
+            app:seek_thumb_over_height="8dp" />
+
         <com.angcyo.widget.edit.DslEditText
             android:id="@+id/hint_edit_1"
             android:layout_width="match_parent"

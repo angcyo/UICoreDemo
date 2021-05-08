@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.TextView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.lightStatusBar
+import com.angcyo.drawable.loading.PathLoadingDrawable
 import com.angcyo.library.ex._drawable
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.library.toastQQ
@@ -37,6 +38,15 @@ class WidgetDemo : AppTitleFragment() {
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
+
+        //path loading
+        val pathLoadingDrawable = PathLoadingDrawable()
+        _vh.view(R.id.path_loading_view)?.background = pathLoadingDrawable
+        _vh.v<DslSeekBar>(R.id.path_loading_seek_bar)?.config {
+            onSeekChanged = { value, fraction, fromUser ->
+                pathLoadingDrawable.progress = value
+            }
+        }
 
         //hint text
         _vh._ev(R.id.hint_edit_1)?.editDelegate?.inputHitTipTextList?.apply {

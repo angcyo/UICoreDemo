@@ -306,7 +306,7 @@ class MainFragment : AppDslFragment() {
     }
 
     /**调转首次遇到的[GO], 否则则是最后一次*/
-    var goFirst = false
+    var goFirst = true
 
     override fun onInitFragment() {
         super.onInitFragment()
@@ -338,7 +338,7 @@ class MainFragment : AppDslFragment() {
             }
 
             renderMainItem("DrawableSpanDemo")
-            renderMainItem("WidgetDemo ArcLoadingView")
+            renderMainItem("WidgetDemo ArcLoadingView $GO")
             renderMainItem("RefreshEffectDemo DslToast")
             renderMainItem("RefreshDemo SwipeMenu")
             renderMainItem("DslAffectDemo")
