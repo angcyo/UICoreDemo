@@ -306,7 +306,7 @@ class MainFragment : AppDslFragment() {
     }
 
     /**调转首次遇到的[GO], 否则则是最后一次*/
-    var goFirst = true
+    var goFirst = false
 
     override fun onInitFragment() {
         super.onInitFragment()
@@ -407,6 +407,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("TbsJsBridgeDemo")
             renderMainItem("SkeletonViewDemo")
             renderMainItem("OkHttpProgressDemo $GO")
+            renderMainItem("ExDialogDemo $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()() {
