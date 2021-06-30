@@ -48,7 +48,8 @@ class MoveBehaviorDemo : AppTitleFragment() {
                 override fun onBehaviorScrollTo(
                     scrollBehavior: BaseScrollBehavior<*>,
                     x: Int,
-                    y: Int
+                    y: Int,
+                    scrollType: Int
                 ) {
                     L.e(x, " ", y)
                     _vh.tv(R.id.lib_tip_text_view)?.text = "x:$x y:$y"
