@@ -21,6 +21,9 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        //'kotlinx-serialization'
+        //classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
 
@@ -40,10 +43,18 @@ allprojects {
 
         maven { url 'https://jitpack.io' }
 
+        //bmob
+        //maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
+        //maven { url "https://gitee.com/angcyo/bmob-android-sdk/raw/master" }
         //maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
         //maven { url "https://gitee.com/angcyo/bmob-android-sdk/raw/master" }
         maven { url 'https://dl.bintray.com/chaozhouzhang/maven' }
-        maven { url 'http://dl.bintray.com/umsdk/release' }
+
+        //umeng
+        maven { url 'https://repo1.maven.org/maven2/' }
+        //maven { url 'http://dl.bintray.com/umsdk/release' }
+
+        //angcyo
         maven { url "https://gitee.com/angcyo/maven/raw/master" }
         maven { url "https://codechina.csdn.net/angcyo/maven/-/raw/master" }
         maven { url "https://gitlab.com/angcyo/maven/-/raw/master" }
