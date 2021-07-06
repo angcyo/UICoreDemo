@@ -34,7 +34,7 @@ class FragmentParent : AbsLifecycleFragment() {
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
 
-        baseViewHolder.click(R.id.button_view) {
+        _vh.click(R.id.button_view) {
             dslChildFHelper {
                 show(FragmentChild::class.java)
                 show(FragmentChild::class.java)

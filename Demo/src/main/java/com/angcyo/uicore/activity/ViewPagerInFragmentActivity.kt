@@ -41,10 +41,10 @@ class FragmentViewPager : AbsLifecycleFragment() {
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
 
-        baseViewHolder.vp(R.id.view_pager)?.apply {
+        _vh.vp(R.id.view_pager)?.apply {
             adapter = RFragmentAdapter(childFragmentManager, fragments)
 
-            ViewPager1Delegate.install(this, baseViewHolder.tab(R.id.tab_layout))
+            ViewPager1Delegate.install(this, _vh.tab(R.id.tab_layout))
         }
     }
 }

@@ -19,7 +19,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.1'
+        classpath 'com.android.tools.build:gradle:4.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         //'kotlinx-serialization'
         //classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
@@ -28,6 +28,8 @@ buildscript {
         // in the individual module build.gradle files
 
         classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
+
+        classpath "com.yanzhenjie.andserver:plugin:$andServerVersion"
     }
 }
 
