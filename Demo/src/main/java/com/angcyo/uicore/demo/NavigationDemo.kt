@@ -16,6 +16,7 @@ import com.angcyo.uicore.fragment.HomeFragment
 import com.angcyo.uicore.fragment.ListFragment
 import com.angcyo.uicore.fragment.MeFragment
 import com.angcyo.widget.base.eachChild
+import com.angcyo.widget.blur.BlurView
 import com.angcyo.widget.tab
 
 /**
@@ -26,6 +27,7 @@ import com.angcyo.widget.tab
  * Copyright (c) 2020 ShenZhen Wayto Ltd. All rights reserved.
  */
 class NavigationDemo : BaseFragment() {
+
     init {
         fragmentLayoutId = R.layout.fragment_navigation
     }
@@ -35,6 +37,9 @@ class NavigationDemo : BaseFragment() {
 
         val fragmentList =
             listOf(HomeFragment::class.java, ListFragment::class.java, MeFragment::class.java)
+
+        //实时模糊
+        _vh.v<BlurView>(R.id.blur_view)?.blurTargetView = _vh.view(R.id.fragment_container)
 
         _vh.tab(R.id.tab_layout)?.apply {
 

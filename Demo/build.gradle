@@ -76,6 +76,7 @@ dependencies {
     //https://github.com/airbnb/lottie-android
     //http://airbnb.io/lottie
     //http://airbnb.io/lottie/#/android
+    //https://lottiefiles.com/
     implementation 'com.airbnb.android:lottie:3.7.0'
 }
 

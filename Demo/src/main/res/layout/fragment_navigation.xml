@@ -9,8 +9,13 @@
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="50dp" />
+        android:layout_height="match_parent" />
+
+    <com.angcyo.widget.blur.BlurView
+        android:id="@+id/blur_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom" />
 
     <com.angcyo.tablayout.DslTabLayout
         android:id="@+id/tab_layout"
@@ -22,7 +27,6 @@
         app:tab_badge_min_width="WRAP_HEIGHT"
         app:tab_badge_offset_x="20dp"
         app:tab_badge_offset_y="-10dp"
-        app:tab_convex_background="@color/lib_white"
         app:tab_deselect_color="@color/text_general_color"
         app:tab_draw_badge="true"
         app:tab_draw_indicator="false"
@@ -31,7 +35,8 @@
         app:tab_item_is_equ_width="true"
         app:tab_select_color="@color/colorAccent"
         app:tab_text_view_id="@id/text_view"
-        tools:tab_badge_text="99+">
+        tools:tab_badge_text="99+"
+        tools:tab_convex_background="@color/lib_white">
 
         <LinearLayout
             android:layout_width="match_parent"
