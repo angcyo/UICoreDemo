@@ -45,16 +45,16 @@ class RefreshEffectDemo : AppTitleFragment() {
 
                     itemClick = {
                         when (type) {
-                            1 -> toast(itemInfoText, R.drawable.lib_ic_info) {
+                            1 -> toast(itemInfoText, fContext(), R.drawable.lib_ic_info) {
                                 withActivity = if (withAcy) activity else null
                             }
-                            2 -> toastQQ(itemInfoText, R.drawable.lib_ic_succeed) {
+                            2 -> toastQQ(itemInfoText, fContext(), R.drawable.lib_ic_succeed) {
                                 withActivity = if (withAcy) activity else null
                             }
-                            3 -> toastWX(itemInfoText, R.drawable.lib_ic_error) {
+                            3 -> toastWX(itemInfoText, fContext(), R.drawable.lib_ic_error) {
                                 withActivity = if (withAcy) activity else null
                             }
-                            else -> toast(itemInfoText, R.drawable.lib_ic_waring) {
+                            else -> toast(itemInfoText, fContext(), R.drawable.lib_ic_waring) {
                                 withActivity = if (withAcy) activity else null
                             }
                         }
