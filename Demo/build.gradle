@@ -28,7 +28,7 @@ android {
 }
 
 dependencies {
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
@@ -72,6 +72,11 @@ dependencies {
     debugImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
     pretestImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
     releaseImplementation "io.objectbox:objectbox-android:$objectboxVersion"
+
+    //https://github.com/airbnb/lottie-android
+    //http://airbnb.io/lottie
+    //http://airbnb.io/lottie/#/android
+    implementation 'com.airbnb.android:lottie:3.7.0'
 }
 
 //apply from: allGradle.v7a

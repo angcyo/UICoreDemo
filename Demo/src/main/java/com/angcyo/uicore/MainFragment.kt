@@ -408,6 +408,7 @@ class MainFragment : AppDslFragment() {
             renderMainItem("SkeletonViewDemo")
             renderMainItem("OkHttpProgressDemo $GO")
             renderMainItem("ExDialogDemo $GO")
+            renderMainItem("NavigationDemo $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()() {

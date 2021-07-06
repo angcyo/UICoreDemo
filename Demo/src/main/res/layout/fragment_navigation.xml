@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lib_white_dark">
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp" />
+
+    <com.angcyo.tablayout.DslTabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        app:tab_badge_gravity="center"
+        app:tab_badge_min_height="16dp"
+        app:tab_badge_min_width="WRAP_HEIGHT"
+        app:tab_badge_offset_x="20dp"
+        app:tab_badge_offset_y="-10dp"
+        app:tab_convex_background="@color/lib_white"
+        app:tab_deselect_color="@color/text_general_color"
+        app:tab_draw_badge="true"
+        app:tab_draw_indicator="false"
+        app:tab_enable_ico_color="true"
+        app:tab_icon_view_id="@id/lottie_view"
+        app:tab_item_is_equ_width="true"
+        app:tab_select_color="@color/colorAccent"
+        app:tab_text_view_id="@id/text_view"
+        tools:tab_badge_text="99+">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/lib_bg_selector"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_view"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:lottie_speed="2.5"
+                tools:lottie_cacheComposition="false"
+                tools:lottie_colorFilter="@color/colorAccent"
+                tools:lottie_fileName="json_home.json" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_view"
+                style="@style/LibBodyTextStyle"
+                android:text="Home"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/lib_bg_selector"
+            android:clipChildren="true"
+            android:clipToPadding="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_tab_convex_height="20dp">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_view"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:lottie_speed="4"
+                tools:lottie_cacheComposition="false"
+                tools:lottie_colorFilter="@color/colorPrimaryDark"
+                tools:lottie_fileName="json_add.json" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_view"
+                style="@style/LibBodyTextStyle"
+                android:text="Add"
+                android:visibility="gone"
+                tools:visibility="visible" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/lib_bg_selector"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_view"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:lottie_progress="0.3"
+                app:lottie_speed="1.5"
+                tools:lottie_cacheComposition="false"
+                tools:lottie_fileName="json_play.json" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_view"
+                style="@style/LibBodyTextStyle"
+                android:text="Me"
+                android:visibility="gone"
+                tools:visibility="visible" />
+        </LinearLayout>
+
+    </com.angcyo.tablayout.DslTabLayout>
+
+</FrameLayout>
