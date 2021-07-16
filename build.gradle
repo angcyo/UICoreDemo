@@ -61,6 +61,9 @@ allprojects {
         maven { url "https://codechina.csdn.net/angcyo/maven/-/raw/master" }
         maven { url "https://gitlab.com/angcyo/maven/-/raw/master" }
         //maven { url file('E:/AndroidProjects/maven') }
+
+        //RePlugin
+        maven {url "http://maven.geelib.360.cn/nexus/service/rest/repository/browse/replugin/"}
     }
 }
 
