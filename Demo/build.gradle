@@ -36,7 +36,7 @@ dependencies {
 
     //https://developer.android.google.cn/topic/libraries/architecture/workmanager.html
     //http://mvnrepository.com/artifact/androidx.work
-    def work_version = "2.4.0"
+    def work_version = "2.5.0"
     // (Java only)
     implementation "androidx.work:work-runtime:$work_version"
     // Kotlin + coroutines
@@ -69,6 +69,9 @@ dependencies {
     implementation project(allModule.bdtrace)
     implementation project(allModule.acc)
 
+    implementation project(allModule.bugly)
+    implementation project(allModule.andserver)
+
     debugImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
     pretestImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
     releaseImplementation "io.objectbox:objectbox-android:$objectboxVersion"
@@ -90,3 +93,5 @@ apply plugin: 'io.objectbox' // Apply last.
 
 //jpush 极光的配置在aar里面, 所以也需要在此配置
 apply from: allGradle.jpush
+
+apply from: allGradle.bugly

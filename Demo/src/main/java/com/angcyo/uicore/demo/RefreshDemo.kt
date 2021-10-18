@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.behavior.refresh.IRefreshContentBehavior
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.SwipeMenuHelper
+import com.angcyo.item.style.itemInfoText
 import com.angcyo.library.L
 import com.angcyo.library.ex.*
 import com.angcyo.uicore.base.AppDslFragment

@@ -8,6 +8,8 @@ import com.angcyo.dialog.openWidthDialog
 import com.angcyo.dsladapter.findItem
 import com.angcyo.item.DslButtonItem
 import com.angcyo.item.DslInputItem
+import com.angcyo.item.style.itemButtonText
+import com.angcyo.item.style.itemEditText
 import com.angcyo.library.ex.hawkGet
 import com.angcyo.library.ex.hawkPut
 import com.angcyo.library.ex.loadUrl
@@ -29,7 +31,7 @@ class ExDialogDemo : AppDslFragment() {
             //输入
             DslInputItem()() {
                 itemEditText = "ExDialogDemo".hawkGet()
-                itemTextChange = {
+                editItemConfig.itemTextChange = {
                     "ExDialogDemo".hawkPut(it)
                 }
             }

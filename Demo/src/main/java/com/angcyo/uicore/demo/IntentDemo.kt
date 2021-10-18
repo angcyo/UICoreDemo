@@ -7,6 +7,7 @@ import com.angcyo.base.dslAHelper
 import com.angcyo.coroutine.onBack
 import com.angcyo.dsladapter.renderItem
 import com.angcyo.item.DslTextInfoItem
+import com.angcyo.item.style.itemInfoText
 import com.angcyo.library.component.appBean
 import com.angcyo.library.component.dslIntentQuery
 import com.angcyo.library.ex.dpi

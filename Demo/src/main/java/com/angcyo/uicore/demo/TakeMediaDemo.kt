@@ -7,9 +7,13 @@ import com.angcyo.camerax.recordVideoCameraX
 import com.angcyo.dsladapter.updateOrInsertFooterItem
 import com.angcyo.dslitem.DslLabelMediaItem
 import com.angcyo.dslitem.MediaSelectorConfig
-import com.angcyo.glide.item.DslImageItem
 import com.angcyo.item.DslButtonItem
+import com.angcyo.item.DslImageItem
 import com.angcyo.item.DslTextItem
+import com.angcyo.item.style.itemButtonText
+import com.angcyo.item.style.itemLabelText
+import com.angcyo.item.style.itemLoadUri
+import com.angcyo.item.style.itemText
 import com.angcyo.library.ex.fileSizeString
 import com.angcyo.library.ex.loadUrl
 import com.angcyo.library.ex.nowTimeString
@@ -37,7 +41,8 @@ class TakeMediaDemo : AppDslFragment() {
                 itemShowAddMediaItem = true
                 itemFragment = this@TakeMediaDemo
                 addMediaItem?.apply {
-                    itemMediaSelectorConfig.selectorMode = MediaSelectorConfig.MODE_ALL
+                    pickerMediaItemConfig.itemMediaSelectorConfig.selectorMode =
+                        MediaSelectorConfig.MODE_ALL
                 }
             }
             /*DslPickerCameraPreviewItem()() {

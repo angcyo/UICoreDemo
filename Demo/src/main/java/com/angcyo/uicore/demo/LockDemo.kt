@@ -12,6 +12,10 @@ import com.angcyo.dsladapter.findItemByTag
 import com.angcyo.github.dslitem.DslLabelWheelItem
 import com.angcyo.github.dslitem.itemWheelBean
 import com.angcyo.item.*
+import com.angcyo.item.style.itemButtonText
+import com.angcyo.item.style.itemEditText
+import com.angcyo.item.style.itemLabelText
+import com.angcyo.item.style.itemText
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.nowTime
@@ -38,7 +42,6 @@ class LockDemo : AppDslFragment() {
         renderDslAdapter {
             DslButtonItem()() {
                 itemButtonText = "启动锁屏通知"
-
                 itemClick = {
                     dslAHelper {
                         lockNotify {
@@ -56,7 +59,6 @@ class LockDemo : AppDslFragment() {
 
             DslButtonItem()() {
                 itemButtonText = "启动锁屏通知(延迟)"
-
                 itemClick = {
                     it.postDelay(2_000) {
                         dslAHelper {

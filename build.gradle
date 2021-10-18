@@ -31,6 +31,9 @@ buildscript {
         classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
 
         classpath "com.yanzhenjie.andserver:plugin:$andServerVersion"
+
+        //https://repo1.maven.org/maven2/com/tencent/bugly/symtabfileuploader/
+        classpath 'com.tencent.bugly:symtabfileuploader:2.2.1'
     }
 }
 

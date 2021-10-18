@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import com.angcyo.DslAHelper
 import com.angcyo.base.restore
+import com.angcyo.bugly.Bugly
 import com.angcyo.core.CoreApplication
 import com.angcyo.core.fragment.BaseUI
 import com.angcyo.core.viewpager.RFragmentAdapter
@@ -70,6 +71,8 @@ class App : CoreApplication(), CameraXConfig.Provider {
         )
 
         JPush.init(this)
+
+        Bugly.init()
     }
 
     override fun onCreateMain() {

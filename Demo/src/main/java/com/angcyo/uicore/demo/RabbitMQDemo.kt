@@ -4,6 +4,8 @@ import android.os.Bundle
 import com.angcyo.amqp.DslRabbitMQ
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.item.DslTextItem
+import com.angcyo.item.style.itemInfoText
+import com.angcyo.item.style.itemText
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.base.string

@@ -2,6 +2,7 @@ package com.angcyo.uicore.fragment
 
 import android.os.Bundle
 import com.angcyo.item.DslTextItem
+import com.angcyo.item.style.itemText
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.uicore.base.AppDslFragment
 import kotlin.random.Random.Default.nextInt

@@ -3,6 +3,7 @@ package com.angcyo.uicore.dslitem
 import android.view.Gravity
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.item.DslTextInfoItem
+import com.angcyo.item.style.itemInfoText
 import com.angcyo.library.ex.nowTimeString
 import kotlin.random.Random.Default.nextInt
 

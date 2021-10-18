@@ -7,6 +7,7 @@ import com.angcyo.base.dslFHelper
 import com.angcyo.coroutine.sleep
 import com.angcyo.dsladapter.dslItem
 import com.angcyo.item.DslTextInfoItem
+import com.angcyo.item.style.itemInfoText
 import com.angcyo.library.L
 import com.angcyo.library.ex.fullTime
 import com.angcyo.library.ex.nowTime

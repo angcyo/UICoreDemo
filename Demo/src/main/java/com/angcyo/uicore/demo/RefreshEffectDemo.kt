@@ -3,6 +3,7 @@ package com.angcyo.uicore.demo
 import android.os.Bundle
 import com.angcyo.dsladapter.filter.batchLoad
 import com.angcyo.item.DslBaseInfoItem
+import com.angcyo.item.style.itemInfoText
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.toast
 import com.angcyo.library.toastQQ

@@ -5,6 +5,7 @@ import android.view.View
 import com.angcyo.base.dslAHelper
 import com.angcyo.dsladapter.marginVertical
 import com.angcyo.item.DslTextInfoItem
+import com.angcyo.item.style.itemInfoText
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.putData

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import com.angcyo.item.DslTextInfoItem
+import com.angcyo.item.style.itemInfoText
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.isImageMimeType
 import com.angcyo.library.ex.nowTimeString

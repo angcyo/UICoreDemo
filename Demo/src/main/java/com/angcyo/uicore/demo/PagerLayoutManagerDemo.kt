@@ -4,12 +4,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.itemIndexPosition
 import com.angcyo.github.dslitem.DslBannerItem
+import com.angcyo.item.DslNestedRecyclerItem
+import com.angcyo.item.style.itemNestedAdapter
+import com.angcyo.item.style.itemNestedLayoutManager
 import com.angcyo.library._screenWidth
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.toastQQ
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.AppImageItem
-import com.angcyo.widget.dslitem.DslNestedRecyclerItem
 import com.angcyo.widget.recycler.LinearLayoutManagerWrap
 import com.leochuan.ScaleLayoutManager
 

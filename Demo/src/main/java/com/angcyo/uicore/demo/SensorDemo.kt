@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.angcyo.dsladapter.findItemByTag
 import com.angcyo.dsladapter.marginVertical
 import com.angcyo.item.DslBaseLabelItem
+import com.angcyo.item.style.itemLabelText
 import com.angcyo.library.LTime
 import com.angcyo.library.component.DslSensor
 import com.angcyo.library.ex._color
