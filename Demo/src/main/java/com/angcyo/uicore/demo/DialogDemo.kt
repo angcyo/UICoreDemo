@@ -30,7 +30,8 @@ import com.angcyo.widget.base.string
 import com.angcyo.widget.progress.DslSeekBar
 import com.angcyo.widget.span.span
 import com.haibin.calendarview.Calendar
-import com.haibin.calendarview.RCalendarView
+import com.haibin.calendarview.createCalendar
+import com.haibin.calendarview.today
 import kotlin.random.Random.Default.nextInt
 import kotlin.random.Random.Default.nextLong
 
@@ -320,7 +321,7 @@ class DialogDemo : AppDslFragment() {
             fContext().calendarDialog {
                 setCalendarRange(2018, 2020)
 
-                calendarList = mutableListOf(RCalendarView.today())
+                calendarList = mutableListOf(today())
 
                 dialogResult = calendarResult
                 _defaultConfig(holder, this)
@@ -333,7 +334,7 @@ class DialogDemo : AppDslFragment() {
                 setCalendarRange(2018, 2020, 4, 8)
 
                 //设置日历默认选择范围
-                calendarList = mutableListOf(Calendar(2020, 2, 1), Calendar(2020, 5, 1))
+                calendarList = mutableListOf(createCalendar(2020, 2, 1), createCalendar(2020, 5, 1))
 
                 dialogResult = calendarResult
                 _defaultConfig(holder, this)
