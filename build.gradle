@@ -47,6 +47,10 @@ allprojects {
         //jcenter()
         mavenCentral()
 
+        //println google().url
+        //println mavenCentral().url
+        //maven { url 'https://maven.google.com' }
+
         maven { url 'https://jitpack.io' }
 
         //bmob
