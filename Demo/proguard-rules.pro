@@ -34,3 +34,4 @@
 # 保持demo fragment能够跳转
 -keep class com.angcyo.uicore.MainFragment
 -keep class com.angcyo.uicore.demo.*
+-keep class com.angcyo.uicore.demo.**.**Demo

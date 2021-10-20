@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?><!--suppress ALL -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#334555"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/lib_min_item_height">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/pre_month_view"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/lib_hdpi"
+            android:text="上一个月"
+            android:textColor="@color/text_sub_color" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/next_month_view"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:padding="@dimen/lib_hdpi"
+            android:text="下一个月"
+            android:textColor="@color/text_sub_color" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/current_month_view"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/lib_hdpi"
+            android:text="2021-10-20"
+            android:textColor="@color/lib_white" />
+
+    </FrameLayout>
+
+    <com.haibin.calendarview.CalendarLayout
+        android:id="@+id/calendar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:calendar_content_view_id="@+id/lib_recycler_view"
+        app:calendar_show_mode="both_month_week_view">
+
+        <!--https://github.com/huanghaibin-dev/CalendarView/blob/master/QUESTION_ZH.md-->
+        <com.haibin.calendarview.RCalendarView
+            android:id="@+id/calendar_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:current_day_text_color="@color/colorAccent"
+            app:current_month_lunar_text_color="@color/text_sub_color"
+            app:current_month_text_color="@color/lib_white"
+            app:max_year="2099"
+            app:min_year="1971"
+            app:month_view_auto_select_day="last_select_day"
+            app:month_view_show_mode="mode_only_current"
+            app:other_month_lunar_text_color="@color/text_sub_color"
+            app:other_month_text_color="@color/text_place_color"
+            app:select_mode="single_mode"
+            app:selected_lunar_text_color="@color/lib_white"
+            app:selected_text_color="@color/lib_white"
+            app:selected_theme_color="#E41C1C"
+            app:week_background="#334555"
+            app:week_text_color="@color/lib_white"
+            app:year_view_current_day_text_color="@color/colorAccent" />
+
+        <include layout="@layout/lib_recycler_layout" />
+
+        <!--<com.haibin.calendarview.RCalendarView
+            android:id="@+id/calendar_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            app:calendar_padding_left="22dp"
+            app:calendar_padding_right="10dp"
+            app:current_day_lunar_text_color="#ff0000"
+            app:current_day_text_color="#ff0000"
+            app:current_month_lunar_text_color="#CFCFCF"
+            app:current_month_text_color="#333333"
+            app:lunar_text_size="10sp"
+            app:max_year="2099"
+            app:max_year_day="31"
+            app:max_year_month="12"
+            app:min_year="1971"
+            app:min_year_day="1"
+            app:min_year_month="1"
+            app:month_view_auto_select_day="last_select_day_ignore_current"
+            app:month_view_show_mode="mode_only_current"
+            app:other_month_lunar_text_color="#e1e1e1"
+            app:other_month_text_color="#e1e1e1"
+            app:scheme_lunar_text_color="#CFCFCF"
+            app:scheme_text="假"
+            app:scheme_text_color="#333"
+            app:scheme_theme_color="#128c4b"
+            app:selected_lunar_text_color="#128c4b"
+            app:selected_text_color="#128c4b"
+            app:selected_theme_color="#80cfcfcf"
+            app:week_background="#fff"
+            app:week_bar_height="46dp"
+            app:week_line_background="#00000000"
+            app:week_line_margin="16dp"
+            app:week_start_with="sun"
+            app:week_text_size="10sp"
+            app:year_view_background="#f6f6f6"
+            app:year_view_day_text_color="#333333"
+            app:year_view_day_text_size="8sp"
+            app:year_view_month_text_color="#ff0000"
+            app:year_view_month_text_size="20sp"
+            app:year_view_scheme_color="#f17706"
+            app:year_view_week_height="0dp"
+            app:year_view_week_text_color="#666666"
+            app:year_view_week_text_size="7sp" />
+
+       -->
+    </com.haibin.calendarview.CalendarLayout>
+
+</LinearLayout>
