@@ -1,13 +1,13 @@
 package com.angcyo.uicore.dslitem
 
-import androidx.camera.view.CameraView
+import androidx.camera.view.PreviewView
 import com.angcyo.camerax.dslitem.DslCameraViewHelper
 import com.angcyo.camerax.dslitem.DslCameraViewItem
 import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.library.ex.simpleClassName
-import com.angcyo.library.toast
 import com.angcyo.library.model.LoaderMedia
+import com.angcyo.library.toast
 import com.angcyo.picker.dslitem.DslPickerImageItem
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
@@ -32,7 +32,7 @@ class AppCameraViewItem : DslCameraViewItem() {
     ) {
         super.onItemBind(itemHolder, itemPosition, adapterItem, payloads)
 
-        val cameraView: CameraView? = itemHolder.v(R.id.lib_camera_view)
+        val cameraView: PreviewView? = itemHolder.v(R.id.lib_camera_view)
 
         val dslCameraViewHelper = DslCameraViewHelper()
         dslCameraViewHelper.cameraView = cameraView
