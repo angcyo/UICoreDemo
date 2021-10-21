@@ -20,7 +20,7 @@ class CalendarDemo : BaseDemoDslFragment() {
         renderDslAdapter {
             renderDemoListItem("CalendarLayoutDemo")
             renderDemoListItem("SingleCalendarLayoutDemo")
-            renderDemoListItem("Demo3")
+            renderDemoListItem("VerticalCalendarDemo")
         }
     }
 }

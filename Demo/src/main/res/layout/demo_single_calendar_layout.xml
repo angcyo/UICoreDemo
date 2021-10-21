@@ -17,6 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:drawableLeft="@drawable/icon_prev"
+            android:drawablePadding="@dimen/lib_hdpi"
             android:padding="@dimen/lib_hdpi"
             android:text="上一个月"
             android:textColor="@color/text_sub_color" />
@@ -27,6 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
+            android:drawableRight="@drawable/icon_next"
+            android:drawablePadding="@dimen/lib_hdpi"
             android:padding="@dimen/lib_hdpi"
             android:text="下一个月"
             android:textColor="@color/text_sub_color" />
