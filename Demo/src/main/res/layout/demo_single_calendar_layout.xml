@@ -80,6 +80,7 @@
             app:week_background="#334555"
             app:week_start_with="mon"
             app:week_text_color="#708293"
+            app:week_view="com.haibin.calendarview.SingleWeekView"
             app:year_view_current_day_text_color="@color/colorAccent"
             tools:current_day_text_color="@color/colorAccent" />
 

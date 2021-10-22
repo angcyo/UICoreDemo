@@ -7,6 +7,7 @@ import com.angcyo.library.L
 import com.angcyo.library.ex.toColor
 import com.angcyo.library.toastQQ
 import com.angcyo.uicore.demo.R
+import com.angcyo.widget.base.setBgDrawable
 import com.haibin.calendarview.*
 
 /**
@@ -31,6 +32,8 @@ class SingleCalendarLayoutDemo : CalendarLayoutDemo() {
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
+
+        _recycler.setBgDrawable(fragmentConfig.fragmentBackgroundDrawable)
 
         val calendarView: RCalendarView? = _vh.v(R.id.calendar_view)
         calendarView?.apply {
