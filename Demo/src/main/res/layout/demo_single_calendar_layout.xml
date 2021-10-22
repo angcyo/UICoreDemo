@@ -60,22 +60,28 @@
             android:id="@+id/calendar_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:current_day_text_color="@color/colorAccent"
+            app:current_day_lunar_text_color="@color/text_sub_color"
+            app:current_day_text_color="@color/lib_white"
             app:current_month_lunar_text_color="@color/text_sub_color"
             app:current_month_text_color="@color/lib_white"
             app:max_year="2099"
             app:min_year="1971"
+            app:month_view="com.haibin.calendarview.SingleMonthView"
             app:month_view_auto_select_day="last_select_day"
             app:month_view_show_mode="mode_only_current"
             app:other_month_lunar_text_color="@color/text_sub_color"
-            app:other_month_text_color="@color/text_place_color"
+            app:other_month_text_color="#708293"
+            app:scheme_text="计"
+            app:scheme_theme_color="#FFAE00"
             app:select_mode="single_mode"
             app:selected_lunar_text_color="@color/lib_white"
             app:selected_text_color="@color/lib_white"
             app:selected_theme_color="#E41C1C"
             app:week_background="#334555"
-            app:week_text_color="@color/lib_white"
-            app:year_view_current_day_text_color="@color/colorAccent" />
+            app:week_start_with="mon"
+            app:week_text_color="#708293"
+            app:year_view_current_day_text_color="@color/colorAccent"
+            tools:current_day_text_color="@color/colorAccent" />
 
         <include layout="@layout/lib_recycler_layout" />
 

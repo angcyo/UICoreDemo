@@ -1,9 +1,11 @@
 package com.angcyo.uicore.demo.calendar
 
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.core.graphics.drawable.toDrawable
 import com.angcyo.library.L
 import com.angcyo.library.ex.toColor
+import com.angcyo.library.toastQQ
 import com.angcyo.uicore.demo.R
 import com.haibin.calendarview.*
 
@@ -30,10 +32,17 @@ class SingleCalendarLayoutDemo : CalendarLayoutDemo() {
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
 
-        val calendarView: CalendarView? = _vh.v(R.id.calendar_view)
-        //calendarView?.mothv
-
+        val calendarView: RCalendarView? = _vh.v(R.id.calendar_view)
         calendarView?.apply {
+            monthViewPager?.orientation = LinearLayout.VERTICAL
+            //calendarView?.mothv
+            val today = today()
+            addSchemeDate(today.getPreCalendar())
+            addSchemeDate(today.getPreCalendar().getPreCalendar())
+
+            //设置周末的颜色
+            setWeekendTextColor()
+
             //_updateCurrentMonth()
             _vh.click(R.id.pre_month_view) {
                 toPreMonth()
@@ -48,6 +57,9 @@ class SingleCalendarLayoutDemo : CalendarLayoutDemo() {
             onCalendarSelectListener { calendar, isClick, isOutOfRange ->
                 L.i("选中日期: ", calendar, " :", isClick, " :", isOutOfRange)
                 //_updateCurrentMonth()
+                if (isClick) {
+                    toastQQ(calendar.toString())
+                }
             }
             onWeekChangeListener {
                 L.i(it)
