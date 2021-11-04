@@ -2,6 +2,8 @@
 
 apply from: 'UICore/_gradle/init.gradle'
 
+apply from: allGradle.saveStream
+
 buildscript {
     repositories {
         //https://maven.aliyun.com/mvn/view
