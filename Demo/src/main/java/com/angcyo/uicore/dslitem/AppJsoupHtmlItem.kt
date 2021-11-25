@@ -131,11 +131,12 @@ class AppJsoupHtmlItem : DslAdapterItem() {
         jsoupData.getUrlSelect = false
     }
 
-    override fun onItemUpdateFrom(fromItem: DslAdapterItem) {
-        super.onItemUpdateFrom(fromItem)
+    override fun onItemUpdateFrom(fromItem: DslAdapterItem): Boolean {
+        val result = super.onItemUpdateFrom(fromItem)
         if (fromItem is AppJsoupInputItem) {
             jsoupData = fromItem.jsoupData
         }
+        return result
     }
 
     fun _parseCss(document: Document, select: String?): String {
