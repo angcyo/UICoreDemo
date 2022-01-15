@@ -12,8 +12,8 @@ import com.angcyo.ilayer.container.DragRectFConstraint
 import com.angcyo.ilayer.container.ViewContainer
 import com.angcyo.ilayer.container.WindowContainer
 import com.angcyo.library.L
-import com.angcyo.library._satusBarHeight
 import com.angcyo.library._screenHeight
+import com.angcyo.library._statusBarHeight
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.randomColor
@@ -60,7 +60,7 @@ class LayerDemo : AppDslFragment() {
                         layer.dragContainer = DragRectFConstraint(
                             RectF(
                                 0f,
-                                _satusBarHeight * 1f / _screenHeight,
+                                _statusBarHeight * 1f / _screenHeight,
                                 0f,
                                 0.0000001f
                             )

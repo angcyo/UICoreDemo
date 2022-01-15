@@ -6,7 +6,7 @@ import com.angcyo.dsladapter.itemIndexPosition
 import com.angcyo.github.dslitem.DslBannerItem
 import com.angcyo.item.DslNestedRecyclerItem
 import com.angcyo.item.style.itemNestedAdapter
-import com.angcyo.item.style.itemNestedLayoutManagerProvide
+import com.angcyo.item.style.itemNestedLayoutManager
 import com.angcyo.library._screenWidth
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.toastQQ
@@ -68,9 +68,8 @@ class PagerLayoutManagerDemo : AppDslFragment() {
             }
 
             DslNestedRecyclerItem()() {
-                itemNestedLayoutManagerProvide = {
+                itemNestedLayoutManager =
                     LinearLayoutManagerWrap(fContext(), RecyclerView.HORIZONTAL)
-                }
 
                 itemNestedAdapter.apply {
                     for (i in 0..10) {
