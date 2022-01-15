@@ -7,13 +7,14 @@ import android.os.Bundle
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
+import com.angcyo.core.component.DslFinger
 import com.angcyo.github.biometric.BiometricAuth
 import com.angcyo.github.biometric.BiometricAuthenticationCancelledException
 import com.angcyo.github.biometric.BiometricAuthenticationException
 import com.angcyo.github.finger.FPerException
 import com.angcyo.github.finger.IdentificationInfo
 import com.angcyo.github.finger.RxFingerPrinter
-import com.angcyo.library.ex.nowTime
+import com.angcyo.library.ex.nowTimeString
 import com.angcyo.library.toastQQ
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.component.FingerPrinterView
@@ -40,9 +41,11 @@ class BiometricDemo : AppDslFragment() {
 
     var fingerPrinter: RxFingerPrinter? = null
 
-    var fingerPrinterView: FingerPrinterView? = null
     var biometricPrinterView: FingerPrinterView? = null
     var biometricPrinterView2: FingerPrinterView? = null
+
+    var fingerPrinterView: FingerPrinterView? = null
+    var fingerPrinterView2: FingerPrinterView? = null
 
     private val cryptoManager: CryptoManager by lazy {
         CryptoManager()
@@ -60,6 +63,7 @@ class BiometricDemo : AppDslFragment() {
         contentLayoutId = R.layout.fragment_biometric
     }
 
+    @SuppressLint("CheckResult")
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
 
@@ -69,6 +73,7 @@ class BiometricDemo : AppDslFragment() {
         }
 
         fingerPrinterView = _vh.v<FingerPrinterView>(R.id.finger_printer_view)
+        fingerPrinterView2 = _vh.v<FingerPrinterView>(R.id.finger_printer_view2)
         biometricPrinterView = _vh.v<FingerPrinterView>(R.id.biometric_printer_view)
         biometricPrinterView2 = _vh.v<FingerPrinterView>(R.id.biometric_printer_view2)
 
@@ -143,6 +148,19 @@ class BiometricDemo : AppDslFragment() {
                 }
 
             })
+        }
+
+        _vh.click(R.id.finger_printer_view2) {
+            fingerPrinterView2?.state = FingerPrinterView.STATE_SCANING
+            DslFinger().startAuthenticate(fContext()).subscribe { result ->
+                if (result.success) {
+                    fingerPrinterView2?.state = FingerPrinterView.STATE_CORRECT_PWD
+                    onResult("识别成功")
+                } else {
+                    fingerPrinterView2?.state = FingerPrinterView.STATE_WRONG_PWD
+                    onResult("识别失败:${"${result.error?.errMsgId},${result.error?.message}"}")
+                }
+            }
         }
     }
 
@@ -221,7 +239,7 @@ class BiometricDemo : AppDslFragment() {
 
     fun onResult(text: String) {
         toastQQ(text)
-        _vh.tv(R.id.result_view)?.text = "${nowTime()} -> $text"
+        _vh.tv(R.id.result_view)?.text = "${nowTimeString()} -> $text"
     }
 
     private class CryptoManager {
