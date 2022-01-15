@@ -49,19 +49,11 @@ class WidgetDemo : AppTitleFragment() {
         }
 
         //hint text
-        _vh._ev(R.id.hint_edit_1)?.editDelegate?.inputHitTipTextList?.apply {
-            add("188888888")
-            add("188822888")
-        }
+        _vh._ev(R.id.hint_edit_1)?.editDelegate?.inputHitTipTextList =
+            mutableListOf("188888888", "188822888")
 
-        _vh._ev(R.id.hint_edit_2)?.editDelegate?.inputHitTipTextList?.apply {
-            add("188888888")
-            add("188822888")
-            add("182822888")
-            add("28888282")
-            add("22888282")
-            add("33888282")
-        }
+        _vh._ev(R.id.hint_edit_2)?.editDelegate?.inputHitTipTextList =
+            mutableListOf("188888888", "188822888", "182822888", "28888282", "22888282", "33888282")
 
         //spinner
         _vh.spinner(R.id.spinner)
