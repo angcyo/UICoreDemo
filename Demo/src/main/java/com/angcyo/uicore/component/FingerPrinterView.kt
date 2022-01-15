@@ -31,10 +31,10 @@ class FingerPrinterView : View {
     )
 
     companion object {
-        const val STATE_NO_SCANING = 0
-        const val STATE_WRONG_PWD = 1
-        const val STATE_CORRECT_PWD = 2
-        const val STATE_SCANING = 3
+        const val STATE_NO_SCANING = 0 //不识别中
+        const val STATE_WRONG_PWD = 1 //识别失败
+        const val STATE_CORRECT_PWD = 2 //识别成功
+        const val STATE_SCANING = 3 //识别中
         var DEFAULT_DURATION = 700
     }
 

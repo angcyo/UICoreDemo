@@ -1,15 +1,32 @@
 package com.angcyo.uicore.demo
 
+import android.annotation.SuppressLint
+import android.annotation.TargetApi
+import android.os.Build
 import android.os.Bundle
+import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyProperties
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
+import com.angcyo.github.biometric.BiometricAuth
+import com.angcyo.github.biometric.BiometricAuthenticationCancelledException
+import com.angcyo.github.biometric.BiometricAuthenticationException
 import com.angcyo.github.finger.FPerException
 import com.angcyo.github.finger.IdentificationInfo
 import com.angcyo.github.finger.RxFingerPrinter
+import com.angcyo.library.ex.nowTime
 import com.angcyo.library.toastQQ
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.component.FingerPrinterView
 import com.angcyo.widget.span.span
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
+import java.io.IOException
+import java.security.*
+import javax.crypto.Cipher
+import javax.crypto.KeyGenerator
+import javax.crypto.NoSuchPaddingException
+import javax.crypto.SecretKey
+import javax.security.cert.CertificateException
 
 
 /**
@@ -24,6 +41,20 @@ class BiometricDemo : AppDslFragment() {
     var fingerPrinter: RxFingerPrinter? = null
 
     var fingerPrinterView: FingerPrinterView? = null
+    var biometricPrinterView: FingerPrinterView? = null
+    var biometricPrinterView2: FingerPrinterView? = null
+
+    private val cryptoManager: CryptoManager by lazy {
+        CryptoManager()
+    }
+
+    private val biometricAuth: BiometricAuth by lazy {
+        BiometricAuth.create(requireActivity(), useAndroidXBiometricPrompt = true)
+    }
+
+    private val biometricAuth2: BiometricAuth by lazy {
+        BiometricAuth.create(requireActivity(), useAndroidXBiometricPrompt = false)
+    }
 
     init {
         contentLayoutId = R.layout.fragment_biometric
@@ -38,14 +69,30 @@ class BiometricDemo : AppDslFragment() {
         }
 
         fingerPrinterView = _vh.v<FingerPrinterView>(R.id.finger_printer_view)
+        biometricPrinterView = _vh.v<FingerPrinterView>(R.id.biometric_printer_view)
+        biometricPrinterView2 = _vh.v<FingerPrinterView>(R.id.biometric_printer_view2)
 
         val from = FingerprintManagerCompat.from(fContext())
 
         _vh.tv(R.id.tip_view)?.text = span {
             append("硬件:" + from.isHardwareDetected)
+            appendln()
             append("指纹:" + from.hasEnrolledFingerprints())
         }
 
+        //新版api
+        _vh.click(R.id.biometric_printer_view) {
+            biometricPrinterView?.state = FingerPrinterView.STATE_SCANING
+            testAuthenticateWithCrypto()
+        }
+
+        //新版api 2
+        _vh.click(R.id.biometric_printer_view2) {
+            biometricPrinterView2?.state = FingerPrinterView.STATE_SCANING
+            testAuthenticateWithCrypto2()
+        }
+
+        //旧版api
         _vh.click(R.id.finger_printer_view) {
 
             if (!from.isHardwareDetected) {
@@ -76,11 +123,11 @@ class BiometricDemo : AppDslFragment() {
                 override fun onNext(info: IdentificationInfo) {
                     if (info.isSuccessful) {
                         fingerPrinterView?.state = FingerPrinterView.STATE_CORRECT_PWD
-                        toastQQ("指纹识别成功")
+                        onResult("指纹识别成功")
                     } else {
                         val exception: FPerException? = info.exception
                         if (exception != null) {
-                            toastQQ(exception.displayMessage)
+                            onResult(exception.displayMessage)
                             fingerPrinterView?.state = FingerPrinterView.STATE_WRONG_PWD
                         }
                     }
@@ -88,20 +135,164 @@ class BiometricDemo : AppDslFragment() {
 
                 override fun onError(e: Throwable) {
                     e.printStackTrace()
+                    onResult(e.message ?: "error")
                 }
 
                 override fun onComplete() {
+                    onResult("complete")
                 }
 
             })
         }
     }
 
-    override fun onFragmentFirstShow(bundle: Bundle?) {
-        super.onFragmentFirstShow(bundle)
+    @SuppressLint("CheckResult")
+    private fun testAuthenticateWithCrypto() {
+        if (biometricAuth.hasFingerprintHardware.not()) {
+            toastQQ("Devices provides no fingerprint hardware")
+        } else if (biometricAuth.hasFingerprintsEnrolled.not()) {
+            toastQQ("No fingerprints enrolled")
+        } else {
+            biometricAuth.authenticate(
+                cryptoObject = BiometricAuth.Crypto(cryptoManager.cipher),
+                title = "Please authenticate",
+                subtitle = "Using 'Awesome Feature' requires your authentication.",
+                description = "'Awesome Feature' exposes data private to you, which is why you need to authenticate.",
+                negativeButtonText = "Cancel",
+                prompt = "Touch the fingerprint sensor",
+                notRecognizedErrorText = "Not recognized"
+            ).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        biometricPrinterView?.state = FingerPrinterView.STATE_CORRECT_PWD
+                        onResult("Success!")
+                    },
+                    { throwable ->
+                        biometricPrinterView?.state = FingerPrinterView.STATE_WRONG_PWD
+                        when (throwable) {
+                            is BiometricAuthenticationException -> {
+                                onResult("Error: ${throwable.errorString}")
+                            }
+                            is BiometricAuthenticationCancelledException -> {
+                                onResult("Cancelled")
+                            }
+                            else -> onResult("onError:${throwable}")
+                        }
+                    }
+                )
+        }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    @SuppressLint("CheckResult")
+    private fun testAuthenticateWithCrypto2() {
+        if (biometricAuth2.hasFingerprintHardware.not()) {
+            toastQQ("Devices provides no fingerprint hardware")
+        } else if (biometricAuth2.hasFingerprintsEnrolled.not()) {
+            toastQQ("No fingerprints enrolled")
+        } else {
+            biometricAuth2.authenticate(
+                title = "title",
+                subtitle = "subtitle",
+                description = "description",
+                negativeButtonText = "Cancel",
+                prompt = "Touch the fingerprint sensor",
+                notRecognizedErrorText = "Not recognized"
+            ).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        biometricPrinterView2?.state = FingerPrinterView.STATE_CORRECT_PWD
+                        onResult("Success!")
+                    },
+                    { throwable ->
+                        biometricPrinterView2?.state = FingerPrinterView.STATE_WRONG_PWD
+                        when (throwable) {
+                            is BiometricAuthenticationException -> {
+                                onResult("Error: ${throwable.errorString}")
+                            }
+                            is BiometricAuthenticationCancelledException -> {
+                                onResult("Cancelled")
+                            }
+                            else -> onResult("onError:${throwable}")
+                        }
+                    }
+                )
+        }
     }
+
+    fun onResult(text: String) {
+        toastQQ(text)
+        _vh.tv(R.id.result_view)?.text = "${nowTime()} -> $text"
+    }
+
+    private class CryptoManager {
+
+        companion object {
+            private const val KEY_NAME = "test-key"
+        }
+
+        private var keyStore: KeyStore? = null
+        private var keyGenerator: KeyGenerator? = null
+
+
+        val cipher: Cipher by lazy {
+            generateKey()
+            initCipher()
+        }
+
+        @TargetApi(Build.VERSION_CODES.M)
+        private fun generateKey() {
+            try {
+                keyStore = KeyStore.getInstance("AndroidKeyStore").also { keyStore ->
+                    keyStore.load(null)
+                }
+                keyGenerator =
+                    KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore")
+                        .also { keyGenerator ->
+                            keyGenerator?.init(
+                                KeyGenParameterSpec.Builder(
+                                    KEY_NAME,
+                                    KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
+                                ).setBlockModes(KeyProperties.BLOCK_MODE_CBC)
+                                    .setUserAuthenticationRequired(true)
+                                    .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7)
+                                    .build()
+                            )
+                            keyGenerator?.generateKey()
+                        }
+            } catch (e: KeyStoreException) {
+                e.printStackTrace()
+            } catch (e: NoSuchAlgorithmException) {
+                e.printStackTrace()
+            } catch (e: NoSuchProviderException) {
+                e.printStackTrace()
+            } catch (e: InvalidAlgorithmParameterException) {
+                e.printStackTrace()
+            } catch (e: CertificateException) {
+                e.printStackTrace()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+
+        @TargetApi(Build.VERSION_CODES.M)
+        private fun initCipher(): Cipher {
+            try {
+                val cipher = Cipher.getInstance(
+                    KeyProperties.KEY_ALGORITHM_AES + "/"
+                            + KeyProperties.BLOCK_MODE_CBC + "/"
+                            + KeyProperties.ENCRYPTION_PADDING_PKCS7
+                )
+
+                keyStore!!.load(null)
+                val key = keyStore!!.getKey(KEY_NAME, null) as SecretKey
+                cipher.init(Cipher.ENCRYPT_MODE, key)
+                return cipher
+            } catch (e: NoSuchAlgorithmException) {
+                throw RuntimeException("Failed to init cipher", e)
+            } catch (e: NoSuchPaddingException) {
+                throw RuntimeException("Failed to init cipher", e)
+            }
+        }
+    }
+
 }
