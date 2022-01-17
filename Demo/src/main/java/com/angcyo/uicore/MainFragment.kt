@@ -350,6 +350,7 @@ class MainFragment : BaseDemoDslFragment() {
             renderDemoListItem("NavigationDemo $GO")
             renderDemoListItem("CalendarDemo $GO")
             renderDemoListItem("BiometricDemo Finger $GO")
+            renderDemoListItem("ComponentDemo $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()() {
