@@ -8,6 +8,7 @@ import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import com.angcyo.core.component.DslFinger
+import com.angcyo.dsladapter.dslItem
 import com.angcyo.github.biometric.BiometricAuth
 import com.angcyo.github.biometric.BiometricAuthenticationCancelledException
 import com.angcyo.github.biometric.BiometricAuthenticationException
@@ -60,7 +61,7 @@ class BiometricDemo : AppDslFragment() {
     }
 
     init {
-        contentLayoutId = R.layout.fragment_biometric
+        //contentLayoutId = R.layout.fragment_biometric
     }
 
     @SuppressLint("CheckResult")
@@ -72,93 +73,106 @@ class BiometricDemo : AppDslFragment() {
             fingerPrinter = RxFingerPrinter(requireActivity())
         }
 
-        fingerPrinterView = _vh.v<FingerPrinterView>(R.id.finger_printer_view)
-        fingerPrinterView2 = _vh.v<FingerPrinterView>(R.id.finger_printer_view2)
-        biometricPrinterView = _vh.v<FingerPrinterView>(R.id.biometric_printer_view)
-        biometricPrinterView2 = _vh.v<FingerPrinterView>(R.id.biometric_printer_view2)
+        renderDslAdapter {
+            dslItem(R.layout.fragment_biometric) {
+                itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
 
-        val from = FingerprintManagerCompat.from(fContext())
+                    fingerPrinterView = itemHolder.v<FingerPrinterView>(R.id.finger_printer_view)
+                    fingerPrinterView2 = itemHolder.v<FingerPrinterView>(R.id.finger_printer_view2)
+                    biometricPrinterView =
+                        itemHolder.v<FingerPrinterView>(R.id.biometric_printer_view)
+                    biometricPrinterView2 =
+                        itemHolder.v<FingerPrinterView>(R.id.biometric_printer_view2)
 
-        _vh.tv(R.id.tip_view)?.text = span {
-            append("硬件:" + from.isHardwareDetected)
-            appendln()
-            append("指纹:" + from.hasEnrolledFingerprints())
-        }
+                    val from = FingerprintManagerCompat.from(fContext())
 
-        //新版api
-        _vh.click(R.id.biometric_printer_view) {
-            biometricPrinterView?.state = FingerPrinterView.STATE_SCANING
-            testAuthenticateWithCrypto()
-        }
-
-        //新版api 2
-        _vh.click(R.id.biometric_printer_view2) {
-            biometricPrinterView2?.state = FingerPrinterView.STATE_SCANING
-            testAuthenticateWithCrypto2()
-        }
-
-        //旧版api
-        _vh.click(R.id.finger_printer_view) {
-
-            if (!from.isHardwareDetected) {
-                toastQQ("无指纹模块")
-                return@click
-            }
-
-            if (!from.hasEnrolledFingerprints()) {
-                toastQQ("未注册指纹")
-                return@click
-            }
-
-            fingerPrinter?.begin()?.subscribe(object : DisposableObserver<IdentificationInfo>() {
-
-                override fun onStart() {
-                    super.onStart()
-                    if (fingerPrinterView?.state == FingerPrinterView.STATE_SCANING) {
-                        return
-                    } else if (fingerPrinterView?.state == FingerPrinterView.STATE_CORRECT_PWD
-                        || fingerPrinterView?.state == FingerPrinterView.STATE_WRONG_PWD
-                    ) {
-                        fingerPrinterView?.state = FingerPrinterView.STATE_NO_SCANING
-                    } else {
-                        fingerPrinterView?.state = FingerPrinterView.STATE_SCANING
+                    itemHolder.tv(R.id.tip_view)?.text = span {
+                        append("硬件:" + from.isHardwareDetected)
+                        appendln()
+                        append("指纹:" + from.hasEnrolledFingerprints())
                     }
-                }
 
-                override fun onNext(info: IdentificationInfo) {
-                    if (info.isSuccessful) {
-                        fingerPrinterView?.state = FingerPrinterView.STATE_CORRECT_PWD
-                        onResult("指纹识别成功")
-                    } else {
-                        val exception: FPerException? = info.exception
-                        if (exception != null) {
-                            onResult(exception.displayMessage)
-                            fingerPrinterView?.state = FingerPrinterView.STATE_WRONG_PWD
+                    //新版api
+                    itemHolder.click(R.id.biometric_printer_view) {
+                        biometricPrinterView?.state = FingerPrinterView.STATE_SCANING
+                        testAuthenticateWithCrypto()
+                    }
+
+                    //新版api 2
+                    itemHolder.click(R.id.biometric_printer_view2) {
+                        biometricPrinterView2?.state = FingerPrinterView.STATE_SCANING
+                        testAuthenticateWithCrypto2()
+                    }
+
+                    //旧版api
+                    itemHolder.click(R.id.finger_printer_view) {
+
+                        if (!from.isHardwareDetected) {
+                            toastQQ("无指纹模块")
+                            return@click
+                        }
+
+                        if (!from.hasEnrolledFingerprints()) {
+                            toastQQ("未注册指纹")
+                            return@click
+                        }
+
+                        fingerPrinter?.begin()
+                            ?.subscribe(object : DisposableObserver<IdentificationInfo>() {
+
+                                override fun onStart() {
+                                    super.onStart()
+                                    if (fingerPrinterView?.state == FingerPrinterView.STATE_SCANING) {
+                                        return
+                                    } else if (fingerPrinterView?.state == FingerPrinterView.STATE_CORRECT_PWD
+                                        || fingerPrinterView?.state == FingerPrinterView.STATE_WRONG_PWD
+                                    ) {
+                                        fingerPrinterView?.state =
+                                            FingerPrinterView.STATE_NO_SCANING
+                                    } else {
+                                        fingerPrinterView?.state = FingerPrinterView.STATE_SCANING
+                                    }
+                                }
+
+                                override fun onNext(info: IdentificationInfo) {
+                                    if (info.isSuccessful) {
+                                        fingerPrinterView?.state =
+                                            FingerPrinterView.STATE_CORRECT_PWD
+                                        onResult("指纹识别成功")
+                                    } else {
+                                        val exception: FPerException? = info.exception
+                                        if (exception != null) {
+                                            onResult(exception.displayMessage)
+                                            fingerPrinterView?.state =
+                                                FingerPrinterView.STATE_WRONG_PWD
+                                        }
+                                    }
+                                }
+
+                                override fun onError(e: Throwable) {
+                                    e.printStackTrace()
+                                    onResult(e.message ?: "error")
+                                }
+
+                                override fun onComplete() {
+                                    onResult("complete")
+                                }
+
+                            })
+                    }
+
+                    itemHolder.click(R.id.finger_printer_view2) {
+                        fingerPrinterView2?.state = FingerPrinterView.STATE_SCANING
+                        DslFinger().startAuthenticate(fContext()).subscribe { result ->
+                            if (result.success) {
+                                fingerPrinterView2?.state = FingerPrinterView.STATE_CORRECT_PWD
+                                onResult("识别成功")
+                            } else {
+                                fingerPrinterView2?.state = FingerPrinterView.STATE_WRONG_PWD
+                                onResult("识别失败:${"${result.error?.errMsgId},${result.error?.message}"}")
+                            }
                         }
                     }
-                }
-
-                override fun onError(e: Throwable) {
-                    e.printStackTrace()
-                    onResult(e.message ?: "error")
-                }
-
-                override fun onComplete() {
-                    onResult("complete")
-                }
-
-            })
-        }
-
-        _vh.click(R.id.finger_printer_view2) {
-            fingerPrinterView2?.state = FingerPrinterView.STATE_SCANING
-            DslFinger().startAuthenticate(fContext()).subscribe { result ->
-                if (result.success) {
-                    fingerPrinterView2?.state = FingerPrinterView.STATE_CORRECT_PWD
-                    onResult("识别成功")
-                } else {
-                    fingerPrinterView2?.state = FingerPrinterView.STATE_WRONG_PWD
-                    onResult("识别失败:${"${result.error?.errMsgId},${result.error?.message}"}")
                 }
             }
         }
@@ -167,9 +181,11 @@ class BiometricDemo : AppDslFragment() {
     @SuppressLint("CheckResult")
     private fun testAuthenticateWithCrypto() {
         if (biometricAuth.hasFingerprintHardware.not()) {
-            toastQQ("Devices provides no fingerprint hardware")
+            biometricPrinterView?.state = FingerPrinterView.STATE_WRONG_PWD
+            onResult("Devices provides no fingerprint hardware")
         } else if (biometricAuth.hasFingerprintsEnrolled.not()) {
-            toastQQ("No fingerprints enrolled")
+            biometricPrinterView?.state = FingerPrinterView.STATE_WRONG_PWD
+            onResult("No fingerprints enrolled")
         } else {
             biometricAuth.authenticate(
                 cryptoObject = BiometricAuth.Crypto(cryptoManager.cipher),
@@ -204,9 +220,11 @@ class BiometricDemo : AppDslFragment() {
     @SuppressLint("CheckResult")
     private fun testAuthenticateWithCrypto2() {
         if (biometricAuth2.hasFingerprintHardware.not()) {
-            toastQQ("Devices provides no fingerprint hardware")
+            biometricPrinterView?.state = FingerPrinterView.STATE_WRONG_PWD
+            onResult("Devices provides no fingerprint hardware")
         } else if (biometricAuth2.hasFingerprintsEnrolled.not()) {
-            toastQQ("No fingerprints enrolled")
+            biometricPrinterView?.state = FingerPrinterView.STATE_WRONG_PWD
+            onResult("No fingerprints enrolled")
         } else {
             biometricAuth2.authenticate(
                 title = "title",
