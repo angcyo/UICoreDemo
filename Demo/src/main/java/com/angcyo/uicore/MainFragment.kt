@@ -351,6 +351,11 @@ class MainFragment : BaseDemoDslFragment() {
             renderDemoListItem("CalendarDemo $GO")
             renderDemoListItem("BiometricDemo Finger $GO")
             renderDemoListItem("ComponentDemo $GO")
+            renderDemoListItem("NfcDemo $GO") {
+                dslAHelper {
+                    start(NfcHandleActivity::class.java)
+                }
+            }
 
             //设备信息.
             DslLastDeviceInfoItem()() {

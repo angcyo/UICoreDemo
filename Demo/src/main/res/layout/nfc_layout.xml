@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/lib_xhdpi">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/state_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        tools:text="激活..." />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tip_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        tools:text="监听NFC中..." />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/info_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        tools:text="NFC信息" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/message_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        tools:text="收到的消息" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/nfc_button"
+        style="@style/DefaultButtonStyleNormal"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        android:text="打开NFC设置" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/message_button"
+        style="@style/DefaultButtonStyleNormal"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        android:text="发送NFC数据" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/close_dispatch_button"
+        style="@style/DefaultButtonStyleNormal"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        android:text="关闭前台监听" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/close_message_button"
+        style="@style/DefaultButtonStyleNormal"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        android:text="关闭消息监听" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
