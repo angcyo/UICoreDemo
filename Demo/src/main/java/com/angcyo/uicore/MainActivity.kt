@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import com.angcyo.baidu.trace.DslBaiduTrace
 import com.angcyo.base.dslFHelper
+import com.angcyo.base.find
 import com.angcyo.core.activity.BasePermissionsActivity
 import com.angcyo.core.component.model.BatteryModel
 import com.angcyo.core.vmCore
@@ -15,6 +16,7 @@ import com.angcyo.library.component.dslShortcut
 import com.angcyo.library.utils.Device
 import com.angcyo.library.utils.RUtils
 import com.angcyo.library.utils.checkApkExist
+import com.angcyo.uicore.activity.NfcInfoDemo
 import com.angcyo.uicore.demo.R
 import com.baidu.trace.model.OnCustomAttributeListener
 
@@ -177,5 +179,10 @@ class MainActivity : BasePermissionsActivity() {
     override fun onDestroy() {
         super.onDestroy()
         dslBaiduTrace.stopTrace()
+    }
+
+    override fun handleTargetIntent(intent: Intent) {
+        super.handleTargetIntent(intent)
+        dslFHelper { fm.find(NfcInfoDemo::class)?.updateInfo(intent) }
     }
 }

@@ -8,6 +8,7 @@ import android.nfc.NfcAdapter
 import android.nfc.NfcEvent
 import android.os.Bundle
 import com.angcyo.dsladapter.dslItem
+import com.angcyo.getOriginIntent
 import com.angcyo.library.L
 import com.angcyo.library.component.RNfc
 import com.angcyo.library.component._delay
@@ -16,6 +17,7 @@ import com.angcyo.library.ex.connect
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.library.ex.randomColor
 import com.angcyo.library.ex.size
+import com.angcyo.library.toastQQ
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.span.span
@@ -29,6 +31,10 @@ import com.angcyo.widget.span.span
  */
 class NfcInfoDemo : AppDslFragment(), NfcAdapter.CreateNdefMessageCallback {
 
+    init {
+        fragmentTitle = "NfcInfoDemo"
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (RNfc.isNfcEnable()) {
@@ -38,19 +44,25 @@ class NfcInfoDemo : AppDslFragment(), NfcAdapter.CreateNdefMessageCallback {
 
     override fun onDetach() {
         super.onDetach()
-        if (RNfc.isNfcEnable()) {
+        /*if (RNfc.isNfcEnable()) {
             RNfc.nfcAdapter?.setNdefPushMessageCallback(null, null)
-        }
+        }*/
     }
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
+
+        arguments?.getOriginIntent()?.let {
+            updateInfo(it)
+        }
     }
 
     fun updateInfo(intent: Intent?) {
         if (view == null) {
-            _delay {
-                updateInfo(intent)
+            if (isAdded) {
+                _delay {
+                    updateInfo(intent)
+                }
             }
             return
         }
@@ -128,6 +140,7 @@ class NfcInfoDemo : AppDslFragment(), NfcAdapter.CreateNdefMessageCallback {
 
     override fun createNdefMessage(event: NfcEvent?): NdefMessage {
         L.w(event)
+        toastQQ("createNdefMessage:${nowTimeString()}")
         return ndefMessage("event")
     }
 
