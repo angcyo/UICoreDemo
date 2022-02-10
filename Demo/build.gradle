@@ -85,6 +85,7 @@ dependencies {
 
 //apply from: allGradle.v7a
 
+apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'io.objectbox' // Apply last.
 

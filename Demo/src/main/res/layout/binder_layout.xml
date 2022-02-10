@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/lib_xhdpi">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tip_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2022-2-10" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tip_view2"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="2022-2-10" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        android:text="2022-2-10" />
+
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        app:r_flow_item_horizontal_space="@dimen/lib_xhdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_xhdpi">
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/add_data_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:text="添加当前进程数据" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/add_remote_data_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:text="添加远程进程数据" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
+
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        app:r_flow_item_horizontal_space="@dimen/lib_xhdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_xhdpi">
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/get_data_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:text="获取当前进程数据" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/get_remote_data_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:text="获取远程进程数据" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
+
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/start_service_button"
+        style="@style/DefaultButtonStyleNormal"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        android:text="启动服务" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/connect_service_button"
+        style="@style/DefaultButtonStyleNormal"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        android:text="连接远程服务" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/start_process_button"
+        style="@style/DefaultButtonStyleNormal"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        android:text="启动新进程" />
+
+
+</LinearLayout>

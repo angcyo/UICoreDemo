@@ -237,6 +237,21 @@
 
         </activity>
 
+        <!--注意“：”很重要，它的意思是指要在当前进程名称前面附加上当前的包名，
+        所以“remote”和”:remote”不是同一个意思，
+        前者的进程名称为：remote，
+        而后者的进程名称为：App-packageName:remote。-->
+        <activity
+            android:name=".ipc.IpcActivity"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":ipc" />
+
+        <service
+            android:name=".ipc.BinderService"
+            android:enabled="true"
+            android:exported="true" />
+
     </application>
 
 </manifest>

@@ -356,6 +356,7 @@ class MainFragment : BaseDemoDslFragment() {
                     start(NfcHandleActivity::class.java)
                 }
             }
+            renderDemoListItem("BinderDemo IPC $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()() {
