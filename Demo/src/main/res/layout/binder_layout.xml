@@ -68,23 +68,43 @@
     </com.angcyo.widget.layout.DslFlowLayout>
 
 
-    <com.angcyo.widget.DslButton
-        android:id="@+id/start_service_button"
-        style="@style/DefaultButtonStyleNormal"
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/lib_hdpi"
-        android:text="启动服务" />
+        app:r_flow_item_horizontal_space="@dimen/lib_xhdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_xhdpi">
 
-    <com.angcyo.widget.DslButton
-        android:id="@+id/connect_service_button"
-        style="@style/DefaultButtonStyleNormal"
-        android:layout_marginTop="@dimen/lib_hdpi"
-        android:text="连接远程服务" />
+        <com.angcyo.widget.DslButton
+            android:id="@+id/start_service_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:text="启动服务" />
 
-    <com.angcyo.widget.DslButton
-        android:id="@+id/start_process_button"
-        style="@style/DefaultButtonStyleNormal"
+        <com.angcyo.widget.DslButton
+            android:id="@+id/connect_service_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:text="连接远程服务" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
+
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/lib_hdpi"
-        android:text="启动新进程" />
+        app:r_flow_item_horizontal_space="@dimen/lib_xhdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_xhdpi">
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/start_process_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:text="启动新进程(子进程)" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/start_process_button2"
+            style="@style/DefaultButtonStyleNormal"
+            android:text="启动新进程(全局进程)" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
 
 
 </LinearLayout>

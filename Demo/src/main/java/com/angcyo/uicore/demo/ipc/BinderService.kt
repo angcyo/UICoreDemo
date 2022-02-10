@@ -6,6 +6,7 @@ import android.os.IBinder
 import android.os.Parcel
 import com.angcyo.core.vmApp
 import com.angcyo.library.L
+import com.angcyo.uicore.demo.IBinderService
 
 /**
  *

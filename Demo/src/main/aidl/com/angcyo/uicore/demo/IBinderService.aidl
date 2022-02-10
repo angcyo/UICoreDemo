@@ -1,4 +1,4 @@
-package com.angcyo.uicore.demo.ipc;
+package com.angcyo.uicore.demo;
 
 import com.angcyo.uicore.demo.ipc.IpcData;
 

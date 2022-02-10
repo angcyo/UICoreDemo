@@ -7,6 +7,7 @@ import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
 import android.os.Process
+import com.angcyo.activity.activityInfo
 import com.angcyo.base.dslAHelper
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.dslItem
@@ -54,7 +55,13 @@ class BinderDemo : AppDslFragment() {
         renderDslAdapter {
             dslItem(R.layout.binder_layout) {
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
+
+                    //关闭进程
+                    //android.os.Process.killProcess(android.os.Process.myPid());
+
                     itemHolder.tv(R.id.tip_view)?.text = span {
+                        append("taskAffinity:${activity?.activityInfo()?.taskAffinity}")
+                        appendln()
                         append("当前包名:${app().packageName}")
                         appendln()
                         append("PID:${Process.myPid()}")
@@ -127,6 +134,11 @@ class BinderDemo : AppDslFragment() {
                             start(IpcActivity::class)
                         }
                     }
+                    itemHolder.click(R.id.start_process_button2) {
+                        dslAHelper {
+                            start(IpcActivity2::class)
+                        }
+                    }
                 }
             }
         }
@@ -150,7 +162,9 @@ class BinderDemo : AppDslFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        activity?.unbindService(binderServiceConnection)
+        if (binderService != null) {
+            activity?.unbindService(binderServiceConnection)
+        }
     }
 
 }
