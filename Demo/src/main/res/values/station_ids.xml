@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--站台的线-->
+    <item name="station_line_layout" type="id" />
+    <!--站台线上面的布局-->
+    <item name="station_line_top_layout" type="id" />
+    <!--站台线下面的布局-->
+    <item name="station_line_bottom_layout" type="id" />
+</resources>
