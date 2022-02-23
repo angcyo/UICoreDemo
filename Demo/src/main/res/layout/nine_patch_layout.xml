@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/lib_xhdpi">
+
+    <!--  1  -->
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/lib_xhdpi" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_horizontal_view"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="@dimen/lib_xhdpi" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_vertical_view"
+        android:layout_width="40dp"
+        android:layout_height="80dp"
+        android:layout_margin="@dimen/lib_xhdpi" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_view2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="@dimen/lib_xhdpi" />
+
+    <!--  2  -->
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image2_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/lib_xhdpi" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image2_horizontal_view"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="@dimen/lib_xhdpi" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image2_vertical_view"
+        android:layout_width="40dp"
+        android:layout_height="80dp"
+        android:layout_margin="@dimen/lib_xhdpi" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image2_view2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="@dimen/lib_xhdpi" />
+
+    <!--  3  -->
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image3_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/lib_xhdpi" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image3_horizontal_view"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="@dimen/lib_xhdpi" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image3_vertical_view"
+        android:layout_width="40dp"
+        android:layout_height="80dp"
+        android:layout_margin="@dimen/lib_xhdpi" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image3_view2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="@dimen/lib_xhdpi" />
+
+</LinearLayout>

@@ -93,90 +93,93 @@ class MainFragment : BaseDemoDslFragment() {
                 }
             }
             initDslAdapter {
-                menuAdapter = this
-                AppMenuHeaderItem()()
+                render {
 
-                val insert = 10 * dpi
-                val subInsert = 2 * dpi
-                DslTextInfoItem()() {
-                    itemTopInsert = insert
-                    itemInfoText = "扫一扫"
-                    itemClick = {
-                        dslAHelper {
-                            start(Intent(context, AppScanActivity::class.java))
-                        }
-                    }
-                }
+                    menuAdapter = this
+                    AppMenuHeaderItem()()
 
-                DslTextInfoItem()() {
-                    itemTopInsert = insert
-                    itemInfoText = "QQ咨询"
-                    itemClick = {
-                        if (fContext().checkApkExist("com.tencent.mobileqq")) {
+                    val insert = 10 * dpi
+                    val subInsert = 2 * dpi
+                    DslTextInfoItem()() {
+                        itemTopInsert = insert
+                        itemInfoText = "扫一扫"
+                        itemClick = {
                             dslAHelper {
-                                start(RUtils.chatQQIntent(context)!!)
+                                start(Intent(context, AppScanActivity::class.java))
                             }
-                        } else {
-                            toastQQ("请安装QQ")
                         }
                     }
-                }
 
-                DslTextInfoItem()() {
-                    itemTopInsert = subInsert
-                    itemInfoText = "QQ入群学习"
-                    itemClick = {
-                        if (fContext().checkApkExist("com.tencent.mobileqq")) {
+                    DslTextInfoItem()() {
+                        itemTopInsert = insert
+                        itemInfoText = "QQ咨询"
+                        itemClick = {
+                            if (fContext().checkApkExist("com.tencent.mobileqq")) {
+                                dslAHelper {
+                                    start(RUtils.chatQQIntent(context)!!)
+                                }
+                            } else {
+                                toastQQ("请安装QQ")
+                            }
+                        }
+                    }
+
+                    DslTextInfoItem()() {
+                        itemTopInsert = subInsert
+                        itemInfoText = "QQ入群学习"
+                        itemClick = {
+                            if (fContext().checkApkExist("com.tencent.mobileqq")) {
+                                dslAHelper {
+                                    start(RUtils.joinQQGroupIntent(context)!!)
+                                }
+                            } else {
+                                toastQQ("请安装QQ")
+                            }
+                        }
+                    }
+
+                    DslTextInfoItem()() {
+                        itemTopInsert = insert
+                        itemInfoText = "CSDN博客"
+                        itemClick = {
                             dslAHelper {
-                                start(RUtils.joinQQGroupIntent(context)!!)
+                                start("https://angcyo.blog.csdn.net".urlIntent())
                             }
-                        } else {
-                            toastQQ("请安装QQ")
                         }
                     }
-                }
 
-                DslTextInfoItem()() {
-                    itemTopInsert = insert
-                    itemInfoText = "CSDN博客"
-                    itemClick = {
-                        dslAHelper {
-                            start("https://angcyo.blog.csdn.net".urlIntent())
+                    DslTextInfoItem()() {
+                        itemTopInsert = subInsert
+                        itemInfoText = "Github"
+                        itemClick = {
+                            dslAHelper {
+                                start("https://github.com/angcyo".urlIntent())
+                            }
                         }
                     }
-                }
 
-                DslTextInfoItem()() {
-                    itemTopInsert = subInsert
-                    itemInfoText = "Github"
-                    itemClick = {
-                        dslAHelper {
-                            start("https://github.com/angcyo".urlIntent())
+                    DslTextInfoItem()() {
+                        itemTopInsert = subInsert
+                        itemInfoText = "掘金"
+                        itemClick = {
+                            dslAHelper {
+                                start("https://juejin.im/user/576a151b2e958a00699c11f0".urlIntent())
+                            }
                         }
                     }
-                }
 
-                DslTextInfoItem()() {
-                    itemTopInsert = subInsert
-                    itemInfoText = "掘金"
-                    itemClick = {
-                        dslAHelper {
-                            start("https://juejin.im/user/576a151b2e958a00699c11f0".urlIntent())
+                    DslTextInfoItem()() {
+                        itemTopInsert = subInsert
+                        itemInfoText = "官网"
+                        itemClick = {
+                            dslAHelper {
+                                start("https://www.angcyo.com".urlIntent())
+                            }
                         }
                     }
-                }
 
-                DslTextInfoItem()() {
-                    itemTopInsert = subInsert
-                    itemInfoText = "官网"
-                    itemClick = {
-                        dslAHelper {
-                            start("https://www.angcyo.com".urlIntent())
-                        }
-                    }
+                    AppMenuFooterItem()()
                 }
-
-                AppMenuFooterItem()()
             }
         }
     }
@@ -358,6 +361,7 @@ class MainFragment : BaseDemoDslFragment() {
             }
             renderDemoListItem("BinderDemo IPC $GO")
             renderDemoListItem("StationDemo $GO")
+            renderDemoListItem("NinePatchDemo $GO")
             renderDemoListItem("PathDemo $GO")
             renderDemoListItem("MultiLanguageDemo $GO")
             renderDemoListItem("BluetoothDemo $GO")
