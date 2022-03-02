@@ -16,9 +16,28 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "2:8702671996126698368",
+      "lastPropertyId": "2:509479216431625320",
+      "name": "BoxEntity",
+      "properties": [
+        {
+          "id": "1:9151256047281896009",
+          "name": "entityId",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:509479216431625320",
+          "name": "entityAddTime",
+          "type": 9
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "1:3779863239041865881",
+  "lastEntityId": "2:8702671996126698368",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
