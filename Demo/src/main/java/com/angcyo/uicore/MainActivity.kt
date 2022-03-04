@@ -18,6 +18,7 @@ import com.angcyo.library.utils.RUtils
 import com.angcyo.library.utils.checkApkExist
 import com.angcyo.uicore.activity.NfcInfoDemo
 import com.angcyo.uicore.demo.R
+import com.angcyo.uicore.test.PathTest
 import com.baidu.trace.model.OnCustomAttributeListener
 
 /**
@@ -143,6 +144,8 @@ class MainActivity : BasePermissionsActivity() {
         dslBaiduTrace.updateEntity {
             columns = dslBaiduTrace.customAttributeListener?.onTrackAttributeCallback()
         }
+
+        PathTest.test()
     }
 
     val dslBaiduTrace = DslBaiduTrace().apply {

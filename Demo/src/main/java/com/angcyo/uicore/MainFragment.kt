@@ -358,6 +358,7 @@ class MainFragment : BaseDemoDslFragment() {
             }
             renderDemoListItem("BinderDemo IPC $GO")
             renderDemoListItem("StationDemo $GO")
+            renderDemoListItem("PathDemo $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()() {
