@@ -112,7 +112,7 @@ class PathView(context: Context, attributeSet: AttributeSet? = null) : View(cont
             strokeWidth = 1 * dp
         })
 
-        //方法3
+        //方法3 完美算法
         val x = ovalRect.width() / 2
         val y = ovalRect.height() / 2
         val maxWidth =
