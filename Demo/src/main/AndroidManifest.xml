@@ -54,6 +54,7 @@
         <activity
             android:name="com.angcyo.uicore.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode|smallestScreenSize"
+            android:exported="true"
             android:launchMode="singleTask"
             android:resizeableActivity="true"
             android:rotationAnimation="rotate"
