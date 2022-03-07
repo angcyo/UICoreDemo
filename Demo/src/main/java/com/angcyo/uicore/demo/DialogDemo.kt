@@ -6,23 +6,22 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.RadioGroup
+import android.widget.Toast
 import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.coroutine.onBack
 import com.angcyo.coroutine.sleep
 import com.angcyo.dialog.*
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.ItemSelectorHelper
+import com.angcyo.dsladapter.dslItem
 import com.angcyo.github.dialog.CalendarDialogConfig
 import com.angcyo.github.dialog.calendarDialog
 import com.angcyo.github.dialog.wheelDateDialog
 import com.angcyo.github.dialog.wheelDialog
-import com.angcyo.library.L
+import com.angcyo.library.*
 import com.angcyo.library.component.nowCalendar
 import com.angcyo.library.component.toCalendar
 import com.angcyo.library.ex.*
-import com.angcyo.library.toast
-import com.angcyo.library.toastQQ
-import com.angcyo.library.toastWX
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.tx
 import com.angcyo.widget.DslViewHolder
@@ -47,13 +46,27 @@ class DialogDemo : AppDslFragment() {
         renderDslAdapter {
             DslAdapterItem()() {
                 itemLayoutId = R.layout.item_dialog_demo_layout
-
                 itemBindOverride = this@DialogDemo::_bindDialogDemoItem
             }
             DslAdapterItem()() {
                 itemLayoutId = R.layout.item_popup_demo_layout
-
                 itemBindOverride = this@DialogDemo::_bindPopupDemoItem
+            }
+            dslItem(R.layout.toast_demo_layout) {
+                itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
+                    itemHolder.click(R.id.normal_toast_button) {
+                        Toast.makeText(requireActivity(), "${nowTime()}", Toast.LENGTH_LONG).show()
+                    }
+                    itemHolder.click(R.id.normal_app_toast_button) {
+                        Toast.makeText(app(), "${nowTime()}", Toast.LENGTH_LONG).show()
+                    }
+                    itemHolder.click(R.id.qq_toast_button) {
+                        toastQQ("${nowTime()}")
+                    }
+                    itemHolder.click(R.id.wx_toast_button) {
+                        toastWX("${nowTime()}")
+                    }
+                }
             }
         }
     }

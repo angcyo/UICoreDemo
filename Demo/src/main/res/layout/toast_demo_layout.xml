@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.widget.layout.DslFlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/lib_xhdpi"
+    app:r_flow_item_horizontal_space="@dimen/lib_xhdpi"
+    app:r_flow_item_vertical_space="@dimen/lib_xhdpi">
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/normal_toast_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="normal" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/normal_app_toast_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="normal(App)" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/qq_toast_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QQ" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/wx_toast_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WX" />
+
+
+</com.angcyo.widget.layout.DslFlowLayout>
