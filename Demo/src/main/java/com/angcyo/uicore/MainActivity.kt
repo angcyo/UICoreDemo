@@ -1,6 +1,7 @@
 package com.angcyo.uicore
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -9,6 +10,7 @@ import com.angcyo.base.dslFHelper
 import com.angcyo.base.find
 import com.angcyo.core.activity.BasePermissionsActivity
 import com.angcyo.core.component.model.BatteryModel
+import com.angcyo.core.component.model.LanguageModel
 import com.angcyo.core.vmCore
 import com.angcyo.library.L
 import com.angcyo.library.component.DslShortcut
@@ -127,11 +129,13 @@ class MainActivity : BasePermissionsActivity() {
         //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
-    override fun onPermissionGranted() {
-        super.onPermissionGranted()
-        dslFHelper {
-            removeAll()
-            restore(MainFragment())
+    override fun onPermissionGranted(savedInstanceState: Bundle?) {
+        super.onPermissionGranted(savedInstanceState)
+        if (savedInstanceState == null) {
+            dslFHelper {
+                removeAll()
+                restore(MainFragment())
+            }
         }
     }
 
@@ -187,5 +191,12 @@ class MainActivity : BasePermissionsActivity() {
     override fun handleTargetIntent(intent: Intent) {
         super.handleTargetIntent(intent)
         dslFHelper { fm.find(NfcInfoDemo::class)?.updateInfo(intent) }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (LanguageModel.isLanguageConfigurationChanged(newConfig)) {
+            //recreate()
+        }
     }
 }

@@ -6,4 +6,6 @@
     <string name="compose_shortcut_short_label">shortcut_short_label</string>
 
     <string name="compose_shortcut_long_label2">快捷方式</string>
+
+    <string name="language_auto">跟随系统</string>
 </resources>

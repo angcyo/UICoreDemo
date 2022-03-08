@@ -1,5 +1,6 @@
 package com.angcyo.uicore.test
 
+import android.os.Bundle
 import com.angcyo.core.activity.BasePermissionsActivity
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.uicore.demo.R
@@ -18,7 +19,7 @@ class TestActivity : BasePermissionsActivity() {
         activityLayoutId = R.layout.activity_test
     }
 
-    override fun onPermissionGranted() {
+    override fun onPermissionGranted(savedInstanceState: Bundle?) {
         _vh.tv(R.id.lib_text_view)?.text = span {
             append("TestActivity->")
             append(nowTimeString())

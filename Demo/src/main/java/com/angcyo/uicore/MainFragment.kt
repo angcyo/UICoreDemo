@@ -247,8 +247,8 @@ class MainFragment : BaseDemoDslFragment() {
         }
     }
 
-    override fun onInitFragment() {
-        super.onInitFragment()
+    override fun onInitFragment(savedInstanceState: Bundle?) {
+        super.onInitFragment(savedInstanceState)
         renderDslAdapter {
             renderDemoListItem("FragmentInFragmentDemo", 10.toDpi()) {
                 dslAHelper {
@@ -359,6 +359,7 @@ class MainFragment : BaseDemoDslFragment() {
             renderDemoListItem("BinderDemo IPC $GO")
             renderDemoListItem("StationDemo $GO")
             renderDemoListItem("PathDemo $GO")
+            renderDemoListItem("MultiLanguageDemo $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()() {
@@ -376,7 +377,7 @@ class MainFragment : BaseDemoDslFragment() {
             }
 
             onDispatchUpdatesOnce {
-                if (!BaseCoreAppCompatActivity.haveLastCrash) {
+                if (!BaseCoreAppCompatActivity.haveLastCrash && savedInstanceState == null) {
                     //自动跳转至指定Demo
                     _jumpToLockPosition()
                 }

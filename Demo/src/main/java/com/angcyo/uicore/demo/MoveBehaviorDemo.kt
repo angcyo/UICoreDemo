@@ -1,5 +1,6 @@
 package com.angcyo.uicore.demo
 
+import android.os.Bundle
 import androidx.core.math.MathUtils
 import com.angcyo.behavior.BaseScrollBehavior
 import com.angcyo.behavior.IScrollBehaviorListener
@@ -22,8 +23,8 @@ class MoveBehaviorDemo : AppTitleFragment() {
         fragmentLayoutId = R.layout.fragment_move_behavior
     }
 
-    override fun onInitFragment() {
-        super.onInitFragment()
+    override fun onInitFragment(savedInstanceState: Bundle?) {
+        super.onInitFragment(savedInstanceState)
 
         _vh.view(R.id.lib_content_wrap_layout)?.setBehavior(MoveBehavior(fContext()).apply {
             defaultOffsetY = "50dp"

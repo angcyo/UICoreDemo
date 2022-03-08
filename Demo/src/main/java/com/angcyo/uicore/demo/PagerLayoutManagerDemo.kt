@@ -1,5 +1,6 @@
 package com.angcyo.uicore.demo
 
+import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.itemIndexPosition
@@ -23,8 +24,8 @@ import com.leochuan.ScaleLayoutManager
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
 class PagerLayoutManagerDemo : AppDslFragment() {
-    override fun onInitFragment() {
-        super.onInitFragment()
+    override fun onInitFragment(savedInstanceState: Bundle?) {
+        super.onInitFragment(savedInstanceState)
 
         fun DslAdapter.data(width: Int = -1) {
             this.apply {

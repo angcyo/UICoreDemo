@@ -1,5 +1,6 @@
 package com.angcyo.uicore.demo.calendar
 
+import android.os.Bundle
 import android.view.View
 import com.angcyo.library.L
 import com.angcyo.library.ex.str
@@ -23,8 +24,8 @@ class VerticalCalendarDemo : AppTitleFragment() {
 
     var doCount = 0
 
-    override fun onInitFragment() {
-        super.onInitFragment()
+    override fun onInitFragment(savedInstanceState: Bundle?) {
+        super.onInitFragment(savedInstanceState)
         val calendarView: VerticalCalendarView? = _vh.v(R.id.calendar_view)
         var year = 2021
         _vh.click(R.id.tv_month_day) {

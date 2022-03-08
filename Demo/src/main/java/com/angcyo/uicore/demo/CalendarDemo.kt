@@ -1,5 +1,6 @@
 package com.angcyo.uicore.demo
 
+import android.os.Bundle
 import com.angcyo.uicore.base.BaseDemoDslFragment
 
 /**
@@ -15,8 +16,8 @@ class CalendarDemo : BaseDemoDslFragment() {
         baseClassPackage = "com.angcyo.uicore.demo.calendar"
     }
 
-    override fun onInitFragment() {
-        super.onInitFragment()
+    override fun onInitFragment(savedInstanceState: Bundle?) {
+        super.onInitFragment(savedInstanceState)
         renderDslAdapter {
             renderDemoListItem("CalendarLayoutDemo")
             renderDemoListItem("SingleCalendarLayoutDemo")

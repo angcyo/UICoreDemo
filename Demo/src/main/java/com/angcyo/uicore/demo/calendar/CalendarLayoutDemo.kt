@@ -1,5 +1,6 @@
 package com.angcyo.uicore.demo.calendar
 
+import android.os.Bundle
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.angcyo.uicore.base.BaseDemoDslFragment
@@ -24,8 +25,8 @@ open class CalendarLayoutDemo : BaseDemoDslFragment() {
         return super.onCreateBehavior(child)
     }
 
-    override fun onInitFragment() {
-        super.onInitFragment()
+    override fun onInitFragment(savedInstanceState: Bundle?) {
+        super.onInitFragment(savedInstanceState)
 
         _vh.v<RCoordinatorLayout>(R.id.lib_coordinator_wrap_layout)?.isEnableCoordinator = false
 
