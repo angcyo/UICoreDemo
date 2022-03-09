@@ -11,6 +11,7 @@ import com.angcyo.library.L
 import com.angcyo.library.app
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.nowTimeString
+import com.angcyo.library.ex.restartApp
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.span.span
 import java.util.*
@@ -88,6 +89,12 @@ class MultiLanguageDemo : AppDslFragment() {
                         LanguageModel.changeAppLanguage(requireActivity(), itemData as Locale)
                         addTextItem()
                     }
+                }
+            }
+            DslTextItem()() {
+                itemText = "重启App"
+                itemClick = {
+                    restartApp(requireActivity())
                 }
             }
         }
