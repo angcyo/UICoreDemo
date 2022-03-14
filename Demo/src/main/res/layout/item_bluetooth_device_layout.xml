@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/lib_xhdpi">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/lib_image_view"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:srcCompat="@drawable/icon_bluetooth" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/lib_text_view"
+        style="@style/LibTitleTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/lib_xhdpi"
+        android:textSize="@dimen/text_assist_size"
+        app:layout_constraintBottom_toBottomOf="@id/lib_image_view"
+        app:layout_constraintLeft_toRightOf="@id/lib_image_view"
+        app:layout_constraintTop_toTopOf="@id/lib_image_view" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/lib_des_view"
+        style="@style/LibDesTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/lib_xhdpi"
+        android:gravity="end"
+        android:textSize="@dimen/text_little_size"
+        app:layout_constraintBottom_toBottomOf="@id/lib_image_view"
+        app:layout_constraintRight_toLeftOf="@id/connect_button"
+        app:layout_constraintTop_toTopOf="@id/lib_image_view" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/connect_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="连接"
+        app:layout_constraintBottom_toBottomOf="@id/lib_image_view"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/lib_image_view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

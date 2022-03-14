@@ -360,6 +360,7 @@ class MainFragment : BaseDemoDslFragment() {
             renderDemoListItem("StationDemo $GO")
             renderDemoListItem("PathDemo $GO")
             renderDemoListItem("MultiLanguageDemo $GO")
+            renderDemoListItem("BluetoothDemo $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()() {
