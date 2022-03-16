@@ -34,6 +34,15 @@ android {
             include "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
     }*/
+    /*sourceSets {
+        main {
+            if (rootProject.ext.model.ftBmpEditIsApp) {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/manifest/AndroidManifest.xml'
+            }
+        }
+    }*/
 }
 
 dependencies {
