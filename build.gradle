@@ -28,6 +28,9 @@ buildscript {
         google()
         //jcenter()
         mavenCentral()
+
+        //https://repo.maven.apache.org/maven2
+        //https://repo1.maven.org/maven2/
     }
     dependencies {
         //https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google
