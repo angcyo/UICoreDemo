@@ -90,6 +90,7 @@ dependencies {
     implementation project(allModule.bugly)
     implementation project(allModule.andserver)
     implementation project(allModule.bluetooth)
+    implementation project(allModule.fsc)
 
     debugImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
     pretestImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
