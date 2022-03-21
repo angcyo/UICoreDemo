@@ -1,32 +1,31 @@
 package com.angcyo.uicore.dslitem
 
-import com.angcyo.bluetooth.BluetoothModel
 import com.angcyo.bluetooth.DeviceConnectState
+import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
-import com.clj.fastble.data.BleDevice
-
+import com.feasycom.common.bean.FscDevice
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
- * @since 2022/03/12
+ * @since 2022/03/21
  */
-class AppBluetoothDeviceItem : DslAdapterItem() {
+class AppFscDeviceItem : DslAdapterItem() {
 
-    var bleDevice: BleDevice? = null
+    var fscDevice: FscDevice? = null
 
     var time: CharSequence? = null
 
-    val bluetoothModel = vmApp<BluetoothModel>()
+    val fscBleApiModel = vmApp<FscBleApiModel>()
 
     init {
         itemLayoutId = R.layout.item_bluetooth_device_layout
 
-        bluetoothModel.connectStateData.observe(this) {
+        fscBleApiModel.connectStateData.observe(this) {
             if (it != null) {
-                if (it.device == bleDevice) {
+                if (it.device == fscDevice) {
                     updateAdapterItem()
                 }
             }
@@ -42,20 +41,21 @@ class AppBluetoothDeviceItem : DslAdapterItem() {
         super.onItemBind(itemHolder, itemPosition, adapterItem, payloads)
 
         itemHolder.tv(R.id.lib_text_view)?.text = buildString {
-            bleDevice?.let {
+            fscDevice?.let {
                 if (it.name.isNullOrEmpty()) {
-                    append(it.mac)
+                    append(it.address)
                 } else {
                     appendLine(it.name)
-                    append(it.mac)
+                    append(it.address)
                 }
             }
         }
 
         itemHolder.tv(R.id.lib_des_view)?.text = buildString {
-            bleDevice?.let {
+            fscDevice?.let {
                 appendLine(time)
                 append(it.rssi)
+                append(" ${it.mode}")
                 append(" ${it.device.type}")
                 append(" ${it.device.alias}")
                 append(" ${it.device.bluetoothClass.deviceClass}/${it.device.bluetoothClass.majorDeviceClass}")
@@ -64,25 +64,25 @@ class AppBluetoothDeviceItem : DslAdapterItem() {
         }
 
         //https://www.jianshu.com/p/12b69fe68246
-        bleDevice?.let {
+        fscDevice?.let {
             itemHolder.img(R.id.lib_image_view)
                 ?.setImageResource(BtUtil.getDeviceTypeResource(it.device.bluetoothClass))
         }
 
-        itemHolder.tv(R.id.connect_button)?.text = when (bluetoothModel.connectState(bleDevice)) {
+        itemHolder.tv(R.id.connect_button)?.text = when (fscBleApiModel.connectState(fscDevice)) {
             DeviceConnectState.CONNECT_STATE_START -> "..."
             DeviceConnectState.CONNECT_STATE_SUCCESS -> "断开"
             else -> "连接"
         }
 
         itemHolder.click(R.id.connect_button) {
-            bleDevice?.let { device ->
-                if (BluetoothModel.isConnected(bleDevice)) {
+            fscDevice?.let { device ->
+                if (fscBleApiModel.isConnected(device)) {
                     //断开
-                    bluetoothModel.disconnect(device)
+                    fscBleApiModel.disconnect(device)
                 } else {
                     //连接
-                    bluetoothModel.connect(device)
+                    fscBleApiModel.connect(device)
                 }
             }
         }

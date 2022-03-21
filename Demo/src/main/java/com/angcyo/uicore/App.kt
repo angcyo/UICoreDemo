@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import com.angcyo.DslAHelper
 import com.angcyo.base.restore
+import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bugly.Bugly
 import com.angcyo.core.CoreApplication
 import com.angcyo.core.fragment.BaseUI
@@ -71,8 +72,8 @@ class App : CoreApplication(), CameraXConfig.Provider {
         )
 
         JPush.init(this)
-
         Bugly.init()
+        FscBleApiModel.init()
     }
 
     override fun onCreateMain() {

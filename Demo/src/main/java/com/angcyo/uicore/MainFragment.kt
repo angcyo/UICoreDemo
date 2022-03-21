@@ -365,6 +365,7 @@ class MainFragment : BaseDemoDslFragment() {
             renderDemoListItem("PathDemo $GO")
             renderDemoListItem("MultiLanguageDemo $GO")
             renderDemoListItem("BluetoothDemo $GO")
+            renderDemoListItem("FscBleApiDemo $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()() {
