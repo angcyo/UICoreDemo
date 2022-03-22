@@ -49,7 +49,7 @@ class FscBleApiDemo : AppDslFragment() {
         }
 
         renderDslAdapter {
-            headerItems.add(DslAdapterItem().apply {
+            DslAdapterItem()(headerItems) {
                 itemLayoutId = R.layout.item_bluetooth_layout
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
                     itemHolder.tv(R.id.lib_text_view)?.text =
@@ -76,7 +76,7 @@ class FscBleApiDemo : AppDslFragment() {
                         }
                     }
                 }
-            })
+            }
         }
     }
 
