@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.angcyo.bluetooth.BluetoothModel
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.DslAdapterItem
-import com.angcyo.library.L
 import com.angcyo.library.app
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.uicore.base.AppDslFragment
