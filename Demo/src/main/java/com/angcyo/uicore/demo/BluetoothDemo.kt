@@ -71,6 +71,7 @@ class BluetoothDemo : AppDslFragment() {
                         if (bluetoothModel.bluetoothStateData.value == BluetoothModel.BLUETOOTH_STATE_SCANNING) {
                             bluetoothModel.stopScan()
                         } else {
+                            dataItems.clear()
                             bluetoothModel.startScan(requireActivity())
                         }
                     }

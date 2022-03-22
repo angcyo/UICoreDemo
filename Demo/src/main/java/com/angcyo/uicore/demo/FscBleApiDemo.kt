@@ -72,6 +72,7 @@ class FscBleApiDemo : AppDslFragment() {
                         if (fscModel.bleStateData.value == FscBleApiModel.BLUETOOTH_STATE_SCANNING) {
                             fscModel.stopScan()
                         } else {
+                            dataItems.clear()
                             fscModel.startScan(requireActivity())
                         }
                     }
