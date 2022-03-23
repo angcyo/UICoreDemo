@@ -82,6 +82,17 @@
         app:layout_constraintTop_toBottomOf="@id/send_edit_view"
         app:switchPadding="@dimen/lib_dpi" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/rate_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lib_xhdpi"
+        android:text="0 bytes/s"
+        app:layout_constraintBottom_toBottomOf="@id/hex_switch"
+        app:layout_constraintLeft_toRightOf="@id/hex_switch"
+        app:layout_constraintTop_toTopOf="@id/hex_switch" />
+
     <com.angcyo.widget.DslButton
         android:id="@+id/send_button"
         style="@style/DefaultButtonMinStyle"
@@ -129,17 +140,6 @@
         app:layout_constraintBottom_toBottomOf="@id/stop_button"
         app:layout_constraintLeft_toRightOf="@id/stop_button"
         tools:visibility="visible" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/rate_view"
-        style="@style/LibBodyTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/lib_xhdpi"
-        android:layout_marginBottom="@dimen/lib_xhdpi"
-        android:text="0 bytes/s"
-        app:layout_constraintBottom_toTopOf="@id/packet_progress_view"
-        app:layout_constraintLeft_toRightOf="@id/pause_button" />
 
     <com.angcyo.widget.progress.DslProgressBar
         android:id="@+id/packet_progress_view"
