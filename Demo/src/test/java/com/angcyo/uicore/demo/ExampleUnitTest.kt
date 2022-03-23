@@ -1,5 +1,7 @@
 package com.angcyo.uicore.demo
 
+import com.angcyo.library.ex.toHexByteArray
+import com.angcyo.library.ex.toHexString
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -58,5 +60,12 @@ class ExampleUnitTest {
         println()
         println("匹配:${char9} ${char.contains(char9)}")
         println("正则匹配:${char9} ${char.contains(char9.toRegex())}")
+    }
+
+    @Test
+    fun testHex() {
+        val text = "0123456789ABCDEF"//"angcyo"
+        println(text.toHexByteArray())
+        println(text.toHexByteArray().toHexString(true))
     }
 }

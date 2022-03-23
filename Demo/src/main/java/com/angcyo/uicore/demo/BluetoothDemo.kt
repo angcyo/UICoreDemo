@@ -4,6 +4,8 @@ import android.os.Bundle
 import com.angcyo.bluetooth.BluetoothModel
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.DslAdapterItem
+import com.angcyo.dsladapter.addToAfter
+import com.angcyo.dsladapter.removeFromAfter
 import com.angcyo.library.app
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.uicore.base.AppDslFragment
@@ -17,6 +19,8 @@ import com.angcyo.widget.progress.ArcLoadingView
 class BluetoothDemo : AppDslFragment() {
 
     val bluetoothModel = vmApp<BluetoothModel>()
+
+    val emptyDeviceFilter = EmptyDeviceFilter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +47,7 @@ class BluetoothDemo : AppDslFragment() {
 
                     //添加新的item
                     AppBluetoothDeviceItem()() {
+                        itemData = device
                         bleDevice = device
                         time = nowTimeString()
                     }
@@ -67,12 +72,26 @@ class BluetoothDemo : AppDslFragment() {
                     itemHolder.tv(R.id.start_scan_button)?.text =
                         if (bluetoothModel.bluetoothStateData.value == BluetoothModel.BLUETOOTH_STATE_SCANNING) "停止扫描" else "开始扫描"
 
+                    //start
                     itemHolder.click(R.id.start_scan_button) {
                         if (bluetoothModel.bluetoothStateData.value == BluetoothModel.BLUETOOTH_STATE_SCANNING) {
                             bluetoothModel.stopScan()
                         } else {
                             dataItems.clear()
                             bluetoothModel.startScan(requireActivity())
+                        }
+                    }
+
+                    //filter
+                    itemHolder.check(
+                        R.id.filter_switch,
+                        emptyDeviceFilter.isEnable
+                    ) { buttonView, isChecked ->
+                        emptyDeviceFilter.isEnable = isChecked
+                        if (isChecked) {
+                            emptyDeviceFilter.addToAfter(_adapter)
+                        } else {
+                            emptyDeviceFilter.removeFromAfter(_adapter)
                         }
                     }
                 }

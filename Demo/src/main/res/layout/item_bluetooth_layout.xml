@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
@@ -12,17 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <com.angcyo.widget.DslButton
-        android:id="@+id/start_scan_button"
-        style="@style/DefaultButtonMinStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/lib_xhdpi"
-        android:layout_marginTop="@dimen/lib_xhdpi"
-        android:text="开始扫描"
-        app:layout_constraintLeft_toRightOf="@id/spp_check_box"
-        app:layout_constraintTop_toBottomOf="@id/lib_text_view" />
-
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/spp_check_box"
         style="@style/LibBodyTextStyle"
@@ -31,7 +21,31 @@
         android:layout_marginTop="@dimen/lib_xhdpi"
         android:text="SPP"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/lib_text_view" />
+        app:layout_constraintTop_toBottomOf="@id/lib_text_view"
+        tools:visibility="visible" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/filter_switch"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lib_xhdpi"
+        android:text="过滤空名称设备"
+        app:layout_constraintBottom_toBottomOf="@id/spp_check_box"
+        app:layout_constraintLeft_toRightOf="@id/spp_check_box"
+        app:layout_constraintTop_toTopOf="@id/spp_check_box" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/start_scan_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lib_xhdpi"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        android:text="开始扫描"
+        app:layout_constraintBottom_toBottomOf="@id/filter_switch"
+        app:layout_constraintLeft_toRightOf="@id/filter_switch"
+        app:layout_constraintTop_toTopOf="@id/filter_switch" />
 
     <com.angcyo.widget.progress.ArcLoadingView
         android:id="@+id/arc_load_view"

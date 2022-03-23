@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/lib_xhdpi">
+
+    <!--接收-->
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/receive_tip_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="接收0字节0包" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/receive_crc_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CRC32:00000000"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/receive_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        android:background="@drawable/lib_white_round_shape"
+        app:layout_constraintTop_toBottomOf="@id/receive_tip_view" />
+
+    <!--发送-->
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/send_tip_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        android:text="发送0字节0包"
+        app:layout_constraintTop_toBottomOf="@id/receive_text_view" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/send_crc_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CRC32:00000000"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/send_tip_view" />
+
+    <com.angcyo.widget.edit.DslEditText
+        android:id="@+id/send_edit_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        android:background="@drawable/lib_white_round_shape"
+        android:gravity="top"
+        android:padding="@dimen/lib_hdpi"
+        app:layout_constraintTop_toBottomOf="@id/send_tip_view"
+        app:r_pattern_string="## ##" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/send_count_view"
+        style="@style/LibDesTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        android:text="0字节"
+        app:layout_constraintBottom_toBottomOf="@id/send_edit_view"
+        app:layout_constraintRight_toRightOf="@id/send_edit_view" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/hex_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        android:text="HEX"
+        app:layout_constraintTop_toBottomOf="@id/send_edit_view"
+        app:switchPadding="@dimen/lib_dpi" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/send_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        android:text="发送"
+        app:layout_constraintRight_toRightOf="@id/send_edit_view"
+        app:layout_constraintTop_toBottomOf="@id/send_edit_view" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/send_file_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        android:layout_marginBottom="30dp"
+        android:text="发文件"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="@id/send_button"
+        app:layout_constraintTop_toBottomOf="@id/send_button" />
+
+    <!--发送进度-->
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/stop_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/lib_xhdpi"
+        android:text="停止发送"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/packet_progress_view"
+        app:layout_constraintLeft_toLeftOf="@id/packet_progress_view"
+        tools:visibility="visible" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/pause_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lib_hdpi"
+        android:text="暂停发送"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/stop_button"
+        app:layout_constraintLeft_toRightOf="@id/stop_button"
+        tools:visibility="visible" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/rate_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lib_xhdpi"
+        android:layout_marginBottom="@dimen/lib_xhdpi"
+        android:text="0 bytes/s"
+        app:layout_constraintBottom_toTopOf="@id/packet_progress_view"
+        app:layout_constraintLeft_toRightOf="@id/pause_button" />
+
+    <com.angcyo.widget.progress.DslProgressBar
+        android:id="@+id/packet_progress_view"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:progress_show_text="true"
+        app:progress_text_size="6dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

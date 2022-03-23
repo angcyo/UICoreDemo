@@ -1,10 +1,15 @@
 package com.angcyo.uicore.dslitem
 
+import androidx.fragment.app.Fragment
+import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.DeviceConnectState
 import com.angcyo.bluetooth.fsc.FscBleApiModel
+import com.angcyo.core.dslitem.IFragmentItem
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.DslAdapterItem
+import com.angcyo.putData
 import com.angcyo.uicore.demo.R
+import com.angcyo.uicore.demo.ble.FscThroughputFragment
 import com.angcyo.widget.DslViewHolder
 import com.feasycom.common.bean.FscDevice
 
@@ -12,7 +17,7 @@ import com.feasycom.common.bean.FscDevice
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
  * @since 2022/03/21
  */
-class AppFscDeviceItem : DslAdapterItem() {
+class AppFscDeviceItem : DslAdapterItem(), IFragmentItem {
 
     var fscDevice: FscDevice? = null
 
@@ -20,13 +25,25 @@ class AppFscDeviceItem : DslAdapterItem() {
 
     val fscBleApiModel = vmApp<FscBleApiModel>()
 
+    override var itemFragment: Fragment? = null
+
     init {
         itemLayoutId = R.layout.item_bluetooth_device_layout
+
+        thisAreItemsTheSame
 
         fscBleApiModel.connectStateData.observe(this) {
             if (it != null) {
                 if (it.device == fscDevice) {
                     updateAdapterItem()
+                }
+            }
+        }
+
+        itemClick = {
+            itemFragment?.dslFHelper {
+                show(FscThroughputFragment::class) {
+                    putData(fscDevice)
                 }
             }
         }
@@ -87,5 +104,4 @@ class AppFscDeviceItem : DslAdapterItem() {
             }
         }
     }
-
 }
