@@ -60,10 +60,22 @@ class FscBleApiDemo : AppDslFragment() {
             DslAdapterItem()(headerItems) {
                 itemLayoutId = R.layout.item_bluetooth_layout
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
-                    itemHolder.tv(R.id.lib_text_view)?.text =
-                        "蓝牙设备:${FscBleApiModel.isSupportBle()}  蓝牙开关:${FscBleApiModel.isBlueEnable()}"
+                    itemHolder.tv(R.id.lib_text_view)?.text = buildString {
+                        append("蓝牙设备:${FscBleApiModel.isSupportBle()} ")
+                        append("蓝牙开关:${FscBleApiModel.isBlueEnable()} ")
+                        append("SDP:${FscBleApiModel.sppApi.isEnabledSDP} ")
+                    }
+
+                    //SDP
+                    itemHolder.tv(R.id.start_sdp_button)?.text =
+                        if (FscBleApiModel.sppApi.isEnabledSDP) "关闭SDP" else "开启SDP"
+                    itemHolder.click(R.id.start_sdp_button) {
+                        if (FscBleApiModel.sppApi.isEnabledSDP) FscBleApiModel.sppApi.closeSdpService() else FscBleApiModel.sppApi.openSdpService()
+                        _adapter[0]?.updateAdapterItem()
+                    }
 
                     itemHolder.visible(R.id.spp_check_box)
+                    itemHolder.visible(R.id.start_sdp_button)
 
                     if (fscModel.bleStateData.value == FscBleApiModel.BLUETOOTH_STATE_SCANNING) {
                         itemHolder.v<ArcLoadingView>(R.id.arc_load_view)?.startLoading()

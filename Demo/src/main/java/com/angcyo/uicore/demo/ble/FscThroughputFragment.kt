@@ -3,6 +3,7 @@ package com.angcyo.uicore.demo.ble
 import android.os.Bundle
 import android.os.SystemClock
 import android.text.method.TextKeyListener
+import com.angcyo.bluetooth.fsc.DevicePacketState
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.dslItem
@@ -21,6 +22,8 @@ import com.angcyo.widget.edit.NumKeyListener
 import com.angcyo.widget.progress.DslProgressBar
 import com.angcyo.widget.span.span
 import com.feasycom.common.bean.FscDevice
+import okhttp3.internal.toHexString
+import java.util.zip.CRC32
 import kotlin.math.max
 
 /**
@@ -35,6 +38,9 @@ class FscThroughputFragment : AppDslFragment() {
 
     //需要发送的数据
     var byteBuffer = byteArrayOf()
+
+    val sendCRC = CRC32() // 发送crc
+    val receiveCRC = CRC32() // 接收crc
 
     init {
         enableSoftInput = true
@@ -56,6 +62,9 @@ class FscThroughputFragment : AppDslFragment() {
 
         fscModel.devicePacketStateData.observe {
             if (it?.address == fscDevice?.address) {
+                if (it?.state == DevicePacketState.PACKET_STATE_START) {
+                    sendCRC.update(it.bytes)
+                }
                 _adapter[0]?.updateAdapterItem()
             }
         }
@@ -66,6 +75,12 @@ class FscThroughputFragment : AppDslFragment() {
                     val hexSwitch = itemHolder.cb(R.id.hex_switch)
                     val sendEditView = itemHolder._ev(R.id.send_edit_view)
                     val packetProgressView = itemHolder.v<DslProgressBar>(R.id.packet_progress_view)
+
+                    itemHolder.tv(R.id.send_crc_view)?.text =
+                        "CRC32:${sendCRC.value.toHexString().uppercase()}"
+
+                    itemHolder.tv(R.id.receive_crc_view)?.text =
+                        "CRC32:${receiveCRC.value.toHexString().uppercase()}"
 
                     if (payloads.isUpdatePart()) {
                         //进度更新
@@ -90,6 +105,10 @@ class FscThroughputFragment : AppDslFragment() {
                                 itemHolder.gone(R.id.stop_button)
                                 itemHolder.gone(R.id.pause_button)
                             }
+
+                            itemHolder.tv(R.id.receive_tip_view)
+                            itemHolder.tv(R.id.send_tip_view)?.text =
+                                "发送${it.sendBytesSize}字节${it.sendPacketCount}包"
 
                             itemHolder.tv(R.id.pause_button)?.text = if (it.isPause) {
                                 "继续发送"

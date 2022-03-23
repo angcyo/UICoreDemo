@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/lib_xhdpi"
-        android:text="过滤空名称设备"
+        android:text="过滤"
         app:layout_constraintBottom_toBottomOf="@id/spp_check_box"
         app:layout_constraintLeft_toRightOf="@id/spp_check_box"
         app:layout_constraintTop_toTopOf="@id/spp_check_box" />
@@ -41,11 +41,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/lib_xhdpi"
-        android:layout_marginTop="@dimen/lib_xhdpi"
         android:text="开始扫描"
         app:layout_constraintBottom_toBottomOf="@id/filter_switch"
         app:layout_constraintLeft_toRightOf="@id/filter_switch"
         app:layout_constraintTop_toTopOf="@id/filter_switch" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/start_sdp_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lib_xhdpi"
+        android:text="开始SDP"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/filter_switch"
+        app:layout_constraintLeft_toRightOf="@id/start_scan_button"
+        app:layout_constraintTop_toTopOf="@id/filter_switch"
+        tools:visibility="visible" />
 
     <com.angcyo.widget.progress.ArcLoadingView
         android:id="@+id/arc_load_view"
