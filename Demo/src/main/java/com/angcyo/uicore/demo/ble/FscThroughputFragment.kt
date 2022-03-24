@@ -5,6 +5,7 @@ import android.os.SystemClock
 import android.text.method.TextKeyListener
 import com.angcyo.bluetooth.fsc.DevicePacketState
 import com.angcyo.bluetooth.fsc.FscBleApiModel
+import com.angcyo.bluetooth.fsc.LaserPeckerHelper
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.dslItem
 import com.angcyo.dsladapter.isUpdatePart
@@ -190,9 +191,21 @@ class FscThroughputFragment : AppDslFragment() {
 
                         //control
 
-                        itemHolder.click(R.id.state_command) {
+                        itemHolder.click(R.id.state_command0) {
                             hexSwitch?.isChecked = true
-                            sendEditView?.setInputText("AABB080000060000000006")
+                            sendEditView?.setInputText(LaserPeckerHelper.stateCmd(0))
+                        }
+                        itemHolder.click(R.id.state_command1) {
+                            hexSwitch?.isChecked = true
+                            sendEditView?.setInputText(LaserPeckerHelper.stateCmd(1))
+                        }
+                        itemHolder.click(R.id.state_command2) {
+                            hexSwitch?.isChecked = true
+                            sendEditView?.setInputText(LaserPeckerHelper.stateCmd(2))
+                        }
+                        itemHolder.click(R.id.state_command3) {
+                            hexSwitch?.isChecked = true
+                            sendEditView?.setInputText(LaserPeckerHelper.stateCmd(3))
                         }
                     }
                 }

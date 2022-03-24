@@ -118,11 +118,32 @@
             android:text="发文件" />
 
         <com.angcyo.widget.DslButton
-            android:id="@+id/state_command"
+            android:id="@+id/state_command0"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="状态指令" />
+            android:text="指令-工作状态" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/state_command1"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="指令-文件列表" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/state_command2"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="指令-设置状态" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/state_command3"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="指令-查询版本" />
 
     </com.angcyo.widget.layout.DslFlowLayout>
 

@@ -1,5 +1,7 @@
 package com.angcyo.uicore.demo
 
+import com.angcyo.bluetooth.fsc.LaserPeckerHelper
+import com.angcyo.library.ex.padHexString
 import com.angcyo.library.ex.toHexByteArray
 import com.angcyo.library.ex.toHexString
 import org.junit.Assert.assertEquals
@@ -67,5 +69,15 @@ class ExampleUnitTest {
         val text = "0123456789ABCDEF"//"angcyo"
         println(text.toHexByteArray())
         println(text.toHexByteArray().toHexString(true))
+    }
+
+    @Test
+    fun testDirective() {
+        println(LaserPeckerHelper.stateCmd(0))
+        println(LaserPeckerHelper.stateCmd(1))
+        println(LaserPeckerHelper.stateCmd(2))
+        println(LaserPeckerHelper.stateCmd(3))
+        println("AA".padHexString(4))
+        println("AA".padHexString(4, false))
     }
 }
