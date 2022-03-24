@@ -39,6 +39,9 @@ class FscThroughputFragment : AppDslFragment() {
     //需要发送的数据
     var byteBuffer = byteArrayOf()
 
+    //接收到的数据
+    var receiveBuffer = byteArrayOf()
+
     val sendCRC = CRC32() // 发送crc
     val receiveCRC = CRC32() // 接收crc
 
@@ -63,7 +66,12 @@ class FscThroughputFragment : AppDslFragment() {
         fscModel.devicePacketStateData.observe {
             if (it?.address == fscDevice?.address) {
                 if (it?.state == DevicePacketState.PACKET_STATE_START) {
+                    //发送数据
                     sendCRC.update(it.bytes)
+                } else if (it?.state == DevicePacketState.PACKET_STATE_RECEIVED) {
+                    //接收数据
+                    receiveCRC.update(it.bytes)
+                    receiveBuffer = it.bytes.copyOf()
                 }
                 _adapter[0]?.updateAdapterItem()
             }
@@ -81,6 +89,9 @@ class FscThroughputFragment : AppDslFragment() {
 
                     itemHolder.tv(R.id.receive_crc_view)?.text =
                         "CRC32:${receiveCRC.value.toHexString().uppercase()}"
+
+                    //接收到的数据
+                    itemHolder.tv(R.id.receive_text_view)?.text = receiveBuffer.toHexString(true)
 
                     if (payloads.isUpdatePart()) {
                         //进度更新
@@ -106,7 +117,6 @@ class FscThroughputFragment : AppDslFragment() {
                                 itemHolder.gone(R.id.pause_button)
                             }
 
-                            itemHolder.tv(R.id.receive_tip_view)
                             itemHolder.tv(R.id.send_tip_view)?.text =
                                 "发送${it.sendBytesSize}字节${it.sendPacketCount}包"
 
@@ -115,6 +125,10 @@ class FscThroughputFragment : AppDslFragment() {
                             } else {
                                 "暂停发送"
                             }
+                        }
+                        fscModel.findReceiveCache(fscDevice?.address)?.let {
+                            itemHolder.tv(R.id.receive_tip_view)?.text =
+                                "接收${it.receiveBytesSize}字节${it.receivePacketCount}包"
                         }
                     } else {
                         hexSwitch?.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -172,6 +186,13 @@ class FscThroughputFragment : AppDslFragment() {
                                     fscModel.pauseSend(device.address)
                                 }
                             }
+                        }
+
+                        //control
+
+                        itemHolder.click(R.id.state_command) {
+                            hexSwitch?.isChecked = true
+                            sendEditView?.setInputText("AABB080000060000000006")
                         }
                     }
                 }

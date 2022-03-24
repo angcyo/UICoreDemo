@@ -26,9 +26,10 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/receive_text_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         android:layout_marginTop="@dimen/lib_hdpi"
         android:background="@drawable/lib_white_round_shape"
+        android:textIsSelectable="true"
         app:layout_constraintTop_toBottomOf="@id/receive_tip_view" />
 
     <!--发送-->
@@ -59,9 +60,9 @@
         android:layout_marginTop="@dimen/lib_hdpi"
         android:background="@drawable/lib_white_round_shape"
         android:gravity="top"
-        android:padding="@dimen/lib_hdpi"
         app:layout_constraintTop_toBottomOf="@id/send_tip_view"
-        app:r_pattern_string="## ##" />
+        app:r_pattern_string="## ##"
+        tools:text="AABB080000060000000006" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/send_count_view"
@@ -93,27 +94,37 @@
         app:layout_constraintLeft_toRightOf="@id/hex_switch"
         app:layout_constraintTop_toTopOf="@id/hex_switch" />
 
-    <com.angcyo.widget.DslButton
-        android:id="@+id/send_button"
-        style="@style/DefaultButtonMinStyle"
-        android:layout_width="wrap_content"
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:id="@+id/control_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/lib_hdpi"
-        android:text="发送"
-        app:layout_constraintRight_toRightOf="@id/send_edit_view"
-        app:layout_constraintTop_toBottomOf="@id/send_edit_view" />
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        app:layout_constraintTop_toBottomOf="@id/hex_switch"
+        app:r_flow_item_horizontal_space="@dimen/lib_hdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_hdpi">
 
-    <com.angcyo.widget.DslButton
-        android:id="@+id/send_file_button"
-        style="@style/DefaultButtonMinStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/lib_hdpi"
-        android:layout_marginBottom="30dp"
-        android:text="发文件"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="@id/send_button"
-        app:layout_constraintTop_toBottomOf="@id/send_button" />
+        <com.angcyo.widget.DslButton
+            android:id="@+id/send_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发送" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/send_file_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发文件" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/state_command"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="状态指令" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
 
     <!--发送进度-->
 
@@ -122,11 +133,12 @@
         style="@style/DefaultButtonMinStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_xhdpi"
         android:layout_marginBottom="@dimen/lib_xhdpi"
         android:text="停止发送"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/packet_progress_view"
-        app:layout_constraintLeft_toLeftOf="@id/packet_progress_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/control_layout"
         tools:visibility="visible" />
 
     <com.angcyo.widget.DslButton
@@ -139,6 +151,7 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/stop_button"
         app:layout_constraintLeft_toRightOf="@id/stop_button"
+        app:layout_constraintTop_toTopOf="@id/stop_button"
         tools:visibility="visible" />
 
     <com.angcyo.widget.progress.DslProgressBar
@@ -146,7 +159,7 @@
         android:layout_width="match_parent"
         android:layout_height="6dp"
         android:layout_marginTop="@dimen/lib_xhdpi"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/stop_button"
         app:progress_show_text="true"
         app:progress_text_size="6dp" />
 
