@@ -6,9 +6,7 @@ import android.text.method.TextKeyListener
 import com.angcyo.bluetooth.fsc.DevicePacketState
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
-import com.angcyo.bluetooth.fsc.laserpacker.bean.DeviceStateBean
-import com.angcyo.bluetooth.fsc.laserpacker.bean.PrintFileBean
-import com.angcyo.bluetooth.fsc.laserpacker.bean.ReceivePacketBean
+import com.angcyo.bluetooth.fsc.laserpacker.bean.*
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.dslItem
 import com.angcyo.dsladapter.isUpdatePart
@@ -223,25 +221,35 @@ class FscThroughputFragment : AppDslFragment() {
 
                         //control
 
+                        //指令-工作状态
                         itemHolder.click(R.id.state_command0) {
                             hexSwitch?.isChecked = true
                             sendEditView?.setInputText(LaserPeckerHelper.stateCmd(0))
                             cmdClass = DeviceStateBean::class.java
                         }
+                        //指令-文件列表
                         itemHolder.click(R.id.state_command1) {
                             hexSwitch?.isChecked = true
                             sendEditView?.setInputText(LaserPeckerHelper.stateCmd(1))
-                            cmdClass = PrintFileBean::class.java
+                            cmdClass = DevicePrintFileBean::class.java
                         }
+                        //指令-设置状态
                         itemHolder.click(R.id.state_command2) {
                             hexSwitch?.isChecked = true
                             sendEditView?.setInputText(LaserPeckerHelper.stateCmd(2))
-                            cmdClass = DeviceStateBean::class.java
+                            cmdClass = DeviceSettingBean::class.java
                         }
+                        //指令-查询版本
                         itemHolder.click(R.id.state_command3) {
                             hexSwitch?.isChecked = true
                             sendEditView?.setInputText(LaserPeckerHelper.stateCmd(3))
-                            cmdClass = DeviceStateBean::class.java
+                            cmdClass = DeviceVersionBean::class.java
+                        }
+                        //查询安全码与用户帐号
+                        itemHolder.click(R.id.state_command4) {
+                            hexSwitch?.isChecked = true
+                            sendEditView?.setInputText(LaserPeckerHelper.stateCmd(4))
+                            cmdClass = DeviceSafeCodeBean::class.java
                         }
                     }
                 }
@@ -276,8 +284,17 @@ class FscThroughputFragment : AppDslFragment() {
             DeviceStateBean::class.java -> {
                 DeviceStateBean.parse(bean.receivePacket)
             }
-            PrintFileBean::class.java -> {
-                PrintFileBean.parse(bean.receivePacket)
+            DevicePrintFileBean::class.java -> {
+                DevicePrintFileBean.parse(bean.receivePacket)
+            }
+            DeviceSettingBean::class.java -> {
+                DeviceSettingBean.parse(bean.receivePacket)
+            }
+            DeviceVersionBean::class.java -> {
+                DeviceVersionBean.parse(bean.receivePacket)
+            }
+            DeviceSafeCodeBean::class.java -> {
+                DeviceSafeCodeBean.parse(bean.receivePacket)
             }
             else -> null
         }?.let {

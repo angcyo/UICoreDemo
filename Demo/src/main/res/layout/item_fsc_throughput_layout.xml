@@ -153,6 +153,13 @@
             android:layout_height="wrap_content"
             android:text="指令-查询版本" />
 
+        <com.angcyo.widget.DslButton
+            android:id="@+id/state_command4"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="指令-安全码与用户帐号" />
+
     </com.angcyo.widget.layout.DslFlowLayout>
 
     <!--发送进度-->
@@ -190,6 +197,7 @@
         android:layout_marginTop="@dimen/lib_xhdpi"
         app:layout_constraintTop_toBottomOf="@id/stop_button"
         app:progress_show_text="true"
+        app:progress_text_min_width="0dp"
         app:progress_text_size="6dp" />
 
     <androidx.appcompat.widget.AppCompatTextView
