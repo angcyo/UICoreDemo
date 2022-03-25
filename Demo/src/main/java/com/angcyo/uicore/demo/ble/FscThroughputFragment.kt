@@ -6,6 +6,9 @@ import android.text.method.TextKeyListener
 import com.angcyo.bluetooth.fsc.DevicePacketState
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
+import com.angcyo.bluetooth.fsc.laserpacker.bean.DeviceStateBean
+import com.angcyo.bluetooth.fsc.laserpacker.bean.PrintFileBean
+import com.angcyo.bluetooth.fsc.laserpacker.bean.ReceivePacketBean
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.dslItem
 import com.angcyo.dsladapter.isUpdatePart
@@ -17,6 +20,7 @@ import com.angcyo.library.ex.toHexByteArray
 import com.angcyo.library.ex.toHexString
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.R
+import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget._ev
 import com.angcyo.widget.base.onTextChange
 import com.angcyo.widget.base.setInputText
@@ -183,6 +187,8 @@ class FscThroughputFragment : AppDslFragment() {
                                             //接收到的数据
                                             itemHolder.tv(R.id.receive_text_view)?.text =
                                                 receiveBuffer.toHexString(true)
+
+                                            handleResult(itemHolder, it)
                                         }
                                         error?.let {
                                             itemHolder.tv(R.id.result_text_view)?.text = it.message
@@ -194,6 +200,7 @@ class FscThroughputFragment : AppDslFragment() {
 
                         itemHolder.click(R.id.send_file_button) {
                             fscDevice?.let { device ->
+                                cmdClass = null
                                 fscModel.sendFile(device.address, 5 * 1024 * 1024)
                             }
                         }
@@ -219,18 +226,22 @@ class FscThroughputFragment : AppDslFragment() {
                         itemHolder.click(R.id.state_command0) {
                             hexSwitch?.isChecked = true
                             sendEditView?.setInputText(LaserPeckerHelper.stateCmd(0))
+                            cmdClass = DeviceStateBean::class.java
                         }
                         itemHolder.click(R.id.state_command1) {
                             hexSwitch?.isChecked = true
                             sendEditView?.setInputText(LaserPeckerHelper.stateCmd(1))
+                            cmdClass = PrintFileBean::class.java
                         }
                         itemHolder.click(R.id.state_command2) {
                             hexSwitch?.isChecked = true
                             sendEditView?.setInputText(LaserPeckerHelper.stateCmd(2))
+                            cmdClass = DeviceStateBean::class.java
                         }
                         itemHolder.click(R.id.state_command3) {
                             hexSwitch?.isChecked = true
                             sendEditView?.setInputText(LaserPeckerHelper.stateCmd(3))
+                            cmdClass = DeviceStateBean::class.java
                         }
                     }
                 }
@@ -256,6 +267,24 @@ class FscThroughputFragment : AppDslFragment() {
     override fun onDestroy() {
         super.onDestroy()
         fscModel.disconnect(fscDevice)
+    }
+
+    var cmdClass: Class<*>? = null
+
+    fun handleResult(holder: DslViewHolder, bean: ReceivePacketBean) {
+        when (cmdClass) {
+            DeviceStateBean::class.java -> {
+                DeviceStateBean.parse(bean.receivePacket)
+            }
+            PrintFileBean::class.java -> {
+                PrintFileBean.parse(bean.receivePacket)
+            }
+            else -> null
+        }?.let {
+            holder.tv(R.id.result_text_view)?.text = it.toString()
+        }
+
+        cmdClass = null
     }
 
 }

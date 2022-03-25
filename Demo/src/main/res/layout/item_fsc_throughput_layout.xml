@@ -198,9 +198,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/lib_xhdpi"
-        android:textSize="9dp"
+        android:textSize="@dimen/text_assist_size"
         app:layout_constraintTop_toBottomOf="@id/packet_progress_view"
         tools:text="0字节0字节0字节0字节0字节0字节0字节0字节0字节0字节" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

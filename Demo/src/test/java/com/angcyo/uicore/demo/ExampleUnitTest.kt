@@ -3,6 +3,7 @@ package com.angcyo.uicore.demo
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.library.ex.padHexString
 import com.angcyo.library.ex.toHexByteArray
+import com.angcyo.library.ex.toHexInt
 import com.angcyo.library.ex.toHexString
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -83,5 +84,13 @@ class ExampleUnitTest {
         println(LaserPeckerHelper.stateCmd(3))
         println("AA".padHexString(4))
         println("AA".padHexString(4, false))
+        println("AA".toInt(16))
+        println("0101".toInt(16))
+        println("0000F924".toInt(16))
+        val byte: Byte = -86
+        val bytes = byteArrayOf()
+        //val bytes = byteArrayOf(-86, -69)
+        println("${byte.toHexInt()} ${byte.toHexString().toInt(16)}")
+        println("${bytes.toHexInt()}")
     }
 }
