@@ -5,11 +5,12 @@ import android.os.SystemClock
 import android.text.method.TextKeyListener
 import com.angcyo.bluetooth.fsc.DevicePacketState
 import com.angcyo.bluetooth.fsc.FscBleApiModel
-import com.angcyo.bluetooth.fsc.LaserPeckerHelper
+import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.dslItem
 import com.angcyo.dsladapter.isUpdatePart
 import com.angcyo.getData
+import com.angcyo.http.rx.doMain
 import com.angcyo.library.ex._dimen
 import com.angcyo.library.ex.fileSizeString
 import com.angcyo.library.ex.toHexByteArray
@@ -163,7 +164,31 @@ class FscThroughputFragment : AppDslFragment() {
 
                         itemHolder.click(R.id.send_button) {
                             fscDevice?.let { device ->
-                                fscModel.send(device.address, byteBuffer)
+                                //fscModel.send(device.address, byteBuffer)
+
+                                LaserPeckerHelper.waitCmdReturn(
+                                    fscModel,
+                                    device.address,
+                                    byteBuffer, progress = {
+                                        doMain {
+                                            itemHolder.tv(R.id.result_text_view)?.text =
+                                                "发送中:${it.sendPacketPercentage}%"
+                                        }
+                                    }
+                                ) { bean, error ->
+                                    doMain {
+                                        bean?.let {
+                                            receiveBuffer = it.receivePacket
+
+                                            //接收到的数据
+                                            itemHolder.tv(R.id.receive_text_view)?.text =
+                                                receiveBuffer.toHexString(true)
+                                        }
+                                        error?.let {
+                                            itemHolder.tv(R.id.result_text_view)?.text = it.message
+                                        }
+                                    }
+                                }
                             }
                         }
 

@@ -20,17 +20,23 @@
         style="@style/LibBodyTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/lib_ldpi"
         android:text="CRC32:00000000"
         app:layout_constraintRight_toRightOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/receive_text_view"
+        style="@style/LibBodyTextStyle"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/lib_hdpi"
         android:background="@drawable/lib_white_round_shape"
+        android:gravity="top"
+        android:minHeight="40dp"
+        android:paddingHorizontal="@dimen/lib_ldpi"
         android:textIsSelectable="true"
-        app:layout_constraintTop_toBottomOf="@id/receive_tip_view" />
+        app:layout_constraintTop_toBottomOf="@id/receive_tip_view"
+        tools:text="AABB130006FF0000000000000000000006000100010C" />
 
     <!--发送-->
 
@@ -56,10 +62,12 @@
         android:id="@+id/send_edit_view"
         style="@style/LibBodyTextStyle"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/lib_hdpi"
         android:background="@drawable/lib_white_round_shape"
         android:gravity="top"
+        android:minHeight="40dp"
+        android:paddingHorizontal="@dimen/lib_ldpi"
         app:layout_constraintTop_toBottomOf="@id/send_tip_view"
         app:r_pattern_string="## ##"
         tools:text="AABB080000060000000006" />
@@ -183,5 +191,16 @@
         app:layout_constraintTop_toBottomOf="@id/stop_button"
         app:progress_show_text="true"
         app:progress_text_size="6dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/result_text_view"
+        style="@style/LibDesTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        android:textSize="9dp"
+        app:layout_constraintTop_toBottomOf="@id/packet_progress_view"
+        tools:text="0字节0字节0字节0字节0字节0字节0字节0字节0字节0字节" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

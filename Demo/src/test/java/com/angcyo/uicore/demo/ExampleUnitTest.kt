@@ -1,6 +1,6 @@
 package com.angcyo.uicore.demo
 
-import com.angcyo.bluetooth.fsc.LaserPeckerHelper
+import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.library.ex.padHexString
 import com.angcyo.library.ex.toHexByteArray
 import com.angcyo.library.ex.toHexString
@@ -73,6 +73,10 @@ class ExampleUnitTest {
 
     @Test
     fun testDirective() {
+        for (int in 0 until 16) {
+            print("$int->${int.toHexString(1)} ")
+        }
+        println()
         println(LaserPeckerHelper.stateCmd(0))
         println(LaserPeckerHelper.stateCmd(1))
         println(LaserPeckerHelper.stateCmd(2))
