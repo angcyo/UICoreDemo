@@ -170,6 +170,29 @@
             android:layout_height="wrap_content"
             android:text="C-打印" />
 
+        <!--预览指令-->
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/preview_command0"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="C-预览图片" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/preview_command1"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="C-预览范围" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/preview_command2"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="C-结束预览" />
+
     </com.angcyo.widget.layout.DslFlowLayout>
 
     <!--发送进度-->

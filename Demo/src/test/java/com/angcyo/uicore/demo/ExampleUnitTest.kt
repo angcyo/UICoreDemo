@@ -1,6 +1,6 @@
 package com.angcyo.uicore.demo
 
-import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
+import com.angcyo.bluetooth.fsc.laserpacker.command.StateCmd
 import com.angcyo.library.ex.padHexString
 import com.angcyo.library.ex.toHexByteArray
 import com.angcyo.library.ex.toHexInt
@@ -105,10 +105,10 @@ class ExampleUnitTest {
             print("$int->${int.toHexString(1)} ")
         }
         println()
-        println(LaserPeckerHelper.stateCmd(0))
-        println(LaserPeckerHelper.stateCmd(1))
-        println(LaserPeckerHelper.stateCmd(2))
-        println(LaserPeckerHelper.stateCmd(3))
+        println(StateCmd(0).toHexCommandString())
+        println(StateCmd(1).toHexCommandString())
+        println(StateCmd(2).toHexCommandString())
+        println(StateCmd(3).toHexCommandString())
         println("AA".padHexString(4))
         println("AA".padHexString(4, false))
         println("AA".toInt(16))
@@ -120,4 +120,14 @@ class ExampleUnitTest {
         println("${byte.toHexInt()} ${byte.toHexString().toInt(16)}")
         println("${bytes.toHexInt()}")
     }
+
+    @Test
+    fun testHex2() {
+        val int = 123456
+        val intHex = int.toHexString(8)
+        val int2 = intHex.toHexByteArray().toHexInt()
+        println(intHex)
+        println("$int $int2")
+    }
+
 }

@@ -8,6 +8,7 @@ import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.bluetooth.fsc.laserpacker.bean.*
 import com.angcyo.bluetooth.fsc.laserpacker.command.PrintCmd
+import com.angcyo.bluetooth.fsc.laserpacker.command.PrintPreviewCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.StateCmd
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.dslItem
@@ -50,6 +51,8 @@ class FscThroughputFragment : AppDslFragment() {
 
     val sendCRC = CRC32() // 发送crc
     val receiveCRC = CRC32() // 接收crc
+
+    val defaultName = 63780
 
     init {
         enableSoftInput = true
@@ -262,10 +265,34 @@ class FscThroughputFragment : AppDslFragment() {
                                     1,
                                     1,
                                     1,
-                                    63780
+                                    defaultName
                                 ).toHexCommandString()
                             )
                             cmdClass = PrintReceiveBean::class.java
+                        }
+                        //指令-预览图片
+                        itemHolder.click(R.id.preview_command0) {
+                            hexSwitch?.isChecked = true
+                            sendEditView?.setInputText(
+                                PrintPreviewCmd.previewFlashBitmap(defaultName).toHexCommandString()
+                            )
+                            cmdClass = PrintPreviewBean::class.java
+                        }
+                        //指令-预览范围
+                        itemHolder.click(R.id.preview_command1) {
+                            hexSwitch?.isChecked = true
+                            sendEditView?.setInputText(
+                                PrintPreviewCmd.previewRange(60, 20).toHexCommandString()
+                            )
+                            cmdClass = PrintPreviewBean::class.java
+                        }
+                        //指令-结束预览
+                        itemHolder.click(R.id.preview_command2) {
+                            hexSwitch?.isChecked = true
+                            sendEditView?.setInputText(
+                                PrintPreviewCmd(0x03).toHexCommandString()
+                            )
+                            cmdClass = PrintPreviewBean::class.java
                         }
                     }
                 }
@@ -297,24 +324,13 @@ class FscThroughputFragment : AppDslFragment() {
 
     fun handleResult(holder: DslViewHolder, bean: ReceivePacketBean) {
         when (cmdClass) {
-            DeviceStateBean::class.java -> {
-                DeviceStateBean().parse(bean.receivePacket)
-            }
-            DevicePrintFileBean::class.java -> {
-                DevicePrintFileBean().parse(bean.receivePacket)
-            }
-            DeviceSettingBean::class.java -> {
-                DeviceSettingBean().parse(bean.receivePacket)
-            }
-            DeviceVersionBean::class.java -> {
-                DeviceVersionBean().parse(bean.receivePacket)
-            }
-            DeviceSafeCodeBean::class.java -> {
-                DeviceSafeCodeBean().parse(bean.receivePacket)
-            }
-            PrintReceiveBean::class.java -> {
-                PrintReceiveBean().parse(bean.receivePacket)
-            }
+            DeviceStateBean::class.java -> DeviceStateBean().parse(bean.receivePacket)
+            DevicePrintFileBean::class.java -> DevicePrintFileBean().parse(bean.receivePacket)
+            DeviceSettingBean::class.java -> DeviceSettingBean().parse(bean.receivePacket)
+            DeviceVersionBean::class.java -> DeviceVersionBean().parse(bean.receivePacket)
+            DeviceSafeCodeBean::class.java -> DeviceSafeCodeBean().parse(bean.receivePacket)
+            PrintReceiveBean::class.java -> PrintReceiveBean().parse(bean.receivePacket)
+            PrintPreviewBean::class.java -> PrintPreviewBean().parse(bean.receivePacket)
             else -> null
         }?.let {
             holder.tv(R.id.result_text_view)?.text = it.toString()
