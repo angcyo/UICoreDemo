@@ -125,40 +125,50 @@
             android:layout_height="wrap_content"
             android:text="发文件" />
 
+        <!--状态查询-->
+
         <com.angcyo.widget.DslButton
             android:id="@+id/state_command0"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="指令-工作状态" />
+            android:text="C-工作状态" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/state_command1"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="指令-文件列表" />
+            android:text="C-文件列表" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/state_command2"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="指令-设置状态" />
+            android:text="C-设置状态" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/state_command3"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="指令-查询版本" />
+            android:text="C-查询版本" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/state_command4"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="指令-安全码与用户帐号" />
+            android:text="C-安全码与用户帐号" />
+
+        <!--打印指令-->
+        <com.angcyo.widget.DslButton
+            android:id="@+id/print_command0"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="C-打印" />
 
     </com.angcyo.widget.layout.DslFlowLayout>
 

@@ -7,6 +7,8 @@ import com.angcyo.bluetooth.fsc.DevicePacketState
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.bluetooth.fsc.laserpacker.bean.*
+import com.angcyo.bluetooth.fsc.laserpacker.command.PrintCmd
+import com.angcyo.bluetooth.fsc.laserpacker.command.StateCmd
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.dslItem
 import com.angcyo.dsladapter.isUpdatePart
@@ -224,32 +226,46 @@ class FscThroughputFragment : AppDslFragment() {
                         //指令-工作状态
                         itemHolder.click(R.id.state_command0) {
                             hexSwitch?.isChecked = true
-                            sendEditView?.setInputText(LaserPeckerHelper.stateCmd(0))
+                            sendEditView?.setInputText(StateCmd(0).toHexCommandString())
                             cmdClass = DeviceStateBean::class.java
                         }
                         //指令-文件列表
                         itemHolder.click(R.id.state_command1) {
                             hexSwitch?.isChecked = true
-                            sendEditView?.setInputText(LaserPeckerHelper.stateCmd(1))
+                            sendEditView?.setInputText(StateCmd(1).toHexCommandString())
                             cmdClass = DevicePrintFileBean::class.java
                         }
                         //指令-设置状态
                         itemHolder.click(R.id.state_command2) {
                             hexSwitch?.isChecked = true
-                            sendEditView?.setInputText(LaserPeckerHelper.stateCmd(2))
+                            sendEditView?.setInputText(StateCmd(2).toHexCommandString())
                             cmdClass = DeviceSettingBean::class.java
                         }
                         //指令-查询版本
                         itemHolder.click(R.id.state_command3) {
                             hexSwitch?.isChecked = true
-                            sendEditView?.setInputText(LaserPeckerHelper.stateCmd(3))
+                            sendEditView?.setInputText(StateCmd(3).toHexCommandString())
                             cmdClass = DeviceVersionBean::class.java
                         }
                         //查询安全码与用户帐号
                         itemHolder.click(R.id.state_command4) {
                             hexSwitch?.isChecked = true
-                            sendEditView?.setInputText(LaserPeckerHelper.stateCmd(4))
+                            sendEditView?.setInputText(StateCmd(4).toHexCommandString())
                             cmdClass = DeviceSafeCodeBean::class.java
+                        }
+
+                        //指令-打印
+                        itemHolder.click(R.id.print_command0) {
+                            hexSwitch?.isChecked = true
+                            sendEditView?.setInputText(
+                                PrintCmd(
+                                    1,
+                                    1,
+                                    1,
+                                    63780
+                                ).toHexCommandString()
+                            )
+                            cmdClass = PrintReceiveBean::class.java
                         }
                     }
                 }
@@ -282,19 +298,22 @@ class FscThroughputFragment : AppDslFragment() {
     fun handleResult(holder: DslViewHolder, bean: ReceivePacketBean) {
         when (cmdClass) {
             DeviceStateBean::class.java -> {
-                DeviceStateBean.parse(bean.receivePacket)
+                DeviceStateBean().parse(bean.receivePacket)
             }
             DevicePrintFileBean::class.java -> {
-                DevicePrintFileBean.parse(bean.receivePacket)
+                DevicePrintFileBean().parse(bean.receivePacket)
             }
             DeviceSettingBean::class.java -> {
-                DeviceSettingBean.parse(bean.receivePacket)
+                DeviceSettingBean().parse(bean.receivePacket)
             }
             DeviceVersionBean::class.java -> {
-                DeviceVersionBean.parse(bean.receivePacket)
+                DeviceVersionBean().parse(bean.receivePacket)
             }
             DeviceSafeCodeBean::class.java -> {
-                DeviceSafeCodeBean.parse(bean.receivePacket)
+                DeviceSafeCodeBean().parse(bean.receivePacket)
+            }
+            PrintReceiveBean::class.java -> {
+                PrintReceiveBean().parse(bean.receivePacket)
             }
             else -> null
         }?.let {
