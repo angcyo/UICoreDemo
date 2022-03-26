@@ -5,6 +5,7 @@ import com.angcyo.library.ex.padHexString
 import com.angcyo.library.ex.toHexByteArray
 import com.angcyo.library.ex.toHexInt
 import com.angcyo.library.ex.toHexString
+import com.angcyo.uicore.test.PathTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -14,9 +15,35 @@ import org.junit.Test
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class ExampleUnitTest {
+
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
+    }
+
+    @Test
+    fun testPath() {
+        val ovalWidth = 90f
+        //椭圆的高度
+        val ovalHeight = 60f
+        //测量矩形的宽度
+        val rectWidth = 100f
+        //测量矩形的高度
+        val rectHeight = 100f
+
+        val step = 2
+        for (i in 0..20) {
+            val oW = ovalWidth /*+ i * step*/
+            val oH = ovalHeight + i * step
+            val result = PathTest.maxRectInOval(oW, oH, rectWidth, rectHeight)
+
+            //105.0 75.0 -> 61 61
+            //104.0 74.0 -> 60 60
+
+            //90.0 80.0 -> 59 59
+            //90.0 82.0 -> 60 60
+            println("$oW $oH -> ${result.joinToString(" ")}")
+        }
     }
 
     @Test

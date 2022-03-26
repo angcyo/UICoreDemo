@@ -132,4 +132,24 @@ object PathTest {
         }.isEmpty
     }
 
+    /**计算矩形在椭圆内, 允许的最大宽度.*/
+    fun maxRectInOval(
+        //椭圆的宽度
+        ovalWidth: Float,
+        //椭圆的高度
+        ovalHeight: Float,
+        //测量矩形的宽度
+        rectWidth: Float,
+        //测量矩形的高度
+        rectHeight: Float
+    ): IntArray {
+        val x = ovalWidth / 2
+        val y = ovalHeight / 2
+        val heightRectRatio = rectHeight / rectWidth
+        val maxWidth =
+            sqrt((4 * x * x * y * y) / (y * y + heightRectRatio * heightRectRatio * x * x))
+        val maxHeight = maxWidth * heightRectRatio
+        return intArrayOf(maxWidth.toInt(), maxHeight.toInt())
+    }
+
 }
