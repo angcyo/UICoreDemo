@@ -91,6 +91,17 @@
         app:layout_constraintTop_toBottomOf="@id/send_edit_view"
         app:switchPadding="@dimen/lib_dpi" />
 
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/auto_send_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lib_xhdpi"
+        android:text="Send"
+        app:layout_constraintBottom_toBottomOf="@id/hex_switch"
+        app:layout_constraintLeft_toRightOf="@id/hex_switch"
+        app:layout_constraintTop_toTopOf="@id/hex_switch"
+        app:switchPadding="@dimen/lib_dpi" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/rate_view"
         style="@style/LibBodyTextStyle"
@@ -99,7 +110,7 @@
         android:layout_marginStart="@dimen/lib_xhdpi"
         android:text="0 bytes/s"
         app:layout_constraintBottom_toBottomOf="@id/hex_switch"
-        app:layout_constraintLeft_toRightOf="@id/hex_switch"
+        app:layout_constraintLeft_toRightOf="@id/auto_send_switch"
         app:layout_constraintTop_toTopOf="@id/hex_switch" />
 
     <com.angcyo.widget.layout.DslFlowLayout
@@ -192,6 +203,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="C-结束预览" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/preview_command3"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="C-升支架" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/preview_command4"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="C-降支架" />
 
     </com.angcyo.widget.layout.DslFlowLayout>
 

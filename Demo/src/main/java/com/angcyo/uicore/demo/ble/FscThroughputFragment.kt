@@ -90,6 +90,7 @@ class FscThroughputFragment : AppDslFragment() {
             dslItem(R.layout.item_fsc_throughput_layout) {
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
                     val hexSwitch = itemHolder.cb(R.id.hex_switch)
+                    val autoSendSwitch = itemHolder.cb(R.id.auto_send_switch)
                     val sendEditView = itemHolder._ev(R.id.send_edit_view)
                     val packetProgressView = itemHolder.v<DslProgressBar>(R.id.packet_progress_view)
 
@@ -224,75 +225,100 @@ class FscThroughputFragment : AppDslFragment() {
                             }
                         }
 
+                        fun setCommand(cmd: String, cls: Class<*>? = null) {
+                            hexSwitch?.isChecked = true
+                            sendEditView?.setInputText(cmd)
+                            cmdClass = cls
+                            if (autoSendSwitch?.isChecked == true) {
+                                itemHolder.clickCallView(R.id.send_button)
+                            }
+                        }
+
                         //control
 
                         //指令-工作状态
                         itemHolder.click(R.id.state_command0) {
-                            hexSwitch?.isChecked = true
-                            sendEditView?.setInputText(StateCmd(0).toHexCommandString())
-                            cmdClass = DeviceStateBean::class.java
+                            setCommand(
+                                StateCmd(0).toHexCommandString(),
+                                DeviceStateBean::class.java
+                            )
                         }
                         //指令-文件列表
                         itemHolder.click(R.id.state_command1) {
-                            hexSwitch?.isChecked = true
-                            sendEditView?.setInputText(StateCmd(1).toHexCommandString())
-                            cmdClass = DevicePrintFileBean::class.java
+                            setCommand(
+                                StateCmd(1).toHexCommandString(),
+                                DevicePrintFileBean::class.java
+                            )
                         }
                         //指令-设置状态
                         itemHolder.click(R.id.state_command2) {
-                            hexSwitch?.isChecked = true
-                            sendEditView?.setInputText(StateCmd(2).toHexCommandString())
-                            cmdClass = DeviceSettingBean::class.java
+                            setCommand(
+                                StateCmd(2).toHexCommandString(),
+                                DeviceSettingBean::class.java
+                            )
                         }
                         //指令-查询版本
                         itemHolder.click(R.id.state_command3) {
-                            hexSwitch?.isChecked = true
-                            sendEditView?.setInputText(StateCmd(3).toHexCommandString())
-                            cmdClass = DeviceVersionBean::class.java
+                            setCommand(
+                                StateCmd(3).toHexCommandString(),
+                                DeviceVersionBean::class.java
+                            )
                         }
                         //查询安全码与用户帐号
                         itemHolder.click(R.id.state_command4) {
-                            hexSwitch?.isChecked = true
-                            sendEditView?.setInputText(StateCmd(4).toHexCommandString())
-                            cmdClass = DeviceSafeCodeBean::class.java
+                            setCommand(
+                                StateCmd(4).toHexCommandString(),
+                                DeviceSafeCodeBean::class.java
+                            )
                         }
 
                         //指令-打印
                         itemHolder.click(R.id.print_command0) {
-                            hexSwitch?.isChecked = true
-                            sendEditView?.setInputText(
+                            setCommand(
                                 PrintCmd(
                                     1,
                                     1,
                                     1,
                                     defaultName
-                                ).toHexCommandString()
+                                ).toHexCommandString(),
+                                PrintReceiveBean::class.java
                             )
-                            cmdClass = PrintReceiveBean::class.java
                         }
                         //指令-预览图片
                         itemHolder.click(R.id.preview_command0) {
-                            hexSwitch?.isChecked = true
-                            sendEditView?.setInputText(
-                                PrintPreviewCmd.previewFlashBitmap(defaultName).toHexCommandString()
+                            setCommand(
+                                PrintPreviewCmd.previewFlashBitmap(defaultName)
+                                    .toHexCommandString(),
+                                PrintPreviewBean::class.java
                             )
-                            cmdClass = PrintPreviewBean::class.java
                         }
                         //指令-预览范围
                         itemHolder.click(R.id.preview_command1) {
-                            hexSwitch?.isChecked = true
-                            sendEditView?.setInputText(
-                                PrintPreviewCmd.previewRange(60, 20).toHexCommandString()
+                            setCommand(
+                                PrintPreviewCmd.previewRange(60, 20).toHexCommandString(),
+                                PrintPreviewBean::class.java
                             )
-                            cmdClass = PrintPreviewBean::class.java
                         }
                         //指令-结束预览
                         itemHolder.click(R.id.preview_command2) {
-                            hexSwitch?.isChecked = true
-                            sendEditView?.setInputText(
-                                PrintPreviewCmd(0x03).toHexCommandString()
+                            setCommand(
+                                PrintPreviewCmd(0x03).toHexCommandString(),
+                                PrintPreviewBean::class.java
                             )
-                            cmdClass = PrintPreviewBean::class.java
+                        }
+                        //升支架
+                        itemHolder.click(R.id.preview_command3) {
+                            setCommand(
+                                PrintPreviewCmd.previewBracketUp().toHexCommandString(),
+                                PrintPreviewBean::class.java
+                            )
+                        }
+                        //降支架
+                        itemHolder.click(R.id.preview_command4) {
+                            setCommand(
+                                PrintPreviewCmd.previewBracketDown().toHexCommandString(),
+                                PrintPreviewBean::class.java
+                            )
                         }
                     }
                 }
