@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/lib_xhdpi">
+
+    <com.angcyo.widget.edit.DslEditText
+        android:id="@+id/edit_text_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="top" />
+
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:id="@+id/flow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_view"
+        app:r_flow_item_horizontal_space="@dimen/lib_xhdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_xhdpi">
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/parse_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="解析" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/love_hollow"
+            style="@style/DefaultButtonMinStyle"
+            android:text="爱心-空心" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/love_hollow_color"
+            style="@style/DefaultButtonMinStyle"
+            android:text="爱心-空心-颜色" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/love_solid"
+            style="@style/DefaultButtonMinStyle"
+            android:text="爱心-实心" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/love_solid_color"
+            style="@style/DefaultButtonMinStyle"
+            android:text="爱心-实心-颜色" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/android_svg"
+            style="@style/DefaultButtonMinStyle"
+            android:text="android" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/cartman_svg"
+            style="@style/DefaultButtonMinStyle"
+            android:text="cartman" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/emotion_svg"
+            style="@style/DefaultButtonMinStyle"
+            android:text="emotion" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/group_transparency_svg"
+            style="@style/DefaultButtonMinStyle"
+            android:text="group_transparency" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/issue_svg"
+            style="@style/DefaultButtonMinStyle"
+            android:text="issue" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/layout_item_svg"
+            style="@style/DefaultButtonMinStyle"
+            android:text="layout_item" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/mother_svg"
+            style="@style/DefaultButtonMinStyle"
+            android:text="mother" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/quadratic_svg"
+            style="@style/DefaultButtonMinStyle"
+            android:text="quadratic" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toBottomOf="@id/flow_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

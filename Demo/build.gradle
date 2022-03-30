@@ -91,6 +91,7 @@ dependencies {
     implementation project(allModule.andserver)
     implementation project(allModule.bluetooth)
     implementation project(allModule.fsc)
+    implementation project(allModule.canvas)
 
     debugImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
     pretestImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
