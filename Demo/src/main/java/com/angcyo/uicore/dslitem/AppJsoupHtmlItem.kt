@@ -3,7 +3,7 @@ package com.angcyo.uicore.dslitem
 import com.angcyo.coroutine.LifecycleScope
 import com.angcyo.coroutine.launchSafe
 import com.angcyo.coroutine.onBack
-import com.angcyo.coroutine.onMain
+import com.angcyo.coroutine.withMain
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.jsoup.dslJsoup
 import com.angcyo.jsoup.toAbsUrl
@@ -71,7 +71,7 @@ class AppJsoupHtmlItem : DslAdapterItem() {
 
                     val select = _parseCss(document, jsoupData.selectCss)
 
-                    onMain {
+                    withMain {
                         itemHolder.v<DYProgressView>(R.id.lib_progress_view)?.stopAnimator()
 
                         //选中内容

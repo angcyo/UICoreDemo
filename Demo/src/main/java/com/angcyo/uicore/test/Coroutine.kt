@@ -20,7 +20,7 @@ fun coroutineTest() {
 fun blockTest() {
     launchGlobal {
 
-        val i = onBlock {
+        val i = withBlock {
             L.i("run....1..1")
             sleep()
             1 / 0
@@ -28,14 +28,14 @@ fun blockTest() {
             1
         }
 
-        val i1 = onBlock {
+        val i1 = withBlock {
             L.i("run....1..2")
             sleep(400)
             L.i("run....1..2end")
             2
         }
 
-        val i2 = onBlock {
+        val i2 = withBlock {
             L.i("run....1..3")
             sleep(500)
             L.i("run....1..3end")
@@ -44,7 +44,7 @@ fun blockTest() {
 
         L.i("all end1->$i $i1 $i2")
 
-        onMain {
+        withMain {
             L.i("all end2->$i $i1 $i2")
         }
     }
@@ -93,7 +93,7 @@ fun backTest() {
 
         L.i("all end1->${j} ${i1.await()} ${i2.await()}")
 
-        onMain {
+        withMain {
             L.i("all end2->$j $j1 $j2")
             //L.i("all end3->${i?.await()} ${i1.await()} ${i2.await()}")
         }
