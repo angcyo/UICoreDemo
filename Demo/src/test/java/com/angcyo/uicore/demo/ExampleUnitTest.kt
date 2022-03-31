@@ -130,4 +130,13 @@ class ExampleUnitTest {
         println("$int $int2")
     }
 
+    @Test
+    fun testShift() {
+        var width = 100
+        for (i in 0..10) {
+            println("${width / 2} ${width shr 1}")
+            width++
+        }
+    }
+
 }
