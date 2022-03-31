@@ -39,7 +39,8 @@ class BinderService : Service() {
         return binder
     }
 
-    public class BinderBinder : IBinderService.Stub() {
+    /**AIDL 接口*/
+    class BinderBinder : IBinderService.Stub() {
 
         /*fun addData(data: String): Boolean {
             return vmApp<IpcModel>().dataList.add(data)

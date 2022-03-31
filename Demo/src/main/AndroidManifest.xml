@@ -256,20 +256,22 @@
             android:name=".ipc.IpcActivity"
             android:enabled="true"
             android:exported="true"
+            android:launchMode="singleTask"
             android:process=":ipc"
-            android:taskAffinity="com.angcyo.uicore.demo.ipc" />
+            android:taskAffinity=".ipc" />
 
         <activity
             android:name=".ipc.IpcActivity2"
             android:enabled="true"
             android:exported="true"
+            android:launchMode="singleTask"
             android:process="com.angcyo.uicore.demo.ipc"
             android:taskAffinity="com.angcyo.uicore.demo.ipc" />
 
         <service
             android:name=".ipc.BinderService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
 
     </application>
 
