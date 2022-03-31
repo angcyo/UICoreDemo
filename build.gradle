@@ -33,6 +33,7 @@ buildscript {
         //https://repo1.maven.org/maven2/
     }
     dependencies {
+        //https://developer.android.google.cn/studio/releases/gradle-plugin?hl=zh_cn#updating-gradle
         //https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google
         classpath 'com.android.tools.build:gradle:7.0.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -79,7 +80,7 @@ allprojects {
         //maven { url 'http://dl.bintray.com/umsdk/release' }
 
         //huawei
-        maven {url 'https://developer.huawei.com/repo/'}
+        maven { url 'https://developer.huawei.com/repo/' }
 
         //angcyo
         maven { url "https://gitee.com/angcyo/maven/raw/master" }
