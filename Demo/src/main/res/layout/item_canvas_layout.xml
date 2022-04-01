@@ -10,4 +10,50 @@
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="1:1" />
 
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:id="@+id/control_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        app:layout_constraintTop_toBottomOf="@id/canvas_view"
+        app:r_flow_item_horizontal_space="@dimen/lib_hdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_hdpi">
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/translate_x_minus_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="translateX(-)" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/translate_x_plus_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="translateX(+)" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/translate_y_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="translateY" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/scale_in_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="scale放大" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/scale_out_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="scale缩小" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

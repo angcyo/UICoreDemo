@@ -3,10 +3,7 @@ package com.angcyo.uicore.demo
 import android.os.Bundle
 import com.angcyo.canvas.CanvasView
 import com.angcyo.dsladapter.bindItem
-import com.angcyo.library.ex._colorDrawable
-import com.angcyo.library.ex.toColorInt
 import com.angcyo.uicore.base.AppDslFragment
-import com.angcyo.widget.base.setBgDrawable
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
@@ -19,9 +16,27 @@ class CanvasDemo : AppDslFragment() {
 
         renderDslAdapter {
             bindItem(R.layout.item_canvas_layout) { itemHolder, itemPosition, adapterItem, payloads ->
-                itemHolder.v<CanvasView>(R.id.canvas_view)
-                    //?.setBgDrawable(_colorDrawable("#20000000".toColorInt()))
+                val canvasView = itemHolder.v<CanvasView>(R.id.canvas_view)
+                //?.setBgDrawable(_colorDrawable("#20000000".toColorInt()))
                 //?.setBgDrawable(CheckerboardDrawable.create())
+
+                itemHolder.click(R.id.translate_x_minus_button) {
+                    canvasView?.canvasViewBox?.translateBy(-100f, 0f)
+                }
+                itemHolder.click(R.id.translate_x_plus_button) {
+                    canvasView?.canvasViewBox?.translateBy(100f, 0f)
+                }
+                itemHolder.click(R.id.translate_y_button) {
+                    canvasView?.canvasViewBox?.translateBy(0f, -100f)
+                }
+                //放大
+                itemHolder.click(R.id.scale_in_button) {
+                    canvasView?.canvasViewBox?.scaleBy(1.2f, 1.2f)
+                }
+                //缩小
+                itemHolder.click(R.id.scale_out_button) {
+                    canvasView?.canvasViewBox?.scaleBy(.8f, .8f)
+                }
             }
         }
     }
