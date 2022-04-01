@@ -23,7 +23,7 @@ class ExampleUnitTest {
 
     @Test
     fun testPath() {
-        val ovalWidth = 90f
+        val ovalWidth = 100f
         //椭圆的高度
         val ovalHeight = 60f
         //测量矩形的宽度
@@ -32,7 +32,7 @@ class ExampleUnitTest {
         val rectHeight = 100f
 
         val step = 2
-        for (i in 0..20) {
+        for (i in 0..40) {
             val oW = ovalWidth /*+ i * step*/
             val oH = ovalHeight + i * step
             val result = PathTest.maxRectInOval(oW, oH, rectWidth, rectHeight)
@@ -42,6 +42,7 @@ class ExampleUnitTest {
 
             //90.0 80.0 -> 59 59
             //90.0 82.0 -> 60 60
+            //100.0 76.0 -> 60 60
             println("$oW $oH -> ${result.joinToString(" ")}")
         }
     }
