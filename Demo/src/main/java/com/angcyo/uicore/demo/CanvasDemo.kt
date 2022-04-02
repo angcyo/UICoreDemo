@@ -26,8 +26,11 @@ class CanvasDemo : AppDslFragment() {
                 itemHolder.click(R.id.translate_x_plus_button) {
                     canvasView?.canvasViewBox?.translateBy(100f, 0f)
                 }
-                itemHolder.click(R.id.translate_y_button) {
+                itemHolder.click(R.id.translate_y_minus_button) {
                     canvasView?.canvasViewBox?.translateBy(0f, -100f)
+                }
+                itemHolder.click(R.id.translate_y_plus_button) {
+                    canvasView?.canvasViewBox?.translateBy(0f, 100f)
                 }
                 //放大
                 itemHolder.click(R.id.scale_in_button) {

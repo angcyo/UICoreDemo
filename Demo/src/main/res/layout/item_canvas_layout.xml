@@ -34,11 +34,18 @@
             android:text="translateX(+)" />
 
         <com.angcyo.widget.DslButton
-            android:id="@+id/translate_y_button"
+            android:id="@+id/translate_y_minus_button"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="translateY" />
+            android:text="translateY(-)" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/translate_y_plus_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="translateY(+)" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/scale_in_button"
