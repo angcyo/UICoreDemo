@@ -61,6 +61,20 @@
             android:layout_height="wrap_content"
             android:text="scale缩小" />
 
+        <com.angcyo.widget.DslButton
+            android:id="@+id/add_text"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加文本" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/add_svg"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加SVG" />
+
     </com.angcyo.widget.layout.DslFlowLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
