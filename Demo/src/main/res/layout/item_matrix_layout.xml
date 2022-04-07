@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/lib_hdpi">
+
+    <LinearLayout
+        android:id="@+id/matrix_edit_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--x-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/scale_x_edit"
+                style="@style/LibBodyTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:digits="@string/lib_number_digits"
+                android:hint="scaleX"
+                android:text="1"
+                app:r_draw_left="scaleX: " />
+
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/skew_x_edit"
+                style="@style/LibBodyTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:digits="@string/lib_number_digits"
+                android:hint="skewX"
+                android:text="0"
+                app:r_draw_left="skewX: " />
+
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/trans_x_edit"
+                style="@style/LibBodyTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:digits="@string/lib_number_digits"
+                android:hint="transX"
+                android:text="0"
+                app:r_draw_left="transX: " />
+
+        </LinearLayout>
+
+        <!--y-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/skew_y_edit"
+                style="@style/LibBodyTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:digits="@string/lib_number_digits"
+                android:hint="skewY"
+                android:text="0"
+                app:r_draw_left="skewY: " />
+
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/scale_y_edit"
+                style="@style/LibBodyTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:digits="@string/lib_number_digits"
+                android:hint="scaleY"
+                android:text="1"
+                app:r_draw_left="scaleY: " />
+
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/trans_y_edit"
+                style="@style/LibBodyTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:digits="@string/lib_number_digits"
+                android:hint="transY"
+                android:text="0"
+                app:r_draw_left="transY: " />
+
+        </LinearLayout>
+
+        <!--p-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/persp_0_edit"
+                style="@style/LibBodyTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:digits="@string/lib_number_digits"
+                android:hint="persp0"
+                android:text="0"
+                app:r_draw_left="persp0: " />
+
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/persp_1_edit"
+                style="@style/LibBodyTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:digits="@string/lib_number_digits"
+                android:hint="persp1"
+                android:text="0"
+                app:r_draw_left="persp1: " />
+
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/persp_2_edit"
+                style="@style/LibBodyTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:digits="@string/lib_number_digits"
+                android:hint="persp2"
+                android:text="0"
+                app:r_draw_left="persp2: " />
+
+        </LinearLayout>
+
+        <!--scale-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/lib_xhdpi"
+            android:orientation="horizontal">
+
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/set_scale_x_edit"
+                style="@style/LibBodyTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:digits="@string/lib_number_digits"
+                android:hint="setScaleX"
+                android:text="1.25"
+                app:r_draw_left="scaleX: " />
+
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/set_scale_y_edit"
+                style="@style/LibBodyTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:digits="@string/lib_number_digits"
+                android:hint="setScaleY"
+                android:text="1.25"
+                app:r_draw_left="scaleY: " />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/set_scale_button"
+                style="@style/DefaultButtonMinStyle"
+                android:layout_marginLeft="@dimen/lib_hdpi"
+                android:text="set" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/pre_scale_button"
+                style="@style/DefaultButtonMinStyle"
+                android:layout_marginLeft="@dimen/lib_hdpi"
+                android:text="pre" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/post_scale_button"
+                style="@style/DefaultButtonMinStyle"
+                android:layout_marginLeft="@dimen/lib_hdpi"
+                android:text="post" />
+
+        </LinearLayout>
+
+        <!--trans-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/set_trans_x_edit"
+                style="@style/LibBodyTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:digits="@string/lib_number_digits"
+                android:hint="setTransX"
+                android:text="100"
+                app:r_draw_left="transX: " />
+
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/set_trans_y_edit"
+                style="@style/LibBodyTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:digits="@string/lib_number_digits"
+                android:hint="setTransY"
+                android:text="100"
+                app:r_draw_left="transY: " />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/set_trans_button"
+                style="@style/DefaultButtonMinStyle"
+                android:layout_marginLeft="@dimen/lib_hdpi"
+                android:text="set" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/pre_trans_button"
+                style="@style/DefaultButtonMinStyle"
+                android:layout_marginLeft="@dimen/lib_hdpi"
+                android:text="pre" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/post_trans_button"
+                style="@style/DefaultButtonMinStyle"
+                android:layout_marginLeft="@dimen/lib_hdpi"
+                android:text="post" />
+
+        </LinearLayout>
+
+        <!--skew-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/set_skew_x_edit"
+                style="@style/LibBodyTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:digits="@string/lib_number_digits"
+                android:hint="setSkewX"
+                android:text="1"
+                app:r_draw_left="skewX: " />
+
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/set_skew_y_edit"
+                style="@style/LibBodyTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:digits="@string/lib_number_digits"
+                android:hint="setSkewY"
+                android:text="1"
+                app:r_draw_left="skewY: " />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/set_skew_button"
+                style="@style/DefaultButtonMinStyle"
+                android:layout_marginLeft="@dimen/lib_hdpi"
+                android:text="set" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/pre_skew_button"
+                style="@style/DefaultButtonMinStyle"
+                android:layout_marginLeft="@dimen/lib_hdpi"
+                android:text="pre" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/post_skew_button"
+                style="@style/DefaultButtonMinStyle"
+                android:layout_marginLeft="@dimen/lib_hdpi"
+                android:text="post" />
+
+        </LinearLayout>
+
+        <!--rotate-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/set_rotate_edit"
+                style="@style/LibBodyTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:digits="@string/lib_number_digits"
+                android:hint="setRotate"
+                android:text="45"
+                app:r_draw_left="rotate: " />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/set_rotate_button"
+                style="@style/DefaultButtonMinStyle"
+                android:layout_marginLeft="@dimen/lib_hdpi"
+                android:text="set" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/pre_rotate_button"
+                style="@style/DefaultButtonMinStyle"
+                android:layout_marginLeft="@dimen/lib_hdpi"
+                android:text="pre" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/post_rotate_button"
+                style="@style/DefaultButtonMinStyle"
+                android:layout_marginLeft="@dimen/lib_hdpi"
+                android:text="post" />
+
+        </LinearLayout>
+
+        <!--edit-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/x_edit"
+                style="@style/LibBodyTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:digits="@string/lib_number_digits"
+                android:hint="x"
+                android:text="100"
+                app:r_draw_left="x: " />
+
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/y_edit"
+                style="@style/LibBodyTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:digits="@string/lib_number_digits"
+                android:hint="y"
+                android:text="100"
+                app:r_draw_left="y: " />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/map_button"
+                style="@style/DefaultButtonMinStyle"
+                android:layout_marginLeft="@dimen/lib_hdpi"
+                android:text="map" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/map_and_set_button"
+                style="@style/DefaultButtonMinStyle"
+                android:layout_marginLeft="@dimen/lib_hdpi"
+                android:text="mapAndSet" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:id="@+id/flow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        app:layout_constraintTop_toBottomOf="@+id/matrix_edit_layout"
+        app:r_flow_item_horizontal_space="@dimen/lib_xhdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_xhdpi">
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/invert_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="invert" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/invert_and_set_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="invertAndSet" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        app:layout_constraintTop_toBottomOf="@id/flow_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

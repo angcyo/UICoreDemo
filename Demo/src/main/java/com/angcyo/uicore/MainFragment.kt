@@ -367,6 +367,7 @@ class MainFragment : BaseDemoDslFragment() {
             renderDemoListItem("BluetoothDemo $GO")
             renderDemoListItem("FscBleApiDemo $GO")
             renderDemoListItem("SvgDemo $GO")
+            renderDemoListItem("MatrixDemo $GO")
             renderDemoListItem("CanvasDemo $GO")
 
             //设备信息.
