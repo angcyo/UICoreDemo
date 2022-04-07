@@ -25,6 +25,13 @@ class MatrixDemo : AppDslFragment() {
             bindItem(R.layout.item_matrix_layout) { itemHolder, itemPosition, adapterItem, payloads ->
                 itemHolder.hawkInstallAndRestore("matrix_")
 
+                //clear
+                itemHolder.click(R.id.clear_button) {
+                    itemHolder.updateMatrix(Matrix())
+                    itemHolder.ev(R.id.x_edit)?.setInputText("100")
+                    itemHolder.ev(R.id.y_edit)?.setInputText("100")
+                }
+
                 //invert
                 itemHolder.click(R.id.invert_button) {
                     itemHolder.tv(R.id.text_view)?.text = buildString {

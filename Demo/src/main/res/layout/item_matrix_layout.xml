@@ -370,6 +370,11 @@
         app:r_flow_item_vertical_space="@dimen/lib_xhdpi">
 
         <com.angcyo.widget.DslButton
+            android:id="@+id/clear_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="clear" />
+
+        <com.angcyo.widget.DslButton
             android:id="@+id/invert_button"
             style="@style/DefaultButtonMinStyle"
             android:text="invert" />
