@@ -25,8 +25,10 @@ class MatrixDemo : AppDslFragment() {
 
                 //clear
                 itemHolder.click(R.id.clear_button) {
-                    itemHolder.ev(R.id.x_edit)?.setInputText("100")
-                    itemHolder.ev(R.id.y_edit)?.setInputText("100")
+                    itemHolder.ev(R.id.l_edit)?.setInputText("0")
+                    itemHolder.ev(R.id.t_edit)?.setInputText("0")
+                    itemHolder.ev(R.id.r_edit)?.setInputText("100")
+                    itemHolder.ev(R.id.b_edit)?.setInputText("100")
                     itemHolder.updateMatrix(Matrix())
                     itemHolder.updateText()
                 }
@@ -60,8 +62,8 @@ class MatrixDemo : AppDslFragment() {
                     itemHolder.tv(R.id.text_view)?.text = buildString {
                         append(itemHolder.editMatrix().toLogString())
                         append(itemHolder.mapString())
-                        itemHolder.ev(R.id.x_edit)?.setInputText("${_tempPoint.x}")
-                        itemHolder.ev(R.id.y_edit)?.setInputText("${_tempPoint.y}")
+                        itemHolder.ev(R.id.l_edit)?.setInputText("${_tempPoint.x}")
+                        itemHolder.ev(R.id.t_edit)?.setInputText("${_tempPoint.y}")
                     }
                 }
 
@@ -236,12 +238,21 @@ class MatrixDemo : AppDslFragment() {
 
     fun DslViewHolder.mapString(): String = buildString {
         appendLine()
-        _tempPoint.x = ev(R.id.x_edit).string().toFloatOrNull() ?: 100f
-        _tempPoint.y = ev(R.id.y_edit).string().toFloatOrNull() ?: 100f
+        _tempPoint.x = ev(R.id.l_edit).string().toFloatOrNull() ?: 100f
+        _tempPoint.y = ev(R.id.t_edit).string().toFloatOrNull() ?: 100f
+
+        val r = ev(R.id.r_edit).string().toFloatOrNull() ?: 200f
+        val b = ev(R.id.b_edit).string().toFloatOrNull() ?: 200f
+
+        _tempRectF.set(_tempPoint.x, _tempPoint.y, r, b)
+
         append(_tempPoint)
         append(" -> ")
         append(editMatrix().mapPoint(_tempPoint))
         appendLine()
+        append(_tempRectF)
+        append(" -> ")
+        append(editMatrix().mapRectF(_tempRectF))
     }
 
     fun Matrix.toLogString(): String = buildString {

@@ -324,26 +324,48 @@
             android:orientation="horizontal">
 
             <com.angcyo.widget.edit.DslEditText
-                android:id="@+id/x_edit"
+                android:id="@+id/l_edit"
                 style="@style/LibBodyTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:digits="@string/lib_number_digits"
-                android:hint="x"
-                android:text="100"
-                app:r_draw_left="x: " />
+                android:hint="l"
+                android:text="0"
+                app:r_draw_left="l: " />
 
             <com.angcyo.widget.edit.DslEditText
-                android:id="@+id/y_edit"
+                android:id="@+id/t_edit"
                 style="@style/LibBodyTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:digits="@string/lib_number_digits"
-                android:hint="y"
+                android:hint="t"
+                android:text="0"
+                app:r_draw_left="t: " />
+
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/r_edit"
+                style="@style/LibBodyTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:digits="@string/lib_number_digits"
+                android:hint="r"
                 android:text="100"
-                app:r_draw_left="y: " />
+                app:r_draw_left="r: " />
+
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/b_edit"
+                style="@style/LibBodyTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:digits="@string/lib_number_digits"
+                android:hint="b"
+                android:text="100"
+                app:r_draw_left="b: " />
 
             <com.angcyo.widget.DslButton
                 android:id="@+id/map_button"
