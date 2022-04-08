@@ -2,13 +2,11 @@ package com.angcyo.uicore.demo
 
 import android.graphics.Matrix
 import android.os.Bundle
-import com.angcyo.canvas.utils._tempMatrix
-import com.angcyo.canvas.utils._tempPoint
-import com.angcyo.canvas.utils._tempValues
-import com.angcyo.canvas.utils.mapPoint
+import com.angcyo.canvas.utils.*
 import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.uicore.base.AppDslFragment
+import com.angcyo.uicore.demo.draw.DrawImageView
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.base.setInputText
 import com.angcyo.widget.base.string
@@ -27,9 +25,10 @@ class MatrixDemo : AppDslFragment() {
 
                 //clear
                 itemHolder.click(R.id.clear_button) {
-                    itemHolder.updateMatrix(Matrix())
                     itemHolder.ev(R.id.x_edit)?.setInputText("100")
                     itemHolder.ev(R.id.y_edit)?.setInputText("100")
+                    itemHolder.updateMatrix(Matrix())
+                    itemHolder.updateText()
                 }
 
                 //invert
@@ -74,6 +73,7 @@ class MatrixDemo : AppDslFragment() {
                             itemHolder.ev(R.id.set_scale_y_edit).string().toFloatOrNull() ?: 1f
                         )
                         itemHolder.updateMatrix(this)
+                        itemHolder.updateText()
                     }
                 }
                 itemHolder.click(R.id.pre_scale_button) {
@@ -83,6 +83,7 @@ class MatrixDemo : AppDslFragment() {
                             itemHolder.ev(R.id.set_scale_y_edit).string().toFloatOrNull() ?: 1f
                         )
                         itemHolder.updateMatrix(this)
+                        itemHolder.updateText()
                     }
                 }
                 itemHolder.click(R.id.post_scale_button) {
@@ -92,6 +93,7 @@ class MatrixDemo : AppDslFragment() {
                             itemHolder.ev(R.id.set_scale_y_edit).string().toFloatOrNull() ?: 1f
                         )
                         itemHolder.updateMatrix(this)
+                        itemHolder.updateText()
                     }
                 }
 
@@ -103,6 +105,7 @@ class MatrixDemo : AppDslFragment() {
                             itemHolder.ev(R.id.set_trans_y_edit).string().toFloatOrNull() ?: 0f
                         )
                         itemHolder.updateMatrix(this)
+                        itemHolder.updateText()
                     }
                 }
                 itemHolder.click(R.id.pre_trans_button) {
@@ -112,6 +115,7 @@ class MatrixDemo : AppDslFragment() {
                             itemHolder.ev(R.id.set_trans_y_edit).string().toFloatOrNull() ?: 0f
                         )
                         itemHolder.updateMatrix(this)
+                        itemHolder.updateText()
                     }
                 }
                 itemHolder.click(R.id.post_trans_button) {
@@ -121,6 +125,7 @@ class MatrixDemo : AppDslFragment() {
                             itemHolder.ev(R.id.set_trans_y_edit).string().toFloatOrNull() ?: 0f
                         )
                         itemHolder.updateMatrix(this)
+                        itemHolder.updateText()
                     }
                 }
 
@@ -132,6 +137,7 @@ class MatrixDemo : AppDslFragment() {
                             itemHolder.ev(R.id.set_skew_y_edit).string().toFloatOrNull() ?: 0f
                         )
                         itemHolder.updateMatrix(this)
+                        itemHolder.updateText()
                     }
                 }
                 itemHolder.click(R.id.pre_skew_button) {
@@ -141,6 +147,7 @@ class MatrixDemo : AppDslFragment() {
                             itemHolder.ev(R.id.set_skew_y_edit).string().toFloatOrNull() ?: 0f
                         )
                         itemHolder.updateMatrix(this)
+                        itemHolder.updateText()
                     }
                 }
                 itemHolder.click(R.id.post_skew_button) {
@@ -150,6 +157,7 @@ class MatrixDemo : AppDslFragment() {
                             itemHolder.ev(R.id.set_skew_y_edit).string().toFloatOrNull() ?: 0f
                         )
                         itemHolder.updateMatrix(this)
+                        itemHolder.updateText()
                     }
                 }
 
@@ -160,6 +168,7 @@ class MatrixDemo : AppDslFragment() {
                             itemHolder.ev(R.id.set_rotate_edit).string().toFloatOrNull() ?: 45f
                         )
                         itemHolder.updateMatrix(this)
+                        itemHolder.updateText()
                     }
                 }
                 itemHolder.click(R.id.pre_rotate_button) {
@@ -168,6 +177,7 @@ class MatrixDemo : AppDslFragment() {
                             itemHolder.ev(R.id.set_rotate_edit).string().toFloatOrNull() ?: 45f
                         )
                         itemHolder.updateMatrix(this)
+                        itemHolder.updateText()
                     }
                 }
                 itemHolder.click(R.id.post_rotate_button) {
@@ -176,6 +186,7 @@ class MatrixDemo : AppDslFragment() {
                             itemHolder.ev(R.id.set_rotate_edit).string().toFloatOrNull() ?: 45f
                         )
                         itemHolder.updateMatrix(this)
+                        itemHolder.updateText()
                     }
                 }
             }
@@ -216,6 +227,11 @@ class MatrixDemo : AppDslFragment() {
         ev(R.id.persp_0_edit)?.setInputText("${_tempValues[Matrix.MPERSP_0]}")
         ev(R.id.persp_1_edit)?.setInputText("${_tempValues[Matrix.MPERSP_1]}")
         ev(R.id.persp_2_edit)?.setInputText("${_tempValues[Matrix.MPERSP_2]}")
+
+        //img
+        v<DrawImageView>(R.id.image_view)?.apply {
+            drawableMatrix = matrix
+        }
     }
 
     fun DslViewHolder.mapString(): String = buildString {
@@ -231,6 +247,8 @@ class MatrixDemo : AppDslFragment() {
     fun Matrix.toLogString(): String = buildString {
 
         appendLine()
+        val rotate = getRotateDegrees()
+        appendLine("rotate:${rotate}° ${rotate.toRadians()}")
         appendLine("isAffine:${isAffine}")
         appendLine("isIdentity:${isIdentity}")
         appendLine()
@@ -248,6 +266,14 @@ class MatrixDemo : AppDslFragment() {
                 append("]")
                 appendLine()
             }
+        }
+    }
+
+    /**更新输出文本*/
+    fun DslViewHolder.updateText(matrix: Matrix = editMatrix()) {
+        tv(R.id.text_view)?.text = buildString {
+            append(matrix.toLogString())
+            append(mapString())
         }
     }
 }

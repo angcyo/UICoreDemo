@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="@dimen/lib_hdpi">
 
+    <!--输入控制-->
     <LinearLayout
         android:id="@+id/matrix_edit_layout"
         android:layout_width="match_parent"
@@ -360,6 +361,7 @@
 
     </LinearLayout>
 
+    <!--控制按钮-->
     <com.angcyo.widget.layout.DslFlowLayout
         android:id="@+id/flow_layout"
         android:layout_width="match_parent"
@@ -385,6 +387,27 @@
             android:text="invertAndSet" />
 
     </com.angcyo.widget.layout.DslFlowLayout>
+
+    <!--结果展示-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        android:background="@color/transparent10"
+        android:clipChildren="false"
+        android:clipToOutline="false"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/flow_layout">
+
+        <com.angcyo.uicore.demo.draw.DrawImageView
+            android:id="@+id/image_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@color/success"
+            android:scaleType="center"
+            app:srcCompat="@drawable/face" />
+    </FrameLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_view"
