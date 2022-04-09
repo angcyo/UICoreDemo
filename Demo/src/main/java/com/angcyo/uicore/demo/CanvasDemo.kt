@@ -5,7 +5,9 @@ import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.core.component.items.TextItem
 import com.angcyo.canvas.core.renderer.items.TextItemRenderer
 import com.angcyo.dsladapter.bindItem
+import com.angcyo.library.ex.randomString
 import com.angcyo.uicore.base.AppDslFragment
+import kotlin.random.Random
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
@@ -46,7 +48,7 @@ class CanvasDemo : AppDslFragment() {
                 itemHolder.click(R.id.add_text) {
                     canvasView?.apply {
                         addCentreItemRenderer(TextItemRenderer(TextItem().apply {
-                            text = "angcyo"
+                            text = "angcyo${randomString(Random.nextInt(0, 3))}"
                         }, canvasViewBox))
                     }
                 }
