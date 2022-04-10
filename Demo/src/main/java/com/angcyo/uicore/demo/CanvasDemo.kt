@@ -2,7 +2,7 @@ package com.angcyo.uicore.demo
 
 import android.os.Bundle
 import com.angcyo.canvas.CanvasView
-import com.angcyo.canvas.core.component.items.TextItem
+import com.angcyo.canvas.core.items.TextItem
 import com.angcyo.canvas.core.renderer.items.TextItemRenderer
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.library.ex.randomString
@@ -47,9 +47,11 @@ class CanvasDemo : AppDslFragment() {
                 //add
                 itemHolder.click(R.id.add_text) {
                     canvasView?.apply {
-                        addCentreItemRenderer(TextItemRenderer(TextItem().apply {
-                            text = "angcyo${randomString(Random.nextInt(0, 3))}"
-                        }, canvasViewBox))
+                        addCentreItemRenderer(TextItemRenderer(canvasViewBox).apply {
+                            rendererItem = TextItem().apply {
+                                text = "angcyo${randomString(Random.nextInt(0, 3))}"
+                            }
+                        })
                     }
                 }
                 itemHolder.click(R.id.add_svg) {
