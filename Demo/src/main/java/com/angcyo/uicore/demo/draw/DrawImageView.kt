@@ -70,16 +70,16 @@ class DrawImageView(context: Context, attributeSet: AttributeSet? = null) :
         val _center = drawableMatrix.mapPoint(center)
 
         val lt = PointF(circleRect.left, circleRect.top)
-        val _lt = drawableMatrix.mapPoint(lt)
+        val _lt = drawableMatrix.mapPoint(lt, PointF())
 
         val rt = PointF(circleRect.right, circleRect.top)
-        val _rt = drawableMatrix.mapPoint(rt)
+        val _rt = drawableMatrix.mapPoint(rt, PointF())
 
         val rb = PointF(circleRect.right, circleRect.bottom)
-        val _rb = drawableMatrix.mapPoint(rb)
+        val _rb = drawableMatrix.mapPoint(rb, PointF())
 
         val lb = PointF(circleRect.left, circleRect.bottom)
-        val _lb = drawableMatrix.mapPoint(lb)
+        val _lb = drawableMatrix.mapPoint(lb, PointF())
 
         canvas.drawCircle(_center.x, _center.y, circleSize, circlePaint)
         canvas.drawCircle(_lt.x, _lt.y, circleSize, circlePaint)
