@@ -63,6 +63,15 @@ class CanvasDemo : AppDslFragment() {
                     canvasView?.apply {
                         addCentreItemRenderer(DrawableItemRenderer(canvasViewBox).apply {
                             rendererItem = DrawableItem().apply {
+                                drawable = Sharp.loadResource(resources, R.raw.issue_19).drawable
+                            }
+                        })
+                    }
+                }
+                itemHolder.click(R.id.random_add_svg) {
+                    canvasView?.apply {
+                        addCentreItemRenderer(DrawableItemRenderer(canvasViewBox).apply {
+                            rendererItem = DrawableItem().apply {
                                 drawable = loadSvgDrawable()
                             }
                         })
@@ -73,13 +82,13 @@ class CanvasDemo : AppDslFragment() {
     }
 
     val svgResList = mutableListOf<Int>().apply {
-        add(R.raw.android)
-        add(R.raw.cartman)
-        add(R.raw.emotion)
-        add(R.raw.group_transparency)
-        add(R.raw.issue_19)
-        add(R.raw.mother)
-        add(R.raw.quadratic_bezier)
+        add(R.raw.android) //机器人
+        add(R.raw.cartman) //卡特曼, 卡通人物
+        add(R.raw.emotion) //bored
+        add(R.raw.group_transparency) //4个圆,一根线
+        add(R.raw.issue_19) //房子house
+        add(R.raw.mother) //mommys
+        add(R.raw.quadratic_bezier) //三阶贝塞尔
     }
 
     fun loadSvgDrawable(): Drawable =

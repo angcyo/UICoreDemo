@@ -75,6 +75,13 @@
             android:layout_height="wrap_content"
             android:text="添加SVG" />
 
+        <com.angcyo.widget.DslButton
+            android:id="@+id/random_add_svg"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="随机添加SVG" />
+
     </com.angcyo.widget.layout.DslFlowLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
