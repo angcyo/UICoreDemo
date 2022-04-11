@@ -413,7 +413,7 @@
     <!--结果展示-->
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="260dp"
         android:layout_marginTop="@dimen/lib_xhdpi"
         android:background="@color/transparent10"
         android:clipChildren="false"
@@ -423,8 +423,8 @@
 
         <com.angcyo.uicore.demo.draw.DrawImageView
             android:id="@+id/image_view"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@color/success"
             android:scaleType="center"

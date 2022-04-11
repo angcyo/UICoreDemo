@@ -5,10 +5,13 @@ import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import androidx.core.graphics.withMatrix
 import com.angcyo.canvas.utils.createPaint
 import com.angcyo.canvas.utils.mapPoint
+import com.angcyo.library.ex.contains
+import com.angcyo.library.ex.disableParentInterceptTouchEvent
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.setBounds
 import com.angcyo.uicore.demo.R
@@ -32,12 +35,17 @@ class DrawImageView(context: Context, attributeSet: AttributeSet? = null) :
         strokeWidth = 2 * dp
     }
 
+    //矩形4个角
     val circlePaint = createPaint(Color.RED, Paint.Style.FILL)
     val circleSize = 2 * dp
     val circleRect: RectF = RectF()
 
     val rect: RectF = RectF()
     val drawRect: RectF = RectF()
+
+    //旋转之后的path, 用来测试touch命中
+    val rotatePath: Path = Path()
+    var isTouchInView: Boolean = false
 
     init {
         drawable = resources.getDrawable(R.drawable.face, getContext().theme)
@@ -50,6 +58,39 @@ class DrawImageView(context: Context, attributeSet: AttributeSet? = null) :
         circleRect.inset(-circleSize * 2, -circleSize * 2)
     }
 
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        when (event.actionMasked) {
+            MotionEvent.ACTION_DOWN -> {
+                disableParentInterceptTouchEvent()
+                checkHit(event.x, event.y)
+            }
+            MotionEvent.ACTION_MOVE -> {
+                checkHit(event.x, event.y)
+            }
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                disableParentInterceptTouchEvent(false)
+                isTouchInView = false
+                postInvalidateOnAnimation()
+            }
+        }
+        return true
+    }
+
+    fun checkHit(x: Float, y: Float) {
+        rotatePath.reset()
+        rotatePath.addRect(
+            0f,
+            0f,
+            measuredWidth.toFloat(),
+            measuredHeight.toFloat(),
+            Path.Direction.CW
+        )
+        rotatePath.transform(drawableMatrix)
+        isTouchInView = rotatePath.contains(x.toInt(), y.toInt(), rect)
+        //invalidate()
+        postInvalidateOnAnimation()
+    }
+
     @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -57,6 +98,12 @@ class DrawImageView(context: Context, attributeSet: AttributeSet? = null) :
         canvas.withMatrix(drawableMatrix) {
             drawable?.setBounds(measuredWidth, measuredHeight)
             drawable?.draw(canvas)
+
+            if (isTouchInView) {
+                paint.color = Color.RED
+            } else {
+                paint.color = Color.BLUE
+            }
 
             canvas.drawRect(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat(), paint)
         }
