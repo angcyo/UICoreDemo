@@ -20,10 +20,7 @@ import com.angcyo.item.DslLastDeviceInfoItem
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.item.style.itemInfoText
 import com.angcyo.library.L
-import com.angcyo.library.ex.dpi
-import com.angcyo.library.ex.nowTimeString
-import com.angcyo.library.ex.toDpi
-import com.angcyo.library.ex.urlIntent
+import com.angcyo.library.ex.*
 import com.angcyo.library.toastQQ
 import com.angcyo.library.utils.FileUtils
 import com.angcyo.library.utils.RUtils
@@ -39,7 +36,6 @@ import com.angcyo.uicore.test.test
 import com.angcyo.uicore.test.testHttp
 import com.angcyo.widget.base.behavior
 import com.angcyo.widget.base.onDoubleTap
-import com.angcyo.widget.base.reveal
 import com.angcyo.widget.layout.SliderMenuLayout
 import com.angcyo.widget.recycler.allViewHolder
 import com.angcyo.widget.recycler.get

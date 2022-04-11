@@ -14,6 +14,7 @@ import com.angcyo.library.component.DslNotify
 import com.angcyo.library.component.dslNotify
 import com.angcyo.library.component.dslRemoteView
 import com.angcyo.library.ex._color
+import com.angcyo.library.ex.anim
 import com.angcyo.library.ex.nowTime
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.uicore.MainActivity
@@ -21,7 +22,6 @@ import com.angcyo.uicore.app.AppBroadcastReceiver
 import com.angcyo.uicore.app.AppService
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
-import com.angcyo.widget.base.anim
 import com.angcyo.widget.base.string
 import com.angcyo.widget.spinner
 import kotlin.random.Random.Default.nextInt
@@ -300,6 +300,7 @@ class AppNotifyItem : DslAdapterItem() {
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                         setIcon(
                                             IconCompat.createFromIcon(
+                                                itemHolder.context,
                                                 Icon.createWithResource(
                                                     itemHolder.context,
                                                     R.drawable.image_manhua_nv

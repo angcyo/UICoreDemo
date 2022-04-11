@@ -6,7 +6,8 @@ import com.angcyo.glide.loadImage
 import com.angcyo.http.progress.downloadProgress
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget._img
-import com.angcyo.widget.base.anim
+import com.angcyo.library.ex.Anim
+import com.angcyo.library.ex.anim
 import com.angcyo.widget.progress.HaloProgressBar
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
