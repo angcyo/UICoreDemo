@@ -1,12 +1,17 @@
 package com.angcyo.uicore.demo
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import com.angcyo.canvas.CanvasView
-import com.angcyo.canvas.core.items.TextItem
-import com.angcyo.canvas.core.renderer.items.TextItemRenderer
+import com.angcyo.canvas.items.DrawableItem
+import com.angcyo.canvas.items.TextItem
+import com.angcyo.canvas.items.renderer.DrawableItemRenderer
+import com.angcyo.canvas.items.renderer.TextItemRenderer
 import com.angcyo.dsladapter.bindItem
+import com.angcyo.library.ex.randomGetOnce
 import com.angcyo.library.ex.randomString
 import com.angcyo.uicore.base.AppDslFragment
+import com.pixplicity.sharp.Sharp
 import kotlin.random.Random
 
 /**
@@ -55,10 +60,28 @@ class CanvasDemo : AppDslFragment() {
                     }
                 }
                 itemHolder.click(R.id.add_svg) {
-                    canvasView?.canvasViewBox?.scaleBy(.8f, .8f)
+                    canvasView?.apply {
+                        addCentreItemRenderer(DrawableItemRenderer(canvasViewBox).apply {
+                            rendererItem = DrawableItem().apply {
+                                drawable = loadSvgDrawable()
+                            }
+                        })
+                    }
                 }
             }
         }
     }
 
+    val svgResList = mutableListOf<Int>().apply {
+        add(R.raw.android)
+        add(R.raw.cartman)
+        add(R.raw.emotion)
+        add(R.raw.group_transparency)
+        add(R.raw.issue_19)
+        add(R.raw.mother)
+        add(R.raw.quadratic_bezier)
+    }
+
+    fun loadSvgDrawable(): Drawable =
+        Sharp.loadResource(resources, svgResList.randomGetOnce()!!).drawable
 }
