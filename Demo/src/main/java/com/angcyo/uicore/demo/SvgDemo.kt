@@ -1,9 +1,13 @@
 package com.angcyo.uicore.demo
 
+import android.graphics.Color
 import android.os.Bundle
 import com.angcyo.dsladapter.bindItem
+import com.angcyo.gcode.GCodeHelper
+import com.angcyo.library.ex.readAssets
 import com.angcyo.library.ex.readResource
 import com.angcyo.uicore.base.AppDslFragment
+import com.angcyo.widget.base.setBgDrawable
 import com.angcyo.widget.base.setInputText
 import com.angcyo.widget.base.string
 import com.pixplicity.sharp.Sharp
@@ -60,7 +64,19 @@ class SvgDemo : AppDslFragment() {
 
                 itemHolder.click(R.id.parse_button) {
                     val text = editText.string()
-                    Sharp.loadString(text).into(imageView!!)
+                    imageView?.apply {
+                        setBgDrawable(CheckerboardDrawable.create())
+                        Sharp.loadString(text).into(this)
+                    }
+                }
+
+                itemHolder.click(R.id.parse_gcode_button) {
+                    val text = editText.string()
+                    //Sharp.loadString(text).into(imageView!!)
+                    imageView?.apply {
+                        setBackgroundColor(Color.WHITE)
+                        setImageDrawable(GCodeHelper.parseGCode(fContext(), text))
+                    }
                 }
 
                 itemHolder.click(R.id.love_hollow) {
@@ -102,6 +118,17 @@ class SvgDemo : AppDslFragment() {
                 }
                 itemHolder.click(R.id.quadratic_svg) {
                     editText?.setInputText(fContext().readResource(R.raw.quadratic_bezier))
+                }
+
+                //gcode
+                itemHolder.click(R.id.load_issue_gcode) {
+                    editText?.setInputText(fContext().readAssets("issue_19.gcode"))
+                }
+                itemHolder.click(R.id.load_zhou_gcode) {
+                    editText?.setInputText(fContext().readAssets("zhou.gcode"))
+                }
+                itemHolder.click(R.id.load_ke_gcode) {
+                    editText?.setInputText(fContext().readAssets("ke.gcode"))
                 }
             }
         }

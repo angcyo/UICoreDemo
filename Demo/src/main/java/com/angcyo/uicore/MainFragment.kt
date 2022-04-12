@@ -2,6 +2,8 @@ package com.angcyo.uicore
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -232,6 +234,14 @@ class MainFragment : BaseDemoDslFragment() {
 
     override fun onFragmentShow(bundle: Bundle?) {
         super.onFragmentShow(bundle)
+
+        //1毫米等于多少像素
+        val dm: DisplayMetrics = resources.displayMetrics
+        val mmPixel = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_MM, 1f, dm) //21.176456
+
+        //1英寸等于多少像素, 1英寸=2.54厘米=25.4毫米
+        val inPixel = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_IN, 1f, dm) //537.882
+
         coroutineTest()
         rxJavaTest()
         test()
@@ -362,9 +372,9 @@ class MainFragment : BaseDemoDslFragment() {
             renderDemoListItem("MultiLanguageDemo $GO")
             renderDemoListItem("BluetoothDemo $GO")
             renderDemoListItem("FscBleApiDemo $GO")
-            renderDemoListItem("SvgDemo $GO")
-            renderDemoListItem("MatrixDemo $GO")
-            renderDemoListItem("CanvasDemo $GO")
+            renderDemoListItem("SvgDemo $GO GCode")
+//            renderDemoListItem("MatrixDemo $GO")
+//            renderDemoListItem("CanvasDemo $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()() {

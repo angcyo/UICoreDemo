@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="@dimen/lib_xhdpi">
 
     <com.angcyo.widget.edit.DslEditText
@@ -24,6 +24,11 @@
             android:id="@+id/parse_button"
             style="@style/DefaultButtonMinStyle"
             android:text="解析" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/parse_gcode_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="解析GCode" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/love_hollow"
@@ -85,6 +90,21 @@
             style="@style/DefaultButtonMinStyle"
             android:text="quadratic" />
 
+        <com.angcyo.widget.DslButton
+            android:id="@+id/load_issue_gcode"
+            style="@style/DefaultButtonMinStyle"
+            android:text="issueGCode" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/load_ke_gcode"
+            style="@style/DefaultButtonMinStyle"
+            android:text="keGCode" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/load_zhou_gcode"
+            style="@style/DefaultButtonMinStyle"
+            android:text="zhouGCode" />
+
     </com.angcyo.widget.layout.DslFlowLayout>
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -92,6 +112,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/lib_xhdpi"
+        android:scaleType="centerInside"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintTop_toBottomOf="@id/flow_layout" />
 

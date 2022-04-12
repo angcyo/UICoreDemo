@@ -1,6 +1,7 @@
 package com.angcyo.uicore.demo
 
 import com.angcyo.bluetooth.fsc.laserpacker.command.StateCmd
+import com.angcyo.gcode.GCodeHelper
 import com.angcyo.library.ex.padHexString
 import com.angcyo.library.ex.toHexByteArray
 import com.angcyo.library.ex.toHexInt
@@ -138,6 +139,26 @@ class ExampleUnitTest {
             println("${width / 2} ${width shr 1}")
             width++
         }
+    }
+
+    @Test
+    fun testGCode() {
+        val gcode = "G21\n" +
+                "G90 ;//\n" +
+                "\n" +
+                "G90\n" +
+                ";注释;\n" +
+                ";\n" +
+                "\n" +
+                "G1 F2000\n" +
+                "M05 S0\n" +
+                "G0 X-0.457921 Y4.150165\n" +
+                "M03 S255\n" +
+                "G1 X-0.457921 Y3.333333\n" +
+                "G1 X-0.466172 Y3.325083\n" +
+                "G1 X-3.758251 Y3.325083\n" +
+                "G1 X-3.758251 Y2.450495"
+        GCodeHelper.parseGCode(gcode, 21f, 537f)
     }
 
 }
