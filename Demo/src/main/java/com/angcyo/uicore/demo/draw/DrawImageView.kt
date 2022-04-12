@@ -9,6 +9,8 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.core.graphics.withMatrix
 import com.angcyo.canvas.utils.createPaint
+import com.angcyo.canvas.utils.getScaleX
+import com.angcyo.canvas.utils.getScaleY
 import com.angcyo.canvas.utils.mapPoint
 import com.angcyo.library.ex.contains
 import com.angcyo.library.ex.disableParentInterceptTouchEvent
@@ -31,6 +33,8 @@ class DrawImageView(context: Context, attributeSet: AttributeSet? = null) :
             invalidate()
         }
 
+    val invertMatrix = Matrix()
+
     val paint = createPaint(Color.BLUE).apply {
         strokeWidth = 2 * dp
     }
@@ -42,6 +46,8 @@ class DrawImageView(context: Context, attributeSet: AttributeSet? = null) :
 
     val rect: RectF = RectF()
     val drawRect: RectF = RectF()
+
+    val invertRect = RectF()
 
     //旋转之后的path, 用来测试touch命中
     val rotatePath: Path = Path()
@@ -105,11 +111,24 @@ class DrawImageView(context: Context, attributeSet: AttributeSet? = null) :
                 paint.color = Color.BLUE
             }
 
-            canvas.drawRect(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat(), paint)
+            canvas.drawRect(rect, paint)
         }
 
         drawableMatrix.mapRect(drawRect, rect)
+        paint.color = Color.RED
         canvas.drawRect(drawRect, paint)
+
+        //反转一下
+        if (drawableMatrix.invert(invertMatrix)) {
+            invertMatrix.mapRect(invertRect, drawRect)
+            paint.color = Color.YELLOW
+            canvas.drawRect(invertRect, paint)
+
+            invertMatrix.postScale(drawableMatrix.getScaleX(), drawableMatrix.getScaleY())
+            invertMatrix.mapRect(invertRect, drawRect)
+            paint.color = Color.MAGENTA
+            canvas.drawRect(invertRect, paint)
+        }
 
         //circleMatrix.set(drawableMatrix)
 
