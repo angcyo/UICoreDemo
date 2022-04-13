@@ -46,6 +46,22 @@ class SvgDemo : AppDslFragment() {
         //爱心 实心 颜色
         const val LOVE_SOLID_COLOR =
             "<svg t=\"1648455552114\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"8591\" width=\"200\" height=\"200\"><path d=\"M917.333333 166.4c-106.666667-106.666667-285.866667-106.666667-392.533333 0l-12.8 17.066667-17.066667-12.8C388.266667 64 209.066667 64 102.4 170.666667s-106.666667 285.866667 0 392.533333l375.466667 375.466667c17.066667 17.066667 42.666667 17.066667 59.733333 0l375.466667-375.466667c110.933333-110.933333 110.933333-290.133333 4.266666-396.8z\" p-id=\"8592\" fill=\"#d4237a\"></path></svg>\n"
+
+        val svgResList = mutableListOf<Int>().apply {
+            add(R.raw.android) //机器人
+            add(R.raw.cartman) //卡特曼, 卡通人物
+            add(R.raw.emotion) //bored
+            add(R.raw.group_transparency) //4个圆,一根线
+            add(R.raw.issue_19) //房子house
+            add(R.raw.mother) //mommys
+            add(R.raw.quadratic_bezier) //三阶贝塞尔
+        }
+
+        val gCodeNameList = mutableListOf<String>().apply {
+            add("issue_19.gcode")
+            add("zhou.gcode")
+            add("ke.gcode")
+        }
     }
 
     init {

@@ -8,9 +8,13 @@ import com.angcyo.canvas.items.TextItem
 import com.angcyo.canvas.items.renderer.DrawableItemRenderer
 import com.angcyo.canvas.items.renderer.TextItemRenderer
 import com.angcyo.dsladapter.bindItem
+import com.angcyo.gcode.GCodeHelper
 import com.angcyo.library.ex.randomGetOnce
 import com.angcyo.library.ex.randomString
+import com.angcyo.library.ex.readAssets
 import com.angcyo.uicore.base.AppDslFragment
+import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
+import com.angcyo.uicore.demo.SvgDemo.Companion.svgResList
 import com.pixplicity.sharp.Sharp
 import kotlin.random.Random
 
@@ -77,20 +81,23 @@ class CanvasDemo : AppDslFragment() {
                         })
                     }
                 }
+                itemHolder.click(R.id.random_add_gcode) {
+                    canvasView?.apply {
+                        addCentreItemRenderer(DrawableItemRenderer(canvasViewBox).apply {
+                            rendererItem = DrawableItem().apply {
+                                drawable = loadGCodeDrawable()
+                            }
+                        })
+                    }
+                }
             }
         }
     }
 
-    val svgResList = mutableListOf<Int>().apply {
-        add(R.raw.android) //机器人
-        add(R.raw.cartman) //卡特曼, 卡通人物
-        add(R.raw.emotion) //bored
-        add(R.raw.group_transparency) //4个圆,一根线
-        add(R.raw.issue_19) //房子house
-        add(R.raw.mother) //mommys
-        add(R.raw.quadratic_bezier) //三阶贝塞尔
-    }
-
     fun loadSvgDrawable(): Drawable =
         Sharp.loadResource(resources, svgResList.randomGetOnce()!!).drawable
+
+    fun loadGCodeDrawable(): Drawable = GCodeHelper.parseGCode(
+        fContext(), fContext().readAssets(gCodeNameList.randomGetOnce()!!)!!
+    )
 }

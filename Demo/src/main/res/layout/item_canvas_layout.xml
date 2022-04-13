@@ -82,6 +82,13 @@
             android:layout_height="wrap_content"
             android:text="随机添加SVG" />
 
+        <com.angcyo.widget.DslButton
+            android:id="@+id/random_add_gcode"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="随机添加GCode" />
+
     </com.angcyo.widget.layout.DslFlowLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
