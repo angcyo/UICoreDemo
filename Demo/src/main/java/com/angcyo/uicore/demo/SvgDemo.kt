@@ -2,6 +2,7 @@ package com.angcyo.uicore.demo
 
 import android.graphics.Color
 import android.os.Bundle
+import android.widget.ImageView
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.library.ex.readAssets
@@ -60,6 +61,7 @@ class SvgDemo : AppDslFragment() {
         val svgResList = mutableListOf<Int>().apply {
             add(R.raw.android) //机器人
             add(R.raw.cartman) //卡特曼, 卡通人物
+            add(R.raw.cartman2) //卡特曼, 卡通人物
             add(R.raw.emotion) //bored
             add(R.raw.group_transparency) //4个圆,一根线
             add(R.raw.issue_19) //房子house
@@ -111,6 +113,16 @@ class SvgDemo : AppDslFragment() {
                     }
                 }
 
+                //scale
+
+                itemHolder.click(R.id.fit_center_button) {
+                    imageView?.scaleType = ImageView.ScaleType.FIT_CENTER
+                }
+
+                itemHolder.click(R.id.center_inside_button) {
+                    imageView?.scaleType = ImageView.ScaleType.CENTER_INSIDE
+                }
+
                 itemHolder.click(R.id.love_hollow) {
                     editText?.setInputText(LOVE_HOLLOW)
                 }
@@ -136,6 +148,9 @@ class SvgDemo : AppDslFragment() {
                         imageView?.setImageDrawable(it.drawable)
                     }*/
                 }
+                itemHolder.click(R.id.cartman2_svg) {
+                    editText?.setInputText(fContext().readResource(R.raw.cartman2))
+                }
                 itemHolder.click(R.id.emotion_svg) {
                     editText?.setInputText(fContext().readResource(R.raw.emotion))
                 }
@@ -144,6 +159,9 @@ class SvgDemo : AppDslFragment() {
                 }
                 itemHolder.click(R.id.issue_svg) {
                     editText?.setInputText(fContext().readResource(R.raw.issue_19))
+                }
+                itemHolder.click(R.id.layout_item_svg) {
+                    editText?.setInputText(fContext().readResource(R.raw.layout_item))
                 }
                 itemHolder.click(R.id.mother_svg) {
                     editText?.setInputText(fContext().readResource(R.raw.mother))

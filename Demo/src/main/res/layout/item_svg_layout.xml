@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/lib_xhdpi">
@@ -31,6 +32,16 @@
             android:text="解析GCode" />
 
         <com.angcyo.widget.DslButton
+            android:id="@+id/fit_center_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="fitCenter" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/center_inside_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="centerInside" />
+
+        <com.angcyo.widget.DslButton
             android:id="@+id/love_hollow"
             style="@style/DefaultButtonMinStyle"
             android:text="爱心-空心" />
@@ -59,6 +70,11 @@
             android:id="@+id/cartman_svg"
             style="@style/DefaultButtonMinStyle"
             android:text="cartman" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/cartman2_svg"
+            style="@style/DefaultButtonMinStyle"
+            android:text="cartman2" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/emotion_svg"
@@ -144,6 +160,7 @@
         android:layout_marginTop="@dimen/lib_xhdpi"
         android:scaleType="centerInside"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintTop_toBottomOf="@id/flow_layout" />
+        app:layout_constraintTop_toBottomOf="@id/flow_layout"
+        tools:srcCompat="@drawable/fast" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
