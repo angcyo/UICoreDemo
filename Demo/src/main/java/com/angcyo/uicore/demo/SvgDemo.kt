@@ -47,6 +47,16 @@ class SvgDemo : AppDslFragment() {
         const val LOVE_SOLID_COLOR =
             "<svg t=\"1648455552114\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"8591\" width=\"200\" height=\"200\"><path d=\"M917.333333 166.4c-106.666667-106.666667-285.866667-106.666667-392.533333 0l-12.8 17.066667-17.066667-12.8C388.266667 64 209.066667 64 102.4 170.666667s-106.666667 285.866667 0 392.533333l375.466667 375.466667c17.066667 17.066667 42.666667 17.066667 59.733333 0l375.466667-375.466667c110.933333-110.933333 110.933333-290.133333 4.266666-396.8z\" p-id=\"8592\" fill=\"#d4237a\"></path></svg>\n"
 
+        const val testGCode = "G1 X0 Y0\n" +
+                "\n" +
+                "1.6004 Y17.2065 I45.0088 J0.\n" +
+                "G2 X-31.8437 Y31.8084 I41.5827 J-17.2241\n" +
+                "G2 X-17.2418 Y41.5651 I31.826 J-31.826\n" +
+                "G2 X-0.0176 Y44.9912 I17.2241 J-41.5827\n" +
+                "G2 X31.8084 Y31.8084 I-0. J-45.0088\n" +
+                "G2 X44.9912 Y-0.0176 I-31.826 J-31.826\n" +
+                "G1  X44.9912 Y-0.0176"
+
         val svgResList = mutableListOf<Int>().apply {
             add(R.raw.android) //机器人
             add(R.raw.cartman) //卡特曼, 卡通人物
@@ -61,6 +71,12 @@ class SvgDemo : AppDslFragment() {
             add("issue_19.gcode")
             add("zhou.gcode")
             add("ke.gcode")
+            add("concentric_circle.gcode")
+            add("square_circle.gcode")
+            add("grid.gcode")
+            add("cherryblossoms.gcode")
+            add("LaserPecker.gcode")
+            add("snowflakes.gcode")
         }
     }
 
@@ -146,6 +162,27 @@ class SvgDemo : AppDslFragment() {
                 itemHolder.click(R.id.load_ke_gcode) {
                     editText?.setInputText(fContext().readAssets("ke.gcode"))
                 }
+                itemHolder.click(R.id.concentric_circle_gcode) {
+                    editText?.setInputText(fContext().readAssets("concentric_circle.gcode"))
+                }
+                itemHolder.click(R.id.square_circle_gcode) {
+                    editText?.setInputText(fContext().readAssets("square_circle.gcode"))
+                }
+                itemHolder.click(R.id.grid_gcode) {
+                    editText?.setInputText(fContext().readAssets("grid.gcode"))
+                }
+                itemHolder.click(R.id.cherryblossoms_gcode) {
+                    editText?.setInputText(fContext().readAssets("cherryblossoms.gcode"))
+                }
+                itemHolder.click(R.id.LaserPecker_gcode) {
+                    editText?.setInputText(fContext().readAssets("LaserPecker.gcode"))
+                }
+                itemHolder.click(R.id.snowflakes_gcode) {
+                    editText?.setInputText(fContext().readAssets("snowflakes.gcode"))
+                }
+
+                //test
+                editText?.setInputText(testGCode)
             }
         }
     }

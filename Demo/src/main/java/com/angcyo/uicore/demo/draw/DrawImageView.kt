@@ -154,6 +154,17 @@ class DrawImageView(context: Context, attributeSet: AttributeSet? = null) :
         canvas.drawCircle(_rb.x, _rb.y, circleSize, circlePaint)
 
         //val c1 = CanvasTouchHandler.spacing()
+
+        canvas.drawArc(
+            0f,
+            0f,
+            measuredWidth.toFloat(),
+            measuredHeight.toFloat(),
+            350f,
+            90f,
+            true,
+            paint
+        )
     }
 
 }

@@ -17,8 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/edit_text_view"
-        app:r_flow_item_horizontal_space="@dimen/lib_xhdpi"
-        app:r_flow_item_vertical_space="@dimen/lib_xhdpi">
+        app:r_flow_item_horizontal_space="@dimen/lib_ldpi"
+        app:r_flow_item_vertical_space="@dimen/lib_ldpi">
 
         <com.angcyo.widget.DslButton
             android:id="@+id/parse_button"
@@ -104,6 +104,36 @@
             android:id="@+id/load_zhou_gcode"
             style="@style/DefaultButtonMinStyle"
             android:text="zhouGCode" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/concentric_circle_gcode"
+            style="@style/DefaultButtonMinStyle"
+            android:text="concentricCircleGcode" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/square_circle_gcode"
+            style="@style/DefaultButtonMinStyle"
+            android:text="squareCircleGcode" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/grid_gcode"
+            style="@style/DefaultButtonMinStyle"
+            android:text="gridGcode" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/snowflakes_gcode"
+            style="@style/DefaultButtonMinStyle"
+            android:text="snowflakesGcode" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/LaserPecker_gcode"
+            style="@style/DefaultButtonMinStyle"
+            android:text="LaserPeckerGcode" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/cherryblossoms_gcode"
+            style="@style/DefaultButtonMinStyle"
+            android:text="cherryblossomsGcode" />
 
     </com.angcyo.widget.layout.DslFlowLayout>
 
