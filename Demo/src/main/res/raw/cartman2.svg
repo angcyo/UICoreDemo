@@ -86,8 +86,6 @@
         stroke-width="0.5"
         stroke="#FF0000"
         fill="currentcolor"
-        font-size="19">
-        Hello, out there
-    </text>
+        font-size="19">Hello, out there</text>
 
 </svg>
