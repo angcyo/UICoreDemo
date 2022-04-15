@@ -165,6 +165,17 @@ class DrawImageView(context: Context, attributeSet: AttributeSet? = null) :
             true,
             paint
         )
+        paint.color = Color.RED
+        canvas.drawArc(
+            0f,
+            0f,
+            measuredWidth.toFloat(),
+            measuredHeight.toFloat(),
+            350f,
+            -90f,
+            true,
+            paint
+        )
     }
 
 }
