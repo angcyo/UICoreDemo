@@ -374,6 +374,7 @@ class MainFragment : BaseDemoDslFragment() {
             renderDemoListItem("FscBleApiDemo $GO")
             renderDemoListItem("SvgDemo $GO GCode")
             renderDemoListItem("MatrixDemo $GO")
+            renderDemoListItem("DrawPathDemo $GO")
             renderDemoListItem("CanvasDemo $GO")
 
             //设备信息.
