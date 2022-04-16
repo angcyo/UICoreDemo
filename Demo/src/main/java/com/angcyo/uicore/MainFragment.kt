@@ -376,6 +376,7 @@ class MainFragment : BaseDemoDslFragment() {
             renderDemoListItem("MatrixDemo $GO")
             renderDemoListItem("DrawPathDemo $GO")
             renderDemoListItem("CanvasDemo $GO")
+            renderDemoListItem("LoadingDemo $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()() {
@@ -392,6 +393,7 @@ class MainFragment : BaseDemoDslFragment() {
                 }
             }
 
+            //jump
             onDispatchUpdatesOnce {
                 if (!BaseCoreAppCompatActivity.haveLastCrash && savedInstanceState == null) {
                     //自动跳转至指定Demo
