@@ -61,6 +61,7 @@ class MainFragment : BaseDemoDslFragment() {
 
     init {
         fragmentLayoutId = R.layout.fragment_main
+        goFirst = false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -286,7 +287,8 @@ class MainFragment : BaseDemoDslFragment() {
             }
 
             renderDemoListItem("DrawableSpanDemo")
-            renderDemoListItem("WidgetDemo ArcLoadingView $GO")
+            renderDemoListItem("WidgetDemo ArcLoadingView")
+            renderDemoListItem("LoadingDemo $GO")
             renderDemoListItem("RefreshEffectDemo DslToast")
             renderDemoListItem("RefreshDemo SwipeMenu")
             renderDemoListItem("DslAffectDemo")
@@ -376,7 +378,6 @@ class MainFragment : BaseDemoDslFragment() {
             renderDemoListItem("MatrixDemo $GO")
             renderDemoListItem("DrawPathDemo $GO")
             renderDemoListItem("CanvasDemo $GO")
-            renderDemoListItem("LoadingDemo $GO")
 
             //设备信息.
             DslLastDeviceInfoItem()() {
