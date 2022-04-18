@@ -1,5 +1,6 @@
 package com.angcyo.uicore.demo.canvas
 
+import android.widget.LinearLayout
 import com.angcyo.canvas.CanvasView
 import com.angcyo.uicore.demo.R
 
@@ -12,5 +13,7 @@ class TextFontItem(canvasView: CanvasView) : BaseCanvasAddItem(canvasView) {
     init {
         addIco = R.drawable.text_font_ico
         addText = "字体"
+
+        itemHeight = LinearLayout.LayoutParams.WRAP_CONTENT
     }
 }
