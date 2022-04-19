@@ -101,6 +101,21 @@ class CanvasDemo : AppDslFragment() {
                     }
                 }
 
+                //preview
+                itemHolder.click(R.id.preview_button) {
+                    render {
+                        PreviewBitmapItem()() {
+                            canvasView?.let {
+                                val left = it.canvasViewBox.valueUnit.convertValueToPixel(-10f)
+                                val top = it.canvasViewBox.valueUnit.convertValueToPixel(-10f)
+                                val width = it.canvasViewBox.valueUnit.convertValueToPixel(20f)
+                                val height = it.canvasViewBox.valueUnit.convertValueToPixel(20f)
+                                bitmap = it.getBitmap(left, top, width, height)
+                            }
+                        }
+                    }
+                }
+
                 //canvas
                 bindCanvasRecyclerView(itemHolder, adapterItem)
             }
