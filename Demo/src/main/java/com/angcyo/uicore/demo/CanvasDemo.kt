@@ -6,11 +6,11 @@ import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.core.ICanvasListener
-import com.angcyo.canvas.items.DrawableItem
 import com.angcyo.canvas.items.TextItem
-import com.angcyo.canvas.items.renderer.DrawableItemRenderer
 import com.angcyo.canvas.items.renderer.IItemRenderer
 import com.angcyo.canvas.items.renderer.TextItemRenderer
+import com.angcyo.canvas.items.renderer.addDrawableRenderer
+import com.angcyo.canvas.items.renderer.addTextRenderer
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.gcode.GCodeHelper
@@ -84,38 +84,22 @@ class CanvasDemo : AppDslFragment() {
                 //add
                 itemHolder.click(R.id.add_text) {
                     canvasView?.apply {
-                        addCentreItemRenderer(TextItemRenderer(canvasViewBox).apply {
-                            rendererItem = TextItem().apply {
-                                text = "angcyo${randomString(Random.nextInt(0, 3))}"
-                            }
-                        })
+                        addTextRenderer("angcyo${randomString(Random.nextInt(0, 3))}")
                     }
                 }
                 itemHolder.click(R.id.add_svg) {
                     canvasView?.apply {
-                        addCentreItemRenderer(DrawableItemRenderer(canvasViewBox).apply {
-                            rendererItem = DrawableItem().apply {
-                                drawable = Sharp.loadResource(resources, R.raw.issue_19).drawable
-                            }
-                        })
+                        addDrawableRenderer(Sharp.loadResource(resources, R.raw.issue_19).drawable)
                     }
                 }
                 itemHolder.click(R.id.random_add_svg) {
                     canvasView?.apply {
-                        addCentreItemRenderer(DrawableItemRenderer(canvasViewBox).apply {
-                            rendererItem = DrawableItem().apply {
-                                drawable = loadSvgDrawable()
-                            }
-                        })
+                        addDrawableRenderer(loadSvgDrawable())
                     }
                 }
                 itemHolder.click(R.id.random_add_gcode) {
                     canvasView?.apply {
-                        addCentreItemRenderer(DrawableItemRenderer(canvasViewBox).apply {
-                            rendererItem = DrawableItem().apply {
-                                drawable = loadGCodeDrawable()
-                            }
-                        })
+                        addDrawableRenderer(loadGCodeDrawable())
                     }
                 }
 
