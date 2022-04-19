@@ -197,7 +197,7 @@ class CanvasDemo : AppDslFragment() {
                                 canvasView
                             )
 
-                            TextFontItem(canvasView)() {
+                            TextFontItem()() {
                                 itemClick = {
                                     showFontSelectLayout(itemHolder, itemRenderer)
                                 }
