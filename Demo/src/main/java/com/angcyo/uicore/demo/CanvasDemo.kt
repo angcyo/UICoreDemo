@@ -106,6 +106,15 @@ class CanvasDemo : AppDslFragment() {
                     render {
                         PreviewBitmapItem()() {
                             canvasView?.let {
+                                bitmap = it.getBitmap()
+                            }
+                        }
+                    }
+                }
+                itemHolder.click(R.id.preview_rect_button) {
+                    render {
+                        PreviewBitmapItem()() {
+                            canvasView?.let {
                                 val left = it.canvasViewBox.valueUnit.convertValueToPixel(-10f)
                                 val top = it.canvasViewBox.valueUnit.convertValueToPixel(-10f)
                                 val width = it.canvasViewBox.valueUnit.convertValueToPixel(20f)

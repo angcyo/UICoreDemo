@@ -97,6 +97,13 @@
             android:layout_height="wrap_content"
             android:text="preview" />
 
+        <com.angcyo.widget.DslButton
+            android:id="@+id/preview_rect_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="previewRect" />
+
     </com.angcyo.widget.layout.DslFlowLayout>
 
     <com.angcyo.widget.recycler.DslRecyclerView
