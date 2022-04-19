@@ -21,6 +21,13 @@
         app:r_flow_item_vertical_space="@dimen/lib_hdpi">
 
         <com.angcyo.widget.DslButton
+            android:id="@+id/switch_origin_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="切换原点" />
+
+        <com.angcyo.widget.DslButton
             android:id="@+id/translate_x_minus_button"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"

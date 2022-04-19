@@ -43,6 +43,24 @@ class CanvasDemo : AppDslFragment() {
                 //?.setBgDrawable(_colorDrawable("#20000000".toColorInt()))
                 //?.setBgDrawable(CheckerboardDrawable.create())
 
+                //switch_origin_button
+                itemHolder.click(R.id.switch_origin_button) {
+                    canvasView?.apply {
+                        val left = canvasViewBox.getContentLeft()
+                        val top = canvasViewBox.getContentTop()
+
+                        val centerX = canvasViewBox.getContentCenterX()
+                        val centerY = canvasViewBox.getContentCenterY()
+
+                        //更新坐标系
+                        if (canvasViewBox.coordinateSystemOriginPoint.x == left) {
+                            canvasViewBox.updateCoordinateSystemOriginPoint(centerX, centerY)
+                        } else {
+                            canvasViewBox.updateCoordinateSystemOriginPoint(left, top)
+                        }
+                    }
+                }
+
                 itemHolder.click(R.id.translate_x_minus_button) {
                     canvasView?.canvasViewBox?.translateBy(-100f, 0f)
                 }
