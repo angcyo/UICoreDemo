@@ -74,7 +74,21 @@
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="添加文本" />
+            android:text="添加文本(drawText)" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/add_text2"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加文本(picture)" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/add_text3"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加文本(pictureText)" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/add_svg"

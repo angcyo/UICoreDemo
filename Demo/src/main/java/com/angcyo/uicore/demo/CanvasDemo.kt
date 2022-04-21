@@ -7,9 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.core.ICanvasListener
 import com.angcyo.canvas.items.TextItem
-import com.angcyo.canvas.items.renderer.IItemRenderer
-import com.angcyo.canvas.items.renderer.TextItemRenderer
-import com.angcyo.canvas.items.renderer.addDrawableRenderer
+import com.angcyo.canvas.items.renderer.*
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.gcode.GCodeHelper
@@ -83,8 +81,17 @@ class CanvasDemo : AppDslFragment() {
                 //add
                 itemHolder.click(R.id.add_text) {
                     canvasView?.apply {
-                        //addTextRenderer("angcyo${randomString(Random.nextInt(0, 3))}")
+                        addTextRenderer("angcyo${randomString(Random.nextInt(0, 3))}")
+                    }
+                }
+                itemHolder.click(R.id.add_text2) {
+                    canvasView?.apply {
                         addDrawableRenderer("angcyo${randomString(Random.nextInt(0, 3))}")
+                    }
+                }
+                itemHolder.click(R.id.add_text3) {
+                    canvasView?.apply {
+                        addPictureTextRenderer("angcyo${randomString(Random.nextInt(0, 3))}")
                     }
                 }
                 itemHolder.click(R.id.add_svg) {
@@ -168,7 +175,8 @@ class CanvasDemo : AppDslFragment() {
             ) {
                 super.onSelectedItem(itemRenderer, oldItemRenderer)
                 itemHolder.visible(R.id.canvas_control_layout)
-                if (itemRenderer is TextItemRenderer) {
+                if (itemRenderer is TextItemRenderer || itemRenderer is PictureTextItemRenderer) {
+                    //选中TextItemRenderer时的控制菜单
                     itemHolder.rv(R.id.canvas_control_view)?.initDslAdapter {
                         hookUpdateDepend()
                         render {
@@ -206,18 +214,30 @@ class CanvasDemo : AppDslFragment() {
                             }
                         }
                     }
+                } else {
+                    itemHolder.gone(R.id.canvas_control_layout)
                 }
             }
         })
     }
 
-    fun showFontSelectLayout(itemHolder: DslViewHolder, itemRenderer: TextItemRenderer) {
+    fun showFontSelectLayout(itemHolder: DslViewHolder, renderer: IItemRenderer<*>) {
         val fontControlView = itemHolder.rv(R.id.font_control_view)
         if (fontControlView.isVisible()) {
             fontControlView.gone()
         } else {
             fontControlView.gone(false)
 
+            //更新字体
+            fun updatePaintTypeface(typeface: Typeface?) {
+                if (renderer is TextItemRenderer) {
+                    renderer.updatePaintTypeface(typeface)
+                } else if (renderer is PictureTextItemRenderer) {
+                    renderer.updatePaintTypeface(typeface)
+                }
+            }
+
+            //初始化控制item
             fontControlView?.initDslAdapter {
                 hookUpdateDepend()
                 render {
@@ -226,7 +246,7 @@ class CanvasDemo : AppDslFragment() {
                         previewText = "激光啄木鸟"
                         typeface = Typeface.DEFAULT
                         itemClick = {
-                            itemRenderer.updatePaintTypeface(typeface)
+                            updatePaintTypeface(typeface)
                         }
                     }
                     TypefaceItem()() {
@@ -234,7 +254,7 @@ class CanvasDemo : AppDslFragment() {
                         previewText = "激光啄木鸟"
                         typeface = Typeface.MONOSPACE
                         itemClick = {
-                            itemRenderer.updatePaintTypeface(typeface)
+                            updatePaintTypeface(typeface)
                         }
                     }
                     TypefaceItem()() {
@@ -242,7 +262,7 @@ class CanvasDemo : AppDslFragment() {
                         previewText = "激光啄木鸟"
                         typeface = Typeface.SANS_SERIF
                         itemClick = {
-                            itemRenderer.updatePaintTypeface(typeface)
+                            updatePaintTypeface(typeface)
                         }
                     }
                     TypefaceItem()() {
@@ -250,7 +270,7 @@ class CanvasDemo : AppDslFragment() {
                         previewText = "激光啄木鸟"
                         typeface = Typeface.SERIF
                         itemClick = {
-                            itemRenderer.updatePaintTypeface(typeface)
+                            updatePaintTypeface(typeface)
                         }
                     }
                 }

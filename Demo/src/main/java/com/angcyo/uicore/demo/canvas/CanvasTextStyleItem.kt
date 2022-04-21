@@ -1,6 +1,8 @@
 package com.angcyo.uicore.demo.canvas
 
 import com.angcyo.canvas.CanvasView
+import com.angcyo.canvas.items.renderer.IItemRenderer
+import com.angcyo.canvas.items.renderer.PictureTextItemRenderer
 import com.angcyo.canvas.items.renderer.TextItemRenderer
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.library.ex._drawable
@@ -15,7 +17,7 @@ import com.angcyo.widget.DslViewHolder
  * @since 2022/04/18
  */
 class CanvasTextStyleItem(
-    val textItemRenderer: TextItemRenderer,
+    val renderer: IItemRenderer<*>,
     val textStyle: Int,
     val ico: Int,
     val canvasView: CanvasView
@@ -25,9 +27,15 @@ class CanvasTextStyleItem(
         itemLayoutId = R.layout.layout_canvas_text_style
 
         itemClick = {
-            val have = textItemRenderer.rendererItem?.textStyle?.have(textStyle) == true
-            textItemRenderer.enableTextStyle(textStyle, !have)
-            updateAdapterItem()
+            if (renderer is TextItemRenderer) {
+                val have = renderer.rendererItem?.textStyle?.have(textStyle) == true
+                renderer.enableTextStyle(textStyle, !have)
+                updateAdapterItem()
+            } else if (renderer is PictureTextItemRenderer) {
+                val have = renderer.rendererItem?.textStyle?.have(textStyle) == true
+                renderer.enableTextStyle(textStyle, !have)
+                updateAdapterItem()
+            }
         }
     }
 
@@ -40,10 +48,17 @@ class CanvasTextStyleItem(
         super.onItemBind(itemHolder, itemPosition, adapterItem, payloads)
 
         itemHolder.img(R.id.image_view)?.apply {
-            val have = textItemRenderer.rendererItem?.textStyle?.have(textStyle) == true
-            val drawable =
-                _drawable(ico).color(if (have) "#282828".toColorInt() else "#b3b7ba".toColorInt())
-            setImageDrawable(drawable)
+            if (renderer is TextItemRenderer) {
+                val have = renderer.rendererItem?.textStyle?.have(textStyle) == true
+                val drawable =
+                    _drawable(ico).color(if (have) "#282828".toColorInt() else "#b3b7ba".toColorInt())
+                setImageDrawable(drawable)
+            } else if (renderer is PictureTextItemRenderer) {
+                val have = renderer.rendererItem?.textStyle?.have(textStyle) == true
+                val drawable =
+                    _drawable(ico).color(if (have) "#282828".toColorInt() else "#b3b7ba".toColorInt())
+                setImageDrawable(drawable)
+            }
         }
     }
 

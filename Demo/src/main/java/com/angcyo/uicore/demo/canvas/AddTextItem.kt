@@ -2,7 +2,7 @@ package com.angcyo.uicore.demo.canvas
 
 import androidx.fragment.app.Fragment
 import com.angcyo.canvas.CanvasView
-import com.angcyo.canvas.items.renderer.addTextRenderer
+import com.angcyo.canvas.items.renderer.addPictureTextRenderer
 import com.angcyo.core.dslitem.IFragmentItem
 import com.angcyo.dialog.inputDialog
 import com.angcyo.dsladapter.DslAdapterItem
@@ -25,7 +25,8 @@ class AddTextItem(canvasView: CanvasView) : BaseCanvasAddItem(canvasView), IFrag
             itemFragment?.context?.inputDialog {
                 onInputResult = { dialog, inputText ->
                     if (inputText.isNotEmpty()) {
-                        canvasView.addTextRenderer("$inputText")
+                        //canvasView.addTextRenderer("$inputText")
+                        canvasView.addPictureTextRenderer("$inputText")
                     }
                     false
                 }
