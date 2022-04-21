@@ -10,7 +10,6 @@ import com.angcyo.canvas.items.TextItem
 import com.angcyo.canvas.items.renderer.IItemRenderer
 import com.angcyo.canvas.items.renderer.TextItemRenderer
 import com.angcyo.canvas.items.renderer.addDrawableRenderer
-import com.angcyo.canvas.items.renderer.addTextRenderer
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.gcode.GCodeHelper
@@ -84,7 +83,8 @@ class CanvasDemo : AppDslFragment() {
                 //add
                 itemHolder.click(R.id.add_text) {
                     canvasView?.apply {
-                        addTextRenderer("angcyo${randomString(Random.nextInt(0, 3))}")
+                        //addTextRenderer("angcyo${randomString(Random.nextInt(0, 3))}")
+                        addDrawableRenderer("angcyo${randomString(Random.nextInt(0, 3))}")
                     }
                 }
                 itemHolder.click(R.id.add_svg) {
