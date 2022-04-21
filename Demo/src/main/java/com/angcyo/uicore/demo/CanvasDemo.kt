@@ -8,6 +8,7 @@ import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.core.ICanvasListener
 import com.angcyo.canvas.items.TextItem
 import com.angcyo.canvas.items.renderer.*
+import com.angcyo.dialog.inputDialog
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.gcode.GCodeHelper
@@ -163,6 +164,31 @@ class CanvasDemo : AppDslFragment() {
         }
 
         canvasView?.canvasListenerList?.add(object : ICanvasListener {
+
+            override fun onDoubleTapItem(itemRenderer: IItemRenderer<*>) {
+                super.onDoubleTapItem(itemRenderer)
+                if (itemRenderer is TextItemRenderer) {
+                    fContext().inputDialog {
+                        defaultInputString = itemRenderer.rendererItem?.text
+                        onInputResult = { dialog, inputText ->
+                            if (inputText.isNotEmpty()) {
+                                itemRenderer.updateText("$inputText")
+                            }
+                            false
+                        }
+                    }
+                } else if (itemRenderer is PictureTextItemRenderer) {
+                    fContext().inputDialog {
+                        defaultInputString = itemRenderer.rendererItem?.text
+                        onInputResult = { dialog, inputText ->
+                            if (inputText.isNotEmpty()) {
+                                itemRenderer.updateText("$inputText")
+                            }
+                            false
+                        }
+                    }
+                }
+            }
 
             override fun onClearSelectItem(itemRenderer: IItemRenderer<*>) {
                 super.onClearSelectItem(itemRenderer)
