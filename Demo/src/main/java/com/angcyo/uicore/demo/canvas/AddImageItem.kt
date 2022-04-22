@@ -2,6 +2,7 @@ package com.angcyo.uicore.demo.canvas
 
 import androidx.fragment.app.Fragment
 import com.angcyo.canvas.CanvasView
+import com.angcyo.canvas.items.renderer.addBitmapRenderer
 import com.angcyo.canvas.items.renderer.addDrawableRenderer
 import com.angcyo.core.dslitem.IFragmentItem
 import com.angcyo.library.ex.toBitmap
@@ -25,7 +26,8 @@ class AddImageItem(canvasView: CanvasView) : BaseCanvasAddItem(canvasView), IFra
             itemFragment?.dslSinglePickerImage {
                 it?.firstOrNull()?.let { media ->
                     media.loadPath()?.apply {
-                        canvasView.addDrawableRenderer(toBitmap())
+//                        canvasView.addDrawableRenderer(toBitmap())
+                        canvasView.addBitmapRenderer(toBitmap())
                     }
                 }
             }

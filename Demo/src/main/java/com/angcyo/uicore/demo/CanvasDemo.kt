@@ -15,6 +15,9 @@ import com.angcyo.gcode.GCodeHelper
 import com.angcyo.library.ex.randomGetOnce
 import com.angcyo.library.ex.randomString
 import com.angcyo.library.ex.readAssets
+import com.angcyo.library.ex.toBitmap
+import com.angcyo.library.model.loadPath
+import com.angcyo.picker.dslSinglePickerImage
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
 import com.angcyo.uicore.demo.SvgDemo.Companion.svgResList
@@ -185,6 +188,14 @@ class CanvasDemo : AppDslFragment() {
                                 itemRenderer.updateText("$inputText")
                             }
                             false
+                        }
+                    }
+                } else if (itemRenderer is BitmapItemRenderer) {
+                    dslSinglePickerImage {
+                        it?.firstOrNull()?.let { media ->
+                            media.loadPath()?.apply {
+                                itemRenderer.updateBitmap(toBitmap())
+                            }
                         }
                     }
                 }
