@@ -161,11 +161,16 @@ class CanvasDemo : AppDslFragment() {
             render {
                 AddTextItem(canvasView!!)()
                 AddImageItem(canvasView!!)()
-                AddShapesItem(canvasView!!)()
+                AddShapesItem(canvasView!!)() {
+                    itemClick = {
+                        showShapeSelectLayout(itemHolder, canvasView!!)
+                    }
+                }
                 AddDoodleItem(canvasView!!)()
             }
         }
 
+        //事件监听
         canvasView?.canvasListenerList?.add(object : ICanvasListener {
 
             override fun onDoubleTapItem(itemRenderer: IItemRenderer<*>) {
@@ -258,6 +263,7 @@ class CanvasDemo : AppDslFragment() {
         })
     }
 
+    /**显示字体选择布局*/
     fun showFontSelectLayout(itemHolder: DslViewHolder, renderer: IItemRenderer<*>) {
         val fontControlView = itemHolder.rv(R.id.font_control_view)
         if (fontControlView.isVisible()) {
@@ -309,6 +315,68 @@ class CanvasDemo : AppDslFragment() {
                         itemClick = {
                             updatePaintTypeface(typeface)
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    /**显示形状选择布局*/
+    fun showShapeSelectLayout(itemHolder: DslViewHolder, canvasView: CanvasView) {
+        val controlLayout = itemHolder.view(R.id.canvas_control_layout)
+        if (controlLayout.isVisible()) {
+            itemHolder.gone(R.id.canvas_control_layout)
+        } else {
+            itemHolder.visible(R.id.canvas_control_layout)
+
+            itemHolder.rv(R.id.canvas_control_view)?.initDslAdapter {
+                hookUpdateDepend()
+                render {
+                    ShapeLineItem(canvasView)()
+                    ShapeItem(canvasView)() {
+                        addIco = R.drawable.shape_circle_ico
+                        addText = "圆形"
+                        shapePath = null
+                    }
+                    ShapeItem(canvasView)() {
+                        addIco = R.drawable.shape_triangle_ico
+                        addText = "三角形"
+                        shapePath = null
+                    }
+                    ShapeItem(canvasView)() {
+                        addIco = R.drawable.shape_square_ico
+                        addText = "正方形"
+                        shapePath = null
+                    }
+                    ShapeItem(canvasView)() {
+                        addIco = R.drawable.shape_pentagon_ico
+                        addText = "五角形"
+                        shapePath = null
+                    }
+                    ShapeItem(canvasView)() {
+                        addIco = R.drawable.shape_hexagon_ico
+                        addText = "六角形"
+                        shapePath = null
+                    }
+                    ShapeItem(canvasView)() {
+                        addIco = R.drawable.shape_octagon_ico
+                        addText = "八角形"
+                        shapePath = null
+                    }
+                    ShapeItem(canvasView)() {
+                        addIco = R.drawable.shape_rhombus_ico
+                        addText = "菱形"
+                        shapePath = null
+                    }
+                    ShapeItem(canvasView)() {
+                        addIco = R.drawable.shape_pentagram_ico
+                        addText = "星星"
+                        shapePath = null
+                    }
+                    ShapeItem(canvasView)() {
+                        addIco = R.drawable.shape_love_ico
+                        addText = "心形"
+                        shapePath = null
                     }
                 }
             }
