@@ -3,6 +3,7 @@ package com.angcyo.uicore.demo
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.TypedValue
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.core.ICanvasListener
@@ -59,6 +60,17 @@ class CanvasDemo : AppDslFragment() {
                         } else {
                             canvasViewBox.updateCoordinateSystemOriginPoint(left, top)
                         }
+                    }
+                }
+                itemHolder.click(R.id.switch_unit_button) {
+                    canvasView?.apply {
+                        canvasViewBox.updateCoordinateSystemUnit(
+                            if (canvasViewBox.valueUnit.valueType == TypedValue.COMPLEX_UNIT_MM) {
+                                TypedValue.COMPLEX_UNIT_IN
+                            } else {
+                                TypedValue.COMPLEX_UNIT_MM
+                            }
+                        )
                     }
                 }
 

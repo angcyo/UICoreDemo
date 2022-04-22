@@ -28,6 +28,13 @@
             android:text="切换原点" />
 
         <com.angcyo.widget.DslButton
+            android:id="@+id/switch_unit_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="切换单位" />
+
+        <com.angcyo.widget.DslButton
             android:id="@+id/translate_x_minus_button"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
