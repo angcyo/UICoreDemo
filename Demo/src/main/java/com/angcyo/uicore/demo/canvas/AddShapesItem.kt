@@ -12,6 +12,10 @@ class AddShapesItem(canvasView: CanvasView) : BaseCanvasAddItem(canvasView) {
     init {
         addIco = R.drawable.add_shapes_ico
         addText = "形状"
+
+        itemClick = {
+            //canvasView.addBitmapRenderer(toBitmap())
+        }
     }
 
 }
