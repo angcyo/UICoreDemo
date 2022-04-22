@@ -13,7 +13,8 @@ import com.angcyo.canvas.utils._tempPoint
 import com.angcyo.canvas.utils.createPaint
 import com.angcyo.canvas.utils.mapPoint
 import com.angcyo.canvas.utils.mapRectF
-import com.angcyo.library.ex.adjustSizeWithLT
+import com.angcyo.library.ex.ADJUST_TYPE_LT
+import com.angcyo.library.ex.adjustSize
 import com.angcyo.library.ex.disableParentInterceptTouchEvent
 import com.angcyo.library.ex.dp
 
@@ -353,7 +354,7 @@ class DrawPathView(context: Context, attributeSet: AttributeSet? = null) :
         val newWidth = 200f
         val newHeight = 100f
         paint.color = Color.GREEN
-        rect.adjustSizeWithLT(newWidth, newHeight)
+        rect.adjustSize(newWidth, newHeight, ADJUST_TYPE_LT)
         //绘制缩放后的矩形
         canvas.drawRect(rect, paint)
         //缩放后, 旋转的矩形
@@ -394,7 +395,7 @@ class DrawPathView(context: Context, attributeSet: AttributeSet? = null) :
         val originCenterX = rect.centerX()
         val originCenterY = rect.centerY()
         //左上角固定, 调整矩形宽高
-        rect.adjustSizeWithLT(newWidth, newHeight)
+        rect.adjustSize(newWidth, newHeight, ADJUST_TYPE_LT)
 
         //按照原始的旋转中点坐标, 旋转调整后的矩形
         val rotateRect = RectF()
