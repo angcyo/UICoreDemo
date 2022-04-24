@@ -1,6 +1,7 @@
 package com.angcyo.uicore.demo
 
 import android.graphics.Path
+import android.graphics.RectF
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -21,6 +22,7 @@ import com.angcyo.library.ex.readAssets
 import com.angcyo.library.ex.toBitmap
 import com.angcyo.library.model.loadPath
 import com.angcyo.picker.dslSinglePickerImage
+import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
 import com.angcyo.uicore.demo.SvgDemo.Companion.svgResList
@@ -60,29 +62,35 @@ class CanvasDemo : AppDslFragment() {
                         if (canvasViewBox.coordinateSystemOriginPoint.x == left) {
                             canvasViewBox.updateCoordinateSystemOriginPoint(centerX, centerY)
 
+                            val unit = MmValueUnit()
+                            val limitRect = RectF(
+                                unit.convertValueToPixel(-50f),
+                                unit.convertValueToPixel(-50f),
+                                unit.convertValueToPixel(50f),
+                                unit.convertValueToPixel(50f)
+                            )// 宽*高 100*100mm
+
                             limitRenderer.updateLimit {
-                                val unit = MmValueUnit()
-                                addRect(
-                                    unit.convertValueToPixel(-50f),
-                                    unit.convertValueToPixel(-50f),
-                                    unit.convertValueToPixel(50f),
-                                    unit.convertValueToPixel(50f),
-                                    Path.Direction.CW
-                                )// 宽*高 100*100mm
+                                addRect(limitRect, Path.Direction.CW)// 宽*高 100*100mm
                             }
+
+                            showRectBounds(limitRect)
                         } else {
                             canvasViewBox.updateCoordinateSystemOriginPoint(left, top)
 
+                            val unit = MmValueUnit()
+                            val limitRect = RectF(
+                                0f,
+                                0f,
+                                unit.convertValueToPixel(300f),
+                                unit.convertValueToPixel(400f)
+                            )// 宽*高 300*400mm
+
                             limitRenderer.updateLimit {
-                                val unit = MmValueUnit()
-                                addRect(
-                                    0f,
-                                    0f,
-                                    unit.convertValueToPixel(300f),
-                                    unit.convertValueToPixel(400f),
-                                    Path.Direction.CW
-                                )// 宽*高 300*400mm
+                                addRect(limitRect, Path.Direction.CW)// 宽*高 300*400mm
                             }
+
+                            showRectBounds(limitRect)
                         }
                     }
                 }
@@ -95,6 +103,36 @@ class CanvasDemo : AppDslFragment() {
                                 MmValueUnit()
                             }
                         )
+                    }
+                }
+                itemHolder.click(R.id.bounds_button) {
+                    canvasView?.apply {
+                        val unit = MmValueUnit()
+                        val limitRect = when {
+                            CLICK_COUNT++ % 3 == 2 -> RectF(
+                                unit.convertValueToPixel(100f),
+                                unit.convertValueToPixel(100f),
+                                unit.convertValueToPixel(300f),
+                                unit.convertValueToPixel(300f)
+                            )
+                            CLICK_COUNT++ % 2 == 0 -> RectF(
+                                unit.convertValueToPixel(-30f),
+                                unit.convertValueToPixel(-30f),
+                                unit.convertValueToPixel(-10f),
+                                unit.convertValueToPixel(-10f)
+                            )
+                            else -> RectF(
+                                unit.convertValueToPixel(10f),
+                                unit.convertValueToPixel(10f),
+                                unit.convertValueToPixel(30f),
+                                unit.convertValueToPixel(30f)
+                            )
+                        }
+                        val renderer = ShapeItemRenderer(canvasViewBox).apply {
+                            addRect(limitRect)
+                        }
+                        addItemRenderer(renderer)
+                        showRectBounds(limitRect)
                     }
                 }
 

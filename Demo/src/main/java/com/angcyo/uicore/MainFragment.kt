@@ -57,6 +57,7 @@ class MainFragment : BaseDemoDslFragment() {
 
     companion object {
         var CREATE_COUNT = 0
+        var CLICK_COUNT = 0
     }
 
     init {
