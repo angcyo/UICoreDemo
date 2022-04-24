@@ -3,10 +3,11 @@ package com.angcyo.uicore.demo
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.TypedValue
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.core.ICanvasListener
+import com.angcyo.canvas.core.InchValueUnit
+import com.angcyo.canvas.core.MmValueUnit
 import com.angcyo.canvas.items.TextItem
 import com.angcyo.canvas.items.renderer.*
 import com.angcyo.dialog.inputDialog
@@ -65,10 +66,10 @@ class CanvasDemo : AppDslFragment() {
                 itemHolder.click(R.id.switch_unit_button) {
                     canvasView?.apply {
                         canvasViewBox.updateCoordinateSystemUnit(
-                            if (canvasViewBox.valueUnit.valueType == TypedValue.COMPLEX_UNIT_MM) {
-                                TypedValue.COMPLEX_UNIT_IN
+                            if (canvasViewBox.valueUnit is MmValueUnit) {
+                                InchValueUnit()
                             } else {
-                                TypedValue.COMPLEX_UNIT_MM
+                                MmValueUnit()
                             }
                         )
                     }
