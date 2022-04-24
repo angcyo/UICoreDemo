@@ -1,5 +1,6 @@
 package com.angcyo.uicore.demo
 
+import android.graphics.Path
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -58,8 +59,30 @@ class CanvasDemo : AppDslFragment() {
                         //更新坐标系
                         if (canvasViewBox.coordinateSystemOriginPoint.x == left) {
                             canvasViewBox.updateCoordinateSystemOriginPoint(centerX, centerY)
+
+                            limitRenderer.updateLimit {
+                                val unit = MmValueUnit()
+                                addRect(
+                                    unit.convertValueToPixel(-50f),
+                                    unit.convertValueToPixel(-50f),
+                                    unit.convertValueToPixel(50f),
+                                    unit.convertValueToPixel(50f),
+                                    Path.Direction.CW
+                                )// 宽*高 100*100mm
+                            }
                         } else {
                             canvasViewBox.updateCoordinateSystemOriginPoint(left, top)
+
+                            limitRenderer.updateLimit {
+                                val unit = MmValueUnit()
+                                addRect(
+                                    0f,
+                                    0f,
+                                    unit.convertValueToPixel(300f),
+                                    unit.convertValueToPixel(400f),
+                                    Path.Direction.CW
+                                )// 宽*高 300*400mm
+                            }
                         }
                     }
                 }
