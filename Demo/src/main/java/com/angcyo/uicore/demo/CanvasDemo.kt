@@ -390,6 +390,39 @@ class CanvasDemo : AppDslFragment() {
                             updatePaintTypeface(typeface)
                         }
                     }
+                    //Typeface.DEFAULT
+                    TypefaceItem()() {
+                        displayName = "Default-Normal"
+                        previewText = "激光啄木鸟"
+                        typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
+                        itemClick = {
+                            updatePaintTypeface(typeface)
+                        }
+                    }
+                    TypefaceItem()() {
+                        displayName = "Default-Bold"
+                        previewText = "激光啄木鸟"
+                        typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+                        itemClick = {
+                            updatePaintTypeface(typeface)
+                        }
+                    }
+                    TypefaceItem()() {
+                        displayName = "Default-Italic"
+                        previewText = "激光啄木鸟"
+                        typeface = Typeface.create(Typeface.DEFAULT, Typeface.ITALIC)
+                        itemClick = {
+                            updatePaintTypeface(typeface)
+                        }
+                    }
+                    TypefaceItem()() {
+                        displayName = "Default-Bold-Italic"
+                        previewText = "激光啄木鸟"
+                        typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD_ITALIC)
+                        itemClick = {
+                            updatePaintTypeface(typeface)
+                        }
+                    }
                 }
             }
         }
