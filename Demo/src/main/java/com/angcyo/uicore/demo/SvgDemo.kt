@@ -8,7 +8,7 @@ import com.angcyo.gcode.GCodeHelper
 import com.angcyo.library.ex.readAssets
 import com.angcyo.library.ex.readResource
 import com.angcyo.uicore.base.AppDslFragment
-import com.angcyo.widget.base.setBgDrawable
+import com.angcyo.library.ex.setBgDrawable
 import com.angcyo.widget.base.setInputText
 import com.angcyo.widget.base.string
 import com.pixplicity.sharp.Sharp

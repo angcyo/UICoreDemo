@@ -5,9 +5,7 @@ import android.widget.TextView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.lightStatusBar
 import com.angcyo.drawable.loading.PathLoadingDrawable
-import com.angcyo.library.ex._drawable
-import com.angcyo.library.ex.animatorOf
-import com.angcyo.library.ex.nowTimeString
+import com.angcyo.library.ex.*
 import com.angcyo.library.toastQQ
 import com.angcyo.putData
 import com.angcyo.uicore.activity.ShortcutActivity
@@ -15,8 +13,6 @@ import com.angcyo.uicore.base.AppTitleFragment
 import com.angcyo.uicore.fragment.ShortcutFragment
 import com.angcyo.widget._ev
 import com.angcyo.widget.base.clickIt
-import com.angcyo.widget.base.fullscreen
-import com.angcyo.widget.base.lowProfile
 import com.angcyo.widget.progress.ArcLoadingView
 import com.angcyo.widget.progress.DslSeekBar
 import com.angcyo.widget.progress.HSProgressView

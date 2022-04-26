@@ -37,13 +37,11 @@ import com.angcyo.uicore.test.rxJavaTest
 import com.angcyo.uicore.test.test
 import com.angcyo.uicore.test.testHttp
 import com.angcyo.widget.base.behavior
-import com.angcyo.widget.base.onDoubleTap
 import com.angcyo.widget.layout.SliderMenuLayout
 import com.angcyo.widget.recycler.allViewHolder
 import com.angcyo.widget.recycler.get
 import com.angcyo.widget.recycler.initDslAdapter
 import com.yhao.floatwindow.IFloatWindowImpl
-import org.jsoup.internal.StringUtil.padding
 
 /**
  *

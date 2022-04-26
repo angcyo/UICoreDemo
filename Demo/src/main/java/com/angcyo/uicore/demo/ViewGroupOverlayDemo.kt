@@ -2,11 +2,11 @@ package com.angcyo.uicore.demo
 
 import android.os.Bundle
 import com.angcyo.library.ex._drawable
+import com.angcyo.library.ex.addTo
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.toast
 import com.angcyo.uicore.base.AppTitleFragment
-import com.angcyo.widget.base.addTo
 
 /**
  *

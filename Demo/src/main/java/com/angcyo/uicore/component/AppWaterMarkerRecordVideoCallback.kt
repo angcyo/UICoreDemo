@@ -6,10 +6,10 @@ import com.angcyo.library.app
 import com.angcyo.library.component.DslDensityAdapter
 import com.angcyo.library.ex._color
 import com.angcyo.library.ex._drawable
+import com.angcyo.library.ex.find
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.media.video.record.WaterMarkerRecordVideoCallback
 import com.angcyo.uicore.demo.R
-import com.angcyo.widget.base.find
 import com.angcyo.widget.span.span
 
 /**

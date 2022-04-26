@@ -17,13 +17,13 @@ import com.angcyo.download.DslDownload
 import com.angcyo.jpush.JPush
 import com.angcyo.library.component.DslNotify
 import com.angcyo.library.ex.dp
+import com.angcyo.library.ex.padding
 import com.angcyo.library.ex.randomColor
 import com.angcyo.objectbox.DslBox
 import com.angcyo.speech.TTS
 import com.angcyo.tbs.DslTbs
 import com.angcyo.uicore.demo.*
 import com.angcyo.uicore.fragment.RecyclerTextFragment
-import com.angcyo.widget.base.padding
 import io.objectbox.Box
 import kotlin.random.Random
 

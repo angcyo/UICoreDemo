@@ -8,7 +8,7 @@ import com.angcyo.behavior.effect.MoveBehavior
 import com.angcyo.library.L
 import com.angcyo.library.ex.dpi
 import com.angcyo.uicore.base.AppTitleFragment
-import com.angcyo.widget.base.mH
+import com.angcyo.library.ex.mH
 import com.angcyo.widget.base.setBehavior
 
 /**

@@ -16,10 +16,7 @@ import com.angcyo.dialog.inputDialog
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.gcode.GCodeHelper
-import com.angcyo.library.ex.randomGetOnce
-import com.angcyo.library.ex.randomString
-import com.angcyo.library.ex.readAssets
-import com.angcyo.library.ex.toBitmap
+import com.angcyo.library.ex.*
 import com.angcyo.library.model.loadPath
 import com.angcyo.picker.dslSinglePickerImage
 import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
@@ -28,8 +25,6 @@ import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
 import com.angcyo.uicore.demo.SvgDemo.Companion.svgResList
 import com.angcyo.uicore.demo.canvas.*
 import com.angcyo.widget.DslViewHolder
-import com.angcyo.widget.base.gone
-import com.angcyo.widget.base.isVisible
 import com.angcyo.widget.recycler.initDslAdapter
 import com.pixplicity.sharp.Sharp
 import kotlin.random.Random
@@ -133,6 +128,14 @@ class CanvasDemo : AppDslFragment() {
                         }
                         addItemRenderer(renderer)
                         showRectBounds(limitRect)
+                    }
+                }
+                itemHolder.click(R.id.smart_button) {
+                    canvasView?.apply {
+                        smartAssistant.enable = !smartAssistant.enable
+                        if (smartAssistant.enable) {
+                            longFeedback()
+                        }
                     }
                 }
 

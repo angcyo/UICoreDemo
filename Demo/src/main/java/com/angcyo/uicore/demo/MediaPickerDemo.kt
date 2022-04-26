@@ -19,7 +19,7 @@ import com.angcyo.picker.dslPicker
 import com.angcyo.picker.dslitem.DslPickerImageItem
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.AppMediaPickerItem
-import com.angcyo.widget.base.setHeight
+import com.angcyo.library.ex.setHeight
 import com.angcyo.widget.recycler.ScrollHelper
 import com.angcyo.widget.recycler.resetLayoutManager
 import com.angcyo.widget.span.span

@@ -14,7 +14,7 @@ import com.angcyo.library.ex.randomColorAlpha
 import com.angcyo.library.ex.toDpi
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
-import com.angcyo.widget.base.setHeight
+import com.angcyo.library.ex.setHeight
 import com.angcyo.widget.layout.RFrameLayout
 
 /**

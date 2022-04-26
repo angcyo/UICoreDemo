@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.View
 import com.angcyo.dsladapter.DslAdapterStatusItem
 import com.angcyo.library.component._delay
+import com.angcyo.library.ex.onDoubleTap
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.AppJsoupHtmlItem
 import com.angcyo.uicore.dslitem.AppJsoupInputItem
-import com.angcyo.widget.base.onDoubleTap
 
 /**
  *

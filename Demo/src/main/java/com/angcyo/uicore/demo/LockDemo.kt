@@ -16,17 +16,13 @@ import com.angcyo.item.style.itemButtonText
 import com.angcyo.item.style.itemEditText
 import com.angcyo.item.style.itemLabelText
 import com.angcyo.item.style.itemText
-import com.angcyo.library.ex.dp
-import com.angcyo.library.ex.dpi
-import com.angcyo.library.ex.nowTime
-import com.angcyo.library.ex.nowTimeString
+import com.angcyo.library.ex.*
 import com.angcyo.library.utils.RUtils
 import com.angcyo.putData
 import com.angcyo.speech.TTS
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.tx
 import com.angcyo.uicore.test.TestActivity
-import com.angcyo.widget.base.postDelay
 import com.angcyo.widget.span.span
 
 /**

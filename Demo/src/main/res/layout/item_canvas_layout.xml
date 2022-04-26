@@ -25,14 +25,14 @@
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="切换原点" />
+            android:text="~原点" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/switch_unit_button"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="切换单位" />
+            android:text="~单位" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/bounds_button"
@@ -42,46 +42,53 @@
             android:text="Bounds" />
 
         <com.angcyo.widget.DslButton
+            android:id="@+id/smart_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Smart" />
+
+        <com.angcyo.widget.DslButton
             android:id="@+id/translate_x_minus_button"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="translateX(-)" />
+            android:text="X(-)" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/translate_x_plus_button"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="translateX(+)" />
+            android:text="X(+)" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/translate_y_minus_button"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="translateY(-)" />
+            android:text="Y(-)" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/translate_y_plus_button"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="translateY(+)" />
+            android:text="Y(+)" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/scale_in_button"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="scale放大" />
+            android:text="+" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/scale_out_button"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="scale缩小" />
+            android:text="-" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/add_text"

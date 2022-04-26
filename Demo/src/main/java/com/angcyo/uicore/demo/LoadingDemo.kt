@@ -8,7 +8,7 @@ import com.angcyo.library.ex.anim
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.toColorInt
 import com.angcyo.uicore.base.AppDslFragment
-import com.angcyo.widget.base.setBgDrawable
+import com.angcyo.library.ex.setBgDrawable
 
 /**
  *

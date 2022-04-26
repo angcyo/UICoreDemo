@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.transition.*
 import com.angcyo.base.dslAHelper
-import com.angcyo.library.ex.dpi
-import com.angcyo.library.ex.hawkGet
-import com.angcyo.library.ex.hawkPut
+import com.angcyo.library.ex.*
 import com.angcyo.noAnim
 import com.angcyo.putData
 import com.angcyo.transition
@@ -16,7 +14,9 @@ import com.angcyo.transition.dslTransition
 import com.angcyo.uicore.activity.TransitionDetailActivity
 import com.angcyo.uicore.activity.TransitionDetailActivity2
 import com.angcyo.uicore.base.AppTitleFragment
-import com.angcyo.widget.base.*
+import com.angcyo.widget.base.clickIt
+import com.angcyo.widget.base.frameParams
+import com.angcyo.widget.base.inflate
 import com.angcyo.widget.spinner
 
 /**

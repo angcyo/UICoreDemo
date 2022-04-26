@@ -3,10 +3,10 @@ package com.angcyo.uicore.dslitem
 import com.angcyo.base.dslAHelper
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.library.ex.copy
+import com.angcyo.library.ex.longFeedback
 import com.angcyo.library.model.AppBean
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
-import com.angcyo.widget.base.longFeedback
 import com.bumptech.glide.Glide
 
 /**
