@@ -117,3 +117,7 @@ apply plugin: 'io.objectbox' // Apply last.
 apply from: allGradle.jpush
 
 apply from: allGradle.bugly
+
+//2022-4-27
+apply from: allGradle.fscaar
+
