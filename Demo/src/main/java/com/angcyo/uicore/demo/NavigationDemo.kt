@@ -15,7 +15,7 @@ import com.angcyo.tablayout.TabGradientCallback
 import com.angcyo.uicore.fragment.HomeFragment
 import com.angcyo.uicore.fragment.ListFragment
 import com.angcyo.uicore.fragment.MeFragment
-import com.angcyo.widget.base.eachChild
+import com.angcyo.library.ex.eachChild
 import com.angcyo.widget.blur.BlurView
 import com.angcyo.widget.tab
 

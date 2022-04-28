@@ -9,7 +9,7 @@ import com.angcyo.library.ex.simpleClassName
 import com.angcyo.loader.LoaderConfig
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
-import com.angcyo.widget.base.each
+import com.angcyo.library.ex.each
 import com.angcyo.widget.base.setLeftIco
 import com.angcyo.widget.base.string
 

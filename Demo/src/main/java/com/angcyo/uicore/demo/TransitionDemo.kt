@@ -16,7 +16,7 @@ import com.angcyo.uicore.activity.TransitionDetailActivity2
 import com.angcyo.uicore.base.AppTitleFragment
 import com.angcyo.widget.base.clickIt
 import com.angcyo.widget.base.frameParams
-import com.angcyo.widget.base.inflate
+import com.angcyo.library.ex.inflate
 import com.angcyo.widget.spinner
 
 /**
