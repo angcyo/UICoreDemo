@@ -1,7 +1,3 @@
-static def apkTime() {
-    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("Asia/Shanghai"))
-}
-
 def apk_time = apkTime()
 
 ext {
@@ -102,6 +98,10 @@ dependencies {
     //http://airbnb.io/lottie/#/android
     //https://lottiefiles.com/
     implementation 'com.airbnb.android:lottie:4.2.2'
+}
+
+static def apkTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("Asia/Shanghai"))
 }
 
 //apply from: allGradle.v7a

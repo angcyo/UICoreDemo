@@ -93,6 +93,9 @@ allprojects {
             url "http://maven.geelib.360.cn/nexus/service/rest/repository/browse/replugin/"
             allowInsecureProtocol = true
         }
+
+        //本地仓库依赖
+        maven { url = 'E:/maven' /*'E:/AndroidProjects/maven'}*/ }
     }
 }
 
