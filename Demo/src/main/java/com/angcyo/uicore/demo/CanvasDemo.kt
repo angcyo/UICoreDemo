@@ -1,18 +1,21 @@
 package com.angcyo.uicore.demo
 
+import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.core.ICanvasListener
 import com.angcyo.canvas.core.InchValueUnit
 import com.angcyo.canvas.core.MmValueUnit
-import com.angcyo.canvas.items.TextItem
+import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.*
 import com.angcyo.canvas.utils.addDrawableRenderer
+import com.angcyo.canvas.utils.addPictureTextRender
 import com.angcyo.canvas.utils.addPictureTextRenderer
 import com.angcyo.canvas.utils.addTextRenderer
 import com.angcyo.dialog.inputDialog
@@ -166,17 +169,22 @@ class CanvasDemo : AppDslFragment() {
                 //add
                 itemHolder.click(R.id.add_text) {
                     canvasView?.apply {
-                        addTextRenderer("angcyo${randomString(Random.nextInt(0, 3))}")
+                        addTextRenderer(getRandomText())
                     }
                 }
                 itemHolder.click(R.id.add_text2) {
                     canvasView?.apply {
-                        addDrawableRenderer("angcyo${randomString(Random.nextInt(0, 3))}")
+                        addDrawableRenderer(getRandomText())
                     }
                 }
                 itemHolder.click(R.id.add_text3) {
                     canvasView?.apply {
-                        addPictureTextRenderer("angcyo${randomString(Random.nextInt(0, 3))}")
+                        addPictureTextRenderer(getRandomText())
+                    }
+                }
+                itemHolder.click(R.id.add_picture_text) {
+                    canvasView?.apply {
+                        addPictureTextRender(getRandomText())
                     }
                 }
                 itemHolder.click(R.id.add_svg) {
@@ -224,6 +232,9 @@ class CanvasDemo : AppDslFragment() {
             }
         }
     }
+
+    fun getRandomText() =
+        "angcyo${randomString(Random.nextInt(0, 3))}\n${randomString(Random.nextInt(0, 3))}"
 
     fun loadSvgDrawable(): Drawable =
         Sharp.loadResource(resources, svgResList.randomGetOnce()!!).drawable
@@ -310,6 +321,19 @@ class CanvasDemo : AppDslFragment() {
                             }
                         }
                     }
+                } else if (itemRenderer is PictureItemRenderer) {
+                    val renderItem = itemRenderer.rendererItem
+                    if (renderItem is PictureTextItem) {
+                        fContext().inputDialog {
+                            defaultInputString = renderItem.text
+                            onInputResult = { dialog, inputText ->
+                                if (inputText.isNotEmpty()) {
+                                    itemRenderer.updateItemText("$inputText")
+                                }
+                                false
+                            }
+                        }
+                    }
                 }
             }
 
@@ -328,6 +352,16 @@ class CanvasDemo : AppDslFragment() {
                     //选中TextItemRenderer时的控制菜单
                     itemHolder.rv(R.id.canvas_control_view)?.initDslAdapter {
                         showTextControlItem(itemHolder, canvasView, itemRenderer)
+                    }
+                } else if (itemRenderer is PictureItemRenderer) {
+                    val renderItem = itemRenderer.rendererItem
+                    if (renderItem is PictureTextItem) {
+                        //选中TextItemRenderer时的控制菜单
+                        itemHolder.rv(R.id.canvas_control_view)?.initDslAdapter {
+                            showTextControlItem(itemHolder, canvasView, itemRenderer)
+                        }
+                    } else {
+                        itemHolder.gone(R.id.canvas_control_layout)
                     }
                 } else {
                     itemHolder.gone(R.id.canvas_control_layout)
@@ -348,25 +382,25 @@ class CanvasDemo : AppDslFragment() {
 
             this + CanvasTextStyleItem(
                 itemRenderer,
-                TextItem.TEXT_STYLE_BOLD,
+                PictureTextItem.TEXT_STYLE_BOLD,
                 R.drawable.text_bold_style_ico,
                 canvasView
             )
             this + CanvasTextStyleItem(
                 itemRenderer,
-                TextItem.TEXT_STYLE_ITALIC,
+                PictureTextItem.TEXT_STYLE_ITALIC,
                 R.drawable.text_italic_style_ico,
                 canvasView
             )
             this + CanvasTextStyleItem(
                 itemRenderer,
-                TextItem.TEXT_STYLE_UNDER_LINE,
+                PictureTextItem.TEXT_STYLE_UNDER_LINE,
                 R.drawable.text_under_line_style_ico,
                 canvasView
             )
             this + CanvasTextStyleItem(
                 itemRenderer,
-                TextItem.TEXT_STYLE_DELETE_LINE,
+                PictureTextItem.TEXT_STYLE_DELETE_LINE,
                 R.drawable.text_delete_line_style_ico,
                 canvasView
             )
@@ -379,18 +413,58 @@ class CanvasDemo : AppDslFragment() {
 
             CanvasIconItem()() {
                 itemIco = R.drawable.text_style_standard_ico
+                itemClick = {
+                    if (itemRenderer is PictureItemRenderer) {
+                        val renderItem = itemRenderer.rendererItem
+                        if (renderItem is PictureTextItem) {
+                            itemRenderer.updateTextOrientation(LinearLayout.HORIZONTAL)
+                        }
+                    }
+                }
             }
             CanvasIconItem()() {
                 itemIco = R.drawable.text_style_vertical_ico
+                itemClick = {
+                    if (itemRenderer is PictureItemRenderer) {
+                        val renderItem = itemRenderer.rendererItem
+                        if (renderItem is PictureTextItem) {
+                            itemRenderer.updateTextOrientation(LinearLayout.VERTICAL)
+                        }
+                    }
+                }
             }
             CanvasIconItem()() {
                 itemIco = R.drawable.text_style_align_left_ico
+                itemClick = {
+                    if (itemRenderer is PictureItemRenderer) {
+                        val renderItem = itemRenderer.rendererItem
+                        if (renderItem is PictureTextItem) {
+                            itemRenderer.updatePaintAlign(Paint.Align.LEFT)
+                        }
+                    }
+                }
             }
             CanvasIconItem()() {
                 itemIco = R.drawable.text_style_align_center_ico
+                itemClick = {
+                    if (itemRenderer is PictureItemRenderer) {
+                        val renderItem = itemRenderer.rendererItem
+                        if (renderItem is PictureTextItem) {
+                            itemRenderer.updatePaintAlign(Paint.Align.CENTER)
+                        }
+                    }
+                }
             }
             CanvasIconItem()() {
                 itemIco = R.drawable.text_style_align_right_ico
+                itemClick = {
+                    if (itemRenderer is PictureItemRenderer) {
+                        val renderItem = itemRenderer.rendererItem
+                        if (renderItem is PictureTextItem) {
+                            itemRenderer.updatePaintAlign(Paint.Align.RIGHT)
+                        }
+                    }
+                }
             }
         }
     }
@@ -409,6 +483,11 @@ class CanvasDemo : AppDslFragment() {
                     renderer.updatePaintTypeface(typeface)
                 } else if (renderer is PictureTextItemRenderer) {
                     renderer.updatePaintTypeface(typeface)
+                } else if (renderer is PictureItemRenderer) {
+                    val renderItem = renderer.rendererItem
+                    if (renderItem is PictureTextItem) {
+                        renderer.updateTextTypeface(typeface)
+                    }
                 }
             }
 

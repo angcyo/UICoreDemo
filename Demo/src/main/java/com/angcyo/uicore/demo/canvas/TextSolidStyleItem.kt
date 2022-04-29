@@ -2,7 +2,9 @@ package com.angcyo.uicore.demo.canvas
 
 import android.graphics.Paint
 import com.angcyo.canvas.CanvasView
+import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.IItemRenderer
+import com.angcyo.canvas.items.renderer.PictureItemRenderer
 import com.angcyo.canvas.items.renderer.PictureTextItemRenderer
 import com.angcyo.canvas.items.renderer.TextItemRenderer
 import com.angcyo.dsladapter.DslAdapterItem
@@ -77,6 +79,31 @@ class TextSolidStyleItem(
                 clickIt {
                     renderer.updatePaintStyle(Paint.Style.FILL)
                     updateAdapterItem()
+                }
+            }
+        } else if (renderer is PictureItemRenderer) {
+            val renderItem = renderer.rendererItem
+            if (renderItem is PictureTextItem) {
+                val isStroke = renderItem.paint.style == Paint.Style.STROKE
+                strokeView?.apply {
+                    val drawable =
+                        drawable.color(if (isStroke) "#282828".toColorInt() else "#b3b7ba".toColorInt())
+                    setImageDrawable(drawable)
+
+                    clickIt {
+                        renderer.updatePaintStyle(Paint.Style.STROKE)
+                        updateAdapterItem()
+                    }
+                }
+                solidView?.apply {
+                    val drawable =
+                        drawable.color(if (!isStroke) "#282828".toColorInt() else "#b3b7ba".toColorInt())
+                    setImageDrawable(drawable)
+
+                    clickIt {
+                        renderer.updatePaintStyle(Paint.Style.FILL)
+                        updateAdapterItem()
+                    }
                 }
             }
         }

@@ -1,7 +1,9 @@
 package com.angcyo.uicore.demo.canvas
 
 import com.angcyo.canvas.CanvasView
+import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.IItemRenderer
+import com.angcyo.canvas.items.renderer.PictureItemRenderer
 import com.angcyo.canvas.items.renderer.PictureTextItemRenderer
 import com.angcyo.canvas.items.renderer.TextItemRenderer
 import com.angcyo.dsladapter.DslAdapterItem
@@ -35,6 +37,13 @@ class CanvasTextStyleItem(
                 val have = renderer.rendererItem?.textStyle?.have(textStyle) == true
                 renderer.enableTextStyle(textStyle, !have)
                 updateAdapterItem()
+            } else if (renderer is PictureItemRenderer) {
+                val renderItem = renderer.rendererItem
+                if (renderItem is PictureTextItem) {
+                    val have = renderItem.textStyle.have(textStyle)
+                    renderer.enableTextStyle(textStyle, !have)
+                    updateAdapterItem()
+                }
             }
         }
     }
@@ -58,6 +67,14 @@ class CanvasTextStyleItem(
                 val drawable =
                     _drawable(ico).color(if (have) "#282828".toColorInt() else "#b3b7ba".toColorInt())
                 setImageDrawable(drawable)
+            } else if (renderer is PictureItemRenderer) {
+                val renderItem = renderer.rendererItem
+                if (renderItem is PictureTextItem) {
+                    val have = renderItem.textStyle.have(textStyle)
+                    val drawable =
+                        _drawable(ico).color(if (have) "#282828".toColorInt() else "#b3b7ba".toColorInt())
+                    setImageDrawable(drawable)
+                }
             }
         }
     }

@@ -2,7 +2,7 @@ package com.angcyo.uicore.demo.canvas
 
 import androidx.fragment.app.Fragment
 import com.angcyo.canvas.CanvasView
-import com.angcyo.canvas.utils.addPictureTextRenderer
+import com.angcyo.canvas.utils.addPictureTextRender
 import com.angcyo.core.dslitem.IFragmentItem
 import com.angcyo.dialog.inputDialog
 import com.angcyo.uicore.demo.R
@@ -24,7 +24,8 @@ class AddTextItem(val canvasView: CanvasView) : CanvasControlItem(), IFragmentIt
                 onInputResult = { dialog, inputText ->
                     if (inputText.isNotEmpty()) {
                         //canvasView.addTextRenderer("$inputText")
-                        canvasView.addPictureTextRenderer("$inputText")
+                        //canvasView.addPictureTextRenderer("$inputText")
+                        canvasView.addPictureTextRender("$inputText")
                     }
                     false
                 }
