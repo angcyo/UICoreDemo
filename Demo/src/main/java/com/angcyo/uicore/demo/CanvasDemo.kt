@@ -12,6 +12,9 @@ import com.angcyo.canvas.core.InchValueUnit
 import com.angcyo.canvas.core.MmValueUnit
 import com.angcyo.canvas.items.TextItem
 import com.angcyo.canvas.items.renderer.*
+import com.angcyo.canvas.utils.addDrawableRenderer
+import com.angcyo.canvas.utils.addPictureTextRenderer
+import com.angcyo.canvas.utils.addTextRenderer
 import com.angcyo.dialog.inputDialog
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem

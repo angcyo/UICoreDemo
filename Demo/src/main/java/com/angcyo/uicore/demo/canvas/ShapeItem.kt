@@ -2,8 +2,8 @@ package com.angcyo.uicore.demo.canvas
 
 import android.graphics.Path
 import com.angcyo.canvas.CanvasView
-import com.angcyo.canvas.items.renderer.addDrawableRenderer
-import com.angcyo.canvas.items.renderer.addShapeRenderer
+import com.angcyo.canvas.utils.addDrawableRenderer
+import com.angcyo.canvas.utils.addShapeRenderer
 import com.angcyo.library.ex._drawable
 
 /**

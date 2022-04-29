@@ -2,7 +2,7 @@ package com.angcyo.uicore.demo.canvas
 
 import androidx.fragment.app.Fragment
 import com.angcyo.canvas.CanvasView
-import com.angcyo.canvas.items.renderer.addPictureTextRenderer
+import com.angcyo.canvas.utils.addPictureTextRenderer
 import com.angcyo.core.dslitem.IFragmentItem
 import com.angcyo.dialog.inputDialog
 import com.angcyo.uicore.demo.R

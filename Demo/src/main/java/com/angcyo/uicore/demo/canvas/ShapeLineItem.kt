@@ -1,7 +1,7 @@
 package com.angcyo.uicore.demo.canvas
 
 import com.angcyo.canvas.CanvasView
-import com.angcyo.canvas.items.renderer.addLineRenderer
+import com.angcyo.canvas.utils.addLineRenderer
 import com.angcyo.uicore.demo.R
 
 /**
