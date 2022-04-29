@@ -152,7 +152,7 @@
         android:id="@+id/canvas_item_view"
         style="@style/LibRecyclerViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:background="@color/lib_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:r_layout_manager="h" />

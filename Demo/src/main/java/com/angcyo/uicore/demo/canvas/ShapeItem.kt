@@ -10,14 +10,14 @@ import com.angcyo.library.ex._drawable
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
  * @since 2022/04/22
  */
-class ShapeItem(canvasView: CanvasView) : BaseCanvasAddItem(canvasView) {
+class ShapeItem(val canvasView: CanvasView) : CanvasControlItem() {
 
     var shapePath: Path? = null
 
     init {
         itemClick = {
             if (shapePath == null) {
-                _drawable(addIco)?.let {
+                _drawable(itemIco)?.let {
                     canvasView.addDrawableRenderer(it)
                 }
             } else {

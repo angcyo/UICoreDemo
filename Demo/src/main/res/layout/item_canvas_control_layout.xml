@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/lib_bg2_selector"
     android:gravity="center"
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/lib_xhdpi"
@@ -10,9 +11,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/image_view"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:scaleType="fitCenter"
         tools:src="@drawable/add_text_ico" />
 
@@ -21,6 +21,7 @@
         style="@style/LibSubTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_sdpi"
         android:textColor="#a6a6a6"
         tools:text="文本" />
 

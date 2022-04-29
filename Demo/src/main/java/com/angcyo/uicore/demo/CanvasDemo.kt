@@ -236,14 +236,40 @@ class CanvasDemo : AppDslFragment() {
         itemRecyclerView?.initDslAdapter {
             hookUpdateDepend()
             render {
+                CanvasControlItem()() {
+                    itemIco = R.drawable.canvas_material_ico
+                    itemText = "素材"
+                }
+
                 AddTextItem(canvasView!!)()
                 AddImageItem(canvasView!!)()
-                AddShapesItem(canvasView!!)() {
+                AddShapesItem()() {
                     itemClick = {
                         showShapeSelectLayout(itemHolder, canvasView!!)
                     }
                 }
-                AddDoodleItem(canvasView!!)()
+                AddDoodleItem()()
+
+                CanvasControlItem()() {
+                    itemIco = R.drawable.canvas_edit_ico
+                    itemText = "编辑"
+                }
+                CanvasControlItem()() {
+                    itemIco = R.drawable.canvas_layer_ico
+                    itemText = "图层"
+                }
+                CanvasControlItem()() {
+                    itemIco = R.drawable.canvas_undo_ico
+                    itemText = "撤销"
+                }
+                CanvasControlItem()() {
+                    itemIco = R.drawable.canvas_redo_ico
+                    itemText = "重做"
+                }
+                CanvasControlItem()() {
+                    itemIco = R.drawable.canvas_setting_ico
+                    itemText = "设置"
+                }
             }
         }
 
@@ -444,48 +470,48 @@ class CanvasDemo : AppDslFragment() {
                 render {
                     ShapeLineItem(canvasView)()
                     ShapeItem(canvasView)() {
-                        addIco = R.drawable.shape_circle_ico
-                        addText = "圆形"
+                        itemIco = R.drawable.shape_circle_ico
+                        itemText = "圆形"
                         shapePath = null
                     }
                     ShapeItem(canvasView)() {
-                        addIco = R.drawable.shape_triangle_ico
-                        addText = "三角形"
+                        itemIco = R.drawable.shape_triangle_ico
+                        itemText = "三角形"
                         shapePath = null
                     }
                     ShapeItem(canvasView)() {
-                        addIco = R.drawable.shape_square_ico
-                        addText = "正方形"
+                        itemIco = R.drawable.shape_square_ico
+                        itemText = "正方形"
                         shapePath = null
                     }
                     ShapeItem(canvasView)() {
-                        addIco = R.drawable.shape_pentagon_ico
-                        addText = "五角形"
+                        itemIco = R.drawable.shape_pentagon_ico
+                        itemText = "五角形"
                         shapePath = null
                     }
                     ShapeItem(canvasView)() {
-                        addIco = R.drawable.shape_hexagon_ico
-                        addText = "六角形"
+                        itemIco = R.drawable.shape_hexagon_ico
+                        itemText = "六角形"
                         shapePath = null
                     }
                     ShapeItem(canvasView)() {
-                        addIco = R.drawable.shape_octagon_ico
-                        addText = "八角形"
+                        itemIco = R.drawable.shape_octagon_ico
+                        itemText = "八角形"
                         shapePath = null
                     }
                     ShapeItem(canvasView)() {
-                        addIco = R.drawable.shape_rhombus_ico
-                        addText = "菱形"
+                        itemIco = R.drawable.shape_rhombus_ico
+                        itemText = "菱形"
                         shapePath = null
                     }
                     ShapeItem(canvasView)() {
-                        addIco = R.drawable.shape_pentagram_ico
-                        addText = "星星"
+                        itemIco = R.drawable.shape_pentagram_ico
+                        itemText = "星星"
                         shapePath = null
                     }
                     ShapeItem(canvasView)() {
-                        addIco = R.drawable.shape_love_ico
-                        addText = "心形"
+                        itemIco = R.drawable.shape_love_ico
+                        itemText = "心形"
                         shapePath = null
                     }
                 }

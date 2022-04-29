@@ -11,13 +11,13 @@ import com.angcyo.uicore.demo.R
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
  * @since 2022/04/18
  */
-class AddTextItem(canvasView: CanvasView) : BaseCanvasAddItem(canvasView), IFragmentItem {
+class AddTextItem(val canvasView: CanvasView) : CanvasControlItem(), IFragmentItem {
 
     override var itemFragment: Fragment? = null
 
     init {
-        addIco = R.drawable.add_text_ico
-        addText = "文本"
+        itemIco = R.drawable.add_text_ico
+        itemText = "文本"
 
         itemClick = {
             itemFragment?.context?.inputDialog {
