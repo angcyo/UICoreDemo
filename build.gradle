@@ -95,7 +95,7 @@ allprojects {
         }
 
         //本地仓库依赖
-        maven { url = 'E:/maven' /*'E:/AndroidProjects/maven'}*/ }
+        //maven { url = 'E:/maven' /*'E:/AndroidProjects/maven'}*/ }
     }
 }
 
