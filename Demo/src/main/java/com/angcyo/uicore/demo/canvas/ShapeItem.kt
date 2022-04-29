@@ -3,7 +3,7 @@ package com.angcyo.uicore.demo.canvas
 import android.graphics.Path
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.utils.addDrawableRenderer
-import com.angcyo.canvas.utils.addShapeRenderer
+import com.angcyo.canvas.utils.addPictureShapeRender
 import com.angcyo.library.ex._drawable
 
 /**
@@ -22,7 +22,8 @@ class ShapeItem(val canvasView: CanvasView) : CanvasControlItem() {
                 }
             } else {
                 shapePath?.let {
-                    canvasView.addShapeRenderer(it)
+                    //canvasView.addShapeRenderer(it)
+                    canvasView.addPictureShapeRender(it)
                 }
             }
         }

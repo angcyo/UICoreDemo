@@ -12,12 +12,10 @@ import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.core.ICanvasListener
 import com.angcyo.canvas.core.InchValueUnit
 import com.angcyo.canvas.core.MmValueUnit
+import com.angcyo.canvas.items.PictureShapeItem
 import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.*
-import com.angcyo.canvas.utils.addDrawableRenderer
-import com.angcyo.canvas.utils.addPictureTextRender
-import com.angcyo.canvas.utils.addPictureTextRenderer
-import com.angcyo.canvas.utils.addTextRenderer
+import com.angcyo.canvas.utils.*
 import com.angcyo.dialog.inputDialog
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem
@@ -360,6 +358,10 @@ class CanvasDemo : AppDslFragment() {
                         itemHolder.rv(R.id.canvas_control_view)?.initDslAdapter {
                             showTextControlItem(itemHolder, canvasView, itemRenderer)
                         }
+                    } else if (renderItem is PictureShapeItem) {
+                        itemHolder.rv(R.id.canvas_control_view)?.initDslAdapter {
+                            showShapeControlItem(itemHolder, canvasView, itemRenderer)
+                        }
                     } else {
                         itemHolder.gone(R.id.canvas_control_layout)
                     }
@@ -590,7 +592,7 @@ class CanvasDemo : AppDslFragment() {
                     ShapeItem(canvasView)() {
                         itemIco = R.drawable.shape_square_ico
                         itemText = "正方形"
-                        shapePath = null
+                        shapePath = ShapesHelper.squarePath()
                     }
                     ShapeItem(canvasView)() {
                         itemIco = R.drawable.shape_pentagon_ico
@@ -621,6 +623,35 @@ class CanvasDemo : AppDslFragment() {
                         itemIco = R.drawable.shape_love_ico
                         itemText = "心形"
                         shapePath = null
+                    }
+                }
+            }
+        }
+    }
+
+    /**形状控制item*/
+    fun DslAdapter.showShapeControlItem(
+        itemHolder: DslViewHolder,
+        canvasView: CanvasView,
+        itemRenderer: IItemRenderer<*>
+    ) {
+        hookUpdateDepend()
+        render {
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_style_stroke_ico
+                itemText = "描边"
+                itemClick = {
+                    if (itemRenderer is PictureItemRenderer) {
+                        itemRenderer.updatePaintStyle(Paint.Style.STROKE)
+                    }
+                }
+            }
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_style_fill_ico
+                itemText = "填充"
+                itemClick = {
+                    if (itemRenderer is PictureItemRenderer) {
+                        itemRenderer.updatePaintStyle(Paint.Style.FILL)
                     }
                 }
             }
