@@ -16,8 +16,10 @@ import com.angcyo.widget.base.clickIt
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
  * @since 2022/04/18
  */
-class TextSolidStyleItem(val renderer: IItemRenderer<*>, val canvasView: CanvasView) :
-    DslAdapterItem() {
+class TextSolidStyleItem(
+    val renderer: IItemRenderer<*>,
+    val canvasView: CanvasView
+) : DslAdapterItem() {
 
     init {
         itemLayoutId = R.layout.layout_canvas_text_solid_style

@@ -13,6 +13,7 @@ import com.angcyo.canvas.core.MmValueUnit
 import com.angcyo.canvas.items.TextItem
 import com.angcyo.canvas.items.renderer.*
 import com.angcyo.dialog.inputDialog
+import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.gcode.GCodeHelper
@@ -323,47 +324,72 @@ class CanvasDemo : AppDslFragment() {
                 if (itemRenderer is TextItemRenderer || itemRenderer is PictureTextItemRenderer) {
                     //选中TextItemRenderer时的控制菜单
                     itemHolder.rv(R.id.canvas_control_view)?.initDslAdapter {
-                        hookUpdateDepend()
-                        render {
-                            this + TextSolidStyleItem(itemRenderer, canvasView)
-
-                            this + CanvasTextStyleItem(
-                                itemRenderer,
-                                TextItem.TEXT_STYLE_BOLD,
-                                R.drawable.text_bold_style_ico,
-                                canvasView
-                            )
-                            this + CanvasTextStyleItem(
-                                itemRenderer,
-                                TextItem.TEXT_STYLE_ITALIC,
-                                R.drawable.text_italic_style_ico,
-                                canvasView
-                            )
-                            this + CanvasTextStyleItem(
-                                itemRenderer,
-                                TextItem.TEXT_STYLE_UNDER_LINE,
-                                R.drawable.text_under_line_style_ico,
-                                canvasView
-                            )
-                            this + CanvasTextStyleItem(
-                                itemRenderer,
-                                TextItem.TEXT_STYLE_DELETE_LINE,
-                                R.drawable.text_delete_line_style_ico,
-                                canvasView
-                            )
-
-                            TextFontItem()() {
-                                itemClick = {
-                                    showFontSelectLayout(itemHolder, itemRenderer)
-                                }
-                            }
-                        }
+                        showTextControlItem(itemHolder, canvasView, itemRenderer)
                     }
                 } else {
                     itemHolder.gone(R.id.canvas_control_layout)
                 }
             }
         })
+    }
+
+    /**文本控制item*/
+    fun DslAdapter.showTextControlItem(
+        itemHolder: DslViewHolder,
+        canvasView: CanvasView,
+        itemRenderer: IItemRenderer<*>
+    ) {
+        hookUpdateDepend()
+        render {
+            this + TextSolidStyleItem(itemRenderer, canvasView)
+
+            this + CanvasTextStyleItem(
+                itemRenderer,
+                TextItem.TEXT_STYLE_BOLD,
+                R.drawable.text_bold_style_ico,
+                canvasView
+            )
+            this + CanvasTextStyleItem(
+                itemRenderer,
+                TextItem.TEXT_STYLE_ITALIC,
+                R.drawable.text_italic_style_ico,
+                canvasView
+            )
+            this + CanvasTextStyleItem(
+                itemRenderer,
+                TextItem.TEXT_STYLE_UNDER_LINE,
+                R.drawable.text_under_line_style_ico,
+                canvasView
+            )
+            this + CanvasTextStyleItem(
+                itemRenderer,
+                TextItem.TEXT_STYLE_DELETE_LINE,
+                R.drawable.text_delete_line_style_ico,
+                canvasView
+            )
+
+            TextFontItem()() {
+                itemClick = {
+                    showFontSelectLayout(itemHolder, itemRenderer)
+                }
+            }
+
+            CanvasIconItem()() {
+                itemIco = R.drawable.text_style_standard_ico
+            }
+            CanvasIconItem()() {
+                itemIco = R.drawable.text_style_vertical_ico
+            }
+            CanvasIconItem()() {
+                itemIco = R.drawable.text_style_align_left_ico
+            }
+            CanvasIconItem()() {
+                itemIco = R.drawable.text_style_align_center_ico
+            }
+            CanvasIconItem()() {
+                itemIco = R.drawable.text_style_align_right_ico
+            }
+        }
     }
 
     /**显示字体选择布局*/
