@@ -11,7 +11,7 @@ import com.angcyo.uicore.demo.R
 class ShapeLineItem(val canvasView: CanvasView) : CanvasControlItem() {
 
     init {
-        itemIco = R.drawable.shape_line_ico
+        itemIco = R.drawable.canvas_shape_line_ico
         itemText = "线条"
         itemClick = {
             canvasView.addLineRenderer()

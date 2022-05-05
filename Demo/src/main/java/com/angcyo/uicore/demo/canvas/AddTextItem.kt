@@ -16,7 +16,7 @@ class AddTextItem(val canvasView: CanvasView) : CanvasControlItem(), IFragmentIt
     override var itemFragment: Fragment? = null
 
     init {
-        itemIco = R.drawable.add_text_ico
+        itemIco = R.drawable.canvas_text_ico
         itemText = "文本"
 
         itemClick = {

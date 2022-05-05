@@ -9,7 +9,7 @@ import com.angcyo.uicore.demo.R
 class AddDoodleItem : CanvasControlItem() {
 
     init {
-        itemIco = R.drawable.add_doodle_ico
+        itemIco = R.drawable.canvas_doodle_ico
         itemText = "涂鸦"
     }
 

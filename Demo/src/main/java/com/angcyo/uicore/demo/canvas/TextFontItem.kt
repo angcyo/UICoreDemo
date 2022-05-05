@@ -25,7 +25,7 @@ class TextFontItem : DslAdapterItem() {
     ) {
         super.onItemBind(itemHolder, itemPosition, adapterItem, payloads)
         itemHolder.img(R.id.image_view)?.apply {
-            val drawable = _drawable(R.drawable.text_font_ico).color("#282828".toColorInt())
+            val drawable = _drawable(R.drawable.canvas_text_font_ico).color("#282828".toColorInt())
             setImageDrawable(drawable)
         }
     }

@@ -241,6 +241,8 @@ class CanvasDemo : AppDslFragment() {
         fContext(), fContext().readAssets(gCodeNameList.randomGetOnce()!!)!!
     )
 
+    var _selectedCanvasItem: DslAdapterItem? = null
+
     /**Canvas控制*/
     fun bindCanvasRecyclerView(itemHolder: DslViewHolder, adapterItem: DslAdapterItem) {
         val canvasView = itemHolder.v<CanvasView>(R.id.canvas_view)
@@ -258,7 +260,12 @@ class CanvasDemo : AppDslFragment() {
                 AddImageItem(canvasView!!)()
                 AddShapesItem()() {
                     itemClick = {
-                        showShapeSelectLayout(itemHolder, canvasView!!)
+                        if (_selectedCanvasItem == this) {
+                            itemHolder.goneControlLayout()
+                        } else {
+                            _selectedCanvasItem = this
+                            showShapeSelectLayout(itemHolder, canvasView!!)
+                        }
                     }
                 }
                 AddDoodleItem()()
@@ -337,7 +344,7 @@ class CanvasDemo : AppDslFragment() {
 
             override fun onClearSelectItem(itemRenderer: IItemRenderer<*>) {
                 super.onClearSelectItem(itemRenderer)
-                itemHolder.gone(R.id.canvas_control_layout)
+                itemHolder.goneControlLayout()
             }
 
             override fun onSelectedItem(
@@ -346,6 +353,7 @@ class CanvasDemo : AppDslFragment() {
             ) {
                 super.onSelectedItem(itemRenderer, oldItemRenderer)
                 itemHolder.visible(R.id.canvas_control_layout)
+                _selectedCanvasItem = null
                 if (itemRenderer is TextItemRenderer || itemRenderer is PictureTextItemRenderer) {
                     //选中TextItemRenderer时的控制菜单
                     itemHolder.rv(R.id.canvas_control_view)?.initDslAdapter {
@@ -363,13 +371,18 @@ class CanvasDemo : AppDslFragment() {
                             showShapeControlItem(itemHolder, canvasView, itemRenderer)
                         }
                     } else {
-                        itemHolder.gone(R.id.canvas_control_layout)
+                        itemHolder.goneControlLayout()
                     }
                 } else {
-                    itemHolder.gone(R.id.canvas_control_layout)
+                    itemHolder.goneControlLayout()
                 }
             }
         })
+    }
+
+    fun DslViewHolder.goneControlLayout() {
+        gone(R.id.canvas_control_layout)
+        _selectedCanvasItem = null
     }
 
     /**文本控制item*/
@@ -385,25 +398,25 @@ class CanvasDemo : AppDslFragment() {
             this + CanvasTextStyleItem(
                 itemRenderer,
                 PictureTextItem.TEXT_STYLE_BOLD,
-                R.drawable.text_bold_style_ico,
+                R.drawable.canvas_text_bold_style_ico,
                 canvasView
             )
             this + CanvasTextStyleItem(
                 itemRenderer,
                 PictureTextItem.TEXT_STYLE_ITALIC,
-                R.drawable.text_italic_style_ico,
+                R.drawable.canvas_text_italic_style_ico,
                 canvasView
             )
             this + CanvasTextStyleItem(
                 itemRenderer,
                 PictureTextItem.TEXT_STYLE_UNDER_LINE,
-                R.drawable.text_under_line_style_ico,
+                R.drawable.canvas_text_under_line_style_ico,
                 canvasView
             )
             this + CanvasTextStyleItem(
                 itemRenderer,
                 PictureTextItem.TEXT_STYLE_DELETE_LINE,
-                R.drawable.text_delete_line_style_ico,
+                R.drawable.canvas_text_delete_line_style_ico,
                 canvasView
             )
 
@@ -414,7 +427,7 @@ class CanvasDemo : AppDslFragment() {
             }
 
             CanvasIconItem()() {
-                itemIco = R.drawable.text_style_standard_ico
+                itemIco = R.drawable.canvas_text_style_standard_ico
                 itemClick = {
                     if (itemRenderer is PictureItemRenderer) {
                         val renderItem = itemRenderer.rendererItem
@@ -425,7 +438,7 @@ class CanvasDemo : AppDslFragment() {
                 }
             }
             CanvasIconItem()() {
-                itemIco = R.drawable.text_style_vertical_ico
+                itemIco = R.drawable.canvas_text_style_vertical_ico
                 itemClick = {
                     if (itemRenderer is PictureItemRenderer) {
                         val renderItem = itemRenderer.rendererItem
@@ -436,7 +449,7 @@ class CanvasDemo : AppDslFragment() {
                 }
             }
             CanvasIconItem()() {
-                itemIco = R.drawable.text_style_align_left_ico
+                itemIco = R.drawable.canvas_text_style_align_left_ico
                 itemClick = {
                     if (itemRenderer is PictureItemRenderer) {
                         val renderItem = itemRenderer.rendererItem
@@ -447,7 +460,7 @@ class CanvasDemo : AppDslFragment() {
                 }
             }
             CanvasIconItem()() {
-                itemIco = R.drawable.text_style_align_center_ico
+                itemIco = R.drawable.canvas_text_style_align_center_ico
                 itemClick = {
                     if (itemRenderer is PictureItemRenderer) {
                         val renderItem = itemRenderer.rendererItem
@@ -458,7 +471,7 @@ class CanvasDemo : AppDslFragment() {
                 }
             }
             CanvasIconItem()() {
-                itemIco = R.drawable.text_style_align_right_ico
+                itemIco = R.drawable.canvas_text_style_align_right_ico
                 itemClick = {
                     if (itemRenderer is PictureItemRenderer) {
                         val renderItem = itemRenderer.rendererItem
@@ -569,61 +582,60 @@ class CanvasDemo : AppDslFragment() {
 
     /**显示形状选择布局*/
     fun showShapeSelectLayout(itemHolder: DslViewHolder, canvasView: CanvasView) {
-        val controlLayout = itemHolder.view(R.id.canvas_control_layout)
-        if (controlLayout.isVisible()) {
-            itemHolder.gone(R.id.canvas_control_layout)
-        } else {
-            itemHolder.visible(R.id.canvas_control_layout)
-
-            itemHolder.rv(R.id.canvas_control_view)?.initDslAdapter {
-                hookUpdateDepend()
-                render {
-                    ShapeLineItem(canvasView)()
-                    ShapeItem(canvasView)() {
-                        itemIco = R.drawable.shape_circle_ico
-                        itemText = "圆形"
-                        shapePath = null
-                    }
-                    ShapeItem(canvasView)() {
-                        itemIco = R.drawable.shape_triangle_ico
-                        itemText = "三角形"
-                        shapePath = null
-                    }
-                    ShapeItem(canvasView)() {
-                        itemIco = R.drawable.shape_square_ico
-                        itemText = "正方形"
-                        shapePath = ShapesHelper.squarePath()
-                    }
-                    ShapeItem(canvasView)() {
-                        itemIco = R.drawable.shape_pentagon_ico
-                        itemText = "五角形"
-                        shapePath = null
-                    }
-                    ShapeItem(canvasView)() {
-                        itemIco = R.drawable.shape_hexagon_ico
-                        itemText = "六角形"
-                        shapePath = null
-                    }
-                    ShapeItem(canvasView)() {
-                        itemIco = R.drawable.shape_octagon_ico
-                        itemText = "八角形"
-                        shapePath = null
-                    }
-                    ShapeItem(canvasView)() {
-                        itemIco = R.drawable.shape_rhombus_ico
-                        itemText = "菱形"
-                        shapePath = null
-                    }
-                    ShapeItem(canvasView)() {
-                        itemIco = R.drawable.shape_pentagram_ico
-                        itemText = "星星"
-                        shapePath = null
-                    }
-                    ShapeItem(canvasView)() {
-                        itemIco = R.drawable.shape_love_ico
-                        itemText = "心形"
-                        shapePath = null
-                    }
+        itemHolder.visible(R.id.canvas_control_layout)
+        itemHolder.rv(R.id.canvas_control_view)?.initDslAdapter {
+            hookUpdateDepend()
+            render {
+                ShapeLineItem(canvasView)()
+                ShapeItem(canvasView)() {
+                    itemIco = R.drawable.canvas_shape_line_ico
+                    itemText = "线条"
+                    shapePath = ShapesHelper.linePath()
+                }
+                ShapeItem(canvasView)() {
+                    itemIco = R.drawable.canvas_shape_circle_ico
+                    itemText = "圆形"
+                    shapePath = ShapesHelper.circlePath()
+                }
+                ShapeItem(canvasView)() {
+                    itemIco = R.drawable.canvas_shape_triangle_ico
+                    itemText = "三角形"
+                    shapePath = ShapesHelper.trianglePath()
+                }
+                ShapeItem(canvasView)() {
+                    itemIco = R.drawable.canvas_shape_square_ico
+                    itemText = "正方形"
+                    shapePath = ShapesHelper.squarePath()
+                }
+                ShapeItem(canvasView)() {
+                    itemIco = R.drawable.canvas_shape_pentagon_ico
+                    itemText = "五角形"
+                    shapePath = ShapesHelper.pentagonPath()
+                }
+                ShapeItem(canvasView)() {
+                    itemIco = R.drawable.canvas_shape_hexagon_ico
+                    itemText = "六角形"
+                    shapePath = ShapesHelper.hexagonPath()
+                }
+                ShapeItem(canvasView)() {
+                    itemIco = R.drawable.canvas_shape_octagon_ico
+                    itemText = "八角形"
+                    shapePath = ShapesHelper.octagonPath()
+                }
+                ShapeItem(canvasView)() {
+                    itemIco = R.drawable.canvas_shape_rhombus_ico
+                    itemText = "菱形"
+                    shapePath = ShapesHelper.rhombusPath()
+                }
+                ShapeItem(canvasView)() {
+                    itemIco = R.drawable.canvas_shape_pentagram_ico
+                    itemText = "星星"
+                    shapePath = ShapesHelper.pentagramPath()
+                }
+                ShapeItem(canvasView)() {
+                    itemIco = R.drawable.canvas_shape_love_ico
+                    itemText = "心形"
+                    shapePath = ShapesHelper.lovePath()
                 }
             }
         }
@@ -651,7 +663,7 @@ class CanvasDemo : AppDslFragment() {
                 itemText = "填充"
                 itemClick = {
                     if (itemRenderer is PictureItemRenderer) {
-                        itemRenderer.updatePaintStyle(Paint.Style.FILL)
+                        itemRenderer.updatePaintStyle(Paint.Style.FILL_AND_STROKE)
                     }
                 }
             }

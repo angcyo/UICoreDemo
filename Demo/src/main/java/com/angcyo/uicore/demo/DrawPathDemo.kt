@@ -36,8 +36,8 @@ class DrawPathDemo : AppDslFragment() {
                             if (value > 2) {
                                 drawPathView?.polygonPath = ShapesHelper.polygonPath(
                                     value,
-                                    drawPathView.mW() - 100f,
-                                    drawPathView.mH() - 100f
+                                    drawPathView.mW() / 2f,
+                                    drawPathView.mH() / 2f
                                 )
                                 drawPathView?.invalidate()
                             }

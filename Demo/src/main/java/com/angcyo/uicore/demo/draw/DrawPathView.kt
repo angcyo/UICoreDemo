@@ -13,10 +13,7 @@ import com.angcyo.canvas.utils._tempPoint
 import com.angcyo.canvas.utils.createPaint
 import com.angcyo.canvas.utils.mapPoint
 import com.angcyo.canvas.utils.mapRectF
-import com.angcyo.library.ex.ADJUST_TYPE_LT
-import com.angcyo.library.ex.adjustSize
-import com.angcyo.library.ex.disableParentInterceptTouchEvent
-import com.angcyo.library.ex.dp
+import com.angcyo.library.ex.*
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
@@ -314,7 +311,9 @@ class DrawPathView(context: Context, attributeSet: AttributeSet? = null) :
         test2(canvas)
 
         polygonPath?.let {
-            canvas.drawPath(it, paint)
+            canvas.withTranslation(mW() / 4f, mH() / 4f) {
+                canvas.drawPath(it, paint)
+            }
         }
     }
 

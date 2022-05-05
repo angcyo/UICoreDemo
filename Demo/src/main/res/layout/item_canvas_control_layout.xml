@@ -14,7 +14,7 @@
         android:layout_width="22dp"
         android:layout_height="22dp"
         android:scaleType="fitCenter"
-        tools:src="@drawable/add_text_ico" />
+        tools:src="@drawable/canvas_text_ico" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_view"

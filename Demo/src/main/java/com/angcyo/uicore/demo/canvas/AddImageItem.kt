@@ -18,7 +18,7 @@ class AddImageItem(val canvasView: CanvasView) : CanvasControlItem(), IFragmentI
     override var itemFragment: Fragment? = null
 
     init {
-        itemIco = R.drawable.add_image_ico
+        itemIco = R.drawable.canvas_image_ico
         itemText = "图片"
 
         itemClick = {

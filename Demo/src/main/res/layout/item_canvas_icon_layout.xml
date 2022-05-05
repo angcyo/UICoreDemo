@@ -10,6 +10,6 @@
         android:layout_height="40dp"
         android:padding="@dimen/lib_hdpi"
         android:scaleType="fitCenter"
-        tools:src="@drawable/text_bold_style_ico" />
+        tools:src="@drawable/canvas_text_bold_style_ico" />
 
 </FrameLayout>
