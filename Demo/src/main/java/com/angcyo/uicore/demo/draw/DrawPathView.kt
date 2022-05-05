@@ -29,6 +29,7 @@ class DrawPathView(context: Context, attributeSet: AttributeSet? = null) :
     val paint = createPaint().apply {
         strokeWidth = 1 * dp
     }
+    var polygonPath: Path? = null
 
     val drawRect = RectF()
     val drawRotateRect = RectF()
@@ -311,6 +312,10 @@ class DrawPathView(context: Context, attributeSet: AttributeSet? = null) :
 
         test1(canvas)
         test2(canvas)
+
+        polygonPath?.let {
+            canvas.drawPath(it, paint)
+        }
     }
 
     private fun test1(canvas: Canvas) {
