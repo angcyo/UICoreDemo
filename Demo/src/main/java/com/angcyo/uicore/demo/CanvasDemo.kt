@@ -325,6 +325,7 @@ class CanvasDemo : AppDslFragment() {
                 super.onDoubleTapItem(itemRenderer)
                 if (itemRenderer is TextItemRenderer) {
                     fContext().inputDialog {
+                        inputViewHeight = 100 * dpi
                         defaultInputString = itemRenderer.rendererItem?.text
                         onInputResult = { dialog, inputText ->
                             if (inputText.isNotEmpty()) {
@@ -335,6 +336,7 @@ class CanvasDemo : AppDslFragment() {
                     }
                 } else if (itemRenderer is PictureTextItemRenderer) {
                     fContext().inputDialog {
+                        inputViewHeight = 100 * dpi
                         defaultInputString = itemRenderer.rendererItem?.text
                         onInputResult = { dialog, inputText ->
                             if (inputText.isNotEmpty()) {
@@ -355,6 +357,7 @@ class CanvasDemo : AppDslFragment() {
                     val renderItem = itemRenderer.rendererItem
                     if (renderItem is PictureTextItem) {
                         fContext().inputDialog {
+                            inputViewHeight = 100 * dpi
                             defaultInputString = renderItem.text
                             onInputResult = { dialog, inputText ->
                                 if (inputText.isNotEmpty()) {

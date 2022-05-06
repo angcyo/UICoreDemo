@@ -5,6 +5,7 @@ import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.utils.addPictureTextRender
 import com.angcyo.core.dslitem.IFragmentItem
 import com.angcyo.dialog.inputDialog
+import com.angcyo.library.ex.dpi
 import com.angcyo.uicore.demo.R
 
 /**
@@ -21,6 +22,7 @@ class AddTextItem(val canvasView: CanvasView) : CanvasControlItem(), IFragmentIt
 
         itemClick = {
             itemFragment?.context?.inputDialog {
+                inputViewHeight = 100 * dpi
                 onInputResult = { dialog, inputText ->
                     if (inputText.isNotEmpty()) {
                         //canvasView.addTextRenderer("$inputText")
