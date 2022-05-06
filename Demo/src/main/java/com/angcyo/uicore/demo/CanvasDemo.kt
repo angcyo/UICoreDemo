@@ -6,6 +6,7 @@ import android.graphics.RectF
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.text.InputType
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.canvas.CanvasView
@@ -14,6 +15,7 @@ import com.angcyo.canvas.core.CanvasUndoManager
 import com.angcyo.canvas.core.ICanvasListener
 import com.angcyo.canvas.core.InchValueUnit
 import com.angcyo.canvas.core.MmValueUnit
+import com.angcyo.canvas.items.PictureBitmapItem
 import com.angcyo.canvas.items.PictureShapeItem
 import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.*
@@ -26,6 +28,8 @@ import com.angcyo.gcode.GCodeHelper
 import com.angcyo.library.ex.*
 import com.angcyo.library.model.loadPath
 import com.angcyo.picker.dslSinglePickerImage
+import com.angcyo.qrcode.createBarCode
+import com.angcyo.qrcode.createQRCode
 import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
@@ -279,6 +283,47 @@ class CanvasDemo : AppDslFragment() {
                 AddDoodleItem()() {
                     itemEnable = false
                 }
+                CanvasControlItem()() {
+                    itemIco = R.drawable.canvas_barcode_ico
+                    itemText = "条形码"
+                    itemClick = {
+                        fContext().inputDialog {
+                            dialogTitle = "条形码内容"
+                            inputType = InputType.TYPE_CLASS_NUMBER
+                            onInputResult = { dialog, inputText ->
+                                if (inputText.isNotEmpty()) {
+                                    inputText.createBarCode()?.let {
+                                        canvasView?.addPictureBitmapRenderer(it)?.apply {
+                                            tag = "barcode"
+                                            data = inputText
+                                        }
+                                    }
+                                }
+                                false
+                            }
+                        }
+                    }
+                }
+                CanvasControlItem()() {
+                    itemIco = R.drawable.canvas_qrcode_ico
+                    itemText = "二维码"
+                    itemClick = {
+                        fContext().inputDialog {
+                            dialogTitle = "二维码内容"
+                            onInputResult = { dialog, inputText ->
+                                if (inputText.isNotEmpty()) {
+                                    inputText.createQRCode()?.let {
+                                        canvasView?.addPictureBitmapRenderer(it)?.apply {
+                                            tag = "qrcode"
+                                            data = inputText
+                                        }
+                                    }
+                                }
+                                false
+                            }
+                        }
+                    }
+                }
 
                 CanvasControlItem()() {
                     itemIco = R.drawable.canvas_edit_ico
@@ -365,6 +410,41 @@ class CanvasDemo : AppDslFragment() {
                                 }
                                 false
                             }
+                        }
+                    } else if (renderItem is PictureBitmapItem) {
+                        if (renderItem.tag == "barcode") {
+                            //条形码
+                            fContext().inputDialog {
+                                dialogTitle = "条形码内容"
+                                inputType = InputType.TYPE_CLASS_NUMBER
+                                //defaultInputString = renderItem.data as CharSequence?
+                                onInputResult = { dialog, inputText ->
+                                    if (inputText.isNotEmpty()) {
+                                        inputText.createBarCode()?.let {
+                                            renderItem.data = inputText
+                                            itemRenderer.updateItemBitmap(it)
+                                        }
+                                    }
+                                    false
+                                }
+                            }
+                        } else if (renderItem.tag == "qrcode") {
+                            //二维码
+                            fContext().inputDialog {
+                                dialogTitle = "二维码内容"
+                                //defaultInputString = renderItem.data as CharSequence?
+                                onInputResult = { dialog, inputText ->
+                                    if (inputText.isNotEmpty()) {
+                                        inputText.createQRCode()?.let {
+                                            renderItem.data = inputText
+                                            itemRenderer.updateItemBitmap(it)
+                                        }
+                                    }
+                                    false
+                                }
+                            }
+                        } else {
+                            //图片
                         }
                     }
                 }
