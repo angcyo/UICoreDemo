@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.canvas.CanvasView
+import com.angcyo.canvas.Strategy
+import com.angcyo.canvas.core.CanvasUndoManager
 import com.angcyo.canvas.core.ICanvasListener
 import com.angcyo.canvas.core.InchValueUnit
 import com.angcyo.canvas.core.MmValueUnit
@@ -131,7 +133,7 @@ class CanvasDemo : AppDslFragment() {
                         val renderer = ShapeItemRenderer(canvasViewBox).apply {
                             addRect(limitRect)
                         }
-                        addItemRenderer(renderer)
+                        addItemRenderer(renderer, Strategy(Strategy.STRATEGY_TYPE_NORMAL))
                         showRectBounds(limitRect)
                     }
                 }
@@ -241,7 +243,12 @@ class CanvasDemo : AppDslFragment() {
         fContext(), fContext().readAssets(gCodeNameList.randomGetOnce()!!)!!
     )
 
+    // region =====
+
     var _selectedCanvasItem: DslAdapterItem? = null
+
+    var _undoCanvasItem: CanvasControlItem? = null
+    var _redoCanvasItem: CanvasControlItem? = null
 
     /**Canvas控制*/
     fun bindCanvasRecyclerView(itemHolder: DslViewHolder, adapterItem: DslAdapterItem) {
@@ -254,6 +261,7 @@ class CanvasDemo : AppDslFragment() {
                 CanvasControlItem()() {
                     itemIco = R.drawable.canvas_material_ico
                     itemText = "素材"
+                    itemEnable = false
                 }
 
                 AddTextItem(canvasView!!)()
@@ -268,27 +276,44 @@ class CanvasDemo : AppDslFragment() {
                         }
                     }
                 }
-                AddDoodleItem()()
+                AddDoodleItem()() {
+                    itemEnable = false
+                }
 
                 CanvasControlItem()() {
                     itemIco = R.drawable.canvas_edit_ico
                     itemText = "编辑"
+                    itemEnable = false
                 }
                 CanvasControlItem()() {
                     itemIco = R.drawable.canvas_layer_ico
                     itemText = "图层"
+                    itemEnable = false
                 }
                 CanvasControlItem()() {
                     itemIco = R.drawable.canvas_undo_ico
                     itemText = "撤销"
+                    itemEnable = false
+
+                    _undoCanvasItem = this
+                    itemClick = {
+                        canvasView?.getCanvasUndoManager()?.undo()
+                    }
                 }
                 CanvasControlItem()() {
                     itemIco = R.drawable.canvas_redo_ico
                     itemText = "重做"
+                    itemEnable = false
+
+                    _redoCanvasItem = this
+                    itemClick = {
+                        canvasView?.getCanvasUndoManager()?.redo()
+                    }
                 }
                 CanvasControlItem()() {
                     itemIco = R.drawable.canvas_setting_ico
                     itemText = "设置"
+                    itemEnable = false
                 }
             }
         }
@@ -375,6 +400,20 @@ class CanvasDemo : AppDslFragment() {
                     }
                 } else {
                     itemHolder.goneControlLayout()
+                }
+            }
+
+            override fun onCanvasUndoChanged(undoManager: CanvasUndoManager) {
+                super.onCanvasUndoChanged(undoManager)
+                _undoCanvasItem?.apply {
+                    itemEnable = undoManager.canUndo()
+                    itemTextSuperscript = "${undoManager.undoStack.size()}"
+                    updateAdapterItem()
+                }
+                _redoCanvasItem?.apply {
+                    itemEnable = undoManager.canRedo()
+                    itemTextSuperscript = "${undoManager.redoStack.size()}"
+                    updateAdapterItem()
                 }
             }
         })
