@@ -20,7 +20,11 @@ import com.angcyo.canvas.items.PictureShapeItem
 import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.*
 import com.angcyo.canvas.utils.*
+import com.angcyo.coroutine.withBlock
+import com.angcyo.dialog.hideLoading
 import com.angcyo.dialog.inputDialog
+import com.angcyo.dialog.loading
+import com.angcyo.drawable.loading.TGStrokeLoadingDrawable
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
@@ -254,6 +258,32 @@ class CanvasDemo : AppDslFragment() {
 
     var _undoCanvasItem: CanvasControlItem? = null
     var _redoCanvasItem: CanvasControlItem? = null
+
+    /**异步加载*/
+    fun <T> loadingAsync(block: () -> T?, action: (T?) -> Unit) {
+        launchLifecycle {
+            loading(layoutId = R.layout.canvas_loading_layout, config = {
+                cancelable = false
+                onDialogInitListener = { dialog, dialogViewHolder ->
+                    val loadingDrawable = TGStrokeLoadingDrawable().apply {
+                        loadingOffset = 6 * dp
+                        loadingWidth = 6 * dp
+                        indeterminateSweepAngle = 1f
+                        loadingBgColor = "#ffffff".toColorInt()
+                        loadingColor = loadingBgColor
+                    }
+                    dialogViewHolder.view(R.id.lib_loading_view)?.setBgDrawable(loadingDrawable)
+                }
+            }) { dialog ->
+                //cancel
+            }
+
+            val result = withBlock { block() }
+
+            hideLoading()
+            action(result)
+        }
+    }
 
     /**Canvas控制*/
     fun bindCanvasRecyclerView(itemHolder: DslViewHolder, adapterItem: DslAdapterItem) {
@@ -811,8 +841,12 @@ class CanvasDemo : AppDslFragment() {
                 itemTintColor = false
                 itemClick = {
                     if (itemRenderer is BitmapItemRenderer) {
-                        itemRenderer.rendererItem?.bitmap?.let { bitmap ->
-                            OpenCV.bitmapToPrint(fContext(), bitmap)?.let {
+                        loadingAsync({
+                            itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                                OpenCV.bitmapToPrint(fContext(), bitmap)
+                            }
+                        }) {
+                            it?.let {
                                 itemRenderer.updateBitmap(it, true)
                             }
                         }
@@ -825,15 +859,18 @@ class CanvasDemo : AppDslFragment() {
                 itemTintColor = false
                 itemClick = {
                     if (itemRenderer is BitmapItemRenderer) {
-                        itemRenderer.rendererItem?.bitmap?.let { bitmap ->
-                            OpenCV.bitmapToGCode(fContext(), bitmap).let {
-                                itemRenderer.updateBitmap(
+                        loadingAsync({
+                            itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                                OpenCV.bitmapToGCode(fContext(), bitmap).let {
                                     GCodeHelper.parseGCode(
                                         requireContext(),
                                         it.readText().toString()
-                                    ).toBitmap(),
-                                    true
-                                )
+                                    ).toBitmap()
+                                }
+                            }
+                        }) {
+                            it?.let {
+                                itemRenderer.updateBitmap(it, true)
                             }
                         }
                     }
@@ -845,8 +882,12 @@ class CanvasDemo : AppDslFragment() {
                 itemTintColor = false
                 itemClick = {
                     if (itemRenderer is BitmapItemRenderer) {
-                        itemRenderer.rendererItem?.bitmap?.let { bitmap ->
-                            OpenCV.bitmapToBlackWhite(bitmap).let {
+                        loadingAsync({
+                            itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                                OpenCV.bitmapToBlackWhite(bitmap)
+                            }
+                        }) {
+                            it?.let {
                                 itemRenderer.updateBitmap(it, true)
                             }
                         }
@@ -859,8 +900,12 @@ class CanvasDemo : AppDslFragment() {
                 itemTintColor = false
                 itemClick = {
                     if (itemRenderer is BitmapItemRenderer) {
-                        itemRenderer.rendererItem?.bitmap?.let { bitmap ->
-                            OpenCV.bitmapToDithering(fContext(), bitmap)?.let {
+                        loadingAsync({
+                            itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                                OpenCV.bitmapToDithering(fContext(), bitmap)
+                            }
+                        }) {
+                            it?.let {
                                 itemRenderer.updateBitmap(it, true)
                             }
                         }
@@ -873,8 +918,12 @@ class CanvasDemo : AppDslFragment() {
                 itemTintColor = false
                 itemClick = {
                     if (itemRenderer is BitmapItemRenderer) {
-                        itemRenderer.rendererItem?.bitmap?.let { bitmap ->
-                            OpenCV.bitmapToGrey(bitmap).let {
+                        loadingAsync({
+                            itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                                OpenCV.bitmapToGrey(bitmap)
+                            }
+                        }) {
+                            it?.let {
                                 itemRenderer.updateBitmap(it, true)
                             }
                         }
@@ -887,8 +936,12 @@ class CanvasDemo : AppDslFragment() {
                 itemTintColor = false
                 itemClick = {
                     if (itemRenderer is BitmapItemRenderer) {
-                        itemRenderer.rendererItem?.bitmap?.let { bitmap ->
-                            OpenCV.bitmapToSeal(fContext(), bitmap)?.let {
+                        loadingAsync({
+                            itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                                OpenCV.bitmapToSeal(fContext(), bitmap)
+                            }
+                        }) {
+                            it?.let {
                                 itemRenderer.updateBitmap(it, true)
                             }
                         }
@@ -901,8 +954,12 @@ class CanvasDemo : AppDslFragment() {
                 itemTintColor = false
                 itemClick = {
                     if (itemRenderer is BitmapItemRenderer) {
-                        itemRenderer.rendererItem?.bitmap?.let { bitmap ->
-                            OpenCV.bitmapToBlackWhite(bitmap, 240, 1).let {
+                        loadingAsync({
+                            itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                                OpenCV.bitmapToBlackWhite(bitmap, 240, 1)
+                            }
+                        }) {
+                            it?.let {
                                 itemRenderer.updateBitmap(it, true)
                             }
                         }
