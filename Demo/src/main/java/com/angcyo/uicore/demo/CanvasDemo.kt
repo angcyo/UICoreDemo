@@ -27,6 +27,7 @@ import com.angcyo.dsladapter.bindItem
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.library.ex.*
 import com.angcyo.library.model.loadPath
+import com.angcyo.opencv.OpenCV
 import com.angcyo.picker.dslSinglePickerImage
 import com.angcyo.qrcode.createBarCode
 import com.angcyo.qrcode.createQRCode
@@ -481,6 +482,10 @@ class CanvasDemo : AppDslFragment() {
                     } else {
                         itemHolder.goneControlLayout()
                     }
+                } else if (itemRenderer is BitmapItemRenderer) {
+                    itemHolder.rv(R.id.canvas_control_view)?.initDslAdapter {
+                        showBitmapControlItem(itemHolder, canvasView, itemRenderer)
+                    }
                 } else {
                     itemHolder.goneControlLayout()
                 }
@@ -507,7 +512,7 @@ class CanvasDemo : AppDslFragment() {
         _selectedCanvasItem = null
     }
 
-    /**文本控制item*/
+    /**文本属性控制item*/
     fun DslAdapter.showTextControlItem(
         itemHolder: DslViewHolder,
         canvasView: CanvasView,
@@ -763,7 +768,7 @@ class CanvasDemo : AppDslFragment() {
         }
     }
 
-    /**形状控制item*/
+    /**形状属性控制item*/
     fun DslAdapter.showShapeControlItem(
         itemHolder: DslViewHolder,
         canvasView: CanvasView,
@@ -786,6 +791,121 @@ class CanvasDemo : AppDslFragment() {
                 itemClick = {
                     if (itemRenderer is PictureItemRenderer) {
                         itemRenderer.updatePaintStyle(Paint.Style.FILL_AND_STROKE)
+                    }
+                }
+            }
+        }
+    }
+
+    /**图片属性控制item*/
+    fun DslAdapter.showBitmapControlItem(
+        itemHolder: DslViewHolder,
+        canvasView: CanvasView,
+        itemRenderer: IItemRenderer<*>
+    ) {
+        hookUpdateDepend()
+        render {
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_bitmap_prints
+                itemText = "版画"
+                itemTintColor = false
+                itemClick = {
+                    if (itemRenderer is BitmapItemRenderer) {
+                        itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                            OpenCV.bitmapToPrint(fContext(), bitmap)?.let {
+                                itemRenderer.updateBitmap(it, true)
+                            }
+                        }
+                    }
+                }
+            }
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_bitmap_gcode
+                itemText = "GCode"
+                itemTintColor = false
+                itemClick = {
+                    if (itemRenderer is BitmapItemRenderer) {
+                        itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                            OpenCV.bitmapToGCode(fContext(), bitmap).let {
+                                itemRenderer.updateBitmap(
+                                    GCodeHelper.parseGCode(
+                                        requireContext(),
+                                        it.readText().toString()
+                                    ).toBitmap(),
+                                    true
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_bitmap_black_white
+                itemText = "黑白画"
+                itemTintColor = false
+                itemClick = {
+                    if (itemRenderer is BitmapItemRenderer) {
+                        itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                            OpenCV.bitmapToBlackWhite(bitmap).let {
+                                itemRenderer.updateBitmap(it, true)
+                            }
+                        }
+                    }
+                }
+            }
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_bitmap_dithering
+                itemText = "抖动"
+                itemTintColor = false
+                itemClick = {
+                    if (itemRenderer is BitmapItemRenderer) {
+                        itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                            OpenCV.bitmapToDithering(fContext(), bitmap)?.let {
+                                itemRenderer.updateBitmap(it, true)
+                            }
+                        }
+                    }
+                }
+            }
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_bitmap_grey
+                itemText = "灰度"
+                itemTintColor = false
+                itemClick = {
+                    if (itemRenderer is BitmapItemRenderer) {
+                        itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                            OpenCV.bitmapToGrey(bitmap).let {
+                                itemRenderer.updateBitmap(it, true)
+                            }
+                        }
+                    }
+                }
+            }
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_bitmap_seal
+                itemText = "印章"
+                itemTintColor = false
+                itemClick = {
+                    if (itemRenderer is BitmapItemRenderer) {
+                        itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                            OpenCV.bitmapToSeal(fContext(), bitmap)?.let {
+                                itemRenderer.updateBitmap(it, true)
+                            }
+                        }
+                    }
+                }
+            }
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_bitmap_invert
+                itemText = "反色"
+                itemTintColor = false
+                itemClick = {
+                    if (itemRenderer is BitmapItemRenderer) {
+                        itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                            OpenCV.bitmapToBlackWhite(bitmap, 240, 1).let {
+                                itemRenderer.updateBitmap(it, true)
+                            }
+                        }
                     }
                 }
             }

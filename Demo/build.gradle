@@ -98,6 +98,8 @@ dependencies {
     //http://airbnb.io/lottie/#/android
     //https://lottiefiles.com/
     implementation 'com.airbnb.android:lottie:4.2.2'
+
+    implementation 'com.angcyo:opencv:hingin-SNAPSHOT'
 }
 
 static def apkTime() {

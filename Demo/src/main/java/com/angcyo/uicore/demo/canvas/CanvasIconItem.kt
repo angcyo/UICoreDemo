@@ -21,6 +21,9 @@ open class CanvasIconItem : DslAdapterItem() {
     @DrawableRes
     var itemIco: Int = 0
 
+    /**图标是否要着色*/
+    var itemTintColor: Boolean = true
+
     /**图标的颜色*/
     @ColorInt
     var itemIcoColor: Int = "#363d4b".toColorInt()
@@ -55,7 +58,13 @@ open class CanvasIconItem : DslAdapterItem() {
         payloads: List<Any>
     ) {
         super.onItemBind(itemHolder, itemPosition, adapterItem, payloads)
-        val drawable = _drawable(itemIco).color(itemColor)
+        val drawable = _drawable(itemIco)?.run {
+            if (itemTintColor) {
+                color(itemColor)
+            } else {
+                this
+            }
+        }
         itemHolder.img(R.id.image_view)?.setImageDrawable(drawable)
     }
 

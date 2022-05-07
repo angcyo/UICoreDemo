@@ -68,6 +68,14 @@ allprojects {
 
         maven { url 'https://jitpack.io' }
 
+        //angcyo
+        //maven { url "https://gitee.com/angcyo/maven/raw/master" }
+        //maven { url "https://codechina.csdn.net/angcyo/maven/-/raw/master" }
+        //maven { url "https://gitlab.com/angcyo/maven/-/raw/master" }
+        //maven { url file('E:/AndroidProjects/maven') }
+        //maven { url "https://gitcode.net/angcyo/maven/-/raw/master" }
+        maven { url "https://gitcode.net/angcyo/maven/-/raw/hingin" }
+
         //bmob
         //maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
         //maven { url "https://gitee.com/angcyo/bmob-android-sdk/raw/master" }
@@ -82,12 +90,6 @@ allprojects {
         //huawei
         maven { url 'https://developer.huawei.com/repo/' }
 
-        //angcyo
-        maven { url "https://gitee.com/angcyo/maven/raw/master" }
-        maven { url "https://codechina.csdn.net/angcyo/maven/-/raw/master" }
-        maven { url "https://gitlab.com/angcyo/maven/-/raw/master" }
-        //maven { url file('E:/AndroidProjects/maven') }
-
         //RePlugin https://github.com/Qihoo360/RePlugin/
         maven {
             url "http://maven.geelib.360.cn/nexus/service/rest/repository/browse/replugin/"
@@ -101,4 +103,28 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+//./gradlew build --refresh-dependencies
+/*
+project.configurations.all {
+    // check for updates every build
+    resolutionStrategy {
+        cacheChangingModulesFor 0, 'seconds'
+    }
+}
+*/
+
+//https://docs.gradle.org/current/userguide/dynamic_versions.html
+
+allprojects {
+    configurations.all {
+        resolutionStrategy {
+            cacheChangingModulesFor 0, 'seconds'
+            cacheDynamicVersionsFor 0, 'seconds'
+        }
+    }
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    }
 }
