@@ -62,7 +62,7 @@ class CanvasDemo : AppDslFragment() {
 
                 //switch_origin_button
                 itemHolder.click(R.id.switch_origin_button) {
-                    canvasView?.apply {
+                    canvasView?.canvasDelegate?.apply {
                         val left = getCanvasViewBox().getContentLeft()
                         val top = getCanvasViewBox().getContentTop()
 
@@ -106,7 +106,7 @@ class CanvasDemo : AppDslFragment() {
                     }
                 }
                 itemHolder.click(R.id.switch_unit_button) {
-                    canvasView?.apply {
+                    canvasView?.canvasDelegate?.apply {
                         getCanvasViewBox().updateCoordinateSystemUnit(
                             if (getCanvasViewBox().valueUnit is MmValueUnit) {
                                 InchValueUnit()
@@ -117,7 +117,7 @@ class CanvasDemo : AppDslFragment() {
                     }
                 }
                 itemHolder.click(R.id.bounds_button) {
-                    canvasView?.apply {
+                    canvasView?.canvasDelegate?.apply {
                         val unit = MmValueUnit()
                         val limitRect = when {
                             CLICK_COUNT++ % 3 == 2 -> RectF(
@@ -147,7 +147,7 @@ class CanvasDemo : AppDslFragment() {
                     }
                 }
                 itemHolder.click(R.id.smart_button) {
-                    canvasView?.apply {
+                    canvasView?.canvasDelegate?.apply {
                         smartAssistant.enable = !smartAssistant.enable
                         if (smartAssistant.enable) {
                             longFeedback()
@@ -156,24 +156,24 @@ class CanvasDemo : AppDslFragment() {
                 }
 
                 itemHolder.click(R.id.translate_x_minus_button) {
-                    canvasView?.getCanvasViewBox()?.translateBy(-100f, 0f)
+                    canvasView?.canvasDelegate?.getCanvasViewBox()?.translateBy(-100f, 0f)
                 }
                 itemHolder.click(R.id.translate_x_plus_button) {
-                    canvasView?.getCanvasViewBox()?.translateBy(100f, 0f)
+                    canvasView?.canvasDelegate?.getCanvasViewBox()?.translateBy(100f, 0f)
                 }
                 itemHolder.click(R.id.translate_y_minus_button) {
-                    canvasView?.getCanvasViewBox()?.translateBy(0f, -100f)
+                    canvasView?.canvasDelegate?.getCanvasViewBox()?.translateBy(0f, -100f)
                 }
                 itemHolder.click(R.id.translate_y_plus_button) {
-                    canvasView?.getCanvasViewBox()?.translateBy(0f, 100f)
+                    canvasView?.canvasDelegate?.getCanvasViewBox()?.translateBy(0f, 100f)
                 }
                 //放大
                 itemHolder.click(R.id.scale_in_button) {
-                    canvasView?.getCanvasViewBox()?.scaleBy(1.2f, 1.2f)
+                    canvasView?.canvasDelegate?.getCanvasViewBox()?.scaleBy(1.2f, 1.2f)
                 }
                 //缩小
                 itemHolder.click(R.id.scale_out_button) {
-                    canvasView?.getCanvasViewBox()?.scaleBy(.8f, .8f)
+                    canvasView?.canvasDelegate?.getCanvasViewBox()?.scaleBy(.8f, .8f)
                 }
                 //add
                 itemHolder.click(R.id.add_text) {
@@ -216,7 +216,7 @@ class CanvasDemo : AppDslFragment() {
                 itemHolder.click(R.id.preview_button) {
                     render {
                         PreviewBitmapItem()() {
-                            canvasView?.let {
+                            canvasView?.canvasDelegate?.let {
                                 bitmap = it.getBitmap()
                             }
                         }
@@ -225,7 +225,7 @@ class CanvasDemo : AppDslFragment() {
                 itemHolder.click(R.id.preview_rect_button) {
                     render {
                         PreviewBitmapItem()() {
-                            canvasView?.let {
+                            canvasView?.canvasDelegate?.let {
                                 val left = it.getCanvasViewBox().valueUnit.convertValueToPixel(-10f)
                                 val top = it.getCanvasViewBox().valueUnit.convertValueToPixel(-10f)
                                 val width = it.getCanvasViewBox().valueUnit.convertValueToPixel(20f)
@@ -374,7 +374,7 @@ class CanvasDemo : AppDslFragment() {
 
                     _undoCanvasItem = this
                     itemClick = {
-                        canvasView?.getCanvasUndoManager()?.undo()
+                        canvasView?.canvasDelegate?.getCanvasUndoManager()?.undo()
                     }
                 }
                 CanvasControlItem()() {
@@ -384,7 +384,7 @@ class CanvasDemo : AppDslFragment() {
 
                     _redoCanvasItem = this
                     itemClick = {
-                        canvasView?.getCanvasUndoManager()?.redo()
+                        canvasView?.canvasDelegate?.getCanvasUndoManager()?.redo()
                     }
                 }
                 CanvasControlItem()() {
@@ -396,7 +396,7 @@ class CanvasDemo : AppDslFragment() {
         }
 
         //事件监听
-        canvasView?.canvasListenerList?.add(object : ICanvasListener {
+        canvasView?.canvasDelegate?.canvasListenerList?.add(object : ICanvasListener {
 
             override fun onDoubleTapItem(itemRenderer: IItemRenderer<*>) {
                 super.onDoubleTapItem(itemRenderer)
