@@ -63,15 +63,15 @@ class CanvasDemo : AppDslFragment() {
                 //switch_origin_button
                 itemHolder.click(R.id.switch_origin_button) {
                     canvasView?.apply {
-                        val left = canvasViewBox.getContentLeft()
-                        val top = canvasViewBox.getContentTop()
+                        val left = getCanvasViewBox().getContentLeft()
+                        val top = getCanvasViewBox().getContentTop()
 
-                        val centerX = canvasViewBox.getContentCenterX()
-                        val centerY = canvasViewBox.getContentCenterY()
+                        val centerX = getCanvasViewBox().getContentCenterX()
+                        val centerY = getCanvasViewBox().getContentCenterY()
 
                         //更新坐标系
-                        if (canvasViewBox.coordinateSystemOriginPoint.x == left) {
-                            canvasViewBox.updateCoordinateSystemOriginPoint(centerX, centerY)
+                        if (getCanvasViewBox().coordinateSystemOriginPoint.x == left) {
+                            getCanvasViewBox().updateCoordinateSystemOriginPoint(centerX, centerY)
 
                             val unit = MmValueUnit()
                             val limitRect = RectF(
@@ -87,7 +87,7 @@ class CanvasDemo : AppDslFragment() {
 
                             showRectBounds(limitRect)
                         } else {
-                            canvasViewBox.updateCoordinateSystemOriginPoint(left, top)
+                            getCanvasViewBox().updateCoordinateSystemOriginPoint(left, top)
 
                             val unit = MmValueUnit()
                             val limitRect = RectF(
@@ -107,8 +107,8 @@ class CanvasDemo : AppDslFragment() {
                 }
                 itemHolder.click(R.id.switch_unit_button) {
                     canvasView?.apply {
-                        canvasViewBox.updateCoordinateSystemUnit(
-                            if (canvasViewBox.valueUnit is MmValueUnit) {
+                        getCanvasViewBox().updateCoordinateSystemUnit(
+                            if (getCanvasViewBox().valueUnit is MmValueUnit) {
                                 InchValueUnit()
                             } else {
                                 MmValueUnit()
@@ -139,7 +139,7 @@ class CanvasDemo : AppDslFragment() {
                                 unit.convertValueToPixel(30f)
                             )
                         }
-                        val renderer = ShapeItemRenderer(canvasViewBox).apply {
+                        val renderer = ShapeItemRenderer(this).apply {
                             addRect(limitRect)
                         }
                         addItemRenderer(renderer, Strategy(Strategy.STRATEGY_TYPE_NORMAL))
@@ -156,24 +156,24 @@ class CanvasDemo : AppDslFragment() {
                 }
 
                 itemHolder.click(R.id.translate_x_minus_button) {
-                    canvasView?.canvasViewBox?.translateBy(-100f, 0f)
+                    canvasView?.getCanvasViewBox()?.translateBy(-100f, 0f)
                 }
                 itemHolder.click(R.id.translate_x_plus_button) {
-                    canvasView?.canvasViewBox?.translateBy(100f, 0f)
+                    canvasView?.getCanvasViewBox()?.translateBy(100f, 0f)
                 }
                 itemHolder.click(R.id.translate_y_minus_button) {
-                    canvasView?.canvasViewBox?.translateBy(0f, -100f)
+                    canvasView?.getCanvasViewBox()?.translateBy(0f, -100f)
                 }
                 itemHolder.click(R.id.translate_y_plus_button) {
-                    canvasView?.canvasViewBox?.translateBy(0f, 100f)
+                    canvasView?.getCanvasViewBox()?.translateBy(0f, 100f)
                 }
                 //放大
                 itemHolder.click(R.id.scale_in_button) {
-                    canvasView?.canvasViewBox?.scaleBy(1.2f, 1.2f)
+                    canvasView?.getCanvasViewBox()?.scaleBy(1.2f, 1.2f)
                 }
                 //缩小
                 itemHolder.click(R.id.scale_out_button) {
-                    canvasView?.canvasViewBox?.scaleBy(.8f, .8f)
+                    canvasView?.getCanvasViewBox()?.scaleBy(.8f, .8f)
                 }
                 //add
                 itemHolder.click(R.id.add_text) {
@@ -226,10 +226,11 @@ class CanvasDemo : AppDslFragment() {
                     render {
                         PreviewBitmapItem()() {
                             canvasView?.let {
-                                val left = it.canvasViewBox.valueUnit.convertValueToPixel(-10f)
-                                val top = it.canvasViewBox.valueUnit.convertValueToPixel(-10f)
-                                val width = it.canvasViewBox.valueUnit.convertValueToPixel(20f)
-                                val height = it.canvasViewBox.valueUnit.convertValueToPixel(20f)
+                                val left = it.getCanvasViewBox().valueUnit.convertValueToPixel(-10f)
+                                val top = it.getCanvasViewBox().valueUnit.convertValueToPixel(-10f)
+                                val width = it.getCanvasViewBox().valueUnit.convertValueToPixel(20f)
+                                val height =
+                                    it.getCanvasViewBox().valueUnit.convertValueToPixel(20f)
                                 bitmap = it.getBitmap(left, top, width, height)
                             }
                         }
