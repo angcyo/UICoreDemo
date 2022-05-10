@@ -18,6 +18,7 @@ import com.angcyo.widget.base.clickIt
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
  * @since 2022/04/18
  */
+@Deprecated("废弃")
 class TextSolidStyleItem(
     val renderer: IItemRenderer<*>,
     val canvasView: CanvasView

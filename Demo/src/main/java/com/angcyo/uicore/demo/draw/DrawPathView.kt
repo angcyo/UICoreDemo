@@ -315,6 +315,8 @@ class DrawPathView(context: Context, attributeSet: AttributeSet? = null) :
                 canvas.drawPath(it, paint)
             }
         }
+
+        testShader(canvas)
     }
 
     private fun test1(canvas: Canvas) {
@@ -433,5 +435,9 @@ class DrawPathView(context: Context, attributeSet: AttributeSet? = null) :
         result.y = p2y - p1y
 
         return result
+    }
+
+    fun testShader(canvas: Canvas) {
+
     }
 }

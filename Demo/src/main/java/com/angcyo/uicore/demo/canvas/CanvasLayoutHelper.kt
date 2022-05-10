@@ -1,11 +1,13 @@
 package com.angcyo.uicore.demo.canvas
 
 import android.graphics.Paint
+import android.graphics.RectF
 import android.graphics.Typeface
 import android.text.InputType
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.angcyo.canvas.CanvasView
+import com.angcyo.canvas.Reason
 import com.angcyo.canvas.core.CanvasUndoManager
 import com.angcyo.canvas.core.ICanvasListener
 import com.angcyo.canvas.core.IRenderer
@@ -309,6 +311,11 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 updateLayerLayout(vh)
             }
 
+            override fun onItemBoundsChanged(item: IRenderer, reason: Reason, oldBounds: RectF) {
+                super.onItemBoundsChanged(item, reason, oldBounds)
+                updateControlLayout(vh)
+            }
+
             override fun onClearSelectItem(itemRenderer: IItemRenderer<*>) {
                 super.onClearSelectItem(itemRenderer)
                 vh.goneControlLayout()
@@ -325,7 +332,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 if (itemRenderer is TextItemRenderer || itemRenderer is PictureTextItemRenderer) {
                     //选中TextItemRenderer时的控制菜单
                     vh.rv(R.id.canvas_control_view)?.initDslAdapter {
-                        showTextControlItem(vh, canvasView, itemRenderer)
+                        showTextControlItemOld(vh, canvasView, itemRenderer)
                     }
                 } else if (itemRenderer is PictureItemRenderer) {
                     val renderItem = itemRenderer._rendererItem
@@ -435,8 +442,15 @@ class CanvasLayoutHelper(val fragment: Fragment) {
 
     //<editor-fold desc="文本属性控制">
 
+    /**更新文本样式和其他控制布局*/
+    fun updateControlLayout(vh: DslViewHolder) {
+        if (vh.isVisible(R.id.canvas_control_layout)) {
+            vh.rv(R.id.canvas_control_view)?._dslAdapter?.updateAllItem()
+        }
+    }
+
     /**文本属性控制item*/
-    fun DslAdapter.showTextControlItem(
+    fun DslAdapter.showTextControlItemOld(
         vh: DslViewHolder,
         canvasView: CanvasView,
         itemRenderer: IItemRenderer<*>
@@ -531,6 +545,101 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                     }
                 }
             }
+        }
+    }
+
+    /**统一样式的item*/
+    fun DslAdapter.showTextControlItem(
+        vh: DslViewHolder,
+        canvasView: CanvasView,
+        renderer: IItemRenderer<*>
+    ) {
+        hookUpdateDepend()
+        render {
+            TextStrokeStyleItem()() {
+                itemIco = R.drawable.canvas_text_style_solid
+                itemText = "实心"
+                itemStyle = Paint.Style.FILL
+                itemRenderer = renderer
+            }
+            TextStrokeStyleItem()() {
+                itemIco = R.drawable.canvas_text_style_stroke
+                itemText = "空心"
+                itemStyle = Paint.Style.STROKE
+                itemRenderer = renderer
+            }
+
+            TextStyleItem()() {
+                itemIco = R.drawable.canvas_text_bold_style_ico
+                itemText = "粗体"
+                itemStyle = PictureTextItem.TEXT_STYLE_BOLD
+                itemRenderer = renderer
+            }
+            TextStyleItem()() {
+                itemIco = R.drawable.canvas_text_italic_style_ico
+                itemText = "斜体"
+                itemStyle = PictureTextItem.TEXT_STYLE_ITALIC
+                itemRenderer = renderer
+            }
+            TextStyleItem()() {
+                itemIco = R.drawable.canvas_text_under_line_style_ico
+                itemText = "下划线"
+                itemStyle = PictureTextItem.TEXT_STYLE_UNDER_LINE
+                itemRenderer = renderer
+            }
+            TextStyleItem()() {
+                itemIco = R.drawable.canvas_text_delete_line_style_ico
+                itemText = "删除线"
+                itemStyle = PictureTextItem.TEXT_STYLE_DELETE_LINE
+                itemRenderer = renderer
+            }
+
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_text_font_ico
+                itemText = "字体"
+                itemClick = {
+                    vh.gone(R.id.font_control_view, itemIsSelected)
+                    itemIsSelected = !itemIsSelected
+                    updateAdapterItem()
+
+                    if (itemIsSelected) {
+                        showFontSelectLayout(vh, renderer)
+                    }
+                }
+            }
+
+            TextOrientationItem()() {
+                itemIco = R.drawable.canvas_text_style_standard_ico
+                itemText = "水平排列"
+                itemOrientation = LinearLayout.HORIZONTAL
+                itemRenderer = renderer
+            }
+            TextOrientationItem()() {
+                itemIco = R.drawable.canvas_text_style_vertical_ico
+                itemText = "垂直排列"
+                itemOrientation = LinearLayout.VERTICAL
+                itemRenderer = renderer
+            }
+
+            TextAlignItem()() {
+                itemIco = R.drawable.canvas_text_style_align_left_ico
+                itemText = "左对齐"
+                itemAlign = Paint.Align.LEFT
+                itemRenderer = renderer
+            }
+            TextAlignItem()() {
+                itemIco = R.drawable.canvas_text_style_align_center_ico
+                itemText = "居中对齐"
+                itemAlign = Paint.Align.CENTER
+                itemRenderer = renderer
+            }
+            TextAlignItem()() {
+                itemIco = R.drawable.canvas_text_style_align_right_ico
+                itemText = "右对齐"
+                itemAlign = Paint.Align.RIGHT
+                itemRenderer = renderer
+            }
+
         }
     }
 

@@ -6,8 +6,8 @@
     android:background="@drawable/lib_bg2_selector"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingHorizontal="@dimen/lib_xhdpi"
-    android:paddingVertical="@dimen/lib_hdpi">
+    android:paddingHorizontal="@dimen/lib_hdpi"
+    android:paddingVertical="@dimen/lib_sdpi">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/image_view"
@@ -21,7 +21,7 @@
         style="@style/LibSubTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/lib_sdpi"
+        android:paddingVertical="@dimen/lib_sdpi"
         android:textColor="#a6a6a6"
         tools:text="文本" />
 

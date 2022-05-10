@@ -18,6 +18,8 @@ import com.angcyo.widget.DslViewHolder
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
  * @since 2022/04/18
  */
+
+@Deprecated("废弃")
 class CanvasTextStyleItem(
     val renderer: IItemRenderer<*>,
     val textStyle: Int,
