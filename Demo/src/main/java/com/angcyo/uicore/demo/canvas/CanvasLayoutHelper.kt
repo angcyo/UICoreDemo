@@ -646,93 +646,88 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     /**显示字体选择布局*/
     fun showFontSelectLayout(vh: DslViewHolder, renderer: IItemRenderer<*>) {
         val fontControlView = vh.rv(R.id.font_control_view)
-        if (fontControlView.isVisible()) {
-            fontControlView.gone()
-        } else {
-            fontControlView.gone(false)
 
-            //更新字体
-            fun updatePaintTypeface(typeface: Typeface?) {
-                if (renderer is TextItemRenderer) {
-                    renderer.updatePaintTypeface(typeface)
-                } else if (renderer is PictureTextItemRenderer) {
-                    renderer.updatePaintTypeface(typeface)
-                } else if (renderer is PictureItemRenderer) {
-                    val renderItem = renderer._rendererItem
-                    if (renderItem is PictureTextItem) {
-                        renderer.updateTextTypeface(typeface)
-                    }
+        //更新字体
+        fun updatePaintTypeface(typeface: Typeface?) {
+            if (renderer is TextItemRenderer) {
+                renderer.updatePaintTypeface(typeface)
+            } else if (renderer is PictureTextItemRenderer) {
+                renderer.updatePaintTypeface(typeface)
+            } else if (renderer is PictureItemRenderer) {
+                val renderItem = renderer._rendererItem
+                if (renderItem is PictureTextItem) {
+                    renderer.updateTextTypeface(typeface)
                 }
             }
+        }
 
-            //初始化控制item
-            fontControlView?.initDslAdapter {
-                hookUpdateDepend()
-                render {
-                    TypefaceItem()() {
-                        displayName = "normal"
-                        previewText = "激光啄木鸟"
-                        typeface = Typeface.DEFAULT
-                        itemClick = {
-                            updatePaintTypeface(typeface)
-                        }
+        //初始化控制item
+        fontControlView?.initDslAdapter {
+            hookUpdateDepend()
+            render {
+                TypefaceItem()() {
+                    displayName = "normal"
+                    previewText = "激光啄木鸟"
+                    typeface = Typeface.DEFAULT
+                    itemClick = {
+                        updatePaintTypeface(typeface)
                     }
-                    TypefaceItem()() {
-                        displayName = "monospace"
-                        previewText = "激光啄木鸟"
-                        typeface = Typeface.MONOSPACE
-                        itemClick = {
-                            updatePaintTypeface(typeface)
-                        }
+                }
+                TypefaceItem()() {
+                    displayName = "monospace"
+                    previewText = "激光啄木鸟"
+                    typeface = Typeface.MONOSPACE
+                    itemClick = {
+                        updatePaintTypeface(typeface)
                     }
-                    TypefaceItem()() {
-                        displayName = "sans"
-                        previewText = "激光啄木鸟"
-                        typeface = Typeface.SANS_SERIF
-                        itemClick = {
-                            updatePaintTypeface(typeface)
-                        }
+                }
+                TypefaceItem()() {
+                    displayName = "sans"
+                    previewText = "激光啄木鸟"
+                    typeface = Typeface.SANS_SERIF
+                    itemClick = {
+                        updatePaintTypeface(typeface)
                     }
-                    TypefaceItem()() {
-                        displayName = "serif"
-                        previewText = "激光啄木鸟"
-                        typeface = Typeface.SERIF
-                        itemClick = {
-                            updatePaintTypeface(typeface)
-                        }
+                }
+                TypefaceItem()() {
+                    displayName = "serif"
+                    previewText = "激光啄木鸟"
+                    typeface = Typeface.SERIF
+                    itemClick = {
+                        updatePaintTypeface(typeface)
                     }
-                    //Typeface.DEFAULT
-                    TypefaceItem()() {
-                        displayName = "Default-Normal"
-                        previewText = "激光啄木鸟"
-                        typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
-                        itemClick = {
-                            updatePaintTypeface(typeface)
-                        }
+                }
+                //Typeface.DEFAULT
+                TypefaceItem()() {
+                    displayName = "Default-Normal"
+                    previewText = "激光啄木鸟"
+                    typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
+                    itemClick = {
+                        updatePaintTypeface(typeface)
                     }
-                    TypefaceItem()() {
-                        displayName = "Default-Bold"
-                        previewText = "激光啄木鸟"
-                        typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-                        itemClick = {
-                            updatePaintTypeface(typeface)
-                        }
+                }
+                TypefaceItem()() {
+                    displayName = "Default-Bold"
+                    previewText = "激光啄木鸟"
+                    typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+                    itemClick = {
+                        updatePaintTypeface(typeface)
                     }
-                    TypefaceItem()() {
-                        displayName = "Default-Italic"
-                        previewText = "激光啄木鸟"
-                        typeface = Typeface.create(Typeface.DEFAULT, Typeface.ITALIC)
-                        itemClick = {
-                            updatePaintTypeface(typeface)
-                        }
+                }
+                TypefaceItem()() {
+                    displayName = "Default-Italic"
+                    previewText = "激光啄木鸟"
+                    typeface = Typeface.create(Typeface.DEFAULT, Typeface.ITALIC)
+                    itemClick = {
+                        updatePaintTypeface(typeface)
                     }
-                    TypefaceItem()() {
-                        displayName = "Default-Bold-Italic"
-                        previewText = "激光啄木鸟"
-                        typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD_ITALIC)
-                        itemClick = {
-                            updatePaintTypeface(typeface)
-                        }
+                }
+                TypefaceItem()() {
+                    displayName = "Default-Bold-Italic"
+                    previewText = "激光啄木鸟"
+                    typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD_ITALIC)
+                    itemClick = {
+                        updatePaintTypeface(typeface)
                     }
                 }
             }
