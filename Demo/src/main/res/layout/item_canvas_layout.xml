@@ -158,6 +158,7 @@
 
     </com.angcyo.widget.layout.DslFlowLayout>
 
+    <!--绘图功能层-->
     <com.angcyo.widget.recycler.DslRecyclerView
         android:id="@+id/canvas_item_view"
         style="@style/LibRecyclerViewStyle"
@@ -165,20 +166,24 @@
         android:layout_height="wrap_content"
         android:background="@color/lib_white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:r_layout_manager="h" />
+        app:r_layout_manager="h"
+        tools:layout_height="40dp" />
 
+    <!--功能属性层-->
     <LinearLayout
+        android:id="@+id/canvas_bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@id/canvas_item_view">
 
+        <!--阴影-->
         <View
             android:layout_width="match_parent"
             android:layout_height="6dp"
             android:background="@drawable/lib_bottom_tran_solid_gradient" />
 
-        <!--文本控制选项-->
+        <!--绘图功能控制选项-->
         <LinearLayout
             android:id="@+id/canvas_control_layout"
             android:layout_width="match_parent"
@@ -189,6 +194,7 @@
             app:layout_constraintBottom_toTopOf="@id/canvas_item_view"
             tools:visibility="visible">
 
+            <!--字体选择列表-->
             <com.angcyo.widget.recycler.DslRecyclerView
                 android:id="@+id/font_control_view"
                 style="@style/LibRecyclerViewStyle"
@@ -198,6 +204,7 @@
                 app:r_layout_manager="v"
                 tools:layout_height="140dp" />
 
+            <!--功能控制项-->
             <com.angcyo.widget.recycler.DslRecyclerView
                 android:id="@+id/canvas_control_view"
                 style="@style/LibRecyclerViewStyle"
@@ -210,4 +217,31 @@
 
     </LinearLayout>
 
+    <!--图层选择层-->
+    <LinearLayout
+        android:id="@+id/canvas_layer_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="-6dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/canvas_bottom_layout"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <!--阴影-->
+        <View
+            android:layout_width="6dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/lib_left_tran_solid_gradient" />
+
+        <com.angcyo.widget.recycler.DslRecyclerView
+            android:id="@+id/canvas_layer_view"
+            style="@style/LibRecyclerViewStyle"
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:background="@color/lib_white"
+            app:r_layout_manager="v" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

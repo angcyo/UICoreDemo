@@ -23,7 +23,9 @@ class ShapeItem(val canvasView: CanvasView) : CanvasControlItem() {
             } else {
                 shapePath?.let {
                     //canvasView.addShapeRenderer(it)
-                    canvasView.addPictureShapeRender(it)
+                    canvasView.addPictureShapeRender(it).apply {
+                        itemName = itemText
+                    }
                 }
             }
         }
