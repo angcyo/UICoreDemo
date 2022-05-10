@@ -30,15 +30,15 @@ class CanvasTextStyleItem(
 
         itemClick = {
             if (renderer is TextItemRenderer) {
-                val have = renderer.rendererItem?.textStyle?.have(textStyle) == true
+                val have = renderer._rendererItem?.textStyle?.have(textStyle) == true
                 renderer.enableTextStyle(textStyle, !have)
                 updateAdapterItem()
             } else if (renderer is PictureTextItemRenderer) {
-                val have = renderer.rendererItem?.textStyle?.have(textStyle) == true
+                val have = renderer._rendererItem?.textStyle?.have(textStyle) == true
                 renderer.enableTextStyle(textStyle, !have)
                 updateAdapterItem()
             } else if (renderer is PictureItemRenderer) {
-                val renderItem = renderer.rendererItem
+                val renderItem = renderer._rendererItem
                 if (renderItem is PictureTextItem) {
                     val have = renderItem.textStyle.have(textStyle)
                     renderer.enableTextStyle(textStyle, !have)
@@ -58,17 +58,17 @@ class CanvasTextStyleItem(
 
         itemHolder.img(R.id.image_view)?.apply {
             if (renderer is TextItemRenderer) {
-                val have = renderer.rendererItem?.textStyle?.have(textStyle) == true
+                val have = renderer._rendererItem?.textStyle?.have(textStyle) == true
                 val drawable =
                     _drawable(ico).color(if (have) "#282828".toColorInt() else "#b3b7ba".toColorInt())
                 setImageDrawable(drawable)
             } else if (renderer is PictureTextItemRenderer) {
-                val have = renderer.rendererItem?.textStyle?.have(textStyle) == true
+                val have = renderer._rendererItem?.textStyle?.have(textStyle) == true
                 val drawable =
                     _drawable(ico).color(if (have) "#282828".toColorInt() else "#b3b7ba".toColorInt())
                 setImageDrawable(drawable)
             } else if (renderer is PictureItemRenderer) {
-                val renderItem = renderer.rendererItem
+                val renderItem = renderer._rendererItem
                 if (renderItem is PictureTextItem) {
                     val have = renderItem.textStyle.have(textStyle)
                     val drawable =

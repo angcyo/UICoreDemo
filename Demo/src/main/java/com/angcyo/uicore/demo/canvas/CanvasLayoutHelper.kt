@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.core.CanvasUndoManager
 import com.angcyo.canvas.core.ICanvasListener
+import com.angcyo.canvas.core.IRenderer
 import com.angcyo.canvas.items.PictureBitmapItem
 import com.angcyo.canvas.items.PictureShapeItem
 import com.angcyo.canvas.items.PictureTextItem
@@ -21,9 +22,7 @@ import com.angcyo.dialog.hideLoading
 import com.angcyo.dialog.inputDialog
 import com.angcyo.dialog.loading
 import com.angcyo.drawable.loading.TGStrokeLoadingDrawable
-import com.angcyo.dsladapter.DslAdapter
-import com.angcyo.dsladapter.DslAdapterItem
-import com.angcyo.dsladapter.DslAdapterStatusItem
+import com.angcyo.dsladapter.*
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.library.ex.*
 import com.angcyo.library.model.loadPath
@@ -39,7 +38,7 @@ import com.angcyo.widget.recycler.initDslAdapter
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
  * @since 2022/05/09
  */
-class CanvasItemHelper(val fragment: Fragment) {
+class CanvasLayoutHelper(val fragment: Fragment) {
 
     var _selectedCanvasItem: DslAdapterItem? = null
 
@@ -212,7 +211,7 @@ class CanvasItemHelper(val fragment: Fragment) {
                 if (itemRenderer is TextItemRenderer) {
                     fragment.context?.inputDialog {
                         inputViewHeight = 100 * dpi
-                        defaultInputString = itemRenderer.rendererItem?.text
+                        defaultInputString = itemRenderer._rendererItem?.text
                         onInputResult = { dialog, inputText ->
                             if (inputText.isNotEmpty()) {
                                 itemRenderer.updateText("$inputText")
@@ -223,7 +222,7 @@ class CanvasItemHelper(val fragment: Fragment) {
                 } else if (itemRenderer is PictureTextItemRenderer) {
                     fragment.context?.inputDialog {
                         inputViewHeight = 100 * dpi
-                        defaultInputString = itemRenderer.rendererItem?.text
+                        defaultInputString = itemRenderer._rendererItem?.text
                         onInputResult = { dialog, inputText ->
                             if (inputText.isNotEmpty()) {
                                 itemRenderer.updateText("$inputText")
@@ -240,7 +239,7 @@ class CanvasItemHelper(val fragment: Fragment) {
                         }
                     }
                 } else if (itemRenderer is PictureItemRenderer) {
-                    val renderItem = itemRenderer.rendererItem
+                    val renderItem = itemRenderer._rendererItem
                     if (renderItem is PictureTextItem) {
                         fragment.context?.inputDialog {
                             inputViewHeight = 100 * dpi
@@ -291,9 +290,29 @@ class CanvasItemHelper(val fragment: Fragment) {
                 }
             }
 
+            override fun onItemRendererAdd(itemRenderer: IItemRenderer<*>) {
+                super.onItemRendererAdd(itemRenderer)
+                if (itemRenderer is BaseItemRenderer<*>) {
+                    addLayerItem(vh, canvasView, itemRenderer)
+                }
+            }
+
+            override fun onItemRendererRemove(itemRenderer: IItemRenderer<*>) {
+                super.onItemRendererRemove(itemRenderer)
+                if (itemRenderer is BaseItemRenderer<*>) {
+                    removeLayerItem(vh, canvasView, itemRenderer)
+                }
+            }
+
+            override fun onItemVisibleChanged(itemRenderer: IRenderer, visible: Boolean) {
+                super.onItemVisibleChanged(itemRenderer, visible)
+                updateLayerLayout(vh)
+            }
+
             override fun onClearSelectItem(itemRenderer: IItemRenderer<*>) {
                 super.onClearSelectItem(itemRenderer)
                 vh.goneControlLayout()
+                updateLayerLayout(vh)
             }
 
             override fun onSelectedItem(
@@ -302,13 +321,14 @@ class CanvasItemHelper(val fragment: Fragment) {
             ) {
                 super.onSelectedItem(itemRenderer, oldItemRenderer)
                 vh.goneControlLayout(false)
+                updateLayerLayout(vh)
                 if (itemRenderer is TextItemRenderer || itemRenderer is PictureTextItemRenderer) {
                     //选中TextItemRenderer时的控制菜单
                     vh.rv(R.id.canvas_control_view)?.initDslAdapter {
                         showTextControlItem(vh, canvasView, itemRenderer)
                     }
                 } else if (itemRenderer is PictureItemRenderer) {
-                    val renderItem = itemRenderer.rendererItem
+                    val renderItem = itemRenderer._rendererItem
                     if (renderItem is PictureTextItem) {
                         //选中TextItemRenderer时的控制菜单
                         vh.rv(R.id.canvas_control_view)?.initDslAdapter {
@@ -460,7 +480,7 @@ class CanvasItemHelper(val fragment: Fragment) {
                 itemIco = R.drawable.canvas_text_style_standard_ico
                 itemClick = {
                     if (itemRenderer is PictureItemRenderer) {
-                        val renderItem = itemRenderer.rendererItem
+                        val renderItem = itemRenderer._rendererItem
                         if (renderItem is PictureTextItem) {
                             itemRenderer.updateTextOrientation(LinearLayout.HORIZONTAL)
                         }
@@ -471,7 +491,7 @@ class CanvasItemHelper(val fragment: Fragment) {
                 itemIco = R.drawable.canvas_text_style_vertical_ico
                 itemClick = {
                     if (itemRenderer is PictureItemRenderer) {
-                        val renderItem = itemRenderer.rendererItem
+                        val renderItem = itemRenderer._rendererItem
                         if (renderItem is PictureTextItem) {
                             itemRenderer.updateTextOrientation(LinearLayout.VERTICAL)
                         }
@@ -482,7 +502,7 @@ class CanvasItemHelper(val fragment: Fragment) {
                 itemIco = R.drawable.canvas_text_style_align_left_ico
                 itemClick = {
                     if (itemRenderer is PictureItemRenderer) {
-                        val renderItem = itemRenderer.rendererItem
+                        val renderItem = itemRenderer._rendererItem
                         if (renderItem is PictureTextItem) {
                             itemRenderer.updatePaintAlign(Paint.Align.LEFT)
                         }
@@ -493,7 +513,7 @@ class CanvasItemHelper(val fragment: Fragment) {
                 itemIco = R.drawable.canvas_text_style_align_center_ico
                 itemClick = {
                     if (itemRenderer is PictureItemRenderer) {
-                        val renderItem = itemRenderer.rendererItem
+                        val renderItem = itemRenderer._rendererItem
                         if (renderItem is PictureTextItem) {
                             itemRenderer.updatePaintAlign(Paint.Align.CENTER)
                         }
@@ -504,7 +524,7 @@ class CanvasItemHelper(val fragment: Fragment) {
                 itemIco = R.drawable.canvas_text_style_align_right_ico
                 itemClick = {
                     if (itemRenderer is PictureItemRenderer) {
-                        val renderItem = itemRenderer.rendererItem
+                        val renderItem = itemRenderer._rendererItem
                         if (renderItem is PictureTextItem) {
                             itemRenderer.updatePaintAlign(Paint.Align.RIGHT)
                         }
@@ -529,7 +549,7 @@ class CanvasItemHelper(val fragment: Fragment) {
                 } else if (renderer is PictureTextItemRenderer) {
                     renderer.updatePaintTypeface(typeface)
                 } else if (renderer is PictureItemRenderer) {
-                    val renderItem = renderer.rendererItem
+                    val renderItem = renderer._rendererItem
                     if (renderItem is PictureTextItem) {
                         renderer.updateTextTypeface(typeface)
                     }
@@ -662,7 +682,7 @@ class CanvasItemHelper(val fragment: Fragment) {
                 itemClick = {
                     if (itemRenderer is BitmapItemRenderer) {
                         loadingAsync({
-                            itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                            itemRenderer._rendererItem?.bitmap?.let { bitmap ->
                                 OpenCV.bitmapToPrint(fragment.requireContext(), bitmap)
                             }
                         }) {
@@ -680,7 +700,7 @@ class CanvasItemHelper(val fragment: Fragment) {
                 itemClick = {
                     if (itemRenderer is BitmapItemRenderer) {
                         loadingAsync({
-                            itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                            itemRenderer._rendererItem?.bitmap?.let { bitmap ->
                                 OpenCV.bitmapToGCode(fragment.requireContext(), bitmap).let {
                                     GCodeHelper.parseGCode(
                                         fragment.requireContext(),
@@ -703,7 +723,7 @@ class CanvasItemHelper(val fragment: Fragment) {
                 itemClick = {
                     if (itemRenderer is BitmapItemRenderer) {
                         loadingAsync({
-                            itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                            itemRenderer._rendererItem?.bitmap?.let { bitmap ->
                                 OpenCV.bitmapToBlackWhite(bitmap)
                             }
                         }) {
@@ -721,7 +741,7 @@ class CanvasItemHelper(val fragment: Fragment) {
                 itemClick = {
                     if (itemRenderer is BitmapItemRenderer) {
                         loadingAsync({
-                            itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                            itemRenderer._rendererItem?.bitmap?.let { bitmap ->
                                 OpenCV.bitmapToDithering(fragment.requireContext(), bitmap)
                             }
                         }) {
@@ -739,7 +759,7 @@ class CanvasItemHelper(val fragment: Fragment) {
                 itemClick = {
                     if (itemRenderer is BitmapItemRenderer) {
                         loadingAsync({
-                            itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                            itemRenderer._rendererItem?.bitmap?.let { bitmap ->
                                 OpenCV.bitmapToGrey(bitmap)
                             }
                         }) {
@@ -757,7 +777,7 @@ class CanvasItemHelper(val fragment: Fragment) {
                 itemClick = {
                     if (itemRenderer is BitmapItemRenderer) {
                         loadingAsync({
-                            itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                            itemRenderer._rendererItem?.bitmap?.let { bitmap ->
                                 OpenCV.bitmapToSeal(fragment.requireContext(), bitmap)
                             }
                         }) {
@@ -775,7 +795,7 @@ class CanvasItemHelper(val fragment: Fragment) {
                 itemClick = {
                     if (itemRenderer is BitmapItemRenderer) {
                         loadingAsync({
-                            itemRenderer.rendererItem?.bitmap?.let { bitmap ->
+                            itemRenderer._rendererItem?.bitmap?.let { bitmap ->
                                 OpenCV.bitmapToBlackWhite(bitmap, 240, 1)
                             }
                         }) {
@@ -792,6 +812,46 @@ class CanvasItemHelper(val fragment: Fragment) {
     //</editor-fold desc="图片控制">
 
     //<editor-fold desc="图层控制">
+
+    /**更新图层布局*/
+    fun updateLayerLayout(vh: DslViewHolder) {
+        if (vh.isVisible(R.id.canvas_layer_layout)) {
+            vh.rv(R.id.canvas_layer_view)?._dslAdapter?.updateAllItem()
+        }
+    }
+
+    /**移除一个渲染图层*/
+    fun removeLayerItem(vh: DslViewHolder, canvasView: CanvasView, item: IRenderer) {
+        if (vh.isVisible(R.id.canvas_layer_layout)) {
+            vh.rv(R.id.canvas_layer_view)?._dslAdapter?.apply {
+                render {
+                    eachItem { index, dslAdapterItem ->
+                        if (dslAdapterItem is CanvasLayerItem && dslAdapterItem.itemRenderer == item) {
+                            dslAdapterItem.removeAdapterItem()
+                        }
+                    }
+                    if (canvasView.canvasDelegate.itemsRendererList.isEmpty()) {
+                        setAdapterStatus(DslAdapterStatusItem.ADAPTER_STATUS_EMPTY)
+                    }
+                }
+            }
+        }
+    }
+
+    /**添加一个渲染图层*/
+    fun addLayerItem(vh: DslViewHolder, canvasView: CanvasView, item: BaseItemRenderer<*>) {
+        if (vh.isVisible(R.id.canvas_layer_layout)) {
+            vh.rv(R.id.canvas_layer_view)?._dslAdapter?.apply {
+                render {
+                    CanvasLayerItem()() {
+                        itemCanvasDelegate = canvasView.canvasDelegate
+                        itemRenderer = item
+                    }
+                    setAdapterStatus(DslAdapterStatusItem.ADAPTER_STATUS_NONE)
+                }
+            }
+        }
+    }
 
     /**显示图层item*/
     fun DslAdapter.showLayerControlItem(vh: DslViewHolder, canvasView: CanvasView) {

@@ -24,7 +24,7 @@ import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
 import com.angcyo.uicore.demo.SvgDemo.Companion.svgResList
-import com.angcyo.uicore.demo.canvas.CanvasItemHelper
+import com.angcyo.uicore.demo.canvas.CanvasLayoutHelper
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.recycler.initDslAdapter
 import com.pixplicity.sharp.Sharp
@@ -240,7 +240,7 @@ class CanvasDemo : AppDslFragment() {
 
     //<editor-fold desc="bindCanvasRecyclerView">
 
-    val canvasItemHelper = CanvasItemHelper(this)
+    val canvasLayoutHelper = CanvasLayoutHelper(this)
 
     /**Canvas控制*/
     fun bindCanvasRecyclerView(itemHolder: DslViewHolder, adapterItem: DslAdapterItem) {
@@ -248,7 +248,7 @@ class CanvasDemo : AppDslFragment() {
         val itemRecyclerView = itemHolder.v<RecyclerView>(R.id.canvas_item_view)
 
         itemRecyclerView?.initDslAdapter {
-            canvasItemHelper.bindItems(itemHolder, canvasView!!, this)
+            canvasLayoutHelper.bindItems(itemHolder, canvasView!!, this)
         }
     }
 

@@ -76,7 +76,6 @@
         app:srcCompat="@drawable/lib_check_selector" />
 
     <View
-        android:id="@+id/lib_item_line_view"
         android:layout_width="0dp"
         android:layout_height="@dimen/lib_line_px"
         android:background="@color/lib_line"

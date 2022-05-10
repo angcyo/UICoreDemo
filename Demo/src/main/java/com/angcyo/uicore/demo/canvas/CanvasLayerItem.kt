@@ -18,19 +18,14 @@ class CanvasLayerItem : DslAdapterItem() {
     var itemCanvasDelegate: CanvasDelegate? = null
 
     var itemRenderer: BaseItemRenderer<*>? = null
-        set(value) {
-            field = value
-            itemLayerName = value?.getName()
-            itemLayerHide = value?.isVisible() == false
-            itemItemName = value?.rendererItem?.itemName
-            itemItemDrawable = value?.rendererItem?.itemDrawable
-        }
 
-    var itemLayerName: CharSequence? = null
-    var itemLayerHide: Boolean = false
+    val itemLayerHide: Boolean get() = itemRenderer?.isVisible() == false
 
-    var itemItemDrawable: Drawable? = null
-    var itemItemName: CharSequence? = null
+    val itemLayerName: CharSequence? get() = itemRenderer?.getName()
+
+    val itemItemDrawable: Drawable? get() = itemRenderer?.getRendererItem()?.itemDrawable
+
+    val itemItemName: CharSequence? get() = itemRenderer?.getRendererItem()?.itemName
 
     init {
         itemLayoutId = R.layout.item_canvas_layer_layout
@@ -43,7 +38,9 @@ class CanvasLayerItem : DslAdapterItem() {
                 } else {
                     itemCanvasDelegate?.selectedItem(it)
                 }
-                itemCanvasDelegate?.showRectBounds(it.getRenderBounds())
+                if (it.isVisible()) {
+                    itemCanvasDelegate?.showRectBounds(it.getRenderBounds())
+                }
             }
         }
     }
@@ -85,7 +82,6 @@ class CanvasLayerItem : DslAdapterItem() {
         //事件
         itemHolder.click(R.id.layer_visible_view) {
             itemRenderer?.setVisible(itemLayerHide)
-            itemLayerHide = itemRenderer?._visible == false
             itemCanvasDelegate?.refresh()
             updateAdapterItem()
         }

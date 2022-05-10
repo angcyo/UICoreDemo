@@ -38,7 +38,7 @@ class TextSolidStyleItem(
         val solidView = itemHolder.img(R.id.text_solid_view)
 
         if (renderer is TextItemRenderer) {
-            val isStroke = renderer.rendererItem?.paint?.style == Paint.Style.STROKE
+            val isStroke = renderer._rendererItem?.paint?.style == Paint.Style.STROKE
             strokeView?.apply {
                 val drawable =
                     drawable.color(if (isStroke) "#282828".toColorInt() else "#b3b7ba".toColorInt())
@@ -60,7 +60,7 @@ class TextSolidStyleItem(
                 }
             }
         } else if (renderer is PictureTextItemRenderer) {
-            val isStroke = renderer.rendererItem?.paint?.style == Paint.Style.STROKE
+            val isStroke = renderer._rendererItem?.paint?.style == Paint.Style.STROKE
             strokeView?.apply {
                 val drawable =
                     drawable.color(if (isStroke) "#282828".toColorInt() else "#b3b7ba".toColorInt())
@@ -82,7 +82,7 @@ class TextSolidStyleItem(
                 }
             }
         } else if (renderer is PictureItemRenderer) {
-            val renderItem = renderer.rendererItem
+            val renderItem = renderer._rendererItem
             if (renderItem is PictureTextItem) {
                 val isStroke = renderItem.paint.style == Paint.Style.STROKE
                 strokeView?.apply {
