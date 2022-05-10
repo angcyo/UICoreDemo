@@ -40,7 +40,7 @@ class CanvasDemo : AppDslFragment() {
         super.initBaseView(savedInstanceState)
 
         renderDslAdapter {
-            bindItem(R.layout.item_canvas_layout) { itemHolder, itemPosition, adapterItem, payloads ->
+            bindItem(R.layout.demo_canvas) { itemHolder, itemPosition, adapterItem, payloads ->
                 val canvasView = itemHolder.v<CanvasView>(R.id.canvas_view)
                 //?.setBgDrawable(_colorDrawable("#20000000".toColorInt()))
                 //?.setBgDrawable(CheckerboardDrawable.create())

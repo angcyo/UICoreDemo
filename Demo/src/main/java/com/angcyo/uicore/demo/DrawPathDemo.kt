@@ -19,7 +19,7 @@ class DrawPathDemo : AppDslFragment() {
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
         renderDslAdapter {
-            bindItem(R.layout.item_draw_path_layout) { itemHolder, itemPosition, adapterItem, payloads ->
+            bindItem(R.layout.demo_draw_path) { itemHolder, itemPosition, adapterItem, payloads ->
                 val drawPathView = itemHolder.v<DrawPathView>(R.id.draw_path_view)
                 drawPathView?.apply {
                     val path = Sharp.loadPath("M14,85l3,9h72c0,0,5-9,4-10c-2-2-79,0-79,1")

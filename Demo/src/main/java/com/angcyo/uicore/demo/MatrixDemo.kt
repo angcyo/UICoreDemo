@@ -20,7 +20,7 @@ class MatrixDemo : AppDslFragment() {
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
         renderDslAdapter {
-            bindItem(R.layout.item_matrix_layout) { itemHolder, itemPosition, adapterItem, payloads ->
+            bindItem(R.layout.demo_matrix) { itemHolder, itemPosition, adapterItem, payloads ->
                 itemHolder.hawkInstallAndRestore("matrix_")
 
                 //clear

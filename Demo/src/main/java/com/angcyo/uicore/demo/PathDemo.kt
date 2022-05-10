@@ -19,7 +19,7 @@ class PathDemo : AppDslFragment() {
         super.initBaseView(savedInstanceState)
 
         renderDslAdapter {
-            dslItem(R.layout.path_demo) {
+            dslItem(R.layout.demo_path) {
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
                     val pathView = itemHolder.v<PathView>(R.id.path_view)
                     itemHolder.v<DslSeekBar>(R.id.oval_w_seek)?.config {

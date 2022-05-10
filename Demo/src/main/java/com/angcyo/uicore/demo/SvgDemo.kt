@@ -89,7 +89,7 @@ class SvgDemo : AppDslFragment() {
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
         renderDslAdapter {
-            bindItem(R.layout.item_svg_layout) { itemHolder, itemPosition, adapterItem, payloads ->
+            bindItem(R.layout.demo_svg) { itemHolder, itemPosition, adapterItem, payloads ->
                 val editText = itemHolder.ev(R.id.edit_text_view)
                 val imageView = itemHolder.img(R.id.image_view)
                 imageView?.background = CheckerboardDrawable.create()
