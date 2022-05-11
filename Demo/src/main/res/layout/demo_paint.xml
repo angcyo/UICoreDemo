@@ -9,6 +9,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <View
+            android:id="@+id/stripe_view"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_margin="@dimen/lib_xhdpi" />
+
+        <View
+            android:id="@+id/stripe_view2"
+            android:layout_width="20dp"
+            android:layout_height="160dp"
+            android:layout_margin="@dimen/lib_xhdpi" />
+
+        <View
+            android:id="@+id/stripe_view3"
+            android:layout_width="30dp"
+            android:layout_height="160dp"
+            android:layout_gravity="right"
+            android:layout_margin="@dimen/lib_xhdpi" />
+
+    </FrameLayout>
+
     <com.angcyo.widget.layout.DslFlowLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -55,6 +80,11 @@
             android:id="@+id/radial_shader"
             style="@style/DefaultButtonStyleNormal"
             android:text="RadialShader" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/rotate_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:text="Rotate" />
 
     </com.angcyo.widget.layout.DslFlowLayout>
 

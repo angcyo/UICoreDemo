@@ -118,7 +118,7 @@ class PaintView(context: Context, attributeSet: AttributeSet? = null) :
                 val left = rotateBounds.left
                 var top = rotateBounds.top
                 val right = rotateBounds.right
-                var bottom = left
+                var bottom = top
 
                 var index = 0
                 while (bottom <= rotateBounds.bottom) {
