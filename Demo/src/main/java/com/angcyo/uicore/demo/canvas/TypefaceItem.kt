@@ -22,7 +22,7 @@ class TypefaceItem : DslAdapterItem() {
     var typeface: Typeface? = null
 
     init {
-        itemLayoutId = R.layout.item_typeface_layout
+        itemLayoutId = R.layout.item_canvas_typeface_layout
     }
 
     override fun onItemBind(
