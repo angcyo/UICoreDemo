@@ -17,7 +17,7 @@ import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.*
 import com.angcyo.canvas.utils.ShapesHelper
 import com.angcyo.canvas.utils.addPictureBitmapRenderer
-import com.angcyo.core.dslitem.IFragmentItem
+import com.angcyo.dsladapter.item.IFragmentItem
 import com.angcyo.coroutine.launchLifecycle
 import com.angcyo.coroutine.withBlock
 import com.angcyo.dialog.hideLoading

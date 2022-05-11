@@ -3,7 +3,7 @@ package com.angcyo.uicore.demo.canvas
 import androidx.fragment.app.Fragment
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.utils.addBitmapRenderer
-import com.angcyo.core.dslitem.IFragmentItem
+import com.angcyo.dsladapter.item.IFragmentItem
 import com.angcyo.library.ex.toBitmap
 import com.angcyo.library.model.loadPath
 import com.angcyo.picker.dslSinglePickerImage

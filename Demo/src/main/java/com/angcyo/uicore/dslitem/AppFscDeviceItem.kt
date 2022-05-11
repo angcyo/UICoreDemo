@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.DeviceConnectState
 import com.angcyo.bluetooth.fsc.FscBleApiModel
-import com.angcyo.core.dslitem.IFragmentItem
+import com.angcyo.dsladapter.item.IFragmentItem
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.putData

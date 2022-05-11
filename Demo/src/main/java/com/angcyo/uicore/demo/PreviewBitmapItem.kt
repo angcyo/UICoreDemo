@@ -2,7 +2,7 @@ package com.angcyo.uicore.demo
 
 import android.graphics.Bitmap
 import androidx.fragment.app.Fragment
-import com.angcyo.core.dslitem.IFragmentItem
+import com.angcyo.dsladapter.item.IFragmentItem
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.pager.dslSinglePager
 import com.angcyo.widget.DslViewHolder
