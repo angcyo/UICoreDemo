@@ -1,6 +1,7 @@
 package com.angcyo.uicore.demo.canvas
 
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.utils.addBitmapRenderer
 import com.angcyo.dsladapter.item.IFragmentItem
@@ -17,16 +18,20 @@ class AddImageItem(val canvasView: CanvasView) : CanvasControlItem(), IFragmentI
 
     override var itemFragment: Fragment? = null
 
+    var itemFragmentManager: FragmentManager? = null
+
     init {
         itemIco = R.drawable.canvas_image_ico
         itemText = "图片"
 
         itemClick = {
-            itemFragment?.dslSinglePickerImage {
-                it?.firstOrNull()?.let { media ->
-                    media.loadPath()?.apply {
+            (itemFragmentManager ?: itemFragment?.parentFragmentManager)?.apply {
+                canvasView.context.dslSinglePickerImage(this) {
+                    it?.firstOrNull()?.let { media ->
+                        media.loadPath()?.apply {
 //                        canvasView.addDrawableRenderer(toBitmap())
-                        canvasView.addBitmapRenderer(toBitmap())
+                            canvasView.addBitmapRenderer(toBitmap())
+                        }
                     }
                 }
             }

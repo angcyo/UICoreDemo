@@ -6,7 +6,7 @@
     android:background="@drawable/lib_bg2_selector"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingHorizontal="@dimen/lib_hdpi"
+    android:paddingHorizontal="10dp"
     android:paddingVertical="@dimen/lib_sdpi">
 
     <androidx.appcompat.widget.AppCompatImageView
