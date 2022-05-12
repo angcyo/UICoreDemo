@@ -17,7 +17,6 @@ import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.*
 import com.angcyo.canvas.utils.ShapesHelper
 import com.angcyo.canvas.utils.addPictureBitmapRenderer
-import com.angcyo.dsladapter.item.IFragmentItem
 import com.angcyo.coroutine.launchLifecycle
 import com.angcyo.coroutine.withBlock
 import com.angcyo.dialog.hideLoading
@@ -25,6 +24,7 @@ import com.angcyo.dialog.inputDialog
 import com.angcyo.dialog.loading
 import com.angcyo.drawable.loading.TGStrokeLoadingDrawable
 import com.angcyo.dsladapter.*
+import com.angcyo.dsladapter.item.IFragmentItem
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.library.ex.*
 import com.angcyo.library.model.loadPath
