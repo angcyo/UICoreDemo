@@ -809,7 +809,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                                     GCodeHelper.parseGCode(
                                         fragment.requireContext(),
                                         it.readText().toString()
-                                    ).toBitmap()
+                                    )?.toBitmap()
                                 }
                             }
                         }) {

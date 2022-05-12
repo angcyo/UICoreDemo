@@ -235,8 +235,8 @@ class CanvasDemo : AppDslFragment() {
         Sharp.loadResource(resources, svgResList.randomGetOnce()!!).drawable
 
     fun loadGCodeDrawable(): Drawable = GCodeHelper.parseGCode(
-        fContext(), fContext().readAssets(gCodeNameList.randomGetOnce()!!)!!
-    )
+        fContext(), fContext().readAssets(gCodeNameList.randomGetOnce()!!)
+    )!!
 
     //<editor-fold desc="bindCanvasRecyclerView">
 
