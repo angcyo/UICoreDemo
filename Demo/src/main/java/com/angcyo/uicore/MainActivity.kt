@@ -3,25 +3,19 @@ package com.angcyo.uicore
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import com.angcyo.baidu.trace.DslBaiduTrace
 import com.angcyo.base.dslFHelper
 import com.angcyo.base.find
 import com.angcyo.core.activity.BasePermissionsActivity
-import com.angcyo.core.component.model.BatteryModel
 import com.angcyo.core.component.model.LanguageModel
-import com.angcyo.core.vmCore
-import com.angcyo.library.L
 import com.angcyo.library.component.DslShortcut
 import com.angcyo.library.component.dslShortcut
-import com.angcyo.library.utils.Device
 import com.angcyo.library.utils.RUtils
 import com.angcyo.library.utils.checkApkExist
 import com.angcyo.uicore.activity.NfcInfoDemo
+import com.angcyo.uicore.component.BaiduTraceService
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.test.PathTest
-import com.baidu.trace.model.OnCustomAttributeListener
 
 /**
  *
@@ -144,48 +138,19 @@ class MainActivity : BasePermissionsActivity() {
         //densityAdapter(750, 2f)
         //densityRestore()
         //densityAdapterFrom(2183)
-
-        dslBaiduTrace.updateEntity {
-            columns = dslBaiduTrace.customAttributeListener?.onTrackAttributeCallback()
-        }
-
+        BaiduTraceService.start(this, BaiduTraceService.FLAG_RESUME)
         PathTest.test()
-    }
-
-    val dslBaiduTrace = DslBaiduTrace().apply {
-        serviceId = 207762
-        entityName = "${Build.MODEL.replace(" ", "_")}-${Device.androidId}"
-        autoTraceStart = true
-
-        customAttributeListener = object : OnCustomAttributeListener {
-            override fun onTrackAttributeCallback(): MutableMap<String, String>? {
-                val result = hashMapOf<String, String>()
-                result["test1"] = "test1"
-                result["energy1"] = "${vmCore<BatteryModel>().load(applicationContext).level}"
-                result["energy"] = result["energy1"]!!
-                L.v("onTrackAttributeCallback1:${result["energy1"]}")
-                return result
-            }
-
-            //locTime - 回调时定位点的时间戳（毫秒）
-            override fun onTrackAttributeCallback(locTime: Long): MutableMap<String, String>? {
-                val result = hashMapOf<String, String>()
-                result["test2"] = "test2"
-                result["energy2"] = "${vmCore<BatteryModel>().load(applicationContext).level}"
-                L.v("onTrackAttributeCallback2:${result["energy2"]}")
-                return result
-            }
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dslBaiduTrace.startTrace(applicationContext)
+        BaiduTraceService.start(this, BaiduTraceService.FLAG_START)
+        //dslBaiduTrace.startTrace(applicationContext)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        dslBaiduTrace.stopTrace()
+        BaiduTraceService.start(this, BaiduTraceService.FLAG_DESTROY)
     }
 
     override fun handleTargetIntent(intent: Intent) {
