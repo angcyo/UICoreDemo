@@ -8,7 +8,6 @@ import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.library.ex._color
 import com.angcyo.library.ex._drawable
 import com.angcyo.library.ex.color
-import com.angcyo.library.ex.toColorInt
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
 
@@ -28,15 +27,15 @@ open class CanvasIconItem : DslAdapterItem() {
 
     /**图标的颜色*/
     @ColorInt
-    var itemIcoColor: Int = "#363d4b".toColorInt()
+    var itemIcoColor: Int = _color(R.color.canvas_ico)
 
     /**被禁用时的图标颜色*/
     @ColorInt
-    var itemIcoDisableColor: Int = "#aab1bd".toColorInt()
+    var itemIcoDisableColor: Int = _color(R.color.canvas_ico_disable)
 
     /**高亮时的图标颜色*/
     @ColorInt
-    var itemIcoSelectedColor: Int = _color(R.color.colorAccent)
+    var itemIcoSelectedColor: Int = _color(R.color.canvas_ico_selected)
 
     val itemColor: Int
         get() = if (itemEnable) {

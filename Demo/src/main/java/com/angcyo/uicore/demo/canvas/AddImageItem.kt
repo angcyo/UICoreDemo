@@ -3,7 +3,8 @@ package com.angcyo.uicore.demo.canvas
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.angcyo.canvas.CanvasView
-import com.angcyo.canvas.utils.addBitmapRenderer
+import com.angcyo.canvas.utils.addPictureBitmapRenderer
+import com.angcyo.component.getPhoto
 import com.angcyo.dsladapter.item.IFragmentItem
 import com.angcyo.library.ex.toBitmap
 import com.angcyo.library.model.loadPath
@@ -30,10 +31,14 @@ class AddImageItem(val canvasView: CanvasView) : CanvasControlItem(), IFragmentI
                     it?.firstOrNull()?.let { media ->
                         media.loadPath()?.apply {
 //                        canvasView.addDrawableRenderer(toBitmap())
-                            canvasView.addBitmapRenderer(toBitmap())
+//                            canvasView.addBitmapRenderer(toBitmap())
+                            canvasView.addPictureBitmapRenderer(toBitmap())
                         }
                     }
                 }
+                /*canvasView.context.getPhoto(this) {
+                    it?.let { canvasView.addPictureBitmapRenderer(it) }
+                }*/
             }
         }
     }

@@ -17,6 +17,8 @@ import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.*
 import com.angcyo.canvas.utils.ShapesHelper
 import com.angcyo.canvas.utils.addPictureBitmapRenderer
+import com.angcyo.canvas.utils.getRenderBitmap
+import com.angcyo.canvas.utils.updateRenderBitmap
 import com.angcyo.coroutine.launchLifecycle
 import com.angcyo.coroutine.withBlock
 import com.angcyo.dialog.hideLoading
@@ -344,6 +346,10 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                     } else if (renderItem is PictureShapeItem) {
                         vh.rv(R.id.canvas_control_view)?.initDslAdapter {
                             showShapeControlItem(vh, canvasView, itemRenderer)
+                        }
+                    } else if (renderItem is PictureBitmapItem) {
+                        vh.rv(R.id.canvas_control_view)?.initDslAdapter {
+                            showBitmapControlItem(vh, canvasView, itemRenderer)
                         }
                     } else {
                         vh.goneControlLayout()
@@ -775,7 +781,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     fun DslAdapter.showBitmapControlItem(
         vh: DslViewHolder,
         canvasView: CanvasView,
-        itemRenderer: IItemRenderer<*>
+        renderer: IItemRenderer<*>
     ) {
         hookUpdateDepend()
         render {
@@ -784,15 +790,13 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = "版画"
                 itemTintColor = false
                 itemClick = {
-                    if (itemRenderer is BitmapItemRenderer) {
-                        loadingAsync({
-                            itemRenderer._rendererItem?.bitmap?.let { bitmap ->
-                                OpenCV.bitmapToPrint(fragment.requireContext(), bitmap)
-                            }
-                        }) {
-                            it?.let {
-                                itemRenderer.updateBitmap(it, true)
-                            }
+                    loadingAsync({
+                        renderer.getRenderBitmap()?.let { bitmap ->
+                            OpenCV.bitmapToPrint(fragment.requireContext(), bitmap)
+                        }
+                    }) {
+                        it?.let {
+                            renderer.updateRenderBitmap(it)
                         }
                     }
                 }
@@ -802,20 +806,18 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = "GCode"
                 itemTintColor = false
                 itemClick = {
-                    if (itemRenderer is BitmapItemRenderer) {
-                        loadingAsync({
-                            itemRenderer._rendererItem?.bitmap?.let { bitmap ->
-                                OpenCV.bitmapToGCode(fragment.requireContext(), bitmap).let {
-                                    GCodeHelper.parseGCode(
-                                        fragment.requireContext(),
-                                        it.readText().toString()
-                                    )?.toBitmap()
-                                }
+                    loadingAsync({
+                        renderer.getRenderBitmap()?.let { bitmap ->
+                            OpenCV.bitmapToGCode(fragment.requireContext(), bitmap).let {
+                                GCodeHelper.parseGCode(
+                                    fragment.requireContext(),
+                                    it.readText().toString()
+                                )?.toBitmap()
                             }
-                        }) {
-                            it?.let {
-                                itemRenderer.updateBitmap(it, true)
-                            }
+                        }
+                    }) {
+                        it?.let {
+                            renderer.updateRenderBitmap(it)
                         }
                     }
                 }
@@ -825,15 +827,13 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = "黑白画"
                 itemTintColor = false
                 itemClick = {
-                    if (itemRenderer is BitmapItemRenderer) {
-                        loadingAsync({
-                            itemRenderer._rendererItem?.bitmap?.let { bitmap ->
-                                OpenCV.bitmapToBlackWhite(bitmap)
-                            }
-                        }) {
-                            it?.let {
-                                itemRenderer.updateBitmap(it, true)
-                            }
+                    loadingAsync({
+                        renderer.getRenderBitmap()?.let { bitmap ->
+                            OpenCV.bitmapToBlackWhite(bitmap)
+                        }
+                    }) {
+                        it?.let {
+                            renderer.updateRenderBitmap(it)
                         }
                     }
                 }
@@ -843,15 +843,13 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = "抖动"
                 itemTintColor = false
                 itemClick = {
-                    if (itemRenderer is BitmapItemRenderer) {
-                        loadingAsync({
-                            itemRenderer._rendererItem?.bitmap?.let { bitmap ->
-                                OpenCV.bitmapToDithering(fragment.requireContext(), bitmap)
-                            }
-                        }) {
-                            it?.let {
-                                itemRenderer.updateBitmap(it, true)
-                            }
+                    loadingAsync({
+                        renderer.getRenderBitmap()?.let { bitmap ->
+                            OpenCV.bitmapToDithering(fragment.requireContext(), bitmap)
+                        }
+                    }) {
+                        it?.let {
+                            renderer.updateRenderBitmap(it)
                         }
                     }
                 }
@@ -861,15 +859,13 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = "灰度"
                 itemTintColor = false
                 itemClick = {
-                    if (itemRenderer is BitmapItemRenderer) {
-                        loadingAsync({
-                            itemRenderer._rendererItem?.bitmap?.let { bitmap ->
-                                OpenCV.bitmapToGrey(bitmap)
-                            }
-                        }) {
-                            it?.let {
-                                itemRenderer.updateBitmap(it, true)
-                            }
+                    loadingAsync({
+                        renderer.getRenderBitmap()?.let { bitmap ->
+                            OpenCV.bitmapToGrey(bitmap)
+                        }
+                    }) {
+                        it?.let {
+                            renderer.updateRenderBitmap(it)
                         }
                     }
                 }
@@ -879,15 +875,13 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = "印章"
                 itemTintColor = false
                 itemClick = {
-                    if (itemRenderer is BitmapItemRenderer) {
-                        loadingAsync({
-                            itemRenderer._rendererItem?.bitmap?.let { bitmap ->
-                                OpenCV.bitmapToSeal(fragment.requireContext(), bitmap)
-                            }
-                        }) {
-                            it?.let {
-                                itemRenderer.updateBitmap(it, true)
-                            }
+                    loadingAsync({
+                        renderer.getRenderBitmap()?.let { bitmap ->
+                            OpenCV.bitmapToSeal(fragment.requireContext(), bitmap)
+                        }
+                    }) {
+                        it?.let {
+                            renderer.updateRenderBitmap(it)
                         }
                     }
                 }
@@ -897,15 +891,13 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = "反色"
                 itemTintColor = false
                 itemClick = {
-                    if (itemRenderer is BitmapItemRenderer) {
-                        loadingAsync({
-                            itemRenderer._rendererItem?.bitmap?.let { bitmap ->
-                                OpenCV.bitmapToBlackWhite(bitmap, 240, 1)
-                            }
-                        }) {
-                            it?.let {
-                                itemRenderer.updateBitmap(it, true)
-                            }
+                    loadingAsync({
+                        renderer.getRenderBitmap()?.let { bitmap ->
+                            OpenCV.bitmapToBlackWhite(bitmap, 240, 1)
+                        }
+                    }) {
+                        it?.let {
+                            renderer.updateRenderBitmap(it)
                         }
                     }
                 }
