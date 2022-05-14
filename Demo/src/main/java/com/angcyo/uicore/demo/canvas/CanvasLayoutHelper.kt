@@ -4,6 +4,7 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.graphics.Typeface
 import android.text.InputType
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.angcyo.canvas.CanvasView
@@ -34,9 +35,11 @@ import com.angcyo.opencv.OpenCV
 import com.angcyo.picker.dslSinglePickerImage
 import com.angcyo.qrcode.createBarCode
 import com.angcyo.qrcode.createQRCode
+import com.angcyo.transition.dslTransition
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.recycler.initDslAdapter
+import com.angcyo.widget.recycler.renderDslAdapter
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
@@ -44,6 +47,7 @@ import com.angcyo.widget.recycler.initDslAdapter
  */
 class CanvasLayoutHelper(val fragment: Fragment) {
 
+    /**当前选中的[DslAdapterItem], 用来实现底部控制按钮互斥操作*/
     var _selectedCanvasItem: DslAdapterItem? = null
 
     var _undoCanvasItem: CanvasControlItem? = null
@@ -86,6 +90,15 @@ class CanvasLayoutHelper(val fragment: Fragment) {
         }
     }
 
+    /**取消正在选中的项状态*/
+    fun cancelSelectedItem() {
+        if (_selectedCanvasItem?.itemIsSelected == true) {
+            _selectedCanvasItem?.itemIsSelected = false
+            _selectedCanvasItem?.updateAdapterItem()
+        }
+        _selectedCanvasItem = null
+    }
+
     /**绑定画图支持的功能列表*/
     fun bindItems(vh: DslViewHolder, canvasView: CanvasView, adapter: DslAdapter) {
         adapter.render {
@@ -101,9 +114,12 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             AddImageItem(canvasView)()
             AddShapesItem()() {
                 itemClick = {
-                    if (_selectedCanvasItem == this) {
-                        vh.goneControlLayout()
-                    } else {
+                    vh.showControlLayout(!itemIsSelected)
+                    itemIsSelected = !itemIsSelected
+                    updateAdapterItem()
+
+                    if (itemIsSelected) {
+                        cancelSelectedItem()
                         _selectedCanvasItem = this
                         showShapeSelectLayout(vh, canvasView)
                     }
@@ -153,11 +169,25 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                     }
                 }
             }
-
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_edit_ico
                 itemText = "编辑"
-                itemEnable = false
+                itemEnable = true
+                itemClick = {
+                    vh.showControlLayout(!itemIsSelected)
+                    itemIsSelected = !itemIsSelected
+                    updateAdapterItem()
+
+                    if (itemIsSelected) {
+                        cancelSelectedItem()
+                        _selectedCanvasItem = this
+                        showEditControlLayout(
+                            vh,
+                            canvasView,
+                            canvasView.canvasDelegate.getSelectedRenderer()
+                        )
+                    }
+                }
             }
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_layer_ico
@@ -169,9 +199,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                     updateAdapterItem()
 
                     if (itemIsSelected) {
-                        vh.rv(R.id.canvas_layer_view)?.initDslAdapter {
-                            showLayerControlItem(vh, canvasView)
-                        }
+                        showLayerControlLayout(vh, canvasView)
                     }
                 }
             }
@@ -315,12 +343,13 @@ class CanvasLayoutHelper(val fragment: Fragment) {
 
             override fun onItemBoundsChanged(item: IRenderer, reason: Reason, oldBounds: RectF) {
                 super.onItemBoundsChanged(item, reason, oldBounds)
-                updateControlLayout(vh)
+                updateControlLayout(vh, canvasView)
             }
 
             override fun onClearSelectItem(itemRenderer: IItemRenderer<*>) {
                 super.onClearSelectItem(itemRenderer)
-                vh.goneControlLayout()
+                cancelSelectedItem()
+                vh.showControlLayout(false)
                 updateLayerLayout(vh)
             }
 
@@ -329,37 +358,32 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 oldItemRenderer: IItemRenderer<*>?
             ) {
                 super.onSelectedItem(itemRenderer, oldItemRenderer)
-                vh.goneControlLayout(false)
+                if (itemRenderer == oldItemRenderer) {
+                    //重复选择
+                    return
+                }
+                cancelSelectedItem()
+                vh.showControlLayout()
                 updateLayerLayout(vh)
                 if (itemRenderer is TextItemRenderer || itemRenderer is PictureTextItemRenderer) {
                     //选中TextItemRenderer时的控制菜单
-                    vh.rv(R.id.canvas_control_view)?.initDslAdapter {
-                        showTextControlItemOld(vh, canvasView, itemRenderer)
-                    }
+                    showTextControlLayoutOld(vh, canvasView, itemRenderer)
                 } else if (itemRenderer is PictureItemRenderer) {
                     val renderItem = itemRenderer._rendererItem
                     if (renderItem is PictureTextItem) {
                         //选中TextItemRenderer时的控制菜单
-                        vh.rv(R.id.canvas_control_view)?.initDslAdapter {
-                            showTextControlItem(vh, canvasView, itemRenderer)
-                        }
+                        showTextControlLayout(vh, canvasView, itemRenderer)
                     } else if (renderItem is PictureShapeItem) {
-                        vh.rv(R.id.canvas_control_view)?.initDslAdapter {
-                            showShapeControlItem(vh, canvasView, itemRenderer)
-                        }
+                        showShapeControlLayout(vh, canvasView, itemRenderer)
                     } else if (renderItem is PictureBitmapItem) {
-                        vh.rv(R.id.canvas_control_view)?.initDslAdapter {
-                            showBitmapControlItem(vh, canvasView, itemRenderer)
-                        }
+                        showBitmapControlLayout(vh, canvasView, itemRenderer)
                     } else {
-                        vh.goneControlLayout()
+                        vh.showControlLayout(false)
                     }
                 } else if (itemRenderer is BitmapItemRenderer) {
-                    vh.rv(R.id.canvas_control_view)?.initDslAdapter {
-                        showBitmapControlItem(vh, canvasView, itemRenderer)
-                    }
+                    showBitmapControlLayout(vh, canvasView, itemRenderer)
                 } else {
-                    vh.goneControlLayout()
+                    vh.showControlLayout(false)
                 }
             }
 
@@ -380,68 +404,71 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     }
 
     /**隐藏控制布局*/
-    fun DslViewHolder.goneControlLayout(gone: Boolean = true) {
-        gone(R.id.canvas_control_layout, gone)
-        _selectedCanvasItem = null
+    fun DslViewHolder.showControlLayout(visible: Boolean = true) {
+        dslTransition(itemView as ViewGroup) {
+            onCaptureStartValues = {
+                //invisible(R.id.canvas_control_layout)
+            }
+            onCaptureEndValues = {
+                visible(R.id.canvas_control_layout, visible)
+            }
+        }
     }
 
     /**显示形状选择布局*/
     fun showShapeSelectLayout(vh: DslViewHolder, canvasView: CanvasView) {
-        vh.visible(R.id.canvas_control_layout)
-        vh.rv(R.id.canvas_control_view)?.initDslAdapter {
+        vh.rv(R.id.canvas_control_view)?.renderDslAdapter {
             hookUpdateDepend()
-            render {
-                ShapeLineItem(canvasView)()
-                ShapeItem(canvasView)() {
-                    itemIco = R.drawable.canvas_shape_line_ico
-                    itemText = "线条"
-                    shapePath = ShapesHelper.linePath()
-                }
-                ShapeItem(canvasView)() {
-                    itemIco = R.drawable.canvas_shape_circle_ico
-                    itemText = "圆形"
-                    shapePath = ShapesHelper.circlePath()
-                }
-                ShapeItem(canvasView)() {
-                    itemIco = R.drawable.canvas_shape_triangle_ico
-                    itemText = "三角形"
-                    shapePath = ShapesHelper.trianglePath()
-                }
-                ShapeItem(canvasView)() {
-                    itemIco = R.drawable.canvas_shape_square_ico
-                    itemText = "正方形"
-                    shapePath = ShapesHelper.squarePath()
-                }
-                ShapeItem(canvasView)() {
-                    itemIco = R.drawable.canvas_shape_pentagon_ico
-                    itemText = "五角形"
-                    shapePath = ShapesHelper.pentagonPath()
-                }
-                ShapeItem(canvasView)() {
-                    itemIco = R.drawable.canvas_shape_hexagon_ico
-                    itemText = "六角形"
-                    shapePath = ShapesHelper.hexagonPath()
-                }
-                ShapeItem(canvasView)() {
-                    itemIco = R.drawable.canvas_shape_octagon_ico
-                    itemText = "八角形"
-                    shapePath = ShapesHelper.octagonPath()
-                }
-                ShapeItem(canvasView)() {
-                    itemIco = R.drawable.canvas_shape_rhombus_ico
-                    itemText = "菱形"
-                    shapePath = ShapesHelper.rhombusPath()
-                }
-                ShapeItem(canvasView)() {
-                    itemIco = R.drawable.canvas_shape_pentagram_ico
-                    itemText = "星星"
-                    shapePath = ShapesHelper.pentagramPath()
-                }
-                ShapeItem(canvasView)() {
-                    itemIco = R.drawable.canvas_shape_love_ico
-                    itemText = "心形"
-                    shapePath = ShapesHelper.lovePath()
-                }
+            ShapeLineItem(canvasView)()
+            ShapeItem(canvasView)() {
+                itemIco = R.drawable.canvas_shape_line_ico
+                itemText = "线条"
+                shapePath = ShapesHelper.linePath()
+            }
+            ShapeItem(canvasView)() {
+                itemIco = R.drawable.canvas_shape_circle_ico
+                itemText = "圆形"
+                shapePath = ShapesHelper.circlePath()
+            }
+            ShapeItem(canvasView)() {
+                itemIco = R.drawable.canvas_shape_triangle_ico
+                itemText = "三角形"
+                shapePath = ShapesHelper.trianglePath()
+            }
+            ShapeItem(canvasView)() {
+                itemIco = R.drawable.canvas_shape_square_ico
+                itemText = "正方形"
+                shapePath = ShapesHelper.squarePath()
+            }
+            ShapeItem(canvasView)() {
+                itemIco = R.drawable.canvas_shape_pentagon_ico
+                itemText = "五角形"
+                shapePath = ShapesHelper.pentagonPath()
+            }
+            ShapeItem(canvasView)() {
+                itemIco = R.drawable.canvas_shape_hexagon_ico
+                itemText = "六角形"
+                shapePath = ShapesHelper.hexagonPath()
+            }
+            ShapeItem(canvasView)() {
+                itemIco = R.drawable.canvas_shape_octagon_ico
+                itemText = "八角形"
+                shapePath = ShapesHelper.octagonPath()
+            }
+            ShapeItem(canvasView)() {
+                itemIco = R.drawable.canvas_shape_rhombus_ico
+                itemText = "菱形"
+                shapePath = ShapesHelper.rhombusPath()
+            }
+            ShapeItem(canvasView)() {
+                itemIco = R.drawable.canvas_shape_pentagram_ico
+                itemText = "星星"
+                shapePath = ShapesHelper.pentagramPath()
+            }
+            ShapeItem(canvasView)() {
+                itemIco = R.drawable.canvas_shape_love_ico
+                itemText = "心形"
+                shapePath = ShapesHelper.lovePath()
             }
         }
     }
@@ -449,20 +476,29 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     //<editor-fold desc="文本属性控制">
 
     /**更新文本样式和其他控制布局*/
-    fun updateControlLayout(vh: DslViewHolder) {
+    fun updateControlLayout(vh: DslViewHolder, canvasView: CanvasView) {
         if (vh.isVisible(R.id.canvas_control_layout)) {
-            vh.rv(R.id.canvas_control_view)?._dslAdapter?.updateAllItem()
+            vh.rv(R.id.canvas_control_view)?._dslAdapter?.apply {
+                eachItem { index, dslAdapterItem ->
+                    if (dslAdapterItem is CanvasEditControlItem) {
+                        dslAdapterItem.itemRenderer =
+                            canvasView.canvasDelegate.getSelectedRenderer()
+                        dslAdapterItem.itemCanvasDelegate = canvasView.canvasDelegate
+                    }
+                }
+                updateAllItem()
+            }
         }
     }
 
     /**文本属性控制item*/
-    fun DslAdapter.showTextControlItemOld(
+    fun showTextControlLayoutOld(
         vh: DslViewHolder,
         canvasView: CanvasView,
         itemRenderer: IItemRenderer<*>
     ) {
-        hookUpdateDepend()
-        render {
+        vh.rv(R.id.canvas_control_view)?.renderDslAdapter {
+            hookUpdateDepend()
             this + TextSolidStyleItem(itemRenderer, canvasView)
 
             this + CanvasTextStyleItem(
@@ -555,13 +591,13 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     }
 
     /**统一样式的item*/
-    fun DslAdapter.showTextControlItem(
+    fun showTextControlLayout(
         vh: DslViewHolder,
         canvasView: CanvasView,
         renderer: IItemRenderer<*>
     ) {
-        hookUpdateDepend()
-        render {
+        vh.rv(R.id.canvas_control_view)?.renderDslAdapter {
+            hookUpdateDepend()
             TextStrokeStyleItem()() {
                 itemIco = R.drawable.canvas_text_style_solid
                 itemText = "实心"
@@ -645,7 +681,6 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemAlign = Paint.Align.RIGHT
                 itemRenderer = renderer
             }
-
         }
     }
 
@@ -745,13 +780,13 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     //<editor-fold desc="形状控制">
 
     /**形状属性控制item*/
-    fun DslAdapter.showShapeControlItem(
+    fun showShapeControlLayout(
         vh: DslViewHolder,
         canvasView: CanvasView,
         itemRenderer: IItemRenderer<*>
     ) {
-        hookUpdateDepend()
-        render {
+        vh.rv(R.id.canvas_control_view)?.renderDslAdapter {
+            hookUpdateDepend()
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_style_stroke_ico
                 itemText = "描边"
@@ -778,13 +813,13 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     //<editor-fold desc="图片控制">
 
     /**图片属性控制item*/
-    fun DslAdapter.showBitmapControlItem(
+    fun showBitmapControlLayout(
         vh: DslViewHolder,
         canvasView: CanvasView,
         renderer: IItemRenderer<*>
     ) {
-        hookUpdateDepend()
-        render {
+        vh.rv(R.id.canvas_control_view)?.renderDslAdapter {
+            hookUpdateDepend()
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_bitmap_prints
                 itemText = "版画"
@@ -950,9 +985,9 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     }
 
     /**显示图层item*/
-    fun DslAdapter.showLayerControlItem(vh: DslViewHolder, canvasView: CanvasView) {
-        hookUpdateDepend()
-        render {
+    fun showLayerControlLayout(vh: DslViewHolder, canvasView: CanvasView) {
+        vh.rv(R.id.canvas_layer_view)?.renderDslAdapter {
+            hookUpdateDepend()
             canvasView.canvasDelegate.itemsRendererList.forEach {
                 CanvasLayerItem()() {
                     itemCanvasDelegate = canvasView.canvasDelegate
@@ -968,4 +1003,23 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     }
 
     //</editor-fold desc="图层控制">
+
+    //<editor-fold desc="编辑控制">
+
+    /**编辑控制*/
+    fun showEditControlLayout(
+        vh: DslViewHolder,
+        canvasView: CanvasView,
+        renderer: IItemRenderer<*>?
+    ) {
+        vh.rv(R.id.canvas_control_view)?.renderDslAdapter {
+            hookUpdateDepend()
+            CanvasEditControlItem()() {
+                itemRenderer = renderer
+                itemCanvasDelegate = canvasView.canvasDelegate
+            }
+        }
+    }
+    //<editor-fold desc="编辑控制">
+
 }

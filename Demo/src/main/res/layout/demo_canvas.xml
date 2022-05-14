@@ -161,7 +161,6 @@
     <!--绘图功能层-->
     <com.angcyo.widget.recycler.DslRecyclerView
         android:id="@+id/canvas_item_view"
-        style="@style/LibRecyclerViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/canvas_item_layout"
@@ -207,7 +206,6 @@
             <!--功能控制项-->
             <com.angcyo.widget.recycler.DslRecyclerView
                 android:id="@+id/canvas_control_view"
-                style="@style/LibRecyclerViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/canvas_control_layout"
@@ -238,7 +236,6 @@
 
         <com.angcyo.widget.recycler.DslRecyclerView
             android:id="@+id/canvas_layer_view"
-            style="@style/LibRecyclerViewStyle"
             android:layout_width="160dp"
             android:layout_height="match_parent"
             android:background="@color/lib_white"
