@@ -27,7 +27,9 @@ class CanvasNumberPopupConfig : AnchorPopupConfig() {
 
     init {
         layoutId = R.layout.canvas_number_keyboard_layout
-        yoff = -10 * dpi
+        triangleMinMargin = 10 * dpi
+        minHorizontalOffset = 0
+        yoff = 4 * dpi
     }
 
     override fun initLayout(window: TargetWindow, viewHolder: DslViewHolder) {

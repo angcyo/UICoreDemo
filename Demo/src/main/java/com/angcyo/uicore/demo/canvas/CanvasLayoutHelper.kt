@@ -346,6 +346,11 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 updateControlLayout(vh, canvasView)
             }
 
+            override fun onItemLockScaleRatioChanged(item: BaseItemRenderer<*>) {
+                super.onItemLockScaleRatioChanged(item)
+                updateControlLayout(vh, canvasView)
+            }
+
             override fun onClearSelectItem(itemRenderer: IItemRenderer<*>) {
                 super.onClearSelectItem(itemRenderer)
                 cancelSelectedItem()
