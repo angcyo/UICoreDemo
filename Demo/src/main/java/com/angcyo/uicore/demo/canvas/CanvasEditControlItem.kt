@@ -1,12 +1,13 @@
 package com.angcyo.uicore.demo.canvas
 
+import android.graphics.Matrix
 import android.graphics.PointF
+import android.graphics.RectF
 import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.canvas.core.IRenderer
 import com.angcyo.canvas.items.renderer.BaseItemRenderer
 import com.angcyo.dsladapter.DslAdapterItem
-import com.angcyo.library.ex.decimal
-import com.angcyo.library.ex.visible
+import com.angcyo.library.ex.*
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
 
@@ -21,6 +22,11 @@ class CanvasEditControlItem : DslAdapterItem() {
     var itemCanvasDelegate: CanvasDelegate? = null
 
     val _tempPoint = PointF()
+    val _tempRect = RectF()
+    val _tempMatrix = Matrix()
+
+    /**限流*/
+    var pendingDelay = 300L
 
     init {
         itemLayoutId = R.layout.item_canvas_edit_control_layout
@@ -48,6 +54,7 @@ class CanvasEditControlItem : DslAdapterItem() {
             val canvasViewBox = canvasDelegate.getCanvasViewBox()
             //宽高
             val rotateBounds = renderer.getRotateBounds()
+            val renderRotateBounds = renderer.getRenderRotateBounds()
             val width =
                 canvasViewBox.valueUnit.convertPixelToValue(rotateBounds.width()).decimal(2)
             val height =
@@ -57,9 +64,8 @@ class CanvasEditControlItem : DslAdapterItem() {
             itemHolder.tv(R.id.item_height_view)?.text = "$height"
 
             //xy坐标
-            _tempPoint.set(rotateBounds.left, rotateBounds.top)
-            val point = _tempPoint
-            val value = canvasViewBox.calcDistanceValueWithOrigin(point)
+            _tempPoint.set(renderRotateBounds.left, renderRotateBounds.top)
+            val value = canvasViewBox.calcDistanceValueWithOrigin(_tempPoint)
 
             val x = value.x.decimal(2)
             val y = value.y.decimal(2)
@@ -71,7 +77,15 @@ class CanvasEditControlItem : DslAdapterItem() {
             itemHolder.tv(R.id.item_rotate_view)?.text = "${renderer.rotate.decimal(2)}°"
 
             //等比
+            itemHolder.click(R.id.item_lock_view) {
+                if (canvasDelegate.getSelectedRenderer() != null) {
+                    canvasDelegate.controlHandler.setLockScaleRatio(!renderer.isLockScaleRatio)
+                    canvasDelegate.refresh()
+                    updateAdapterItem()
+                }
+            }
 
+            //click事件绑定
             bindWidthHeight(itemHolder)
             bindAxis(itemHolder)
             bindRotate(itemHolder)
@@ -88,14 +102,65 @@ class CanvasEditControlItem : DslAdapterItem() {
 
     fun DslViewHolder.isLockRatio() = view(R.id.item_lock_view)?.isSelected == true
 
+    var _widthPendingRunnable: Runnable? = null
+    var _heightPendingRunnable: Runnable? = null
+
     /**绑定宽高事件*/
     fun bindWidthHeight(itemHolder: DslViewHolder) {
         itemHolder.click(R.id.item_width_view) {
             val renderer = itemRenderer
             if (renderer is BaseItemRenderer<*>) {
                 itemHolder.context.canvasNumberWindow(it) {
+                    val builder = StringBuilder()
                     onClickNumberAction = {
+                        itemHolder.tv(R.id.item_width_view)?.text = inputValueWith(
+                            builder,
+                            itemHolder.tv(R.id.item_width_view)?.text?.toString(),
+                            it,
+                            1f
+                        ).apply {
+                            itemHolder.removeCallbacks(_widthPendingRunnable)
+                            this.toFloatOrNull()?.let { toWidth ->
+                                _widthPendingRunnable = Runnable {
+                                    val width =
+                                        itemCanvasDelegate?.getCanvasViewBox()?.valueUnit?.convertValueToPixel(
+                                            toWidth
+                                        ) ?: toWidth
 
+                                    //当外边框高度调整时, 计算真实Bounds应该调整的宽高
+                                    val from = RectF(renderer.getRotateBounds())
+                                    val to = RectF(from)
+                                    to.adjustSize(width, from.height(), ADJUST_TYPE_LT)
+                                    val result = RectF(renderer.getBounds())
+                                    itemCanvasDelegate?.operateHandler?.calcBoundsWidthHeightWithFrame(
+                                        result,
+                                        from,
+                                        to,
+                                        renderer.rotate
+                                    )?.apply {
+                                        //计算结果后
+                                        val newWidth = this[0]
+                                        val newHeight = if (itemHolder.isLockRatio()) {
+                                            result.height() * (newWidth / result.width())
+                                        } else {
+                                            this[1]
+                                        }
+
+                                        result.adjustSizeWithRotate(
+                                            newWidth, newHeight,
+                                            renderer.rotate,
+                                            ADJUST_TYPE_LT
+                                        )
+
+                                        itemCanvasDelegate?.addChangeItemBounds(
+                                            renderer,
+                                            result
+                                        )
+                                    }
+                                }
+                                itemHolder.postDelay(_widthPendingRunnable!!, pendingDelay)
+                            }
+                        }
                         false
                     }
                 }
@@ -105,8 +170,57 @@ class CanvasEditControlItem : DslAdapterItem() {
             val renderer = itemRenderer
             if (renderer is BaseItemRenderer<*>) {
                 itemHolder.context.canvasNumberWindow(it) {
+                    val builder = StringBuilder()
                     onClickNumberAction = {
+                        itemHolder.tv(R.id.item_height_view)?.text = inputValueWith(
+                            builder,
+                            itemHolder.tv(R.id.item_height_view)?.text?.toString(),
+                            it,
+                            1f
+                        ).apply {
+                            itemHolder.removeCallbacks(_heightPendingRunnable)
+                            this.toFloatOrNull()?.let { toHeight ->
+                                _heightPendingRunnable = Runnable {
+                                    val height =
+                                        itemCanvasDelegate?.getCanvasViewBox()?.valueUnit?.convertValueToPixel(
+                                            toHeight
+                                        ) ?: toHeight
 
+                                    //当外边框高度调整时, 计算真实Bounds应该调整的宽高
+                                    val from = RectF(renderer.getRotateBounds())
+                                    val to = RectF(from)
+                                    to.adjustSize(from.width(), height, ADJUST_TYPE_LT)
+                                    val result = RectF(renderer.getBounds())
+                                    itemCanvasDelegate?.operateHandler?.calcBoundsWidthHeightWithFrame(
+                                        result,
+                                        from,
+                                        to,
+                                        renderer.rotate
+                                    )?.apply {
+                                        //计算结果后
+                                        val newHeight = this[1]//计算出来的
+                                        val newWidth = if (itemHolder.isLockRatio()) {
+                                            result.width() * (newHeight / result.height())
+                                        } else {
+                                            this[0]
+                                        }
+
+                                        result.adjustSizeWithRotate(
+                                            newWidth, newHeight,
+                                            renderer.rotate,
+                                            ADJUST_TYPE_LT
+                                        )
+
+                                        itemCanvasDelegate?.addChangeItemBounds(
+                                            renderer,
+                                            result
+                                        )
+                                    }
+
+                                }
+                                itemHolder.postDelay(_heightPendingRunnable!!, pendingDelay)
+                            }
+                        }
                         false
                     }
                 }
@@ -114,14 +228,42 @@ class CanvasEditControlItem : DslAdapterItem() {
         }
     }
 
+    var _axisXPendingRunnable: Runnable? = null
+    var _axisYPendingRunnable: Runnable? = null
+
     /**绑定xy轴事件*/
     fun bindAxis(itemHolder: DslViewHolder) {
         itemHolder.click(R.id.item_axis_x_view) {
             val renderer = itemRenderer
             if (renderer is BaseItemRenderer<*>) {
                 itemHolder.context.canvasNumberWindow(it) {
+                    val builder = StringBuilder()
                     onClickNumberAction = {
-
+                        itemHolder.tv(R.id.item_axis_x_view)?.text = inputValueWith(
+                            builder,
+                            itemHolder.tv(R.id.item_axis_x_view)?.text?.toString(),
+                            it,
+                            1f
+                        ).apply {
+                            itemHolder.removeCallbacks(_axisXPendingRunnable)
+                            this.toFloatOrNull()?.let { toX ->
+                                _axisXPendingRunnable = Runnable {
+                                    val x =
+                                        itemCanvasDelegate?.getCanvasViewBox()?.valueUnit?.convertValueToPixel(
+                                            toX
+                                        ) ?: toX
+                                    val rotate = renderer.getRotateBounds()
+                                    val bounds = RectF(renderer.getBounds())
+                                    val dx = x - rotate.left
+                                    bounds.offset(dx, 0f)
+                                    itemCanvasDelegate?.addChangeItemBounds(
+                                        renderer,
+                                        bounds
+                                    )
+                                }
+                                itemHolder.postDelay(_axisXPendingRunnable!!, pendingDelay)
+                            }
+                        }
                         false
                     }
                 }
@@ -131,14 +273,41 @@ class CanvasEditControlItem : DslAdapterItem() {
             val renderer = itemRenderer
             if (renderer is BaseItemRenderer<*>) {
                 itemHolder.context.canvasNumberWindow(it) {
+                    val builder = StringBuilder()
                     onClickNumberAction = {
-
+                        itemHolder.tv(R.id.item_axis_y_view)?.text = inputValueWith(
+                            builder,
+                            itemHolder.tv(R.id.item_axis_y_view)?.text?.toString(),
+                            it,
+                            1f
+                        ).apply {
+                            itemHolder.removeCallbacks(_axisYPendingRunnable)
+                            this.toFloatOrNull()?.let { toY ->
+                                _axisYPendingRunnable = Runnable {
+                                    val y =
+                                        itemCanvasDelegate?.getCanvasViewBox()?.valueUnit?.convertValueToPixel(
+                                            toY
+                                        ) ?: toY
+                                    val rotate = renderer.getRotateBounds()
+                                    val bounds = RectF(renderer.getBounds())
+                                    val dy = y - rotate.top
+                                    bounds.offset(0f, dy)
+                                    itemCanvasDelegate?.addChangeItemBounds(
+                                        renderer,
+                                        bounds
+                                    )
+                                }
+                                itemHolder.postDelay(_axisYPendingRunnable!!, pendingDelay)
+                            }
+                        }
                         false
                     }
                 }
             }
         }
     }
+
+    var _rotatePendingRunnable: Runnable? = null
 
     /**绑定旋转事件*/
     fun bindRotate(itemHolder: DslViewHolder) {
@@ -148,14 +317,22 @@ class CanvasEditControlItem : DslAdapterItem() {
                 itemHolder.context.canvasNumberWindow(it) {
                     val builder = StringBuilder()
                     onClickNumberAction = {
-                        itemHolder.tv(R.id.item_rotate_view)?.text = updateValueWith(
+                        itemHolder.tv(R.id.item_rotate_view)?.text = inputValueWith(
                             builder,
                             itemHolder.tv(R.id.item_rotate_view)?.text?.toString(),
                             it,
                             1f
                         ).apply {
-                            //this.toFloatOrNull()?.let(onDismiss)
-                            //renderer.rotateBy()
+                            itemHolder.removeCallbacks(_rotatePendingRunnable)
+                            this.toFloatOrNull()?.let { toRotate ->
+                                _rotatePendingRunnable = Runnable {
+                                    itemCanvasDelegate?.addChangeItemRotate(
+                                        renderer,
+                                        toRotate
+                                    )
+                                }
+                                itemHolder.postDelay(_rotatePendingRunnable!!, pendingDelay)
+                            }
                         }
                         false
                     }
@@ -164,7 +341,8 @@ class CanvasEditControlItem : DslAdapterItem() {
         }
     }
 
-    fun updateValueWith(
+    /**键盘输入解析*/
+    fun inputValueWith(
         newValueBuild: StringBuilder,
         firstValue: String?,
         op: String,
