@@ -127,7 +127,7 @@ class CanvasDemo : AppDslFragment() {
                         val renderer = ShapeItemRenderer(this).apply {
                             addRect(limitRect)
                         }
-                        addItemRenderer(renderer, Strategy(Strategy.STRATEGY_TYPE_NORMAL))
+                        addItemRenderer(renderer, Strategy.normal)
                         showRectBounds(limitRect)
                     }
                 }

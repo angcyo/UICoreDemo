@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.utils.addPictureBitmapRenderer
-import com.angcyo.component.getPhoto
 import com.angcyo.dsladapter.item.IFragmentItem
 import com.angcyo.library.ex.toBitmap
 import com.angcyo.library.model.loadPath

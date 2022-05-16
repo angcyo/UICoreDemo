@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.Reason
+import com.angcyo.canvas.Strategy
 import com.angcyo.canvas.core.CanvasUndoManager
 import com.angcyo.canvas.core.ICanvasListener
 import com.angcyo.canvas.core.IRenderer
@@ -769,13 +770,36 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = "版画"
                 itemTintColor = false
                 itemClick = {
-                    loadingAsync({
-                        renderer.getRenderBitmap()?.let { bitmap ->
-                            OpenCV.bitmapToPrint(fragment.requireContext(), bitmap)
-                        }
-                    }) {
-                        it?.let {
-                            renderer.updateRenderBitmap(it)
+                    val originBitmap = renderer.getRenderBitmap()
+                    it.context.canvasRegulateWindow(it) {
+                        itemRenderer = renderer
+                        addRegulate(CanvasRegulatePopupConfig.REGULATE_THRESHOLD)
+                        onApplyAction = { preview, cancel ->
+                            if (cancel) {
+                                originBitmap?.let {
+                                    renderer.updateRenderBitmap(it, Strategy.redo)
+                                }
+                            } else {
+                                loadingAsync({
+                                    originBitmap?.let { bitmap ->
+                                        OpenCV.bitmapToPrint(
+                                            fragment.requireContext(),
+                                            bitmap,
+                                            getIntOrDef(
+                                                CanvasRegulatePopupConfig.KEY_THRESHOLD,
+                                                240
+                                            )
+                                        )
+                                    }
+                                }) {
+                                    it?.let {
+                                        renderer.updateRenderBitmap(
+                                            it,
+                                            if (preview) Strategy.preview else Strategy.normal
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -785,18 +809,52 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = "GCode"
                 itemTintColor = false
                 itemClick = {
-                    loadingAsync({
-                        renderer.getRenderBitmap()?.let { bitmap ->
-                            OpenCV.bitmapToGCode(fragment.requireContext(), bitmap).let {
-                                GCodeHelper.parseGCode(
-                                    fragment.requireContext(),
-                                    it.readText().toString()
-                                )?.toBitmap()
+                    val originBitmap = renderer.getRenderBitmap()
+                    it.context.canvasRegulateWindow(it) {
+                        itemRenderer = renderer
+                        addRegulate(CanvasRegulatePopupConfig.REGULATE_LINE_SPACE)
+                        addRegulate(CanvasRegulatePopupConfig.REGULATE_ANGLE)
+                        addRegulate(CanvasRegulatePopupConfig.REGULATE_DIRECTION)
+                        onApplyAction = { preview, cancel ->
+                            if (cancel) {
+                                originBitmap?.let {
+                                    renderer.updateRenderBitmap(it, Strategy.redo)
+                                }
+                            } else {
+                                loadingAsync({
+                                    originBitmap?.let { bitmap ->
+                                        OpenCV.bitmapToGCode(
+                                            fragment.requireContext(),
+                                            bitmap,
+                                            lineSpace = getFloatOrDef(
+                                                CanvasRegulatePopupConfig.KEY_LINE_SPACE,
+                                                0.125f
+                                            ).toDouble(),
+                                            direction = getIntOrDef(
+                                                CanvasRegulatePopupConfig.KEY_DIRECTION,
+                                                0
+                                            ),
+                                            angle = getFloatOrDef(
+                                                CanvasRegulatePopupConfig.KEY_ANGLE,
+                                                0f
+                                            ).toDouble()
+                                        ).let {
+                                            //todo 保存GCode文本数据属性
+                                            GCodeHelper.parseGCode(
+                                                fragment.requireContext(),
+                                                it.readText().toString()
+                                            )?.toBitmap()
+                                        }
+                                    }
+                                }) {
+                                    it?.let {
+                                        renderer.updateRenderBitmap(
+                                            it,
+                                            if (preview) Strategy.preview else Strategy.normal
+                                        )
+                                    }
+                                }
                             }
-                        }
-                    }) {
-                        it?.let {
-                            renderer.updateRenderBitmap(it)
                         }
                     }
                 }
@@ -806,13 +864,44 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = "黑白画"
                 itemTintColor = false
                 itemClick = {
-                    loadingAsync({
-                        renderer.getRenderBitmap()?.let { bitmap ->
-                            OpenCV.bitmapToBlackWhite(bitmap)
-                        }
-                    }) {
-                        it?.let {
-                            renderer.updateRenderBitmap(it)
+                    val originBitmap = renderer.getRenderBitmap()
+                    it.context.canvasRegulateWindow(it) {
+                        itemRenderer = renderer
+                        addRegulate(CanvasRegulatePopupConfig.REGULATE_INVERT)
+                        addRegulate(CanvasRegulatePopupConfig.REGULATE_THRESHOLD)
+                        onApplyAction = { preview, cancel ->
+                            if (cancel) {
+                                originBitmap?.let {
+                                    renderer.updateRenderBitmap(it, Strategy.redo)
+                                }
+                            } else {
+                                loadingAsync({
+                                    originBitmap?.let { bitmap ->
+                                        OpenCV.bitmapToBlackWhite(
+                                            bitmap,
+                                            getIntOrDef(
+                                                CanvasRegulatePopupConfig.KEY_THRESHOLD,
+                                                240
+                                            ),
+                                            if (getBooleanOrDef(
+                                                    CanvasRegulatePopupConfig.KEY_INVERT, false
+                                                )
+                                            ) {
+                                                1
+                                            } else {
+                                                0
+                                            }
+                                        )
+                                    }
+                                }) {
+                                    it?.let {
+                                        renderer.updateRenderBitmap(
+                                            it,
+                                            if (preview) Strategy.preview else Strategy.normal
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -822,13 +911,42 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = "抖动"
                 itemTintColor = false
                 itemClick = {
-                    loadingAsync({
-                        renderer.getRenderBitmap()?.let { bitmap ->
-                            OpenCV.bitmapToDithering(fragment.requireContext(), bitmap)
-                        }
-                    }) {
-                        it?.let {
-                            renderer.updateRenderBitmap(it)
+                    val originBitmap = renderer.getRenderBitmap()
+                    it.context.canvasRegulateWindow(it) {
+                        itemRenderer = renderer
+                        addRegulate(CanvasRegulatePopupConfig.REGULATE_INVERT)
+                        addRegulate(CanvasRegulatePopupConfig.REGULATE_CONTRAST)
+                        addRegulate(CanvasRegulatePopupConfig.REGULATE_BRIGHTNESS)
+                        onApplyAction = { preview, cancel ->
+                            if (cancel) {
+                                originBitmap?.let {
+                                    renderer.updateRenderBitmap(it, Strategy.redo)
+                                }
+                            } else {
+                                loadingAsync({
+                                    originBitmap?.let { bitmap ->
+                                        OpenCV.bitmapToDithering(
+                                            fragment.requireContext(), bitmap,
+                                            getBooleanOrDef(
+                                                CanvasRegulatePopupConfig.KEY_INVERT, false
+                                            ),
+                                            getFloatOrDef(
+                                                CanvasRegulatePopupConfig.KEY_CONTRAST, 0f
+                                            ).toDouble(),
+                                            getFloatOrDef(
+                                                CanvasRegulatePopupConfig.KEY_BRIGHTNESS, 0f
+                                            ).toDouble(),
+                                        )
+                                    }
+                                }) {
+                                    it?.let {
+                                        renderer.updateRenderBitmap(
+                                            it,
+                                            if (preview) Strategy.preview else Strategy.normal
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -854,29 +972,35 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = "印章"
                 itemTintColor = false
                 itemClick = {
-                    loadingAsync({
-                        renderer.getRenderBitmap()?.let { bitmap ->
-                            OpenCV.bitmapToSeal(fragment.requireContext(), bitmap)
-                        }
-                    }) {
-                        it?.let {
-                            renderer.updateRenderBitmap(it)
-                        }
-                    }
-                }
-            }
-            CanvasControlItem()() {
-                itemIco = R.drawable.canvas_bitmap_invert
-                itemText = "反色"
-                itemTintColor = false
-                itemClick = {
-                    loadingAsync({
-                        renderer.getRenderBitmap()?.let { bitmap ->
-                            OpenCV.bitmapToBlackWhite(bitmap, 240, 1)
-                        }
-                    }) {
-                        it?.let {
-                            renderer.updateRenderBitmap(it)
+                    val originBitmap = renderer.getRenderBitmap()
+                    it.context.canvasRegulateWindow(it) {
+                        itemRenderer = renderer
+                        addRegulate(CanvasRegulatePopupConfig.REGULATE_THRESHOLD)
+                        onApplyAction = { preview, cancel ->
+                            if (cancel) {
+                                originBitmap?.let {
+                                    renderer.updateRenderBitmap(it, Strategy.redo)
+                                }
+                            } else {
+                                loadingAsync({
+                                    originBitmap?.let { bitmap ->
+                                        OpenCV.bitmapToSeal(
+                                            fragment.requireContext(), bitmap,
+                                            getIntOrDef(
+                                                CanvasRegulatePopupConfig.KEY_THRESHOLD,
+                                                240
+                                            )
+                                        )
+                                    }
+                                }) {
+                                    it?.let {
+                                        renderer.updateRenderBitmap(
+                                            it,
+                                            if (preview) Strategy.preview else Strategy.normal
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -914,7 +1038,11 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     }
 
     /**添加一个渲染图层*/
-    fun addLayerItem(vh: DslViewHolder, canvasView: CanvasView, item: BaseItemRenderer<*>) {
+    fun addLayerItem(
+        vh: DslViewHolder,
+        canvasView: CanvasView,
+        item: BaseItemRenderer<*>
+    ) {
         if (vh.isVisible(R.id.canvas_layer_layout)) {
             vh.rv(R.id.canvas_layer_view)?._dslAdapter?.apply {
                 render {
@@ -965,5 +1093,4 @@ class CanvasLayoutHelper(val fragment: Fragment) {
         }
     }
     //<editor-fold desc="编辑控制">
-
 }
