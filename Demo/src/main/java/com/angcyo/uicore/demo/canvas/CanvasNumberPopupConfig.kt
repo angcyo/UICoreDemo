@@ -4,10 +4,9 @@ import android.content.Context
 import android.view.View
 import android.widget.PopupWindow
 import com.angcyo.dialog.TargetWindow
-import com.angcyo.dialog.popup.AnchorPopupConfig
+import com.angcyo.dialog.popup.ShadowAnchorPopupConfig
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.item.style.itemText
-import com.angcyo.library.ex.dpi
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.base.appendDslItem
@@ -16,7 +15,7 @@ import com.angcyo.widget.base.appendDslItem
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
  * @since 2022/05/14
  */
-class CanvasNumberPopupConfig : AnchorPopupConfig() {
+class CanvasNumberPopupConfig : ShadowAnchorPopupConfig() {
 
     /**点击按键的回调
      * [number] -0,表示退格
@@ -26,13 +25,11 @@ class CanvasNumberPopupConfig : AnchorPopupConfig() {
     var onClickNumberAction: (number: String) -> Boolean = { false }
 
     init {
-        layoutId = R.layout.canvas_number_keyboard_layout
-        triangleMinMargin = 10 * dpi
-        minHorizontalOffset = 0
-        yoff = 4 * dpi
+        contentLayoutId = R.layout.canvas_number_keyboard_layout
     }
 
-    override fun initLayout(window: TargetWindow, viewHolder: DslViewHolder) {
+    override fun initContentLayout(window: TargetWindow, viewHolder: DslViewHolder) {
+        super.initContentLayout(window, viewHolder)
         val list = mutableListOf<DslAdapterItem>()
         for (i in 1..9) {
             list.add(createNumberItem(window, "$i"))
@@ -42,8 +39,6 @@ class CanvasNumberPopupConfig : AnchorPopupConfig() {
         list.add(createNumberImageItem(window))
         list.add(createNumberIncrementItem(window))
         viewHolder.group(R.id.lib_flow_layout)?.appendDslItem(list)
-
-        super.initLayout(window, viewHolder)
     }
 
     /**数字键和.号*/

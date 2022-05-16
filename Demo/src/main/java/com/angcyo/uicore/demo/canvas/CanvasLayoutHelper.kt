@@ -226,7 +226,23 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_setting_ico
                 itemText = "设置"
-                itemEnable = false
+                itemEnable = true
+
+                itemClick = {
+                    itemIsSelected = !itemIsSelected
+                    updateAdapterItem()
+
+                    if (itemIsSelected) {
+                        it.context.canvasSettingWindow(it) {
+                            canvasDelegate = canvasView.canvasDelegate
+                            onDismiss = {
+                                itemIsSelected = false
+                                updateAdapterItem()
+                                false
+                            }
+                        }
+                    }
+                }
             }
         }
 

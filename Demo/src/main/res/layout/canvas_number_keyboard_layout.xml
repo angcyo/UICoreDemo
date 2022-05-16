@@ -1,44 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.angcyo.widget.layout.DslFlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/lib_triangle_wrap_layout"
+    android:id="@+id/lib_flow_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <FrameLayout
-        android:id="@+id/lib_triangle_content_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/white_round_shadow">
-
-        <com.angcyo.widget.layout.DslFlowLayout
-            android:id="@+id/lib_flow_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="@dimen/lib_xhdpi"
-            app:r_flow_item_horizontal_space="@dimen/lib_hdpi"
-            app:r_flow_item_vertical_space="@dimen/lib_hdpi"
-            app:r_flow_max_line_child_count="3">
-
-            <!--  <include layout="@layout/canvas_number_item_layout" />
-              <include layout="@layout/canvas_number_item_layout" />
-              <include layout="@layout/canvas_number_item_layout" />
-              <include layout="@layout/canvas_number_item_layout" />-->
-
-        </com.angcyo.widget.layout.DslFlowLayout>
-
-    </FrameLayout>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/lib_triangle_view"
-        android:layout_width="18dp"
-        android:layout_height="8dp"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="12dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/ic_triangle"
-        app:tint="@color/lib_white" />
-
-</FrameLayout>
+    android:layout_gravity="center"
+    android:padding="@dimen/lib_xhdpi"
+    app:r_flow_item_horizontal_space="@dimen/lib_hdpi"
+    app:r_flow_item_vertical_space="@dimen/lib_hdpi"
+    app:r_flow_max_line_child_count="3" />
