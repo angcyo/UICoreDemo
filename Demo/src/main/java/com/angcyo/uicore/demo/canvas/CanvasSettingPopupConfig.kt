@@ -17,6 +17,7 @@ import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.recycler.renderDslAdapter
 
 /**
+ * 画图设置弹窗
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
  * @since 2022/05/16
  */

@@ -2,8 +2,8 @@ package com.angcyo.uicore.demo.canvas
 
 import android.graphics.Paint
 import android.graphics.RectF
-import android.graphics.Typeface
 import android.text.InputType
+import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
@@ -38,7 +38,6 @@ import com.angcyo.qrcode.createQRCode
 import com.angcyo.transition.dslTransition
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
-import com.angcyo.widget.recycler.initDslAdapter
 import com.angcyo.widget.recycler.renderDslAdapter
 
 /**
@@ -549,7 +548,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
 
             TextFontItem()() {
                 itemClick = {
-                    showFontSelectLayout(vh, itemRenderer)
+                    showFontSelectLayout(this, it, itemRenderer)
                 }
             }
 
@@ -661,12 +660,11 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemIco = R.drawable.canvas_text_font_ico
                 itemText = "字体"
                 itemClick = {
-                    vh.gone(R.id.font_control_view, itemIsSelected)
                     itemIsSelected = !itemIsSelected
                     updateAdapterItem()
 
                     if (itemIsSelected) {
-                        showFontSelectLayout(vh, renderer)
+                        showFontSelectLayout(this, it, renderer)
                     }
                 }
             }
@@ -706,92 +704,17 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     }
 
     /**显示字体选择布局*/
-    fun showFontSelectLayout(vh: DslViewHolder, renderer: IItemRenderer<*>) {
-        val fontControlView = vh.rv(R.id.font_control_view)
-
-        //更新字体
-        fun updatePaintTypeface(typeface: Typeface?) {
-            if (renderer is TextItemRenderer) {
-                renderer.updatePaintTypeface(typeface)
-            } else if (renderer is PictureTextItemRenderer) {
-                renderer.updatePaintTypeface(typeface)
-            } else if (renderer is PictureItemRenderer) {
-                val renderItem = renderer._rendererItem
-                if (renderItem is PictureTextItem) {
-                    renderer.updateTextTypeface(typeface)
-                }
-            }
-        }
-
-        //初始化控制item
-        fontControlView?.initDslAdapter {
-            hookUpdateDepend()
-            render {
-                TypefaceItem()() {
-                    displayName = "normal"
-                    previewText = "激光啄木鸟"
-                    typeface = Typeface.DEFAULT
-                    itemClick = {
-                        updatePaintTypeface(typeface)
-                    }
-                }
-                TypefaceItem()() {
-                    displayName = "monospace"
-                    previewText = "激光啄木鸟"
-                    typeface = Typeface.MONOSPACE
-                    itemClick = {
-                        updatePaintTypeface(typeface)
-                    }
-                }
-                TypefaceItem()() {
-                    displayName = "sans"
-                    previewText = "激光啄木鸟"
-                    typeface = Typeface.SANS_SERIF
-                    itemClick = {
-                        updatePaintTypeface(typeface)
-                    }
-                }
-                TypefaceItem()() {
-                    displayName = "serif"
-                    previewText = "激光啄木鸟"
-                    typeface = Typeface.SERIF
-                    itemClick = {
-                        updatePaintTypeface(typeface)
-                    }
-                }
-                //Typeface.DEFAULT
-                TypefaceItem()() {
-                    displayName = "Default-Normal"
-                    previewText = "激光啄木鸟"
-                    typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
-                    itemClick = {
-                        updatePaintTypeface(typeface)
-                    }
-                }
-                TypefaceItem()() {
-                    displayName = "Default-Bold"
-                    previewText = "激光啄木鸟"
-                    typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-                    itemClick = {
-                        updatePaintTypeface(typeface)
-                    }
-                }
-                TypefaceItem()() {
-                    displayName = "Default-Italic"
-                    previewText = "激光啄木鸟"
-                    typeface = Typeface.create(Typeface.DEFAULT, Typeface.ITALIC)
-                    itemClick = {
-                        updatePaintTypeface(typeface)
-                    }
-                }
-                TypefaceItem()() {
-                    displayName = "Default-Bold-Italic"
-                    previewText = "激光啄木鸟"
-                    typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD_ITALIC)
-                    itemClick = {
-                        updatePaintTypeface(typeface)
-                    }
-                }
+    fun showFontSelectLayout(
+        dslAdapterItem: DslAdapterItem,
+        anchor: View,
+        renderer: IItemRenderer<*>
+    ) {
+        anchor.context.canvasFontWindow(anchor) {
+            itemRenderer = renderer
+            onDismiss = {
+                dslAdapterItem.itemIsSelected = false
+                dslAdapterItem.updateAdapterItem()
+                false
             }
         }
     }

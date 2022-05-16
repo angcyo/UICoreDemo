@@ -193,16 +193,6 @@
             app:layout_constraintBottom_toTopOf="@id/canvas_item_view"
             tools:visibility="visible">
 
-            <!--字体选择列表-->
-            <com.angcyo.widget.recycler.DslRecyclerView
-                android:id="@+id/font_control_view"
-                style="@style/LibRecyclerViewStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:r_layout_manager="v"
-                tools:layout_height="140dp" />
-
             <!--功能控制项-->
             <com.angcyo.widget.recycler.DslRecyclerView
                 android:id="@+id/canvas_control_view"
