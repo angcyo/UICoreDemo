@@ -1,5 +1,6 @@
 package com.angcyo.uicore.demo.canvas
 
+import com.angcyo.library.ex._string
 import com.angcyo.uicore.demo.R
 
 /**
@@ -10,7 +11,7 @@ class AddDoodleItem : CanvasControlItem() {
 
     init {
         itemIco = R.drawable.canvas_doodle_ico
-        itemText = "涂鸦"
+        itemText = _string(R.string.canvas_doodle)
     }
 
 }

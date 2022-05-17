@@ -38,4 +38,24 @@
     <string name="canvas_stroke">描边</string>
     <string name="canvas_fill">填充</string>
 
+    <string name="canvas_solid">实心</string>
+    <string name="canvas_hollow">空心</string>
+    <string name="canvas_bold">粗体</string>
+    <string name="canvas_italic">斜体</string>
+    <string name="canvas_under_line">下划线</string>
+    <string name="canvas_delete_line">删除线</string>
+    <string name="canvas_font">字体</string>
+    <string name="canvas_standard">水平排列</string>
+    <string name="canvas_vertical">垂直排列</string>
+    <string name="canvas_align_left">左对齐</string>
+    <string name="canvas_align_center">居中对齐</string>
+    <string name="canvas_align_right">右对齐</string>
+    <string name="canvas_prints">版画</string>
+    <string name="canvas_gcode">GCode</string>
+    <string name="canvas_black_white">黑白画</string>
+    <string name="canvas_dithering">抖动</string>
+    <string name="canvas_grey">灰度</string>
+    <string name="canvas_seal">印章</string>
+
+
 </resources>

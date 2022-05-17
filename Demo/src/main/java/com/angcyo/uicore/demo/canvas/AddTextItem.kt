@@ -3,8 +3,9 @@ package com.angcyo.uicore.demo.canvas
 import androidx.fragment.app.Fragment
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.utils.addPictureTextRender
-import com.angcyo.dsladapter.item.IFragmentItem
 import com.angcyo.dialog.inputDialog
+import com.angcyo.dsladapter.item.IFragmentItem
+import com.angcyo.library.ex._string
 import com.angcyo.library.ex.dpi
 import com.angcyo.uicore.demo.R
 
@@ -18,7 +19,7 @@ class AddTextItem(val canvasView: CanvasView) : CanvasControlItem(), IFragmentIt
 
     init {
         itemIco = R.drawable.canvas_text_ico
-        itemText = "文本"
+        itemText = _string(R.string.canvas_text)
 
         itemClick = {
             itemFragment?.context?.inputDialog {

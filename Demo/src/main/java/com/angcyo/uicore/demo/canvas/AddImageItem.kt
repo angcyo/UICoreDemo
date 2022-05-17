@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.utils.addPictureBitmapRenderer
 import com.angcyo.dsladapter.item.IFragmentItem
+import com.angcyo.library.ex._string
 import com.angcyo.library.ex.toBitmap
 import com.angcyo.library.model.loadPath
 import com.angcyo.picker.dslSinglePickerImage
@@ -22,7 +23,7 @@ class AddImageItem(val canvasView: CanvasView) : CanvasControlItem(), IFragmentI
 
     init {
         itemIco = R.drawable.canvas_image_ico
-        itemText = "图片"
+        itemText = _string(R.string.canvas_image)
 
         itemClick = {
             (itemFragmentManager ?: itemFragment?.parentFragmentManager)?.apply {

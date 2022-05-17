@@ -106,7 +106,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
 
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_material_ico
-                itemText = "素材"
+                itemText = _string(R.string.canvas_material)
                 itemEnable = false
             }
 
@@ -130,10 +130,10 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             }
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_barcode_ico
-                itemText = "条形码"
+                itemText = _string(R.string.canvas_barcode)
                 itemClick = {
                     fragment.context?.inputDialog {
-                        dialogTitle = "条形码内容"
+                        dialogTitle = itemText
                         inputType = InputType.TYPE_CLASS_NUMBER
                         onInputResult = { dialog, inputText ->
                             if (inputText.isNotEmpty()) {
@@ -151,10 +151,10 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             }
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_qrcode_ico
-                itemText = "二维码"
+                itemText = _string(R.string.canvas_qrcode)
                 itemClick = {
                     fragment.context?.inputDialog {
-                        dialogTitle = "二维码内容"
+                        dialogTitle = itemText
                         onInputResult = { dialog, inputText ->
                             if (inputText.isNotEmpty()) {
                                 inputText.createQRCode()?.let {
@@ -171,7 +171,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             }
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_edit_ico
-                itemText = "编辑"
+                itemText = _string(R.string.canvas_edit)
                 itemEnable = true
                 itemClick = {
                     vh.showControlLayout(!itemIsSelected)
@@ -191,7 +191,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             }
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_layer_ico
-                itemText = "图层"
+                itemText = _string(R.string.canvas_layer)
                 itemEnable = true
                 itemClick = {
                     vh.gone(R.id.canvas_layer_layout, itemIsSelected)
@@ -205,7 +205,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             }
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_undo_ico
-                itemText = "撤销"
+                itemText = _string(R.string.canvas_undo)
                 itemEnable = false
 
                 _undoCanvasItem = this
@@ -215,7 +215,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             }
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_redo_ico
-                itemText = "重做"
+                itemText = _string(R.string.canvas_redo)
                 itemEnable = false
 
                 _redoCanvasItem = this
@@ -225,7 +225,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             }
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_setting_ico
-                itemText = "设置"
+                itemText = _string(R.string.canvas_setting)
                 itemEnable = true
 
                 itemClick = {
@@ -303,7 +303,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                         if (renderItem.tag == "barcode") {
                             //条形码
                             fragment.context?.inputDialog {
-                                dialogTitle = "条形码内容"
+                                dialogTitle = _string(R.string.canvas_barcode)
                                 inputType = InputType.TYPE_CLASS_NUMBER
                                 //defaultInputString = renderItem.data as CharSequence?
                                 onInputResult = { dialog, inputText ->
@@ -319,7 +319,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                         } else if (renderItem.tag == "qrcode") {
                             //二维码
                             fragment.context?.inputDialog {
-                                dialogTitle = "二维码内容"
+                                dialogTitle = _string(R.string.canvas_qrcode)
                                 //defaultInputString = renderItem.data as CharSequence?
                                 onInputResult = { dialog, inputText ->
                                     if (inputText.isNotEmpty()) {
@@ -443,52 +443,52 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             ShapeLineItem(canvasView)()
             ShapeItem(canvasView)() {
                 itemIco = R.drawable.canvas_shape_line_ico
-                itemText = "线条"
+                itemText = _string(R.string.canvas_line)
                 shapePath = ShapesHelper.linePath()
             }
             ShapeItem(canvasView)() {
                 itemIco = R.drawable.canvas_shape_circle_ico
-                itemText = "圆形"
+                itemText = _string(R.string.canvas_circle)
                 shapePath = ShapesHelper.circlePath()
             }
             ShapeItem(canvasView)() {
                 itemIco = R.drawable.canvas_shape_triangle_ico
-                itemText = "三角形"
+                itemText = _string(R.string.canvas_triangle)
                 shapePath = ShapesHelper.trianglePath()
             }
             ShapeItem(canvasView)() {
                 itemIco = R.drawable.canvas_shape_square_ico
-                itemText = "正方形"
+                itemText = _string(R.string.canvas_square)
                 shapePath = ShapesHelper.squarePath()
             }
             ShapeItem(canvasView)() {
                 itemIco = R.drawable.canvas_shape_pentagon_ico
-                itemText = "五角形"
+                itemText = _string(R.string.canvas_pentagon)
                 shapePath = ShapesHelper.pentagonPath()
             }
             ShapeItem(canvasView)() {
                 itemIco = R.drawable.canvas_shape_hexagon_ico
-                itemText = "六角形"
+                itemText = _string(R.string.canvas_hexagon)
                 shapePath = ShapesHelper.hexagonPath()
             }
             ShapeItem(canvasView)() {
                 itemIco = R.drawable.canvas_shape_octagon_ico
-                itemText = "八角形"
+                itemText = _string(R.string.canvas_octagon)
                 shapePath = ShapesHelper.octagonPath()
             }
             ShapeItem(canvasView)() {
                 itemIco = R.drawable.canvas_shape_rhombus_ico
-                itemText = "菱形"
+                itemText = _string(R.string.canvas_rhombus)
                 shapePath = ShapesHelper.rhombusPath()
             }
             ShapeItem(canvasView)() {
                 itemIco = R.drawable.canvas_shape_pentagram_ico
-                itemText = "星星"
+                itemText = _string(R.string.canvas_pentagram)
                 shapePath = ShapesHelper.pentagramPath()
             }
             ShapeItem(canvasView)() {
                 itemIco = R.drawable.canvas_shape_love_ico
-                itemText = "心形"
+                itemText = _string(R.string.canvas_love)
                 shapePath = ShapesHelper.lovePath()
             }
         }
@@ -621,45 +621,45 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             hookUpdateDepend()
             TextStrokeStyleItem()() {
                 itemIco = R.drawable.canvas_text_style_solid
-                itemText = "实心"
+                itemText = _string(R.string.canvas_solid)
                 itemStyle = Paint.Style.FILL
                 itemRenderer = renderer
             }
             TextStrokeStyleItem()() {
                 itemIco = R.drawable.canvas_text_style_stroke
-                itemText = "空心"
+                itemText = _string(R.string.canvas_hollow)
                 itemStyle = Paint.Style.STROKE
                 itemRenderer = renderer
             }
 
             TextStyleItem()() {
                 itemIco = R.drawable.canvas_text_bold_style_ico
-                itemText = "粗体"
+                itemText = _string(R.string.canvas_bold)
                 itemStyle = PictureTextItem.TEXT_STYLE_BOLD
                 itemRenderer = renderer
             }
             TextStyleItem()() {
                 itemIco = R.drawable.canvas_text_italic_style_ico
-                itemText = "斜体"
+                itemText = _string(R.string.canvas_italic)
                 itemStyle = PictureTextItem.TEXT_STYLE_ITALIC
                 itemRenderer = renderer
             }
             TextStyleItem()() {
                 itemIco = R.drawable.canvas_text_under_line_style_ico
-                itemText = "下划线"
+                itemText = _string(R.string.canvas_under_line)
                 itemStyle = PictureTextItem.TEXT_STYLE_UNDER_LINE
                 itemRenderer = renderer
             }
             TextStyleItem()() {
                 itemIco = R.drawable.canvas_text_delete_line_style_ico
-                itemText = "删除线"
+                itemText = _string(R.string.canvas_delete_line)
                 itemStyle = PictureTextItem.TEXT_STYLE_DELETE_LINE
                 itemRenderer = renderer
             }
 
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_text_font_ico
-                itemText = "字体"
+                itemText = _string(R.string.canvas_font)
                 itemClick = {
                     itemIsSelected = !itemIsSelected
                     updateAdapterItem()
@@ -672,32 +672,32 @@ class CanvasLayoutHelper(val fragment: Fragment) {
 
             TextOrientationItem()() {
                 itemIco = R.drawable.canvas_text_style_standard_ico
-                itemText = "水平排列"
+                itemText = _string(R.string.canvas_standard)
                 itemOrientation = LinearLayout.HORIZONTAL
                 itemRenderer = renderer
             }
             TextOrientationItem()() {
                 itemIco = R.drawable.canvas_text_style_vertical_ico
-                itemText = "垂直排列"
+                itemText = _string(R.string.canvas_vertical)
                 itemOrientation = LinearLayout.VERTICAL
                 itemRenderer = renderer
             }
 
             TextAlignItem()() {
                 itemIco = R.drawable.canvas_text_style_align_left_ico
-                itemText = "左对齐"
+                itemText = _string(R.string.canvas_align_left)
                 itemAlign = Paint.Align.LEFT
                 itemRenderer = renderer
             }
             TextAlignItem()() {
                 itemIco = R.drawable.canvas_text_style_align_center_ico
-                itemText = "居中对齐"
+                itemText = _string(R.string.canvas_align_center)
                 itemAlign = Paint.Align.CENTER
                 itemRenderer = renderer
             }
             TextAlignItem()() {
                 itemIco = R.drawable.canvas_text_style_align_right_ico
-                itemText = "右对齐"
+                itemText = _string(R.string.canvas_align_right)
                 itemAlign = Paint.Align.RIGHT
                 itemRenderer = renderer
             }
@@ -734,7 +734,8 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             hookUpdateDepend()
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_style_stroke_ico
-                itemText = "描边"
+                itemText = _string(R.string.canvas_stroke)
+                itemTintColor = false
                 itemClick = {
                     if (itemRenderer is PictureItemRenderer) {
                         itemRenderer.updatePaintStyle(Paint.Style.STROKE)
@@ -743,7 +744,8 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             }
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_style_fill_ico
-                itemText = "填充"
+                itemText = _string(R.string.canvas_fill)
+                itemTintColor = false
                 itemClick = {
                     if (itemRenderer is PictureItemRenderer) {
                         itemRenderer.updatePaintStyle(Paint.Style.FILL_AND_STROKE)
@@ -767,7 +769,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             hookUpdateDepend()
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_bitmap_prints
-                itemText = "版画"
+                itemText = _string(R.string.canvas_prints)
                 itemTintColor = false
                 itemClick = {
                     val originBitmap = renderer.getRenderBitmap()
@@ -806,7 +808,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             }
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_bitmap_gcode
-                itemText = "GCode"
+                itemText = _string(R.string.canvas_gcode)
                 itemTintColor = false
                 itemClick = {
                     val originBitmap = renderer.getRenderBitmap()
@@ -861,7 +863,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             }
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_bitmap_black_white
-                itemText = "黑白画"
+                itemText = _string(R.string.canvas_black_white)
                 itemTintColor = false
                 itemClick = {
                     val originBitmap = renderer.getRenderBitmap()
@@ -908,7 +910,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             }
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_bitmap_dithering
-                itemText = "抖动"
+                itemText = _string(R.string.canvas_dithering)
                 itemTintColor = false
                 itemClick = {
                     val originBitmap = renderer.getRenderBitmap()
@@ -953,7 +955,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             }
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_bitmap_grey
-                itemText = "灰度"
+                itemText = _string(R.string.canvas_grey)
                 itemTintColor = false
                 itemClick = {
                     loadingAsync({
@@ -969,7 +971,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             }
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_bitmap_seal
-                itemText = "印章"
+                itemText = _string(R.string.canvas_seal)
                 itemTintColor = false
                 itemClick = {
                     val originBitmap = renderer.getRenderBitmap()
