@@ -12,4 +12,30 @@
     <color name="canvas_dark_gray">#909090</color>
     <color name="canvas_dark_white">#f9f9f9</color>
 
+    <!--libcanvas-->
+    <string name="canvas_image">图片</string>
+    <string name="canvas_text">文本</string>
+    <string name="canvas_shapes">形状</string>
+    <string name="canvas_material">素材</string>
+    <string name="canvas_doodle">涂鸦</string>
+    <string name="canvas_barcode">条形码</string>
+    <string name="canvas_qrcode">二维码</string>
+    <string name="canvas_edit">编辑</string>
+    <string name="canvas_layer">图层</string>
+    <string name="canvas_undo">撤销</string>
+    <string name="canvas_redo">重做</string>
+    <string name="canvas_setting">设置</string>
+    <string name="canvas_line">线条</string>
+    <string name="canvas_circle">圆形</string>
+    <string name="canvas_triangle">三角形</string>
+    <string name="canvas_square">正方形</string>
+    <string name="canvas_pentagon">五角形</string>
+    <string name="canvas_hexagon">六角形</string>
+    <string name="canvas_octagon">八角形</string>
+    <string name="canvas_rhombus">菱形</string>
+    <string name="canvas_pentagram">星星</string>
+    <string name="canvas_love">心形</string>
+    <string name="canvas_stroke">描边</string>
+    <string name="canvas_fill">填充</string>
+
 </resources>
