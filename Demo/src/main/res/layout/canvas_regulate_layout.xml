@@ -19,7 +19,7 @@
             android:background="@drawable/lib_bg2_selector"
             android:minHeight="@dimen/lib_item_min_height"
             android:paddingHorizontal="@dimen/lib_xhdpi"
-            android:text="预览"
+            android:text="@string/canvas_preview"
             android:textColor="@color/canvas_primary" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:minHeight="@dimen/lib_item_min_height"
-            android:text="调整" />
+            android:text="@string/canvas_regulate" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/confirm_view"
@@ -40,7 +40,7 @@
             android:background="@drawable/lib_bg2_selector"
             android:minHeight="@dimen/lib_item_min_height"
             android:paddingHorizontal="@dimen/lib_xhdpi"
-            android:text="确定"
+            android:text="@string/canvas_confirm"
             android:textColor="@color/canvas_primary" />
 
     </FrameLayout>

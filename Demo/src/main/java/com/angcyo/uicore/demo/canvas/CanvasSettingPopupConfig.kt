@@ -11,6 +11,7 @@ import com.angcyo.dsladapter.drawBottom
 import com.angcyo.item.DslSwitchInfoItem
 import com.angcyo.item.style.itemInfoText
 import com.angcyo.library.ex._dimen
+import com.angcyo.library.ex._string
 import com.angcyo.library.ex.dpi
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
@@ -36,7 +37,7 @@ class CanvasSettingPopupConfig : ShadowAnchorPopupConfig() {
         val canvasViewBox = canvasDelegate?.getCanvasViewBox()
         viewHolder.rv(R.id.lib_recycler_view)?.renderDslAdapter {
             DslSwitchInfoItem()() {
-                itemInfoText = "英制"
+                itemInfoText = _string(R.string.canvas_inch_unit)
                 itemSwitchChecked = canvasViewBox?.valueUnit is InchValueUnit
                 drawBottom(_dimen(R.dimen.lib_line_px), 0, 0)
                 itemExtendLayoutId = R.layout.canvas_extent_switch_item
@@ -51,7 +52,7 @@ class CanvasSettingPopupConfig : ShadowAnchorPopupConfig() {
                 }
             }
             DslSwitchInfoItem()() {
-                itemInfoText = "网格"
+                itemInfoText = _string(R.string.canvas_grid)
                 itemSwitchChecked = canvasDelegate?.xAxis?.drawGridLine == true
                 drawBottom(_dimen(R.dimen.lib_line_px), 0, 0)
                 itemExtendLayoutId = R.layout.canvas_extent_switch_item
@@ -67,7 +68,7 @@ class CanvasSettingPopupConfig : ShadowAnchorPopupConfig() {
                 }
             }
             DslSwitchInfoItem()() {
-                itemInfoText = "智能指南"
+                itemInfoText = _string(R.string.canvas_smart_assistant)
                 itemSwitchChecked = canvasDelegate?.smartAssistant?.enable == true
                 itemExtendLayoutId = R.layout.canvas_extent_switch_item
                 itemSwitchChangedAction = {

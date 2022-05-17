@@ -65,6 +65,11 @@
     <string name="canvas_line_space">线距</string>
     <string name="canvas_agnle">角度</string>
     <string name="canvas_direction">方向</string>
-
+    <string name="canvas_inch_unit">英制</string>
+    <string name="canvas_grid">网格</string>
+    <string name="canvas_smart_assistant">智能指南</string>
+    <string name="canvas_preview">预览</string>
+    <string name="canvas_regulate">调整</string>
+    <string name="canvas_confirm">确定</string>
 
 </resources>
