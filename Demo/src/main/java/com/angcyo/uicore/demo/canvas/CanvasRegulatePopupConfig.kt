@@ -13,6 +13,7 @@ import com.angcyo.item.DslSeekBarInfoItem
 import com.angcyo.item.style.itemInfoText
 import com.angcyo.item.style.itemText
 import com.angcyo.library.ex._dimen
+import com.angcyo.library.ex._string
 import com.angcyo.library.ex.dpi
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
@@ -81,7 +82,7 @@ class CanvasRegulatePopupConfig : ShadowAnchorPopupConfig() {
         viewHolder.rv(R.id.lib_recycler_view)?.renderDslAdapter {
             if (regulateList.contains(REGULATE_INVERT)) {
                 CanvasSwitchItem()() {
-                    itemInfoText = "反色"
+                    itemInfoText = _string(R.string.canvas_invert)
                     initItem()
                     property[KEY_INVERT] = false
 
@@ -92,7 +93,7 @@ class CanvasRegulatePopupConfig : ShadowAnchorPopupConfig() {
             }
             if (regulateList.contains(REGULATE_THRESHOLD)) {
                 CanvasSeekBarItem()() {
-                    itemInfoText = "阈值" //0-255
+                    itemInfoText = _string(R.string.canvas_threshold) //0-255
                     initItem()
 
                     itemProgressTextFormatAction = {
@@ -110,7 +111,7 @@ class CanvasRegulatePopupConfig : ShadowAnchorPopupConfig() {
             }
             if (regulateList.contains(REGULATE_CONTRAST)) {
                 CanvasSeekBarItem()() {
-                    itemInfoText = "对比度" //-1~1   0-255
+                    itemInfoText = _string(R.string.canvas_contrast) //-1~1   0-255
                     initItem()
 
                     itemProgressTextFormatAction = {
@@ -128,7 +129,7 @@ class CanvasRegulatePopupConfig : ShadowAnchorPopupConfig() {
             }
             if (regulateList.contains(REGULATE_BRIGHTNESS)) {
                 CanvasSeekBarItem()() {
-                    itemInfoText = "亮度" //-1~1   0-255
+                    itemInfoText = _string(R.string.canvas_brightness) //-1~1   0-255
                     initItem()
 
                     itemProgressTextFormatAction = {
@@ -146,7 +147,7 @@ class CanvasRegulatePopupConfig : ShadowAnchorPopupConfig() {
             }
             if (regulateList.contains(REGULATE_LINE_SPACE)) {
                 CanvasSeekBarItem()() {
-                    itemInfoText = "线距" //0.125-5
+                    itemInfoText = _string(R.string.canvas_line_space) //0.125-5
                     initItem()
 
                     val start = 0.125f
@@ -170,7 +171,7 @@ class CanvasRegulatePopupConfig : ShadowAnchorPopupConfig() {
             }
             if (regulateList.contains(REGULATE_ANGLE)) {
                 CanvasSeekBarItem()() {
-                    itemInfoText = "角度" //0-90
+                    itemInfoText = _string(R.string.canvas_agnle) //0-90
                     initItem()
 
                     itemProgressTextFormatAction = {
@@ -188,7 +189,7 @@ class CanvasRegulatePopupConfig : ShadowAnchorPopupConfig() {
             }
             if (regulateList.contains(REGULATE_DIRECTION)) {
                 CanvasDirectionItem()() {
-                    itemText = "方向" //0:0 1:90 2:180 3:270
+                    itemText = _string(R.string.canvas_direction) //0:0 1:90 2:180 3:270
                     itemDirection = getIntOrDef(KEY_DIRECTION, 0)
                     property[KEY_DIRECTION] = itemDirection
                     initItem()

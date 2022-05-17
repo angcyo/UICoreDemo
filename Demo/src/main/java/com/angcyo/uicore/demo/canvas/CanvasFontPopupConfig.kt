@@ -13,6 +13,7 @@ import com.angcyo.dialog.popup.ShadowAnchorPopupConfig
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.drawBottom
 import com.angcyo.library.ex._dimen
+import com.angcyo.library.ex._string
 import com.angcyo.library.ex.dpi
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
@@ -54,7 +55,7 @@ class CanvasFontPopupConfig : ShadowAnchorPopupConfig() {
     fun DslAdapter.typefaceItem(name: String, type: Typeface, line: Boolean = true) {
         TypefaceItem()() {
             displayName = name
-            previewText = "激光啄木鸟"
+            previewText = _string(R.string.canvas_font_text)
             typeface = type
             if (line) {
                 drawBottom(_dimen(R.dimen.lib_line_px), 0, 0)
