@@ -3,6 +3,7 @@
 apply from: 'UICore/_gradle/init.gradle'
 
 apply from: allGradle.saveStream
+apply from: allGradle.statisticsWord
 
 buildscript {
     /*ext {
