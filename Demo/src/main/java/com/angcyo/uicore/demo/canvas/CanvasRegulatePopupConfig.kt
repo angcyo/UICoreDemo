@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.PopupWindow
 import com.angcyo.canvas.items.renderer.IItemRenderer
+import com.angcyo.canvas.utils.canvasDecimal
 import com.angcyo.dialog.TargetWindow
 import com.angcyo.dialog.popup.ShadowAnchorPopupConfig
 import com.angcyo.dsladapter.DslAdapterItem
@@ -12,7 +13,6 @@ import com.angcyo.item.DslSeekBarInfoItem
 import com.angcyo.item.style.itemInfoText
 import com.angcyo.item.style.itemText
 import com.angcyo.library.ex._dimen
-import com.angcyo.library.ex.decimal
 import com.angcyo.library.ex.dpi
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
@@ -114,7 +114,7 @@ class CanvasRegulatePopupConfig : ShadowAnchorPopupConfig() {
                     initItem()
 
                     itemProgressTextFormatAction = {
-                        "${(-1f + 2 * it._progressFraction).decimal(1)}"
+                        "${(-1f + 2 * it._progressFraction).canvasDecimal(1)}"
                     }
 
                     val def = getFloatOrDef(KEY_CONTRAST, 0f)
@@ -132,7 +132,7 @@ class CanvasRegulatePopupConfig : ShadowAnchorPopupConfig() {
                     initItem()
 
                     itemProgressTextFormatAction = {
-                        "${(-1f + 2 * it._progressFraction).decimal(1)}"
+                        "${(-1f + 2 * it._progressFraction).canvasDecimal(1)}"
                     }
 
                     val def = getFloatOrDef(KEY_BRIGHTNESS, 0f)
@@ -153,7 +153,7 @@ class CanvasRegulatePopupConfig : ShadowAnchorPopupConfig() {
                     val def = getFloatOrDef(KEY_LINE_SPACE, start)
 
                     itemProgressTextFormatAction = {
-                        "${start + ((5 - start) * it._progressFraction).decimal(3)}"
+                        "${start + ((5 - start) * it._progressFraction).canvasDecimal(3)}"
                     }
 
                     property[KEY_LINE_SPACE] = def
@@ -174,7 +174,7 @@ class CanvasRegulatePopupConfig : ShadowAnchorPopupConfig() {
                     initItem()
 
                     itemProgressTextFormatAction = {
-                        "${(90 * it._progressFraction).decimal(1)}"
+                        "${(90 * it._progressFraction).canvasDecimal(1)}"
                     }
 
                     val def = getFloatOrDef(KEY_ANGLE, 0f)

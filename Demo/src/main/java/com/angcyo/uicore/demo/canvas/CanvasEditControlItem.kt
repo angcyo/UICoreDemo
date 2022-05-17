@@ -6,8 +6,12 @@ import android.graphics.RectF
 import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.canvas.core.IRenderer
 import com.angcyo.canvas.items.renderer.BaseItemRenderer
+import com.angcyo.canvas.utils.canvasDecimal
 import com.angcyo.dsladapter.DslAdapterItem
-import com.angcyo.library.ex.*
+import com.angcyo.library.ex.ADJUST_TYPE_LT
+import com.angcyo.library.ex.adjustSize
+import com.angcyo.library.ex.adjustSizeWithRotate
+import com.angcyo.library.ex.visible
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
 
@@ -56,9 +60,9 @@ class CanvasEditControlItem : DslAdapterItem() {
             val rotateBounds = renderer.getRotateBounds()
             val renderRotateBounds = renderer.getRenderRotateBounds()
             val width =
-                canvasViewBox.valueUnit.convertPixelToValue(rotateBounds.width()).decimal(2)
+                canvasViewBox.valueUnit.convertPixelToValue(rotateBounds.width()).canvasDecimal(2)
             val height =
-                canvasViewBox.valueUnit.convertPixelToValue(rotateBounds.height()).decimal(2)
+                canvasViewBox.valueUnit.convertPixelToValue(rotateBounds.height()).canvasDecimal(2)
 
             itemHolder.tv(R.id.item_width_view)?.text = "$width"
             itemHolder.tv(R.id.item_height_view)?.text = "$height"
@@ -67,14 +71,14 @@ class CanvasEditControlItem : DslAdapterItem() {
             _tempPoint.set(renderRotateBounds.left, renderRotateBounds.top)
             val value = canvasViewBox.calcDistanceValueWithOrigin(_tempPoint)
 
-            val x = value.x.decimal(2)
-            val y = value.y.decimal(2)
+            val x = value.x.canvasDecimal(2)
+            val y = value.y.canvasDecimal(2)
 
             itemHolder.tv(R.id.item_axis_x_view)?.text = "$x"
             itemHolder.tv(R.id.item_axis_y_view)?.text = "$y"
 
             //旋转
-            itemHolder.tv(R.id.item_rotate_view)?.text = "${renderer.rotate.decimal(2)}°"
+            itemHolder.tv(R.id.item_rotate_view)?.text = "${renderer.rotate.canvasDecimal(2)}°"
 
             //等比
             itemHolder.click(R.id.item_lock_view) {
@@ -132,19 +136,17 @@ class CanvasEditControlItem : DslAdapterItem() {
                                     val to = RectF(from)
                                     to.adjustSize(width, from.height(), ADJUST_TYPE_LT)
                                     val result = RectF(renderer.getBounds())
+                                    val lockRatio = itemHolder.isLockRatio()
                                     itemCanvasDelegate?.operateHandler?.calcBoundsWidthHeightWithFrame(
                                         result,
                                         from,
                                         to,
-                                        renderer.rotate
+                                        renderer.rotate,
+                                        lockRatio
                                     )?.apply {
                                         //计算结果后
                                         val newWidth = this[0]
-                                        val newHeight = if (itemHolder.isLockRatio()) {
-                                            result.height() * (newWidth / result.width())
-                                        } else {
-                                            this[1]
-                                        }
+                                        val newHeight = this[1]
 
                                         result.adjustSizeWithRotate(
                                             newWidth, newHeight,
@@ -191,19 +193,17 @@ class CanvasEditControlItem : DslAdapterItem() {
                                     val to = RectF(from)
                                     to.adjustSize(from.width(), height, ADJUST_TYPE_LT)
                                     val result = RectF(renderer.getBounds())
+                                    val lockRatio = itemHolder.isLockRatio()
                                     itemCanvasDelegate?.operateHandler?.calcBoundsWidthHeightWithFrame(
                                         result,
                                         from,
                                         to,
-                                        renderer.rotate
+                                        renderer.rotate,
+                                        lockRatio
                                     )?.apply {
                                         //计算结果后
-                                        val newHeight = this[1]//计算出来的
-                                        val newWidth = if (itemHolder.isLockRatio()) {
-                                            result.width() * (newHeight / result.height())
-                                        } else {
-                                            this[0]
-                                        }
+                                        val newWidth = this[0]
+                                        val newHeight = this[1]
 
                                         result.adjustSizeWithRotate(
                                             newWidth, newHeight,
