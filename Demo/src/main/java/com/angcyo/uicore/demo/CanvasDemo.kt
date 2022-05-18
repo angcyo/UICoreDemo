@@ -9,6 +9,7 @@ import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.Strategy
 import com.angcyo.canvas.core.InchValueUnit
 import com.angcyo.canvas.core.MmValueUnit
+import com.angcyo.canvas.core.PixelValueUnit
 import com.angcyo.canvas.items.renderer.ShapeItemRenderer
 import com.angcyo.canvas.utils.addDrawableRenderer
 import com.angcyo.canvas.utils.addPictureTextRender
@@ -92,11 +93,12 @@ class CanvasDemo : AppDslFragment() {
                 }
                 itemHolder.click(R.id.switch_unit_button) {
                     canvasView?.canvasDelegate?.apply {
+                        val valueUnit = getCanvasViewBox().valueUnit
                         getCanvasViewBox().updateCoordinateSystemUnit(
-                            if (getCanvasViewBox().valueUnit is MmValueUnit) {
-                                InchValueUnit()
-                            } else {
-                                MmValueUnit()
+                            when (valueUnit) {
+                                is MmValueUnit -> InchValueUnit()
+                                is InchValueUnit -> PixelValueUnit()
+                                else -> MmValueUnit()
                             }
                         )
                     }
