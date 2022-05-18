@@ -114,6 +114,28 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             hookUpdateDepend()
 
             CanvasControlItem()() {
+                itemIco = R.drawable.canvas_undo_ico
+                itemText = _string(R.string.canvas_undo)
+                itemEnable = false
+
+                _undoCanvasItem = this
+                itemClick = {
+                    canvasView.canvasDelegate.getCanvasUndoManager().undo()
+                }
+            }
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_redo_ico
+                itemText = _string(R.string.canvas_redo)
+                drawCanvasRight()
+                itemEnable = false
+
+                _redoCanvasItem = this
+                itemClick = {
+                    canvasView.canvasDelegate.getCanvasUndoManager().redo()
+                }
+            }
+
+            CanvasControlItem()() {
                 itemIco = R.drawable.canvas_material_ico
                 itemText = _string(R.string.canvas_material)
                 itemEnable = false
@@ -208,26 +230,6 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                     if (itemIsSelected) {
                         showLayerControlLayout(vh, canvasView)
                     }
-                }
-            }
-            CanvasControlItem()() {
-                itemIco = R.drawable.canvas_undo_ico
-                itemText = _string(R.string.canvas_undo)
-                itemEnable = false
-
-                _undoCanvasItem = this
-                itemClick = {
-                    canvasView.canvasDelegate.getCanvasUndoManager().undo()
-                }
-            }
-            CanvasControlItem()() {
-                itemIco = R.drawable.canvas_redo_ico
-                itemText = _string(R.string.canvas_redo)
-                itemEnable = false
-
-                _redoCanvasItem = this
-                itemClick = {
-                    canvasView.canvasDelegate.getCanvasUndoManager().redo()
                 }
             }
             CanvasControlItem()() {
@@ -618,6 +620,15 @@ class CanvasLayoutHelper(val fragment: Fragment) {
         }
     }
 
+    fun DslAdapterItem.drawCanvasRight(
+        insertRight: Int = _dimen(R.dimen.lib_line_px),
+        offsetTop: Int = _dimen(R.dimen.lib_xhdpi),
+        offsetBottom: Int = _dimen(R.dimen.lib_xhdpi),
+        color: Int = _color(R.color.canvas_dark_gray)
+    ) {
+        drawRight(insertRight, offsetTop, offsetBottom, color)
+    }
+
     /**统一样式的item*/
     fun showTextControlLayout(
         vh: DslViewHolder,
@@ -637,6 +648,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = _string(R.string.canvas_hollow)
                 itemStyle = Paint.Style.STROKE
                 itemRenderer = renderer
+                drawCanvasRight()
             }
 
             TextStyleItem()() {
@@ -662,6 +674,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = _string(R.string.canvas_delete_line)
                 itemStyle = PictureTextItem.TEXT_STYLE_DELETE_LINE
                 itemRenderer = renderer
+                drawCanvasRight()
             }
 
             CanvasControlItem()() {
@@ -675,6 +688,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                         showFontSelectLayout(this, it, renderer)
                     }
                 }
+                drawCanvasRight()
             }
 
             TextOrientationItem()() {
@@ -688,6 +702,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = _string(R.string.canvas_vertical)
                 itemOrientation = LinearLayout.VERTICAL
                 itemRenderer = renderer
+                drawCanvasRight()
             }
 
             TextAlignItem()() {
