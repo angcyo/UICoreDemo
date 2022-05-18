@@ -99,6 +99,15 @@ class CanvasLayoutHelper(val fragment: Fragment) {
         _selectedCanvasItem = null
     }
 
+    /**选中一个新的Item, 并取消之前选中的*/
+    fun selectedItemWith(item: DslAdapterItem) {
+        if (_selectedCanvasItem == item) {
+            return
+        }
+        cancelSelectedItem()
+        _selectedCanvasItem = item
+    }
+
     /**绑定画图支持的功能列表*/
     fun bindItems(vh: DslViewHolder, canvasView: CanvasView, adapter: DslAdapter) {
         adapter.render {
@@ -119,8 +128,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                     updateAdapterItem()
 
                     if (itemIsSelected) {
-                        cancelSelectedItem()
-                        _selectedCanvasItem = this
+                        selectedItemWith(this)
                         showShapeSelectLayout(vh, canvasView)
                     }
                 }
@@ -179,8 +187,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                     updateAdapterItem()
 
                     if (itemIsSelected) {
-                        cancelSelectedItem()
-                        _selectedCanvasItem = this
+                        selectedItemWith(this)
                         showEditControlLayout(
                             vh,
                             canvasView,
