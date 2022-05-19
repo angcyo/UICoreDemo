@@ -3,6 +3,7 @@ package com.angcyo.uicore.demo.canvas
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import com.angcyo.canvas.CanvasDelegate
+import com.angcyo.canvas.items.renderer.BaseItemRenderer
 import com.angcyo.canvas.items.renderer.IItemRenderer
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.library.ex._color
@@ -48,7 +49,7 @@ open class CanvasIconItem : DslAdapterItem() {
             itemIcoDisableColor
         }
 
-    var itemRenderer: IItemRenderer<*>? = null
+    var itemRenderer: BaseItemRenderer<*>? = null
 
     var itemCanvasDelegate: CanvasDelegate? = null
 

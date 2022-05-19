@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.Reason
 import com.angcyo.canvas.Strategy
@@ -369,11 +370,18 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             override fun onItemBoundsChanged(item: IRenderer, reason: Reason, oldBounds: RectF) {
                 super.onItemBoundsChanged(item, reason, oldBounds)
                 updateControlLayout(vh, canvasView)
+                updateLayerLayout(vh)
             }
 
             override fun onItemLockScaleRatioChanged(item: BaseItemRenderer<*>) {
                 super.onItemLockScaleRatioChanged(item)
                 updateControlLayout(vh, canvasView)
+            }
+
+            override fun onItemSortChanged(itemList: List<BaseItemRenderer<*>>) {
+                super.onItemSortChanged(itemList)
+                updateControlLayout(vh, canvasView)
+                showLayerControlLayout(vh, canvasView)
             }
 
             override fun onClearSelectItem(itemRenderer: IItemRenderer<*>) {
@@ -514,6 +522,10 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                         dslAdapterItem.itemRenderer =
                             canvasView.canvasDelegate.getSelectedRenderer()
                         dslAdapterItem.itemCanvasDelegate = canvasView.canvasDelegate
+                    } else if (dslAdapterItem is CanvasArrangeItem) {
+                        dslAdapterItem.itemRenderer =
+                            canvasView.canvasDelegate.getSelectedRenderer()
+                        dslAdapterItem.itemCanvasDelegate = canvasView.canvasDelegate
                     }
                 }
                 updateAllItem()
@@ -633,7 +645,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     fun showTextControlLayout(
         vh: DslViewHolder,
         canvasView: CanvasView,
-        renderer: IItemRenderer<*>
+        renderer: BaseItemRenderer<*>
     ) {
         vh.rv(R.id.canvas_control_view)?.renderDslAdapter {
             hookUpdateDepend()
@@ -1106,11 +1118,32 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     fun showEditControlLayout(
         vh: DslViewHolder,
         canvasView: CanvasView,
-        renderer: IItemRenderer<*>?
+        renderer: BaseItemRenderer<*>?
     ) {
         vh.rv(R.id.canvas_control_view)?.renderDslAdapter {
             hookUpdateDepend()
             CanvasEditControlItem()() {
+                itemRenderer = renderer
+                itemCanvasDelegate = canvasView.canvasDelegate
+            }
+
+            CanvasArrangeItem()() {
+                itemArrange = CanvasDelegate.ARRANGE_FORWARD
+                itemRenderer = renderer
+                itemCanvasDelegate = canvasView.canvasDelegate
+            }
+            CanvasArrangeItem()() {
+                itemArrange = CanvasDelegate.ARRANGE_BACKWARD
+                itemRenderer = renderer
+                itemCanvasDelegate = canvasView.canvasDelegate
+            }
+            CanvasArrangeItem()() {
+                itemArrange = CanvasDelegate.ARRANGE_FRONT
+                itemRenderer = renderer
+                itemCanvasDelegate = canvasView.canvasDelegate
+            }
+            CanvasArrangeItem()() {
+                itemArrange = CanvasDelegate.ARRANGE_BACK
                 itemRenderer = renderer
                 itemCanvasDelegate = canvasView.canvasDelegate
             }
