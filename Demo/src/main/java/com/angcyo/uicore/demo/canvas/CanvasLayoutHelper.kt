@@ -3,6 +3,7 @@ package com.angcyo.uicore.demo.canvas
 import android.graphics.Paint
 import android.graphics.RectF
 import android.text.InputType
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -53,6 +54,9 @@ class CanvasLayoutHelper(val fragment: Fragment) {
 
     var _undoCanvasItem: CanvasControlItem? = null
     var _redoCanvasItem: CanvasControlItem? = null
+
+    /**图层item*/
+    var _layerCanvasItem: DslAdapterItem? = null
 
     /**监听, 并赋值[IFragmentItem]*/
     fun DslAdapter.hookUpdateDepend() {
@@ -220,6 +224,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 }
             }
             CanvasControlItem()() {
+                _layerCanvasItem = this
                 itemIco = R.drawable.canvas_layer_ico
                 itemText = _string(R.string.canvas_layer)
                 itemEnable = true
@@ -437,6 +442,21 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                     itemTextSuperscript = "${undoManager.redoStack.size()}"
                     updateAdapterItem()
                 }
+            }
+
+            override fun onCanvasInterceptTouchEvent(
+                canvasDelegate: CanvasDelegate,
+                event: MotionEvent
+            ): Boolean {
+                if (event.actionMasked == MotionEvent.ACTION_DOWN) {
+                    //点击画布, 隐藏图层布局
+                    vh.gone(R.id.canvas_layer_layout, true)
+                    _layerCanvasItem?.apply {
+                        itemIsSelected = false
+                        updateAdapterItem()
+                    }
+                }
+                return super.onCanvasInterceptTouchEvent(canvasDelegate, event)
             }
         })
     }
