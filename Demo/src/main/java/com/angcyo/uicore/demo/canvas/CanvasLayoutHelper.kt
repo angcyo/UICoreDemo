@@ -27,13 +27,12 @@ import com.angcyo.coroutine.launchLifecycle
 import com.angcyo.coroutine.withBlock
 import com.angcyo.dialog.hideLoading
 import com.angcyo.dialog.inputDialog
-import com.angcyo.dialog.loading
-import com.angcyo.drawable.loading.TGStrokeLoadingDrawable
 import com.angcyo.dsladapter.*
 import com.angcyo.dsladapter.item.IFragmentItem
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.library.ex.*
 import com.angcyo.library.model.loadPath
+import com.angcyo.library.toast
 import com.angcyo.opencv.OpenCV
 import com.angcyo.picker.dslSinglePickerImage
 import com.angcyo.qrcode.createBarCode
@@ -72,24 +71,10 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     /**异步加载*/
     fun <T> loadingAsync(block: () -> T?, action: (T?) -> Unit) {
         fragment.launchLifecycle {
-            fragment.loading(layoutId = R.layout.canvas_loading_layout, config = {
-                cancelable = false
-                onDialogInitListener = { dialog, dialogViewHolder ->
-                    val loadingDrawable = TGStrokeLoadingDrawable().apply {
-                        loadingOffset = 6 * dp
-                        loadingWidth = 6 * dp
-                        indeterminateSweepAngle = 1f
-                        loadingBgColor = "#ffffff".toColorInt()
-                        loadingColor = loadingBgColor
-                    }
-                    dialogViewHolder.view(R.id.lib_loading_view)?.setBgDrawable(loadingDrawable)
-                }
-            }) { dialog ->
-                //cancel
+            fragment.strokeLoading { cancel, loadEnd ->
+                //no
             }
-
             val result = withBlock { block() }
-
             hideLoading()
             action(result)
         }
@@ -143,7 +128,11 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_material_ico
                 itemText = _string(R.string.canvas_material)
-                itemEnable = false
+                itemEnable = true
+
+                itemClick = {
+                    toast("功能开发中...")
+                }
             }
 
             AddTextItem(canvasView)()
@@ -161,7 +150,10 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 }
             }
             AddDoodleItem()() {
-                itemEnable = false
+                itemEnable = true
+                itemClick = {
+                    toast("功能开发中...")
+                }
             }
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_barcode_ico
