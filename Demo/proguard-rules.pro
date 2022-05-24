@@ -35,3 +35,7 @@
 -keep class com.angcyo.uicore.MainFragment
 -keep class com.angcyo.uicore.demo.*
 -keep class com.angcyo.uicore.demo.**.**Demo
+
+-keep @com.angcyo.annotation.Keep class * {
+    *;
+}
