@@ -22,7 +22,6 @@ import com.angcyo.canvas.items.renderer.*
 import com.angcyo.canvas.utils.*
 import com.angcyo.coroutine.launchLifecycle
 import com.angcyo.coroutine.withBlock
-import com.angcyo.dialog.hideLoading
 import com.angcyo.dialog.inputDialog
 import com.angcyo.dsladapter.*
 import com.angcyo.dsladapter.item.IFragmentItem
@@ -69,13 +68,12 @@ class CanvasLayoutHelper(val fragment: Fragment) {
 
     /**异步加载*/
     fun <T> loadingAsync(block: () -> T?, action: (T?) -> Unit) {
-        fragment.launchLifecycle {
-            fragment.strokeLoading { cancel, loadEnd ->
-                //no
+        fragment.strokeLoading { cancel, loadEnd ->
+            fragment.launchLifecycle {
+                val result = withBlock { block() }
+                action(result)
+                loadEnd(result, null)
             }
-            val result = withBlock { block() }
-            hideLoading()
-            action(result)
         }
     }
 
@@ -238,16 +236,20 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                         if (renderer is PictureItemRenderer) {
                             renderer.getRendererItem()?.let { item ->
                                 if (item is PictureShapeItem) {
-                                    item.shapePath?.let { path ->
-                                        EngraveHelper.pathStrokeToGCode(
-                                            path,
-                                            renderer.getRotateBounds(),
-                                            renderer.rotate,
-                                            filePath(
-                                                "GCode",
-                                                fileName(suffix = ".gcode")
-                                            ).file()
-                                        )
+                                    loadingAsync({
+                                        item.shapePath?.let { path ->
+                                            EngraveHelper.pathStrokeToGCode(
+                                                path,
+                                                renderer.getRotateBounds(),
+                                                renderer.rotate,
+                                                filePath(
+                                                    "GCode",
+                                                    fileName(suffix = ".gcode")
+                                                ).file()
+                                            )
+                                        }
+                                    }) {
+                                        //no op
                                     }
                                 }
                             }

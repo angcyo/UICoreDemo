@@ -17,7 +17,9 @@ import java.util.concurrent.atomic.AtomicBoolean
  * @since 2022/05/20
  */
 
-/**[cancel] 是否允许被取消*/
+/**
+ * TGStrokeLoadingDrawable 加载样式的loading
+ * [cancel] 是否允许被取消*/
 fun ActivityResultCaller.strokeLoading(
     cancel: Boolean = false,
     showErrorToast: Boolean = false,

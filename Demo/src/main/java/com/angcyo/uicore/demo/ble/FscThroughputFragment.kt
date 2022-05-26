@@ -3,13 +3,14 @@ package com.angcyo.uicore.demo.ble
 import android.os.Bundle
 import android.os.SystemClock
 import android.text.method.TextKeyListener
-import com.angcyo.bluetooth.fsc.DevicePacketState
 import com.angcyo.bluetooth.fsc.FscBleApiModel
+import com.angcyo.bluetooth.fsc.ReceivePacket
+import com.angcyo.bluetooth.fsc.core.DevicePacketState
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
-import com.angcyo.bluetooth.fsc.laserpacker.bean.*
 import com.angcyo.bluetooth.fsc.laserpacker.command.PrintCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.PrintPreviewCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.StateCmd
+import com.angcyo.bluetooth.fsc.laserpacker.parse.*
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.dslItem
 import com.angcyo.dsladapter.isUpdatePart
@@ -240,35 +241,35 @@ class FscThroughputFragment : AppDslFragment() {
                         itemHolder.click(R.id.state_command0) {
                             setCommand(
                                 StateCmd(0).toHexCommandString(),
-                                DeviceStateBean::class.java
+                                DeviceStateParse::class.java
                             )
                         }
                         //指令-文件列表
                         itemHolder.click(R.id.state_command1) {
                             setCommand(
                                 StateCmd(1).toHexCommandString(),
-                                DevicePrintFileBean::class.java
+                                DevicePrintFileParse::class.java
                             )
                         }
                         //指令-设置状态
                         itemHolder.click(R.id.state_command2) {
                             setCommand(
                                 StateCmd(2).toHexCommandString(),
-                                DeviceSettingBean::class.java
+                                DeviceSettingParse::class.java
                             )
                         }
                         //指令-查询版本
                         itemHolder.click(R.id.state_command3) {
                             setCommand(
                                 StateCmd(3).toHexCommandString(),
-                                DeviceVersionBean::class.java
+                                DeviceVersionParse::class.java
                             )
                         }
                         //查询安全码与用户帐号
                         itemHolder.click(R.id.state_command4) {
                             setCommand(
                                 StateCmd(4).toHexCommandString(),
-                                DeviceSafeCodeBean::class.java
+                                DeviceSafeCodeParse::class.java
                             )
                         }
 
@@ -281,7 +282,7 @@ class FscThroughputFragment : AppDslFragment() {
                                     1,
                                     defaultName
                                 ).toHexCommandString(),
-                                PrintReceiveBean::class.java
+                                PrintReceiveParse::class.java
                             )
                         }
                         //指令-预览图片
@@ -289,35 +290,35 @@ class FscThroughputFragment : AppDslFragment() {
                             setCommand(
                                 PrintPreviewCmd.previewFlashBitmap(defaultName)
                                     .toHexCommandString(),
-                                PrintPreviewBean::class.java
+                                PrintPreviewParse::class.java
                             )
                         }
                         //指令-预览范围
                         itemHolder.click(R.id.preview_command1) {
                             setCommand(
                                 PrintPreviewCmd.previewRange(60, 20).toHexCommandString(),
-                                PrintPreviewBean::class.java
+                                PrintPreviewParse::class.java
                             )
                         }
                         //指令-结束预览
                         itemHolder.click(R.id.preview_command2) {
                             setCommand(
                                 PrintPreviewCmd(0x03).toHexCommandString(),
-                                PrintPreviewBean::class.java
+                                PrintPreviewParse::class.java
                             )
                         }
                         //升支架
                         itemHolder.click(R.id.preview_command3) {
                             setCommand(
                                 PrintPreviewCmd.previewBracketUp().toHexCommandString(),
-                                PrintPreviewBean::class.java
+                                PrintPreviewParse::class.java
                             )
                         }
                         //降支架
                         itemHolder.click(R.id.preview_command4) {
                             setCommand(
                                 PrintPreviewCmd.previewBracketDown().toHexCommandString(),
-                                PrintPreviewBean::class.java
+                                PrintPreviewParse::class.java
                             )
                         }
                     }
@@ -348,15 +349,15 @@ class FscThroughputFragment : AppDslFragment() {
 
     var cmdClass: Class<*>? = null
 
-    fun handleResult(holder: DslViewHolder, bean: ReceivePacketBean) {
+    fun handleResult(holder: DslViewHolder, bean: ReceivePacket) {
         when (cmdClass) {
-            DeviceStateBean::class.java -> DeviceStateBean().parse(bean.receivePacket)
-            DevicePrintFileBean::class.java -> DevicePrintFileBean().parse(bean.receivePacket)
-            DeviceSettingBean::class.java -> DeviceSettingBean().parse(bean.receivePacket)
-            DeviceVersionBean::class.java -> DeviceVersionBean().parse(bean.receivePacket)
-            DeviceSafeCodeBean::class.java -> DeviceSafeCodeBean().parse(bean.receivePacket)
-            PrintReceiveBean::class.java -> PrintReceiveBean().parse(bean.receivePacket)
-            PrintPreviewBean::class.java -> PrintPreviewBean().parse(bean.receivePacket)
+            DeviceStateParse::class.java -> DeviceStateParse().parse(bean.receivePacket)
+            DevicePrintFileParse::class.java -> DevicePrintFileParse().parse(bean.receivePacket)
+            DeviceSettingParse::class.java -> DeviceSettingParse().parse(bean.receivePacket)
+            DeviceVersionParse::class.java -> DeviceVersionParse().parse(bean.receivePacket)
+            DeviceSafeCodeParse::class.java -> DeviceSafeCodeParse().parse(bean.receivePacket)
+            PrintReceiveParse::class.java -> PrintReceiveParse().parse(bean.receivePacket)
+            PrintPreviewParse::class.java -> PrintPreviewParse().parse(bean.receivePacket)
             else -> null
         }?.let {
             holder.tv(R.id.result_text_view)?.text = it.toString()
