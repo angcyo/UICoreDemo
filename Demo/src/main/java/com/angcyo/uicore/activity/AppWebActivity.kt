@@ -1,6 +1,7 @@
 package com.angcyo.uicore.activity
 
 import android.content.Intent
+import android.os.Build
 import com.angcyo.base.dslAHelper
 import com.angcyo.library.L
 import com.angcyo.library.ex.runningTasks
@@ -25,11 +26,14 @@ class AppWebActivity : TbsWebActivity() {
         L.d("$intent ${intent.data}")
 
         runningTasks(1).firstOrNull()?.apply {
-            val callingPackageName = baseActivity?.packageName
+            val callingPackageName = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                baseActivity?.packageName
+            } else {
+                callingPackage
+            }
 
             if (callingPackageName != packageName) {
                 //从别的程序启动的[Activity]
-
                 dslAHelper {
                     start(MainActivity::class.java) {
                         this.intent.setTargetIntent(intent)
