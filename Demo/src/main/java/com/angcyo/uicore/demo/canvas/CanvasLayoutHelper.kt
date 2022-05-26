@@ -19,10 +19,7 @@ import com.angcyo.canvas.items.PictureBitmapItem
 import com.angcyo.canvas.items.PictureShapeItem
 import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.*
-import com.angcyo.canvas.utils.ShapesHelper
-import com.angcyo.canvas.utils.addPictureBitmapRenderer
-import com.angcyo.canvas.utils.getRenderBitmap
-import com.angcyo.canvas.utils.updateRenderBitmap
+import com.angcyo.canvas.utils.*
 import com.angcyo.coroutine.launchLifecycle
 import com.angcyo.coroutine.withBlock
 import com.angcyo.dialog.hideLoading
@@ -33,6 +30,8 @@ import com.angcyo.gcode.GCodeHelper
 import com.angcyo.library.ex.*
 import com.angcyo.library.model.loadPath
 import com.angcyo.library.toast
+import com.angcyo.library.utils.fileName
+import com.angcyo.library.utils.filePath
 import com.angcyo.opencv.OpenCV
 import com.angcyo.picker.dslSinglePickerImage
 import com.angcyo.qrcode.createBarCode
@@ -227,6 +226,32 @@ class CanvasLayoutHelper(val fragment: Fragment) {
 
                     if (itemIsSelected) {
                         showLayerControlLayout(vh, canvasView)
+                    }
+                }
+            }
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_actions_ico
+                itemText = "操作"
+                itemEnable = true
+                itemClick = {
+                    canvasView.canvasDelegate.getSelectedRenderer()?.let { renderer ->
+                        if (renderer is PictureItemRenderer) {
+                            renderer.getRendererItem()?.let { item ->
+                                if (item is PictureShapeItem) {
+                                    item.shapePath?.let { path ->
+                                        EngraveHelper.pathStrokeToGCode(
+                                            path,
+                                            renderer.getRotateBounds(),
+                                            renderer.rotate,
+                                            filePath(
+                                                "GCode",
+                                                fileName(suffix = ".gcode")
+                                            ).file()
+                                        )
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
