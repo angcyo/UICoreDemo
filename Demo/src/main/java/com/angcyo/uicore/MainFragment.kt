@@ -58,6 +58,9 @@ class MainFragment : BaseDemoDslFragment() {
         var CLICK_COUNT = 0
     }
 
+    /**自动跳转*/
+    var autoJump: Boolean = true
+
     init {
         fragmentLayoutId = R.layout.fragment_main
         goFirst = false
@@ -400,7 +403,9 @@ class MainFragment : BaseDemoDslFragment() {
             onDispatchUpdatesOnce {
                 if (!BaseCoreAppCompatActivity.haveLastCrash && savedInstanceState == null) {
                     //自动跳转至指定Demo
-                    _jumpToLockPosition()
+                    if (autoJump) {
+                        _jumpToLockPosition()
+                    }
                 }
             }
         }

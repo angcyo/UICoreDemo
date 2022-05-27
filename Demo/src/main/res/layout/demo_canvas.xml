@@ -156,6 +156,13 @@
             android:layout_height="wrap_content"
             android:text="previewRect" />
 
+        <com.angcyo.widget.DslButton
+            android:id="@+id/bluetooth_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="蓝牙" />
+
     </com.angcyo.widget.layout.DslFlowLayout>
 
     <!--绘图功能层-->

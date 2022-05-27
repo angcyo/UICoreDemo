@@ -5,6 +5,7 @@ import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
+import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.Strategy
 import com.angcyo.canvas.core.InchValueUnit
@@ -15,16 +16,19 @@ import com.angcyo.canvas.utils.addDrawableRenderer
 import com.angcyo.canvas.utils.addPictureTextRender
 import com.angcyo.canvas.utils.addPictureTextRenderer
 import com.angcyo.canvas.utils.addTextRenderer
+import com.angcyo.core.component.dslPermissions
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.library.ex.randomGetOnce
 import com.angcyo.library.ex.randomString
 import com.angcyo.library.ex.readAssets
+import com.angcyo.library.toast
 import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
 import com.angcyo.uicore.demo.SvgDemo.Companion.svgResList
+import com.angcyo.uicore.demo.ble.bluetoothSearchListDialog
 import com.angcyo.uicore.demo.canvas.CanvasLayoutHelper
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.recycler.initDslAdapter
@@ -220,6 +224,19 @@ class CanvasDemo : AppDslFragment() {
                                     it.getCanvasViewBox().valueUnit.convertValueToPixel(20f)
                                 bitmap = it.getBitmap(left, top, width, height)
                             }
+                        }
+                    }
+                }
+
+                //bluetooth
+                itemHolder.click(R.id.bluetooth_button) {
+                    dslPermissions(FscBleApiModel.bluetoothPermissionList()) { allGranted, foreverDenied ->
+                        if (allGranted) {
+                            fContext().bluetoothSearchListDialog {
+
+                            }
+                        } else {
+                            toast("蓝牙权限被禁用!")
                         }
                     }
                 }

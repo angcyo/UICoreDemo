@@ -48,6 +48,8 @@ abstract class BaseDemoDslFragment : AppDslFragment() {
             itemDarkIcon = R.drawable.lib_next
             itemDarkIconColor = getColor(R.color.colorPrimaryDark)
 
+            itemAnimateRes = R.anim.item_scale_animation
+
             itemClick = { view ->
 
                 var cls: Class<out Fragment>? = fragment
