@@ -1,9 +1,12 @@
 package com.angcyo.uicore.demo.canvas
 
+import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import androidx.activity.result.ActivityResultCaller
+import androidx.fragment.app.Fragment
 import com.angcyo.dialog.hideLoading
-import com.angcyo.dialog.loading
+import com.angcyo.dialog.loading2
 import com.angcyo.drawable.loading.TGStrokeLoadingDrawable
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.setBgDrawable
@@ -25,8 +28,27 @@ fun ActivityResultCaller.strokeLoading(
     showErrorToast: Boolean = false,
     action: (cancel: AtomicBoolean, loadEnd: (data: Any?, error: Throwable?) -> Unit) -> Unit
 ): Dialog? {
+    return try {
+        val activity = when (this) {
+            is Fragment -> activity
+            is Activity -> this
+            is Context -> this
+            else -> null
+        } ?: return null
+        activity.strokeLoading2(cancel, showErrorToast, action)
+    } catch (e: Exception) {
+        e.printStackTrace()
+        return null
+    }
+}
+
+fun Context.strokeLoading2(
+    cancel: Boolean = false,
+    showErrorToast: Boolean = false,
+    action: (cancel: AtomicBoolean, loadEnd: (data: Any?, error: Throwable?) -> Unit) -> Unit
+): Dialog? {
     val isCancel = AtomicBoolean(false)
-    val dialog = loading(layoutId = R.layout.canvas_loading_layout, config = {
+    val dialog = loading2(layoutId = R.layout.canvas_loading_layout, config = {
         cancelable = cancel
         onDialogInitListener = { dialog, dialogViewHolder ->
             val loadingDrawable = TGStrokeLoadingDrawable().apply {

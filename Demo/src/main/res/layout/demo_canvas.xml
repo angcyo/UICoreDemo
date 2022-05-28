@@ -15,10 +15,9 @@
         android:id="@+id/control_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/lib_xhdpi"
         app:layout_constraintTop_toBottomOf="@id/canvas_view"
-        app:r_flow_item_horizontal_space="@dimen/lib_hdpi"
-        app:r_flow_item_vertical_space="@dimen/lib_hdpi">
+        app:r_flow_item_horizontal_space="@dimen/lib_dpi"
+        app:r_flow_item_vertical_space="@dimen/lib_dpi">
 
         <com.angcyo.widget.DslButton
             android:id="@+id/switch_origin_button"
@@ -162,6 +161,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="蓝牙" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/engrave_preview_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="雕刻预览" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/preview_stop_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="结束预览" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/result_text_view"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="angcyo" />
 
     </com.angcyo.widget.layout.DslFlowLayout>
 

@@ -6,6 +6,10 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.bluetooth.fsc.FscBleApiModel
+import com.angcyo.bluetooth.fsc.IReceiveBeanAction
+import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
+import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
+import com.angcyo.bluetooth.fsc.laserpacker.command.PrintPreviewCmd
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.Strategy
 import com.angcyo.canvas.core.InchValueUnit
@@ -21,10 +25,8 @@ import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.gcode.GCodeHelper
-import com.angcyo.library.ex.dpi
-import com.angcyo.library.ex.randomGetOnce
-import com.angcyo.library.ex.randomString
-import com.angcyo.library.ex.readAssets
+import com.angcyo.http.rx.doMain
+import com.angcyo.library.ex.*
 import com.angcyo.library.toast
 import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
 import com.angcyo.uicore.base.AppDslFragment
@@ -255,6 +257,68 @@ class CanvasDemo : AppDslFragment() {
                             toast("蓝牙权限被禁用!")
                         }
                     }
+                }
+
+                //雕刻预览
+                var cmdString: String = ""
+                val receiveAction: IReceiveBeanAction = { bean, error ->
+                    val text = span {
+                        append("${Thread.currentThread().name} ${vmApp<LaserPeckerModel>().productName} ${vmApp<LaserPeckerModel>().deviceVersionData.value?.softwareVersion}")
+                        appendln()
+                        append("发送:${cmdString}")
+                        appendln()
+                        error?.let {
+                            append("接收:${it.message}")
+                        }
+                        bean?.let {
+                            append("接收:${it.receivePacket.toHexString(true)}")
+                            appendln()
+                            append("耗时:${it.receiveFinishTime - it.receiveStartTime} ms")
+                        }
+                    }
+                    doMain {
+                        itemHolder.tv(R.id.result_text_view)?.text = text
+                    }
+                }
+
+                itemHolder.click(R.id.engrave_preview_button) {
+                    canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
+                        vmApp<FscBleApiModel>().connectDeviceListData.value?.firstOrNull()
+                            ?.let { deviceState ->
+                                val bounds = renderer.getRotateBounds()
+                                val cmd = PrintPreviewCmd.previewRange(
+                                    bounds.left.toInt(),
+                                    bounds.top.toInt(),
+                                    bounds.width().toInt(),
+                                    bounds.height().toInt()
+                                )
+                                if (cmd != null) {
+                                    cmdString = buildString {
+                                        append(cmd.toHexCommandString())
+                                        appendLine()
+                                        val range = cmd.getPreviewRange()
+                                        append("x:${range.left} y:${range.top} w:${range.width()} h:${range.height()}")
+                                    }
+                                    LaserPeckerHelper.sendCommand(
+                                        deviceState.device.address, cmd, action = receiveAction
+                                    )
+                                    vmApp<LaserPeckerModel>().updateDeviceModel(LaserPeckerModel.DEVICE_MODEL_PREVIEW)
+                                }
+                            }
+                    }
+                }
+
+                //结束预览
+                itemHolder.click(R.id.preview_stop_button) {
+                    vmApp<FscBleApiModel>().connectDeviceListData.value?.firstOrNull()
+                        ?.let { deviceState ->
+                            val cmd = PrintPreviewCmd.previewStop()
+                            cmdString = cmd.toHexCommandString()
+                            LaserPeckerHelper.sendCommand(
+                                deviceState.device.address, cmd, action = receiveAction
+                            )
+                            vmApp<LaserPeckerModel>().updateDeviceModel(LaserPeckerModel.DEVICE_MODEL_IDLE)
+                        }
                 }
 
                 //canvas

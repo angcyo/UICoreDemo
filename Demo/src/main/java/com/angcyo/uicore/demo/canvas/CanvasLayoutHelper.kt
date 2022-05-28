@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
 import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.Reason
@@ -20,6 +21,7 @@ import com.angcyo.canvas.items.PictureShapeItem
 import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.*
 import com.angcyo.canvas.utils.*
+import com.angcyo.core.vmApp
 import com.angcyo.coroutine.launchLifecycle
 import com.angcyo.coroutine.withBlock
 import com.angcyo.dialog.inputDialog
@@ -395,6 +397,14 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 super.onItemBoundsChanged(item, reason, oldBounds)
                 updateControlLayout(vh, canvasView)
                 updateLayerLayout(vh)
+
+                val peckerModel = vmApp<LaserPeckerModel>()
+                if (peckerModel.deviceModelData.value == LaserPeckerModel.DEVICE_MODEL_PREVIEW) {
+                    //设备正在预览模式, 更新预览
+                    if (item is BaseItemRenderer<*>) {
+                        peckerModel.sendUpdatePreviewRange(item.getRotateBounds())
+                    }
+                }
             }
 
             override fun onItemLockScaleRatioChanged(item: BaseItemRenderer<*>) {

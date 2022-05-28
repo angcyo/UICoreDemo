@@ -241,35 +241,35 @@ class FscThroughputFragment : AppDslFragment() {
                         itemHolder.click(R.id.state_command0) {
                             setCommand(
                                 StateCmd(0).toHexCommandString(),
-                                DeviceStateParse::class.java
+                                DeviceStateParser::class.java
                             )
                         }
                         //指令-文件列表
                         itemHolder.click(R.id.state_command1) {
                             setCommand(
                                 StateCmd(1).toHexCommandString(),
-                                DevicePrintFileParse::class.java
+                                DevicePrintFileParser::class.java
                             )
                         }
                         //指令-设置状态
                         itemHolder.click(R.id.state_command2) {
                             setCommand(
                                 StateCmd(2).toHexCommandString(),
-                                DeviceSettingParse::class.java
+                                DeviceSettingParser::class.java
                             )
                         }
                         //指令-查询版本
                         itemHolder.click(R.id.state_command3) {
                             setCommand(
                                 StateCmd(3).toHexCommandString(),
-                                DeviceVersionParse::class.java
+                                DeviceVersionParser::class.java
                             )
                         }
                         //查询安全码与用户帐号
                         itemHolder.click(R.id.state_command4) {
                             setCommand(
                                 StateCmd(4).toHexCommandString(),
-                                DeviceSafeCodeParse::class.java
+                                DeviceSafeCodeParser::class.java
                             )
                         }
 
@@ -282,7 +282,7 @@ class FscThroughputFragment : AppDslFragment() {
                                     1,
                                     defaultName
                                 ).toHexCommandString(),
-                                PrintReceiveParse::class.java
+                                PrintReceiveParser::class.java
                             )
                         }
                         //指令-预览图片
@@ -290,35 +290,35 @@ class FscThroughputFragment : AppDslFragment() {
                             setCommand(
                                 PrintPreviewCmd.previewFlashBitmap(defaultName)
                                     .toHexCommandString(),
-                                PrintPreviewParse::class.java
+                                PrintPreviewParser::class.java
                             )
                         }
                         //指令-预览范围
                         itemHolder.click(R.id.preview_command1) {
                             setCommand(
-                                PrintPreviewCmd.previewRange(60, 20).toHexCommandString(),
-                                PrintPreviewParse::class.java
+                                PrintPreviewCmd.previewRange(0, 0, 60, 20)!!.toHexCommandString(),
+                                PrintPreviewParser::class.java
                             )
                         }
                         //指令-结束预览
                         itemHolder.click(R.id.preview_command2) {
                             setCommand(
                                 PrintPreviewCmd(0x03).toHexCommandString(),
-                                PrintPreviewParse::class.java
+                                PrintPreviewParser::class.java
                             )
                         }
                         //升支架
                         itemHolder.click(R.id.preview_command3) {
                             setCommand(
                                 PrintPreviewCmd.previewBracketUp().toHexCommandString(),
-                                PrintPreviewParse::class.java
+                                PrintPreviewParser::class.java
                             )
                         }
                         //降支架
                         itemHolder.click(R.id.preview_command4) {
                             setCommand(
                                 PrintPreviewCmd.previewBracketDown().toHexCommandString(),
-                                PrintPreviewParse::class.java
+                                PrintPreviewParser::class.java
                             )
                         }
                     }
@@ -351,13 +351,13 @@ class FscThroughputFragment : AppDslFragment() {
 
     fun handleResult(holder: DslViewHolder, bean: ReceivePacket) {
         when (cmdClass) {
-            DeviceStateParse::class.java -> DeviceStateParse().parse(bean.receivePacket)
-            DevicePrintFileParse::class.java -> DevicePrintFileParse().parse(bean.receivePacket)
-            DeviceSettingParse::class.java -> DeviceSettingParse().parse(bean.receivePacket)
-            DeviceVersionParse::class.java -> DeviceVersionParse().parse(bean.receivePacket)
-            DeviceSafeCodeParse::class.java -> DeviceSafeCodeParse().parse(bean.receivePacket)
-            PrintReceiveParse::class.java -> PrintReceiveParse().parse(bean.receivePacket)
-            PrintPreviewParse::class.java -> PrintPreviewParse().parse(bean.receivePacket)
+            DeviceStateParser::class.java -> DeviceStateParser().parse(bean.receivePacket)
+            DevicePrintFileParser::class.java -> DevicePrintFileParser().parse(bean.receivePacket)
+            DeviceSettingParser::class.java -> DeviceSettingParser().parse(bean.receivePacket)
+            DeviceVersionParser::class.java -> DeviceVersionParser().parse(bean.receivePacket)
+            DeviceSafeCodeParser::class.java -> DeviceSafeCodeParser().parse(bean.receivePacket)
+            PrintReceiveParser::class.java -> PrintReceiveParser().parse(bean.receivePacket)
+            PrintPreviewParser::class.java -> PrintPreviewParser().parse(bean.receivePacket)
             else -> null
         }?.let {
             holder.tv(R.id.result_text_view)?.text = it.toString()
