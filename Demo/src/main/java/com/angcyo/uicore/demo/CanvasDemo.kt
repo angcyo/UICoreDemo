@@ -17,9 +17,11 @@ import com.angcyo.canvas.utils.addPictureTextRender
 import com.angcyo.canvas.utils.addPictureTextRenderer
 import com.angcyo.canvas.utils.addTextRenderer
 import com.angcyo.core.component.dslPermissions
+import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.gcode.GCodeHelper
+import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.randomGetOnce
 import com.angcyo.library.ex.randomString
 import com.angcyo.library.ex.readAssets
@@ -32,6 +34,7 @@ import com.angcyo.uicore.demo.ble.bluetoothSearchListDialog
 import com.angcyo.uicore.demo.canvas.CanvasLayoutHelper
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.recycler.initDslAdapter
+import com.angcyo.widget.span.span
 import com.pixplicity.sharp.Sharp
 import kotlin.random.Random
 
@@ -232,8 +235,21 @@ class CanvasDemo : AppDslFragment() {
                 itemHolder.click(R.id.bluetooth_button) {
                     dslPermissions(FscBleApiModel.bluetoothPermissionList()) { allGranted, foreverDenied ->
                         if (allGranted) {
+                            //vmApp<FscBleApiModel>().connect("DC:0D:30:10:05:E7")
                             fContext().bluetoothSearchListDialog {
+                                connectedDismiss = true
 
+                                onDismissListener = {
+                                    vmApp<FscBleApiModel>().connectDeviceListData.value?.firstOrNull()
+                                        ?.let { deviceState ->
+                                            fragmentTitle = span {
+                                                appendLine(deviceState.device.name)
+                                                append(deviceState.device.address) {
+                                                    fontSize = 12 * dpi
+                                                }
+                                            }
+                                        }
+                                }
                             }
                         } else {
                             toast("蓝牙权限被禁用!")

@@ -3,14 +3,12 @@ package com.angcyo.uicore.demo.ble
 import android.app.Dialog
 import android.content.Context
 import com.angcyo.bluetooth.fsc.FscBleApiModel
+import com.angcyo.bluetooth.fsc.core.DeviceConnectState.Companion.CONNECT_STATE_SUCCESS
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.core.vmApp
 import com.angcyo.dialog.BaseDialogConfig
 import com.angcyo.dialog.configBottomDialog
-import com.angcyo.dsladapter.DslAdapterStatusItem
-import com.angcyo.dsladapter._dslAdapter
-import com.angcyo.dsladapter.updateAdapterState
-import com.angcyo.dsladapter.updateItem
+import com.angcyo.dsladapter.*
 import com.angcyo.library.ex._string
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
@@ -23,6 +21,9 @@ import com.angcyo.widget.recycler.renderDslAdapter
  * @since 2022/05/26
  */
 class BluetoothSearchListDialogConfig(context: Context? = null) : BaseDialogConfig(context) {
+
+    /**连接成功后, 是否关闭界面*/
+    var connectedDismiss: Boolean = false
 
     val apiModel = vmApp<FscBleApiModel>()
 
@@ -63,20 +64,28 @@ class BluetoothSearchListDialogConfig(context: Context? = null) : BaseDialogConf
                         render {
 
                             //移除旧的item
-                            dataItems.removeAll {
-                                it is BluetoothConnectItem && it.itemFscDevice == device
-                            }
+
+                            val find =
+                                findItem { it is BluetoothConnectItem && it.itemFscDevice == device }
 
                             //过滤
-                            if (device.name?.startsWith(LaserPeckerHelper.PRODUCT_PREFIX) == true) {
-                                //添加新的item
-                                BluetoothConnectItem()() {
-                                    itemAnimateRes = R.anim.item_translate_to_left_animation
+                            if (find == null) {
+                                if (device.name?.startsWith(LaserPeckerHelper.PRODUCT_PREFIX) == true) {
+                                    //添加新的item
+                                    BluetoothConnectItem()() {
+                                        itemAnimateRes = R.anim.item_translate_to_left_animation
+                                        itemData = device
+                                        itemFscDevice = device
+                                    }
+
+                                    autoAdapterStatus()
+                                }
+                            } else {
+                                (find as BluetoothConnectItem).apply {
                                     itemData = device
                                     itemFscDevice = device
+                                    itemUpdateFlag = true
                                 }
-
-                                autoAdapterStatus()
                             }
                         }
                     }
@@ -105,6 +114,9 @@ class BluetoothSearchListDialogConfig(context: Context? = null) : BaseDialogConf
             if (state != null) {
                 dialogViewHolder.rv(R.id.lib_recycler_view)?._dslAdapter?.updateItem {
                     it is BluetoothConnectItem && it.itemFscDevice == state.device
+                }
+                if (connectedDismiss && state.state == CONNECT_STATE_SUCCESS) {
+                    dialog.dismiss()
                 }
             }
         }
