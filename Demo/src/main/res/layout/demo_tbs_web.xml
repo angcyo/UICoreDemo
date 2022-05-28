@@ -79,6 +79,11 @@
         style="@style/DefaultButtonMinStyle"
         android:text="打开文件" />
 
+    <com.angcyo.widget.DslButton
+        android:id="@+id/browser_button"
+        style="@style/DefaultButtonMinStyle"
+        android:text="browser" />
+
     <com.angcyo.widget.text.DslTextView
         android:id="@+id/result_text_view"
         style="@style/LibBodyTextStyle"

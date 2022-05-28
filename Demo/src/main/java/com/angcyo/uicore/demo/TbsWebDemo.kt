@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.TextView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
+import com.angcyo.browser.openCustomTab
 import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.core.component.file.file
 import com.angcyo.core.component.fileSelector
@@ -38,6 +39,9 @@ class TbsWebDemo : AppDslFragment() {
                                 uri = Uri.parse(itemHolder.tv(R.id.edit_text).string())
                             }
                         }
+                    }
+                    itemHolder.click(R.id.browser_button) {
+                        itemHolder.tv(R.id.edit_text).string().openCustomTab(requireActivity())
                     }
 
                     itemHolder.click(R.id.open_url2) {
