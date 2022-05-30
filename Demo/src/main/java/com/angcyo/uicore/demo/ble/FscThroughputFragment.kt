@@ -7,9 +7,9 @@ import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.ReceivePacket
 import com.angcyo.bluetooth.fsc.core.DevicePacketState
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
-import com.angcyo.bluetooth.fsc.laserpacker.command.PrintCmd
-import com.angcyo.bluetooth.fsc.laserpacker.command.PrintPreviewCmd
-import com.angcyo.bluetooth.fsc.laserpacker.command.StateCmd
+import com.angcyo.bluetooth.fsc.laserpacker.command.EngraveCmd
+import com.angcyo.bluetooth.fsc.laserpacker.command.EngravePreviewCmd
+import com.angcyo.bluetooth.fsc.laserpacker.command.QueryCmd
 import com.angcyo.bluetooth.fsc.laserpacker.parse.*
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.dslItem
@@ -240,85 +240,85 @@ class FscThroughputFragment : AppDslFragment() {
                         //指令-工作状态
                         itemHolder.click(R.id.state_command0) {
                             setCommand(
-                                StateCmd(0).toHexCommandString(),
-                                DeviceStateParser::class.java
+                                QueryCmd(0).toHexCommandString(),
+                                QueryStateParser::class.java
                             )
                         }
                         //指令-文件列表
                         itemHolder.click(R.id.state_command1) {
                             setCommand(
-                                StateCmd(1).toHexCommandString(),
-                                DevicePrintFileParser::class.java
+                                QueryCmd(1).toHexCommandString(),
+                                QueryEngraveFileParser::class.java
                             )
                         }
                         //指令-设置状态
                         itemHolder.click(R.id.state_command2) {
                             setCommand(
-                                StateCmd(2).toHexCommandString(),
-                                DeviceSettingParser::class.java
+                                QueryCmd(2).toHexCommandString(),
+                                QuerySettingParser::class.java
                             )
                         }
                         //指令-查询版本
                         itemHolder.click(R.id.state_command3) {
                             setCommand(
-                                StateCmd(3).toHexCommandString(),
-                                DeviceVersionParser::class.java
+                                QueryCmd(3).toHexCommandString(),
+                                QueryVersionParser::class.java
                             )
                         }
                         //查询安全码与用户帐号
                         itemHolder.click(R.id.state_command4) {
                             setCommand(
-                                StateCmd(4).toHexCommandString(),
-                                DeviceSafeCodeParser::class.java
+                                QueryCmd(4).toHexCommandString(),
+                                QuerySafeCodeParser::class.java
                             )
                         }
 
                         //指令-打印
                         itemHolder.click(R.id.print_command0) {
                             setCommand(
-                                PrintCmd(
+                                EngraveCmd(
                                     1,
                                     1,
                                     1,
                                     defaultName
                                 ).toHexCommandString(),
-                                PrintReceiveParser::class.java
+                                EngraveReceiveParser::class.java
                             )
                         }
                         //指令-预览图片
                         itemHolder.click(R.id.preview_command0) {
                             setCommand(
-                                PrintPreviewCmd.previewFlashBitmap(defaultName)
+                                EngravePreviewCmd.previewFlashBitmap(defaultName)
                                     .toHexCommandString(),
-                                PrintPreviewParser::class.java
+                                EngravePreviewParser::class.java
                             )
                         }
                         //指令-预览范围
                         itemHolder.click(R.id.preview_command1) {
                             setCommand(
-                                PrintPreviewCmd.previewRange(0, 0, 60, 20)!!.toHexCommandString(),
-                                PrintPreviewParser::class.java
+                                EngravePreviewCmd.previewRange(0, 0, 60, 20)!!.toHexCommandString(),
+                                EngravePreviewParser::class.java
                             )
                         }
                         //指令-结束预览
                         itemHolder.click(R.id.preview_command2) {
                             setCommand(
-                                PrintPreviewCmd(0x03).toHexCommandString(),
-                                PrintPreviewParser::class.java
+                                EngravePreviewCmd(0x03).toHexCommandString(),
+                                EngravePreviewParser::class.java
                             )
                         }
                         //升支架
                         itemHolder.click(R.id.preview_command3) {
                             setCommand(
-                                PrintPreviewCmd.previewBracketUp().toHexCommandString(),
-                                PrintPreviewParser::class.java
+                                EngravePreviewCmd.previewBracketUp().toHexCommandString(),
+                                EngravePreviewParser::class.java
                             )
                         }
                         //降支架
                         itemHolder.click(R.id.preview_command4) {
                             setCommand(
-                                PrintPreviewCmd.previewBracketDown().toHexCommandString(),
-                                PrintPreviewParser::class.java
+                                EngravePreviewCmd.previewBracketDown().toHexCommandString(),
+                                EngravePreviewParser::class.java
                             )
                         }
                     }
@@ -351,13 +351,13 @@ class FscThroughputFragment : AppDslFragment() {
 
     fun handleResult(holder: DslViewHolder, bean: ReceivePacket) {
         when (cmdClass) {
-            DeviceStateParser::class.java -> DeviceStateParser().parse(bean.receivePacket)
-            DevicePrintFileParser::class.java -> DevicePrintFileParser().parse(bean.receivePacket)
-            DeviceSettingParser::class.java -> DeviceSettingParser().parse(bean.receivePacket)
-            DeviceVersionParser::class.java -> DeviceVersionParser().parse(bean.receivePacket)
-            DeviceSafeCodeParser::class.java -> DeviceSafeCodeParser().parse(bean.receivePacket)
-            PrintReceiveParser::class.java -> PrintReceiveParser().parse(bean.receivePacket)
-            PrintPreviewParser::class.java -> PrintPreviewParser().parse(bean.receivePacket)
+            QueryStateParser::class.java -> QueryStateParser().parse(bean.receivePacket)
+            QueryEngraveFileParser::class.java -> QueryEngraveFileParser().parse(bean.receivePacket)
+            QuerySettingParser::class.java -> QuerySettingParser().parse(bean.receivePacket)
+            QueryVersionParser::class.java -> QueryVersionParser().parse(bean.receivePacket)
+            QuerySafeCodeParser::class.java -> QuerySafeCodeParser().parse(bean.receivePacket)
+            EngraveReceiveParser::class.java -> EngraveReceiveParser().parse(bean.receivePacket)
+            EngravePreviewParser::class.java -> EngravePreviewParser().parse(bean.receivePacket)
             else -> null
         }?.let {
             holder.tv(R.id.result_text_view)?.text = it.toString()

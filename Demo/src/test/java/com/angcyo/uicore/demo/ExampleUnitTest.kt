@@ -1,6 +1,6 @@
 package com.angcyo.uicore.demo
 
-import com.angcyo.bluetooth.fsc.laserpacker.command.StateCmd
+import com.angcyo.bluetooth.fsc.laserpacker.command.QueryCmd
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.library.ex.padHexString
 import com.angcyo.library.ex.toHexByteArray
@@ -107,10 +107,10 @@ class ExampleUnitTest {
             print("$int->${int.toHexString(1)} ")
         }
         println()
-        println(StateCmd(0).toHexCommandString())
-        println(StateCmd(1).toHexCommandString())
-        println(StateCmd(2).toHexCommandString())
-        println(StateCmd(3).toHexCommandString())
+        println(QueryCmd(0).toHexCommandString())
+        println(QueryCmd(1).toHexCommandString())
+        println(QueryCmd(2).toHexCommandString())
+        println(QueryCmd(3).toHexCommandString())
         println("AA".padHexString(4))
         println("AA".padHexString(4, false))
         println("AA".toInt(16))

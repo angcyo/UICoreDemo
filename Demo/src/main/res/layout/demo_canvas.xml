@@ -176,6 +176,13 @@
             android:layout_height="wrap_content"
             android:text="结束预览" />
 
+        <com.angcyo.widget.DslButton
+            android:id="@+id/exit_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="退出" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/result_text_view"
             style="@style/LibBodyTextStyle"

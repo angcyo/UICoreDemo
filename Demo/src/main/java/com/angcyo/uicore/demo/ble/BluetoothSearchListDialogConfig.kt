@@ -7,9 +7,9 @@ import com.angcyo.bluetooth.fsc.FscBleApiModel.Companion.BLUETOOTH_STATE_SCANNIN
 import com.angcyo.bluetooth.fsc.core.DeviceConnectState.Companion.CONNECT_STATE_SUCCESS
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
-import com.angcyo.bluetooth.fsc.laserpacker.command.StateCmd
-import com.angcyo.bluetooth.fsc.laserpacker.parse.DeviceStateParser
-import com.angcyo.bluetooth.fsc.laserpacker.parse.DeviceVersionParser
+import com.angcyo.bluetooth.fsc.laserpacker.command.QueryCmd
+import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
+import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryVersionParser
 import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.core.vmApp
 import com.angcyo.dialog.BaseDialogConfig
@@ -135,10 +135,10 @@ class BluetoothSearchListDialogConfig(context: Context? = null) : BaseDialogConf
                             //读取设备版本
                             LaserPeckerHelper.sendCommand(
                                 state.device.address,
-                                StateCmd(0x03)
+                                QueryCmd(0x03)
                             ) { bean, error ->
                                 bean?.let {
-                                    it.parse<DeviceVersionParser>()?.let {
+                                    it.parse<QueryVersionParser>()?.let {
                                         vmApp<LaserPeckerModel>().updateDeviceVersion(it)
                                     }
                                 }
@@ -148,10 +148,10 @@ class BluetoothSearchListDialogConfig(context: Context? = null) : BaseDialogConf
                             //读取设备工作状态
                             LaserPeckerHelper.sendCommand(
                                 state.device.address,
-                                StateCmd(0x00)
+                                QueryCmd(0x00)
                             ) { bean, error ->
                                 bean?.let {
-                                    it.parse<DeviceStateParser>()?.let {
+                                    it.parse<QueryStateParser>()?.let {
                                         vmApp<LaserPeckerModel>().updateDeviceState(it)
                                     }
                                 }

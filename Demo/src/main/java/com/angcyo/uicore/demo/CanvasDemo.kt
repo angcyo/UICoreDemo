@@ -9,7 +9,8 @@ import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.IReceiveBeanAction
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
-import com.angcyo.bluetooth.fsc.laserpacker.command.PrintPreviewCmd
+import com.angcyo.bluetooth.fsc.laserpacker.command.EngravePreviewCmd
+import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.Strategy
 import com.angcyo.canvas.core.InchValueUnit
@@ -34,6 +35,7 @@ import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
 import com.angcyo.uicore.demo.SvgDemo.Companion.svgResList
 import com.angcyo.uicore.demo.ble.bluetoothSearchListDialog
 import com.angcyo.uicore.demo.canvas.CanvasLayoutHelper
+import com.angcyo.uicore.demo.canvas.EngraveLayoutHelper
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.recycler.initDslAdapter
 import com.angcyo.widget.span.span
@@ -263,9 +265,13 @@ class CanvasDemo : AppDslFragment() {
                 var cmdString: String = ""
                 val receiveAction: IReceiveBeanAction = { bean, error ->
                     val text = span {
-                        append("${Thread.currentThread().name} ${vmApp<LaserPeckerModel>().productName} ${vmApp<LaserPeckerModel>().deviceVersionData.value?.softwareVersion}")
+                        append(Thread.currentThread().name)
+                        append(" ${vmApp<LaserPeckerModel>().productInfoData.value?.name}")
+                        append(" ${vmApp<LaserPeckerModel>().deviceVersionData.value?.softwareVersion}")
                         appendln()
-                        append("发送:${cmdString}")
+                        if (cmdString.isNotEmpty()) {
+                            append("发送:${cmdString}")
+                        }
                         appendln()
                         error?.let {
                             append("接收:${it.message}")
@@ -279,50 +285,50 @@ class CanvasDemo : AppDslFragment() {
                     doMain {
                         itemHolder.tv(R.id.result_text_view)?.text = text
                     }
+                    //查询工作状态
+                    vmApp<LaserPeckerModel>().queryDeviceState()
                 }
 
                 itemHolder.click(R.id.engrave_preview_button) {
                     canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
-                        vmApp<FscBleApiModel>().connectDeviceListData.value?.firstOrNull()
-                            ?.let { deviceState ->
-                                val bounds = renderer.getRotateBounds()
-                                val cmd = PrintPreviewCmd.previewRange(
-                                    bounds.left.toInt(),
-                                    bounds.top.toInt(),
-                                    bounds.width().toInt(),
-                                    bounds.height().toInt()
-                                )
-                                if (cmd != null) {
-                                    cmdString = buildString {
-                                        append(cmd.toHexCommandString())
-                                        appendLine()
-                                        val range = cmd.getPreviewRange()
-                                        append("x:${range.left} y:${range.top} w:${range.width()} h:${range.height()}")
-                                    }
-                                    LaserPeckerHelper.sendCommand(
-                                        deviceState.device.address, cmd, action = receiveAction
-                                    )
-                                    vmApp<LaserPeckerModel>().updateDeviceModel(LaserPeckerModel.DEVICE_MODEL_PREVIEW)
-                                }
+                        val bounds = renderer.getRotateBounds()
+                        val cmd = EngravePreviewCmd.previewRange(
+                            bounds.left.toInt(),
+                            bounds.top.toInt(),
+                            bounds.width().toInt(),
+                            bounds.height().toInt()
+                        )
+                        if (cmd != null) {
+                            cmdString = buildString {
+                                append(cmd.toHexCommandString())
+                                appendLine()
+                                val range = cmd.getPreviewRange()
+                                append("x:${range.left} y:${range.top} w:${range.width()} h:${range.height()}")
                             }
+                            LaserPeckerHelper.sendCommand(cmd, action = receiveAction)
+                        }
                     }
                 }
 
                 //结束预览
                 itemHolder.click(R.id.preview_stop_button) {
-                    vmApp<FscBleApiModel>().connectDeviceListData.value?.firstOrNull()
-                        ?.let { deviceState ->
-                            val cmd = PrintPreviewCmd.previewStop()
-                            cmdString = cmd.toHexCommandString()
-                            LaserPeckerHelper.sendCommand(
-                                deviceState.device.address, cmd, action = receiveAction
-                            )
-                            vmApp<LaserPeckerModel>().updateDeviceModel(LaserPeckerModel.DEVICE_MODEL_IDLE)
-                        }
+                    val cmd = EngravePreviewCmd.previewStop()
+                    cmdString = cmd.toHexCommandString()
+                    LaserPeckerHelper.sendCommand(cmd, action = receiveAction)
+                }
+
+                //退出指令
+                itemHolder.click(R.id.exit_button) {
+                    val cmd = ExitCmd()
+                    cmdString = cmd.toHexCommandString()
+                    LaserPeckerHelper.sendCommand(cmd, action = receiveAction)
                 }
 
                 //canvas
                 bindCanvasRecyclerView(itemHolder, adapterItem)
+
+                //engrave
+                engraveLayoutHelper.bindLayout(itemHolder.v<CanvasView>(R.id.canvas_view)!!)
             }
         }
     }
@@ -340,6 +346,7 @@ class CanvasDemo : AppDslFragment() {
     //<editor-fold desc="bindCanvasRecyclerView">
 
     val canvasLayoutHelper = CanvasLayoutHelper(this)
+    val engraveLayoutHelper = EngraveLayoutHelper(this)
 
     /**Canvas控制*/
     fun bindCanvasRecyclerView(itemHolder: DslViewHolder, adapterItem: DslAdapterItem) {
