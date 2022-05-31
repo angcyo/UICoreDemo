@@ -9,8 +9,10 @@ import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.IReceiveBeanAction
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
-import com.angcyo.bluetooth.fsc.laserpacker.command.EngravePreviewCmd
-import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
+import com.angcyo.bluetooth.fsc.laserpacker.command.*
+import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryEngraveFileParser
+import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
+import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.Strategy
 import com.angcyo.canvas.core.InchValueUnit
@@ -23,6 +25,7 @@ import com.angcyo.canvas.utils.addPictureTextRenderer
 import com.angcyo.canvas.utils.addTextRenderer
 import com.angcyo.core.component.dslPermissions
 import com.angcyo.core.vmApp
+import com.angcyo.dialog.itemsDialog
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.gcode.GCodeHelper
@@ -322,6 +325,50 @@ class CanvasDemo : AppDslFragment() {
                     val cmd = ExitCmd()
                     cmdString = cmd.toHexCommandString()
                     LaserPeckerHelper.sendCommand(cmd, action = receiveAction)
+                }
+
+                //雕刻
+                itemHolder.click(R.id.engrave_button) {
+                    canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
+                        engraveLayoutHelper.engrave(renderer)
+                    }
+                }
+
+                //状态
+                itemHolder.click(R.id.state_button) {
+                    vmApp<LaserPeckerModel>().queryDeviceState { bean, error ->
+                        bean?.parse<QueryStateParser>()?.let {
+                            doMain {
+                                itemHolder.tv(R.id.result_text_view)?.text = "$it"
+                            }
+                        }
+                    }
+                }
+
+                //历史
+                itemHolder.click(R.id.file_button) {
+                    QueryCmd(0x01).send { bean, error ->
+                        doMain {
+                            bean?.parse<QueryEngraveFileParser>()?.let {
+                                fContext().itemsDialog {
+                                    dialogTitle = "打印历史"
+                                    it.nameList?.forEach { name ->
+                                        addDialogItem {
+                                            itemText = "$name"
+                                            itemClick = {
+                                                //开始雕刻
+                                                EngraveCmd(name).send { bean, error ->
+                                                    doMain {
+                                                        _dialog?.dismiss()
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
 
                 //canvas

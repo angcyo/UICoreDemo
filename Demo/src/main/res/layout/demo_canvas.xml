@@ -21,77 +21,77 @@
 
         <com.angcyo.widget.DslButton
             android:id="@+id/switch_origin_button"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="~原点" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/switch_unit_button"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="~单位" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/bounds_button"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bounds" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/smart_button"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Smart" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/translate_x_minus_button"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="X(-)" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/translate_x_plus_button"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="X(+)" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/translate_y_minus_button"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Y(-)" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/translate_y_plus_button"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Y(+)" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/scale_in_button"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/scale_out_button"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/add_text"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+文本(drawText)"
@@ -99,7 +99,7 @@
 
         <com.angcyo.widget.DslButton
             android:id="@+id/add_text2"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+文本(picture)"
@@ -107,7 +107,7 @@
 
         <com.angcyo.widget.DslButton
             android:id="@+id/add_text3"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+文本(pictureText)"
@@ -115,73 +115,94 @@
 
         <com.angcyo.widget.DslButton
             android:id="@+id/add_picture_text"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+文本" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/add_svg"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+SVG" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/random_add_svg"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="随机+SVG" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/random_add_gcode"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="随机+GCode" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/preview_button"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="preview" />
+            android:text="pv" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/preview_rect_button"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="previewRect" />
+            android:text="pvRect" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/bluetooth_button"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="蓝牙" />
 
         <com.angcyo.widget.DslButton
-            android:id="@+id/engrave_preview_button"
-            style="@style/DefaultButtonMinStyle"
+            android:id="@+id/state_button"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="雕刻预览" />
+            android:text="状态" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/engrave_preview_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="预览" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/preview_stop_button"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="结束预览" />
+            android:text="结束" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/exit_button"
-            style="@style/DefaultButtonMinStyle"
+            style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="退出" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/engrave_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="雕刻" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/file_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="历史" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/result_text_view"

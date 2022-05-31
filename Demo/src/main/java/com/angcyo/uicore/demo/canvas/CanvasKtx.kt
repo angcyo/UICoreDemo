@@ -5,6 +5,9 @@ import android.app.Dialog
 import android.content.Context
 import androidx.activity.result.ActivityResultCaller
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
+import com.angcyo.coroutine.launchLifecycle
+import com.angcyo.coroutine.withBlock
 import com.angcyo.dialog.hideLoading
 import com.angcyo.dialog.loading2
 import com.angcyo.drawable.loading.TGStrokeLoadingDrawable
@@ -19,6 +22,20 @@ import java.util.concurrent.atomic.AtomicBoolean
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
  * @since 2022/05/20
  */
+
+/**异步加载, 带loading dialog*/
+fun <T> LifecycleOwner.loadingAsync(block: () -> T?, action: (T?) -> Unit) {
+    val context = this
+    if (context is ActivityResultCaller) {
+        context.strokeLoading { cancel, loadEnd ->
+            context.launchLifecycle {
+                val result = withBlock { block() }
+                action(result)
+                loadEnd(result, null)
+            }
+        }
+    }
+}
 
 /**
  * TGStrokeLoadingDrawable 加载样式的loading

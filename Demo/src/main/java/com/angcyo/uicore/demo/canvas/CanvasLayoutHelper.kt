@@ -23,8 +23,6 @@ import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.*
 import com.angcyo.canvas.utils.*
 import com.angcyo.core.vmApp
-import com.angcyo.coroutine.launchLifecycle
-import com.angcyo.coroutine.withBlock
 import com.angcyo.dialog.inputDialog
 import com.angcyo.dsladapter.*
 import com.angcyo.dsladapter.item.IFragmentItem
@@ -65,17 +63,6 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 if (it is IFragmentItem) {
                     it.itemFragment = fragment
                 }
-            }
-        }
-    }
-
-    /**异步加载*/
-    fun <T> loadingAsync(block: () -> T?, action: (T?) -> Unit) {
-        fragment.strokeLoading { cancel, loadEnd ->
-            fragment.launchLifecycle {
-                val result = withBlock { block() }
-                action(result)
-                loadEnd(result, null)
             }
         }
     }

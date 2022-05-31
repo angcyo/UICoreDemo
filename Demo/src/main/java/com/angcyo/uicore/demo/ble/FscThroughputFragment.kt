@@ -276,12 +276,7 @@ class FscThroughputFragment : AppDslFragment() {
                         //指令-打印
                         itemHolder.click(R.id.print_command0) {
                             setCommand(
-                                EngraveCmd(
-                                    1,
-                                    1,
-                                    1,
-                                    defaultName
-                                ).toHexCommandString(),
+                                EngraveCmd(defaultName).toHexCommandString(),
                                 EngraveReceiveParser::class.java
                             )
                         }
