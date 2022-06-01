@@ -82,5 +82,10 @@
     <string name="bluetooth_ft_blue_connecting">蓝牙正在连接...</string>
     <string name="bluetooth_ft_blue_disconnecting">正在断开...</string>
     <string name="bluetooth_lib_scan_disconnected">蓝牙已断开</string>
+    <string name="preview_center">显示中心</string>
+    <string name="preview_continue">继续预览</string>
+    <string name="print_v2_package_preview_over">结束预览</string>
+    <string name="laser_brightness">激光亮度</string>
+    <string name="print_v2_package_previewing">预览中…</string>
 
 </resources>
