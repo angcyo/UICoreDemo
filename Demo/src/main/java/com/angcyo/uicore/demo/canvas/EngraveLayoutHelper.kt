@@ -1,5 +1,6 @@
 package com.angcyo.uicore.demo.canvas
 
+import android.graphics.Color
 import androidx.fragment.app.Fragment
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
@@ -14,7 +15,9 @@ import com.angcyo.canvas.items.renderer.BaseItemRenderer
 import com.angcyo.canvas.utils.EngraveHelper
 import com.angcyo.core.vmApp
 import com.angcyo.library.L
+import com.angcyo.library.ex.colorChannel
 import com.angcyo.library.ex.file
+import com.angcyo.library.ex.toBitmap
 import com.angcyo.library.toast
 import com.angcyo.library.utils.fileName
 import com.angcyo.library.utils.filePath
@@ -96,6 +99,66 @@ class EngraveLayoutHelper(val fragment: Fragment) {
                                 } else {
                                     toast("file cmd error.")
                                 }
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            val bounds = renderer.getRotateBounds()
+            var bitmap = renderer.preview()?.toBitmap() ?: return
+
+            val width = bitmap.width
+            val height = bitmap.height
+
+            val px: Byte = 0x04
+
+            bitmap = LaserPeckerHelper.bitmapScale(bitmap, px)
+
+            val x = bounds.left.toInt()
+            val y = bounds.top.toInt()
+
+            fragment.loadingAsync({
+                bitmap.colorChannel { color, channel ->
+                    if (color == Color.TRANSPARENT) {
+                        255
+                    } else {
+                        channel
+                    }
+                }
+            }) {
+                it?.let { data ->
+                    val cmd = FileModeCmd(data.size)
+                    LaserPeckerHelper.sendCommand(cmd) { bean, error ->
+                        bean?.parse<FileTransferParser>()?.let {
+                            if (it.isIntoFileMode()) {
+                                //成功进入大数据模式
+
+                                val name = (System.currentTimeMillis() / 1000).toInt()
+                                LaserPeckerHelper.sendCommand(
+                                    DataCommand.bitmapData(name, data, width, height, x, y, px)
+                                ) { bean, error ->
+                                    L.w("文件传输:$bean:$error")
+
+                                    bean?.parse<FileTransferParser>()?.let {
+                                        if (it.isFileTransferSuccess()) {
+                                            //文件传输完成
+                                            L.w("文件传输完成:$name")
+
+                                            //进入空闲模式
+                                            ExitCmd().send { _, _ ->
+                                                //开始雕刻
+                                                EngraveCmd(name).send { bean, error ->
+                                                    L.w("开始雕刻:${bean?.parse<MiniReceiveParser>()}")
+                                                }
+                                            }
+                                        } else {
+                                            L.w("文件传输失败:$name:$it")
+                                        }
+                                    }
+                                }
+                            } else {
+                                toast("file cmd error.")
                             }
                         }
                     }

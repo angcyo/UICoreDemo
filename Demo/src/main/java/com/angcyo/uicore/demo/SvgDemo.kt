@@ -7,8 +7,8 @@ import com.angcyo.dsladapter.bindItem
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.library.ex.readAssets
 import com.angcyo.library.ex.readResource
-import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.library.ex.setBgDrawable
+import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.base.setInputText
 import com.angcyo.widget.base.string
 import com.pixplicity.sharp.Sharp
@@ -79,6 +79,7 @@ class SvgDemo : AppDslFragment() {
             add("cherryblossoms.gcode")
             add("LaserPecker.gcode")
             add("snowflakes.gcode")
+            add("love.gcode")
         }
     }
 
@@ -197,6 +198,9 @@ class SvgDemo : AppDslFragment() {
                 }
                 itemHolder.click(R.id.snowflakes_gcode) {
                     editText?.setInputText(fContext().readAssets("snowflakes.gcode"))
+                }
+                itemHolder.click(R.id.love_gcode) {
+                    editText?.setInputText(fContext().readAssets("love.gcode"))
                 }
 
                 //test

@@ -301,15 +301,13 @@ class CanvasDemo : AppDslFragment() {
                             bounds.width().toInt(),
                             bounds.height().toInt()
                         )
-                        if (cmd != null) {
-                            cmdString = buildString {
-                                append(cmd.toHexCommandString())
-                                appendLine()
-                                val range = cmd.getPreviewRange()
-                                append("x:${range.left} y:${range.top} w:${range.width()} h:${range.height()}")
-                            }
-                            LaserPeckerHelper.sendCommand(cmd, action = receiveAction)
+                        cmdString = buildString {
+                            append(cmd.toHexCommandString())
+                            appendLine()
+                            val range = cmd.getPreviewRange()
+                            append("x:${range.left} y:${range.top} w:${range.width()} h:${range.height()}")
                         }
+                        LaserPeckerHelper.sendCommand(cmd, action = receiveAction)
                     }
                 }
 

@@ -387,7 +387,9 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 updateLayerLayout(vh)
 
                 val peckerModel = vmApp<LaserPeckerModel>()
-                if (peckerModel.deviceModelData.value == QueryStateParser.WORK_MODE_ENGRAVE_PREVIEW) {
+                if (peckerModel.deviceModelData.value == QueryStateParser.WORK_MODE_ENGRAVE_PREVIEW &&
+                    item == canvasView.canvasDelegate.getSelectedRenderer()
+                ) {
                     //设备正在预览模式, 更新预览
                     if (item is BaseItemRenderer<*>) {
                         peckerModel.sendUpdatePreviewRange(item.getRotateBounds())
@@ -444,6 +446,15 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                     showBitmapControlLayout(vh, canvasView, itemRenderer)
                 } else {
                     vh.showControlLayout(false)
+                }
+
+                //预览选中的元素边框
+                val peckerModel = vmApp<LaserPeckerModel>()
+                if (peckerModel.deviceModelData.value == QueryStateParser.WORK_MODE_ENGRAVE_PREVIEW) {
+                    //设备正在预览模式, 更新预览
+                    if (itemRenderer is BaseItemRenderer<*>) {
+                        peckerModel.sendUpdatePreviewRange(itemRenderer.getRotateBounds())
+                    }
                 }
             }
 

@@ -151,6 +151,11 @@
             style="@style/DefaultButtonMinStyle"
             android:text="cherryblossomsGcode" />
 
+        <com.angcyo.widget.DslButton
+            android:id="@+id/love_gcode"
+            style="@style/DefaultButtonMinStyle"
+            android:text="loveGcode" />
+
     </com.angcyo.widget.layout.DslFlowLayout>
 
     <androidx.appcompat.widget.AppCompatImageView
