@@ -122,7 +122,6 @@ class EngravePreviewLayoutHelper(val fragment: Fragment) {
             }
         }
         viewHolder?.click(R.id.preview_button) {
-            val deviceState = laserPeckerModel.deviceStateData.value
             if (laserPeckerModel.isEngravePreviewShowCenterMode()) {
                 exitCmd { bean, error ->
                     startPreviewCmd(canvasDelegate)
@@ -131,7 +130,7 @@ class EngravePreviewLayoutHelper(val fragment: Fragment) {
                 exitCmd { bean, error ->
                     queryDeviceStateCmd()
                 }
-            } else if (deviceState?.mode == QueryStateParser.WORK_MODE_IDLE) {
+            } else if (laserPeckerModel.isIdleMode()) {
                 startPreviewCmd(canvasDelegate)
             } else {
                 exitCmd { bean, error ->
