@@ -28,7 +28,7 @@ import com.angcyo.widget.progress.DslSeekBar
 class EngravePreviewLayoutHelper(val fragment: Fragment) {
 
     /**支架的最大移动步长*/
-    val BRACKET_MAX_STEP: Int = 600//130, 65535
+    val BRACKET_MAX_STEP: Int = 65535//130, 65535
 
     var viewHolder: DslViewHolder? = null
 
@@ -70,7 +70,7 @@ class EngravePreviewLayoutHelper(val fragment: Fragment) {
                     LaserPeckerHelper.lastPwrProgress = fraction
                     if (laserPeckerModel.isEngravePreviewMode()) {
                         startPreviewCmd(canvasDelegate)
-                    } else {
+                    } else if (!laserPeckerModel.isIdleMode()) {
                         exitCmd { bean, error ->
                             queryDeviceStateCmd()
                         }
