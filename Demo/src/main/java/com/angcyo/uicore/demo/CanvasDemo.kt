@@ -4,6 +4,7 @@ import android.graphics.Path
 import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.IReceiveBeanAction
@@ -39,6 +40,7 @@ import com.angcyo.uicore.demo.SvgDemo.Companion.svgResList
 import com.angcyo.uicore.demo.ble.bluetoothSearchListDialog
 import com.angcyo.uicore.demo.canvas.CanvasLayoutHelper
 import com.angcyo.uicore.demo.canvas.EngraveLayoutHelper
+import com.angcyo.uicore.demo.canvas.EngravePreviewLayoutHelper
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.recycler.initDslAdapter
 import com.angcyo.widget.span.span
@@ -214,11 +216,16 @@ class CanvasDemo : AppDslFragment() {
                 }
 
                 //preview
-                itemHolder.click(R.id.preview_button) {
+                itemHolder.click(R.id.preview_button) { view ->
                     render {
                         PreviewBitmapItem()() {
                             canvasView?.canvasDelegate?.let {
-                                bitmap = it.getBitmap()
+                                bitmap = it.getBitmap(view.tag != null)
+                                if (view.tag == null) {
+                                    view.tag = nowTime()
+                                } else {
+                                    view.tag = null
+                                }
                             }
                         }
                     }
@@ -293,22 +300,10 @@ class CanvasDemo : AppDslFragment() {
                 }
 
                 itemHolder.click(R.id.engrave_preview_button) {
-                    canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
-                        val bounds = renderer.getRotateBounds()
-                        val cmd = EngravePreviewCmd.previewRange(
-                            bounds.left.toInt(),
-                            bounds.top.toInt(),
-                            bounds.width().toInt(),
-                            bounds.height().toInt()
-                        )
-                        cmdString = buildString {
-                            append(cmd.toHexCommandString())
-                            appendLine()
-                            val range = cmd.getPreviewRange()
-                            append("x:${range.left} y:${range.top} w:${range.width()} h:${range.height()}")
-                        }
-                        LaserPeckerHelper.sendCommand(cmd, action = receiveAction)
-                    }
+                    engravePreviewLayoutHelper.showPreviewLayout(
+                        itemHolder.itemView as ViewGroup,
+                        canvasView?.canvasDelegate
+                    )
                 }
 
                 //结束预览
@@ -392,6 +387,7 @@ class CanvasDemo : AppDslFragment() {
 
     val canvasLayoutHelper = CanvasLayoutHelper(this)
     val engraveLayoutHelper = EngraveLayoutHelper(this)
+    val engravePreviewLayoutHelper = EngravePreviewLayoutHelper(this)
 
     /**Canvas控制*/
     fun bindCanvasRecyclerView(itemHolder: DslViewHolder, adapterItem: DslAdapterItem) {
