@@ -6,9 +6,10 @@ import com.angcyo.drawable.loading.TGStrokeLoadingDrawable
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.library.ex.anim
 import com.angcyo.library.ex.dp
+import com.angcyo.library.ex.setBgDrawable
 import com.angcyo.library.ex.toColorInt
 import com.angcyo.uicore.base.AppDslFragment
-import com.angcyo.library.ex.setBgDrawable
+import com.angcyo.widget.progress.DslProgressBar
 
 /**
  *
@@ -60,6 +61,11 @@ class LoadingDemo : AppDslFragment() {
                             tgStrokeLoadingDrawable2.progress = progress
                         }
                     }
+                }
+
+                //progress
+                itemHolder.v<DslProgressBar>(R.id.progress_bar)?.apply {
+                    setProgress(50)
                 }
             }
         }

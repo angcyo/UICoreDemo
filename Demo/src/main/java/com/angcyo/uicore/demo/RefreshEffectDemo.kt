@@ -9,7 +9,7 @@ import com.angcyo.library.toast
 import com.angcyo.library.toastQQ
 import com.angcyo.library.toastWX
 import com.angcyo.uicore.base.AppTitleFragment
-import com.angcyo.widget.recycler.initDslAdapter
+import com.angcyo.widget.recycler.renderDslAdapter
 
 /**
  *
@@ -28,7 +28,7 @@ class RefreshEffectDemo : AppTitleFragment() {
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
 
-        _vh.rv(R.id.lib_recycler_view)?.initDslAdapter {
+        _vh.rv(R.id.lib_recycler_view)?.renderDslAdapter {
             batchLoad()
             for (i in 0..100) {
                 DslBaseInfoItem()() {
