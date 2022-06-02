@@ -32,19 +32,13 @@ class EngravePreviewLayoutHelper(val fragment: Fragment) {
 
     var viewHolder: DslViewHolder? = null
 
+    val laserPeckerModel = vmApp<LaserPeckerModel>()
+
     @LayoutRes
     val previewLayoutId: Int = R.layout.canvas_engrave_preview_layout
 
-    /**显示预览布局, 并且发送预览指令*/
-    fun showPreviewLayout(viewGroup: ViewGroup, canvasDelegate: CanvasDelegate?) {
-        var rootView = viewGroup.find<View>(R.id.engrave_preview_layout)
-        if (rootView == null) {
-            rootView = viewGroup.inflate(previewLayoutId, true)
-        }
-        viewHolder = DslViewHolder(rootView)
-
+    init {
         //模式改变监听
-        val laserPeckerModel = vmApp<LaserPeckerModel>()
         laserPeckerModel.deviceStateData.observe(fragment) {
             val mode = it?.mode
             if (mode == QueryStateParser.WORK_MODE_ENGRAVE_PREVIEW) {
@@ -61,6 +55,15 @@ class EngravePreviewLayoutHelper(val fragment: Fragment) {
                     _string(R.string.preview_continue)
             }
         }
+    }
+
+    /**显示预览布局, 并且发送预览指令*/
+    fun showPreviewLayout(viewGroup: ViewGroup, canvasDelegate: CanvasDelegate?) {
+        var rootView = viewGroup.find<View>(R.id.engrave_preview_layout)
+        if (rootView == null) {
+            rootView = viewGroup.inflate(previewLayoutId, true)
+        }
+        viewHolder = DslViewHolder(rootView)
 
         //init
         viewHolder?.v<DslSeekBar>(R.id.brightness_seek_bar)?.apply {
@@ -70,6 +73,8 @@ class EngravePreviewLayoutHelper(val fragment: Fragment) {
                     LaserPeckerHelper.lastPwrProgress = fraction
                     if (laserPeckerModel.isEngravePreviewMode()) {
                         startPreviewCmd(canvasDelegate)
+                    } else if (laserPeckerModel.isEngravePreviewShowCenterMode()) {
+                        showPreviewCenterCmd()
                     } else if (!laserPeckerModel.isIdleMode()) {
                         exitCmd { bean, error ->
                             queryDeviceStateCmd()
@@ -123,10 +128,15 @@ class EngravePreviewLayoutHelper(val fragment: Fragment) {
         }
         viewHolder?.click(R.id.preview_button) {
             if (laserPeckerModel.isEngravePreviewShowCenterMode()) {
+                //继续预览
                 exitCmd { bean, error ->
                     startPreviewCmd(canvasDelegate)
                 }
-            } else if (laserPeckerModel.isEngravePreviewMode()) {
+            } else {
+                //结束预览
+                hidePreviewLayout()
+            }
+            /*if (laserPeckerModel.isEngravePreviewMode()) {
                 exitCmd { bean, error ->
                     queryDeviceStateCmd()
                 }
@@ -136,7 +146,7 @@ class EngravePreviewLayoutHelper(val fragment: Fragment) {
                 exitCmd { bean, error ->
                     queryDeviceStateCmd()
                 }
-            }
+            }*/
         }
 
         //transition
@@ -158,7 +168,7 @@ class EngravePreviewLayoutHelper(val fragment: Fragment) {
         }
 
         exitCmd { bean, error ->
-
+            queryDeviceStateCmd()
         }
     }
 
