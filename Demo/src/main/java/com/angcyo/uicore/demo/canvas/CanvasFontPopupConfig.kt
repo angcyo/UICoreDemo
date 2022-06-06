@@ -3,28 +3,50 @@ package com.angcyo.uicore.demo.canvas
 import android.content.Context
 import android.graphics.Typeface
 import android.view.View
+import androidx.fragment.app.FragmentActivity
 import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.IItemRenderer
 import com.angcyo.canvas.items.renderer.PictureItemRenderer
 import com.angcyo.canvas.items.renderer.PictureTextItemRenderer
 import com.angcyo.canvas.items.renderer.TextItemRenderer
+import com.angcyo.component.getFile
 import com.angcyo.dialog.TargetWindow
 import com.angcyo.dialog.popup.ShadowAnchorPopupConfig
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.drawBottom
-import com.angcyo.library.ex._dimen
-import com.angcyo.library.ex._string
-import com.angcyo.library.ex.dpi
+import com.angcyo.library.ex.*
+import com.angcyo.library.toast
+import com.angcyo.library.utils.filePath
+import com.angcyo.library.utils.folderPath
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.recycler.renderDslAdapter
+import com.angcyo.widget.recycler.scrollToEnd
+import java.io.File
 
 /**
  * 画图字体选择
+ *
+ * ```
+ * collection    font/collection    [RFC8081]
+ * otf           font/otf           [RFC8081]
+ * sfnt          font/sfnt          [RFC8081]
+ * ttf           font/ttf           [RFC8081]
+ * woff          font/woff          [RFC8081]
+ * woff2         font/woff2         [RFC8081]
+ * ```
+ * res/font/filename.ttf （.ttf、.ttc、.otf 或 .xml）
+ * https://developer.android.com/guide/topics/resources/font-resource?hl=zh-cn
+ *
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
  * @since 2022/05/16
  */
 class CanvasFontPopupConfig : ShadowAnchorPopupConfig() {
+
+    companion object {
+        /**默认的字体文件夹名称*/
+        const val DEFAULT_FONT_FOLDER_NAME = "fonts"
+    }
 
     /**操作的渲染项*/
     var itemRenderer: IItemRenderer<*>? = null
@@ -37,6 +59,11 @@ class CanvasFontPopupConfig : ShadowAnchorPopupConfig() {
 
     override fun initContentLayout(window: TargetWindow, viewHolder: DslViewHolder) {
         super.initContentLayout(window, viewHolder)
+
+        //字体文件夹
+        val fontFolder = folderPath(DEFAULT_FONT_FOLDER_NAME)
+
+        //字体列表
         viewHolder.rv(R.id.lib_recycler_view)?.renderDslAdapter {
             typefaceItem("normal", Typeface.DEFAULT)
             typefaceItem("sans", Typeface.SANS_SERIF)
@@ -46,9 +73,55 @@ class CanvasFontPopupConfig : ShadowAnchorPopupConfig() {
             typefaceItem("Default-Italic", Typeface.create(Typeface.DEFAULT, Typeface.ITALIC))
             typefaceItem(
                 "Default-Bold-Italic",
-                Typeface.create(Typeface.DEFAULT, Typeface.BOLD_ITALIC),
-                false
+                Typeface.create(Typeface.DEFAULT, Typeface.BOLD_ITALIC)
             )
+
+            //自定义的字体
+            fontFolder.file().eachFile { file ->
+                try {
+                    if (file.name.isFontType()) {
+                        val typeface = Typeface.createFromFile(file)
+                        typefaceItem(file.name.noExtName(), typeface)
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
+        //导入字体
+        viewHolder.click(R.id.import_view) {
+            val context = viewHolder.context
+            if (context is FragmentActivity) {
+                context.supportFragmentManager.getFile("*/*") {
+                    if (it != null) {
+                        val path = it.getPathFromUri()
+                        try {
+                            if (path.isFontType()) {
+                                val file = File(path!!)
+                                val typeface = Typeface.createFromFile(file)
+                                file.copyTo(filePath(DEFAULT_FONT_FOLDER_NAME, file.name))
+
+                                //ui
+                                viewHolder.rv(R.id.lib_recycler_view)
+                                    ?.renderDslAdapter(true, false) {
+                                        typefaceItem(file.name.noExtName(), typeface)
+
+                                        onDispatchUpdatesOnce {
+                                            viewHolder.rv(R.id.lib_recycler_view)?.scrollToEnd()
+                                        }
+                                    }
+                            } else {
+                                error("is not font.")
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            toast("无效的字体")
+                        }
+                    }
+                }
+            } else {
+                toast("无法导入")
+            }
         }
     }
 
