@@ -115,12 +115,12 @@ class CanvasFontPopupConfig : ShadowAnchorPopupConfig() {
                             }
                         } catch (e: Exception) {
                             e.printStackTrace()
-                            toast("无效的字体")
+                            toast(_string(R.string.canvas_invalid_font))
                         }
                     }
                 }
             } else {
-                toast("无法导入")
+                toast(_string(R.string.canvas_cannot_import))
             }
         }
     }
