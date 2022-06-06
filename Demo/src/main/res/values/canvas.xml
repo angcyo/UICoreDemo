@@ -114,4 +114,7 @@
         <item>自定义</item>
     </array>
 
+    <string name="canvas_import_font">导入</string>
+
+
 </resources>

@@ -28,7 +28,7 @@
             android:background="@drawable/lib_bg_selector"
             android:gravity="center"
             android:paddingHorizontal="@dimen/lib_hdpi"
-            android:text="导入" />
+            android:text="@string/canvas_import_font" />
 
     </FrameLayout>
 
