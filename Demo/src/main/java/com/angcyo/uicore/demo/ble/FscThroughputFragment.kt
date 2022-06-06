@@ -108,7 +108,7 @@ class FscThroughputFragment : AppDslFragment() {
                         //进度更新
                         fscModel.findProgressCache(fscDevice?.address)?.let {
                             val time =
-                                max(1, ((SystemClock.elapsedRealtime() - it.startTime) / 1000))
+                                max(1, ((System.currentTimeMillis() - it.startTime) / 1000))
                             val rate = "${it.sendBytesSize / time} bytes/s"
                             if (it.percentage >= 0) {
                                 packetProgressView?.setProgress(it.percentage)

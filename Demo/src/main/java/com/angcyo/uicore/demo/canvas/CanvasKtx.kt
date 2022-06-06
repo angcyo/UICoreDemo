@@ -11,6 +11,7 @@ import com.angcyo.coroutine.withBlock
 import com.angcyo.dialog.hideLoading
 import com.angcyo.dialog.loading2
 import com.angcyo.drawable.loading.TGStrokeLoadingDrawable
+import com.angcyo.library.L
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.setBgDrawable
 import com.angcyo.library.ex.toColorInt
@@ -34,6 +35,8 @@ fun <T> LifecycleOwner.loadingAsync(block: () -> T?, action: (T?) -> Unit) {
                 loadEnd(result, null)
             }
         }
+    } else {
+        L.w("context is not ActivityResultCaller!")
     }
 }
 

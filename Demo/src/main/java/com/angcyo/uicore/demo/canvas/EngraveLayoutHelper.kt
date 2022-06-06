@@ -3,6 +3,7 @@ package com.angcyo.uicore.demo.canvas
 import android.graphics.Color
 import androidx.fragment.app.Fragment
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
+import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper.DEFAULT_PX
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
 import com.angcyo.bluetooth.fsc.laserpacker.command.*
 import com.angcyo.bluetooth.fsc.laserpacker.parse.FileTransferParser
@@ -112,7 +113,7 @@ class EngraveLayoutHelper(val fragment: Fragment) {
             val width = bitmap.width
             val height = bitmap.height
 
-            val px: Byte = 0x04
+            val px: Byte = DEFAULT_PX
 
             bitmap = LaserPeckerHelper.bitmapScale(bitmap, px)
 

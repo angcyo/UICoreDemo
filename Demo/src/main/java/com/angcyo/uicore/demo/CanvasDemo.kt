@@ -38,6 +38,7 @@ import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
 import com.angcyo.uicore.demo.SvgDemo.Companion.svgResList
 import com.angcyo.uicore.demo.ble.bluetoothSearchListDialog
+import com.angcyo.uicore.demo.ble.engraveDialog
 import com.angcyo.uicore.demo.canvas.CanvasLayoutHelper
 import com.angcyo.uicore.demo.canvas.EngraveLayoutHelper
 import com.angcyo.uicore.demo.canvas.EngravePreviewLayoutHelper
@@ -323,7 +324,10 @@ class CanvasDemo : AppDslFragment() {
                 //雕刻
                 itemHolder.click(R.id.engrave_button) {
                     canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
-                        engraveLayoutHelper.engrave(renderer)
+                        //engraveLayoutHelper.engrave(renderer)
+                        fContext().engraveDialog(renderer) {
+
+                        }
                     }
                 }
 

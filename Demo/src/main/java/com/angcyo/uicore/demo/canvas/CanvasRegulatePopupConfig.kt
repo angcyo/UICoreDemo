@@ -61,6 +61,7 @@ class CanvasRegulatePopupConfig : ShadowAnchorPopupConfig() {
     //保存修改后的属性
     val property = keepProperty // hashMapOf<String, Any?>()
 
+    /**应用属性实现方法的回调*/
     var onApplyAction: (preview: Boolean, cancel: Boolean) -> Unit = { preview, cancel ->
 
     }
@@ -115,7 +116,7 @@ class CanvasRegulatePopupConfig : ShadowAnchorPopupConfig() {
                     initItem()
 
                     itemProgressTextFormatAction = {
-                        "${(-1f + 2 * it._progressFraction).canvasDecimal(1)}"
+                        (-1f + 2 * it._progressFraction).canvasDecimal(1)
                     }
 
                     val def = getFloatOrDef(KEY_CONTRAST, 0f)
@@ -133,7 +134,7 @@ class CanvasRegulatePopupConfig : ShadowAnchorPopupConfig() {
                     initItem()
 
                     itemProgressTextFormatAction = {
-                        "${(-1f + 2 * it._progressFraction).canvasDecimal(1)}"
+                        (-1f + 2 * it._progressFraction).canvasDecimal(1)
                     }
 
                     val def = getFloatOrDef(KEY_BRIGHTNESS, 0f)
@@ -154,7 +155,7 @@ class CanvasRegulatePopupConfig : ShadowAnchorPopupConfig() {
                     val def = getFloatOrDef(KEY_LINE_SPACE, start)
 
                     itemProgressTextFormatAction = {
-                        "${start + ((5 - start) * it._progressFraction).canvasDecimal(3)}"
+                        (start + (5 - start) * it._progressFraction).canvasDecimal(3)
                     }
 
                     property[KEY_LINE_SPACE] = def
@@ -175,7 +176,7 @@ class CanvasRegulatePopupConfig : ShadowAnchorPopupConfig() {
                     initItem()
 
                     itemProgressTextFormatAction = {
-                        "${(90 * it._progressFraction).canvasDecimal(1)}"
+                        (90 * it._progressFraction).canvasDecimal(1)
                     }
 
                     val def = getFloatOrDef(KEY_ANGLE, 0f)

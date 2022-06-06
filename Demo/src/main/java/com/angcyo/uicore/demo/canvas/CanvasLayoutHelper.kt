@@ -226,7 +226,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                         if (renderer is PictureItemRenderer) {
                             renderer.getRendererItem()?.let { item ->
                                 if (item is PictureShapeItem) {
-                                    loadingAsync({
+                                    fragment.loadingAsync({
                                         item.shapePath?.let { path ->
                                             EngraveHelper.pathStrokeToGCode(
                                                 path,
@@ -864,7 +864,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                                     renderer.updateRenderBitmap(it, Strategy.redo)
                                 }
                             } else {
-                                loadingAsync({
+                                fragment.loadingAsync({
                                     originBitmap?.let { bitmap ->
                                         OpenCV.bitmapToPrint(
                                             fragment.requireContext(),
@@ -905,7 +905,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                                     renderer.updateRenderBitmap(it, Strategy.redo)
                                 }
                             } else {
-                                loadingAsync({
+                                fragment.loadingAsync({
                                     originBitmap?.let { bitmap ->
                                         OpenCV.bitmapToGCode(
                                             fragment.requireContext(),
@@ -959,7 +959,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                                     renderer.updateRenderBitmap(it, Strategy.redo)
                                 }
                             } else {
-                                loadingAsync({
+                                fragment.loadingAsync({
                                     originBitmap?.let { bitmap ->
                                         OpenCV.bitmapToBlackWhite(
                                             bitmap,
@@ -1007,7 +1007,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                                     renderer.updateRenderBitmap(it, Strategy.redo)
                                 }
                             } else {
-                                loadingAsync({
+                                fragment.loadingAsync({
                                     originBitmap?.let { bitmap ->
                                         OpenCV.bitmapToDithering(
                                             fragment.requireContext(), bitmap,
@@ -1040,7 +1040,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = _string(R.string.canvas_grey)
                 itemTintColor = false
                 itemClick = {
-                    loadingAsync({
+                    fragment.loadingAsync({
                         renderer.getRenderBitmap()?.let { bitmap ->
                             OpenCV.bitmapToGrey(bitmap)
                         }
@@ -1066,7 +1066,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                                     renderer.updateRenderBitmap(it, Strategy.redo)
                                 }
                             } else {
-                                loadingAsync({
+                                fragment.loadingAsync({
                                     originBitmap?.let { bitmap ->
                                         OpenCV.bitmapToSeal(
                                             fragment.requireContext(), bitmap,
