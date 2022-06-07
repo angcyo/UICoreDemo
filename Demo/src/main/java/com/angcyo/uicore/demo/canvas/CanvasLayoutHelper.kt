@@ -3,6 +3,7 @@ package com.angcyo.uicore.demo.canvas
 import android.graphics.Paint
 import android.graphics.RectF
 import android.text.InputType
+import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.angcyo.canvas.Strategy
 import com.angcyo.canvas.core.CanvasUndoManager
 import com.angcyo.canvas.core.ICanvasListener
 import com.angcyo.canvas.core.IRenderer
+import com.angcyo.canvas.core.renderer.SelectGroupRenderer
 import com.angcyo.canvas.items.PictureBitmapItem
 import com.angcyo.canvas.items.PictureShapeItem
 import com.angcyo.canvas.items.PictureTextItem
@@ -451,6 +453,8 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                     }
                 } else if (itemRenderer is BitmapItemRenderer) {
                     showBitmapControlLayout(vh, canvasView, itemRenderer)
+                } else if (itemRenderer is SelectGroupRenderer) {
+                    showGroupControlLayout(vh, canvasView, itemRenderer)
                 } else {
                     vh.showControlLayout(false)
                 }
@@ -1183,11 +1187,14 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     ) {
         vh.rv(R.id.canvas_control_view)?.renderDslAdapter {
             hookUpdateDepend()
+
+            //坐标编辑
             CanvasEditControlItem()() {
                 itemRenderer = renderer
                 itemCanvasDelegate = canvasView.canvasDelegate
             }
 
+            //图层排序
             CanvasArrangeItem()() {
                 itemArrange = CanvasDelegate.ARRANGE_FORWARD
                 itemRenderer = renderer
@@ -1210,5 +1217,44 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             }
         }
     }
-    //<editor-fold desc="编辑控制">
+
+    //</editor-fold desc="编辑控制">
+
+    //<editor-fold desc="群组控制">
+
+    /**群组控制*/
+    fun showGroupControlLayout(
+        vh: DslViewHolder,
+        canvasView: CanvasView,
+        renderer: SelectGroupRenderer
+    ) {
+        vh.rv(R.id.canvas_control_view)?.renderDslAdapter {
+            hookUpdateDepend()
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_text_style_align_left_ico
+                itemText = _string(R.string.canvas_align_left)
+                itemRenderer = renderer
+                itemClick = {
+                    renderer.updateAlign(Gravity.LEFT)
+                }
+            }
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_text_style_align_center_ico
+                itemText = _string(R.string.canvas_align_center)
+                itemRenderer = renderer
+                itemClick = {
+                    renderer.updateAlign(Gravity.CENTER_HORIZONTAL)
+                }
+            }
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_text_style_align_right_ico
+                itemText = _string(R.string.canvas_align_right)
+                itemRenderer = renderer
+                itemClick = {
+                    renderer.updateAlign(Gravity.RIGHT)
+                }
+            }
+        }
+    }
+    //</editor-fold desc="群组控制">
 }
