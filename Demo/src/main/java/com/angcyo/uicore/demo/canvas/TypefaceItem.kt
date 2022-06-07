@@ -33,6 +33,8 @@ class TypefaceItem : DslAdapterItem() {
     ) {
         super.onItemBind(itemHolder, itemPosition, adapterItem, payloads)
 
+        itemHolder.visible(R.id.lib_check_view, itemIsSelected)
+
         itemHolder.tv(R.id.text_view)?.apply {
             text = previewText
             this.typeface = this@TypefaceItem.typeface

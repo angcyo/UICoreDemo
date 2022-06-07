@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Typeface
 import android.view.View
 import androidx.fragment.app.FragmentActivity
+import com.angcyo.canvas.items.BaseItem
 import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.IItemRenderer
 import com.angcyo.canvas.items.renderer.PictureItemRenderer
@@ -14,6 +15,7 @@ import com.angcyo.dialog.TargetWindow
 import com.angcyo.dialog.popup.ShadowAnchorPopupConfig
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.drawBottom
+import com.angcyo.dsladapter.selectItem
 import com.angcyo.library.ex.*
 import com.angcyo.library.toast
 import com.angcyo.library.utils.filePath
@@ -46,6 +48,48 @@ class CanvasFontPopupConfig : ShadowAnchorPopupConfig() {
     companion object {
         /**默认的字体文件夹名称*/
         const val DEFAULT_FONT_FOLDER_NAME = "fonts"
+
+        /**字体列表*/
+        val fontList = mutableListOf<TypefaceInfo>()
+
+        /**初始化字体列表*/
+        fun initFontList() {
+            fontList.clear()
+
+            //字体文件夹
+            val fontFolder = folderPath(DEFAULT_FONT_FOLDER_NAME)
+
+            //typefaceItem("normal", Typeface.DEFAULT)
+            //typefaceItem("sans", Typeface.SANS_SERIF)
+            fontList.add(TypefaceInfo("serif", Typeface.SERIF))
+            fontList.add(
+                TypefaceInfo("Default-Normal", Typeface.create(Typeface.DEFAULT, Typeface.NORMAL))
+            )
+            fontList.add(
+                TypefaceInfo("Default-Bold", Typeface.create(Typeface.DEFAULT, Typeface.BOLD))
+            )
+            fontList.add(
+                TypefaceInfo("Default-Italic", Typeface.create(Typeface.DEFAULT, Typeface.ITALIC))
+            )
+            fontList.add(
+                TypefaceInfo(
+                    "Default-Bold-Italic",
+                    Typeface.create(Typeface.DEFAULT, Typeface.BOLD_ITALIC)
+                )
+            )
+
+            //自定义的字体
+            fontFolder.file().eachFile { file ->
+                try {
+                    if (file.name.isFontType()) {
+                        val typeface = Typeface.createFromFile(file)
+                        fontList.add(TypefaceInfo(file.name.noExtName(), typeface))
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
     }
 
     /**操作的渲染项*/
@@ -60,32 +104,14 @@ class CanvasFontPopupConfig : ShadowAnchorPopupConfig() {
     override fun initContentLayout(window: TargetWindow, viewHolder: DslViewHolder) {
         super.initContentLayout(window, viewHolder)
 
-        //字体文件夹
-        val fontFolder = folderPath(DEFAULT_FONT_FOLDER_NAME)
+        if (fontList.isEmpty()) {
+            initFontList()
+        }
 
         //字体列表
         viewHolder.rv(R.id.lib_recycler_view)?.renderDslAdapter {
-            typefaceItem("normal", Typeface.DEFAULT)
-            typefaceItem("sans", Typeface.SANS_SERIF)
-            typefaceItem("serif", Typeface.SERIF)
-            typefaceItem("Default-Normal", Typeface.create(Typeface.DEFAULT, Typeface.NORMAL))
-            typefaceItem("Default-Bold", Typeface.create(Typeface.DEFAULT, Typeface.BOLD))
-            typefaceItem("Default-Italic", Typeface.create(Typeface.DEFAULT, Typeface.ITALIC))
-            typefaceItem(
-                "Default-Bold-Italic",
-                Typeface.create(Typeface.DEFAULT, Typeface.BOLD_ITALIC)
-            )
-
-            //自定义的字体
-            fontFolder.file().eachFile { file ->
-                try {
-                    if (file.name.isFontType()) {
-                        val typeface = Typeface.createFromFile(file)
-                        typefaceItem(file.name.noExtName(), typeface)
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+            fontList.forEach {
+                typefaceItem(it.name, it.typeface)
             }
         }
         //导入字体
@@ -104,7 +130,11 @@ class CanvasFontPopupConfig : ShadowAnchorPopupConfig() {
                                 //ui
                                 viewHolder.rv(R.id.lib_recycler_view)
                                     ?.renderDslAdapter(true, false) {
-                                        typefaceItem(file.name.noExtName(), typeface)
+
+                                        val typefaceInfo =
+                                            TypefaceInfo(file.name.noExtName(), typeface)
+                                        typefaceItem(typefaceInfo.name, typefaceInfo.typeface)
+                                        fontList.add(typefaceInfo)
 
                                         onDispatchUpdatesOnce {
                                             viewHolder.rv(R.id.lib_recycler_view)?.scrollToEnd()
@@ -130,11 +160,17 @@ class CanvasFontPopupConfig : ShadowAnchorPopupConfig() {
             displayName = name
             previewText = _string(R.string.canvas_font_text)
             typeface = type
+            itemIsSelected = (itemRenderer?.getRendererItem() as? BaseItem)?.paint?.typeface == type
             if (line) {
                 drawBottom(_dimen(R.dimen.lib_line_px), 0, 0)
             }
             itemClick = {
-                updatePaintTypeface(typeface)
+                if (!itemIsSelected) {
+                    selectItem(false) { true }
+                    itemIsSelected = true
+                    updatePaintTypeface(typeface)
+                    updateAdapterItem()
+                }
             }
         }
     }

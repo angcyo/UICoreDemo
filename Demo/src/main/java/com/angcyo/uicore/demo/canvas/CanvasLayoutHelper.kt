@@ -219,7 +219,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             }
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_actions_ico
-                itemText = "操作"
+                itemText = _string(R.string.canvas_operate)
                 itemEnable = true
                 itemClick = {
                     canvasView.canvasDelegate.getSelectedRenderer()?.let { renderer ->
@@ -923,18 +923,19 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                                                 0f
                                             ).toDouble()
                                         ).let {
-                                            //todo 保存GCode文本数据属性
-                                            GCodeHelper.parseGCode(
+                                            val gCodeText = it.readText()
+                                            gCodeText to GCodeHelper.parseGCode(
                                                 fragment.requireContext(),
-                                                it.readText().toString()
-                                            )?.toBitmap()
+                                                gCodeText
+                                            )
                                         }
                                     }
                                 }) {
                                     it?.let {
-                                        renderer.updateRenderBitmap(
-                                            it,
-                                            if (preview) Strategy.preview else Strategy.normal
+                                        renderer.updateItemDrawable(
+                                            it.second,
+                                            if (preview) Strategy.preview else Strategy.normal,
+                                            hashMapOf(EngraveHelper.KEY_GCODE to it.first)
                                         )
                                     }
                                 }
