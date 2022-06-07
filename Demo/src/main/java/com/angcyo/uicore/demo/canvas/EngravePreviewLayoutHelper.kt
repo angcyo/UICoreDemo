@@ -1,10 +1,7 @@
 package com.angcyo.uicore.demo.canvas
 
 import android.view.MotionEvent
-import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
-import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import com.angcyo.bluetooth.fsc.IReceiveBeanAction
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
@@ -14,9 +11,11 @@ import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
 import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.core.vmApp
-import com.angcyo.library.ex.*
+import com.angcyo.library.ex._string
+import com.angcyo.library.ex.disableParentInterceptTouchEvent
+import com.angcyo.library.ex.elseNull
+import com.angcyo.library.ex.longFeedback
 import com.angcyo.uicore.demo.R
-import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.image.TouchCompatImageView
 import com.angcyo.widget.progress.DslSeekBar
 
@@ -25,19 +24,15 @@ import com.angcyo.widget.progress.DslSeekBar
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
  * @since 2022/06/01
  */
-class EngravePreviewLayoutHelper(val fragment: Fragment) {
+class EngravePreviewLayoutHelper(val fragment: Fragment) : BaseEngraveLayoutHelper() {
 
     /**支架的最大移动步长*/
     val BRACKET_MAX_STEP: Int = 65535//130, 65535
 
-    var viewHolder: DslViewHolder? = null
-
     val laserPeckerModel = vmApp<LaserPeckerModel>()
 
-    @LayoutRes
-    val previewLayoutId: Int = R.layout.canvas_engrave_preview_layout
-
     init {
+        layoutId = R.layout.canvas_engrave_preview_layout
         //模式改变监听
         laserPeckerModel.deviceStateData.observe(fragment) {
             val mode = it?.mode
@@ -58,12 +53,8 @@ class EngravePreviewLayoutHelper(val fragment: Fragment) {
     }
 
     /**显示预览布局, 并且发送预览指令*/
-    fun showPreviewLayout(viewGroup: ViewGroup, canvasDelegate: CanvasDelegate?) {
-        var rootView = viewGroup.find<View>(R.id.engrave_preview_layout)
-        if (rootView == null) {
-            rootView = viewGroup.inflate(previewLayoutId, true)
-        }
-        viewHolder = DslViewHolder(rootView)
+    override fun showLayout(viewGroup: ViewGroup, canvasDelegate: CanvasDelegate?) {
+        super.showLayout(viewGroup, canvasDelegate)
 
         //init
         viewHolder?.v<DslSeekBar>(R.id.brightness_seek_bar)?.apply {
@@ -115,7 +106,7 @@ class EngravePreviewLayoutHelper(val fragment: Fragment) {
             bracketStopCmd()
         }
         viewHolder?.click(R.id.close_layout_view) {
-            hidePreviewLayout()
+            hideLayout()
         }
         viewHolder?.click(R.id.centre_button) {
             if (laserPeckerModel.isEngravePreviewShowCenterMode()) {
@@ -134,7 +125,7 @@ class EngravePreviewLayoutHelper(val fragment: Fragment) {
                 }
             } else {
                 //结束预览
-                hidePreviewLayout()
+                hideLayout()
             }
             /*if (laserPeckerModel.isEngravePreviewMode()) {
                 exitCmd { bean, error ->
@@ -149,24 +140,13 @@ class EngravePreviewLayoutHelper(val fragment: Fragment) {
             }*/
         }
 
-        //transition
-        rootView.doOnPreDraw {
-            it.translationY = it.mH().toFloat()
-            it.animate().translationY(0f).setDuration(300).start()
-        }
-
         //cmd
         startPreviewCmd(canvasDelegate)
     }
 
     /**隐藏预览布局, 并且停止预览*/
-    fun hidePreviewLayout() {
-        viewHolder?.itemView?.let {
-            it.animate().translationY(it.mH().toFloat()).withEndAction {
-                it.removeFromParent()
-            }.setDuration(300).start()
-        }
-
+    override fun hideLayout() {
+        super.hideLayout()
         exitCmd { bean, error ->
             queryDeviceStateCmd()
         }

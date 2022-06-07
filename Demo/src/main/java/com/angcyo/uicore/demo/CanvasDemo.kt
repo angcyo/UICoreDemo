@@ -38,7 +38,6 @@ import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
 import com.angcyo.uicore.demo.SvgDemo.Companion.svgResList
 import com.angcyo.uicore.demo.ble.bluetoothSearchListDialog
-import com.angcyo.uicore.demo.ble.engraveDialog
 import com.angcyo.uicore.demo.canvas.CanvasLayoutHelper
 import com.angcyo.uicore.demo.canvas.EngraveLayoutHelper
 import com.angcyo.uicore.demo.canvas.EngravePreviewLayoutHelper
@@ -301,7 +300,7 @@ class CanvasDemo : AppDslFragment() {
                 }
 
                 itemHolder.click(R.id.engrave_preview_button) {
-                    engravePreviewLayoutHelper.showPreviewLayout(
+                    engravePreviewLayoutHelper.showLayout(
                         itemHolder.itemView as ViewGroup,
                         canvasView?.canvasDelegate
                     )
@@ -324,10 +323,15 @@ class CanvasDemo : AppDslFragment() {
                 //雕刻
                 itemHolder.click(R.id.engrave_button) {
                     canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
-                        //engraveLayoutHelper.engrave(renderer)
-                        fContext().engraveDialog(renderer) {
+                        /*fContext().engraveDialog(renderer) {
 
-                        }
+                        }*/
+
+                        engraveLayoutHelper.renderer = renderer
+                        engraveLayoutHelper.showLayout(
+                            itemHolder.itemView as ViewGroup,
+                            canvasView.canvasDelegate
+                        )
                     }
                 }
 
@@ -372,7 +376,7 @@ class CanvasDemo : AppDslFragment() {
                 bindCanvasRecyclerView(itemHolder, adapterItem)
 
                 //engrave
-                engraveLayoutHelper.bindLayout(itemHolder.v<CanvasView>(R.id.canvas_view)!!)
+                engraveLayoutHelper.bindCanvasView(itemHolder.v<CanvasView>(R.id.canvas_view)!!)
             }
         }
     }
