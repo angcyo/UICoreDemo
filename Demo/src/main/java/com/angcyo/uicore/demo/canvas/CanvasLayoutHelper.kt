@@ -855,12 +855,13 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemTintColor = false
                 itemClick = {
                     val originBitmap = renderer.getRenderBitmap()
+                    val beforeBitmap = renderer.getRenderBitmap(false)
                     it.context.canvasRegulateWindow(it) {
                         itemRenderer = renderer
                         addRegulate(CanvasRegulatePopupConfig.REGULATE_THRESHOLD)
                         onApplyAction = { preview, cancel ->
                             if (cancel) {
-                                originBitmap?.let {
+                                beforeBitmap?.let {
                                     renderer.updateRenderBitmap(it, Strategy.redo)
                                 }
                             } else {
@@ -894,6 +895,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemTintColor = false
                 itemClick = {
                     val originBitmap = renderer.getRenderBitmap()
+                    val beforeBitmap = renderer.getRenderBitmap(false)
                     it.context.canvasRegulateWindow(it) {
                         itemRenderer = renderer
                         addRegulate(CanvasRegulatePopupConfig.REGULATE_LINE_SPACE)
@@ -901,7 +903,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                         addRegulate(CanvasRegulatePopupConfig.REGULATE_DIRECTION)
                         onApplyAction = { preview, cancel ->
                             if (cancel) {
-                                originBitmap?.let {
+                                beforeBitmap?.let {
                                     renderer.updateRenderBitmap(it, Strategy.redo)
                                 }
                             } else {
@@ -950,13 +952,14 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemTintColor = false
                 itemClick = {
                     val originBitmap = renderer.getRenderBitmap()
+                    val beforeBitmap = renderer.getRenderBitmap(false)
                     it.context.canvasRegulateWindow(it) {
                         itemRenderer = renderer
                         addRegulate(CanvasRegulatePopupConfig.REGULATE_INVERT)
                         addRegulate(CanvasRegulatePopupConfig.REGULATE_THRESHOLD)
                         onApplyAction = { preview, cancel ->
                             if (cancel) {
-                                originBitmap?.let {
+                                beforeBitmap?.let {
                                     renderer.updateRenderBitmap(it, Strategy.redo)
                                 }
                             } else {
@@ -997,6 +1000,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemTintColor = false
                 itemClick = {
                     val originBitmap = renderer.getRenderBitmap()
+                    val beforeBitmap = renderer.getRenderBitmap(false)
                     it.context.canvasRegulateWindow(it) {
                         itemRenderer = renderer
                         addRegulate(CanvasRegulatePopupConfig.REGULATE_INVERT)
@@ -1004,7 +1008,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                         addRegulate(CanvasRegulatePopupConfig.REGULATE_BRIGHTNESS)
                         onApplyAction = { preview, cancel ->
                             if (cancel) {
-                                originBitmap?.let {
+                                beforeBitmap?.let {
                                     renderer.updateRenderBitmap(it, Strategy.redo)
                                 }
                             } else {
@@ -1058,12 +1062,13 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemTintColor = false
                 itemClick = {
                     val originBitmap = renderer.getRenderBitmap()
+                    val beforeBitmap = renderer.getRenderBitmap(false)
                     it.context.canvasRegulateWindow(it) {
                         itemRenderer = renderer
                         addRegulate(CanvasRegulatePopupConfig.REGULATE_THRESHOLD)
                         onApplyAction = { preview, cancel ->
                             if (cancel) {
-                                originBitmap?.let {
+                                beforeBitmap?.let {
                                     renderer.updateRenderBitmap(it, Strategy.redo)
                                 }
                             } else {
