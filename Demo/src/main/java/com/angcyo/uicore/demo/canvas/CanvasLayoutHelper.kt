@@ -149,6 +149,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                     fragment.context?.inputDialog {
                         dialogTitle = itemText
                         inputType = InputType.TYPE_CLASS_NUMBER
+                        maxInputLength = AddTextItem.MAX_INPUT_LENGTH
                         onInputResult = { dialog, inputText ->
                             if (inputText.isNotEmpty()) {
                                 inputText.createBarCode()?.let {
@@ -169,6 +170,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemClick = {
                     fragment.context?.inputDialog {
                         dialogTitle = itemText
+                        maxInputLength = AddTextItem.MAX_INPUT_LENGTH
                         onInputResult = { dialog, inputText ->
                             if (inputText.isNotEmpty()) {
                                 inputText.createQRCode()?.let {
@@ -284,6 +286,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                     fragment.context?.inputDialog {
                         inputViewHeight = 100 * dpi
                         defaultInputString = itemRenderer._rendererItem?.text
+                        maxInputLength = AddTextItem.MAX_INPUT_LENGTH
                         onInputResult = { dialog, inputText ->
                             if (inputText.isNotEmpty()) {
                                 itemRenderer.updateText("$inputText")
@@ -295,6 +298,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                     fragment.context?.inputDialog {
                         inputViewHeight = 100 * dpi
                         defaultInputString = itemRenderer._rendererItem?.text
+                        maxInputLength = AddTextItem.MAX_INPUT_LENGTH
                         onInputResult = { dialog, inputText ->
                             if (inputText.isNotEmpty()) {
                                 itemRenderer.updateText("$inputText")
@@ -316,6 +320,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                         fragment.context?.inputDialog {
                             inputViewHeight = 100 * dpi
                             defaultInputString = renderItem.text
+                            maxInputLength = AddTextItem.MAX_INPUT_LENGTH
                             onInputResult = { dialog, inputText ->
                                 if (inputText.isNotEmpty()) {
                                     itemRenderer.updateItemText("$inputText")
@@ -329,6 +334,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                             fragment.context?.inputDialog {
                                 dialogTitle = _string(R.string.canvas_barcode)
                                 inputType = InputType.TYPE_CLASS_NUMBER
+                                maxInputLength = AddTextItem.MAX_INPUT_LENGTH
                                 //defaultInputString = renderItem.data as CharSequence?
                                 onInputResult = { dialog, inputText ->
                                     if (inputText.isNotEmpty()) {
@@ -344,6 +350,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                             //二维码
                             fragment.context?.inputDialog {
                                 dialogTitle = _string(R.string.canvas_qrcode)
+                                maxInputLength = AddTextItem.MAX_INPUT_LENGTH
                                 //defaultInputString = renderItem.data as CharSequence?
                                 onInputResult = { dialog, inputText ->
                                     if (inputText.isNotEmpty()) {
