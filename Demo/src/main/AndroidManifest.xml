@@ -283,6 +283,22 @@
             android:enabled="true"
             android:exported="false" />
 
+        <!--Canvas字体导入-->
+        <activity
+            android:name="com.angcyo.uicore.activity.CanvasFontImportActivity"
+            android:exported="true"
+            android:label="UICoreDemo字体导入">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <data android:scheme="file" />
+                <data android:scheme="content" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+
+        </activity>
+
     </application>
 
 </manifest>

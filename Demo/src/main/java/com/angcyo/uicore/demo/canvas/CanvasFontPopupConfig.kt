@@ -2,6 +2,7 @@ package com.angcyo.uicore.demo.canvas
 
 import android.content.Context
 import android.graphics.Typeface
+import android.net.Uri
 import android.view.View
 import androidx.fragment.app.FragmentActivity
 import com.angcyo.canvas.items.BaseItem
@@ -90,6 +91,27 @@ class CanvasFontPopupConfig : ShadowAnchorPopupConfig() {
                 }
             }
         }
+
+        /**导入字体*/
+        fun importFont(uri: Uri?): TypefaceInfo? {
+            val path = uri?.getPathFromUri()
+            try {
+                if (path.isFontType()) {
+                    val file = File(path!!)
+                    val typeface = Typeface.createFromFile(file)
+                    file.copyTo(filePath(DEFAULT_FONT_FOLDER_NAME, file.name))
+
+                    val typefaceInfo = TypefaceInfo(file.name.noExtName(), typeface)
+                    fontList.add(typefaceInfo)
+
+                    return typefaceInfo
+                }
+                return null
+            } catch (e: Exception) {
+                e.printStackTrace()
+                return null
+            }
+        }
     }
 
     /**操作的渲染项*/
@@ -120,21 +142,14 @@ class CanvasFontPopupConfig : ShadowAnchorPopupConfig() {
             if (context is FragmentActivity) {
                 context.supportFragmentManager.getFile("*/*") {
                     if (it != null) {
-                        val path = it.getPathFromUri()
                         try {
-                            if (path.isFontType()) {
-                                val file = File(path!!)
-                                val typeface = Typeface.createFromFile(file)
-                                file.copyTo(filePath(DEFAULT_FONT_FOLDER_NAME, file.name))
-
+                            val typefaceInfo: TypefaceInfo? = importFont(it)
+                            if (typefaceInfo != null) {
                                 //ui
                                 viewHolder.rv(R.id.lib_recycler_view)
                                     ?.renderDslAdapter(true, false) {
 
-                                        val typefaceInfo =
-                                            TypefaceInfo(file.name.noExtName(), typeface)
                                         typefaceItem(typefaceInfo.name, typefaceInfo.typeface)
-                                        fontList.add(typefaceInfo)
 
                                         onDispatchUpdatesOnce {
                                             viewHolder.rv(R.id.lib_recycler_view)?.scrollToEnd()
