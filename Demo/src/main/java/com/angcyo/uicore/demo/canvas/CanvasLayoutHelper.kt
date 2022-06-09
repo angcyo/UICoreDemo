@@ -928,6 +928,8 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                         addRegulate(CanvasRegulatePopupConfig.REGULATE_LINE_SPACE)
                         addRegulate(CanvasRegulatePopupConfig.REGULATE_ANGLE)
                         addRegulate(CanvasRegulatePopupConfig.REGULATE_DIRECTION)
+
+                        var keepBounds = true
                         onApplyAction = { preview, cancel ->
                             if (cancel) {
                                 beforeBitmap?.let {
@@ -939,6 +941,9 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                                 }
                             } else {
                                 fragment.loadingAsync({
+                                    val direction =
+                                        getIntOrDef(CanvasRegulatePopupConfig.KEY_DIRECTION, 0)
+                                    keepBounds = direction == 0 || direction == 2
                                     originBitmap?.let { bitmap ->
                                         OpenCV.bitmapToGCode(
                                             fragment.requireContext(),
@@ -947,10 +952,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                                                 CanvasRegulatePopupConfig.KEY_LINE_SPACE,
                                                 0.125f
                                             ).toDouble(),
-                                            direction = getIntOrDef(
-                                                CanvasRegulatePopupConfig.KEY_DIRECTION,
-                                                0
-                                            ),
+                                            direction = direction,
                                             angle = getFloatOrDef(
                                                 CanvasRegulatePopupConfig.KEY_ANGLE,
                                                 0f
@@ -968,7 +970,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                                         renderer.updateItemDrawable(
                                             it.second,
                                             if (preview) Strategy.preview else Strategy.normal,
-                                            renderer.getBounds(),
+                                            if (keepBounds) renderer.getBounds() else null,
                                             hashMapOf(EngraveHelper.KEY_GCODE to it.first),
                                         )
                                     }
