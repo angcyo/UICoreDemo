@@ -39,7 +39,7 @@ class CanvasLayerItem : DslAdapterItem() {
                     itemCanvasDelegate?.selectedItem(it)
                 }
                 if (it.isVisible()) {
-                    itemCanvasDelegate?.showRectBounds(it.getRenderBounds())
+                    itemCanvasDelegate?.showRectBounds(it.getRotateBounds())
                 }
             }
         }
