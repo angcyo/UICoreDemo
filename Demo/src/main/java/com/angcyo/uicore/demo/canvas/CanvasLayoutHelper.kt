@@ -931,7 +931,11 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                         onApplyAction = { preview, cancel ->
                             if (cancel) {
                                 beforeBitmap?.let {
-                                    renderer.updateRenderBitmap(it, Strategy.redo)
+                                    renderer.updateRenderBitmap(
+                                        it,
+                                        Strategy.redo,
+                                        renderer.getBounds()
+                                    )
                                 }
                             } else {
                                 fragment.loadingAsync({
@@ -964,7 +968,8 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                                         renderer.updateItemDrawable(
                                             it.second,
                                             if (preview) Strategy.preview else Strategy.normal,
-                                            hashMapOf(EngraveHelper.KEY_GCODE to it.first)
+                                            renderer.getBounds(),
+                                            hashMapOf(EngraveHelper.KEY_GCODE to it.first),
                                         )
                                     }
                                 }
