@@ -318,7 +318,7 @@ class EngraveLayoutHelper(val lifecycleOwner: LifecycleOwner) : BaseEngraveLayou
                             engraveOptionInfo.y,
                             engraveOptionInfo.time,
                             engraveOptionInfo.type,
-                        ).send { bean, error ->
+                        ).sendCommand { bean, error ->
                             L.w("开始雕刻:${bean?.parse<MiniReceiveParser>()}")
 
                             if (error == null) {
@@ -334,7 +334,7 @@ class EngraveLayoutHelper(val lifecycleOwner: LifecycleOwner) : BaseEngraveLayou
         }
 
         //进入空闲模式
-        ExitCmd().send { _, _ ->
+        ExitCmd().sendCommand { _, _ ->
             vmApp<LaserPeckerModel>().queryDeviceState()
         }
     }

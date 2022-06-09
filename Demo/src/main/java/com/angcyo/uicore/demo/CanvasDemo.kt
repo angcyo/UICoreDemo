@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.IReceiveBeanAction
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
@@ -37,6 +38,7 @@ import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
 import com.angcyo.uicore.demo.SvgDemo.Companion.svgResList
+import com.angcyo.uicore.demo.ble.DeviceSettingFragment
 import com.angcyo.uicore.demo.ble.bluetoothSearchListDialog
 import com.angcyo.uicore.demo.canvas.CanvasLayoutHelper
 import com.angcyo.uicore.demo.canvas.EngraveLayoutHelper
@@ -348,7 +350,7 @@ class CanvasDemo : AppDslFragment() {
 
                 //历史
                 itemHolder.click(R.id.file_button) {
-                    QueryCmd(0x01).send { bean, error ->
+                    QueryCmd.fileList.sendCommand { bean, error ->
                         doMain {
                             bean?.parse<QueryEngraveFileParser>()?.let {
                                 fContext().itemsDialog {
@@ -358,7 +360,7 @@ class CanvasDemo : AppDslFragment() {
                                             itemText = "$name"
                                             itemClick = {
                                                 //开始雕刻
-                                                EngraveCmd(name).send { bean, error ->
+                                                EngraveCmd(name).sendCommand { bean, error ->
                                                     doMain {
                                                         _dialog?.dismiss()
                                                     }
@@ -369,6 +371,13 @@ class CanvasDemo : AppDslFragment() {
                                 }
                             }
                         }
+                    }
+                }
+
+                //设置
+                itemHolder.click(R.id.setting_button) {
+                    dslFHelper {
+                        show(DeviceSettingFragment::class)
                     }
                 }
 

@@ -11,6 +11,7 @@ import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.drawBottom
 import com.angcyo.item.DslSeekBarInfoItem
 import com.angcyo.item.style.itemInfoText
+import com.angcyo.item.style.itemSwitchChangedAction
 import com.angcyo.item.style.itemText
 import com.angcyo.library.ex._dimen
 import com.angcyo.library.ex._string

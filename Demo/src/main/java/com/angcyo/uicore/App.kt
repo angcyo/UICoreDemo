@@ -49,6 +49,8 @@ class App : CoreApplication(), CameraXConfig.Provider {
     override fun onCreate() {
         super.onCreate()
 
+        //FragmentAnimator.onlyTopScale()
+
         BaseUI.fragmentUI.fragmentCreateBackItem = {
             BaseUI.fragmentUI.onFragmentCreateBackItem(it)?.apply {
                 padding(0)

@@ -1,7 +1,6 @@
 package com.angcyo.uicore.demo.ble
 
 import android.os.Bundle
-import android.os.SystemClock
 import android.text.method.TextKeyListener
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.ReceivePacket
@@ -240,35 +239,35 @@ class FscThroughputFragment : AppDslFragment() {
                         //指令-工作状态
                         itemHolder.click(R.id.state_command0) {
                             setCommand(
-                                QueryCmd(0).toHexCommandString(),
+                                QueryCmd.workState.toHexCommandString(),
                                 QueryStateParser::class.java
                             )
                         }
                         //指令-文件列表
                         itemHolder.click(R.id.state_command1) {
                             setCommand(
-                                QueryCmd(1).toHexCommandString(),
+                                QueryCmd.fileList.toHexCommandString(),
                                 QueryEngraveFileParser::class.java
                             )
                         }
                         //指令-设置状态
                         itemHolder.click(R.id.state_command2) {
                             setCommand(
-                                QueryCmd(2).toHexCommandString(),
+                                QueryCmd.settingState.toHexCommandString(),
                                 QuerySettingParser::class.java
                             )
                         }
                         //指令-查询版本
                         itemHolder.click(R.id.state_command3) {
                             setCommand(
-                                QueryCmd(3).toHexCommandString(),
+                                QueryCmd.version.toHexCommandString(),
                                 QueryVersionParser::class.java
                             )
                         }
                         //查询安全码与用户帐号
                         itemHolder.click(R.id.state_command4) {
                             setCommand(
-                                QueryCmd(4).toHexCommandString(),
+                                QueryCmd.safeCode.toHexCommandString(),
                                 QuerySafeCodeParser::class.java
                             )
                         }

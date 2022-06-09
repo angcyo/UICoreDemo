@@ -71,6 +71,17 @@ class MainFragment : BaseDemoDslFragment() {
         CREATE_COUNT++
     }
 
+    override fun onDoubleTitleLayout(): Boolean {
+        /*if (isDebug()) {
+            dslAHelper {
+                start(TestActivity::class.java)
+            }
+            return true
+        }*/
+        _jumpToLockPosition()
+        return true
+    }
+
     override fun onBackPressed(): Boolean {
         return _vh.v<SliderMenuLayout>(R.id.menu_layout)?.requestBackPressed() == true
     }
@@ -193,14 +204,6 @@ class MainFragment : BaseDemoDslFragment() {
             }
         }
         return super.onCreateBehavior(child)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        titleControl()?.selectorView?.onDoubleTap {
-            _jumpToLockPosition()
-            true
-        }
     }
 
     override fun onFragmentFirstShow(bundle: Bundle?) {

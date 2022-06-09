@@ -6,16 +6,10 @@ import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.FscBleApiModel.Companion.BLUETOOTH_STATE_SCANNING
 import com.angcyo.bluetooth.fsc.core.DeviceConnectState.Companion.CONNECT_STATE_SUCCESS
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
-import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
-import com.angcyo.bluetooth.fsc.laserpacker.command.QueryCmd
-import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
-import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryVersionParser
-import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.core.vmApp
 import com.angcyo.dialog.BaseDialogConfig
 import com.angcyo.dialog.configBottomDialog
 import com.angcyo.dsladapter.*
-import com.angcyo.library.component.flow
 import com.angcyo.library.ex._string
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.demo.canvas.strokeLoading2
@@ -131,33 +125,7 @@ class BluetoothSearchListDialogConfig(context: Context? = null) : BaseDialogConf
                     //读取设备版本
                     val context = dialog.context
                     context.strokeLoading2 { cancel, loadEnd ->
-                        flow { chain ->
-                            //读取设备版本
-                            LaserPeckerHelper.sendCommand(
-                                state.device.address,
-                                QueryCmd(0x03)
-                            ) { bean, error ->
-                                bean?.let {
-                                    it.parse<QueryVersionParser>()?.let {
-                                        vmApp<LaserPeckerModel>().updateDeviceVersion(it)
-                                    }
-                                }
-                                chain(error)
-                            }
-                        }.flow { chain ->
-                            //读取设备工作状态
-                            LaserPeckerHelper.sendCommand(
-                                state.device.address,
-                                QueryCmd(0x00)
-                            ) { bean, error ->
-                                bean?.let {
-                                    it.parse<QueryStateParser>()?.let {
-                                        vmApp<LaserPeckerModel>().updateDeviceState(it)
-                                    }
-                                }
-                                chain(error)
-                            }
-                        }.start {
+                        LaserPeckerHelper.sendInitCommand(state.device.address) {
                             loadEnd(null, it)
                             if (connectedDismiss) {
                                 dialog.dismiss()

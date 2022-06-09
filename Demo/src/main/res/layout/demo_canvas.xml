@@ -205,6 +205,13 @@
             android:layout_height="wrap_content"
             android:text="历史" />
 
+        <com.angcyo.widget.DslButton
+            android:id="@+id/setting_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/result_text_view"
             style="@style/LibBodyTextStyle"

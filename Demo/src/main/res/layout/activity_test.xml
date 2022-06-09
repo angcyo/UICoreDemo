@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
@@ -16,6 +17,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
+
+        <com.angcyo.widget.layout.RatioLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:r_child_ratio="0.333:0.333:0.333">
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:background="@color/error" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:background="@color/info" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:background="@color/success" />
+
+        </com.angcyo.widget.layout.RatioLinearLayout>
 
     </FrameLayout>
 
