@@ -1,5 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
+//apply from: 'https://gitee.com/angcyo/gradle/raw/master/init.gradle'
 apply from: 'UICore/_gradle/init.gradle'
 
 apply from: allGradle.saveStream
