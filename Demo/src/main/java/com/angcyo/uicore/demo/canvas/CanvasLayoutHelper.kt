@@ -272,6 +272,9 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                     val renderItem = itemRenderer._rendererItem
                     if (inputText.isNotEmpty()) {
                         inputText.createBarCode()?.let {
+                            if (renderItem is PictureBitmapItem) {
+                                renderItem.originBitmap = it
+                            }
                             renderItem?.data = inputText
                             itemRenderer.updateItemBitmap(it)
                         }
@@ -303,6 +306,9 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                     val renderItem = itemRenderer._rendererItem
                     if (inputText.isNotEmpty()) {
                         inputText.createQRCode()?.let {
+                            if (renderItem is PictureBitmapItem) {
+                                renderItem.originBitmap = it
+                            }
                             renderItem?.data = inputText
                             itemRenderer.updateItemBitmap(it)
                         }
