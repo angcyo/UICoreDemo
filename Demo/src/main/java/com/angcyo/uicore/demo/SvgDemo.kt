@@ -110,7 +110,7 @@ class SvgDemo : AppDslFragment() {
                     //Sharp.loadString(text).into(imageView!!)
                     imageView?.apply {
                         setBackgroundColor(Color.WHITE)
-                        setImageDrawable(GCodeHelper.parseGCode(fContext(), text))
+                        setImageDrawable(GCodeHelper.parseGCode(text))
                     }
                 }
 

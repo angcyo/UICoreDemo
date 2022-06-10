@@ -129,6 +129,13 @@
             android:text="+SVG" />
 
         <com.angcyo.widget.DslButton
+            android:id="@+id/add_gcode"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+GCode" />
+
+        <com.angcyo.widget.DslButton
             android:id="@+id/random_add_svg"
             style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
@@ -211,6 +218,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="设置" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/test_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/result_text_view"

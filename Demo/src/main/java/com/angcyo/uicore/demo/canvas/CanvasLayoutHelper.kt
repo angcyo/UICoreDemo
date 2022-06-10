@@ -32,8 +32,6 @@ import com.angcyo.gcode.GCodeHelper
 import com.angcyo.library.ex.*
 import com.angcyo.library.model.loadPath
 import com.angcyo.library.toast
-import com.angcyo.library.utils.fileName
-import com.angcyo.library.utils.filePath
 import com.angcyo.opencv.OpenCV
 import com.angcyo.picker.dslSinglePickerImage
 import com.angcyo.qrcode.createBarCode
@@ -206,11 +204,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                                             EngraveHelper.pathStrokeToGCode(
                                                 path,
                                                 renderer.getRotateBounds(),
-                                                renderer.rotate,
-                                                filePath(
-                                                    "GCode",
-                                                    fileName(suffix = ".gcode")
-                                                ).file()
+                                                renderer.rotate
                                             )
                                         }
                                     }) {
@@ -959,10 +953,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                                             ).toDouble()
                                         ).let {
                                             val gCodeText = it.readText()
-                                            gCodeText to GCodeHelper.parseGCode(
-                                                fragment.requireContext(),
-                                                gCodeText
-                                            )
+                                            gCodeText to GCodeHelper.parseGCode(gCodeText)
                                         }
                                     }
                                 }) {

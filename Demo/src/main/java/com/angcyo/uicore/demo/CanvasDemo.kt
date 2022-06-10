@@ -21,10 +21,8 @@ import com.angcyo.canvas.core.InchValueUnit
 import com.angcyo.canvas.core.MmValueUnit
 import com.angcyo.canvas.core.PixelValueUnit
 import com.angcyo.canvas.items.renderer.ShapeItemRenderer
-import com.angcyo.canvas.utils.addDrawableRenderer
-import com.angcyo.canvas.utils.addPictureTextRender
-import com.angcyo.canvas.utils.addPictureTextRenderer
-import com.angcyo.canvas.utils.addTextRenderer
+import com.angcyo.canvas.items.setHoldData
+import com.angcyo.canvas.utils.*
 import com.angcyo.core.component.dslPermissions
 import com.angcyo.core.vmApp
 import com.angcyo.dialog.itemsDialog
@@ -43,6 +41,7 @@ import com.angcyo.uicore.demo.ble.bluetoothSearchListDialog
 import com.angcyo.uicore.demo.canvas.CanvasLayoutHelper
 import com.angcyo.uicore.demo.canvas.EngraveLayoutHelper
 import com.angcyo.uicore.demo.canvas.EngravePreviewLayoutHelper
+import com.angcyo.uicore.demo.canvas.loadingAsync
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.recycler.initDslAdapter
 import com.angcyo.widget.span.span
@@ -206,14 +205,25 @@ class CanvasDemo : AppDslFragment() {
                         addDrawableRenderer(Sharp.loadResource(resources, R.raw.issue_19).drawable)
                     }
                 }
+                itemHolder.click(R.id.add_gcode) {
+                    canvasView?.apply {
+                        val text = fContext().readAssets("LaserPecker.gcode")
+                        val drawable = GCodeHelper.parseGCode(text)!!
+                        addDrawableRenderer(drawable).setHoldData(EngraveHelper.KEY_GCODE, text)
+                    }
+                }
                 itemHolder.click(R.id.random_add_svg) {
                     canvasView?.apply {
-                        addDrawableRenderer(loadSvgDrawable())
+                        loadSvgDrawable().apply {
+                            addDrawableRenderer(second)
+                        }
                     }
                 }
                 itemHolder.click(R.id.random_add_gcode) {
                     canvasView?.apply {
-                        addDrawableRenderer(loadGCodeDrawable())
+                        loadGCodeDrawable().apply {
+                            addDrawableRenderer(second).setHoldData(EngraveHelper.KEY_GCODE, first)
+                        }
                     }
                 }
 
@@ -381,6 +391,28 @@ class CanvasDemo : AppDslFragment() {
                     }
                 }
 
+                //test
+                itemHolder.click(R.id.test_button) {
+                    canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
+                        val text = renderer.getGCodeText()
+                        if (!text.isNullOrEmpty()) {
+                            loadingAsync({
+                                EngraveHelper.gCodeAdjust(
+                                    text,
+                                    renderer.getBounds(),
+                                    renderer.rotate
+                                )
+                            }) {
+                                //no
+                                it?.readText()?.let { gCode ->
+                                    canvasView.addDrawableRenderer(GCodeHelper.parseGCode(gCode)!!)
+                                        .setHoldData(EngraveHelper.KEY_GCODE, gCode)
+                                }
+                            }
+                        }
+                    }
+                }
+
                 //canvas
                 bindCanvasRecyclerView(itemHolder, adapterItem)
 
@@ -393,12 +425,16 @@ class CanvasDemo : AppDslFragment() {
     fun getRandomText() =
         "angcyo${randomString(Random.nextInt(0, 3))}\n${randomString(Random.nextInt(0, 3))}"
 
-    fun loadSvgDrawable(): Drawable =
-        Sharp.loadResource(resources, svgResList.randomGetOnce()!!).drawable
+    fun loadSvgDrawable(): Pair<String, Drawable> {
+        val resId = svgResList.randomGetOnce()!!
+        val text = fContext().readResource(resId)
+        return text!! to Sharp.loadString(text).drawable
+    }
 
-    fun loadGCodeDrawable(): Drawable = GCodeHelper.parseGCode(
-        fContext(), fContext().readAssets(gCodeNameList.randomGetOnce()!!)
-    )!!
+    fun loadGCodeDrawable(): Pair<String, Drawable> {
+        val text = fContext().readAssets(gCodeNameList.randomGetOnce()!!)
+        return text!! to GCodeHelper.parseGCode(text)!!
+    }
 
     //<editor-fold desc="bindCanvasRecyclerView">
 

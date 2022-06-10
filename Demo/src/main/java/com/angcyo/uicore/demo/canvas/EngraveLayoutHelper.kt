@@ -24,8 +24,6 @@ import com.angcyo.http.rx.doMain
 import com.angcyo.item.style.itemLabelText
 import com.angcyo.library.L
 import com.angcyo.library.ex.*
-import com.angcyo.library.utils.fileName
-import com.angcyo.library.utils.filePath
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.demo.ble.*
 import com.angcyo.widget.recycler.renderDslAdapter
@@ -147,11 +145,7 @@ class EngraveLayoutHelper(val lifecycleOwner: LifecycleOwner) : BaseEngraveLayou
                         val file = EngraveHelper.pathStrokeToGCode(
                             path,
                             renderer.getRotateBounds(),
-                            renderer.rotate,
-                            filePath(
-                                "GCode",
-                                fileName(suffix = ".gcode")
-                            ).file()
+                            renderer.rotate
                         )
                         EngraveDataInfo(EngraveDataInfo.TYPE_GCODE, file.readBytes())
                     }
