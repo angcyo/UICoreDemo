@@ -119,6 +119,10 @@
     <string name="canvas_cannot_import">无法导入</string>
     <string name="canvas_operate">操作</string>
     <string name="ui_slip_menu_model">模式设定</string>
+    <string name="device_setting_tips_fourteen_8">平板</string>
+    <string name="device_setting_tips_fourteen_9">小车</string>
+    <string name="device_setting_tips_fourteen_10">圆柱</string>
+    <string name="device_setting_tips_fourteen_11">雕刻模式:</string>
 
     <string name="device_setting_act_model_warning_tone">工作提示音</string>
     <string name="device_setting_act_des_sound">开始工作和工作结束时会有提示音</string>

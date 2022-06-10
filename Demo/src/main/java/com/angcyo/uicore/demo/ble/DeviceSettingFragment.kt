@@ -10,10 +10,8 @@ import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.drawBottom
 import com.angcyo.item.DslPropertySwitchItem
-import com.angcyo.item.style.itemDes
-import com.angcyo.item.style.itemLabel
-import com.angcyo.item.style.itemSwitchChangedAction
-import com.angcyo.item.style.itemSwitchChecked
+import com.angcyo.item.DslSegmentTabItem
+import com.angcyo.item.style.*
 import com.angcyo.library.ex._string
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.R
@@ -88,13 +86,37 @@ class DeviceSettingFragment : AppDslFragment() {
             DslPropertySwitchItem()() {
                 itemLabel = _string(R.string.device_setting_tips_fourteen_2)
                 itemDes = _string(R.string.device_setting_tips_fourteen_3)
-                initItem()
 
                 itemSwitchChecked = settingParser?.zFlag == 1
                 itemSwitchChangedAction = {
                     settingParser?.zFlag = if (it) 1 else 0
                     settingParser?.sendCommand()
                 }
+            }
+            DslSegmentTabItem()() {
+                itemLayoutId = R.layout.device_z_dir_segment_tab_item
+                initItem()
+
+                itemSegmentList.clear()
+                itemSegmentList.add(_string(R.string.device_setting_tips_fourteen_8))
+                itemSegmentList.add(_string(R.string.device_setting_tips_fourteen_9))
+                itemSegmentList.add(_string(R.string.device_setting_tips_fourteen_10))
+
+                val zDir = if (settingParser?.zDir == 1) 2 else 0
+                itemCurrentIndex =
+                    if (zDir == 0 && (QuerySettingParser.Z_MODEL == 0 || QuerySettingParser.Z_MODEL == 1)) {
+                        //平板和小车都对应的 0
+                        QuerySettingParser.Z_MODEL
+                    } else {
+                        zDir
+                    }
+                itemSelectIndexChangeAction =
+                    { fromIndex: Int, selectIndexList: List<Int>, reselect: Boolean, fromUser: Boolean ->
+                        val index = selectIndexList.first()
+                        QuerySettingParser.Z_MODEL = index //确切的模式
+                        settingParser?.zDir = if (index == 2) 1 else 0
+                        settingParser?.sendCommand()
+                    }
             }
             DslPropertySwitchItem()() {
                 itemLabel = _string(R.string.device_setting_txt_3)
