@@ -52,7 +52,7 @@ class BaiduTraceService : Service() {
                 val result = hashMapOf<String, String>()
                 result["test2"] = "test2"
                 result["energy2"] = "${vmCore<BatteryModel>().load(applicationContext).level}"
-                L.v("onTrackAttributeCallback2:${result["energy2"]}")
+                //L.v("onTrackAttributeCallback2:${result["energy2"]}")
                 return result
             }
         }
