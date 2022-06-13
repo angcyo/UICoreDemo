@@ -1,5 +1,6 @@
 package com.angcyo.uicore.demo
 
+import android.app.Application
 import android.os.Bundle
 import com.angcyo.bluetooth.BluetoothModel
 import com.angcyo.core.vmApp
@@ -24,7 +25,7 @@ class BluetoothDemo : AppDslFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        BluetoothModel.init(app())
+        BluetoothModel.init(app() as Application)
     }
 
     override fun initBaseView(savedInstanceState: Bundle?) {

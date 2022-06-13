@@ -6,9 +6,28 @@
     android:padding="@dimen/lib_xhdpi">
 
     <com.angcyo.widget.layout.DslFlowLayout
+        android:id="@+id/flow3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        android:background="@color/transparent20"
+        android:padding="@dimen/lib_xhdpi"
+        app:r_flow_item_horizontal_space="@dimen/lib_xhdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_xhdpi">
+
+        <com.angcyo.widget.loading.PostLoadingView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
+
+    <com.angcyo.widget.layout.DslFlowLayout
         android:id="@+id/flow1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+
+        app:layout_constraintTop_toBottomOf="@id/flow3"
         app:r_flow_item_horizontal_space="@dimen/lib_xhdpi"
         app:r_flow_item_vertical_space="@dimen/lib_xhdpi">
 
