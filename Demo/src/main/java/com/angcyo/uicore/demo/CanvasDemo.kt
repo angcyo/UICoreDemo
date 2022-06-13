@@ -1,5 +1,7 @@
 package com.angcyo.uicore.demo
 
+import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
 import android.graphics.drawable.Drawable
@@ -32,6 +34,7 @@ import com.angcyo.gcode.GCodeHelper
 import com.angcyo.http.rx.doMain
 import com.angcyo.library.ex.*
 import com.angcyo.library.toast
+import com.angcyo.svg.Svg
 import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
@@ -46,6 +49,7 @@ import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.recycler.initDslAdapter
 import com.angcyo.widget.span.span
 import com.pixplicity.sharp.Sharp
+import com.pixplicity.sharp.SharpDrawable
 import kotlin.random.Random
 
 /**
@@ -214,8 +218,14 @@ class CanvasDemo : AppDslFragment() {
                 }
                 itemHolder.click(R.id.random_add_svg) {
                     canvasView?.apply {
-                        loadSvgDrawable().apply {
+                        /*loadSvgDrawable().apply {
                             addDrawableRenderer(second)
+                        }*/
+                        loadSvgPathDrawable().apply {
+                            addDrawableRenderer(second).setHoldData(
+                                EngraveHelper.KEY_SVG,
+                                second.pathList
+                            )
                         }
                     }
                 }
@@ -396,6 +406,7 @@ class CanvasDemo : AppDslFragment() {
                     canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
                         val text = renderer.getGCodeText()
                         if (!text.isNullOrEmpty()) {
+                            //GCode
                             loadingAsync({
                                 EngraveHelper.gCodeAdjust(
                                     text,
@@ -407,6 +418,24 @@ class CanvasDemo : AppDslFragment() {
                                 it?.readText()?.let { gCode ->
                                     canvasView.addDrawableRenderer(GCodeHelper.parseGCode(gCode)!!)
                                         .setHoldData(EngraveHelper.KEY_GCODE, gCode)
+                                }
+                            }
+                        } else {
+                            val pathList = renderer.getPathList()
+                            if (!pathList.isNullOrEmpty()) {
+                                //path list
+                                loadingAsync({
+                                    EngraveHelper.pathStrokeToGCode(
+                                        pathList,
+                                        renderer.getBounds(),
+                                        renderer.rotate
+                                    )
+                                }) {
+                                    //no
+                                    it?.readText()?.let { gCode ->
+                                        canvasView.addDrawableRenderer(GCodeHelper.parseGCode(gCode)!!)
+                                            .setHoldData(EngraveHelper.KEY_GCODE, gCode)
+                                    }
                                 }
                             }
                         }
@@ -425,10 +454,16 @@ class CanvasDemo : AppDslFragment() {
     fun getRandomText() =
         "angcyo${randomString(Random.nextInt(0, 3))}\n${randomString(Random.nextInt(0, 3))}"
 
-    fun loadSvgDrawable(): Pair<String, Drawable> {
+    fun loadSvgDrawable(): Pair<String, SharpDrawable> {
         val resId = svgResList.randomGetOnce()!!
         val text = fContext().readResource(resId)
         return text!! to Sharp.loadString(text).drawable
+    }
+
+    fun loadSvgPathDrawable(): Pair<String, SharpDrawable> {
+        val resId = svgResList.randomGetOnce()!!
+        val text = fContext().readResource(resId)
+        return text!! to Svg.loadSvgPathDrawable(text, Color.BLACK, Paint.Style.STROKE)
     }
 
     fun loadGCodeDrawable(): Pair<String, Drawable> {
