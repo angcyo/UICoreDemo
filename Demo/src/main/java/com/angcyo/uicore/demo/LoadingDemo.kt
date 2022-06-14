@@ -9,6 +9,7 @@ import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.setBgDrawable
 import com.angcyo.library.ex.toColorInt
 import com.angcyo.uicore.base.AppDslFragment
+import com.angcyo.widget.progress.DslBlockSeekBar
 import com.angcyo.widget.progress.DslProgressBar
 
 /**
@@ -66,6 +67,15 @@ class LoadingDemo : AppDslFragment() {
                 //progress
                 itemHolder.v<DslProgressBar>(R.id.progress_bar)?.apply {
                     setProgress(50)
+                }
+
+                itemHolder.v<DslBlockSeekBar>(R.id.seek_bar)?.apply {
+                    config {
+                        onSeekChanged = { value, fraction, fromUser ->
+                            itemHolder.v<DslProgressBar>(R.id.progress_bar)
+                                ?.setProgress(value, value)
+                        }
+                    }
                 }
             }
         }

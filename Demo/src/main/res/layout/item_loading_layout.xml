@@ -85,4 +85,12 @@
         app:layout_constraintTop_toBottomOf="@id/flow2"
         app:progress_bg_gradient_colors="@color/bg_sub_color" />
 
+    <com.angcyo.widget.progress.DslBlockSeekBar
+        android:id="@+id/seek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_xhdpi"
+        app:layout_constraintTop_toBottomOf="@id/progress_bar"
+        app:progress_bg_gradient_colors="@color/bg_sub_color" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
