@@ -75,6 +75,13 @@
             android:layout_height="wrap_content"
             android:text="确定进度" />
 
+        <com.angcyo.widget.DslButton
+            android:id="@+id/color_picker_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PickerColor" />
+
     </com.angcyo.widget.layout.DslFlowLayout>
 
     <com.angcyo.widget.progress.DslProgressBar
