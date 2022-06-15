@@ -2,11 +2,11 @@ package com.angcyo.uicore.demo
 
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import androidx.core.content.ContextCompat
 import com.angcyo.drawable.loading.TGSolidLoadingDrawable
 import com.angcyo.drawable.loading.TGStrokeLoadingDrawable
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.github.dialog.colorPickerDialog
+import com.angcyo.github.widget.drawable.ColorPaletteDrawable
 import com.angcyo.library.ex.anim
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.setBgDrawable
@@ -95,8 +95,10 @@ class LoadingDemo : AppDslFragment() {
                         }
 
                         if (MainFragment.CLICK_COUNT++ % 2 == 0) {
-                            paletteDrawable =
-                                ContextCompat.getDrawable(fContext(), R.drawable.palettebar)
+                            colorPaletteDrawable = ColorPaletteDrawable()
+                            enableAlpha = false
+                            enableBrightness = false
+                            //ContextCompat.getDrawable(fContext(), R.drawable.palettebar)
                         }
                     }
                 }
