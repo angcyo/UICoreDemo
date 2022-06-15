@@ -2,19 +2,19 @@ package com.angcyo.uicore.demo
 
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import com.angcyo.dialog.messageDialog
+import com.angcyo.dialog.normalDialog
 import com.angcyo.drawable.loading.TGSolidLoadingDrawable
 import com.angcyo.drawable.loading.TGStrokeLoadingDrawable
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.github.dialog.colorPickerDialog
 import com.angcyo.github.widget.drawable.ColorPaletteDrawable
-import com.angcyo.library.ex.anim
-import com.angcyo.library.ex.dp
-import com.angcyo.library.ex.setBgDrawable
-import com.angcyo.library.ex.toColorInt
+import com.angcyo.library.ex.*
 import com.angcyo.uicore.MainFragment
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.progress.DslBlockSeekBar
 import com.angcyo.widget.progress.DslProgressBar
+import com.angcyo.widget.span.span
 
 /**
  *
@@ -101,6 +101,40 @@ class LoadingDemo : AppDslFragment() {
                             //ContextCompat.getDrawable(fContext(), R.drawable.palettebar)
                         }
                     }
+                }
+
+                //test
+                itemHolder.click(R.id.test_button) {
+                    fContext().normalDialog {
+                        canceledOnTouchOutside = false
+                        dialogTitle = "发生了什么啊^_^"
+                        dialogMessage = span {
+                            for (i in 0..if (MainFragment.CLICK_COUNT++ % 2 == 0) 100 else 10) {
+                                append(nowTimeString())
+                            }
+                        }
+                        positiveButton("粘贴给作者?") { _, _ ->
+                        }
+                        negativeButton("加入QQ群?") { _, _ ->
+                        }
+                        neutralButton("分享文件?") { _, _ ->
+                        }
+                    }
+                    /*fContext().messageDialog {
+                        canceledOnTouchOutside = false
+                        dialogTitle = "发生了什么啊^_^"
+                        dialogMessage = span {
+                            for (i in 0..if (MainFragment.CLICK_COUNT++ % 2 == 0) 100 else 10) {
+                                append(nowTimeString())
+                            }
+                        }
+                        positiveButton("粘贴给作者?") { _, _ ->
+                        }
+                        negativeButton("加入QQ群?") { _, _ ->
+                        }
+                        neutralButton("分享文件?") { _, _ ->
+                        }
+                    }*/
                 }
             }
         }
