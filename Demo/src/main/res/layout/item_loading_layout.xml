@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/lib_xhdpi">
@@ -16,6 +17,10 @@
         app:r_flow_item_vertical_space="@dimen/lib_xhdpi">
 
         <com.angcyo.widget.loading.PostLoadingView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.angcyo.widget.loading.AlLoadingView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -35,20 +40,31 @@
         app:r_flow_item_horizontal_space="@dimen/lib_xhdpi"
         app:r_flow_item_vertical_space="@dimen/lib_xhdpi">
 
-        <com.angcyo.uicore.demo.draw.BorderView
+        <com.angcyo.widget.BorderView
             android:id="@+id/view1"
             android:layout_width="40dp"
             android:layout_height="40dp" />
 
-        <com.angcyo.uicore.demo.draw.BorderView
+        <com.angcyo.widget.BorderView
             android:id="@+id/view2"
             android:layout_width="60dp"
             android:layout_height="40dp" />
 
-        <com.angcyo.uicore.demo.draw.BorderView
+        <com.angcyo.widget.BorderView
             android:id="@+id/view3"
             android:layout_width="40dp"
             android:layout_height="60dp" />
+
+        <com.angcyo.widget.progress.CircleLoadingView
+            android:id="@+id/circle_loading_view"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:r_circle_load_color="@color/error"
+            app:r_circle_load_draw_bg="true"
+            app:r_circle_load_draw_bg_color="@color/transparent40"
+            app:r_circle_load_is_indeterminate="true"
+            app:r_circle_load_start_angle="-90"
+            tools:r_circle_load_progress="50" />
 
     </com.angcyo.widget.layout.DslFlowLayout>
 
