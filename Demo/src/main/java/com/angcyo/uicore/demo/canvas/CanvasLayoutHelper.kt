@@ -14,7 +14,6 @@ import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
 import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.Reason
-import com.angcyo.canvas.Strategy
 import com.angcyo.canvas.core.CanvasUndoManager
 import com.angcyo.canvas.core.ICanvasListener
 import com.angcyo.canvas.core.IRenderer
@@ -23,16 +22,16 @@ import com.angcyo.canvas.items.PictureBitmapItem
 import com.angcyo.canvas.items.PictureShapeItem
 import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.*
-import com.angcyo.canvas.utils.*
+import com.angcyo.canvas.utils.EngraveHelper
+import com.angcyo.canvas.utils.ShapesHelper
+import com.angcyo.canvas.utils.addPictureBitmapRenderer
 import com.angcyo.core.vmApp
 import com.angcyo.dialog.inputDialog
 import com.angcyo.dsladapter.*
 import com.angcyo.dsladapter.item.IFragmentItem
-import com.angcyo.gcode.GCodeHelper
 import com.angcyo.library.ex.*
 import com.angcyo.library.model.loadPath
 import com.angcyo.library.toast
-import com.angcyo.opencv.OpenCV
 import com.angcyo.picker.dslSinglePickerImage
 import com.angcyo.qrcode.createBarCode
 import com.angcyo.qrcode.createQRCode
@@ -875,39 +874,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = _string(R.string.canvas_prints)
                 itemTintColor = false
                 itemClick = {
-                    val originBitmap = renderer.getRenderBitmap()
-                    val beforeBitmap = renderer.getRenderBitmap(false)
-                    it.context.canvasRegulateWindow(it) {
-                        itemRenderer = renderer
-                        addRegulate(CanvasRegulatePopupConfig.REGULATE_THRESHOLD)
-                        onApplyAction = { preview, cancel ->
-                            if (cancel) {
-                                beforeBitmap?.let {
-                                    renderer.updateRenderBitmap(it, Strategy.redo)
-                                }
-                            } else {
-                                fragment.loadingAsync({
-                                    originBitmap?.let { bitmap ->
-                                        OpenCV.bitmapToPrint(
-                                            fragment.requireContext(),
-                                            bitmap,
-                                            getIntOrDef(
-                                                CanvasRegulatePopupConfig.KEY_THRESHOLD,
-                                                240
-                                            )
-                                        )
-                                    }
-                                }) {
-                                    it?.let {
-                                        renderer.updateRenderBitmap(
-                                            it,
-                                            if (preview) Strategy.preview else Strategy.normal
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    CanvasBitmapHandler.handlePrint(it, fragment, renderer)
                 }
             }
             CanvasControlItem()() {
@@ -915,60 +882,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = _string(R.string.canvas_gcode)
                 itemTintColor = false
                 itemClick = {
-                    val originBitmap = renderer.getRenderBitmap()
-                    val beforeBitmap = renderer.getRenderBitmap(false)
-                    it.context.canvasRegulateWindow(it) {
-                        itemRenderer = renderer
-                        addRegulate(CanvasRegulatePopupConfig.REGULATE_LINE_SPACE)
-                        addRegulate(CanvasRegulatePopupConfig.REGULATE_ANGLE)
-                        addRegulate(CanvasRegulatePopupConfig.REGULATE_DIRECTION)
-
-                        var keepBounds = true
-                        onApplyAction = { preview, cancel ->
-                            if (cancel) {
-                                beforeBitmap?.let {
-                                    renderer.updateRenderBitmap(
-                                        it,
-                                        Strategy.redo,
-                                        renderer.getBounds()
-                                    )
-                                }
-                            } else {
-                                fragment.loadingAsync({
-                                    val direction =
-                                        getIntOrDef(CanvasRegulatePopupConfig.KEY_DIRECTION, 0)
-                                    keepBounds = direction == 0 || direction == 2
-                                    originBitmap?.let { bitmap ->
-                                        OpenCV.bitmapToGCode(
-                                            fragment.requireContext(),
-                                            bitmap,
-                                            lineSpace = getFloatOrDef(
-                                                CanvasRegulatePopupConfig.KEY_LINE_SPACE,
-                                                0.125f
-                                            ).toDouble(),
-                                            direction = direction,
-                                            angle = getFloatOrDef(
-                                                CanvasRegulatePopupConfig.KEY_ANGLE,
-                                                0f
-                                            ).toDouble()
-                                        ).let {
-                                            val gCodeText = it.readText()
-                                            gCodeText to GCodeHelper.parseGCode(gCodeText)
-                                        }
-                                    }
-                                }) {
-                                    it?.let {
-                                        renderer.updateItemDrawable(
-                                            it.second,
-                                            if (preview) Strategy.preview else Strategy.normal,
-                                            if (keepBounds) renderer.getBounds() else null,
-                                            hashMapOf(EngraveHelper.KEY_GCODE to it.first),
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    CanvasBitmapHandler.handleGCode(it, fragment, renderer)
                 }
             }
             CanvasControlItem()() {
@@ -976,47 +890,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = _string(R.string.canvas_black_white)
                 itemTintColor = false
                 itemClick = {
-                    val originBitmap = renderer.getRenderBitmap()
-                    val beforeBitmap = renderer.getRenderBitmap(false)
-                    it.context.canvasRegulateWindow(it) {
-                        itemRenderer = renderer
-                        addRegulate(CanvasRegulatePopupConfig.REGULATE_INVERT)
-                        addRegulate(CanvasRegulatePopupConfig.REGULATE_THRESHOLD)
-                        onApplyAction = { preview, cancel ->
-                            if (cancel) {
-                                beforeBitmap?.let {
-                                    renderer.updateRenderBitmap(it, Strategy.redo)
-                                }
-                            } else {
-                                fragment.loadingAsync({
-                                    originBitmap?.let { bitmap ->
-                                        OpenCV.bitmapToBlackWhite(
-                                            bitmap,
-                                            getIntOrDef(
-                                                CanvasRegulatePopupConfig.KEY_THRESHOLD,
-                                                240
-                                            ),
-                                            if (getBooleanOrDef(
-                                                    CanvasRegulatePopupConfig.KEY_INVERT, false
-                                                )
-                                            ) {
-                                                1
-                                            } else {
-                                                0
-                                            }
-                                        )
-                                    }
-                                }) {
-                                    it?.let {
-                                        renderer.updateRenderBitmap(
-                                            it,
-                                            if (preview) Strategy.preview else Strategy.normal
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    CanvasBitmapHandler.handleBlackWhite(it, fragment, renderer)
                 }
             }
             CanvasControlItem()() {
@@ -1024,45 +898,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = _string(R.string.canvas_dithering)
                 itemTintColor = false
                 itemClick = {
-                    val originBitmap = renderer.getRenderBitmap()
-                    val beforeBitmap = renderer.getRenderBitmap(false)
-                    it.context.canvasRegulateWindow(it) {
-                        itemRenderer = renderer
-                        addRegulate(CanvasRegulatePopupConfig.REGULATE_INVERT)
-                        addRegulate(CanvasRegulatePopupConfig.REGULATE_CONTRAST)
-                        addRegulate(CanvasRegulatePopupConfig.REGULATE_BRIGHTNESS)
-                        onApplyAction = { preview, cancel ->
-                            if (cancel) {
-                                beforeBitmap?.let {
-                                    renderer.updateRenderBitmap(it, Strategy.redo)
-                                }
-                            } else {
-                                fragment.loadingAsync({
-                                    originBitmap?.let { bitmap ->
-                                        OpenCV.bitmapToDithering(
-                                            fragment.requireContext(), bitmap,
-                                            getBooleanOrDef(
-                                                CanvasRegulatePopupConfig.KEY_INVERT, false
-                                            ),
-                                            getFloatOrDef(
-                                                CanvasRegulatePopupConfig.KEY_CONTRAST, 0f
-                                            ).toDouble(),
-                                            getFloatOrDef(
-                                                CanvasRegulatePopupConfig.KEY_BRIGHTNESS, 0f
-                                            ).toDouble(),
-                                        )
-                                    }
-                                }) {
-                                    it?.let {
-                                        renderer.updateRenderBitmap(
-                                            it,
-                                            if (preview) Strategy.preview else Strategy.normal
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    CanvasBitmapHandler.handleDithering(it, fragment, renderer)
                 }
             }
             CanvasControlItem()() {
@@ -1070,15 +906,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = _string(R.string.canvas_grey)
                 itemTintColor = false
                 itemClick = {
-                    fragment.loadingAsync({
-                        renderer.getRenderBitmap()?.let { bitmap ->
-                            OpenCV.bitmapToGrey(bitmap)
-                        }
-                    }) {
-                        it?.let {
-                            renderer.updateRenderBitmap(it)
-                        }
-                    }
+                    CanvasBitmapHandler.handleGrey(it, fragment, renderer)
                 }
             }
             CanvasControlItem()() {
@@ -1086,38 +914,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = _string(R.string.canvas_seal)
                 itemTintColor = false
                 itemClick = {
-                    val originBitmap = renderer.getRenderBitmap()
-                    val beforeBitmap = renderer.getRenderBitmap(false)
-                    it.context.canvasRegulateWindow(it) {
-                        itemRenderer = renderer
-                        addRegulate(CanvasRegulatePopupConfig.REGULATE_THRESHOLD)
-                        onApplyAction = { preview, cancel ->
-                            if (cancel) {
-                                beforeBitmap?.let {
-                                    renderer.updateRenderBitmap(it, Strategy.redo)
-                                }
-                            } else {
-                                fragment.loadingAsync({
-                                    originBitmap?.let { bitmap ->
-                                        OpenCV.bitmapToSeal(
-                                            fragment.requireContext(), bitmap,
-                                            getIntOrDef(
-                                                CanvasRegulatePopupConfig.KEY_THRESHOLD,
-                                                240
-                                            )
-                                        )
-                                    }
-                                }) {
-                                    it?.let {
-                                        renderer.updateRenderBitmap(
-                                            it,
-                                            if (preview) Strategy.preview else Strategy.normal
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    CanvasBitmapHandler.handleSeal(it, fragment, renderer)
                 }
             }
         }

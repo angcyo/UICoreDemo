@@ -63,9 +63,10 @@ class CanvasRegulatePopupConfig : ShadowAnchorPopupConfig() {
     val property = keepProperty // hashMapOf<String, Any?>()
 
     /**应用属性实现方法的回调*/
-    var onApplyAction: (preview: Boolean, cancel: Boolean) -> Unit = { preview, cancel ->
+    var onApplyAction: (preview: Boolean, cancel: Boolean, valueChanged: Boolean) -> Unit =
+        { preview, cancel, valueChanged ->
 
-    }
+        }
 
     init {
         contentLayoutId = R.layout.canvas_regulate_layout
@@ -74,7 +75,7 @@ class CanvasRegulatePopupConfig : ShadowAnchorPopupConfig() {
 
         //取消
         onDismiss = {
-            onApplyAction(false, true)
+            onApplyAction(false, true, false)
             false
         }
     }
@@ -203,11 +204,17 @@ class CanvasRegulatePopupConfig : ShadowAnchorPopupConfig() {
             }
         }
 
+        //预览
         viewHolder.click(R.id.preview_view) {
-            onApplyAction(true, false)
+            if (_itemValueChanged) {
+                onApplyAction(true, false, true)
+                _itemValueChanged = false //清除状态
+            }
         }
+        //确定
         viewHolder.click(R.id.confirm_view) {
-            onApplyAction(false, false)
+            onApplyAction(false, false, _itemValueChanged)
+            _itemValueChanged = false
             onDismiss = { false } //重置
             if (window is PopupWindow) {
                 window.dismiss()
@@ -215,10 +222,17 @@ class CanvasRegulatePopupConfig : ShadowAnchorPopupConfig() {
         }
     }
 
+    /**是否有值改变了*/
+    var _itemValueChanged: Boolean = true
+
     fun DslAdapterItem.initItem() {
         drawBottom(_dimen(R.dimen.lib_line_px), 0, 0)
         if (this is DslSeekBarInfoItem) {
             itemShowProgressText = true
+        }
+        itemChangeListener = {
+            //拦截改成事件, 并且不需要更新界面
+            _itemValueChanged = true
         }
     }
 

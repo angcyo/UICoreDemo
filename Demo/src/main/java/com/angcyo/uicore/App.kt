@@ -15,6 +15,7 @@ import com.angcyo.core.fragment.BaseUI
 import com.angcyo.core.viewpager.RFragmentAdapter
 import com.angcyo.download.DslDownload
 import com.angcyo.jpush.JPush
+import com.angcyo.library.annotation.CallComplianceAfter
 import com.angcyo.library.component.DslNotify
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.padding
@@ -66,6 +67,12 @@ class App : CoreApplication(), CameraXConfig.Provider {
         DslBox.default_package_name = BuildConfig.APPLICATION_ID
         DslBox.init(this, debug = false)
 
+        FscBleApiModel.init()
+    }
+
+    @CallComplianceAfter
+    override fun onComplianceAfter() {
+        super.onComplianceAfter()
         TTS.init(
             this,
             1251235618,
@@ -75,7 +82,6 @@ class App : CoreApplication(), CameraXConfig.Provider {
 
         JPush.init(this)
         Bugly.init()
-        FscBleApiModel.init()
     }
 
     override fun onCreateMain() {

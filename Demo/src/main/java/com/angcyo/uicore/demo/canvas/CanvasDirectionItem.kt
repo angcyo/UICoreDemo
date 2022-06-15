@@ -40,7 +40,12 @@ class CanvasDirectionItem : DslAdapterItem(), ITextItem {
 
         itemHolder.v<DslCheckFlowLayout>(R.id.check_layout)?.apply {
             selectIndex(itemDirection)
-            onSelectChanged(itemSelectChangedAction)
+            onSelectChanged { fromIndex, selectIndexList, reselect, fromUser ->
+                if (fromUser) {
+                    itemChanging = true
+                }
+                itemSelectChangedAction(fromIndex, selectIndexList, reselect, fromUser)
+            }
         }
     }
 
