@@ -22,7 +22,12 @@ data class EngraveDataInfo(
     var name: Int = (System.currentTimeMillis() / 1000).toInt()
 ) {
     companion object {
-        /**图片数据类型*/
+
+        /**图片数据类型.
+         *
+         * 图片白色像素不打印打印, 色值:255  byte:-1
+         * 图片黑色像素打印, 色值:0
+         * */
         const val TYPE_BITMAP = 0x10
 
         /**GCode数据类型*/

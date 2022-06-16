@@ -86,6 +86,9 @@ class EngraveLayoutHelper(val lifecycleOwner: LifecycleOwner) : BaseEngraveLayou
             dslAdapter = this
         }
 
+        //close按钮
+        viewHolder?.visible(R.id.close_layout_view)
+
         //engrave
         handleEngrave()
     }
@@ -175,12 +178,17 @@ class EngraveLayoutHelper(val lifecycleOwner: LifecycleOwner) : BaseEngraveLayou
                         val x = bounds.left.toInt()
                         val y = bounds.top.toInt()
 
-                        val data = bitmap.colorChannel { color, channel ->
+                        val data = bitmap.colorChannel { color, channelValue ->
                             if (color == Color.TRANSPARENT) {
                                 255
                             } else {
-                                channel
+                                channelValue
                             }
+                        }
+
+                        if (isAppDebug()) {
+                            val channelBitmap = data.toChannelBitmap(bitmap.width, bitmap.height)
+                            L.v("$channelBitmap")
                         }
 
                         //根据px, 修正坐标
@@ -241,7 +249,9 @@ class EngraveLayoutHelper(val lifecycleOwner: LifecycleOwner) : BaseEngraveLayou
                             //进度
                             showEngraveProgress(it.sendPacketPercentage, null, it.remainingTime)
                         }) { bean, error ->
-                            bean?.parse<FileTransferParser>()?.let {
+                            val result = bean?.parse<FileTransferParser>()
+                            L.w("传输结束:$result $error")
+                            result?.let {
                                 if (it.isFileTransferSuccess()) {
                                     //文件传输完成
                                     showEngraveItem()

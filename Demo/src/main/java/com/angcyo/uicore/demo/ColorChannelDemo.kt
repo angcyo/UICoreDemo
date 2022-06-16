@@ -1,15 +1,12 @@
 package com.angcyo.uicore.demo
 
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import com.angcyo.canvas.utils.createPaint
 import com.angcyo.component.getPhoto
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.library.ex.colorChannel
+import com.angcyo.library.ex.toChannelBitmap
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.canvas.loadingAsync
 import com.angcyo.widget.DslViewHolder
@@ -61,32 +58,7 @@ class ColorChannelDemo : AppDslFragment() {
                     val height = it.bitmap.height
                     val bytes = it.bitmap.colorChannel(channel)
 
-                    val channelBitmap =
-                        Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-                    val canvas = Canvas(channelBitmap)
-                    val paint = createPaint(
-                        if (channel == Color.TRANSPARENT) Color.BLACK else channel,
-                        Paint.Style.FILL
-                    )
-                    for (y in 0 until height) {
-                        for (x in 0 until width) {
-                            val value: Int = bytes[y * width + x].toInt()
-
-                            paint.color = Color.argb(
-                                if (channel == Color.TRANSPARENT) value else 0,
-                                if (channel == Color.RED) value else 0,
-                                if (channel == Color.GREEN) value else 0,
-                                if (channel == Color.BLUE) value else 0
-                            )
-                            canvas.drawCircle(x.toFloat(), y.toFloat(), 1f, paint)
-
-                            if (value <= 240) {
-                                //有值
-                            } else {
-                                //忽略值
-                            }
-                        }
-                    }
+                    val channelBitmap = bytes.toChannelBitmap(width, height, channel)
                     channelBitmap
                 }) { channelBitmap ->
                     itemHolder.img(
