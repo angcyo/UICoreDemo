@@ -5,10 +5,10 @@ import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import com.angcyo.component.getPhoto
 import com.angcyo.dsladapter.bindItem
+import com.angcyo.engrave.canvas.loadingAsync
 import com.angcyo.library.ex.colorChannel
 import com.angcyo.library.ex.toChannelBitmap
 import com.angcyo.uicore.base.AppDslFragment
-import com.angcyo.uicore.demo.canvas.loadingAsync
 import com.angcyo.widget.DslViewHolder
 
 /**

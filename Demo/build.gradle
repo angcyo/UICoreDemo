@@ -86,9 +86,8 @@ dependencies {
     implementation project(allModule.bugly)
     implementation project(allModule.andserver)
     implementation project(allModule.bluetooth)
-    implementation project(allModule.fsc)
-    implementation project(allModule.canvas)
     implementation project(allModule.browser)
+    implementation project(allModule.engrave)
 
     debugImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
     pretestImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
@@ -99,8 +98,6 @@ dependencies {
     //http://airbnb.io/lottie/#/android
     //https://lottiefiles.com/
     implementation 'com.airbnb.android:lottie:4.2.2'
-
-    implementation 'com.angcyo:opencv:hingin-SNAPSHOT'
 }
 
 static def apkTime() {

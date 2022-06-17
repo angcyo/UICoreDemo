@@ -5,8 +5,8 @@ import android.graphics.Color
 import android.os.Bundle
 import com.angcyo.activity.BaseAppCompatActivity
 import com.angcyo.dsladapter.DslAdapterStatusItem
+import com.angcyo.engrave.canvas.CanvasFontPopupConfig
 import com.angcyo.uicore.demo.R
-import com.angcyo.uicore.demo.canvas.CanvasFontPopupConfig
 import com.angcyo.widget.recycler.renderDslAdapter
 
 /**

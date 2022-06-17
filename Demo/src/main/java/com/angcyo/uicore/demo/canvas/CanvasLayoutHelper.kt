@@ -29,6 +29,10 @@ import com.angcyo.core.vmApp
 import com.angcyo.dialog.inputDialog
 import com.angcyo.dsladapter.*
 import com.angcyo.dsladapter.item.IFragmentItem
+import com.angcyo.engrave.canvas.CanvasBitmapHandler
+import com.angcyo.engrave.canvas.canvasFontWindow
+import com.angcyo.engrave.canvas.canvasSettingWindow
+import com.angcyo.engrave.canvas.loadingAsync
 import com.angcyo.library.ex.*
 import com.angcyo.library.model.loadPath
 import com.angcyo.library.toast
