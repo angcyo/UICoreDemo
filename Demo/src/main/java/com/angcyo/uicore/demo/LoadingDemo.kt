@@ -2,8 +2,8 @@ package com.angcyo.uicore.demo
 
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import com.angcyo.dialog.messageDialog
 import com.angcyo.dialog.normalDialog
+import com.angcyo.dialog.verifyCodeInputDialog
 import com.angcyo.drawable.loading.TGSolidLoadingDrawable
 import com.angcyo.drawable.loading.TGStrokeLoadingDrawable
 import com.angcyo.dsladapter.bindItem
@@ -135,6 +135,14 @@ class LoadingDemo : AppDslFragment() {
                         neutralButton("分享文件?") { _, _ ->
                         }
                     }*/
+                }
+
+                itemHolder.click(R.id.verify_button) {
+                    fContext().verifyCodeInputDialog {
+                        dialogTitle = "安全提示"
+                        dialogMessage = "请输入安全码!"
+
+                    }
                 }
             }
         }
