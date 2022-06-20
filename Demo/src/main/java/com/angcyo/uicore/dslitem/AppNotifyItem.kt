@@ -34,6 +34,7 @@ import kotlin.random.Random.Default.nextInt
  */
 
 class AppNotifyItem : DslAdapterItem() {
+
     init {
         itemLayoutId = R.layout.app_item_notify
     }

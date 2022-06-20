@@ -11,7 +11,8 @@
         android:id="@+id/lib_text_view"
         style="@style/LibBodyTextStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        tools:text="angcyo angcyo angcyo angcyo" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/spp_check_box"
@@ -20,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/lib_xhdpi"
         android:text="SPP"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@id/lib_text_view"
         tools:visibility="visible" />
 

@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.View
 import com.angcyo.base.dslAHelper
 import com.angcyo.coroutine.onBack
+import com.angcyo.dsladapter.loadingStatus
 import com.angcyo.dsladapter.renderItem
+import com.angcyo.dsladapter.toLoading
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.item.style.itemInfoText
 import com.angcyo.library.component.appBean
@@ -24,12 +26,13 @@ import com.angcyo.widget.span.span
 class IntentDemo : AppDslFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        renderDslAdapter {
-            launchLifecycle {
-                onBack {
-                    dslIntentQuery {
-
-                    }.apply {
+        _adapter.render {
+            loadingStatus()
+        }
+        launchLifecycle {
+            onBack {
+                dslIntentQuery().apply {
+                    renderDslAdapter {
                         forEachIndexed { index, resolveInfo ->
                             DslTextInfoItem()() {
                                 itemTopInsert = 2 * dpi
@@ -70,9 +73,9 @@ class IntentDemo : AppDslFragment() {
                             itemLayoutId = R.layout.demo_intent
                         }
                     }
-                }.await().apply {
-                    fragmentTitle = "$fragmentTitle $size"
                 }
+            }.await().apply {
+                fragmentTitle = "$fragmentTitle $size"
             }
         }
     }

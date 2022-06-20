@@ -7,6 +7,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.coroutine.onBack
 import com.angcyo.dsladapter.DslAdapter
+import com.angcyo.dsladapter.loadingStatus
 import com.angcyo.dsladapter.margin
 import com.angcyo.library.L
 import com.angcyo.library.LTime
@@ -33,15 +34,18 @@ class LauncherDemo : AppDslFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        renderDslAdapter {
-            launchLifecycle {
-                LTime.tick()
-                Trace.beginSection("query")
-                onBack {
-                    dslIntentQuery {
-                        queryAction = Intent.ACTION_MAIN
-                        queryCategory = listOf(Intent.CATEGORY_LAUNCHER)
-                    }.apply {
+        _adapter.render {
+            loadingStatus()
+        }
+        launchLifecycle {
+            LTime.tick()
+            Trace.beginSection("query")
+            onBack {
+                dslIntentQuery {
+                    queryAction = Intent.ACTION_MAIN
+                    queryCategory = listOf(Intent.CATEGORY_LAUNCHER)
+                }.apply {
+                    renderDslAdapter {
                         forEachIndexed { index, resolveInfo ->
                             AppItem()() {
                                 margin(1 * dpi)
@@ -49,11 +53,11 @@ class LauncherDemo : AppDslFragment() {
                             }
                         }
                     }
-                }.await().run {
-                    Trace.endSection()
-                    L.i("总耗时:${LTime.time()}")
-                    fragmentTitle = "$fragmentTitle $size"
                 }
+            }.await().run {
+                Trace.endSection()
+                L.i("总耗时:${LTime.time()}")
+                fragmentTitle = "$fragmentTitle $size"
             }
         }
     }

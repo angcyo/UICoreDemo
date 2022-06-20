@@ -36,49 +36,51 @@ class CameraXDemo : AppDslFragment() {
         _vh.post {
             activity?.requestPermissions(DslCameraViewHelper().recordPermissionList) {
                 if (it) {
-                    _adapter + AppCameraViewItem().apply {
-                        cameraLifecycleOwner = this@CameraXDemo
-                    }
-
-                    _adapter + DslButtonItem().apply {
-                        itemButtonText = "拍照or摄像"
-                        itemClick = {
-                            dslAHelper {
-                                recordVideoCameraX { path ->
-                                    if (path.isNullOrEmpty()) {
-                                        _adapter.updateOrInsertItem<DslTextItem>(
-                                            "result",
-                                            2
-                                        ) { item ->
-                                            item.itemText = "录制取消"
-                                            item
-                                        }
-                                    } else {
-                                        _adapter.updateOrInsertItem<DslTextItem>(
-                                            "result",
-                                            2
-                                        ) { item ->
-                                            item.itemText = "$path ${path.fileSizeString()}"
-                                            item
-                                        }
-                                        _adapter.changeHeaderItems {
-                                            it.add(DslImageItem().apply {
-                                                itemLoadUri = path.toUri()
-                                                itemClick = {
-                                                    dslPager {
-                                                        addMedia(itemLoadUri)
+                    _adapter.render {
+                        AppCameraViewItem()() {
+                            cameraLifecycleOwner = this@CameraXDemo
+                        }
+                        
+                        DslButtonItem()() {
+                            itemButtonText = "拍照or摄像"
+                            itemClick = {
+                                dslAHelper {
+                                    recordVideoCameraX { path ->
+                                        if (path.isNullOrEmpty()) {
+                                            _adapter.updateOrInsertItem<DslTextItem>(
+                                                "result",
+                                                2
+                                            ) { item ->
+                                                item.itemText = "录制取消"
+                                                item
+                                            }
+                                        } else {
+                                            _adapter.updateOrInsertItem<DslTextItem>(
+                                                "result",
+                                                2
+                                            ) { item ->
+                                                item.itemText = "$path ${path.fileSizeString()}"
+                                                item
+                                            }
+                                            _adapter.changeHeaderItems {
+                                                it.add(DslImageItem().apply {
+                                                    itemLoadUri = path.toUri()
+                                                    itemClick = {
+                                                        dslPager {
+                                                            addMedia(itemLoadUri)
+                                                        }
                                                     }
-                                                }
-                                            })
+                                                })
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
-                    }
 
-                    for (i in 0..5) {
-                        _adapter.renderEmptyItem(300 * dpi + i * 100 * dpi, randomColorAlpha())
+                        for (i in 0..5) {
+                            renderEmptyItem(300 * dpi + i * 100 * dpi, randomColorAlpha())
+                        }
                     }
 
                 } else {

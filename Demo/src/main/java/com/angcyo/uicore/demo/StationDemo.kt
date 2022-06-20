@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import com.angcyo.dsladapter.dslItem
+import com.angcyo.library.annotation.Implementation
 import com.angcyo.library.ex.size
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.component.StationAdapter
@@ -17,6 +18,7 @@ import com.angcyo.uicore.component.StationLayout
  * @date 2022/02/11
  * Copyright (c) 2020 ShenZhen Wayto Ltd. All rights reserved.
  */
+@Implementation
 class StationDemo : AppDslFragment() {
 
     override fun initBaseView(savedInstanceState: Bundle?) {

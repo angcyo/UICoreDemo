@@ -27,49 +27,57 @@ class NotifyDemo : AppDslFragment() {
 
     val contentObserver = object : ContentObserver(null) {
         override fun onChange(selfChange: Boolean) {
-            _adapter + DslTextInfoItem().apply {
-                itemInfoText = "onChange:$selfChange"
-                itemDarkText = nowTimeString()
+            _adapter.render {
+                DslTextInfoItem()() {
+                    itemInfoText = "onChange:$selfChange"
+                    itemDarkText = nowTimeString()
+                }
             }
         }
 
         override fun onChange(selfChange: Boolean, uri: Uri?) {
             val mediaBean = uri?.query()
 
-            _adapter + DslTextInfoItem().apply {
-                itemTopInsert = 10 * dpi
-                itemInfoText = span {
-                    append("onChange:$selfChange\n$uri")
-                    uri?.run {
-                        appendln()
-                        append(this.scheme)
-                        append(" ")
-                        append(this.authority)
-                        append(" ")
-                        append(this.encodedAuthority)
-                        appendln()
-                        mediaBean?.run {
-                            append(this.toString())
+            _adapter.render {
+                DslTextInfoItem()() {
+                    itemTopInsert = 10 * dpi
+                    itemInfoText = span {
+                        append("onChange:$selfChange\n$uri")
+                        uri?.run {
+                            appendln()
+                            append(this.scheme)
+                            append(" ")
+                            append(this.authority)
+                            append(" ")
+                            append(this.encodedAuthority)
+                            appendln()
+                            mediaBean?.run {
+                                append(this.toString())
+                            }
                         }
                     }
+                    itemDarkText = nowTimeString()
                 }
-                itemDarkText = nowTimeString()
             }
 
             mediaBean?.run {
                 if (this.mimeType.isImageMimeType()) {
-                    _adapter + AppImageItem().apply {
-                        itemTopInsert = 10 * dpi
-                        imageUrl = this@run.localPath
+                    _adapter.render {
+                        AppImageItem()() {
+                            itemTopInsert = 10 * dpi
+                            imageUrl = this@run.localPath
+                        }
                     }
                 }
             }
         }
 
         override fun deliverSelfNotifications(): Boolean {
-            _adapter + DslTextInfoItem().apply {
-                itemInfoText = "deliverSelfNotifications"
-                itemDarkText = nowTimeString()
+            _adapter.render {
+                DslTextInfoItem()() {
+                    itemInfoText = "deliverSelfNotifications"
+                    itemDarkText = nowTimeString()
+                }
             }
             return super.deliverSelfNotifications()
         }
@@ -99,7 +107,9 @@ class NotifyDemo : AppDslFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        _adapter + AppNotifyItem()
+        _adapter.render {
+            AppNotifyItem()()
+        }
     }
 
     override fun onDestroyView() {

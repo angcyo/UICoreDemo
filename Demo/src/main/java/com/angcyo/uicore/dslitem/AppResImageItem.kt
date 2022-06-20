@@ -16,7 +16,7 @@ import com.angcyo.widget.DslViewHolder
  * @author angcyo
  * @date 2020/02/29
  */
-class AppResImageItem : AppImageItem() {
+class AppResImageItem : AppImageItem(1) {
 
     @DrawableRes
     var itemImageRes: Int = -1

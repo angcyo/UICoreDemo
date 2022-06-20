@@ -4,6 +4,7 @@ import com.angcyo.base.dslAHelper
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.library.ex.copy
 import com.angcyo.library.ex.longFeedback
+import com.angcyo.library.ex.or
 import com.angcyo.library.model.AppBean
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
@@ -50,7 +51,7 @@ class AppItem : DslAdapterItem() {
             itemHolder.img(R.id.image_view)?.also {
                 Glide.with(it).load(appIcon).into(it)
             }
-            itemHolder.tv(R.id.text_view)?.text = appName
         }
+        itemHolder.tv(R.id.text_view)?.text = appBean?.appName.or()
     }
 }
