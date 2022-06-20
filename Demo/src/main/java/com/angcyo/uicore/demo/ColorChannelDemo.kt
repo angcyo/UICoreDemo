@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.angcyo.component.getPhoto
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave.canvas.loadingAsync
+import com.angcyo.engrave.toEngraveBitmap
 import com.angcyo.library.ex.colorChannel
 import com.angcyo.library.ex.toChannelBitmap
 import com.angcyo.uicore.base.AppDslFragment
@@ -21,6 +22,7 @@ class ColorChannelDemo : AppDslFragment() {
         super.initBaseView(savedInstanceState)
         renderDslAdapter {
             bindItem(R.layout.demo_color_channel_layout) { itemHolder, itemPosition, adapterItem, payloads ->
+                itemHolder.img(R.id.image_view)?.setImageResource(R.drawable.face)
 
                 itemHolder.click(R.id.select_button) {
                     fContext().getPhoto(parentFragmentManager) {
@@ -32,19 +34,26 @@ class ColorChannelDemo : AppDslFragment() {
                     extractChannel(Color.RED, itemHolder)
                     extractChannel(Color.GREEN, itemHolder)
                     extractChannel(Color.BLUE, itemHolder)
+                    extractEngraveChannel(itemHolder)
                 }
                 itemHolder.click(R.id.green_channel_button) {
                     extractChannel(Color.GREEN, itemHolder)
                     extractChannel(Color.RED, itemHolder)
                     extractChannel(Color.BLUE, itemHolder)
+                    extractEngraveChannel(itemHolder)
                 }
                 itemHolder.click(R.id.blue_channel_button) {
                     extractChannel(Color.BLUE, itemHolder)
                     extractChannel(Color.RED, itemHolder)
                     extractChannel(Color.GREEN, itemHolder)
+                    extractEngraveChannel(itemHolder)
                 }
                 itemHolder.click(R.id.alpha_channel_button) {
                     extractChannel(Color.TRANSPARENT, itemHolder)
+                    extractEngraveChannel(itemHolder)
+                }
+                itemHolder.click(R.id.engrave_channel_button) {
+                    extractEngraveChannel(itemHolder)
                 }
             }
         }
@@ -69,6 +78,23 @@ class ColorChannelDemo : AppDslFragment() {
                             else -> R.id.alpha_image_view
                         }
                     )?.setImageBitmap(channelBitmap)
+                }
+            }
+        }
+    }
+
+    fun extractEngraveChannel(itemHolder: DslViewHolder) {
+        itemHolder.img(R.id.image_view)?.drawable?.let {
+            if (it is BitmapDrawable) {
+                loadingAsync({
+                    val width = it.bitmap.width
+                    val height = it.bitmap.height
+                    val bytes = it.bitmap.colorChannel(Color.RED)
+
+                    val bitmap = bytes.toEngraveBitmap(width, height)
+                    bitmap
+                }) { bitmap ->
+                    itemHolder.img(R.id.engrave_image_view)?.setImageBitmap(bitmap)
                 }
             }
         }
