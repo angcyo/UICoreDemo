@@ -15,6 +15,7 @@ import com.angcyo.bluetooth.fsc.enqueue
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
 import com.angcyo.bluetooth.fsc.laserpacker.command.*
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryEngraveFileParser
+import com.angcyo.bluetooth.fsc.laserpacker.parse.QuerySettingParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
 import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasView
@@ -35,6 +36,7 @@ import com.angcyo.engrave.EngravePreviewLayoutHelper
 import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.ble.bluetoothSearchListDialog
 import com.angcyo.engrave.canvas.loadingAsync
+import com.angcyo.engrave.model.FscDeviceModel
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.http.rx.doMain
 import com.angcyo.library.ex.*
@@ -213,7 +215,10 @@ class CanvasDemo : AppDslFragment() {
                     canvasView?.apply {
                         val text = fContext().readAssets("LaserPecker.gcode")
                         val drawable = GCodeHelper.parseGCode(text)!!
-                        addDrawableRenderer(drawable).setHoldData(EngraveHelper.KEY_GCODE, text)
+                        addDrawableRenderer(drawable).setHoldData(
+                            CanvasDataHandleHelper.KEY_GCODE,
+                            text
+                        )
                     }
                 }
                 itemHolder.click(R.id.random_add_svg) {
@@ -223,7 +228,7 @@ class CanvasDemo : AppDslFragment() {
                         }*/
                         loadSvgPathDrawable().apply {
                             addDrawableRenderer(second).setHoldData(
-                                EngraveHelper.KEY_SVG,
+                                CanvasDataHandleHelper.KEY_SVG,
                                 second.pathList
                             )
                         }
@@ -232,7 +237,10 @@ class CanvasDemo : AppDslFragment() {
                 itemHolder.click(R.id.random_add_gcode) {
                     canvasView?.apply {
                         loadGCodeDrawable().apply {
-                            addDrawableRenderer(second).setHoldData(EngraveHelper.KEY_GCODE, first)
+                            addDrawableRenderer(second).setHoldData(
+                                CanvasDataHandleHelper.KEY_GCODE,
+                                first
+                            )
                         }
                     }
                 }
@@ -410,7 +418,7 @@ class CanvasDemo : AppDslFragment() {
                         if (!text.isNullOrEmpty()) {
                             //GCode
                             loadingAsync({
-                                EngraveHelper.gCodeAdjust(
+                                CanvasDataHandleHelper.gCodeAdjust(
                                     text,
                                     renderer.getBounds(),
                                     renderer.rotate
@@ -419,7 +427,7 @@ class CanvasDemo : AppDslFragment() {
                                 //no
                                 it?.readText()?.let { gCode ->
                                     canvasView.addDrawableRenderer(GCodeHelper.parseGCode(gCode)!!)
-                                        .setHoldData(EngraveHelper.KEY_GCODE, gCode)
+                                        .setHoldData(CanvasDataHandleHelper.KEY_GCODE, gCode)
                                 }
                             }
                         } else {
@@ -427,7 +435,7 @@ class CanvasDemo : AppDslFragment() {
                             if (!pathList.isNullOrEmpty()) {
                                 //path list
                                 loadingAsync({
-                                    EngraveHelper.pathStrokeToGCode(
+                                    CanvasDataHandleHelper.pathStrokeToGCode(
                                         pathList,
                                         renderer.getBounds(),
                                         renderer.rotate
@@ -436,7 +444,7 @@ class CanvasDemo : AppDslFragment() {
                                     //no
                                     it?.readText()?.let { gCode ->
                                         canvasView.addDrawableRenderer(GCodeHelper.parseGCode(gCode)!!)
-                                            .setHoldData(EngraveHelper.KEY_GCODE, gCode)
+                                            .setHoldData(CanvasDataHandleHelper.KEY_GCODE, gCode)
                                     }
                                 }
                             }
@@ -450,6 +458,13 @@ class CanvasDemo : AppDslFragment() {
                 //engrave
                 engraveLayoutHelper.bindCanvasView(itemHolder.v<CanvasView>(R.id.canvas_view)!!)
             }
+        }
+
+        //初始化
+        vmApp<FscDeviceModel>().apiModel
+        if (QuerySettingParser.AUTO_CONNECT_DEVICE) {
+            //自动连接设备
+
         }
     }
 
