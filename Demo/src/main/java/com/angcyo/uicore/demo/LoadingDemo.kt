@@ -1,7 +1,9 @@
 package com.angcyo.uicore.demo
 
+import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import androidx.core.view.doOnPreDraw
 import com.angcyo.dialog.normalDialog
 import com.angcyo.dialog.verifyCodeInputDialog
 import com.angcyo.drawable.loading.TGSolidLoadingDrawable
@@ -43,6 +45,19 @@ class LoadingDemo : AppDslFragment() {
                 itemHolder.view(R.id.view1)?.setBgDrawable(tgSolidLoadingDrawable)
                 itemHolder.view(R.id.view2)?.setBgDrawable(tgStrokeLoadingDrawable)
                 itemHolder.view(R.id.view3)?.setBgDrawable(tgStrokeLoadingDrawable2)
+
+                //laser_pecker
+                itemHolder.tv(R.id.laser_pecker)?.apply {
+                    doOnPreDraw {
+                        paint.shader = linearGradientShader(
+                            0f,
+                            0f,
+                            mW().toFloat(),
+                            mH().toFloat(),
+                            intArrayOf(Color.RED, Color.GREEN)
+                        )
+                    }
+                }
 
                 //control
                 itemHolder.click(R.id.indeterminate_button) {
