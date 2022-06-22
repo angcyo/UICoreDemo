@@ -20,6 +20,7 @@ import com.angcyo.library.component.DslNotify
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.padding
 import com.angcyo.library.ex.randomColor
+import com.angcyo.library.isMainProgress
 import com.angcyo.objectbox.DslBox
 import com.angcyo.speech.TTS
 import com.angcyo.tbs.DslTbs
@@ -59,33 +60,35 @@ class App : CoreApplication(), CameraXConfig.Provider {
         }
 
         DslDownload.init(this)
-        DslTbs.init(this)
 
         DslNotify.DEFAULT_NOTIFY_ICON = R.drawable.ic_logo_small
         DslAHelper.mainActivityClass = MainActivity::class.java
 
         DslBox.default_package_name = BuildConfig.APPLICATION_ID
         DslBox.init(this, debug = false)
+    }
 
+    override fun onCreateMain() {
+        super.onCreateMain()
+
+        DslTbs.init(this)
         FscBleApiModel.init()
     }
 
     @CallComplianceAfter
     override fun onComplianceAfter() {
         super.onComplianceAfter()
-        TTS.init(
-            this,
-            1251235618,
-            "AKIDWVomMV0edaGbFT5dSowGvGpmjC49pBCb",
-            "0WbCzyN1ICYiFkSZ9Kv890GY1BPqUbsV"
-        )
+        if (isMainProgress()) {
+            TTS.init(
+                this,
+                1251235618,
+                "AKIDWVomMV0edaGbFT5dSowGvGpmjC49pBCb",
+                "0WbCzyN1ICYiFkSZ9Kv890GY1BPqUbsV"
+            )
 
-        JPush.init(this)
-        Bugly.init()
-    }
-
-    override fun onCreateMain() {
-        super.onCreateMain()
+            JPush.init(this)
+            Bugly.init()
+        }
     }
 
     /**
