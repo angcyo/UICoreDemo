@@ -3,10 +3,10 @@ package com.angcyo.uicore.demo
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import com.angcyo.canvas.utils.toEngraveBitmap
 import com.angcyo.component.getPhoto
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave.canvas.loadingAsync
-import com.angcyo.engrave.toEngraveBitmap
 import com.angcyo.library.ex.colorChannel
 import com.angcyo.library.ex.toChannelBitmap
 import com.angcyo.uicore.base.AppDslFragment

@@ -12,7 +12,7 @@ class ShapeLineItem(val canvasView: CanvasView) : CanvasControlItem() {
 
     init {
         itemIco = R.drawable.canvas_shape_line_ico
-        itemText = "线条"
+        itemText = "线条!"
         itemClick = {
             canvasView.addLineRenderer()
         }
