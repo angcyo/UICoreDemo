@@ -52,6 +52,7 @@ import com.angcyo.widget.recycler.initDslAdapter
 import com.angcyo.widget.span.span
 import com.pixplicity.sharp.Sharp
 import com.pixplicity.sharp.SharpDrawable
+import org.jetbrains.annotations.TestOnly
 import kotlin.random.Random
 
 /**
@@ -269,7 +270,7 @@ class CanvasDemo : AppDslFragment() {
                                 val width = it.getCanvasViewBox().valueUnit.convertValueToPixel(20f)
                                 val height =
                                     it.getCanvasViewBox().valueUnit.convertValueToPixel(20f)
-                                bitmap = it.getBitmap(left, top, width, height)
+                                bitmap = it.getBitmap(left, top, width.toInt(), height.toInt())
                             }
                         }
                     }
@@ -413,43 +414,7 @@ class CanvasDemo : AppDslFragment() {
 
                 //test
                 itemHolder.click(R.id.test_button) {
-                    canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
-                        val text = renderer.getGCodeText()
-                        if (!text.isNullOrEmpty()) {
-                            //GCode
-                            loadingAsync({
-                                CanvasDataHandleHelper.gCodeAdjust(
-                                    text,
-                                    renderer.getBounds(),
-                                    renderer.rotate
-                                )
-                            }) {
-                                //no
-                                it?.readText()?.let { gCode ->
-                                    canvasView.addDrawableRenderer(GCodeHelper.parseGCode(gCode)!!)
-                                        .setHoldData(CanvasDataHandleHelper.KEY_GCODE, gCode)
-                                }
-                            }
-                        } else {
-                            val pathList = renderer.getPathList()
-                            if (!pathList.isNullOrEmpty()) {
-                                //path list
-                                loadingAsync({
-                                    CanvasDataHandleHelper.pathStrokeToGCode(
-                                        pathList,
-                                        renderer.getBounds(),
-                                        renderer.rotate
-                                    )
-                                }) {
-                                    //no
-                                    it?.readText()?.let { gCode ->
-                                        canvasView.addDrawableRenderer(GCodeHelper.parseGCode(gCode)!!)
-                                            .setHoldData(CanvasDataHandleHelper.KEY_GCODE, gCode)
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    test(itemHolder, canvasView)
                 }
 
                 //canvas
@@ -486,6 +451,47 @@ class CanvasDemo : AppDslFragment() {
     fun loadGCodeDrawable(): Pair<String, Drawable> {
         val text = fContext().readAssets(gCodeNameList.randomGetOnce()!!)
         return text!! to GCodeHelper.parseGCode(text)!!
+    }
+
+    @TestOnly
+    fun test(viewHolder: DslViewHolder, canvasView: CanvasView?) {
+        canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
+            val text = renderer.getGCodeText()
+            if (!text.isNullOrEmpty()) {
+                //GCode
+                loadingAsync({
+                    CanvasDataHandleHelper.gCodeAdjust(
+                        text,
+                        renderer.getBounds(),
+                        renderer.rotate
+                    )
+                }) {
+                    //no
+                    it?.readText()?.let { gCode ->
+                        canvasView.addDrawableRenderer(GCodeHelper.parseGCode(gCode)!!)
+                            .setHoldData(CanvasDataHandleHelper.KEY_GCODE, gCode)
+                    }
+                }
+            } else {
+                val pathList = renderer.getPathList()
+                if (!pathList.isNullOrEmpty()) {
+                    //path list
+                    loadingAsync({
+                        CanvasDataHandleHelper.pathStrokeToGCode(
+                            pathList,
+                            renderer.getBounds(),
+                            renderer.rotate
+                        )
+                    }) {
+                        //no
+                        it?.readText()?.let { gCode ->
+                            canvasView.addDrawableRenderer(GCodeHelper.parseGCode(gCode)!!)
+                                .setHoldData(CanvasDataHandleHelper.KEY_GCODE, gCode)
+                        }
+                    }
+                }
+            }
+        }
     }
 
     //<editor-fold desc="bindCanvasRecyclerView">
