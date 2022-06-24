@@ -6,6 +6,7 @@ import android.graphics.Path
 import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.view.Gravity
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.base.dslFHelper
@@ -494,7 +495,10 @@ class CanvasDemo : AppDslFragment() {
                     loadingAsync({
                         val bitmap = renderer.preview()?.toBitmap()
                         if (bitmap != null) {
-                            CanvasDataHandleOprate.bitmapToGCode(bitmap)
+                            CanvasDataHandleOprate.bitmapToGCode(bitmap, Gravity.LEFT)
+                            CanvasDataHandleOprate.bitmapToGCode(bitmap, Gravity.TOP)
+                            CanvasDataHandleOprate.bitmapToGCode(bitmap, Gravity.RIGHT)
+                            CanvasDataHandleOprate.bitmapToGCode(bitmap, Gravity.BOTTOM)
                         } else {
                             null
                         }
