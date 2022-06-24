@@ -217,7 +217,7 @@ class CanvasDemo : AppDslFragment() {
                         val text = fContext().readAssets("LaserPecker.gcode")
                         val drawable = GCodeHelper.parseGCode(text)!!
                         addDrawableRenderer(drawable).setHoldData(
-                            CanvasDataHandleHelper.KEY_GCODE,
+                            CanvasDataHandleOprate.KEY_GCODE,
                             text
                         )
                     }
@@ -229,7 +229,7 @@ class CanvasDemo : AppDslFragment() {
                         }*/
                         loadSvgPathDrawable().apply {
                             addDrawableRenderer(second).setHoldData(
-                                CanvasDataHandleHelper.KEY_SVG,
+                                CanvasDataHandleOprate.KEY_SVG,
                                 second.pathList
                             )
                         }
@@ -239,7 +239,7 @@ class CanvasDemo : AppDslFragment() {
                     canvasView?.apply {
                         loadGCodeDrawable().apply {
                             addDrawableRenderer(second).setHoldData(
-                                CanvasDataHandleHelper.KEY_GCODE,
+                                CanvasDataHandleOprate.KEY_GCODE,
                                 first
                             )
                         }
@@ -460,7 +460,7 @@ class CanvasDemo : AppDslFragment() {
             if (!text.isNullOrEmpty()) {
                 //GCode
                 loadingAsync({
-                    CanvasDataHandleHelper.gCodeAdjust(
+                    CanvasDataHandleOprate.gCodeAdjust(
                         text,
                         renderer.getBounds(),
                         renderer.rotate
@@ -469,7 +469,7 @@ class CanvasDemo : AppDslFragment() {
                     //no
                     it?.readText()?.let { gCode ->
                         canvasView.addDrawableRenderer(GCodeHelper.parseGCode(gCode)!!)
-                            .setHoldData(CanvasDataHandleHelper.KEY_GCODE, gCode)
+                            .setHoldData(CanvasDataHandleOprate.KEY_GCODE, gCode)
                     }
                 }
             } else {
@@ -477,7 +477,7 @@ class CanvasDemo : AppDslFragment() {
                 if (!pathList.isNullOrEmpty()) {
                     //path list
                     loadingAsync({
-                        CanvasDataHandleHelper.pathStrokeToGCode(
+                        CanvasDataHandleOprate.pathStrokeToGCode(
                             pathList,
                             renderer.getBounds(),
                             renderer.rotate
@@ -486,7 +486,23 @@ class CanvasDemo : AppDslFragment() {
                         //no
                         it?.readText()?.let { gCode ->
                             canvasView.addDrawableRenderer(GCodeHelper.parseGCode(gCode)!!)
-                                .setHoldData(CanvasDataHandleHelper.KEY_GCODE, gCode)
+                                .setHoldData(CanvasDataHandleOprate.KEY_GCODE, gCode)
+                        }
+                    }
+                } else {
+                    //bitmap to gcode
+                    loadingAsync({
+                        val bitmap = renderer.preview()?.toBitmap()
+                        if (bitmap != null) {
+                            CanvasDataHandleOprate.bitmapToGCode(bitmap)
+                        } else {
+                            null
+                        }
+                    }) {
+                        //no
+                        it?.readText()?.let { gCode ->
+                            canvasView.addDrawableRenderer(GCodeHelper.parseGCode(gCode)!!)
+                                .setHoldData(CanvasDataHandleOprate.KEY_GCODE, gCode)
                         }
                     }
                 }
