@@ -492,8 +492,8 @@ class CanvasDemo : AppDslFragment() {
                     }
                 } else {
                     //bitmap to gcode
+                    val bitmap = renderer.preview()?.toBitmap()
                     loadingAsync({
-                        val bitmap = renderer.preview()?.toBitmap()
                         if (bitmap != null) {
                             CanvasDataHandleOprate.bitmapToGCode(bitmap, Gravity.LEFT)
                             CanvasDataHandleOprate.bitmapToGCode(bitmap, Gravity.TOP)
