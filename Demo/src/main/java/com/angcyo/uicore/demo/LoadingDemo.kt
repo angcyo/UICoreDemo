@@ -109,11 +109,13 @@ class LoadingDemo : AppDslFragment() {
                             false
                         }
 
-                        if (MainFragment.CLICK_COUNT++ % 2 == 0) {
+                        if (MainFragment.CLICK_COUNT++ % 3 == 0) {
                             colorPaletteDrawable = ColorPaletteDrawable()
                             enableAlpha = false
                             enableBrightness = false
                             //ContextCompat.getDrawable(fContext(), R.drawable.palettebar)
+                        } else if (MainFragment.CLICK_COUNT++ % 3 == 1) {
+                            hsvPaletteDrawable = true
                         }
                     }
                 }
