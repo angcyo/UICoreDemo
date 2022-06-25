@@ -10,6 +10,7 @@ import com.angcyo.drawable.loading.TGSolidLoadingDrawable
 import com.angcyo.drawable.loading.TGStrokeLoadingDrawable
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.github.dialog.colorPickerDialog
+import com.angcyo.github.dialog.hsvColorPickerDialog
 import com.angcyo.github.widget.drawable.ColorPaletteDrawable
 import com.angcyo.library.ex.*
 import com.angcyo.uicore.MainFragment
@@ -105,6 +106,7 @@ class LoadingDemo : AppDslFragment() {
                             (seekBar?.progressBgDrawable as? GradientDrawable)?.color?.defaultColor
                                 ?: initialColor
                         colorPickerAction = { dialog, color ->
+                            itemHolder.tv(R.id.text_view)?.text = color.toHexColorString()
                             seekBar?.setBgGradientColors("$color")
                             false
                         }
@@ -116,6 +118,19 @@ class LoadingDemo : AppDslFragment() {
                             //ContextCompat.getDrawable(fContext(), R.drawable.palettebar)
                         } else if (MainFragment.CLICK_COUNT++ % 3 == 1) {
                             hsvPaletteDrawable = true
+                        }
+                    }
+                }
+                itemHolder.click(R.id.hsv_color_picker_button) {
+                    val seekBar = itemHolder.v<DslBlockSeekBar>(R.id.seek_bar)
+                    fContext().hsvColorPickerDialog {
+                        initialColor =
+                            (seekBar?.progressBgDrawable as? GradientDrawable)?.color?.defaultColor
+                                ?: initialColor
+                        colorPickerAction = { dialog, color ->
+                            itemHolder.tv(R.id.text_view)?.text = color.toHexColorString()
+                            seekBar?.setBgGradientColors("$color")
+                            false
                         }
                     }
                 }

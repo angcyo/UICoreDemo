@@ -106,6 +106,13 @@
             android:text="PickerColor" />
 
         <com.angcyo.widget.DslButton
+            android:id="@+id/hsv_color_picker_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PickerHsvColor" />
+
+        <com.angcyo.widget.DslButton
             android:id="@+id/test_button"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
@@ -118,6 +125,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="verify" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="..." />
 
     </com.angcyo.widget.layout.DslFlowLayout>
 
