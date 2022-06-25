@@ -1076,7 +1076,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             hookUpdateDepend()
             //
             CanvasControlItem()() {
-                itemIco = R.drawable.canvas_text_style_align_left_ico
+                itemIco = R.drawable.canvas_align_left_ico
                 itemText = _string(R.string.canvas_align_left)
                 itemRenderer = renderer
                 itemClick = {
@@ -1084,33 +1084,18 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 }
             }
             CanvasControlItem()() {
-                itemIco = R.drawable.canvas_text_style_align_left_ico
-                itemText = _string(R.string.canvas_align_horizontal)
-                itemRenderer = renderer
-                itemClick = {
-                    renderer.updateAlign(Gravity.CENTER_HORIZONTAL)
-                }
-            }
-            CanvasControlItem()() {
-                itemIco = R.drawable.canvas_text_style_align_right_ico
+                itemIco = R.drawable.canvas_align_right_ico
                 itemText = _string(R.string.canvas_align_right)
                 itemRenderer = renderer
                 itemClick = {
                     renderer.updateAlign(Gravity.RIGHT)
                 }
+                drawCanvasRight()
             }
+
             //
             CanvasControlItem()() {
-                itemIco = R.drawable.canvas_text_style_align_center_ico
-                itemText = _string(R.string.canvas_align_center)
-                itemRenderer = renderer
-                itemClick = {
-                    renderer.updateAlign(Gravity.CENTER)
-                }
-            }
-            //
-            CanvasControlItem()() {
-                itemIco = R.drawable.canvas_text_style_align_left_ico
+                itemIco = R.drawable.canvas_align_top_ico
                 itemText = _string(R.string.canvas_align_top)
                 itemRenderer = renderer
                 itemClick = {
@@ -1118,7 +1103,26 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 }
             }
             CanvasControlItem()() {
-                itemIco = R.drawable.canvas_text_style_align_left_ico
+                itemIco = R.drawable.canvas_align_bottom_ico
+                itemText = _string(R.string.canvas_align_bottom)
+                itemRenderer = renderer
+                itemClick = {
+                    renderer.updateAlign(Gravity.BOTTOM)
+                }
+                drawCanvasRight()
+            }
+
+            //
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_align_horizontal_ico
+                itemText = _string(R.string.canvas_align_horizontal)
+                itemRenderer = renderer
+                itemClick = {
+                    renderer.updateAlign(Gravity.CENTER_HORIZONTAL)
+                }
+            }
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_align_vertical_ico
                 itemText = _string(R.string.canvas_align_vertical)
                 itemRenderer = renderer
                 itemClick = {
@@ -1126,11 +1130,11 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 }
             }
             CanvasControlItem()() {
-                itemIco = R.drawable.canvas_text_style_align_right_ico
-                itemText = _string(R.string.canvas_align_bottom)
+                itemIco = R.drawable.canvas_align_center_ico
+                itemText = _string(R.string.canvas_align_center)
                 itemRenderer = renderer
                 itemClick = {
-                    renderer.updateAlign(Gravity.BOTTOM)
+                    renderer.updateAlign(Gravity.CENTER)
                 }
             }
         }
