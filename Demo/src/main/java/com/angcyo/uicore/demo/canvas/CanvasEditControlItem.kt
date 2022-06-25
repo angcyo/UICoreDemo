@@ -1,20 +1,26 @@
 package com.angcyo.uicore.demo.canvas
 
+import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.PointF
 import android.graphics.RectF
 import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.canvas.core.IRenderer
+import com.angcyo.canvas.items.PictureShapeItem
+import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.BaseItemRenderer
 import com.angcyo.canvas.utils.canvasDecimal
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.engrave.canvas.canvasNumberWindow
+import com.angcyo.github.dialog.hsvColorPickerDialog
 import com.angcyo.library.ex.ADJUST_TYPE_LT
 import com.angcyo.library.ex.adjustSize
 import com.angcyo.library.ex.adjustSizeWithRotate
 import com.angcyo.library.ex.visible
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
+import com.angcyo.widget.base.clickIt
+import com.jaredrummler.android.colorpicker.ColorPanelView
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
@@ -44,6 +50,9 @@ class CanvasEditControlItem : DslAdapterItem() {
         payloads: List<Any>
     ) {
         super.onItemBind(itemHolder, itemPosition, adapterItem, payloads)
+
+        //color
+        bindColor(itemHolder)
 
         val renderer = itemRenderer
         val canvasDelegate = itemCanvasDelegate
@@ -386,5 +395,43 @@ class CanvasEditControlItem : DslAdapterItem() {
             }
         }
         return newValueBuild.toString()
+    }
+
+    /**颜色*/
+    fun bindColor(itemHolder: DslViewHolder) {
+        val renderer = itemRenderer
+
+        //是否需要显示颜色控件
+        var showColorView = false
+        var color: Int = Color.TRANSPARENT //颜色
+        if (renderer is BaseItemRenderer<*>) {
+            val item = renderer.getRendererItem()
+            if (item is PictureTextItem || item is PictureShapeItem) {
+                showColorView = true
+                color = item.paint.color
+            }
+        }
+
+        //init
+        itemHolder.visible(R.id.item_color_view, showColorView)
+        itemHolder.v<ColorPanelView>(R.id.item_color_view)?.apply {
+            setColor(color)
+
+            clickIt {
+                itemHolder.context.hsvColorPickerDialog {
+                    initialColor = color
+                    showAlphaSlider = false
+                    colorPickerAction = { dialog, color ->
+                        if (renderer is BaseItemRenderer<*>) {
+                            renderer.updatePaintColor(color)
+
+                            //自举更新
+                            updateAdapterItem()
+                        }
+                        false
+                    }
+                }
+            }
+        }
     }
 }

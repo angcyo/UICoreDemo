@@ -404,6 +404,11 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 updateLayerLayout(vh)
             }
 
+            override fun onItemRenderUpdate(item: IRenderer) {
+                super.onItemRenderUpdate(item)
+                updateLayerLayout(vh)
+            }
+
             override fun onItemBoundsChanged(item: IRenderer, reason: Reason, oldBounds: RectF) {
                 super.onItemBoundsChanged(item, reason, oldBounds)
                 updateControlLayout(vh, canvasView)
