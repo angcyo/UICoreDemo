@@ -2,6 +2,7 @@ package com.angcyo.uicore.demo.canvas
 
 import android.graphics.drawable.Drawable
 import com.angcyo.canvas.CanvasDelegate
+import com.angcyo.canvas.Strategy
 import com.angcyo.canvas.core.renderer.SelectGroupRenderer
 import com.angcyo.canvas.items.renderer.BaseItemRenderer
 import com.angcyo.dsladapter.DslAdapterItem
@@ -10,14 +11,23 @@ import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
 
 /**
+ * 图层item
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
  * @since 2022/05/09
  */
 class CanvasLayerItem : DslAdapterItem() {
 
-    var itemCanvasDelegate: CanvasDelegate? = null
+    //region ---core---
 
+    var itemCanvasDelegate: CanvasDelegate? = null
     var itemRenderer: BaseItemRenderer<*>? = null
+
+    /**排序事件*/
+    var itemSortAction: (DslViewHolder) -> Unit = {}
+
+    //endregion ---core---
+
+    //region ---计算属性---
 
     val itemLayerHide: Boolean get() = itemRenderer?.isVisible() == false
 
@@ -26,6 +36,8 @@ class CanvasLayerItem : DslAdapterItem() {
     val itemItemDrawable: Drawable? get() = itemRenderer?.getRendererItem()?.itemDrawable
 
     val itemItemName: CharSequence? get() = itemRenderer?.getRendererItem()?.itemName
+
+    //endregion ---计算属性---
 
     init {
         itemLayoutId = R.layout.item_canvas_layer_layout
@@ -84,6 +96,15 @@ class CanvasLayerItem : DslAdapterItem() {
             itemRenderer?.setVisible(itemLayerHide)
             itemCanvasDelegate?.refresh()
             updateAdapterItem()
+        }
+        itemHolder.click(R.id.layer_delete_view) {
+            itemRenderer?.let {
+                itemCanvasDelegate?.removeItemRenderer(it, Strategy.normal)
+            }
+        }
+        itemHolder.click(R.id.layer_sort_view) {
+            //排序
+            itemSortAction(itemHolder)
         }
 
         itemHolder.click(R.id.lib_check_view) {

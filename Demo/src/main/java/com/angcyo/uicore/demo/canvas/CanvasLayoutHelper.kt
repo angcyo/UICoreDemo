@@ -14,6 +14,7 @@ import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
 import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.Reason
+import com.angcyo.canvas.Strategy
 import com.angcyo.canvas.core.CanvasUndoManager
 import com.angcyo.canvas.core.ICanvasListener
 import com.angcyo.canvas.core.IRenderer
@@ -189,7 +190,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                     updateAdapterItem()
 
                     if (itemIsSelected) {
-                        showLayerControlLayout(vh, canvasView)
+                        updateLayerControlLayout(vh, canvasView)
                     }
                 }
             }
@@ -427,7 +428,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             override fun onItemSortChanged(itemList: List<BaseItemRenderer<*>>) {
                 super.onItemSortChanged(itemList)
                 updateControlLayout(vh, canvasView)
-                showLayerControlLayout(vh, canvasView)
+                updateLayerControlLayout(vh, canvasView)
             }
 
             override fun onClearSelectItem(itemRenderer: IItemRenderer<*>) {
@@ -972,20 +973,48 @@ class CanvasLayoutHelper(val fragment: Fragment) {
         }
     }
 
+    var _layerDragHelper: DragCallbackHelper? = null
+
     /**显示图层item*/
-    fun showLayerControlLayout(vh: DslViewHolder, canvasView: CanvasView) {
-        vh.rv(R.id.canvas_layer_view)?.renderDslAdapter {
-            hookUpdateDepend()
-            canvasView.canvasDelegate.itemsRendererList.forEach {
-                CanvasLayerItem()() {
-                    itemCanvasDelegate = canvasView.canvasDelegate
-                    itemRenderer = it
-                }
+    fun updateLayerControlLayout(vh: DslViewHolder, canvasView: CanvasView) {
+        vh.rv(R.id.canvas_layer_view)?.apply {
+            if (_layerDragHelper == null) {
+                _layerDragHelper =
+                    DragCallbackHelper.install(this, DragCallbackHelper.FLAG_VERTICAL).apply {
+                        onClearView = { recyclerView, viewHolder ->
+                            if (_dragHappened) {
+                                //发生过拖拽
+                                val list = mutableListOf<BaseItemRenderer<*>>()
+                                _dslAdapter?.eachItem { index, dslAdapterItem ->
+                                    if (dslAdapterItem is CanvasLayerItem) {
+                                        dslAdapterItem.itemRenderer?.let {
+                                            list.add(it)
+                                        }
+                                    }
+                                }
+                                canvasView.canvasDelegate.arrangeSort(list, Strategy.normal)
+                            }
+                        }
+                    }
             }
-            if (canvasView.canvasDelegate.itemsRendererList.isEmpty()) {
-                setAdapterStatus(DslAdapterStatusItem.ADAPTER_STATUS_EMPTY)
-            } else {
-                setAdapterStatus(DslAdapterStatusItem.ADAPTER_STATUS_NONE)
+            renderDslAdapter {
+                hookUpdateDepend()
+                canvasView.canvasDelegate.itemsRendererList.forEach {
+                    CanvasLayerItem()() {
+                        itemCanvasDelegate = canvasView.canvasDelegate
+                        itemRenderer = it
+
+                        itemSortAction = {
+                            it.itemView.longFeedback()
+                            _layerDragHelper?.startDrag(it)
+                        }
+                    }
+                }
+                if (canvasView.canvasDelegate.itemsRendererList.isEmpty()) {
+                    setAdapterStatus(DslAdapterStatusItem.ADAPTER_STATUS_EMPTY)
+                } else {
+                    setAdapterStatus(DslAdapterStatusItem.ADAPTER_STATUS_NONE)
+                }
             }
         }
     }
