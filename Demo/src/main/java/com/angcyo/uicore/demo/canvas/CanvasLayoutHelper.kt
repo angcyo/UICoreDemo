@@ -1045,6 +1045,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     ) {
         vh.rv(R.id.canvas_control_view)?.renderDslAdapter {
             hookUpdateDepend()
+            //
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_text_style_align_left_ico
                 itemText = _string(R.string.canvas_align_left)
@@ -1054,8 +1055,8 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 }
             }
             CanvasControlItem()() {
-                itemIco = R.drawable.canvas_text_style_align_center_ico
-                itemText = _string(R.string.canvas_align_center)
+                itemIco = R.drawable.canvas_text_style_align_left_ico
+                itemText = _string(R.string.canvas_align_horizontal)
                 itemRenderer = renderer
                 itemClick = {
                     renderer.updateAlign(Gravity.CENTER_HORIZONTAL)
@@ -1067,6 +1068,40 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemRenderer = renderer
                 itemClick = {
                     renderer.updateAlign(Gravity.RIGHT)
+                }
+            }
+            //
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_text_style_align_center_ico
+                itemText = _string(R.string.canvas_align_center)
+                itemRenderer = renderer
+                itemClick = {
+                    renderer.updateAlign(Gravity.CENTER)
+                }
+            }
+            //
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_text_style_align_left_ico
+                itemText = _string(R.string.canvas_align_top)
+                itemRenderer = renderer
+                itemClick = {
+                    renderer.updateAlign(Gravity.TOP)
+                }
+            }
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_text_style_align_left_ico
+                itemText = _string(R.string.canvas_align_vertical)
+                itemRenderer = renderer
+                itemClick = {
+                    renderer.updateAlign(Gravity.CENTER_VERTICAL)
+                }
+            }
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_text_style_align_right_ico
+                itemText = _string(R.string.canvas_align_bottom)
+                itemRenderer = renderer
+                itemClick = {
+                    renderer.updateAlign(Gravity.BOTTOM)
                 }
             }
         }
