@@ -63,6 +63,7 @@
         app:layout_constraintBottom_toTopOf="@id/width_label_view"
         app:layout_constraintLeft_toRightOf="@id/item_drawable_view"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginLeft="@dimen/lib_xhdpi"
         tools:text="0.0123456" />
 
     <androidx.appcompat.widget.AppCompatTextView

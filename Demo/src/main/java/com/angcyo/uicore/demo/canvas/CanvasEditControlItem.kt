@@ -16,7 +16,7 @@ import com.angcyo.github.dialog.hsvColorPickerDialog
 import com.angcyo.library.ex.ADJUST_TYPE_LT
 import com.angcyo.library.ex.adjustSize
 import com.angcyo.library.ex.adjustSizeWithRotate
-import com.angcyo.library.ex.visible
+import com.angcyo.library.ex.gone
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.base.clickIt
@@ -57,11 +57,12 @@ class CanvasEditControlItem : DslAdapterItem() {
         val renderer = itemRenderer
         val canvasDelegate = itemCanvasDelegate
         if (canvasDelegate != null && renderer is BaseItemRenderer<*>) {
-            val drawable = renderer._rendererItem?.itemDrawable ?: itemRenderer?.preview()
+            //val drawable = renderer._rendererItem?.itemDrawable ?: itemRenderer?.preview()
             itemHolder.img(R.id.item_drawable_view)?.apply {
-                visible(drawable != null)
-                itemHolder.visible(R.id.item_drawable_line_view, drawable != null)
-                setImageDrawable(drawable)
+                //visible(drawable != null)
+                //itemHolder.visible(R.id.item_drawable_line_view, drawable != null)
+                //setImageDrawable(drawable)
+                gone()
             }
             itemHolder.selected(R.id.item_lock_view, renderer.isLockScaleRatio)
 
@@ -414,6 +415,7 @@ class CanvasEditControlItem : DslAdapterItem() {
 
         //init
         itemHolder.visible(R.id.item_color_view, showColorView)
+        itemHolder.visible(R.id.item_drawable_line_view, showColorView)
         itemHolder.v<ColorPanelView>(R.id.item_color_view)?.apply {
             setColor(color)
 
