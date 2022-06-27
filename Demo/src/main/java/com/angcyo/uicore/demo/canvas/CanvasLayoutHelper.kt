@@ -130,7 +130,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             AddImageItem(canvasView)()
             AddShapesItem()() {
                 itemClick = {
-                    vh.showControlLayout(!itemIsSelected)
+                    vh.showControlLayout(canvasView, !itemIsSelected)
                     itemIsSelected = !itemIsSelected
                     updateAdapterItem()
 
@@ -165,7 +165,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemText = _string(R.string.canvas_edit)
                 itemEnable = true
                 itemClick = {
-                    vh.showControlLayout(!itemIsSelected)
+                    vh.showControlLayout(canvasView, !itemIsSelected)
                     itemIsSelected = !itemIsSelected
                     updateAdapterItem()
 
@@ -439,7 +439,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             override fun onClearSelectItem(itemRenderer: IItemRenderer<*>) {
                 super.onClearSelectItem(itemRenderer)
                 cancelSelectedItem()
-                vh.showControlLayout(false)
+                vh.showControlLayout(canvasView, false)
                 updateLayerLayout(vh)
             }
 
@@ -453,30 +453,13 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                     return
                 }
                 cancelSelectedItem()
-                vh.showControlLayout()
+                vh.showControlLayout(canvasView)
+
+                //更新图层
                 updateLayerLayout(vh)
-                if (itemRenderer is TextItemRenderer || itemRenderer is PictureTextItemRenderer) {
-                    //选中TextItemRenderer时的控制菜单
-                    showTextControlLayoutOld(vh, canvasView, itemRenderer)
-                } else if (itemRenderer is PictureItemRenderer) {
-                    val renderItem = itemRenderer._rendererItem
-                    if (renderItem is PictureTextItem) {
-                        //选中TextItemRenderer时的控制菜单
-                        showTextControlLayout(vh, canvasView, itemRenderer)
-                    } else if (renderItem is PictureShapeItem) {
-                        showShapeControlLayout(vh, canvasView, itemRenderer)
-                    } else if (renderItem is PictureBitmapItem) {
-                        showBitmapControlLayout(vh, canvasView, itemRenderer)
-                    } else {
-                        vh.showControlLayout(false)
-                    }
-                } else if (itemRenderer is BitmapItemRenderer) {
-                    showBitmapControlLayout(vh, canvasView, itemRenderer)
-                } else if (itemRenderer is SelectGroupRenderer) {
-                    showGroupControlLayout(vh, canvasView, itemRenderer)
-                } else {
-                    vh.showControlLayout(false)
-                }
+
+                //显示对应的控制布局
+                showSelectedItemControlLayout(vh, canvasView, itemRenderer)
 
                 //预览选中的元素边框
                 val peckerModel = vmApp<LaserPeckerModel>()
@@ -520,7 +503,19 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     }
 
     /**隐藏控制布局*/
-    fun DslViewHolder.showControlLayout(visible: Boolean = true) {
+    fun DslViewHolder.showControlLayout(canvasView: CanvasView, visible: Boolean = true) {
+        if (!visible) {
+            //如果要隐藏控制布局时, 判断是否已经选中了item
+            val itemRenderer = canvasView.canvasDelegate.getSelectedRenderer()
+            if (itemRenderer != null && showSelectedItemControlLayout(
+                    this, canvasView, itemRenderer
+                )
+            ) {
+                //被处理
+                return
+            }
+        }
+
         dslTransition(itemView as ViewGroup) {
             onCaptureStartValues = {
                 //invisible(R.id.canvas_control_layout)
@@ -529,6 +524,41 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 visible(R.id.canvas_control_layout, visible)
             }
         }
+    }
+
+    /**根据选中的item, 显示对应的控制布局
+     * @return 表示是否处理了*/
+    fun showSelectedItemControlLayout(
+        vh: DslViewHolder,
+        canvasView: CanvasView,
+        itemRenderer: IItemRenderer<*>
+    ): Boolean {
+        var result = true
+        if (itemRenderer is TextItemRenderer || itemRenderer is PictureTextItemRenderer) {
+            //选中TextItemRenderer时的控制菜单
+            renderTextControlLayoutOld(vh, canvasView, itemRenderer)
+        } else if (itemRenderer is PictureItemRenderer) {
+            val renderItem = itemRenderer._rendererItem
+            if (renderItem is PictureTextItem) {
+                //选中TextItemRenderer时的控制菜单
+                renderTextControlLayout(vh, canvasView, itemRenderer)
+            } else if (renderItem is PictureShapeItem) {
+                renderShapeControlLayout(vh, canvasView, itemRenderer)
+            } else if (renderItem is PictureBitmapItem) {
+                renderBitmapControlLayout(vh, canvasView, itemRenderer)
+            } else {
+                //vh.showControlLayout(false)
+                result = false
+            }
+        } else if (itemRenderer is BitmapItemRenderer) {
+            renderBitmapControlLayout(vh, canvasView, itemRenderer)
+        } else if (itemRenderer is SelectGroupRenderer) {
+            renderGroupControlLayout(vh, canvasView, itemRenderer)
+        } else {
+            //vh.showControlLayout(false)
+            result = false
+        }
+        return result
     }
 
     /**显示形状选择布局*/
@@ -612,7 +642,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     }
 
     /**文本属性控制item*/
-    fun showTextControlLayoutOld(
+    fun renderTextControlLayoutOld(
         vh: DslViewHolder,
         canvasView: CanvasView,
         itemRenderer: IItemRenderer<*>
@@ -720,7 +750,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     }
 
     /**统一样式的item*/
-    fun showTextControlLayout(
+    fun renderTextControlLayout(
         vh: DslViewHolder,
         canvasView: CanvasView,
         renderer: BaseItemRenderer<*>
@@ -837,7 +867,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     //<editor-fold desc="形状控制">
 
     /**形状属性控制item*/
-    fun showShapeControlLayout(
+    fun renderShapeControlLayout(
         vh: DslViewHolder,
         canvasView: CanvasView,
         itemRenderer: IItemRenderer<*>
@@ -872,7 +902,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     //<editor-fold desc="图片控制">
 
     /**图片属性控制item*/
-    fun showBitmapControlLayout(
+    fun renderBitmapControlLayout(
         vh: DslViewHolder,
         canvasView: CanvasView,
         renderer: IItemRenderer<*>
@@ -1072,7 +1102,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
     //<editor-fold desc="群组控制">
 
     /**群组控制*/
-    fun showGroupControlLayout(
+    fun renderGroupControlLayout(
         vh: DslViewHolder,
         canvasView: CanvasView,
         renderer: SelectGroupRenderer
