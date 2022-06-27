@@ -23,7 +23,7 @@ import com.angcyo.canvas.items.PictureBitmapItem
 import com.angcyo.canvas.items.PictureShapeItem
 import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.*
-import com.angcyo.canvas.utils.CanvasDataHandleOprate
+import com.angcyo.canvas.utils.CanvasDataHandleOperate
 import com.angcyo.canvas.utils.ShapesHelper
 import com.angcyo.canvas.utils.addPictureBitmapRenderer
 import com.angcyo.core.vmApp
@@ -205,7 +205,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                                 if (item is PictureShapeItem) {
                                     fragment.loadingAsync({
                                         item.shapePath?.let { path ->
-                                            CanvasDataHandleOprate.pathStrokeToGCode(
+                                            CanvasDataHandleOperate.pathStrokeToGCode(
                                                 path,
                                                 renderer.getRotateBounds(),
                                                 renderer.rotate

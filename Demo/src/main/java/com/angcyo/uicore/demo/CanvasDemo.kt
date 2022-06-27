@@ -220,7 +220,7 @@ class CanvasDemo : AppDslFragment() {
                         val text = fContext().readAssets("LaserPecker.gcode")
                         val drawable = GCodeHelper.parseGCode(text)!!
                         addDrawableRenderer(drawable).setHoldData(
-                            CanvasDataHandleOprate.KEY_GCODE,
+                            CanvasDataHandleOperate.KEY_GCODE,
                             text
                         )
                     }
@@ -232,7 +232,7 @@ class CanvasDemo : AppDslFragment() {
                         }*/
                         loadSvgPathDrawable().apply {
                             addDrawableRenderer(second).setHoldData(
-                                CanvasDataHandleOprate.KEY_SVG,
+                                CanvasDataHandleOperate.KEY_SVG,
                                 second.pathList
                             )
                         }
@@ -242,7 +242,7 @@ class CanvasDemo : AppDslFragment() {
                     canvasView?.apply {
                         loadGCodeDrawable().apply {
                             addDrawableRenderer(second).setHoldData(
-                                CanvasDataHandleOprate.KEY_GCODE,
+                                CanvasDataHandleOperate.KEY_GCODE,
                                 first
                             )
                         }
@@ -463,7 +463,7 @@ class CanvasDemo : AppDslFragment() {
             if (!text.isNullOrEmpty()) {
                 //GCode
                 loadingAsync({
-                    CanvasDataHandleOprate.gCodeAdjust(
+                    CanvasDataHandleOperate.gCodeAdjust(
                         text,
                         renderer.getBounds(),
                         renderer.rotate
@@ -472,7 +472,7 @@ class CanvasDemo : AppDslFragment() {
                     //no
                     it?.readText()?.let { gCode ->
                         canvasView.addDrawableRenderer(GCodeHelper.parseGCode(gCode)!!)
-                            .setHoldData(CanvasDataHandleOprate.KEY_GCODE, gCode)
+                            .setHoldData(CanvasDataHandleOperate.KEY_GCODE, gCode)
                     }
                 }
             } else {
@@ -480,7 +480,7 @@ class CanvasDemo : AppDslFragment() {
                 if (!pathList.isNullOrEmpty()) {
                     //path list
                     loadingAsync({
-                        CanvasDataHandleOprate.pathStrokeToGCode(
+                        CanvasDataHandleOperate.pathStrokeToGCode(
                             pathList,
                             renderer.getBounds(),
                             renderer.rotate
@@ -489,7 +489,7 @@ class CanvasDemo : AppDslFragment() {
                         //no
                         it?.readText()?.let { gCode ->
                             canvasView.addDrawableRenderer(GCodeHelper.parseGCode(gCode)!!)
-                                .setHoldData(CanvasDataHandleOprate.KEY_GCODE, gCode)
+                                .setHoldData(CanvasDataHandleOperate.KEY_GCODE, gCode)
                         }
                     }
                 } else {
@@ -502,10 +502,10 @@ class CanvasDemo : AppDslFragment() {
                     val bitmap = renderer.preview()?.toBitmap()
                     loadingAsync({
                         if (bitmap != null) {
-                            CanvasDataHandleOprate.bitmapToGCode(bitmap, Gravity.LEFT, lineSpace)
-                            CanvasDataHandleOprate.bitmapToGCode(bitmap, Gravity.TOP, lineSpace)
-                            CanvasDataHandleOprate.bitmapToGCode(bitmap, Gravity.RIGHT, lineSpace)
-                            CanvasDataHandleOprate.bitmapToGCode(bitmap, Gravity.BOTTOM, lineSpace)
+                            CanvasDataHandleOperate.bitmapToGCode(bitmap, Gravity.LEFT, lineSpace)
+                            CanvasDataHandleOperate.bitmapToGCode(bitmap, Gravity.TOP, lineSpace)
+                            CanvasDataHandleOperate.bitmapToGCode(bitmap, Gravity.RIGHT, lineSpace)
+                            CanvasDataHandleOperate.bitmapToGCode(bitmap, Gravity.BOTTOM, lineSpace)
                         } else {
                             null
                         }
@@ -513,7 +513,7 @@ class CanvasDemo : AppDslFragment() {
                         //no
                         it?.readText()?.let { gCode ->
                             canvasView.addDrawableRenderer(GCodeHelper.parseGCode(gCode)!!)
-                                .setHoldData(CanvasDataHandleOprate.KEY_GCODE, gCode)
+                                .setHoldData(CanvasDataHandleOperate.KEY_GCODE, gCode)
                         }
                     }
                 }
