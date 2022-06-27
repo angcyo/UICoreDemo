@@ -11,13 +11,13 @@ import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.coroutine.onBack
 import com.angcyo.coroutine.sleep
 import com.angcyo.dialog.*
+import com.angcyo.dialog2.CalendarDialogConfig
+import com.angcyo.dialog2.calendarDialog
+import com.angcyo.dialog2.wheelDateDialog
+import com.angcyo.dialog2.wheelDialog
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.ItemSelectorHelper
 import com.angcyo.dsladapter.dslItem
-import com.angcyo.github.dialog.CalendarDialogConfig
-import com.angcyo.github.dialog.calendarDialog
-import com.angcyo.github.dialog.wheelDateDialog
-import com.angcyo.github.dialog.wheelDialog
 import com.angcyo.library.*
 import com.angcyo.library.component.nowCalendar
 import com.angcyo.library.component.toCalendar

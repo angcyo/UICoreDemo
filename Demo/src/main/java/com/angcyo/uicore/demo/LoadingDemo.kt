@@ -6,11 +6,11 @@ import android.os.Bundle
 import androidx.core.view.doOnPreDraw
 import com.angcyo.dialog.normalDialog
 import com.angcyo.dialog.verifyCodeInputDialog
+import com.angcyo.dialog2.colorPickerDialog
+import com.angcyo.dialog2.hsvColorPickerDialog
 import com.angcyo.drawable.loading.TGSolidLoadingDrawable
 import com.angcyo.drawable.loading.TGStrokeLoadingDrawable
 import com.angcyo.dsladapter.bindItem
-import com.angcyo.github.dialog.colorPickerDialog
-import com.angcyo.github.dialog.hsvColorPickerDialog
 import com.angcyo.github.widget.drawable.ColorPaletteDrawable
 import com.angcyo.library.ex.*
 import com.angcyo.uicore.MainFragment

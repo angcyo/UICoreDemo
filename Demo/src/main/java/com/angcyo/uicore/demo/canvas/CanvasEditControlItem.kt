@@ -10,9 +10,9 @@ import com.angcyo.canvas.items.PictureShapeItem
 import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.BaseItemRenderer
 import com.angcyo.canvas.utils.canvasDecimal
+import com.angcyo.dialog2.hsvColorPickerDialog
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.engrave.canvas.canvasNumberWindow
-import com.angcyo.github.dialog.hsvColorPickerDialog
 import com.angcyo.library.ex.ADJUST_TYPE_LT
 import com.angcyo.library.ex.adjustSize
 import com.angcyo.library.ex.adjustSizeWithRotate

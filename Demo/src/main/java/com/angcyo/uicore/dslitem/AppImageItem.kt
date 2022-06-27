@@ -8,13 +8,9 @@ import com.angcyo.glide.GlideImageView
 import com.angcyo.glide.giv
 import com.angcyo.http.OkType
 import com.angcyo.library.L
-import com.angcyo.library.ex._drawable
-import com.angcyo.library.ex.dpi
-import com.angcyo.library.ex.randomColorAlpha
-import com.angcyo.library.ex.toDpi
+import com.angcyo.library.ex.*
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
-import com.angcyo.library.ex.setHeight
 import com.angcyo.widget.layout.RFrameLayout
 
 /**

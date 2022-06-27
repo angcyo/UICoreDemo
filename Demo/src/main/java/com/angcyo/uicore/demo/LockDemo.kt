@@ -9,8 +9,8 @@ import com.angcyo.base.fullscreen
 import com.angcyo.core.component.model.*
 import com.angcyo.core.vmCore
 import com.angcyo.dsladapter.findItemByTag
-import com.angcyo.github.dslitem.DslLabelWheelItem
-import com.angcyo.github.dslitem.itemWheelBean
+import com.angcyo.dialog2.dslitem.DslLabelWheelItem
+import com.angcyo.dialog2.dslitem.itemWheelBean
 import com.angcyo.item.*
 import com.angcyo.item.style.itemButtonText
 import com.angcyo.item.style.itemEditText
