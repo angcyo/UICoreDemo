@@ -24,6 +24,7 @@ import com.angcyo.canvas.Strategy
 import com.angcyo.canvas.core.InchValueUnit
 import com.angcyo.canvas.core.MmValueUnit
 import com.angcyo.canvas.core.PixelValueUnit
+import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.ShapeItemRenderer
 import com.angcyo.canvas.items.setHoldData
 import com.angcyo.canvas.utils.*
@@ -39,6 +40,7 @@ import com.angcyo.engrave.ble.bluetoothSearchListDialog
 import com.angcyo.engrave.canvas.loadingAsync
 import com.angcyo.engrave.model.FscDeviceModel
 import com.angcyo.gcode.GCodeHelper
+import com.angcyo.gcode.GCodeWriteHandler
 import com.angcyo.http.rx.doMain
 import com.angcyo.library.ex.*
 import com.angcyo.library.toast
@@ -492,13 +494,18 @@ class CanvasDemo : AppDslFragment() {
                     }
                 } else {
                     //bitmap to gcode
+                    val lineSpace = if (renderer.getRendererItem() is PictureTextItem) {
+                        GCodeWriteHandler.GCODE_SPACE_4K
+                    } else {
+                        GCodeWriteHandler.GCODE_SPACE_1K
+                    }
                     val bitmap = renderer.preview()?.toBitmap()
                     loadingAsync({
                         if (bitmap != null) {
-                            CanvasDataHandleOprate.bitmapToGCode(bitmap, Gravity.LEFT)
-                            CanvasDataHandleOprate.bitmapToGCode(bitmap, Gravity.TOP)
-                            CanvasDataHandleOprate.bitmapToGCode(bitmap, Gravity.RIGHT)
-                            CanvasDataHandleOprate.bitmapToGCode(bitmap, Gravity.BOTTOM)
+                            CanvasDataHandleOprate.bitmapToGCode(bitmap, Gravity.LEFT, lineSpace)
+                            CanvasDataHandleOprate.bitmapToGCode(bitmap, Gravity.TOP, lineSpace)
+                            CanvasDataHandleOprate.bitmapToGCode(bitmap, Gravity.RIGHT, lineSpace)
+                            CanvasDataHandleOprate.bitmapToGCode(bitmap, Gravity.BOTTOM, lineSpace)
                         } else {
                             null
                         }
