@@ -1,16 +1,22 @@
 package com.angcyo.uicore.demo
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.widget.TextView
 import com.angcyo.canvas.utils.toEngraveBitmap
 import com.angcyo.component.getPhoto
+import com.angcyo.drawable.PathDrawable
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave.canvas.loadingAsync
 import com.angcyo.library.ex.colorChannel
+import com.angcyo.library.ex.textBounds
+import com.angcyo.library.ex.textPath
 import com.angcyo.library.ex.toChannelBitmap
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.DslViewHolder
+import com.angcyo.widget.base.clickIt
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
@@ -55,6 +61,49 @@ class ColorChannelDemo : AppDslFragment() {
                 itemHolder.click(R.id.engrave_channel_button) {
                     extractEngraveChannel(itemHolder)
                 }
+
+                //text test
+                val textView1 = itemHolder.tv(R.id.lp_text_view1)?.apply {
+                    typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
+                    clickIt {
+                        testPathDrawable(itemHolder, this)
+                    }
+                }
+                val textView2 = itemHolder.tv(R.id.lp_text_view2)?.apply {
+                    typeface = Typeface.create(Typeface.DEFAULT, Typeface.ITALIC)
+                    clickIt {
+                        testPathDrawable(itemHolder, this)
+                    }
+                }
+                val textView3 = itemHolder.tv(R.id.lp_text_view3)?.apply {
+                    typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+                    clickIt {
+                        testPathDrawable(itemHolder, this)
+                    }
+                }
+                val textView4 = itemHolder.tv(R.id.lp_text_view4)?.apply {
+                    typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD_ITALIC)
+                    clickIt {
+                        testPathDrawable(itemHolder, this)
+                    }
+                }
+                val resultTextView = itemHolder.tv(R.id.lp_result_view)
+                itemHolder.click(R.id.get_bounds_button) {
+                    resultTextView?.text = buildString {
+
+                        fun appendView(tv: TextView?) {
+                            val bounds = tv?.paint?.textBounds(tv.text)
+                            append(bounds)
+                            append(" w:${bounds?.width()} h:${bounds?.height()}")
+                            appendLine()
+                        }
+
+                        appendView(textView1)
+                        appendView(textView2)
+                        appendView(textView3)
+                        appendView(textView4)
+                    }
+                }
             }
         }
     }
@@ -97,6 +146,14 @@ class ColorChannelDemo : AppDslFragment() {
                     itemHolder.img(R.id.engrave_image_view)?.setImageBitmap(bitmap)
                 }
             }
+        }
+    }
+
+    fun testPathDrawable(itemHolder: DslViewHolder, tv: TextView) {
+        itemHolder.img(R.id.alpha_image_view)?.apply {
+            setImageDrawable(PathDrawable().apply {
+                setPath(tv.paint.textPath(tv.text.toString()))
+            })
         }
     }
 
