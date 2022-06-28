@@ -10,7 +10,7 @@ import com.angcyo.canvas.items.PictureShapeItem
 import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.BaseItemRenderer
 import com.angcyo.canvas.utils.canvasDecimal
-import com.angcyo.dialog2.hsvColorPickerDialog
+import com.angcyo.dialog.singleColorPickerDialog
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.engrave.canvas.canvasNumberWindow
 import com.angcyo.library.ex.ADJUST_TYPE_LT
@@ -420,9 +420,22 @@ class CanvasEditControlItem : DslAdapterItem() {
             setColor(color)
 
             clickIt {
-                itemHolder.context.hsvColorPickerDialog {
+                /*itemHolder.context.hsvColorPickerDialog {
                     initialColor = color
                     showAlphaSlider = false
+                    colorPickerAction = { dialog, color ->
+                        if (renderer is BaseItemRenderer<*>) {
+                            renderer.updatePaintColor(color)
+
+                            //自举更新
+                            updateAdapterItem()
+                        }
+                        false
+                    }
+                }*/
+
+                itemHolder.context.singleColorPickerDialog {
+                    initialColor = color
                     colorPickerAction = { dialog, color ->
                         if (renderer is BaseItemRenderer<*>) {
                             renderer.updatePaintColor(color)
