@@ -5,6 +5,7 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.core.view.doOnPreDraw
 import com.angcyo.dialog.normalDialog
+import com.angcyo.dialog.singleColorPickerDialog
 import com.angcyo.dialog.verifyCodeInputDialog
 import com.angcyo.dialog2.colorPickerDialog
 import com.angcyo.dialog2.hsvColorPickerDialog
@@ -124,6 +125,19 @@ class LoadingDemo : AppDslFragment() {
                 itemHolder.click(R.id.hsv_color_picker_button) {
                     val seekBar = itemHolder.v<DslBlockSeekBar>(R.id.seek_bar)
                     fContext().hsvColorPickerDialog {
+                        initialColor =
+                            (seekBar?.progressBgDrawable as? GradientDrawable)?.color?.defaultColor
+                                ?: initialColor
+                        colorPickerAction = { dialog, color ->
+                            itemHolder.tv(R.id.text_view)?.text = color.toHexColorString()
+                            seekBar?.setBgGradientColors("$color")
+                            false
+                        }
+                    }
+                }
+                itemHolder.click(R.id.single_color_picker_button) {
+                    val seekBar = itemHolder.v<DslBlockSeekBar>(R.id.seek_bar)
+                    fContext().singleColorPickerDialog {
                         initialColor =
                             (seekBar?.progressBgDrawable as? GradientDrawable)?.color?.defaultColor
                                 ?: initialColor
