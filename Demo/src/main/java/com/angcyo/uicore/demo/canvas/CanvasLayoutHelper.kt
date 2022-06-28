@@ -453,13 +453,15 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                     return
                 }
                 cancelSelectedItem()
+
+                //显示控制布局
                 vh.showControlLayout(canvasView)
 
                 //更新图层
                 updateLayerLayout(vh)
 
-                //显示对应的控制布局
-                showSelectedItemControlLayout(vh, canvasView, itemRenderer)
+                //显示对应的控制Item布局, 没有则隐藏布局
+                vh.showControlLayout(canvasView, false)
 
                 //预览选中的元素边框
                 val peckerModel = vmApp<LaserPeckerModel>()
