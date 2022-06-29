@@ -2,12 +2,14 @@ package com.angcyo.uicore.demo
 
 import android.graphics.Color
 import android.os.Bundle
+import android.widget.EditText
 import com.angcyo.behavior.placeholder.TitleBarPlaceholderBehavior
-import com.angcyo.library.ex.toDpi
 import com.angcyo.library.ex.fullTime
 import com.angcyo.library.ex.nowTime
+import com.angcyo.library.ex.toDpi
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.base.clickIt
+import com.angcyo.widget.base.onTextChange
 import com.angcyo.widget.base.setBehavior
 import com.angcyo.widget.layout.DslSoftInputLayout
 import com.angcyo.widget.layout.OnSoftInputListener
@@ -109,9 +111,34 @@ open class DslSoftInputDemo : AppDslFragment() {
         ) {
             _vh.v<DslSoftInputLayout>(R.id.lib_soft_input_layout)?.handlerMode = it + 1
         }
+
+        //字符字节大小测试
+        _vh.ev(R.id.edit_view1)?.bytesListener()
+        _vh.ev(R.id.edit_view2)?.bytesListener()
     }
 
     override fun onBackPressed(): Boolean {
         return super.onBackPressed() && _vh.soft(R.id.lib_soft_input_layout)?.onBackPress() == true
+    }
+
+    fun EditText.bytesListener() {
+        onTextChange {
+            val text = it.toString()
+            if (text.isEmpty()) {
+                return@onTextChange
+            }
+            val bytes = text.toByteArray()
+            _vh.tv(R.id.tip_text_view)?.append(span {
+                append("->") {
+                    foregroundColor = Color.RED
+                }
+                append(" $text")
+                append(" ${bytes.size}") {
+                    foregroundColor = Color.MAGENTA
+                }
+                append("bytes")
+                appendln()
+            })
+        }
     }
 }

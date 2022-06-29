@@ -25,17 +25,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <androidx.appcompat.widget.AppCompatEditText
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/edit_view1"
                 style="@style/LibBodyTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="占位" />
+                android:hint="占位1" />
 
-            <androidx.appcompat.widget.AppCompatEditText
+            <com.angcyo.widget.edit.DslEditText
+                android:id="@+id/edit_view2"
                 style="@style/LibBodyTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="占位" />
+                android:hint="占位2" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -71,19 +73,19 @@
 
                 <com.angcyo.widget.DslButton
                     android:id="@+id/emoji200"
-                    style="@style/LibButtonStyle"
+                    style="@style/DefaultButtonStyle"
                     android:layout_marginLeft="@dimen/lib_hdpi"
                     android:text="emoji 200" />
 
                 <com.angcyo.widget.DslButton
                     android:id="@+id/emoji400"
-                    style="@style/LibButtonStyle"
+                    style="@style/DefaultButtonStyle"
                     android:layout_marginLeft="@dimen/lib_xhdpi"
                     android:text="400" />
 
                 <com.angcyo.widget.DslButton
                     android:id="@+id/emoji600"
-                    style="@style/LibButtonStyle"
+                    style="@style/DefaultButtonStyle"
                     android:layout_marginLeft="@dimen/lib_xhdpi"
                     android:text="600" />
             </LinearLayout>

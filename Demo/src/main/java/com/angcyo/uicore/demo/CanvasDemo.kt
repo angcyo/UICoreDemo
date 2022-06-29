@@ -64,6 +64,24 @@ import kotlin.random.Random
  */
 class CanvasDemo : AppDslFragment() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        vmApp<FscBleApiModel>().connectDeviceListData.observe {
+            if (it.isNullOrEmpty()) {
+                fragmentTitle = "未连接设备"
+            } else {
+                it.first().let { deviceState ->
+                    fragmentTitle = span {
+                        appendLine(deviceState.device.name)
+                        append(deviceState.device.address) {
+                            fontSize = 12 * dpi
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
 
@@ -286,18 +304,6 @@ class CanvasDemo : AppDslFragment() {
                             //vmApp<FscBleApiModel>().connect("DC:0D:30:10:05:E7")
                             fContext().bluetoothSearchListDialog {
                                 connectedDismiss = true
-
-                                onDismissListener = {
-                                    vmApp<FscBleApiModel>().connectDeviceListData.value?.firstOrNull()
-                                        ?.let { deviceState ->
-                                            fragmentTitle = span {
-                                                appendLine(deviceState.device.name)
-                                                append(deviceState.device.address) {
-                                                    fontSize = 12 * dpi
-                                                }
-                                            }
-                                        }
-                                }
                             }
                         } else {
                             toast("蓝牙权限被禁用!")
