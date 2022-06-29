@@ -88,10 +88,7 @@ dependencies {
     implementation project(allModule.bluetooth)
     implementation project(allModule.browser)
     implementation project(allModule.engrave)
-
-    debugImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
-    pretestImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
-    releaseImplementation "io.objectbox:objectbox-android:$objectboxVersion"
+    implementation project(allModule.objectbox_lp)
 
     //https://github.com/airbnb/lottie-android
     //http://airbnb.io/lottie
@@ -107,8 +104,7 @@ static def apkTime() {
 //apply from: allGradle.v7a
 
 apply plugin: 'kotlin-parcelize'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'io.objectbox' // Apply last.
+apply from: allGradle.objectBrowser // Apply last.
 
 //amap 高德的配置不在 aar里面, 所以可以不需要在此配置
 //apply from: allGradle.amap3d
@@ -120,4 +116,5 @@ apply from: allGradle.bugly
 
 //2022-4-27
 apply from: allGradle.fscaar
+
 
