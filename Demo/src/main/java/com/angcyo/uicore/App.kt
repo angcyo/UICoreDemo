@@ -15,7 +15,9 @@ import com.angcyo.bugly.Bugly
 import com.angcyo.core.CoreApplication
 import com.angcyo.core.fragment.BaseUI
 import com.angcyo.core.viewpager.RFragmentAdapter
+import com.angcyo.core.vmApp
 import com.angcyo.download.DslDownload
+import com.angcyo.engrave.model.FscDeviceModel
 import com.angcyo.jpush.JPush
 import com.angcyo.library.annotation.CallComplianceAfter
 import com.angcyo.library.component.DslNotify
@@ -80,20 +82,10 @@ class App : CoreApplication(), CameraXConfig.Provider {
         super.onCreateMain()
 
         DslTbs.init(this)
-        FscBleApiModel.init()
 
         //fsc
-        RBackground.registerObserver(object : OnBackgroundObserver() {
-            override fun onActivityLifecycleChanged(activity: Activity, state: String) {
-                super.onActivityLifecycleChanged(activity, state)
-                if (state == RBackground.RESUMED) {
-                    if (QuerySettingParser.AUTO_CONNECT_DEVICE) {
-                        //需要自动连接设备
-                        //vmApp<FscBleApiModel>().connect()
-                    }
-                }
-            }
-        })
+        FscBleApiModel.init()
+        vmApp<FscDeviceModel>().initDevice()
     }
 
     @CallComplianceAfter

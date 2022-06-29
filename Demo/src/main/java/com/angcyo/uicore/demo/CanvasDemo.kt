@@ -17,7 +17,6 @@ import com.angcyo.bluetooth.fsc.enqueue
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
 import com.angcyo.bluetooth.fsc.laserpacker.command.*
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryEngraveFileParser
-import com.angcyo.bluetooth.fsc.laserpacker.parse.QuerySettingParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
 import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasView
@@ -36,10 +35,10 @@ import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave.EngraveLayoutHelper
 import com.angcyo.engrave.EngravePreviewLayoutHelper
+import com.angcyo.engrave.ble.DeviceConnectTipActivity
 import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.ble.bluetoothSearchListDialog
 import com.angcyo.engrave.canvas.loadingAsync
-import com.angcyo.engrave.model.FscDeviceModel
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.gcode.GCodeWriteHandler
 import com.angcyo.http.rx.doMain
@@ -50,7 +49,6 @@ import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
 import com.angcyo.uicore.demo.SvgDemo.Companion.svgResList
-import com.angcyo.uicore.demo.ble.DeviceConnectTipActivity
 import com.angcyo.uicore.demo.canvas.CanvasLayoutHelper
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.recycler.initDslAdapter
@@ -428,12 +426,6 @@ class CanvasDemo : AppDslFragment() {
                 //engrave
                 engraveLayoutHelper.bindCanvasView(itemHolder.v<CanvasView>(R.id.canvas_view)!!)
             }
-        }
-
-        //初始化
-        vmApp<FscDeviceModel>().apiModel
-        if (QuerySettingParser.AUTO_CONNECT_DEVICE) {
-            //自动连接设备
         }
     }
 
