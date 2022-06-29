@@ -299,6 +299,15 @@
 
         </activity>
 
+        <!--连接提示-->
+        <activity
+            android:name=".ble.DeviceConnectTipActivity"
+            android:enabled="true"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:noHistory="true"
+            android:theme="@style/LibDialogActivity" />
+
     </application>
 
 </manifest>

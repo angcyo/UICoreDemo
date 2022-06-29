@@ -1,5 +1,6 @@
 package com.angcyo.uicore
 
+import android.app.Activity
 import android.graphics.DashPathEffect
 import androidx.camera.camera2.Camera2Config
 import androidx.camera.core.CameraXConfig
@@ -9,6 +10,7 @@ import androidx.viewpager.widget.ViewPager
 import com.angcyo.DslAHelper
 import com.angcyo.base.restore
 import com.angcyo.bluetooth.fsc.FscBleApiModel
+import com.angcyo.bluetooth.fsc.laserpacker.parse.QuerySettingParser
 import com.angcyo.bugly.Bugly
 import com.angcyo.core.CoreApplication
 import com.angcyo.core.fragment.BaseUI
@@ -17,6 +19,8 @@ import com.angcyo.download.DslDownload
 import com.angcyo.jpush.JPush
 import com.angcyo.library.annotation.CallComplianceAfter
 import com.angcyo.library.component.DslNotify
+import com.angcyo.library.component.OnBackgroundObserver
+import com.angcyo.library.component.RBackground
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.padding
 import com.angcyo.library.ex.randomColor
@@ -73,6 +77,19 @@ class App : CoreApplication(), CameraXConfig.Provider {
 
         DslTbs.init(this)
         FscBleApiModel.init()
+
+        //fsc
+        RBackground.registerObserver(object : OnBackgroundObserver() {
+            override fun onActivityLifecycleChanged(activity: Activity, state: String) {
+                super.onActivityLifecycleChanged(activity, state)
+                if (state == RBackground.RESUMED) {
+                    if (QuerySettingParser.AUTO_CONNECT_DEVICE) {
+                        //需要自动连接设备
+                        //vmApp<FscBleApiModel>().connect()
+                    }
+                }
+            }
+        })
     }
 
     @CallComplianceAfter

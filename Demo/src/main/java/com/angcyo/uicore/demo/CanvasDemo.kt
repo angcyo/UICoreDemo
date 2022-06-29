@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.IReceiveBeanAction
@@ -49,6 +50,7 @@ import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
 import com.angcyo.uicore.demo.SvgDemo.Companion.svgResList
+import com.angcyo.uicore.demo.ble.DeviceConnectTipActivity
 import com.angcyo.uicore.demo.canvas.CanvasLayoutHelper
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.recycler.initDslAdapter
@@ -432,7 +434,6 @@ class CanvasDemo : AppDslFragment() {
         vmApp<FscDeviceModel>().apiModel
         if (QuerySettingParser.AUTO_CONNECT_DEVICE) {
             //自动连接设备
-
         }
     }
 
@@ -517,6 +518,10 @@ class CanvasDemo : AppDslFragment() {
                         }
                     }
                 }
+            }
+        }.elseNull {
+            dslAHelper {
+                start(DeviceConnectTipActivity::class)
             }
         }
     }
