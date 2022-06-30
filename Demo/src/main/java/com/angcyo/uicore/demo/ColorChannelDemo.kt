@@ -11,6 +11,7 @@ import com.angcyo.drawable.PathDrawable
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave.canvas.loadingAsync
 import com.angcyo.library.ex.*
+import com.angcyo.uicore.MainFragment
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.base.clickIt
@@ -60,6 +61,9 @@ class ColorChannelDemo : AppDslFragment() {
                 }
                 itemHolder.click(R.id.gray_button) {
                     grayHandle(itemHolder)
+                }
+                itemHolder.click(R.id.black_white_button) {
+                    blackWhiteHandle(itemHolder)
                 }
 
                 //text test
@@ -155,14 +159,49 @@ class ColorChannelDemo : AppDslFragment() {
         itemHolder.img(R.id.image_view)?.drawable?.let {
             if (it is BitmapDrawable) {
                 loadingAsync({
-                    it.bitmap.grayHandle { color, alpha ->
-                        0xFF
-                    }
+                    it.bitmap.grayHandle(
+                        if (MainFragment.CLICK_COUNT++ % 2 == 0) {
+                            Color.WHITE
+                        } else {
+                            Color.TRANSPARENT
+                        }
+                    )
                 }) { bitmap ->
                     itemHolder.img(R.id.blue_image_view)?.setImageBitmap(bitmap)
 
                     itemHolder.click(R.id.blue_image_view) {
                         itemHolder.img(R.id.image_view)?.setImageBitmap(bitmap)
+                    }
+                }
+            }
+        }
+    }
+
+    /**黑白*/
+    fun blackWhiteHandle(itemHolder: DslViewHolder) {
+        itemHolder.img(R.id.image_view)?.apply {
+            drawable?.let {
+                if (it is BitmapDrawable) {
+                    loadingAsync({
+                        it.bitmap.blackWhiteHandle(
+                            invert = tag != null,
+                            alphaBgColor = if (MainFragment.CLICK_COUNT++ % 2 == 0) {
+                                Color.WHITE
+                            } else {
+                                Color.TRANSPARENT
+                            }
+                        )
+                    }) { bitmap ->
+                        tag = if (tag == null) {
+                            "tag"
+                        } else {
+                            null
+                        }
+                        itemHolder.img(R.id.red_image_view)?.setImageBitmap(bitmap)
+
+                        itemHolder.click(R.id.red_image_view) {
+                            itemHolder.img(R.id.image_view)?.setImageBitmap(bitmap)
+                        }
                     }
                 }
             }

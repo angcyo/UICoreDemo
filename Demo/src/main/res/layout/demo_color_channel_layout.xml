@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/transparent10">
 
     <com.angcyo.widget.layout.DslFlowLayout
         android:layout_width="match_parent"
@@ -128,6 +129,15 @@
         android:layout_marginTop="@dimen/lib_hdpi"
         android:text="灰度"
         app:layout_constraintTop_toBottomOf="@id/engrave_channel_button" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/black_white_button"
+        style="@style/DefaultButtonStyleNormal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        android:text="黑白"
+        app:layout_constraintTop_toBottomOf="@id/gray_button" />
 
     <!--text test-->
     <LinearLayout
