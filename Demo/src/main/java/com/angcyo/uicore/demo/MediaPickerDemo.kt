@@ -5,21 +5,22 @@ import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterItem
-import com.angcyo.dsladapter.getAllItemData
 import com.angcyo.dsladapter.data.loadSingleData
+import com.angcyo.dsladapter.getAllItemData
 import com.angcyo.library.component.DslIntent
 import com.angcyo.library.component.dslIntentShare
-import com.angcyo.library.ex._color
-import com.angcyo.library.ex.dpi
-import com.angcyo.library.utils.resultString
+import com.angcyo.library.ex.*
 import com.angcyo.library.model.LoaderMedia
+import com.angcyo.library.utils.Constant
+import com.angcyo.library.utils.fileName
+import com.angcyo.library.utils.filePath
+import com.angcyo.library.utils.resultString
 import com.angcyo.pager.dslPager
 import com.angcyo.picker.DslPicker
 import com.angcyo.picker.dslPicker
 import com.angcyo.picker.dslitem.DslPickerImageItem
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.AppMediaPickerItem
-import com.angcyo.library.ex.setHeight
 import com.angcyo.widget.recycler.ScrollHelper
 import com.angcyo.widget.recycler.resetLayoutManager
 import com.angcyo.widget.span.span
@@ -64,6 +65,28 @@ class MediaPickerDemo : AppDslFragment() {
                                         mutableListOf(
                                             LoaderMedia(
                                                 localUri = it,
+                                                mimeType = "image/jpeg"
+                                            )
+                                        ),
+                                        initOrCreateDslItem = this@MediaPickerDemo::initOrCreateItem
+                                    )
+                                }
+                            }
+                        }
+                        //拍照 Bitmap
+                        itemHolder.click(R.id.do_take_photo_bitmap) {
+                            DslPicker.takePhotoBitmap(requireActivity()) {
+                                //渲染结果
+                                val filePath = filePath(
+                                    Constant.CAMERA_FOLDER_NAME,
+                                    fileName(suffix = ".jpeg")
+                                )
+                                it?.save(filePath)
+                                renderDslAdapter {
+                                    loadSingleData(
+                                        mutableListOf(
+                                            LoaderMedia(
+                                                localUri = filePath.toUri(),
                                                 mimeType = "image/jpeg"
                                             )
                                         ),
