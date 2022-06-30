@@ -10,10 +10,7 @@ import com.angcyo.component.getPhoto
 import com.angcyo.drawable.PathDrawable
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave.canvas.loadingAsync
-import com.angcyo.library.ex.colorChannel
-import com.angcyo.library.ex.textBounds
-import com.angcyo.library.ex.textPath
-import com.angcyo.library.ex.toChannelBitmap
+import com.angcyo.library.ex.*
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.base.clickIt
@@ -60,6 +57,9 @@ class ColorChannelDemo : AppDslFragment() {
                 }
                 itemHolder.click(R.id.engrave_channel_button) {
                     extractEngraveChannel(itemHolder)
+                }
+                itemHolder.click(R.id.gray_button) {
+                    grayHandle(itemHolder)
                 }
 
                 //text test
@@ -132,6 +132,7 @@ class ColorChannelDemo : AppDslFragment() {
         }
     }
 
+    /**红色通道*/
     fun extractEngraveChannel(itemHolder: DslViewHolder) {
         itemHolder.img(R.id.image_view)?.drawable?.let {
             if (it is BitmapDrawable) {
@@ -144,6 +145,25 @@ class ColorChannelDemo : AppDslFragment() {
                     bitmap
                 }) { bitmap ->
                     itemHolder.img(R.id.engrave_image_view)?.setImageBitmap(bitmap)
+                }
+            }
+        }
+    }
+
+    /**灰度*/
+    fun grayHandle(itemHolder: DslViewHolder) {
+        itemHolder.img(R.id.image_view)?.drawable?.let {
+            if (it is BitmapDrawable) {
+                loadingAsync({
+                    it.bitmap.grayHandle { color, alpha ->
+                        0xFF
+                    }
+                }) { bitmap ->
+                    itemHolder.img(R.id.blue_image_view)?.setImageBitmap(bitmap)
+
+                    itemHolder.click(R.id.blue_image_view) {
+                        itemHolder.img(R.id.image_view)?.setImageBitmap(bitmap)
+                    }
                 }
             }
         }
