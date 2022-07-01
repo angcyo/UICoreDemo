@@ -431,6 +431,9 @@ class CanvasDemo : AppDslFragment() {
 
                 //engrave
                 engraveLayoutHelper.bindCanvasView(itemHolder.v<CanvasView>(R.id.canvas_view)!!)
+
+                //test
+                //canvasView?.canvasDelegate?.engraveMode()
             }
         }
     }
