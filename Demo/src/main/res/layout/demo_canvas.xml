@@ -317,5 +317,4 @@
             app:r_layout_manager="v" />
 
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

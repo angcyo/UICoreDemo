@@ -340,10 +340,8 @@ class CanvasDemo : AppDslFragment() {
                 }
 
                 itemHolder.click(R.id.engrave_preview_button) {
-                    engravePreviewLayoutHelper.showLayout(
-                        itemHolder.itemView as ViewGroup,
-                        canvasView?.canvasDelegate
-                    )
+                    engravePreviewLayoutHelper.canvasDelegate = canvasView?.canvasDelegate
+                    engravePreviewLayoutHelper.show(itemHolder.itemView as ViewGroup)
                 }
 
                 //结束预览
@@ -370,10 +368,8 @@ class CanvasDemo : AppDslFragment() {
                         }*/
 
                         engraveLayoutHelper.renderer = renderer
-                        engraveLayoutHelper.showLayout(
-                            itemHolder.itemView as ViewGroup,
-                            canvasView.canvasDelegate
-                        )
+                        engraveLayoutHelper.canvasDelegate = canvasView.canvasDelegate
+                        engraveLayoutHelper.show(itemHolder.itemView as ViewGroup)
                     }
                 }
 
@@ -435,7 +431,10 @@ class CanvasDemo : AppDslFragment() {
                 bindCanvasRecyclerView(itemHolder, adapterItem)
 
                 //engrave
-                engraveLayoutHelper.bindCanvasView(itemHolder.v<CanvasView>(R.id.canvas_view)!!)
+                engraveLayoutHelper.bindCanvasView(
+                    itemHolder.itemView as ViewGroup,
+                    itemHolder.v<CanvasView>(R.id.canvas_view)!!
+                )
 
                 //test
                 //canvasView?.canvasDelegate?.engraveMode()
