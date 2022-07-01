@@ -160,7 +160,7 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 }
                 drawCanvasRight()
             }
-            
+
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_edit_ico
                 itemText = _string(R.string.canvas_edit)
