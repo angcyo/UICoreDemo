@@ -116,16 +116,6 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 }
             }
 
-            CanvasControlItem()() {
-                itemIco = R.drawable.canvas_material_ico
-                itemText = _string(R.string.canvas_material)
-                itemEnable = true
-
-                itemClick = {
-                    toast("功能开发中...")
-                }
-            }
-
             AddTextItem(canvasView)()
             AddImageItem(canvasView)()
             AddShapesItem()() {
@@ -138,6 +128,15 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                         selectedItemWith(this)
                         showShapeSelectLayout(vh, canvasView)
                     }
+                }
+            }
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_material_ico
+                itemText = _string(R.string.canvas_material)
+                itemEnable = true
+
+                itemClick = {
+                    toast("功能开发中...")
                 }
             }
             AddDoodleItem()() {
@@ -159,7 +158,9 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemClick = {
                     inputQrCode(canvasView, null)
                 }
+                drawCanvasRight()
             }
+            
             CanvasControlItem()() {
                 itemIco = R.drawable.canvas_edit_ico
                 itemText = _string(R.string.canvas_edit)
