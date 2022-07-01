@@ -190,6 +190,9 @@ class LoadingDemo : AppDslFragment() {
 
                     }
                 }
+
+                //view
+                //itemHolder.view(R.id.view)?.background = DangerWarningDrawable()
             }
         }
     }
