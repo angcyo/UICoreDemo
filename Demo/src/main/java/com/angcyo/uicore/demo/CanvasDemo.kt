@@ -387,6 +387,11 @@ class CanvasDemo : AppDslFragment() {
                         }
                     }
                 }
+                itemHolder.click(R.id.version_button) {
+                    vmApp<LaserPeckerModel>().productInfoData.value?.let {
+                        itemHolder.tv(R.id.result_text_view)?.text = "$it"
+                    }
+                }
 
                 //历史
                 itemHolder.click(R.id.file_button) {

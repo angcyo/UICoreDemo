@@ -178,11 +178,12 @@
             android:text="状态" />
 
         <com.angcyo.widget.DslButton
-            android:id="@+id/engrave_preview_button"
+            android:id="@+id/version_button"
             style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="预览" />
+            android:text="版本" />
+
 
         <com.angcyo.widget.DslButton
             android:id="@+id/preview_stop_button"
@@ -199,13 +200,6 @@
             android:text="退出" />
 
         <com.angcyo.widget.DslButton
-            android:id="@+id/engrave_button"
-            style="@style/DefaultButtonStyleNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="雕刻" />
-
-        <com.angcyo.widget.DslButton
             android:id="@+id/file_button"
             style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
@@ -218,6 +212,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="设置" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/engrave_preview_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="预览" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/engrave_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="雕刻" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/test_button"
