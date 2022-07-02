@@ -533,9 +533,18 @@ class CanvasDemo : AppDslFragment() {
 
     //<editor-fold desc="bindCanvasRecyclerView">
 
+    /**Canvas布局*/
     val canvasLayoutHelper = CanvasLayoutHelper(this)
-    val engraveLayoutHelper = EngraveLayoutHelper(this)
-    val engravePreviewLayoutHelper = EngravePreviewLayoutHelper(this)
+
+    /**雕刻布局*/
+    val engraveLayoutHelper = EngraveLayoutHelper(this).apply {
+        backPressedDispatcherOwner = this@CanvasDemo
+    }
+
+    /**雕刻预览布局*/
+    val engravePreviewLayoutHelper = EngravePreviewLayoutHelper(this).apply {
+        backPressedDispatcherOwner = this@CanvasDemo
+    }
 
     /**Canvas控制*/
     fun bindCanvasRecyclerView(itemHolder: DslViewHolder, adapterItem: DslAdapterItem) {

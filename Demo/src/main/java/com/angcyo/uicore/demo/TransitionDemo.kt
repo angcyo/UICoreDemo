@@ -15,7 +15,7 @@ import com.angcyo.uicore.activity.TransitionDetailActivity
 import com.angcyo.uicore.activity.TransitionDetailActivity2
 import com.angcyo.uicore.base.AppTitleFragment
 import com.angcyo.widget.base.clickIt
-import com.angcyo.widget.base.frameParams
+import com.angcyo.widget.base.updateFrameParams
 import com.angcyo.library.ex.inflate
 import com.angcyo.widget.spinner
 
@@ -102,12 +102,12 @@ open class TransitionDemo : AppTitleFragment() {
                         it.isSelected = false
                         _vh.img(R.id.transition_image)?.apply {
                             setImageResource(R.drawable.ic_logo_small)
-                            frameParams {
+                            updateFrameParams {
                                 gravity = Gravity.RIGHT or Gravity.BOTTOM
                             }
                         }
                         _vh.view(R.id.transition_button)?.apply {
-                            frameParams {
+                            updateFrameParams {
                                 gravity = Gravity.CENTER
                             }
                         }
@@ -116,12 +116,12 @@ open class TransitionDemo : AppTitleFragment() {
                         it.isSelected = true
                         _vh.img(R.id.transition_image)?.apply {
                             setImageResource(R.drawable.ic_logo)
-                            frameParams {
+                            updateFrameParams {
                                 gravity = Gravity.CENTER
                             }
                         }
                         _vh.view(R.id.transition_button)?.apply {
-                            frameParams {
+                            updateFrameParams {
                                 topMargin = 0
                                 gravity = Gravity.LEFT or Gravity.TOP
                             }
