@@ -341,7 +341,7 @@ class CanvasDemo : AppDslFragment() {
 
                 itemHolder.click(R.id.engrave_preview_button) {
                     engravePreviewLayoutHelper.canvasDelegate = canvasView?.canvasDelegate
-                    engravePreviewLayoutHelper.show(itemHolder.itemView as ViewGroup)
+                    engravePreviewLayoutHelper.show(itemHolder.group(R.id.lib_content_wrap_layout))
                 }
 
                 //结束预览
@@ -369,7 +369,7 @@ class CanvasDemo : AppDslFragment() {
 
                         engraveLayoutHelper.renderer = renderer
                         engraveLayoutHelper.canvasDelegate = canvasView.canvasDelegate
-                        engraveLayoutHelper.show(itemHolder.itemView as ViewGroup)
+                        engraveLayoutHelper.show(itemHolder.group(R.id.lib_content_wrap_layout))
                     }
                 }
 

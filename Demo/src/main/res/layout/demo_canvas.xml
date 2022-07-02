@@ -317,4 +317,16 @@
             app:r_layout_manager="v" />
 
     </LinearLayout>
+
+    <!--内容动态层-->
+    <com.angcyo.widget.layout.DslSoftInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/lib_content_wrap_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.angcyo.widget.layout.DslSoftInputLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
