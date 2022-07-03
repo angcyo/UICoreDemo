@@ -4,11 +4,14 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
+import android.view.MotionEvent
 import com.angcyo.base.dslFHelper
 import com.angcyo.base.find
 import com.angcyo.core.activity.BasePermissionsActivity
 import com.angcyo.core.component.model.LanguageModel
+import com.angcyo.library.L
 import com.angcyo.library.component.DslShortcut
+import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component.dslShortcut
 import com.angcyo.library.utils.RUtils
 import com.angcyo.library.utils.checkApkExist
@@ -163,5 +166,23 @@ class MainActivity : BasePermissionsActivity() {
         if (LanguageModel.isLanguageConfigurationChanged(newConfig)) {
             //recreate()
         }
+    }
+
+    val pinchGestureDetector = MultiFingeredHelper.PinchGestureDetector().apply {
+        onPinchAction = {
+            L.w("$gesturePointerCount 指捏合...")
+        }
+    }
+
+    val expandGestureDetector = MultiFingeredHelper.ExpandGestureDetector().apply {
+        onExpandAction = {
+            L.w("$gesturePointerCount 指散开...")
+        }
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        pinchGestureDetector.onTouchEvent(ev)
+        expandGestureDetector.onTouchEvent(ev)
+        return super.dispatchTouchEvent(ev)
     }
 }
