@@ -117,8 +117,24 @@ class CanvasLayoutHelper(val fragment: Fragment) {
             }
 
             AddTextItem(canvasView)()
-            AddImageItem(canvasView)()
-            AddShapesItem()() {
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_image_ico
+                itemText = _string(R.string.canvas_image)
+
+                itemClick = {
+                    vh.showControlLayout(canvasView, !itemIsSelected)
+                    itemIsSelected = !itemIsSelected
+                    updateAdapterItem()
+
+                    if (itemIsSelected) {
+                        selectedItemWith(this)
+                        showBitmapSelectLayout(vh, canvasView)
+                    }
+                }
+            }
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_shapes_ico
+                itemText = _string(R.string.canvas_shapes)
                 itemClick = {
                     vh.showControlLayout(canvasView, !itemIsSelected)
                     itemIsSelected = !itemIsSelected
@@ -143,20 +159,6 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemEnable = true
                 itemClick = {
                     toast("功能开发中...")
-                }
-            }
-            CanvasControlItem()() {
-                itemIco = R.drawable.canvas_barcode_ico
-                itemText = _string(R.string.canvas_barcode)
-                itemClick = {
-                    inputBarcode(canvasView, null)
-                }
-            }
-            CanvasControlItem()() {
-                itemIco = R.drawable.canvas_qrcode_ico
-                itemText = _string(R.string.canvas_qrcode)
-                itemClick = {
-                    inputQrCode(canvasView, null)
                 }
                 drawCanvasRight()
             }
@@ -618,6 +620,28 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 itemIco = R.drawable.canvas_shape_love_ico
                 itemText = _string(R.string.canvas_love)
                 shapePath = ShapesHelper.lovePath()
+            }
+        }
+    }
+
+    /**显示图片选择布局*/
+    fun showBitmapSelectLayout(vh: DslViewHolder, canvasView: CanvasView) {
+        vh.rv(R.id.canvas_control_view)?.renderDslAdapter {
+            hookUpdateDepend()
+            AddImageItem(canvasView)()
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_barcode_ico
+                itemText = _string(R.string.canvas_barcode)
+                itemClick = {
+                    inputBarcode(canvasView, null)
+                }
+            }
+            CanvasControlItem()() {
+                itemIco = R.drawable.canvas_qrcode_ico
+                itemText = _string(R.string.canvas_qrcode)
+                itemClick = {
+                    inputQrCode(canvasView, null)
+                }
             }
         }
     }

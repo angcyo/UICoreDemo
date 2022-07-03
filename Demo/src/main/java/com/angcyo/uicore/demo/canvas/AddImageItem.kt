@@ -25,7 +25,7 @@ class AddImageItem(val canvasView: CanvasView) : CanvasControlItem(), IFragmentI
 
     init {
         itemIco = R.drawable.canvas_image_ico
-        itemText = _string(R.string.canvas_image)
+        itemText = _string(R.string.canvas_photo)
 
         itemClick = {
             (itemFragmentManager ?: itemFragment?.parentFragmentManager)?.apply {
