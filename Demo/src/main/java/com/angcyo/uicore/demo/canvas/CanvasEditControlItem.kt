@@ -4,12 +4,14 @@ import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.PointF
 import android.graphics.RectF
+import android.widget.LinearLayout
 import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.canvas.core.IRenderer
 import com.angcyo.canvas.items.PictureShapeItem
 import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.BaseItemRenderer
 import com.angcyo.canvas.utils.canvasDecimal
+import com.angcyo.canvas.utils.lineShapeOrientation
 import com.angcyo.dialog.singleColorPickerDialog
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.engrave.canvas.canvasNumberWindow
@@ -77,6 +79,17 @@ class CanvasEditControlItem : DslAdapterItem() {
 
             itemHolder.tv(R.id.item_width_view)?.text = "$width"
             itemHolder.tv(R.id.item_height_view)?.text = "$height"
+
+            //非竖线, 才支持调整宽度
+            itemHolder.enable(
+                R.id.item_width_view,
+                renderer.lineShapeOrientation() != LinearLayout.VERTICAL
+            )
+            //非横线, 才支持调整高度
+            itemHolder.enable(
+                R.id.item_height_view,
+                renderer.lineShapeOrientation() != LinearLayout.HORIZONTAL
+            )
 
             //xy坐标
             _tempPoint.set(renderRotateBounds.left, renderRotateBounds.top)

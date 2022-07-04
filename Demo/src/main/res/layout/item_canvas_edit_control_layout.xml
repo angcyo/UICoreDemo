@@ -52,7 +52,7 @@
         style="@style/LibBodyTextStyle"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="@dimen/lib_hdpi"
         android:background="@drawable/canvas_number_increment_selector"
         android:ellipsize="none"
         android:gravity="center"
@@ -60,7 +60,7 @@
         android:singleLine="true"
         android:textSize="@dimen/canvas_edit_text_size"
         app:layout_constraintBottom_toTopOf="@id/width_label_view"
-        app:layout_constraintLeft_toRightOf="@id/item_drawable_view"
+        app:layout_constraintLeft_toRightOf="@id/item_drawable_line_view"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginLeft="@dimen/lib_xhdpi"
         tools:text="0.0123456" />
