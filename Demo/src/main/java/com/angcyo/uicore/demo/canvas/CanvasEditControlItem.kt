@@ -159,16 +159,18 @@ class CanvasEditControlItem : DslAdapterItem() {
                                         val newWidth = this[0]
                                         val newHeight = this[1]
 
-                                        result.adjustSizeWithRotate(
-                                            newWidth, newHeight,
-                                            renderer.rotate,
-                                            ADJUST_TYPE_LT
-                                        )
+                                        if (newWidth != 0f && newHeight != 0f) {
+                                            result.adjustSizeWithRotate(
+                                                newWidth, newHeight,
+                                                renderer.rotate,
+                                                ADJUST_TYPE_LT
+                                            )
 
-                                        itemCanvasDelegate?.addChangeItemBounds(
-                                            renderer,
-                                            result
-                                        )
+                                            itemCanvasDelegate?.addChangeItemBounds(
+                                                renderer,
+                                                result
+                                            )
+                                        }
                                     }
                                 }
                                 itemHolder.postDelay(_widthPendingRunnable!!, pendingDelay)
