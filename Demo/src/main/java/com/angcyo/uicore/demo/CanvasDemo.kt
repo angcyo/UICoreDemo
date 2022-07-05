@@ -15,8 +15,8 @@ import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.IReceiveBeanAction
 import com.angcyo.bluetooth.fsc.enqueue
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
-import com.angcyo.bluetooth.fsc.laserpacker.command.*
-import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryEngraveFileParser
+import com.angcyo.bluetooth.fsc.laserpacker.command.EngravePreviewCmd
+import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
 import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasView
@@ -30,14 +30,15 @@ import com.angcyo.canvas.items.setHoldData
 import com.angcyo.canvas.utils.*
 import com.angcyo.core.component.dslPermissions
 import com.angcyo.core.vmApp
-import com.angcyo.dialog.itemsDialog
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave.EngraveLayoutHelper
 import com.angcyo.engrave.EngravePreviewLayoutHelper
 import com.angcyo.engrave.ble.DeviceConnectTipActivity
 import com.angcyo.engrave.ble.DeviceSettingFragment
+import com.angcyo.engrave.ble.EngraveHistoryFragment
 import com.angcyo.engrave.ble.bluetoothSearchListDialog
+import com.angcyo.engrave.canvas.CanvasSettingPopupConfig
 import com.angcyo.engrave.canvas.loadingAsync
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.gcode.GCodeWriteHandler
@@ -90,6 +91,10 @@ class CanvasDemo : AppDslFragment() {
                 val canvasView = itemHolder.v<CanvasView>(R.id.canvas_view)
                 //?.setBgDrawable(_colorDrawable("#20000000".toColorInt()))
                 //?.setBgDrawable(CheckerboardDrawable.create())
+
+                //单位恢复
+                canvasView?.canvasDelegate?.getCanvasViewBox()
+                    ?.updateCoordinateSystemUnit(CanvasSettingPopupConfig.valueUnit)
 
                 //switch_origin_button
                 itemHolder.click(R.id.switch_origin_button) {
@@ -391,7 +396,10 @@ class CanvasDemo : AppDslFragment() {
 
                 //历史
                 itemHolder.click(R.id.file_button) {
-                    QueryCmd.fileList.sendCommand { bean, error ->
+                    dslFHelper {
+                        show(EngraveHistoryFragment::class)
+                    }
+                    /*QueryCmd.fileList.sendCommand { bean, error ->
                         doMain {
                             bean?.parse<QueryEngraveFileParser>()?.let {
                                 fContext().itemsDialog {
@@ -412,7 +420,7 @@ class CanvasDemo : AppDslFragment() {
                                 }
                             }
                         }
-                    }
+                    }*/
                 }
 
                 //设置
