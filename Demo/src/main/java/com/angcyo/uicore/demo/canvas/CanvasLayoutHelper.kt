@@ -355,8 +355,8 @@ class CanvasLayoutHelper(val fragment: Fragment) {
                 } else if (itemRenderer is BitmapItemRenderer) {
                     fragment.dslSinglePickerImage {
                         it?.firstOrNull()?.let { media ->
-                            media.loadPath()?.apply {
-                                itemRenderer.updateBitmap(toBitmap())
+                            media.loadPath()?.toBitmap()?.apply {
+                                itemRenderer.updateBitmap(this)
                             }
                         }
                     }

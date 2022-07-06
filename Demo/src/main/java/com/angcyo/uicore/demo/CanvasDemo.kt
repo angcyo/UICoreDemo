@@ -95,6 +95,9 @@ class CanvasDemo : AppDslFragment() {
                 //单位恢复
                 canvasView?.canvasDelegate?.getCanvasViewBox()
                     ?.updateCoordinateSystemUnit(CanvasSettingPopupConfig.valueUnit)
+                //智能指南恢复
+                canvasView?.canvasDelegate?.smartAssistant?.enable =
+                    CanvasSettingPopupConfig.CANVAS_SMART_ASSISTANT
 
                 //switch_origin_button
                 itemHolder.click(R.id.switch_origin_button) {
@@ -439,10 +442,8 @@ class CanvasDemo : AppDslFragment() {
                 bindCanvasRecyclerView(itemHolder, adapterItem)
 
                 //engrave
-                engraveLayoutHelper.bindCanvasView(
-                    itemHolder.itemView as ViewGroup,
-                    itemHolder.v<CanvasView>(R.id.canvas_view)!!
-                )
+                engraveLayoutHelper.bindCanvasView(itemHolder.v<CanvasView>(R.id.canvas_view)!!)
+                engraveLayoutHelper.bindDeviceState(itemHolder.itemView as ViewGroup)
 
                 //test
                 //canvasView?.canvasDelegate?.engraveMode()

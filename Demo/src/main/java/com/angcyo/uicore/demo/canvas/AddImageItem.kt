@@ -35,7 +35,7 @@ class AddImageItem(val canvasView: CanvasView) : CanvasControlItem(), IFragmentI
                             media.loadPath()?.apply {
                                 //canvasView.addDrawableRenderer(toBitmap())
                                 //canvasView.addBitmapRenderer(toBitmap())
-                                canvasView.addPictureBitmapRenderer(toBitmap())
+                                canvasView.addPictureBitmapRenderer(toBitmap()!!)
                             }
                         }
                     }
