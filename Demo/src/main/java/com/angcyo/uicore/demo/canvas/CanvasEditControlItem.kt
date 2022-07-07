@@ -77,8 +77,8 @@ class CanvasEditControlItem : DslAdapterItem() {
             val height =
                 canvasViewBox.valueUnit.convertPixelToValue(rotateBounds.height()).canvasDecimal(2)
 
-            itemHolder.tv(R.id.item_width_view)?.text = "$width"
-            itemHolder.tv(R.id.item_height_view)?.text = "$height"
+            itemHolder.tv(R.id.item_width_view)?.text = width
+            itemHolder.tv(R.id.item_height_view)?.text = height
 
             //非竖线, 才支持调整宽度
             itemHolder.enable(
@@ -98,8 +98,8 @@ class CanvasEditControlItem : DslAdapterItem() {
             val x = value.x.canvasDecimal(2)
             val y = value.y.canvasDecimal(2)
 
-            itemHolder.tv(R.id.item_axis_x_view)?.text = "$x"
-            itemHolder.tv(R.id.item_axis_y_view)?.text = "$y"
+            itemHolder.tv(R.id.item_axis_x_view)?.text = x
+            itemHolder.tv(R.id.item_axis_y_view)?.text = y
 
             //旋转
             itemHolder.tv(R.id.item_rotate_view)?.text = "${renderer.rotate.canvasDecimal(2)}°"
