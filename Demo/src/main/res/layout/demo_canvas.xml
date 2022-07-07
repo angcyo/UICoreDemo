@@ -21,6 +21,69 @@
         app:r_flow_item_vertical_space="@dimen/lib_dpi">
 
         <com.angcyo.widget.DslButton
+            android:id="@+id/bluetooth_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="蓝牙" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/engrave_preview_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="预览" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/engrave_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="雕刻" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/state_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="状态" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/version_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="版本" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/preview_stop_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="结束" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/exit_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="退出" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/file_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="历史" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/setting_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置" />
+
+        <com.angcyo.widget.DslButton
             android:id="@+id/switch_origin_button"
             style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
@@ -89,69 +152,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-" />
-
-        <com.angcyo.widget.DslButton
-            android:id="@+id/bluetooth_button"
-            style="@style/DefaultButtonStyleNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="蓝牙" />
-
-        <com.angcyo.widget.DslButton
-            android:id="@+id/state_button"
-            style="@style/DefaultButtonStyleNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="状态" />
-
-        <com.angcyo.widget.DslButton
-            android:id="@+id/version_button"
-            style="@style/DefaultButtonStyleNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="版本" />
-
-        <com.angcyo.widget.DslButton
-            android:id="@+id/preview_stop_button"
-            style="@style/DefaultButtonStyleNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="结束" />
-
-        <com.angcyo.widget.DslButton
-            android:id="@+id/exit_button"
-            style="@style/DefaultButtonStyleNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="退出" />
-
-        <com.angcyo.widget.DslButton
-            android:id="@+id/file_button"
-            style="@style/DefaultButtonStyleNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="历史" />
-
-        <com.angcyo.widget.DslButton
-            android:id="@+id/setting_button"
-            style="@style/DefaultButtonStyleNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="设置" />
-
-        <com.angcyo.widget.DslButton
-            android:id="@+id/engrave_preview_button"
-            style="@style/DefaultButtonStyleNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="预览" />
-
-        <com.angcyo.widget.DslButton
-            android:id="@+id/engrave_button"
-            style="@style/DefaultButtonStyleNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="雕刻" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/add_text"
