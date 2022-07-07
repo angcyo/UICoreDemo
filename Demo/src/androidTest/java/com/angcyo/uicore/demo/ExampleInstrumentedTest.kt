@@ -4,7 +4,7 @@ import android.graphics.Matrix
 import android.graphics.RectF
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.angcyo.canvas.core.OperateHandler
+import com.angcyo.canvas.core.BoundsOperateHandler
 import com.angcyo.library.L
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -59,7 +59,7 @@ class ExampleInstrumentedTest {
         resultBounds.bottom = resultBounds.height() * scale
         resultRotateBounds.set(resultBounds)*/
 
-        OperateHandler().calcBoundsWidthHeightWithFrame(
+        BoundsOperateHandler().calcBoundsWidthHeightWithFrame(
             bounds,
             rotateBounds,
             rotateBoundsAfter,

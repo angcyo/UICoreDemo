@@ -161,7 +161,7 @@ class CanvasEditControlItem : DslAdapterItem() {
                                     to.adjustSize(width, from.height(), ADJUST_TYPE_LT)
                                     val result = RectF(renderer.getBounds())
                                     val lockRatio = itemHolder.isLockRatio()
-                                    itemCanvasDelegate?.operateHandler?.calcBoundsWidthHeightWithFrame(
+                                    itemCanvasDelegate?.boundsOperateHandler?.calcBoundsWidthHeightWithFrame(
                                         result,
                                         from,
                                         to,
@@ -220,7 +220,7 @@ class CanvasEditControlItem : DslAdapterItem() {
                                     to.adjustSize(from.width(), height, ADJUST_TYPE_LT)
                                     val result = RectF(renderer.getBounds())
                                     val lockRatio = itemHolder.isLockRatio()
-                                    itemCanvasDelegate?.operateHandler?.calcBoundsWidthHeightWithFrame(
+                                    itemCanvasDelegate?.boundsOperateHandler?.calcBoundsWidthHeightWithFrame(
                                         result,
                                         from,
                                         to,
