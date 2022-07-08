@@ -5,10 +5,16 @@ import androidx.fragment.app.FragmentManager
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.utils.addPictureBitmapRenderer
 import com.angcyo.component.getPhoto
+import com.angcyo.component.luban.luban
 import com.angcyo.dsladapter.item.IFragmentItem
+import com.angcyo.library.L
 import com.angcyo.library.ex._string
+import com.angcyo.library.ex.isDebug
+import com.angcyo.library.ex.save
 import com.angcyo.library.ex.toBitmap
+import com.angcyo.library.libCacheFile
 import com.angcyo.library.model.loadPath
+import com.angcyo.library.utils.fileNameUUID
 import com.angcyo.picker.dslSinglePickerImage
 import com.angcyo.uicore.MainFragment
 import com.angcyo.uicore.demo.R
@@ -41,6 +47,12 @@ class AddImageItem(val canvasView: CanvasView) : CanvasControlItem(), IFragmentI
                     }
                 } else {
                     canvasView.context.getPhoto(this) {
+                        if (isDebug()) {
+                            val path = libCacheFile(fileNameUUID(".png")).absolutePath
+                            it?.save(path)
+                            val newPath = path.luban()
+                            L.i("${path}->${newPath}")
+                        }
                         it?.let { canvasView.addPictureBitmapRenderer(it) }
                     }
                 }
