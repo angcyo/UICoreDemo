@@ -38,6 +38,8 @@ class FirmwareUpdateItem : DslAdapterItem(), IFragmentItem {
 
     val peckerModel = vmApp<LaserPeckerModel>()
 
+    val apiModel = vmApp<FscBleApiModel>()
+
     init {
         itemLayoutId = R.layout.item_firmware_update
     }
@@ -52,9 +54,11 @@ class FirmwareUpdateItem : DslAdapterItem(), IFragmentItem {
 
         itemHolder.tv(R.id.lib_text_view)?.text = span {
             append(itemFirmwareInfo?.name)
-            peckerModel.deviceVersionData.value?.softwareVersionName?.let {
-                appendln()
-                append("当前版本:$it")
+            if (apiModel.haveDeviceConnected()) {
+                peckerModel.deviceVersionData.value?.softwareVersionName?.let {
+                    appendln()
+                    append("当前版本:$it")
+                }
             }
             if (itemIsFinish) {
                 appendln()
@@ -81,7 +85,7 @@ class FirmwareUpdateItem : DslAdapterItem(), IFragmentItem {
 
         //开始升级
         itemHolder.click(R.id.start_button) {
-            if (vmApp<FscBleApiModel>().haveDeviceConnected()) {
+            if (apiModel.haveDeviceConnected()) {
                 //开始升级
                 itemFirmwareInfo?.let { info ->
                     if (peckerModel.deviceVersionData.value?.softwareVersion == info.version) {
@@ -123,7 +127,7 @@ class FirmwareUpdateItem : DslAdapterItem(), IFragmentItem {
             if (isFinish) {
                 itemIsFinish = isFinish
                 //断开蓝牙设备
-                vmApp<FscBleApiModel>().disconnectAll()
+                apiModel.disconnectAll()
             }
         }
     }

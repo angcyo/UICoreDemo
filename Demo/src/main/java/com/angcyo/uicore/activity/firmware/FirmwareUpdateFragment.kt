@@ -45,6 +45,8 @@ class FirmwareUpdateFragment : BaseDslFragment() {
                     }
                 }
             }
+            //更新版本文本
+            _adapter.updateAllItem()
         }
     }
 
