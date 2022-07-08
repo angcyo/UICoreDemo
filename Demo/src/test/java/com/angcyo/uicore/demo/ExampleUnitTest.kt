@@ -2,10 +2,7 @@ package com.angcyo.uicore.demo
 
 import com.angcyo.bluetooth.fsc.laserpacker.command.QueryCmd
 import com.angcyo.gcode.GCodeHelper
-import com.angcyo.library.ex.padHexString
-import com.angcyo.library.ex.toHexByteArray
-import com.angcyo.library.ex.toHexInt
-import com.angcyo.library.ex.toHexString
+import com.angcyo.library.ex.*
 import com.angcyo.uicore.test.PathTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -158,7 +155,51 @@ class ExampleUnitTest {
                 "G1 X-0.466172 Y3.325083\n" +
                 "G1 X-3.758251 Y3.325083\n" +
                 "G1 X-3.758251 Y2.450495"
-        GCodeHelper.parseGCode(gcode, 21f, 537f)
+        GCodeHelper.parseGCode(gcode)
+    }
+
+    @Test
+    fun testFirmwareVersion() {
+        val ex = ".lpbin"
+        val pathList = listOf(
+            "L2_N32_V3.5.7(1).lpbin",
+            "L2_N32_V3.5.7_2022-7-8.lpbin",
+            "/data/user/0/com.angcyo.uicore.demo/cache/documents/L2_N32_V3.5.7(1).lpbin"
+        )
+        pathList.forEach { path ->
+            val r = path.substring(path.lastIndexOf("/") + 1, path.length - ex.length)
+
+            val builder = StringBuilder()
+            var isStart = false
+
+            for (char in r.lowercase()) {
+                if (isStart) {
+                    if (char in '0'..'9') {
+                        //如果是数字
+                        builder.append(char)
+                    } else if (char == '.') {
+                        //继续
+                    } else {
+                        //中断
+                        break
+                    }
+                } else {
+                    if (char == 'v') {
+                        isStart = true
+                    }
+                }
+            }
+
+            println(path.lastName())
+            println(r)
+            println(builder)
+        }
+    }
+
+    @Test
+    fun testVersion() {
+        val version = 0
+        println("$version".split("").connect("."))
     }
 
 }

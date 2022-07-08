@@ -47,6 +47,7 @@ import com.angcyo.library.ex.*
 import com.angcyo.library.toast
 import com.angcyo.svg.Svg
 import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
+import com.angcyo.uicore.activity.FirmwareUpdateActivity
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
 import com.angcyo.uicore.demo.SvgDemo.Companion.svgResList
@@ -435,7 +436,10 @@ class CanvasDemo : AppDslFragment() {
 
                 //test
                 itemHolder.click(R.id.test_button) {
-                    test(itemHolder, canvasView)
+                    //test(itemHolder, canvasView)
+                    dslAHelper {
+                        start(FirmwareUpdateActivity::class)
+                    }
                 }
 
                 //canvas
