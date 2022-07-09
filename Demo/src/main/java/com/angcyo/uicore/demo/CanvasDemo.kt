@@ -83,6 +83,10 @@ class CanvasDemo : AppDslFragment() {
         }
     }
 
+    override fun onBackPressed(): Boolean {
+        return super.onBackPressed()
+    }
+
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
 
