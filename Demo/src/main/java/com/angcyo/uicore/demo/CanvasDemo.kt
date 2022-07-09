@@ -27,6 +27,8 @@ import com.angcyo.canvas.core.PixelValueUnit
 import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.ShapeItemRenderer
 import com.angcyo.canvas.items.setHoldData
+import com.angcyo.canvas.laser.pecker.dslitem.CanvasLayoutHelper
+import com.angcyo.canvas.laser.pecker.loadingAsync
 import com.angcyo.canvas.utils.*
 import com.angcyo.core.component.dslPermissions
 import com.angcyo.core.vmApp
@@ -38,8 +40,6 @@ import com.angcyo.engrave.ble.DeviceConnectTipActivity
 import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.ble.EngraveHistoryFragment
 import com.angcyo.engrave.ble.bluetoothSearchListDialog
-import com.angcyo.engrave.canvas.CanvasSettingPopupConfig
-import com.angcyo.engrave.canvas.loadingAsync
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.gcode.GCodeWriteHandler
 import com.angcyo.http.rx.doMain
@@ -51,7 +51,6 @@ import com.angcyo.uicore.activity.FirmwareUpdateActivity
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
 import com.angcyo.uicore.demo.SvgDemo.Companion.svgResList
-import com.angcyo.uicore.demo.canvas.CanvasLayoutHelper
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.recycler.initDslAdapter
 import com.angcyo.widget.span.span
@@ -88,17 +87,17 @@ class CanvasDemo : AppDslFragment() {
         super.initBaseView(savedInstanceState)
 
         renderDslAdapter {
-            bindItem(R.layout.demo_canvas) { itemHolder, itemPosition, adapterItem, payloads ->
+            bindItem(R.layout.canvas_layout) { itemHolder, itemPosition, adapterItem, payloads ->
                 val canvasView = itemHolder.v<CanvasView>(R.id.canvas_view)
                 //?.setBgDrawable(_colorDrawable("#20000000".toColorInt()))
                 //?.setBgDrawable(CheckerboardDrawable.create())
 
                 //单位恢复
                 canvasView?.canvasDelegate?.getCanvasViewBox()
-                    ?.updateCoordinateSystemUnit(CanvasSettingPopupConfig.valueUnit)
+                    ?.updateCoordinateSystemUnit(CanvasConstant.valueUnit)
                 //智能指南恢复
                 canvasView?.canvasDelegate?.smartAssistant?.enable =
-                    CanvasSettingPopupConfig.CANVAS_SMART_ASSISTANT
+                    CanvasConstant.CANVAS_SMART_ASSISTANT
 
                 //switch_origin_button
                 itemHolder.click(R.id.switch_origin_button) {

@@ -89,6 +89,7 @@ dependencies {
     implementation project(allModule.browser)
     implementation project(allModule.engrave)
     implementation project(allModule.objectbox_lp)
+    implementation project(allModule.canvas_lp)
 
     //https://github.com/airbnb/lottie-android
     //http://airbnb.io/lottie
