@@ -1,11 +1,14 @@
 package com.angcyo.uicore.demo
 
 import android.graphics.Matrix
+import android.graphics.Path
+import android.graphics.PathMeasure
 import android.graphics.RectF
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.angcyo.canvas.core.BoundsOperateHandler
 import com.angcyo.library.L
+import com.angcyo.library.ex.eachPath
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -17,6 +20,7 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
+
     @Test
     fun useAppContext() {
         // Context of the app under test.
@@ -63,7 +67,8 @@ class ExampleInstrumentedTest {
             bounds,
             rotateBounds,
             rotateBoundsAfter,
-            rotate
+            rotate,
+            true
         ).apply {
             resultBounds.right = this[0]
             resultBounds.bottom = this[1]
@@ -74,5 +79,36 @@ class ExampleInstrumentedTest {
         matrix.mapRect(resultRotateBounds)
         L.i("\n->矩形:$resultBounds\n->旋转:$resultRotateBounds\n->${rotateBounds.height()} ${rotateBoundsAfter.height()} ${resultRotateBounds.height()}")
         L.w("->${rotateBoundsAfter.height() == resultRotateBounds.height()}")
+    }
+
+    @Test
+    fun testPath() {
+        val path = Path()
+        path.moveTo(0f, 0f)
+        path.lineTo(10f, 0f)
+
+        val pathMeasure = PathMeasure(path, false)
+        println(pathMeasure.length)
+        //path.toBitmap()
+        path.eachPath { index, posArray ->
+            println("$index -> ${posArray[0]} ${posArray[1]}")
+        }
+
+        println("---")
+
+        val path2 = Path()
+        path2.moveTo(0f, 0f)
+        path2.lineTo(10f, 0f)
+        path2.moveTo(10f, 10f)
+        path2.lineTo(20f, 20f)
+
+        val pathMeasure2 = PathMeasure(path2, true)
+        println(pathMeasure2.length)
+        //path2.toBitmap()
+        path2.eachPath { index, posArray ->
+            println("$index -> ${posArray[0]} ${posArray[1]}")
+        }
+
+        println("---")
     }
 }

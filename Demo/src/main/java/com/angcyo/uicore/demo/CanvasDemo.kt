@@ -27,19 +27,22 @@ import com.angcyo.canvas.core.PixelValueUnit
 import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.ShapeItemRenderer
 import com.angcyo.canvas.items.setHoldData
-import com.angcyo.canvas.laser.pecker.dslitem.CanvasLayoutHelper
+import com.angcyo.canvas.laser.pecker.CanvasLayoutHelper
 import com.angcyo.canvas.laser.pecker.loadingAsync
 import com.angcyo.canvas.utils.*
 import com.angcyo.core.component.dslPermissions
 import com.angcyo.core.vmApp
+import com.angcyo.dialog.messageDialog
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
+import com.angcyo.engrave.EngraveHelper
 import com.angcyo.engrave.EngraveLayoutHelper
 import com.angcyo.engrave.EngravePreviewLayoutHelper
 import com.angcyo.engrave.ble.DeviceConnectTipActivity
 import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.ble.EngraveHistoryFragment
 import com.angcyo.engrave.ble.bluetoothSearchListDialog
+import com.angcyo.engrave.data.EngraveReadyDataInfo
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.gcode.GCodeWriteHandler
 import com.angcyo.http.rx.doMain
@@ -247,7 +250,7 @@ class CanvasDemo : AppDslFragment() {
                 }
                 itemHolder.click(R.id.add_gcode) {
                     canvasView?.apply {
-                        val text = fContext().readAssets("LaserPecker.gcode")
+                        val text = fContext().readAssets("gcode/LaserPecker.gcode")
                         val drawable = GCodeHelper.parseGCode(text)!!
                         addDrawableRenderer(drawable).setHoldData(
                             CanvasDataHandleOperate.KEY_GCODE,
@@ -352,8 +355,19 @@ class CanvasDemo : AppDslFragment() {
                 }
 
                 itemHolder.click(R.id.engrave_preview_button) {
-                    engravePreviewLayoutHelper.canvasDelegate = canvasView?.canvasDelegate
-                    engravePreviewLayoutHelper.show(itemHolder.group(R.id.lib_content_wrap_layout))
+                    //安全提示弹窗
+                    fContext().messageDialog {
+                        dialogMessageLeftIco = _drawable(com.angcyo.engrave.R.mipmap.safe_tips)
+                        dialogTitle = _string(com.angcyo.engrave.R.string.size_safety_tips)
+                        dialogMessage = _string(com.angcyo.engrave.R.string.size_safety_content)
+                        negativeButtonText = _string(com.angcyo.engrave.R.string.dialog_negative)
+
+                        positiveButton { dialog, dialogViewHolder ->
+                            dialog.dismiss()
+                            engravePreviewLayoutHelper.canvasDelegate = canvasView?.canvasDelegate
+                            engravePreviewLayoutHelper.show(itemHolder.group(R.id.lib_content_wrap_layout))
+                        }
+                    }
                 }
 
                 //结束预览
@@ -434,6 +448,15 @@ class CanvasDemo : AppDslFragment() {
                 itemHolder.click(R.id.setting_button) {
                     dslFHelper {
                         show(DeviceSettingFragment::class)
+                    }
+                }
+
+                //预处理数据
+                itemHolder.click(R.id.preproccess_button) {
+                    canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
+                        loadingAsync({
+                            EngraveHelper.handleEngraveData(renderer, EngraveReadyDataInfo())
+                        })
                     }
                 }
 

@@ -70,16 +70,16 @@ class SvgDemo : AppDslFragment() {
         }
 
         val gCodeNameList = mutableListOf<String>().apply {
-            add("issue_19.gcode")
-            add("zhou.gcode")
-            add("ke.gcode")
-            add("concentric_circle.gcode")
-            add("square_circle.gcode")
-            add("grid.gcode")
-            add("cherryblossoms.gcode")
-            add("LaserPecker.gcode")
-            add("snowflakes.gcode")
-            add("love.gcode")
+            add("gcode/issue_19.gcode")
+            add("gcode/zhou.gcode")
+            add("gcode/ke.gcode")
+            add("gcode/concentric_circle.gcode")
+            add("gcode/square_circle.gcode")
+            add("gcode/grid.gcode")
+            add("gcode/cherryblossoms.gcode")
+            add("gcode/LaserPecker.gcode")
+            add("gcode/snowflakes.gcode")
+            add("gcode/love.gcode")
         }
     }
 
@@ -173,34 +173,34 @@ class SvgDemo : AppDslFragment() {
 
                 //gcode
                 itemHolder.click(R.id.load_issue_gcode) {
-                    editText?.setInputText(fContext().readAssets("issue_19.gcode"))
+                    editText?.setInputText(fContext().readAssets("gcode/issue_19.gcode"))
                 }
                 itemHolder.click(R.id.load_zhou_gcode) {
-                    editText?.setInputText(fContext().readAssets("zhou.gcode"))
+                    editText?.setInputText(fContext().readAssets("gcode/zhou.gcode"))
                 }
                 itemHolder.click(R.id.load_ke_gcode) {
-                    editText?.setInputText(fContext().readAssets("ke.gcode"))
+                    editText?.setInputText(fContext().readAssets("gcode/ke.gcode"))
                 }
                 itemHolder.click(R.id.concentric_circle_gcode) {
-                    editText?.setInputText(fContext().readAssets("concentric_circle.gcode"))
+                    editText?.setInputText(fContext().readAssets("gcode/concentric_circle.gcode"))
                 }
                 itemHolder.click(R.id.square_circle_gcode) {
-                    editText?.setInputText(fContext().readAssets("square_circle.gcode"))
+                    editText?.setInputText(fContext().readAssets("gcode/square_circle.gcode"))
                 }
                 itemHolder.click(R.id.grid_gcode) {
-                    editText?.setInputText(fContext().readAssets("grid.gcode"))
+                    editText?.setInputText(fContext().readAssets("gcode/grid.gcode"))
                 }
                 itemHolder.click(R.id.cherryblossoms_gcode) {
-                    editText?.setInputText(fContext().readAssets("cherryblossoms.gcode"))
+                    editText?.setInputText(fContext().readAssets("gcode/cherryblossoms.gcode"))
                 }
                 itemHolder.click(R.id.LaserPecker_gcode) {
-                    editText?.setInputText(fContext().readAssets("LaserPecker.gcode"))
+                    editText?.setInputText(fContext().readAssets("gcode/LaserPecker.gcode"))
                 }
                 itemHolder.click(R.id.snowflakes_gcode) {
-                    editText?.setInputText(fContext().readAssets("snowflakes.gcode"))
+                    editText?.setInputText(fContext().readAssets("gcode/snowflakes.gcode"))
                 }
                 itemHolder.click(R.id.love_gcode) {
-                    editText?.setInputText(fContext().readAssets("love.gcode"))
+                    editText?.setInputText(fContext().readAssets("gcode/love.gcode"))
                 }
 
                 //test
