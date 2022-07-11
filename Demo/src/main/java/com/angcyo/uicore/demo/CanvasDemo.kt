@@ -38,6 +38,7 @@ import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave.EngraveHelper
 import com.angcyo.engrave.EngraveLayoutHelper
 import com.angcyo.engrave.EngravePreviewLayoutHelper
+import com.angcyo.engrave.ProductLayoutHelper
 import com.angcyo.engrave.ble.DeviceConnectTipActivity
 import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.ble.EngraveHistoryFragment
@@ -471,8 +472,10 @@ class CanvasDemo : AppDslFragment() {
                 //canvas
                 bindCanvasRecyclerView(itemHolder, adapterItem)
 
+                //product
+                productLayoutHelper.bindCanvasView(itemHolder.v<CanvasView>(R.id.canvas_view)!!)
+
                 //engrave
-                engraveLayoutHelper.bindCanvasView(itemHolder.v<CanvasView>(R.id.canvas_view)!!)
                 engraveLayoutHelper.bindDeviceState(itemHolder.itemView as ViewGroup)
 
                 //test
@@ -575,8 +578,11 @@ class CanvasDemo : AppDslFragment() {
     /**Canvas布局*/
     val canvasLayoutHelper = CanvasLayoutHelper(this)
 
+    /**产品布局*/
+    val productLayoutHelper = ProductLayoutHelper(this)
+
     /**雕刻布局*/
-    val engraveLayoutHelper = EngraveLayoutHelper(this).apply {
+    val engraveLayoutHelper = EngraveLayoutHelper().apply {
         backPressedDispatcherOwner = this@CanvasDemo
     }
 
