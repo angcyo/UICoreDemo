@@ -32,7 +32,6 @@ import com.angcyo.canvas.laser.pecker.loadingAsync
 import com.angcyo.canvas.utils.*
 import com.angcyo.core.component.dslPermissions
 import com.angcyo.core.vmApp
-import com.angcyo.dialog.messageDialog
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave.EngraveHelper
@@ -359,17 +358,9 @@ class CanvasDemo : AppDslFragment() {
 
                 itemHolder.click(R.id.engrave_preview_button) {
                     //安全提示弹窗
-                    fContext().messageDialog {
-                        dialogMessageLeftIco = _drawable(com.angcyo.engrave.R.mipmap.safe_tips)
-                        dialogTitle = _string(com.angcyo.engrave.R.string.size_safety_tips)
-                        dialogMessage = _string(com.angcyo.engrave.R.string.size_safety_content)
-                        negativeButtonText = _string(com.angcyo.engrave.R.string.dialog_negative)
-
-                        positiveButton { dialog, dialogViewHolder ->
-                            dialog.dismiss()
-                            engravePreviewLayoutHelper.canvasDelegate = canvasView?.canvasDelegate
-                            engravePreviewLayoutHelper.show(itemHolder.group(R.id.lib_content_wrap_layout))
-                        }
+                    engravePreviewLayoutHelper.showPreviewSafetyTips(fContext()) {
+                        engravePreviewLayoutHelper.canvasDelegate = canvasView?.canvasDelegate
+                        engravePreviewLayoutHelper.show(itemHolder.group(R.id.lib_content_wrap_layout))
                     }
                 }
 
@@ -594,6 +585,17 @@ class CanvasDemo : AppDslFragment() {
     /**雕刻预览布局*/
     val engravePreviewLayoutHelper = EngravePreviewLayoutHelper(this).apply {
         backPressedDispatcherOwner = this@CanvasDemo
+
+        //next
+        onNextAction = {
+            _vh.v<CanvasView>(R.id.canvas_view)?.canvasDelegate?.let { canvasDelegate ->
+                canvasDelegate.getSelectedRenderer()?.let { renderer ->
+                    engraveLayoutHelper.renderer = renderer
+                    engraveLayoutHelper.canvasDelegate = canvasDelegate
+                    engraveLayoutHelper.show(_vh.group(R.id.lib_content_wrap_layout))
+                }
+            }
+        }
     }
 
     /**Canvas控制*/
