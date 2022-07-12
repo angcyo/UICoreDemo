@@ -473,10 +473,13 @@ class CanvasDemo : AppDslFragment() {
                 bindCanvasRecyclerView(itemHolder, adapterItem)
 
                 //product
-                productLayoutHelper.bindCanvasView(itemHolder.v<CanvasView>(R.id.canvas_view)!!)
+                productLayoutHelper.bindCanvasView(
+                    itemHolder.itemView as ViewGroup,
+                    itemHolder.v<CanvasView>(R.id.canvas_view)!!
+                )
 
                 //engrave
-                engraveLayoutHelper.bindDeviceState(itemHolder.itemView as ViewGroup)
+                engraveLayoutHelper.bindDeviceState()
 
                 //test
                 //canvasView?.canvasDelegate?.engraveMode()
