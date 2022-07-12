@@ -91,6 +91,8 @@ class CanvasDemo : AppDslFragment() {
         return super.onBackPressed()
     }
 
+    override fun canSwipeBack(): Boolean = false
+
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
 
