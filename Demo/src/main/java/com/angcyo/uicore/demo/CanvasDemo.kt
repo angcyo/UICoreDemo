@@ -31,6 +31,7 @@ import com.angcyo.canvas.laser.pecker.CanvasLayoutHelper
 import com.angcyo.canvas.laser.pecker.loadingAsync
 import com.angcyo.canvas.utils.*
 import com.angcyo.core.component.dslPermissions
+import com.angcyo.core.showIn
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
@@ -476,6 +477,15 @@ class CanvasDemo : AppDslFragment() {
 
                 //test
                 //canvasView?.canvasDelegate?.engraveMode()
+
+                val stateParser = engravePreviewLayoutHelper.laserPeckerModel.deviceStateData.value
+                if (stateParser?.isModeEngravePreview() == true) {
+                    //设备已经在雕刻预览中
+                    engravePreviewLayoutHelper.showIn(this@CanvasDemo)
+                } else if (stateParser?.isModeEngrave() == true) {
+                    //设备已经在雕刻中
+
+                }
             }
         }
     }
