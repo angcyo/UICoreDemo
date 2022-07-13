@@ -620,17 +620,12 @@ class CanvasDemo : AppDslFragment() {
                     _vh.v<CanvasView>(R.id.canvas_view)?.let { canvasView ->
                         laserPeckerModel.productInfoData.value?.let { productInfo ->
                             val canvasViewBox = canvasView.canvasDelegate.getCanvasViewBox()
-
-                            val coordinateTranslateY =
-                                canvasViewBox.getContentCenterY() - canvasViewBox.getCoordinateSystemY()
-                            var translateY = coordinateTranslateY - productInfo.bounds.centerY()
-
-                            translateY -= canvasViewBox.getContentHeight() - canvasViewBox.getContentWidth() - canvasViewBox.getContentTop() * 2
-
                             if (event == Lifecycle.Event.ON_START) {
                                 //界面显示
-                                //canvasViewBox.translateBy(0f, cRect.top - pRect.top, true)
-                                canvasViewBox.translateTo(0f, translateY, true)
+                                canvasView.canvasDelegate.showRectBounds(
+                                    productInfo.bounds,
+                                    offsetY = (canvasViewBox.getContentHeight() - canvasViewBox.getContentWidth()) / 2
+                                )
                             } else if (event == Lifecycle.Event.ON_STOP) {
                                 //界面隐藏
                                 //canvasViewBox.translateTo(0f, dy)
