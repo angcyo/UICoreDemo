@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
 import com.angcyo.base.back
 import com.angcyo.base.dslFHelper
+import com.angcyo.core.vmApp
 import com.angcyo.coroutine.sleep
 import com.angcyo.dsladapter.dslItem
 import com.angcyo.item.DslTextInfoItem
@@ -11,10 +12,12 @@ import com.angcyo.item.style.itemInfoText
 import com.angcyo.library.L
 import com.angcyo.library.ex.fullTime
 import com.angcyo.library.ex.nowTime
+import com.angcyo.library.ex.nowTimeString
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.viewmodel.ScopeViewModel
 import com.angcyo.viewmodel.vma
 import com.angcyo.widget.base.setInputText
+import com.angcyo.widget.span.span
 
 /**
  *
@@ -35,6 +38,28 @@ class ViewModelDemo : AppDslFragment() {
                     itemHolder.click(R.id.button) {
                         dslFHelper {
                             show(ViewModelLoadDemo::class.java)
+                        }
+                    }
+
+                    itemHolder.click(R.id.send_button) {
+                        vmApp<DemoViewModel>().demoData.postValue("发送的数据:${nowTimeString()}")
+                    }
+                    itemHolder.click(R.id.observe_true_button) {
+                        vmApp<DemoViewModel>().demoData.observe(allowBackward = true) {
+                            itemHolder.tv(R.id.text_view)?.text = span {
+                                append(nowTimeString())
+                                appendln()
+                                append(it)
+                            }
+                        }
+                    }
+                    itemHolder.click(R.id.observe_false_button) {
+                        vmApp<DemoViewModel>().demoData.observe(allowBackward = false) {
+                            itemHolder.tv(R.id.text_view)?.text = span {
+                                append(nowTimeString())
+                                appendln()
+                                append(it)
+                            }
                         }
                     }
                 }
@@ -117,6 +142,7 @@ class ViewModelLoadDemo : AppDslFragment() {
 }
 
 class DemoViewModel : ScopeViewModel() {
+
     val demoData: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }

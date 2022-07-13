@@ -10,13 +10,54 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.angcyo.widget.DslButton
-        android:id="@+id/button"
-        style="@style/DefaultButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/lib_hdpi"
-        android:padding="@dimen/lib_hdpi"
-        android:text="button" />
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <com.angcyo.widget.DslButton
+            android:id="@+id/button"
+            style="@style/DefaultButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/lib_hdpi"
+            android:padding="@dimen/lib_hdpi"
+            android:text="button" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/send_button"
+            style="@style/DefaultButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/lib_hdpi"
+            android:padding="@dimen/lib_hdpi"
+            android:text="send" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/observe_true_button"
+            style="@style/DefaultButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/lib_hdpi"
+            android:padding="@dimen/lib_hdpi"
+            android:text="observe(true)" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/observe_false_button"
+            style="@style/DefaultButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/lib_hdpi"
+            android:padding="@dimen/lib_hdpi"
+            android:text="observe(false)" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/lib_hdpi"
+            android:padding="@dimen/lib_hdpi"
+            android:text="..." />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
 </LinearLayout>
