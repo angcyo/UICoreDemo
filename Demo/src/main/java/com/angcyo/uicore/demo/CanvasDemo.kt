@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.ViewGroup
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
@@ -38,7 +39,7 @@ import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave.EngraveHelper
 import com.angcyo.engrave.EngraveLayoutHelper
 import com.angcyo.engrave.EngravePreviewLayoutHelper
-import com.angcyo.engrave.ProductLayoutHelper
+import com.angcyo.engrave.EngraveProductLayoutHelper
 import com.angcyo.engrave.ble.DeviceConnectTipActivity
 import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.ble.EngraveHistoryFragment
@@ -49,6 +50,7 @@ import com.angcyo.gcode.GCodeWriteHandler
 import com.angcyo.http.rx.doMain
 import com.angcyo.library.ex.*
 import com.angcyo.library.toast
+import com.angcyo.lifecycle.onStateChanged
 import com.angcyo.svg.Svg
 import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
 import com.angcyo.uicore.activity.FirmwareUpdateActivity
@@ -467,7 +469,7 @@ class CanvasDemo : AppDslFragment() {
                 bindCanvasRecyclerView(itemHolder, adapterItem)
 
                 //product
-                productLayoutHelper.bindCanvasView(
+                engraveProductLayoutHelper.bindCanvasView(
                     itemHolder.itemView as ViewGroup,
                     itemHolder.v<CanvasView>(R.id.canvas_view)!!
                 )
@@ -585,7 +587,7 @@ class CanvasDemo : AppDslFragment() {
     val canvasLayoutHelper = CanvasLayoutHelper(this)
 
     /**产品布局*/
-    val productLayoutHelper = ProductLayoutHelper(this)
+    val engraveProductLayoutHelper = EngraveProductLayoutHelper(this)
 
     /**雕刻布局*/
     val engraveLayoutHelper = EngraveLayoutHelper().apply {
@@ -603,6 +605,34 @@ class CanvasDemo : AppDslFragment() {
                     engraveLayoutHelper.renderer = renderer
                     engraveLayoutHelper.canvasDelegate = canvasDelegate
                     engraveLayoutHelper.show(_vh.group(R.id.lib_content_wrap_layout))
+                }
+            }
+        }
+
+        //lifecycle
+        onIViewEvent = { iView, ev ->
+            if (ev == Lifecycle.Event.ON_CREATE) {
+                lifecycle.onStateChanged(true) { source, event, observer ->
+                    _vh.v<CanvasView>(R.id.canvas_view)?.let { canvasView ->
+                        laserPeckerModel.productInfoData.value?.let { productInfo ->
+                            val canvasViewBox = canvasView.canvasDelegate.getCanvasViewBox()
+
+                            val coordinateTranslateY =
+                                canvasViewBox.getContentCenterY() - canvasViewBox.getCoordinateSystemY()
+                            var translateY = coordinateTranslateY - productInfo.bounds.centerY()
+
+                            translateY -= canvasViewBox.getContentHeight() - canvasViewBox.getContentWidth() - canvasViewBox.getContentTop() * 2
+
+                            if (event == Lifecycle.Event.ON_START) {
+                                //界面显示
+                                //canvasViewBox.translateBy(0f, cRect.top - pRect.top, true)
+                                canvasViewBox.translateTo(0f, translateY, true)
+                            } else if (event == Lifecycle.Event.ON_STOP) {
+                                //界面隐藏
+                                //canvasViewBox.translateTo(0f, dy)
+                            }
+                        }
+                    }
                 }
             }
         }
