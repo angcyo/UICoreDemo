@@ -1,9 +1,6 @@
 package com.angcyo.uicore.demo
 
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
-import android.graphics.RectF
+import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Gravity
@@ -53,7 +50,6 @@ import com.angcyo.library.toast
 import com.angcyo.lifecycle.onStateChanged
 import com.angcyo.svg.Svg
 import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
-import com.angcyo.uicore.activity.FirmwareUpdateActivity
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
 import com.angcyo.uicore.demo.SvgDemo.Companion.svgResList
@@ -460,8 +456,15 @@ class CanvasDemo : AppDslFragment() {
                 //test
                 itemHolder.click(R.id.test_button) {
                     //test(itemHolder, canvasView)
-                    dslAHelper {
+                    /*dslAHelper {
                         start(FirmwareUpdateActivity::class)
+                    }*/
+                    itemHolder.view(R.id.canvas_device_state_wrap_layout)?.apply {
+                        /*reveal {
+                            duration = 1_000
+                        }*/
+                        //clipBoundsAnimator()
+                        clipBoundsAnimatorFromLeft()
                     }
                 }
 
@@ -470,6 +473,7 @@ class CanvasDemo : AppDslFragment() {
 
                 //product
                 engraveProductLayoutHelper.bindCanvasView(
+                    itemHolder,
                     itemHolder.itemView as ViewGroup,
                     itemHolder.v<CanvasView>(R.id.canvas_view)!!
                 )
