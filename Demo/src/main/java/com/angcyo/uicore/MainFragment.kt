@@ -14,11 +14,11 @@ import com.angcyo.behavior.refresh.RefreshContentBehavior
 import com.angcyo.behavior.refresh.ScaleHeaderRefreshEffectConfig
 import com.angcyo.core.activity.BaseCoreAppCompatActivity
 import com.angcyo.core.component.fileSelector
+import com.angcyo.core.dslitem.DslLastDeviceInfoItem
 import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.github.window.dslFloatWindow
 import com.angcyo.http.ApiKt
 import com.angcyo.http.dslHttp
-import com.angcyo.item.DslLastDeviceInfoItem
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.item.style.itemInfoText
 import com.angcyo.library.L
@@ -397,7 +397,7 @@ class MainFragment : BaseDemoDslFragment() {
                             showFileMenu = true
                             showHideFile = true
                             targetPath =
-                                FileUtils.appRootExternalFolder()?.absolutePath ?: storageDirectory
+                                FileUtils.appRootExternalFolder().absolutePath ?: storageDirectory
                         })
                     }
                 }
