@@ -1,9 +1,13 @@
 package com.angcyo.uicore.demo
 
-import android.graphics.*
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Gravity
+import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +32,7 @@ import com.angcyo.canvas.items.setHoldData
 import com.angcyo.canvas.laser.pecker.CanvasLayoutHelper
 import com.angcyo.canvas.laser.pecker.loadingAsync
 import com.angcyo.canvas.utils.*
+import com.angcyo.core.component.DebugFragment
 import com.angcyo.core.component.dslPermissions
 import com.angcyo.core.showIn
 import com.angcyo.core.vmApp
@@ -45,6 +50,7 @@ import com.angcyo.engrave.data.EngraveReadyDataInfo
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.gcode.GCodeWriteHandler
 import com.angcyo.http.rx.doMain
+import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.ex.*
 import com.angcyo.library.toast
 import com.angcyo.lifecycle.onStateChanged
@@ -648,4 +654,21 @@ class CanvasDemo : AppDslFragment() {
     }
 
     //</editor-fold desc="bindCanvasRecyclerView">
+
+    //<editor-fold desc="touch">
+
+    val pinchGestureDetector = MultiFingeredHelper.PinchGestureDetector().apply {
+        onPinchAction = {
+            dslFHelper {
+                show(DebugFragment::class)
+            }
+        }
+    }
+
+    override fun onDispatchTouchEvent(event: MotionEvent) {
+        super.onDispatchTouchEvent(event)
+        pinchGestureDetector.onTouchEvent(event)
+    }
+
+    //</editor-fold desc="touch">
 }
