@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.angcyo.activity.BaseAppCompatActivity
 import com.angcyo.canvas.laser.pecker.CanvasFontPopupConfig
 import com.angcyo.dsladapter.DslAdapterStatusItem
+import com.angcyo.getData
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.recycler.renderDslAdapter
 
@@ -32,15 +33,14 @@ class CanvasFontImportActivity : BaseAppCompatActivity() {
 
     override fun onHandleIntent(intent: Intent, fromNewIntent: Boolean) {
         super.onHandleIntent(intent, fromNewIntent)
-        val action = intent.action
-        if (action == Intent.ACTION_VIEW) {
-            val data = intent.data
-            //content://com.estrongs.files/storage/emulated/0/Menlo-BoldItalic.ttf
-            //val dataString = intent.dataString
-            val info = CanvasFontPopupConfig.importFont(data)
 
-            _vh.rv(R.id.lib_recycler_view)?.renderDslAdapter(false, false) {
-                if (info == null) {
+        val info = intent.getData<CanvasOpenInfo>()
+        if (info == null) {
+            finish()
+        } else {
+            val typefaceInfo = CanvasFontPopupConfig.importFont(info.url)
+            _vh.rv(R.id.lib_recycler_view)?.renderDslAdapter(false, false, false) {
+                if (typefaceInfo == null) {
                     //导入失败
                     setAdapterStatus(
                         DslAdapterStatusItem.ADAPTER_STATUS_ERROR,
@@ -54,8 +54,14 @@ class CanvasFontImportActivity : BaseAppCompatActivity() {
                     )
                 }
             }
-        } else {
-            finish()
         }
+
+        /*val action = intent.action
+        if (action == Intent.ACTION_VIEW) {
+            val data = intent.data
+            //content://com.estrongs.files/storage/emulated/0/Menlo-BoldItalic.ttf
+            //val dataString = intent.dataString
+            val info = CanvasFontPopupConfig.importFont(data)
+        }*/
     }
 }

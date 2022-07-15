@@ -287,17 +287,17 @@
         <activity
             android:name="com.angcyo.uicore.activity.CanvasFontImportActivity"
             android:excludeFromRecents="true"
-            android:exported="true"
+            android:exported="false"
             android:label="UICoreDemo字体导入">
 
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data android:scheme="file" />
                 <data android:scheme="content" />
                 <data android:mimeType="*/*" />
-            </intent-filter>
+            </intent-filter>-->
 
         </activity>
 
@@ -307,7 +307,7 @@
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode|smallestScreenSize"
             android:excludeFromRecents="true"
             android:exported="true"
-            android:label="UICoreDemo创作"
+            android:label="UICoreDemo"
             android:taskAffinity=""
             android:theme="@android:style/Theme.NoDisplay">
 
@@ -325,17 +325,17 @@
         <!--固件升级-->
         <activity
             android:name="com.angcyo.uicore.activity.FirmwareUpdateActivity"
-            android:exported="true"
+            android:exported="false"
             android:label="UICoreDemo固件升级">
 
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
+            <!-- <intent-filter>
+                 <action android:name="android.intent.action.VIEW" />
+                 <category android:name="android.intent.category.DEFAULT" />
 
-                <data android:scheme="file" />
-                <data android:scheme="content" />
-                <data android:mimeType="*/*" />
-            </intent-filter>
+                 <data android:scheme="file" />
+                 <data android:scheme="content" />
+                 <data android:mimeType="*/*" />
+             </intent-filter>-->
 
         </activity>
 

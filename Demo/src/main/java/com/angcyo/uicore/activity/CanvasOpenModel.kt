@@ -1,5 +1,6 @@
 package com.angcyo.uicore.activity
 
+import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import com.angcyo.viewmodel.vmDataOnce
 
@@ -15,6 +16,7 @@ class CanvasOpenModel : ViewModel() {
 
 }
 
+@Keep
 data class CanvasOpenInfo(
     /**需要打开的数据类型
      * [CanvasOpenActivity.JPG]

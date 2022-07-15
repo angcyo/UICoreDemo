@@ -1,15 +1,14 @@
 package com.angcyo.uicore.activity.firmware
 
-import android.content.Intent
 import android.os.Bundle
 import com.angcyo.base.back
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.core.fragment.BaseDslFragment
 import com.angcyo.core.vmApp
+import com.angcyo.getData
 import com.angcyo.library.ex.dpi
-import com.angcyo.library.ex.file
-import com.angcyo.library.ex.getPathFromUri
 import com.angcyo.library.toast
+import com.angcyo.uicore.activity.CanvasOpenInfo
 import com.angcyo.widget.span.span
 
 /**
@@ -54,7 +53,18 @@ class FirmwareUpdateFragment : BaseDslFragment() {
         super.onLoadData()
         var support = false
         activity?.intent?.let { intent ->
-            val action = intent.action
+            val info = intent.getData<CanvasOpenInfo>()
+            support = info != null
+
+            if (support) {
+                renderDslAdapter {
+                    FirmwareUpdateItem()() {
+                        itemFirmwareInfo = info!!.url.toFirmwareInfo()
+                    }
+                }
+            }
+
+            /*val action = intent.action
             if (action == Intent.ACTION_VIEW) {
                 val data = intent.data
                 val path = data?.getPathFromUri()
@@ -68,7 +78,7 @@ class FirmwareUpdateFragment : BaseDslFragment() {
                         }
                     }
                 }
-            }
+            }*/
         }
 
         if (!support) {
