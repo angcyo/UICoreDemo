@@ -308,7 +308,6 @@
             android:excludeFromRecents="true"
             android:exported="true"
             android:label="UICoreDemo创作"
-            android:launchMode="singleInstance"
             android:taskAffinity=""
             android:theme="@android:style/Theme.NoDisplay">
 
