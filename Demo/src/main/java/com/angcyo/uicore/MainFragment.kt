@@ -56,6 +56,9 @@ class MainFragment : BaseDemoDslFragment() {
     companion object {
         var CREATE_COUNT = 0
         var CLICK_COUNT = 0
+
+        /**是否跳转到指定位置*/
+        var JUMP_TO_LOCK_POSITION = true
     }
 
     /**自动跳转*/
@@ -407,7 +410,7 @@ class MainFragment : BaseDemoDslFragment() {
             onDispatchUpdatesOnce {
                 if (!BaseCoreAppCompatActivity.haveLastCrash && savedInstanceState == null) {
                     //自动跳转至指定Demo
-                    if (autoJump) {
+                    if (autoJump && JUMP_TO_LOCK_POSITION) {
                         _jumpToLockPosition()
                     }
                 }

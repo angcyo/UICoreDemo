@@ -6,9 +6,9 @@ import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.github.dslitem.ILoopAdapterItem
 import com.angcyo.glide.GlideImageView
 import com.angcyo.glide.giv
-import com.angcyo.http.OkType
 import com.angcyo.library.L
 import com.angcyo.library.ex.*
+import com.angcyo.library.utils.ImageTypeUtil
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.layout.RFrameLayout
@@ -81,7 +81,7 @@ open class AppImageItem(index: Int = -1) : DslAdapterItem(), ILoopAdapterItem {
 
             load(url) {
                 onTypeCallback = {
-                    if (it == OkType.ImageType.GIF) {
+                    if (it == ImageTypeUtil.ImageType.GIF) {
                         addOverlayDrawable(
                             _drawable(R.drawable.gif),
                             Gravity.RIGHT or Gravity.BOTTOM,

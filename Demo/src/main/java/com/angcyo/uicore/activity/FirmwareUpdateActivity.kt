@@ -20,8 +20,8 @@ class FirmwareUpdateActivity : BaseAppCompatActivity() {
         }
     }
 
-    override fun onHandleIntent(intent: Intent, fromNew: Boolean) {
-        super.onHandleIntent(intent, fromNew)
+    override fun onHandleIntent(intent: Intent, fromNewIntent: Boolean) {
+        super.onHandleIntent(intent, fromNewIntent)
     }
 
 }

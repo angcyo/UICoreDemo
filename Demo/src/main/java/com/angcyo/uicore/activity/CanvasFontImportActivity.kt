@@ -30,8 +30,8 @@ class CanvasFontImportActivity : BaseAppCompatActivity() {
         }
     }
 
-    override fun onHandleIntent(intent: Intent, fromNew: Boolean) {
-        super.onHandleIntent(intent, fromNew)
+    override fun onHandleIntent(intent: Intent, fromNewIntent: Boolean) {
+        super.onHandleIntent(intent, fromNewIntent)
         val action = intent.action
         if (action == Intent.ACTION_VIEW) {
             val data = intent.data

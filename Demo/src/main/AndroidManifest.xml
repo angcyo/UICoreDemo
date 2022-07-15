@@ -286,8 +286,31 @@
         <!--Canvas字体导入-->
         <activity
             android:name="com.angcyo.uicore.activity.CanvasFontImportActivity"
+            android:excludeFromRecents="true"
             android:exported="true"
             android:label="UICoreDemo字体导入">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="file" />
+                <data android:scheme="content" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+
+        </activity>
+
+        <!--使用Canvas打开文件-->
+        <activity
+            android:name="com.angcyo.uicore.activity.CanvasOpenActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode|smallestScreenSize"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:label="UICoreDemo创作"
+            android:launchMode="singleInstance"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.NoDisplay">
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

@@ -51,11 +51,15 @@ import com.angcyo.gcode.GCodeHelper
 import com.angcyo.gcode.GCodeWriteHandler
 import com.angcyo.http.rx.doMain
 import com.angcyo.library.component.MultiFingeredHelper
+import com.angcyo.library.component._delay
 import com.angcyo.library.ex.*
 import com.angcyo.library.toast
 import com.angcyo.lifecycle.onStateChanged
 import com.angcyo.svg.Svg
 import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
+import com.angcyo.uicore.activity.CanvasOpenActivity
+import com.angcyo.uicore.activity.CanvasOpenInfo
+import com.angcyo.uicore.activity.CanvasOpenModel
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
 import com.angcyo.uicore.demo.SvgDemo.Companion.svgResList
@@ -497,6 +501,63 @@ class CanvasDemo : AppDslFragment() {
                 } else if (stateParser?.isModeEngrave() == true) {
                     //设备已经在雕刻中
 
+                }
+            }
+        }
+
+        //有需要打开的数据
+        vmApp<CanvasOpenModel>().openPendingData.observe {
+            it?.let {
+                openCanvasInfo(it)
+            }
+        }
+    }
+
+    /**打开外部数据*/
+    fun openCanvasInfo(info: CanvasOpenInfo) {
+        val canvasDelegate = _vh.v<CanvasView>(R.id.canvas_view)?.canvasDelegate
+        if (canvasDelegate == null) {
+            _delay(160L) {
+                openCanvasInfo(info)
+            }
+            return
+        }
+        when (info.type) {
+            CanvasOpenActivity.JPG -> {
+                val bitmap = info.url.toBitmap()
+                if (bitmap == null) {
+                    "数据异常:${info.url}"
+                    toast("data exception!")
+                } else {
+                    canvasDelegate.addPictureBitmapRenderer(bitmap)
+                }
+            }
+            CanvasOpenActivity.GCODE -> {
+                val drawable = info.url.file().readText()?.run {
+                    GCodeHelper.parseGCode(this)
+                }
+                if (drawable == null) {
+                    "数据异常:${info.url}"
+                    toast("data exception!")
+                } else {
+                    canvasDelegate.addDrawableRenderer(drawable).setHoldData(
+                        CanvasDataHandleOperate.KEY_GCODE,
+                        drawable.gCodeData
+                    )
+                }
+            }
+            CanvasOpenActivity.SVG -> {
+                val drawable = info.url.file().readText()?.run {
+                    loadTextSvgPath(this)
+                }
+                if (drawable == null) {
+                    "数据异常:${info.url}"
+                    toast("data exception!")
+                } else {
+                    canvasDelegate.addDrawableRenderer(drawable).setHoldData(
+                        CanvasDataHandleOperate.KEY_SVG,
+                        drawable.pathList
+                    )
                 }
             }
         }

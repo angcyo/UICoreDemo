@@ -20,8 +20,8 @@ import com.angcyo.uicore.MainActivity
 
 class AppWebActivity : TbsWebActivity() {
 
-    override fun onHandleIntent(intent: Intent, fromNew: Boolean) {
-        super.onHandleIntent(intent, fromNew)
+    override fun onHandleIntent(intent: Intent, fromNewIntent: Boolean) {
+        super.onHandleIntent(intent, fromNewIntent)
 
         L.d("$intent ${intent.data}")
 

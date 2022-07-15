@@ -9,6 +9,7 @@ import com.angcyo.base.dslFHelper
 import com.angcyo.base.find
 import com.angcyo.core.activity.BasePermissionsActivity
 import com.angcyo.core.component.model.LanguageModel
+import com.angcyo.haveTargetFragment
 import com.angcyo.library.L
 import com.angcyo.library.component.DslShortcut
 import com.angcyo.library.component.MultiFingeredHelper
@@ -156,9 +157,10 @@ class MainActivity : BasePermissionsActivity() {
         BaiduTraceService.start(this, BaiduTraceService.FLAG_DESTROY)
     }
 
-    override fun handleTargetIntent(intent: Intent) {
-        super.handleTargetIntent(intent)
+    override fun handleTargetIntent(intent: Intent, fromNewIntent: Boolean) {
+        super.handleTargetIntent(intent, fromNewIntent)
         dslFHelper { fm.find(NfcInfoDemo::class)?.updateInfo(intent) }
+        MainFragment.JUMP_TO_LOCK_POSITION = !intent.haveTargetFragment()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

@@ -41,8 +41,8 @@ class NfcHandleActivity : BaseCoreAppCompatActivity() {
         }
     }
 
-    override fun onHandleIntent(intent: Intent, fromNew: Boolean) {
-        super.onHandleIntent(intent, fromNew)
+    override fun onHandleIntent(intent: Intent, fromNewIntent: Boolean) {
+        super.onHandleIntent(intent, fromNewIntent)
         supportFragmentManager.find(NfcInfoDemo::class)?.updateInfo(intent)
     }
 }
