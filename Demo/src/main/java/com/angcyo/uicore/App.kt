@@ -1,6 +1,5 @@
 package com.angcyo.uicore
 
-import android.app.Activity
 import android.graphics.DashPathEffect
 import androidx.camera.camera2.Camera2Config
 import androidx.camera.core.CameraXConfig
@@ -10,9 +9,11 @@ import androidx.viewpager.widget.ViewPager
 import com.angcyo.DslAHelper
 import com.angcyo.base.restore
 import com.angcyo.bluetooth.fsc.FscBleApiModel
-import com.angcyo.bluetooth.fsc.laserpacker.parse.QuerySettingParser
 import com.angcyo.bugly.Bugly
 import com.angcyo.core.CoreApplication
+import com.angcyo.core.component.DebugAction
+import com.angcyo.core.component.DebugFragment
+import com.angcyo.core.component.file.appFilePath
 import com.angcyo.core.fragment.BaseUI
 import com.angcyo.core.viewpager.RFragmentAdapter
 import com.angcyo.core.vmApp
@@ -21,12 +22,11 @@ import com.angcyo.engrave.model.FscDeviceModel
 import com.angcyo.jpush.JPush
 import com.angcyo.library.annotation.CallComplianceAfter
 import com.angcyo.library.component.DslNotify
-import com.angcyo.library.component.OnBackgroundObserver
-import com.angcyo.library.component.RBackground
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.padding
 import com.angcyo.library.ex.randomColor
 import com.angcyo.library.isMainProgress
+import com.angcyo.library.utils.Constant
 import com.angcyo.objectbox.DslBox
 import com.angcyo.objectbox.laser.pecker.LPBox
 import com.angcyo.speech.TTS
@@ -86,6 +86,13 @@ class App : CoreApplication(), CameraXConfig.Provider {
         //fsc
         FscBleApiModel.init()
         vmApp<FscDeviceModel>().initDevice()
+
+        DebugFragment.DEBUG_ACTION_LIST.add(
+            DebugAction(
+                "ble.log",
+                appFilePath("ble.log", Constant.LOG_FOLDER_NAME)
+            )
+        )
     }
 
     @CallComplianceAfter
