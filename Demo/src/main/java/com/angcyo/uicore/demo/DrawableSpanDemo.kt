@@ -312,6 +312,6 @@ class DrawableSpanDemo : AppTitleFragment() {
             _vh.v<ArcLoadingView>(R.id.arc_load_view)?.startLoading()
         }
 
-        //baseViewHolder.group(R.id.wrap_layout).helper()
+        //baseViewHolder.group(R.id.lib_wrap_layout).helper()
     }
 }

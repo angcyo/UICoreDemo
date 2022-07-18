@@ -31,7 +31,7 @@ class ExDialogDemo : AppDslFragment() {
             //输入
             DslInputItem()() {
                 itemEditText = "ExDialogDemo".hawkGet()
-                editItemConfig.itemTextChange = {
+                editItemConfig.itemTextChangeAction = {
                     "ExDialogDemo".hawkPut(it)
                 }
             }
