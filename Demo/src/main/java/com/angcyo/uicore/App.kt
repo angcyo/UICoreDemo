@@ -11,9 +11,6 @@ import com.angcyo.base.restore
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bugly.Bugly
 import com.angcyo.core.CoreApplication
-import com.angcyo.core.component.DebugAction
-import com.angcyo.core.component.DebugFragment
-import com.angcyo.core.component.file.appFilePath
 import com.angcyo.core.fragment.BaseUI
 import com.angcyo.core.viewpager.RFragmentAdapter
 import com.angcyo.core.vmApp
@@ -26,7 +23,6 @@ import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.padding
 import com.angcyo.library.ex.randomColor
 import com.angcyo.library.isMainProgress
-import com.angcyo.library.utils.Constant
 import com.angcyo.objectbox.DslBox
 import com.angcyo.objectbox.laser.pecker.LPBox
 import com.angcyo.speech.TTS
@@ -86,13 +82,6 @@ class App : CoreApplication(), CameraXConfig.Provider {
         //fsc
         FscBleApiModel.init()
         vmApp<FscDeviceModel>().initDevice()
-
-        DebugFragment.DEBUG_ACTION_LIST.add(
-            DebugAction(
-                "ble.log",
-                appFilePath("ble.log", Constant.LOG_FOLDER_NAME)
-            )
-        )
     }
 
     @CallComplianceAfter
