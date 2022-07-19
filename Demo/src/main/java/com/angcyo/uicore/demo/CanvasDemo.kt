@@ -688,6 +688,7 @@ class CanvasDemo : AppDslFragment() {
 
         //lifecycle
         onIViewEvent = { iView, ev ->
+            val canvasDelegate = _vh.v<CanvasView>(R.id.canvas_view)?.canvasDelegate
             if (ev == Lifecycle.Event.ON_CREATE) {
                 lifecycle.onStateChanged(true) { source, event, observer ->
                     _vh.v<CanvasView>(R.id.canvas_view)?.let { canvasView ->
@@ -705,6 +706,16 @@ class CanvasDemo : AppDslFragment() {
                             }
                         }
                     }
+                }
+            } else if (ev == Lifecycle.Event.ON_RESUME) {
+                canvasDelegate?.progressRenderer?.apply {
+                    drawBorderMode = true
+                    targetRenderer = canvasDelegate.getSelectedRenderer()
+                }
+            } else if (ev == Lifecycle.Event.ON_DESTROY) {
+                canvasDelegate?.progressRenderer?.apply {
+                    drawBorderMode = false
+                    targetRenderer = canvasDelegate.getSelectedRenderer()
                 }
             }
         }
