@@ -369,7 +369,7 @@ class CanvasDemo : AppDslFragment() {
                     //安全提示弹窗
                     engravePreviewLayoutHelper.showPreviewSafetyTips(fContext()) {
                         engravePreviewLayoutHelper.canvasDelegate = canvasView?.canvasDelegate
-                        engravePreviewLayoutHelper.show(itemHolder.group(R.id.lib_content_wrap_layout))
+                        engravePreviewLayoutHelper.showIn(this@CanvasDemo)
                     }
                 }
 
@@ -398,7 +398,7 @@ class CanvasDemo : AppDslFragment() {
 
                         engraveLayoutHelper.renderer = renderer
                         engraveLayoutHelper.canvasDelegate = canvasView.canvasDelegate
-                        engraveLayoutHelper.show(itemHolder.group(R.id.lib_content_wrap_layout))
+                        engraveLayoutHelper.showIn(this@CanvasDemo)
                     }
                 }
 
@@ -484,12 +484,9 @@ class CanvasDemo : AppDslFragment() {
                 //product
                 engraveProductLayoutHelper.bindCanvasView(
                     itemHolder,
-                    itemHolder.itemView as ViewGroup,
+                    _vh.itemView as ViewGroup,
                     itemHolder.v<CanvasView>(R.id.canvas_view)!!
                 )
-
-                //engrave
-                engraveLayoutHelper.bindDeviceState()
 
                 //test
                 //canvasView?.canvasDelegate?.engraveMode()
@@ -500,7 +497,7 @@ class CanvasDemo : AppDslFragment() {
                     engravePreviewLayoutHelper.showIn(this@CanvasDemo)
                 } else if (stateParser?.isModeEngrave() == true) {
                     //设备已经在雕刻中
-
+                    engraveLayoutHelper.showIn(this@CanvasDemo)
                 }
             }
         }
@@ -663,6 +660,15 @@ class CanvasDemo : AppDslFragment() {
     /**雕刻布局*/
     val engraveLayoutHelper = EngraveLayoutHelper().apply {
         backPressedDispatcherOwner = this@CanvasDemo
+
+        onIViewEvent = { iView, event ->
+            //禁止手势
+            if (event == Lifecycle.Event.ON_RESUME) {
+                _vh.v<CanvasView>(R.id.canvas_view)?.canvasDelegate?.engraveMode(true)
+            } else if (event == Lifecycle.Event.ON_DESTROY) {
+                _vh.v<CanvasView>(R.id.canvas_view)?.canvasDelegate?.engraveMode(false)
+            }
+        }
     }
 
     /**雕刻预览布局*/
@@ -675,7 +681,7 @@ class CanvasDemo : AppDslFragment() {
                 canvasDelegate.getSelectedRenderer()?.let { renderer ->
                     engraveLayoutHelper.renderer = renderer
                     engraveLayoutHelper.canvasDelegate = canvasDelegate
-                    engraveLayoutHelper.show(_vh.group(R.id.lib_content_wrap_layout))
+                    engraveLayoutHelper.showIn(this@CanvasDemo)
                 }
             }
         }
