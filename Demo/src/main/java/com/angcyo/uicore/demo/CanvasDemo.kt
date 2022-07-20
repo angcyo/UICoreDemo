@@ -47,6 +47,7 @@ import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.ble.EngraveHistoryFragment
 import com.angcyo.engrave.ble.bluetoothSearchListDialog
 import com.angcyo.engrave.data.EngraveReadyDataInfo
+import com.angcyo.engrave.model.EngraveModel
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.gcode.GCodeWriteHandler
 import com.angcyo.http.rx.doMain
@@ -490,72 +491,32 @@ class CanvasDemo : AppDslFragment() {
 
                 //test
                 //canvasView?.canvasDelegate?.engraveMode()
+            }
+        }
 
+        //状态监听和恢复
+        engravePreviewLayoutHelper.laserPeckerModel.initializeData.observeOnce() { init ->
+            if (init == true) {
+                //监听第一次初始化
                 val stateParser = engravePreviewLayoutHelper.laserPeckerModel.deviceStateData.value
-                if (stateParser?.isModeEngravePreview() == true) {
-                    //设备已经在雕刻预览中
-                    engravePreviewLayoutHelper.showIn(this@CanvasDemo)
-                } else if (stateParser?.isModeEngrave() == true) {
-                    //设备已经在雕刻中
-                    engraveLayoutHelper.showIn(this@CanvasDemo)
+                if (vmApp<EngraveModel>().isRestore()) {
+                    //恢复状态
+                    if (stateParser?.isModeEngravePreview() == true) {
+                        //设备已经在雕刻预览中
+                        engravePreviewLayoutHelper.showIn(this@CanvasDemo)
+                    } else if (stateParser?.isModeEngrave() == true) {
+                        //设备已经在雕刻中
+                        engraveLayoutHelper.showIn(this@CanvasDemo)
+                    }
                 }
             }
+            init == true
         }
 
         //有需要打开的数据
         vmApp<CanvasOpenModel>().openPendingData.observe {
             it?.let {
                 openCanvasInfo(it)
-            }
-        }
-    }
-
-    /**打开外部数据*/
-    fun openCanvasInfo(info: CanvasOpenInfo) {
-        val canvasDelegate = _vh.v<CanvasView>(R.id.canvas_view)?.canvasDelegate
-        if (canvasDelegate == null) {
-            _delay(160L) {
-                openCanvasInfo(info)
-            }
-            return
-        }
-        when (info.type) {
-            CanvasOpenActivity.JPG -> {
-                val bitmap = info.url.toBitmap()
-                if (bitmap == null) {
-                    "数据异常:${info.url}"
-                    toast("data exception!")
-                } else {
-                    canvasDelegate.addPictureBitmapRenderer(bitmap)
-                }
-            }
-            CanvasOpenActivity.GCODE -> {
-                val drawable = info.url.file().readText()?.run {
-                    GCodeHelper.parseGCode(this)
-                }
-                if (drawable == null) {
-                    "数据异常:${info.url}"
-                    toast("data exception!")
-                } else {
-                    canvasDelegate.addDrawableRenderer(drawable).setHoldData(
-                        CanvasDataHandleOperate.KEY_GCODE,
-                        drawable.gCodeData
-                    )
-                }
-            }
-            CanvasOpenActivity.SVG -> {
-                val drawable = info.url.file().readText()?.run {
-                    loadTextSvgPath(this)
-                }
-                if (drawable == null) {
-                    "数据异常:${info.url}"
-                    toast("data exception!")
-                } else {
-                    canvasDelegate.addDrawableRenderer(drawable).setHoldData(
-                        CanvasDataHandleOperate.KEY_SVG,
-                        drawable.pathList
-                    )
-                }
             }
         }
     }
@@ -651,6 +612,70 @@ class CanvasDemo : AppDslFragment() {
 
     //<editor-fold desc="bindCanvasRecyclerView">
 
+    /**Canvas控制*/
+    fun bindCanvasRecyclerView(itemHolder: DslViewHolder, adapterItem: DslAdapterItem) {
+        val canvasView = itemHolder.v<CanvasView>(R.id.canvas_view)
+        val itemRecyclerView = itemHolder.v<RecyclerView>(R.id.canvas_item_view)
+
+        itemRecyclerView?.initDslAdapter {
+            canvasLayoutHelper.bindItems(itemHolder, canvasView!!, this)
+        }
+    }
+
+    //</editor-fold desc="bindCanvasRecyclerView">
+
+    //<editor-fold desc="init">
+
+    /**打开外部数据*/
+    fun openCanvasInfo(info: CanvasOpenInfo) {
+        val canvasDelegate = _vh.v<CanvasView>(R.id.canvas_view)?.canvasDelegate
+        if (canvasDelegate == null) {
+            _delay(160L) {
+                openCanvasInfo(info)
+            }
+            return
+        }
+        when (info.type) {
+            CanvasOpenActivity.JPG -> {
+                val bitmap = info.url.toBitmap()
+                if (bitmap == null) {
+                    "数据异常:${info.url}"
+                    toast("data exception!")
+                } else {
+                    canvasDelegate.addPictureBitmapRenderer(bitmap)
+                }
+            }
+            CanvasOpenActivity.GCODE -> {
+                val drawable = info.url.file().readText()?.run {
+                    GCodeHelper.parseGCode(this)
+                }
+                if (drawable == null) {
+                    "数据异常:${info.url}"
+                    toast("data exception!")
+                } else {
+                    canvasDelegate.addDrawableRenderer(drawable).setHoldData(
+                        CanvasDataHandleOperate.KEY_GCODE,
+                        drawable.gCodeData
+                    )
+                }
+            }
+            CanvasOpenActivity.SVG -> {
+                val drawable = info.url.file().readText()?.run {
+                    loadTextSvgPath(this)
+                }
+                if (drawable == null) {
+                    "数据异常:${info.url}"
+                    toast("data exception!")
+                } else {
+                    canvasDelegate.addDrawableRenderer(drawable).setHoldData(
+                        CanvasDataHandleOperate.KEY_SVG,
+                        drawable.pathList
+                    )
+                }
+            }
+        }
+    }
+
     /**Canvas布局*/
     val canvasLayoutHelper = CanvasLayoutHelper(this)
 
@@ -710,28 +735,18 @@ class CanvasDemo : AppDslFragment() {
             } else if (ev == Lifecycle.Event.ON_RESUME) {
                 canvasDelegate?.progressRenderer?.apply {
                     drawBorderMode = true
-                    targetRenderer = canvasDelegate.getSelectedRenderer()
+                    progressRenderer = canvasDelegate.getSelectedRenderer()
                 }
             } else if (ev == Lifecycle.Event.ON_DESTROY) {
                 canvasDelegate?.progressRenderer?.apply {
                     drawBorderMode = false
-                    targetRenderer = canvasDelegate.getSelectedRenderer()
+                    progressRenderer = canvasDelegate.getSelectedRenderer()
                 }
             }
         }
     }
 
-    /**Canvas控制*/
-    fun bindCanvasRecyclerView(itemHolder: DslViewHolder, adapterItem: DslAdapterItem) {
-        val canvasView = itemHolder.v<CanvasView>(R.id.canvas_view)
-        val itemRecyclerView = itemHolder.v<RecyclerView>(R.id.canvas_item_view)
-
-        itemRecyclerView?.initDslAdapter {
-            canvasLayoutHelper.bindItems(itemHolder, canvasView!!, this)
-        }
-    }
-
-    //</editor-fold desc="bindCanvasRecyclerView">
+    //</editor-fold desc="init">
 
     //<editor-fold desc="touch">
 
