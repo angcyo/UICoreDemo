@@ -533,7 +533,14 @@ class CanvasDemo : AppDslFragment() {
     fun loadSvgPathDrawable(): Pair<String, SharpDrawable> {
         val resId = svgResList.randomGetOnce()!!
         val text = fContext().readResource(resId)
-        return text!! to Svg.loadSvgPathDrawable(text, Color.BLACK, Paint.Style.STROKE)
+        return text!! to Svg.loadSvgPathDrawable(
+            text,
+            Color.BLACK,
+            Paint.Style.STROKE,
+            null,
+            0,
+            0
+        )!!
     }
 
     fun loadGCodeDrawable(): Pair<String, Drawable> {
