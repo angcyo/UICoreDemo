@@ -14,6 +14,7 @@ import com.angcyo.core.CoreApplication
 import com.angcyo.core.fragment.BaseUI
 import com.angcyo.core.viewpager.RFragmentAdapter
 import com.angcyo.core.vmApp
+import com.angcyo.crash.sight.CrashSight
 import com.angcyo.download.DslDownload
 import com.angcyo.engrave.model.FscDeviceModel
 import com.angcyo.jpush.JPush
@@ -97,6 +98,7 @@ class App : CoreApplication(), CameraXConfig.Provider {
 
             JPush.init(this)
             Bugly.init()
+            CrashSight.init()
         }
     }
 

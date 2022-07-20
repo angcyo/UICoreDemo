@@ -21,6 +21,9 @@ android {
             //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
         resConfigs "zh", "en", "ja", "xhdpi"
+
+        resValue "string", "CrashSightUrl", '"https://android.crashsight.qq.com/rqd/pb/async"'
+        resValue "string", "CrashSightAppID", '"5d800f5f95"'
     }
     /*splits {
         abi {
@@ -90,6 +93,7 @@ dependencies {
     implementation project(allModule.engrave)
     implementation project(allModule.objectbox_lp)
     implementation project(allModule.canvas_lp)
+    implementation project(allModule.CrashSight)
 
     //https://github.com/airbnb/lottie-android
     //http://airbnb.io/lottie
