@@ -7,6 +7,9 @@ import com.angcyo.activity.BaseAppCompatActivity
 import com.angcyo.canvas.laser.pecker.CanvasFontPopupConfig
 import com.angcyo.dsladapter.DslAdapterStatusItem
 import com.angcyo.getData
+import com.angcyo.library.ex._string
+import com.angcyo.library.ex.dpi
+import com.angcyo.library.ex.setWidthHeight
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.recycler.renderDslAdapter
 
@@ -44,13 +47,21 @@ class CanvasFontImportActivity : BaseAppCompatActivity() {
                     //导入失败
                     setAdapterStatus(
                         DslAdapterStatusItem.ADAPTER_STATUS_ERROR,
-                        IllegalStateException("字体导入失败")
+                        IllegalStateException(_string(R.string.font_import_fail))
                     )
                 } else {
+                    dslAdapterStatusItem.onBindStateLayout = { itemHolder, state ->
+                        if (state == DslAdapterStatusItem.ADAPTER_STATUS_ERROR) {
+                            itemHolder.img(R.id.lib_image_view)?.apply {
+                                setImageResource(R.drawable.lib_ic_succeed)
+                                setWidthHeight(80 * dpi, 80 * dpi)
+                            }
+                        }
+                    }
                     //导入成功
                     setAdapterStatus(
                         DslAdapterStatusItem.ADAPTER_STATUS_ERROR,
-                        IllegalStateException("字体导入成功")
+                        IllegalStateException(_string(R.string.font_import_success))
                     )
                 }
             }

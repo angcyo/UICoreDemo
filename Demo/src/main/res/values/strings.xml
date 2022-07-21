@@ -8,4 +8,7 @@
     <string name="compose_shortcut_long_label2">快捷方式</string>
 
     <string name="language_auto">跟随系统</string>
+
+    <string name="font_import_fail">字体导入失败</string>
+    <string name="font_import_success">字体导入成功</string>
 </resources>

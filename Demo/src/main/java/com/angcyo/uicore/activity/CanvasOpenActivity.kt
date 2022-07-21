@@ -102,9 +102,16 @@ class CanvasOpenActivity : Activity() {
     /**解析数据*/
     fun parseOpenInfo(intent: Intent): CanvasOpenInfo? {
         val action = intent.action
-        if (action == Intent.ACTION_VIEW) {
-            val data = intent.data
-            val path = data?.getPathFromUri()
+
+        val data = when (action) {
+            Intent.ACTION_VIEW -> intent.data
+            Intent.ACTION_SEND -> intent.extras?.getParcelable(Intent.EXTRA_STREAM)
+            else -> null
+        }
+        L.i("解析:$action $data")
+
+        if (data != null) {
+            val path = data.getPathFromUri()
             if (path == null) {
                 "路径为空,无法打开".writeErrorLog()
                 return null

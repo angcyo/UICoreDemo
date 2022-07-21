@@ -311,12 +311,20 @@
             android:taskAffinity=""
             android:theme="@android:style/Theme.NoDisplay">
 
+            <!--使用xxx打开-->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data android:scheme="file" />
                 <data android:scheme="content" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+
+            <!--发送给xxx-->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="*/*" />
             </intent-filter>
 
