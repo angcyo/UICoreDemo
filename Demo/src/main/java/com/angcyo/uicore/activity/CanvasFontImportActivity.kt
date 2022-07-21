@@ -7,9 +7,7 @@ import com.angcyo.activity.BaseAppCompatActivity
 import com.angcyo.canvas.laser.pecker.CanvasFontPopupConfig
 import com.angcyo.dsladapter.DslAdapterStatusItem
 import com.angcyo.getData
-import com.angcyo.library.ex._string
-import com.angcyo.library.ex.dpi
-import com.angcyo.library.ex.setWidthHeight
+import com.angcyo.library.ex.*
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.recycler.renderDslAdapter
 
@@ -41,13 +39,14 @@ class CanvasFontImportActivity : BaseAppCompatActivity() {
         if (info == null) {
             finish()
         } else {
+            val name = info.url.getFileAttachmentName()
             val typefaceInfo = CanvasFontPopupConfig.importFont(info.url)
             _vh.rv(R.id.lib_recycler_view)?.renderDslAdapter(false, false, false) {
                 if (typefaceInfo == null) {
                     //导入失败
                     setAdapterStatus(
                         DslAdapterStatusItem.ADAPTER_STATUS_ERROR,
-                        IllegalStateException(_string(R.string.font_import_fail))
+                        IllegalStateException("$name\n${_string(R.string.font_import_fail)}")
                     )
                 } else {
                     dslAdapterStatusItem.onBindStateLayout = { itemHolder, state ->
@@ -61,7 +60,7 @@ class CanvasFontImportActivity : BaseAppCompatActivity() {
                     //导入成功
                     setAdapterStatus(
                         DslAdapterStatusItem.ADAPTER_STATUS_ERROR,
-                        IllegalStateException(_string(R.string.font_import_success))
+                        IllegalStateException("$name\n${_string(R.string.font_import_success)}")
                     )
                 }
             }
