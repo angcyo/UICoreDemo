@@ -26,6 +26,7 @@ import com.angcyo.library.ex.randomColor
 import com.angcyo.library.isMainProgress
 import com.angcyo.objectbox.DslBox
 import com.angcyo.objectbox.laser.pecker.LPBox
+import com.angcyo.server.DslAndServer
 import com.angcyo.speech.TTS
 import com.angcyo.tbs.DslTbs
 import com.angcyo.uicore.demo.*
@@ -70,6 +71,8 @@ class App : CoreApplication(), CameraXConfig.Provider {
 
         DslBox.default_package_name = BuildConfig.APPLICATION_ID
         DslBox.init(this, debug = false)
+
+        DslAndServer//init
 
         //LaserPecker
         LPBox.init(this)
