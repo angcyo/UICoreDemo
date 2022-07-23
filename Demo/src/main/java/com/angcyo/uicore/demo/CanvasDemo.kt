@@ -257,12 +257,12 @@ class CanvasDemo : AppDslFragment() {
                     }
                 }
                 itemHolder.click(R.id.add_svg) {
-                    canvasView?.apply {
+                    canvasView?.canvasDelegate?.apply {
                         addDrawableRenderer(Sharp.loadResource(resources, R.raw.issue_19).drawable)
                     }
                 }
                 itemHolder.click(R.id.add_gcode) {
-                    canvasView?.apply {
+                    canvasView?.canvasDelegate?.apply {
                         val text = fContext().readAssets("gcode/LaserPecker.gcode")
                         val drawable = GCodeHelper.parseGCode(text)!!
                         addDrawableRenderer(drawable).setHoldData(
@@ -272,7 +272,7 @@ class CanvasDemo : AppDslFragment() {
                     }
                 }
                 itemHolder.click(R.id.random_add_svg) {
-                    canvasView?.apply {
+                    canvasView?.canvasDelegate?.apply {
                         /*loadSvgDrawable().apply {
                             addDrawableRenderer(second)
                         }*/
@@ -285,7 +285,7 @@ class CanvasDemo : AppDslFragment() {
                     }
                 }
                 itemHolder.click(R.id.random_add_gcode) {
-                    canvasView?.apply {
+                    canvasView?.canvasDelegate?.apply {
                         loadGCodeDrawable().apply {
                             addDrawableRenderer(second).setHoldData(
                                 CanvasDataHandleOperate.KEY_GCODE,
@@ -567,7 +567,7 @@ class CanvasDemo : AppDslFragment() {
                 }) {
                     //no
                     it?.readText()?.let { gCode ->
-                        canvasView.addDrawableRenderer(GCodeHelper.parseGCode(gCode)!!)
+                        canvasView.canvasDelegate.addDrawableRenderer(GCodeHelper.parseGCode(gCode)!!)
                             .setHoldData(CanvasDataHandleOperate.KEY_GCODE, gCode)
                     }
                 }
@@ -584,8 +584,9 @@ class CanvasDemo : AppDslFragment() {
                     }) {
                         //no
                         it?.readText()?.let { gCode ->
-                            canvasView.addDrawableRenderer(GCodeHelper.parseGCode(gCode)!!)
-                                .setHoldData(CanvasDataHandleOperate.KEY_GCODE, gCode)
+                            canvasView.canvasDelegate.addDrawableRenderer(
+                                GCodeHelper.parseGCode(gCode)!!
+                            ).setHoldData(CanvasDataHandleOperate.KEY_GCODE, gCode)
                         }
                     }
                 } else {
@@ -608,8 +609,9 @@ class CanvasDemo : AppDslFragment() {
                     }) {
                         //no
                         it?.readText()?.let { gCode ->
-                            canvasView.addDrawableRenderer(GCodeHelper.parseGCode(gCode)!!)
-                                .setHoldData(CanvasDataHandleOperate.KEY_GCODE, gCode)
+                            canvasView.canvasDelegate.addDrawableRenderer(
+                                GCodeHelper.parseGCode(gCode)!!
+                            ).setHoldData(CanvasDataHandleOperate.KEY_GCODE, gCode)
                         }
                     }
                 }
