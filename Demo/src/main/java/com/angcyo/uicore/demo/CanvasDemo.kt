@@ -19,6 +19,8 @@ import com.angcyo.bluetooth.fsc.enqueue
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
 import com.angcyo.bluetooth.fsc.laserpacker.command.EngravePreviewCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
+import com.angcyo.bluetooth.fsc.laserpacker.command.FileModeCmd
+import com.angcyo.bluetooth.fsc.laserpacker.parse.FileTransferParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
 import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasView
@@ -447,6 +449,16 @@ class CanvasDemo : AppDslFragment() {
                             }
                         }
                     }*/
+                }
+
+                //清除历史
+                itemHolder.click(R.id.clear_file_button) {
+                    FileModeCmd.deleteAllHistory().enqueue { bean, error ->
+                        if (bean?.parse<FileTransferParser>()?.isFileDeleteSuccess() == true) {
+                            toast("删除成功")
+                        }
+                        error?.let { toast(it.message) }
+                    }
                 }
 
                 //设置
