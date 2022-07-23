@@ -3,7 +3,7 @@ package com.angcyo.uicore.activity.firmware
 import androidx.fragment.app.Fragment
 import com.angcyo.bluetooth.fsc.*
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
-import com.angcyo.bluetooth.fsc.laserpacker.command.DataCommand
+import com.angcyo.bluetooth.fsc.laserpacker.command.DataCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.FirmwareUpdateCmd
 import com.angcyo.bluetooth.fsc.laserpacker.parse.FirmwareUpdateParser
 import com.angcyo.core.component.dslPermissions
@@ -139,7 +139,7 @@ class FirmwareUpdateItem : DslAdapterItem(), IFragmentItem {
             .enqueue { bean, error ->
                 bean?.parse<FirmwareUpdateParser>()?.let {
                     //进入模式成功, 开始发送数据
-                    DataCommand.data(info.data)
+                    DataCmd.data(info.data)
                         .enqueue(CommandQueueHelper.FLAG_NO_RECEIVE)
                     listenerFinish()
                 }.elseNull {
