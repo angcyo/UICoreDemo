@@ -16,6 +16,7 @@ import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.IReceiveBeanAction
 import com.angcyo.bluetooth.fsc.enqueue
+import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
 import com.angcyo.bluetooth.fsc.laserpacker.command.EngravePreviewCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
@@ -459,6 +460,12 @@ class CanvasDemo : AppDslFragment() {
                         }
                         error?.let { toast(it.message) }
                     }
+                }
+
+                //切换设备中心点
+                itemHolder.click(R.id.device_origin_button) {
+                    LaserPeckerHelper.switchDeviceCenter()
+                    canvasView?.canvasDelegate?.refresh()
                 }
 
                 //设置
