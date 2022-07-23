@@ -46,6 +46,7 @@ import com.angcyo.engrave.ble.DeviceConnectTipActivity
 import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.ble.EngraveHistoryFragment
 import com.angcyo.engrave.ble.bluetoothSearchListDialog
+import com.angcyo.engrave.data.EngraveDataInfo
 import com.angcyo.engrave.data.EngraveReadyDataInfo
 import com.angcyo.engrave.model.EngraveModel
 import com.angcyo.gcode.GCodeHelper
@@ -459,7 +460,10 @@ class CanvasDemo : AppDslFragment() {
                 itemHolder.click(R.id.preproccess_button) {
                     canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
                         loadingAsync({
-                            EngraveHelper.handleEngraveData(renderer, EngraveReadyDataInfo())
+                            EngraveHelper.handleEngraveData(
+                                renderer,
+                                EngraveReadyDataInfo(engraveData = EngraveDataInfo(index = CLICK_COUNT++))
+                            )
                         })
                     }
                 }
@@ -572,7 +576,7 @@ class CanvasDemo : AppDslFragment() {
                 if (!pathList.isNullOrEmpty()) {
                     //path list
                     loadingAsync({
-                        CanvasDataHandleOperate.pathStrokeToGCode(
+                        CanvasDataHandleOperate.pathToGCode(
                             pathList,
                             renderer.getBounds(),
                             renderer.rotate
