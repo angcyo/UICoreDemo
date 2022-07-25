@@ -95,6 +95,7 @@ dependencies {
     implementation project(allModule.canvas_lp)
     implementation project(allModule.CrashSight)
     implementation project(allModule.umeng_lp)
+    implementation project(allModule.doodle)
 
     //https://github.com/airbnb/lottie-android
     //http://airbnb.io/lottie
