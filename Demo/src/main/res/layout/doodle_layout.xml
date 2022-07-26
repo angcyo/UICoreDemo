@@ -32,6 +32,20 @@
             android:layout_height="wrap_content"
             android:text="重做" />
 
+        <com.angcyo.widget.DslButton
+            android:id="@+id/pen_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="钢笔" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/zen_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="毛笔" />
+
     </com.angcyo.widget.layout.DslFlowLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
