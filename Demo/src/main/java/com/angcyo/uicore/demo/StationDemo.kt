@@ -1,15 +1,9 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.widget.TextView
 import com.angcyo.dsladapter.dslItem
 import com.angcyo.library.annotation.Implementation
-import com.angcyo.library.ex.size
 import com.angcyo.uicore.base.AppDslFragment
-import com.angcyo.uicore.component.StationAdapter
-import com.angcyo.uicore.component.StationLayout
 
 /**
  *
@@ -30,7 +24,7 @@ class StationDemo : AppDslFragment() {
         }
 
         renderDslAdapter {
-            dslItem(R.layout.station_layout) {
+            /*dslItem(R.layout.station_layout) {
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
                     itemHolder.v<StationLayout>(R.id.station_layout)
                         ?.updateStation(object : StationAdapter() {
@@ -56,6 +50,12 @@ class StationDemo : AppDslFragment() {
                                 return view
                             }
                         })
+                }
+            }*/
+
+            dslItem(R.layout.station_layout) {
+                itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
+
                 }
             }
         }

@@ -3,9 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.angcyo.uicore.component.StationLayout
+    <!--<com.angcyo.uicore.component.StationLayout
         android:id="@+id/station_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" />-->
+
+    <com.angcyo.widget.slider.RuleSliderView
+        android:id="@+id/rule_slider_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp" />
 
 </FrameLayout>

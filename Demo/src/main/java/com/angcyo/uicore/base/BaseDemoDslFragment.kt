@@ -34,6 +34,10 @@ abstract class BaseDemoDslFragment : AppDslFragment() {
 
     var baseClassPackage: String = "com.angcyo.uicore.demo"
 
+    //第一个/最后一个包含Go的索引
+    var _firstGoPosition: Int = RecyclerView.NO_POSITION
+    var _lastGoPosition: Int = RecyclerView.NO_POSITION
+
     fun DslAdapter.renderDemoListItem(
         text: CharSequence?,
         topInsert: Int = 1 * dpi,
@@ -83,10 +87,17 @@ abstract class BaseDemoDslFragment : AppDslFragment() {
         }
 
         if (text?.contains(GO, true) == true) {
-            if (goFirst && lockDemoPosition >= 0) {
-                return
+            if (_firstGoPosition == RecyclerView.NO_POSITION) {
+                _firstGoPosition = this.adapterItems.lastIndex
             }
-            lockDemoPosition = this.adapterItems.lastIndex
+            _lastGoPosition = this.adapterItems.lastIndex
+
+            //
+            lockDemoPosition = if (goFirst) {
+                _firstGoPosition
+            } else {
+                _lastGoPosition
+            }
         }
     }
 
