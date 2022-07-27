@@ -1,9 +1,11 @@
 package com.angcyo.uicore.demo
 
+import android.graphics.Color
 import android.os.Bundle
 import com.angcyo.dsladapter.dslItem
 import com.angcyo.library.annotation.Implementation
 import com.angcyo.uicore.base.AppDslFragment
+import com.angcyo.widget.slider.RuleSliderView
 
 /**
  *
@@ -55,7 +57,14 @@ class StationDemo : AppDslFragment() {
 
             dslItem(R.layout.station_layout) {
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
+                    val ruleView = itemHolder.v<RuleSliderView>(R.id.rule_slider_view)
 
+                    ruleView?.ruleList?.add(RuleSliderView.RuleInfo(Color.YELLOW, "YELLOW", 0))
+                    ruleView?.ruleList?.add(RuleSliderView.RuleInfo(Color.RED, "RED", 30))
+                    ruleView?.ruleList?.add(RuleSliderView.RuleInfo(Color.BLUE, "BLUE", 50))
+                    ruleView?.ruleList?.add(RuleSliderView.RuleInfo(Color.GREEN, "GREEN", 80))
+                    ruleView?.ruleList?.add(RuleSliderView.RuleInfo(Color.MAGENTA, "MAGENTA", 100))
+                    ruleView?.postInvalidate()
                 }
             }
         }
