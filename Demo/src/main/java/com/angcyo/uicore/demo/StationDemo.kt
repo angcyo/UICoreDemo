@@ -59,11 +59,41 @@ class StationDemo : AppDslFragment() {
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
                     val ruleView = itemHolder.v<RuleSliderView>(R.id.rule_slider_view)
 
-                    ruleView?.ruleList?.add(RuleSliderView.RuleInfo(Color.YELLOW, "YELLOW", 0))
-                    ruleView?.ruleList?.add(RuleSliderView.RuleInfo(Color.RED, "RED", 30))
-                    ruleView?.ruleList?.add(RuleSliderView.RuleInfo(Color.BLUE, "BLUE", 50))
-                    ruleView?.ruleList?.add(RuleSliderView.RuleInfo(Color.GREEN, "GREEN", 80))
-                    ruleView?.ruleList?.add(RuleSliderView.RuleInfo(Color.MAGENTA, "MAGENTA", 100))
+                    ruleView?.ruleList?.add(
+                        RuleSliderView.RuleInfo(
+                            Color.YELLOW,
+                            "YELLOW",
+                            RuleSliderView.calcProgress(50)
+                        )
+                    )
+                    ruleView?.ruleList?.add(
+                        RuleSliderView.RuleInfo(
+                            Color.RED,
+                            "RED",
+                            RuleSliderView.calcProgress(150)
+                        )
+                    )
+                    ruleView?.ruleList?.add(
+                        RuleSliderView.RuleInfo(
+                            Color.BLUE,
+                            "BLUE",
+                            RuleSliderView.calcProgress(200)
+                        )
+                    )
+                    ruleView?.ruleList?.add(
+                        RuleSliderView.RuleInfo(
+                            Color.GREEN,
+                            "GREEN",
+                            RuleSliderView.calcProgress(250)
+                        )
+                    )
+                    ruleView?.ruleList?.add(
+                        RuleSliderView.RuleInfo(
+                            Color.MAGENTA,
+                            "MAGENTA",
+                            RuleSliderView.calcProgress(300)
+                        )
+                    )
                     ruleView?.postInvalidate()
                 }
             }
