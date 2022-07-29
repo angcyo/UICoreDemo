@@ -9,10 +9,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.core.graphics.withMatrix
 import androidx.core.graphics.withTranslation
-import com.angcyo.canvas.utils._tempPoint
 import com.angcyo.canvas.utils.createPaint
-import com.angcyo.canvas.utils.mapPoint
-import com.angcyo.canvas.utils.mapRectF
 import com.angcyo.library.ex.*
 
 /**

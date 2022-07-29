@@ -2,10 +2,9 @@ package com.angcyo.uicore.demo
 
 import android.graphics.Matrix
 import android.os.Bundle
-import com.angcyo.canvas.utils.*
 import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.dsladapter.bindItem
-import com.angcyo.library.ex.toRadians
+import com.angcyo.library.ex.*
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.draw.DrawImageView
 import com.angcyo.widget.DslViewHolder

@@ -296,7 +296,8 @@ class FscThroughputFragment : AppDslFragment() {
                                     0,
                                     60,
                                     20,
-                                    EngraveHelper.lastPwrProgress
+                                    EngraveHelper.lastPwrProgress,
+                                    0
                                 ).toHexCommandString(),
                                 EngravePreviewParser::class.java
                             )
