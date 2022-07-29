@@ -22,6 +22,7 @@ import com.angcyo.bluetooth.fsc.laserpacker.command.EngravePreviewCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.FileModeCmd
 import com.angcyo.bluetooth.fsc.laserpacker.parse.FileTransferParser
+import com.angcyo.bluetooth.fsc.laserpacker.parse.QuerySettingParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
 import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasView
@@ -466,6 +467,26 @@ class CanvasDemo : AppDslFragment() {
                 itemHolder.click(R.id.device_origin_button) {
                     LaserPeckerHelper.switchDeviceCenter()
                     canvasView?.canvasDelegate?.refresh()
+                }
+
+                //切换4点预览
+                itemHolder.tv(R.id.four_points_preview_button)?.text =
+                    if (QuerySettingParser.USE_FOUR_POINTS_PREVIEW) {
+                        "4点预览√"
+                    } else {
+                        "4点预览×"
+                    }
+                itemHolder.click(R.id.four_points_preview_button) {
+                    QuerySettingParser.USE_FOUR_POINTS_PREVIEW =
+                        !QuerySettingParser.USE_FOUR_POINTS_PREVIEW
+
+                    //update
+                    itemHolder.tv(R.id.four_points_preview_button)?.text =
+                        if (QuerySettingParser.USE_FOUR_POINTS_PREVIEW) {
+                            "4点预览√"
+                        } else {
+                            "4点预览×"
+                        }
                 }
 
                 //设置

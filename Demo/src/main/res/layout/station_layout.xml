@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/transparent20"
+    android:orientation="vertical">
 
     <!--<com.angcyo.uicore.component.StationLayout
         android:id="@+id/station_layout"
@@ -15,4 +17,11 @@
         android:paddingLeft="40dp"
         android:paddingRight="40dp" />
 
-</FrameLayout>
+    <com.angcyo.uicore.component.RuleSliderView2
+        android:id="@+id/rule_slider_view2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp" />
+
+</LinearLayout>

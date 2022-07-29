@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.angcyo.dsladapter.dslItem
 import com.angcyo.library.annotation.Implementation
 import com.angcyo.uicore.base.AppDslFragment
+import com.angcyo.uicore.component.RuleSliderView2
 import com.angcyo.widget.slider.RuleSliderView
 
 /**
@@ -58,6 +59,7 @@ class StationDemo : AppDslFragment() {
             dslItem(R.layout.station_layout) {
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
                     val ruleView = itemHolder.v<RuleSliderView>(R.id.rule_slider_view)
+                    val ruleView2 = itemHolder.v<RuleSliderView2>(R.id.rule_slider_view2)
 
                     ruleView?.ruleList?.add(
                         RuleSliderView.RuleInfo(
@@ -95,6 +97,44 @@ class StationDemo : AppDslFragment() {
                         )
                     )
                     ruleView?.postInvalidate()
+
+                    //2
+                    ruleView2?.ruleList?.add(
+                        RuleSliderView2.RuleInfo(
+                            Color.YELLOW,
+                            "YELLOW",
+                            50
+                        )
+                    )
+                    ruleView2?.ruleList?.add(
+                        RuleSliderView2.RuleInfo(
+                            Color.RED,
+                            "RED",
+                            150
+                        )
+                    )
+                    ruleView2?.ruleList?.add(
+                        RuleSliderView2.RuleInfo(
+                            Color.BLUE,
+                            "BLUE",
+                            200
+                        )
+                    )
+                    ruleView2?.ruleList?.add(
+                        RuleSliderView2.RuleInfo(
+                            Color.GREEN,
+                            "GREEN",
+                            250
+                        )
+                    )
+                    ruleView2?.ruleList?.add(
+                        RuleSliderView2.RuleInfo(
+                            Color.MAGENTA,
+                            "MAGENTA",
+                            300
+                        )
+                    )
+                    ruleView2?.postInvalidate()
                 }
             }
         }
