@@ -265,27 +265,6 @@ class RuleSliderView2(context: Context, attributeSet: AttributeSet? = null) :
     val _gestureDetector: GestureDetectorCompat by lazy {
         GestureDetectorCompat(context, object : GestureDetector.SimpleOnGestureListener() {
 
-            override fun onDown(e: MotionEvent): Boolean {
-                _lastVelocityX = 0f
-                _onTouchMoveTo(e.x, e.y, false)
-                return true
-            }
-
-            override fun onScroll(
-                e1: MotionEvent?,
-                e2: MotionEvent?,
-                distanceX: Float,
-                distanceY: Float
-            ): Boolean {
-                var handle = false
-                if (e2 != null) {
-                    parent.requestDisallowInterceptTouchEvent(true)
-                    _onTouchMoveTo(e2.x, e2.y, false)
-                    handle = true
-                }
-                return handle
-            }
-
             override fun onFling(
                 e1: MotionEvent?,
                 e2: MotionEvent?,
@@ -341,10 +320,15 @@ class RuleSliderView2(context: Context, attributeSet: AttributeSet? = null) :
         super.onTouchEvent(event)
 
         _gestureDetector.onTouchEvent(event)
+        _onTouchMoveTo(event.x, event.y, false)
 
         val action = event.actionMasked
         if (action == MotionEvent.ACTION_DOWN) {
             isTouchDown = true
+            _lastVelocityX = 0f
+            parent.requestDisallowInterceptTouchEvent(true)
+        } else if (action == MotionEvent.ACTION_MOVE) {
+            //no op
         } else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
             isTouchDown = false
             parent.requestDisallowInterceptTouchEvent(false)
