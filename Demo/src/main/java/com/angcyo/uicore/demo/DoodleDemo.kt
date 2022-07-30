@@ -2,6 +2,7 @@ package com.angcyo.uicore.demo
 
 import android.os.Bundle
 import com.angcyo.doodle.DoodleView
+import com.angcyo.doodle.brush.DebugBrush
 import com.angcyo.doodle.brush.NormalBrush
 import com.angcyo.doodle.brush.PenBrush
 import com.angcyo.doodle.brush.ZenBrush
@@ -25,6 +26,10 @@ class DoodleDemo : AppDslFragment() {
                 val doodleView = itemHolder.v<DoodleView>(R.id.doodle_view)
 
                 //
+                itemHolder.click(R.id.clear_button) {
+                    doodleView?.doodleDelegate?.operateLayer?.clearAllElement()
+                }
+
                 itemHolder.click(R.id.undo_button) {
                     doodleView?.doodleDelegate?.undoManager?.undo()
                 }
@@ -39,7 +44,7 @@ class DoodleDemo : AppDslFragment() {
                 }
 
                 itemHolder.click(R.id.debug_button) {
-                    doodleView?.doodleDelegate?.doodleTouchManager?.updateTouchRecognize(PenBrush())
+                    doodleView?.doodleDelegate?.doodleTouchManager?.updateTouchRecognize(DebugBrush())
                 }
 
                 itemHolder.click(R.id.pen_button) {

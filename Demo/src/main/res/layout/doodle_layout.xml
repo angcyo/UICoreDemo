@@ -19,6 +19,13 @@
         app:r_flow_item_vertical_space="@dimen/lib_dpi">
 
         <com.angcyo.widget.DslButton
+            android:id="@+id/clear_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="清除" />
+
+        <com.angcyo.widget.DslButton
             android:id="@+id/undo_button"
             style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
@@ -33,18 +40,18 @@
             android:text="重做" />
 
         <com.angcyo.widget.DslButton
-            android:id="@+id/normal_button"
-            style="@style/DefaultButtonStyleNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="普通笔" />
-
-        <com.angcyo.widget.DslButton
             android:id="@+id/debug_button"
             style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="调试笔" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/normal_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="普通笔" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/pen_button"
