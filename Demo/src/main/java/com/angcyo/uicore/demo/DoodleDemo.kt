@@ -2,6 +2,7 @@ package com.angcyo.uicore.demo
 
 import android.os.Bundle
 import com.angcyo.doodle.DoodleView
+import com.angcyo.doodle.brush.NormalBrush
 import com.angcyo.doodle.brush.PenBrush
 import com.angcyo.doodle.brush.ZenBrush
 import com.angcyo.dsladapter.bindItem
@@ -33,6 +34,14 @@ class DoodleDemo : AppDslFragment() {
                 }
 
                 //
+                itemHolder.click(R.id.normal_button) {
+                    doodleView?.doodleDelegate?.doodleTouchManager?.updateTouchRecognize(NormalBrush())
+                }
+
+                itemHolder.click(R.id.debug_button) {
+                    doodleView?.doodleDelegate?.doodleTouchManager?.updateTouchRecognize(PenBrush())
+                }
+
                 itemHolder.click(R.id.pen_button) {
                     doodleView?.doodleDelegate?.doodleTouchManager?.updateTouchRecognize(PenBrush())
                 }
