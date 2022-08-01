@@ -2,10 +2,7 @@ package com.angcyo.uicore.demo
 
 import android.os.Bundle
 import com.angcyo.doodle.DoodleView
-import com.angcyo.doodle.brush.DebugBrush
-import com.angcyo.doodle.brush.NormalBrush
-import com.angcyo.doodle.brush.PenBrush
-import com.angcyo.doodle.brush.ZenBrush
+import com.angcyo.doodle.brush.*
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.uicore.base.AppDslFragment
 
@@ -25,6 +22,8 @@ class DoodleDemo : AppDslFragment() {
             bindItem(R.layout.doodle_layout) { itemHolder, itemPosition, adapterItem, payloads ->
                 val doodleView = itemHolder.v<DoodleView>(R.id.doodle_view)
 
+                val doodleTouchManager = doodleView?.doodleDelegate?.doodleTouchManager
+
                 //
                 itemHolder.click(R.id.clear_button) {
                     doodleView?.doodleDelegate?.operateLayer?.clearAllElement()
@@ -40,19 +39,23 @@ class DoodleDemo : AppDslFragment() {
 
                 //
                 itemHolder.click(R.id.normal_button) {
-                    doodleView?.doodleDelegate?.doodleTouchManager?.updateTouchRecognize(NormalBrush())
+                    doodleTouchManager?.updateTouchRecognize(NormalBrush())
                 }
 
                 itemHolder.click(R.id.debug_button) {
-                    doodleView?.doodleDelegate?.doodleTouchManager?.updateTouchRecognize(DebugBrush())
+                    doodleTouchManager?.updateTouchRecognize(DebugBrush())
                 }
 
                 itemHolder.click(R.id.pen_button) {
-                    doodleView?.doodleDelegate?.doodleTouchManager?.updateTouchRecognize(PenBrush())
+                    doodleTouchManager?.updateTouchRecognize(PenBrush())
                 }
 
                 itemHolder.click(R.id.zen_button) {
-                    doodleView?.doodleDelegate?.doodleTouchManager?.updateTouchRecognize(ZenBrush())
+                    doodleTouchManager?.updateTouchRecognize(ZenBrush())
+                }
+
+                itemHolder.click(R.id.zen_oval_button) {
+                    doodleTouchManager?.updateTouchRecognize(ZenOvalBrush())
                 }
 
             }
