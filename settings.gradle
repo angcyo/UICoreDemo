@@ -1,2 +1,4 @@
 //rootProject.name='UICoreDemo'
 apply from: 'UICore/_gradle/includeAllModule.gradle'
+
+//apply from: 'https://gitee.com/angcyo/gradle/raw/master/initSettings.gradle'

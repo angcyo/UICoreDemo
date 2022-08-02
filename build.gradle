@@ -6,6 +6,8 @@ apply from: 'UICore/_gradle/init.gradle'
 apply from: allGradle.saveStream
 apply from: allGradle.statisticsWord
 
+//apply from: 'https://gitee.com/angcyo/gradle/raw/master/init.gradle'
+
 buildscript {
     /*ext {
         buildToolsVersion = "30.0.2"

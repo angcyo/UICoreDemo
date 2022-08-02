@@ -12,6 +12,8 @@ ext {
 }
 apply from: allGradle.app
 
+//apply from: 'https://gitee.com/angcyo/gradle/raw/master/app.gradle'
+
 android {
     defaultConfig {
         ndk {
