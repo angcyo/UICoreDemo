@@ -38,6 +38,10 @@ class DoodleDemo : AppDslFragment() {
                 }
 
                 //
+                itemHolder.click(R.id.eraser_button) {
+                    doodleTouchManager?.updateTouchRecognize(EraserBrush())
+                }
+
                 itemHolder.click(R.id.normal_button) {
                     doodleTouchManager?.updateTouchRecognize(NormalBrush())
                 }
