@@ -8,6 +8,7 @@ import android.view.Gravity
 import android.widget.RadioGroup
 import android.widget.Toast
 import com.angcyo.component.hawkInstallAndRestore
+import com.angcyo.core.component.httpConfigDialog
 import com.angcyo.coroutine.onBack
 import com.angcyo.coroutine.sleep
 import com.angcyo.dialog.*
@@ -86,6 +87,12 @@ class DialogDemo : AppDslFragment() {
                 R.id.style_sheet -> DslDialogConfig.DIALOG_TYPE_BOTTOM_SHEET_DIALOG
                 R.id.style_activity -> DslDialogConfig.DIALOG_TYPE_ACTIVITY
                 else -> DslDialogConfig.DIALOG_TYPE_APPCOMPAT
+            }
+        }
+
+        holder.click(R.id.http_config_dialog) {
+            fContext().httpConfigDialog { url, cancel ->
+                toast(url)
             }
         }
 

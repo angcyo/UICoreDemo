@@ -150,6 +150,13 @@
         app:r_flow_item_vertical_space="@dimen/lib_hdpi">
 
         <com.angcyo.widget.DslButton
+            android:id="@+id/http_config_dialog"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HttpConfig" />
+
+        <com.angcyo.widget.DslButton
             android:id="@+id/normal_dialog"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
