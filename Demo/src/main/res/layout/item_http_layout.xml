@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/lib_xhdpi">
+
+    <com.angcyo.widget.edit.DslEditText
+        android:id="@+id/edit_text"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/lib_item_min_height" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/request_button"
+        style="@style/DefaultButtonMinStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        android:text="请求"
+        app:layout_constraintTop_toBottomOf="@id/edit_text" />
+
+    <com.angcyo.widget.text.DslTextView
+        android:id="@+id/text_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        app:layout_constraintTop_toBottomOf="@id/request_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
