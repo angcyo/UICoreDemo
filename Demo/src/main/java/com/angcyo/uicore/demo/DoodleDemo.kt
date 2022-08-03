@@ -3,8 +3,13 @@ package com.angcyo.uicore.demo
 import android.os.Bundle
 import com.angcyo.doodle.DoodleView
 import com.angcyo.doodle.brush.*
+import com.angcyo.doodle.core.DoodleUndoManager
+import com.angcyo.doodle.core.IDoodleListener
+import com.angcyo.doodle.core.Strategy
 import com.angcyo.dsladapter.bindItem
+import com.angcyo.library.ex.size
 import com.angcyo.uicore.base.AppDslFragment
+import com.angcyo.widget.span.span
 
 /**
  *
@@ -22,6 +27,24 @@ class DoodleDemo : AppDslFragment() {
             bindItem(R.layout.doodle_layout) { itemHolder, itemPosition, adapterItem, payloads ->
                 val doodleView = itemHolder.v<DoodleView>(R.id.doodle_view)
 
+                //
+                doodleView?.doodleDelegate?.doodleListenerList?.add(object : IDoodleListener {
+                    override fun onDoodleUndoChanged(undoManager: DoodleUndoManager) {
+                        itemHolder.tv(R.id.undo_button)?.text = span {
+                            append("撤销")
+                            append("${undoManager.undoStack.size()}") {
+                                isSuperscript = true
+                            }
+                        }
+                        itemHolder.tv(R.id.redo_button)?.text = span {
+                            append("重做")
+                            append("${undoManager.redoStack.size()}") {
+                                isSuperscript = true
+                            }
+                        }
+                    }
+                })
+
                 val doodleTouchManager = doodleView?.doodleDelegate?.doodleTouchManager
 
                 //
@@ -35,6 +58,14 @@ class DoodleDemo : AppDslFragment() {
 
                 itemHolder.click(R.id.redo_button) {
                     doodleView?.doodleDelegate?.undoManager?.redo()
+                }
+
+                itemHolder.click(R.id.background_button) {
+                    it.isSelected = !it.isSelected
+                    doodleView?.doodleDelegate?.doodleLayerManager?.hideBackgroundLayer(
+                        it.isSelected,
+                        Strategy.Normal()
+                    )
                 }
 
                 //

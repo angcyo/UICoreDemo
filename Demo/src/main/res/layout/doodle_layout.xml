@@ -40,6 +40,13 @@
             android:text="重做" />
 
         <com.angcyo.widget.DslButton
+            android:id="@+id/background_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="背景" />
+
+        <com.angcyo.widget.DslButton
             android:id="@+id/eraser_button"
             style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
