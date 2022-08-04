@@ -4,6 +4,6 @@
     <item android:top="80dp">
         <bitmap
             android:gravity="top|center_horizontal"
-            android:src="@mipmap/ic_logo_png" />
+            android:src="@drawable/ic_logo_png" />
     </item>
 </layer-list>
