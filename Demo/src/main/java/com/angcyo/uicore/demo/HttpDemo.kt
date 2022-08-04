@@ -72,6 +72,10 @@ class HttpDemo : AppDslFragment() {
                 addGridMedia("http://laserpecker.oss-cn-shenzhen.aliyuncs.com/app/images/bd7d94fc-ef75-a48c-fb2a-db3a8d3b567d.png")
             }
             DslNineMediaItem()() {
+                itemBackgroundDrawable = _colorDrawable(Color.GREEN)
+                addGridMedia("https://laserpecker-prod.oss-cn-hongkong.aliyuncs.com/app/images/319bc400-9f1b-28ef-2f1f-b44bb9a97ccb.png?w=12000&h=6008&")
+            }
+            DslNineMediaItem()() {
                 itemBackgroundDrawable = _colorDrawable(Color.RED)
                 addGridMedia("http://laserpecker.oss-cn-shenzhen.aliyuncs.com/app/images/bd7d94fc-ef75-a48c-fb2a-db3a8d3b567d.png")
                 addGridMedia("http://laserpecker.oss-cn-shenzhen.aliyuncs.com/app/images/d446f1f3-9227-fe64-543c-93e3dad669fe.png")

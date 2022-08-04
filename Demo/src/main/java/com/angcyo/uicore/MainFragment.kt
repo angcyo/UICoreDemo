@@ -395,7 +395,7 @@ class MainFragment : BaseDemoDslFragment() {
             //renderDemoListItem("CurrentActivityDemo $GO")
 
             //position
-            //lockDemoPosition = 69 - 1
+            //lockDemoPosition = 82 - 1 //canvas
 
             //设备信息.
             DslLastDeviceInfoItem()() {
