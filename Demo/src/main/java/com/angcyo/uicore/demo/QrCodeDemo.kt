@@ -114,12 +114,10 @@ class QrCodeDemo : AppDslFragment() {
     override fun onFragmentFirstShow(bundle: Bundle?) {
         super.onFragmentFirstShow(bundle)
 
-        _adapter.onDispatchUpdatesOnce {
-            _vh.post {
-                _recycler[0]?.apply {
-                    codeResult?.run { tv(R.id.text_view)?.text = this }
-                    clickView(R.id.create_qrcode)
-                }
+        _vh.post {
+            _recycler[0]?.apply {
+                codeResult?.run { tv(R.id.text_view)?.text = this }
+                clickView(R.id.create_qrcode)
             }
         }
     }
