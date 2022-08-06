@@ -14,6 +14,8 @@ import com.angcyo.library.L
 import com.angcyo.library.ex._colorDrawable
 import com.angcyo.pager.dslitem.DslNineMediaItem
 import com.angcyo.uicore.base.AppDslFragment
+import com.angcyo.widget.DslButton
+import com.angcyo.widget.DslLoadingButton
 import com.angcyo.widget.base.setInputText
 import com.angcyo.widget.base.string
 import com.google.gson.JsonElement
@@ -36,6 +38,7 @@ class HttpDemo : AppDslFragment() {
                 itemHolder.click(R.id.request_button) {
                     val url = editText.string(true)
                     if (url.isNotEmpty()) {
+                        (it as? DslButton)?.showButtonLoading = true
                         post {
                             this.url = url
                             msgKey = "errMsg"
@@ -47,6 +50,8 @@ class HttpDemo : AppDslFragment() {
                             }
                         }.observer(ToastObserver<Response<JsonElement>>().apply {
                             onObserverEnd = { data, error ->
+                                (it as? DslButton)?.showButtonLoading = false
+
                                 /*loginEntity.value = data?.toBean<LoginEntity>()?.apply {
                                     user?.let {
                                         userEntity.target = it
@@ -58,6 +63,13 @@ class HttpDemo : AppDslFragment() {
                                 textView?.text = data?.toString()
                             }
                         })
+                    }
+                }
+
+                itemHolder.click(R.id.request_loading_button) {
+                    (it as? DslLoadingButton)?.isLoading = true
+                    itemHolder.postDelay(2_000) {
+                        (it as? DslLoadingButton)?.isLoading = false
                     }
                 }
             }
