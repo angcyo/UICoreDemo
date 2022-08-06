@@ -157,6 +157,13 @@
             android:text="HttpConfig" />
 
         <com.angcyo.widget.DslButton
+            android:id="@+id/multi_input_dialog"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="多输入框" />
+
+        <com.angcyo.widget.DslButton
             android:id="@+id/normal_dialog"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"

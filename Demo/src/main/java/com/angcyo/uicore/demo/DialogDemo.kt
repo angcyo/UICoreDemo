@@ -23,6 +23,7 @@ import com.angcyo.library.*
 import com.angcyo.library.component.nowCalendar
 import com.angcyo.library.component.toCalendar
 import com.angcyo.library.ex.*
+import com.angcyo.uicore.MainFragment
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.dslitem.tx
 import com.angcyo.widget.DslViewHolder
@@ -93,6 +94,18 @@ class DialogDemo : AppDslFragment() {
         holder.click(R.id.http_config_dialog) {
             fContext().httpConfigDialog { url, cancel ->
                 toast(url)
+            }
+        }
+
+        holder.click(R.id.multi_input_dialog) {
+            fContext().inputMultiDialog {
+                _defaultConfig(holder, this)
+                hintInputString = mutableListOf("请输入标题", "请输入内容")
+                inputViewHeight = mutableListOf(-1, 200 * dpi)
+
+                if (MainFragment.CLICK_COUNT++ % 2 == 0) {
+                    inputItemLayoutId = R.layout.lib_dialog_input_multi_buffer_item
+                }
             }
         }
 
