@@ -98,6 +98,7 @@ dependencies {
     implementation project(allModule.CrashSight)
     implementation project(allModule.umeng_lp)
     implementation project(allModule.doodle)
+    implementation project(allModule.wifip2p)
 
     //https://github.com/airbnb/lottie-android
     //http://airbnb.io/lottie

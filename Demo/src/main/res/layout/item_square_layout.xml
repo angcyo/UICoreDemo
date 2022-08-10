@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/lib_ldpi"
+    android:background="@color/lib_white"
+    android:padding="@dimen/lib_hdpi">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/square_info_view"
+        style="@style/LibDesTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="id/userId" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/square_time_view"
+        style="@style/LibDesTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="time" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/lib_text_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        app:layout_constraintTop_toBottomOf="@id/square_info_view"
+        tools:text="content" />
+
+    <com.angcyo.widget.recycler.DslRecyclerView
+        android:id="@+id/lib_nested_recycler_view"
+        style="@style/LibInnerRecyclerViewStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent20"
+        app:layout_constraintTop_toBottomOf="@id/lib_text_view" />
+
+    <com.angcyo.widget.text.DslTextView
+        android:id="@+id/number_text_view"
+        style="@style/LibDesTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        app:layout_constraintTop_toBottomOf="@id/lib_nested_recycler_view"
+        tools:text="点赞" />
+
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:id="@+id/flow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        android:gravity="right"
+        app:layout_constraintTop_toBottomOf="@id/number_text_view"
+        app:r_flow_item_horizontal_space="@dimen/lib_hdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_hdpi">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/state_text_view"
+            style="@style/LibDesTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/lib_hdpi"
+            tools:text="置顶" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/sequence_button"
+            style="@style/DefaultButtonMinStyle"
+            tools:text="置顶" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/featured_button"
+            style="@style/DefaultButtonMinStyle"
+            tools:text="精选" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/status_button"
+            style="@style/DefaultButtonMinStyle"
+            tools:text="操作" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
