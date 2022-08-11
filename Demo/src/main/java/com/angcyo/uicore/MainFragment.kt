@@ -297,7 +297,7 @@ class MainFragment : BaseDemoDslFragment() {
             renderDemoListItem("DrawableSpanDemo")
             renderDemoListItem("WidgetDemo ArcLoadingView")
             renderDemoListItem("LoadingDemo")
-            renderDemoListItem("LoadingDemo2")
+            renderDemoListItem("LoadingDemo2 $GO")
             renderDemoListItem("HttpDemo")
             renderDemoListItem("WifiP2PDemo $GO")
             renderDemoListItem("RefreshEffectDemo DslToast")

@@ -6,6 +6,7 @@ import com.angcyo.drawable.progress.LinearProgressDrawable
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.base.clickIt
+import com.angcyo.widget.progress.DslBlockSeekBar
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
@@ -18,9 +19,9 @@ class LoadingDemo2 : AppDslFragment() {
         renderDslAdapter {
             bindItem(R.layout.item_loading_layout2) { itemHolder, itemPosition, adapterItem, payloads ->
 
+                val circleProgressDrawable = CircleProgressDrawable()
                 itemHolder.view(R.id.view1)?.apply {
-                    val circleProgressDrawable = CircleProgressDrawable()
-                    circleProgressDrawable.startOffsetAngle = 11f
+                    //circleProgressDrawable.startOffsetAngle = 11f
                     circleProgressDrawable.progressWidth = 40f
                     background = circleProgressDrawable
                     clickIt {
@@ -32,14 +33,23 @@ class LoadingDemo2 : AppDslFragment() {
                     }
                 }
 
+                val linearProgressDrawable = LinearProgressDrawable()
                 itemHolder.view(R.id.view2)?.apply {
-                    val linearProgressDrawable = LinearProgressDrawable()
                     background = linearProgressDrawable
                     clickIt {
                         if (linearProgressDrawable.maxProgressValue == linearProgressDrawable.currentProgressValue) {
                             linearProgressDrawable.updateProgressValue(linearProgressDrawable.minProgressValue)
                         } else {
                             linearProgressDrawable.updateProgressValue(linearProgressDrawable.maxProgressValue)
+                        }
+                    }
+                }
+
+                itemHolder.v<DslBlockSeekBar>(R.id.seek_bar)?.config {
+                    onSeekChanged = { value, fraction, fromUser ->
+                        if (fromUser) {
+                            circleProgressDrawable.currentProgressValue = value
+                            linearProgressDrawable.currentProgressValue = value
                         }
                     }
                 }
