@@ -3,13 +3,18 @@ package com.angcyo.uicore.demo
 import android.os.Bundle
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.DslAdapterItem
-import com.angcyo.dsladapter.updateItem
+import com.angcyo.dsladapter.updateAllItemBy
+import com.angcyo.library.ex._color
+import com.angcyo.library.ex.connect
+import com.angcyo.library.ex.fileSizeString
 import com.angcyo.library.ex.visible
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.p2p.AppWifiP2pItem
 import com.angcyo.widget.loading.RadarScanLoadingView
+import com.angcyo.widget.span.span
 import com.angcyo.wifip2p.WifiP2p
 import com.angcyo.wifip2p.WifiP2pModel
+import com.angcyo.wifip2p.data.ProgressInfo
 import com.angcyo.wifip2p.data.ServiceData
 import com.angcyo.wifip2p.data.WifiP2pDeviceWrap
 import com.angcyo.wifip2p.data.wrap
@@ -28,6 +33,8 @@ class WifiP2PDemo : AppDslFragment() {
         contentLayoutId = R.layout.layout_wifi_p2p
     }
 
+    var hostProgressInfo: ProgressInfo? = null
+
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
 
@@ -36,8 +43,21 @@ class WifiP2PDemo : AppDslFragment() {
                 itemLayoutId = R.layout.item_wifi_p2p_layout
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
                     //
-                    itemHolder.tv(R.id.lib_text_view)?.text =
-                        wifiP2pModel.selfWifiP2pDeviceData.value?.toString()
+                    itemHolder.tv(R.id.lib_text_view)?.text = span {
+                        append(wifiP2pModel.selfWifiP2pDeviceData.value?.toString())
+                        if (wifiP2pModel.isHost()) {
+                            appendLine()
+                            append(wifiP2pModel.wifiP2pGroupData.value?.clientList?.connect()) {
+                                foregroundColor = _color(R.color.text_sub_color)
+                            }
+                            hostProgressInfo?.let {
+                                if (it.speed.speed > 0) {
+                                    appendLine()
+                                    append("速率:${it.speed.speed.fileSizeString()}/s 已接收:${it.speed.total.fileSizeString()}")
+                                }
+                            }
+                        }
+                    }
 
                     //
                     itemHolder.click(R.id.start_service_button) {
@@ -61,6 +81,11 @@ class WifiP2PDemo : AppDslFragment() {
 
             //自身设备信息
             selfWifiP2pDeviceData.observe {
+                _adapter.updateAllHeaderItem()
+            }
+
+            //group
+            wifiP2pGroupData.observe {
                 _adapter.updateAllHeaderItem()
             }
 
@@ -101,9 +126,30 @@ class WifiP2PDemo : AppDslFragment() {
             //连接状态
             connectStateData.observe {
                 it?.let {
-                    _adapter.updateItem { item ->
+                    _adapter.updateAllItemBy { item ->
                         (item.itemData as? WifiP2pDeviceWrap)?.sourceDevice?.deviceAddress ==
                                 it.deviceWrap.sourceDevice.deviceAddress
+                    }
+                }
+            }
+
+            //速率
+            progressData.observe {
+                it?.let { info ->
+                    _adapter.updateAllItemBy { item ->
+                        var result = false
+                        if (item is AppWifiP2pItem) {
+                            if ((item.itemData as? WifiP2pDeviceWrap)?.sourceDevice?.deviceAddress == info.deviceAddress) {
+                                item.itemProgressInfo = info
+                                result = true
+                            }
+                        }
+                        result
+                    }
+
+                    if (isHost()) {
+                        hostProgressInfo = info
+                        _adapter.updateAllHeaderItem()
                     }
                 }
             }

@@ -10,7 +10,9 @@ import com.angcyo.dsladapter.item.IFragmentItem
 import com.angcyo.item.DslTextItem
 import com.angcyo.item.style.itemDes
 import com.angcyo.item.style.itemText
+import com.angcyo.library.ex.fileSizeString
 import com.angcyo.library.ex.nowTimeString
+import com.angcyo.library.ex.toMsTime
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.span.span
@@ -18,6 +20,7 @@ import com.angcyo.wifip2p.WifiP2p
 import com.angcyo.wifip2p.WifiP2pModel
 import com.angcyo.wifip2p.data.ConnectStateWrap.Companion.STATE_CONNECT_START
 import com.angcyo.wifip2p.data.ConnectStateWrap.Companion.STATE_CONNECT_SUCCESS
+import com.angcyo.wifip2p.data.ProgressInfo
 import com.angcyo.wifip2p.data.WifiP2pDeviceWrap
 import com.angcyo.wifip2p.data.servicePort
 import com.angcyo.wifip2p.task.FileSendDataStream
@@ -33,6 +36,8 @@ class AppWifiP2pItem : DslTextItem(), IFragmentItem {
     override var itemFragment: Fragment? = null
 
     var wifiP2pModel = vmApp<WifiP2pModel>()
+
+    var itemProgressInfo: ProgressInfo? = null
 
     init {
         itemLayoutId = R.layout.app_wifi_p2p_item
@@ -56,6 +61,23 @@ class AppWifiP2pItem : DslTextItem(), IFragmentItem {
             }
 
             itemHolder.visible(R.id.send_button, connectState.state == STATE_CONNECT_SUCCESS)
+
+            //发送进度
+            val progressInfo = itemProgressInfo
+            itemHolder.tv(R.id.send_button)?.text =
+                if (connectState.state == STATE_CONNECT_SUCCESS && progressInfo != null) {
+                    val progress = progressInfo.progress
+                    val speed = progressInfo.speed.speed
+                    if (progress == 100) {
+                        "${speed.fileSizeString()}/s 耗时:${
+                            progressInfo.speed.duration().toMsTime()
+                        } 共:${progressInfo.speed.targetTotal.fileSizeString()}"
+                    } else {
+                        "${speed.fileSizeString()}/s"
+                    }
+                } else {
+                    "发送数据"
+                }
         }
 
         itemHolder.click(R.id.connect_button) {
@@ -74,6 +96,7 @@ class AppWifiP2pItem : DslTextItem(), IFragmentItem {
                         it?.file()?.let { file ->
                             wifiP2pInfo.groupOwnerAddress?.hostAddress?.let { ip ->
                                 WifiP2pSendRunnable(
+                                    deviceWrap.sourceDevice.deviceAddress,
                                     ip,
                                     deviceWrap.servicePort,
                                     FileSendDataStream(file)
