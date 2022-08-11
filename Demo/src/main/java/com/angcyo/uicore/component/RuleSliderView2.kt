@@ -318,11 +318,14 @@ class RuleSliderView2(context: Context, attributeSet: AttributeSet? = null) :
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         super.onTouchEvent(event)
-
         _gestureDetector.onTouchEvent(event)
-        _onTouchMoveTo(event.x, event.y, false)
 
         val action = event.actionMasked
+        _onTouchMoveTo(
+            event.x,
+            event.y,
+            action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL
+        )
         if (action == MotionEvent.ACTION_DOWN) {
             isTouchDown = true
             _lastVelocityX = 0f
@@ -340,7 +343,7 @@ class RuleSliderView2(context: Context, attributeSet: AttributeSet? = null) :
                         if (info.value > currentValue &&
                             (info.value - currentValue) <= adsorbThreshold
                         ) {
-                            updateValue(info.value, true)
+                            updateValue(info.value, true, true)
                             break
                         }
                     }
@@ -350,7 +353,7 @@ class RuleSliderView2(context: Context, attributeSet: AttributeSet? = null) :
                         if (info.value < currentValue &&
                             (currentValue - info.value) <= adsorbThreshold
                         ) {
-                            updateValue(info.value, true)
+                            updateValue(info.value, true, true)
                             break
                         }
                     }
@@ -368,16 +371,16 @@ class RuleSliderView2(context: Context, attributeSet: AttributeSet? = null) :
         val ratio: Float = (x - sliderRect.left) / sliderRect.width()
 
         val value: Int = (minValue + (maxValue - minValue) * ratio).toInt()
-        updateValue(value, false)
+        updateValue(value, false, isFinish)
 
         Log.i("angcyo", "touch:$value")
     }
 
-    fun updateValue(value: Int, anim: Boolean) {
+    fun updateValue(value: Int, anim: Boolean, fromUser: Boolean) {
         val oldValue = currentValue
         val newValue = validValue(value)
         currentValue = newValue
-        onSliderConfig?.apply { onSeekChanged(newValue, calcValueRatio(), true) }
+        onSliderConfig?.apply { onSeekChanged(newValue, calcValueRatio(), fromUser) }
         invalidate()
 
         _animtor?.cancel()
