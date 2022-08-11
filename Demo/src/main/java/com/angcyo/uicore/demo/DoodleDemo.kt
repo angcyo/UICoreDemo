@@ -1,6 +1,8 @@
 package com.angcyo.uicore.demo
 
+import android.graphics.Color
 import android.os.Bundle
+import com.angcyo.dialog.singleColorPickerDialog
 import com.angcyo.doodle.DoodleView
 import com.angcyo.doodle.brush.*
 import com.angcyo.doodle.core.DoodleUndoManager
@@ -66,6 +68,22 @@ class DoodleDemo : AppDslFragment() {
                         it.isSelected,
                         Strategy.Normal()
                     )
+                }
+
+                //颜色
+                itemHolder.tv(R.id.color_button)?.setTextColor(
+                    doodleView?.doodleDelegate?.doodleConfig?.paintColor ?: Color.BLACK
+                )
+                itemHolder.click(R.id.color_button) {
+                    itemHolder.context.singleColorPickerDialog {
+                        initialColor =
+                            doodleView?.doodleDelegate?.doodleConfig?.paintColor ?: Color.BLACK
+                        colorPickerAction = { dialog, color ->
+                            doodleView?.doodleDelegate?.doodleConfig?.paintColor = color
+                            itemHolder.tv(R.id.color_button)?.setTextColor(color)
+                            false
+                        }
+                    }
                 }
 
                 //
