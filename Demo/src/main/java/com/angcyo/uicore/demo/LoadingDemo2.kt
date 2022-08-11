@@ -22,7 +22,8 @@ class LoadingDemo2 : AppDslFragment() {
                 val circleProgressDrawable = CircleProgressDrawable()
                 itemHolder.view(R.id.view1)?.apply {
                     //circleProgressDrawable.startOffsetAngle = 11f
-                    circleProgressDrawable.progressWidth = 40f
+                    //circleProgressDrawable.progressWidth = 40f
+                    circleProgressDrawable.updateProgressWidth(40f)
                     background = circleProgressDrawable
                     clickIt {
                         if (circleProgressDrawable.maxProgressValue == circleProgressDrawable.currentProgressValue) {
