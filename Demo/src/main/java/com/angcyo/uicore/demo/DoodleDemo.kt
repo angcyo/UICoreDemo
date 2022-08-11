@@ -111,6 +111,10 @@ class DoodleDemo : AppDslFragment() {
                     doodleTouchManager?.updateTouchRecognize(ZenOvalBrush())
                 }
 
+                itemHolder.click(R.id.zen_circle_button) {
+                    doodleTouchManager?.updateTouchRecognize(ZenCircleBrush())
+                }
+
                 itemHolder.click(R.id.zen_path_button) {
                     doodleTouchManager?.updateTouchRecognize(ZenPathBrush())
                 }

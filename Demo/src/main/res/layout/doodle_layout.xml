@@ -86,21 +86,28 @@
             style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="毛笔" />
+            android:text="!毛笔" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/zen_oval_button"
             style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="毛笔-Oval" />
+            android:text="!毛笔-Oval" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/zen_path_button"
             style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="毛笔-Path" />
+            android:text="!毛笔-Path" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/zen_circle_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="毛笔-Circle" />
 
     </com.angcyo.widget.layout.DslFlowLayout>
 
