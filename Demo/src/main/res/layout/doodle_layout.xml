@@ -68,6 +68,13 @@
             android:text="橡皮擦" />
 
         <com.angcyo.widget.DslButton
+            android:id="@+id/mosaic_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="马赛克" />
+
+        <com.angcyo.widget.DslButton
             android:id="@+id/debug_button"
             style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
@@ -115,6 +122,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="毛笔-Circle" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/image_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="图片" />
 
     </com.angcyo.widget.layout.DslFlowLayout>
 

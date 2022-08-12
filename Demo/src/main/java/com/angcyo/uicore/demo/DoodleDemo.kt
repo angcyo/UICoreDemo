@@ -2,14 +2,27 @@ package com.angcyo.uicore.demo
 
 import android.graphics.Color
 import android.os.Bundle
+import com.angcyo.component.getPhoto
+import com.angcyo.component.luban.luban
 import com.angcyo.dialog.singleColorPickerDialog
 import com.angcyo.doodle.DoodleView
 import com.angcyo.doodle.brush.*
 import com.angcyo.doodle.core.DoodleUndoManager
 import com.angcyo.doodle.core.IDoodleListener
 import com.angcyo.doodle.core.Strategy
+import com.angcyo.doodle.data.BitmapData
+import com.angcyo.doodle.element.BitmapElement
 import com.angcyo.dsladapter.bindItem
+import com.angcyo.library.L
+import com.angcyo.library.Library
+import com.angcyo.library.ex.isDebugType
+import com.angcyo.library.ex.save
 import com.angcyo.library.ex.size
+import com.angcyo.library.ex.toBitmap
+import com.angcyo.library.libCacheFile
+import com.angcyo.library.model.loadPath
+import com.angcyo.library.utils.fileNameUUID
+import com.angcyo.picker.dslSinglePickerImage
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.component.paintWidthPickerDialog
 import com.angcyo.widget.span.span
@@ -105,6 +118,9 @@ class DoodleDemo : AppDslFragment() {
                 itemHolder.click(R.id.eraser_button) {
                     doodleTouchManager?.updateTouchRecognize(EraserBrush())
                 }
+                itemHolder.click(R.id.mosaic_button) {
+                    doodleTouchManager?.updateTouchRecognize(MosaicBrush())
+                }
 
                 itemHolder.click(R.id.normal_button) {
                     doodleTouchManager?.updateTouchRecognize(NormalBrush())
@@ -132,6 +148,35 @@ class DoodleDemo : AppDslFragment() {
 
                 itemHolder.click(R.id.zen_path_button) {
                     doodleTouchManager?.updateTouchRecognize(ZenPathBrush())
+                }
+
+                //image
+                itemHolder.click(R.id.image_button) {
+                    if (isDebugType() && Library.CLICK_COUNT++ % 2 == 0) {
+                        dslSinglePickerImage {
+                            it?.firstOrNull()?.let { media ->
+                                media.loadPath()?.apply {
+                                    doodleDelegate?.addElement(BitmapElement(BitmapData().apply {
+                                        bitmap = toBitmap()
+                                    }))
+                                }
+                            }
+                        }
+                    } else {
+                        getPhoto {
+                            val path = libCacheFile(fileNameUUID(".png")).absolutePath
+                            it?.save(path)
+                            val newPath = path.luban()
+                            L.i("${path}->${newPath}")
+
+                            //压缩后
+                            newPath.toBitmap()?.let {
+                                doodleDelegate?.addElement(BitmapElement(BitmapData().apply {
+                                    bitmap = it
+                                }))
+                            }
+                        }
+                    }
                 }
             }
         }
