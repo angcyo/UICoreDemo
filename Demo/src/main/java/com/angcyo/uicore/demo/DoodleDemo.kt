@@ -1,5 +1,6 @@
 package com.angcyo.uicore.demo
 
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
 import com.angcyo.component.getPhoto
@@ -43,6 +44,11 @@ class DoodleDemo : AppDslFragment() {
             bindItem(R.layout.doodle_layout) { itemHolder, itemPosition, adapterItem, payloads ->
                 val doodleView = itemHolder.v<DoodleView>(R.id.doodle_view)
                 val doodleDelegate = doodleView?.doodleDelegate
+
+                doodleDelegate?.doodleConfig?.brushBitmap = BitmapFactory.decodeResource(
+                    fContext().resources,
+                    R.mipmap.brush
+                )
 
                 //
                 doodleDelegate?.doodleListenerList?.add(object : IDoodleListener {
@@ -148,6 +154,10 @@ class DoodleDemo : AppDslFragment() {
 
                 itemHolder.click(R.id.zen_path_button) {
                     doodleTouchManager?.updateTouchRecognize(ZenPathBrush())
+                }
+
+                itemHolder.click(R.id.bitmap_brush_button) {
+                    doodleTouchManager?.updateTouchRecognize(BitmapBrush())
                 }
 
                 //image
