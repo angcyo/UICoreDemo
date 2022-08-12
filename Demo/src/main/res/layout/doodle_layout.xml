@@ -47,6 +47,13 @@
             android:text="背景" />
 
         <com.angcyo.widget.DslButton
+            android:id="@+id/size_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="大小" />
+
+        <com.angcyo.widget.DslButton
             android:id="@+id/color_button"
             style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"

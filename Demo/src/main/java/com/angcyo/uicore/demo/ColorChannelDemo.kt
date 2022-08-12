@@ -8,7 +8,7 @@ import android.widget.TextView
 import com.angcyo.canvas.laser.pecker.loadingAsync
 import com.angcyo.canvas.utils.toEngraveBitmap
 import com.angcyo.component.getPhoto
-import com.angcyo.drawable.PathDrawable
+import com.angcyo.drawable.PathListDrawable
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.library.ex.*
 import com.angcyo.uicore.MainFragment
@@ -210,7 +210,7 @@ class ColorChannelDemo : AppDslFragment() {
 
     fun testPathDrawable(itemHolder: DslViewHolder, tv: TextView) {
         itemHolder.img(R.id.alpha_image_view)?.apply {
-            setImageDrawable(PathDrawable().apply {
+            setImageDrawable(PathListDrawable().apply {
                 setPath(tv.paint.textPath(tv.text.toString()))
             })
         }

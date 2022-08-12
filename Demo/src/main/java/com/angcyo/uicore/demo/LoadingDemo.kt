@@ -106,7 +106,7 @@ class LoadingDemo : AppDslFragment() {
                         initialColor =
                             (seekBar?.progressBgDrawable as? GradientDrawable)?.color?.defaultColor
                                 ?: initialColor
-                        colorPickerAction = { dialog, color ->
+                        colorPickerResultAction = { dialog, color ->
                             itemHolder.tv(R.id.text_view)?.text = color.toHexColorString()
                             seekBar?.setBgGradientColors("$color")
                             false
@@ -128,7 +128,7 @@ class LoadingDemo : AppDslFragment() {
                         initialColor =
                             (seekBar?.progressBgDrawable as? GradientDrawable)?.color?.defaultColor
                                 ?: initialColor
-                        colorPickerAction = { dialog, color ->
+                        colorPickerResultAction = { dialog, color ->
                             itemHolder.tv(R.id.text_view)?.text = color.toHexColorString()
                             seekBar?.setBgGradientColors("$color")
                             false
@@ -141,7 +141,7 @@ class LoadingDemo : AppDslFragment() {
                         initialColor =
                             (seekBar?.progressBgDrawable as? GradientDrawable)?.color?.defaultColor
                                 ?: initialColor
-                        colorPickerAction = { dialog, color ->
+                        colorPickerResultAction = { dialog, color ->
                             itemHolder.tv(R.id.text_view)?.text = color.toHexColorString()
                             seekBar?.setBgGradientColors("$color")
                             false
