@@ -10,7 +10,7 @@ import com.angcyo.doodle.brush.*
 import com.angcyo.doodle.core.DoodleUndoManager
 import com.angcyo.doodle.core.IDoodleListener
 import com.angcyo.doodle.core.Strategy
-import com.angcyo.doodle.data.BitmapData
+import com.angcyo.doodle.data.BitmapElementData
 import com.angcyo.doodle.element.BitmapElement
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.library.L
@@ -156,8 +156,8 @@ class DoodleDemo : AppDslFragment() {
                         dslSinglePickerImage {
                             it?.firstOrNull()?.let { media ->
                                 media.loadPath()?.apply {
-                                    doodleDelegate?.addElement(BitmapElement(BitmapData().apply {
-                                        bitmap = toBitmap()
+                                    doodleDelegate?.addElement(BitmapElement(BitmapElementData().apply {
+                                        updateBitmap(doodleDelegate, toBitmap())
                                     }))
                                 }
                             }
@@ -171,8 +171,8 @@ class DoodleDemo : AppDslFragment() {
 
                             //压缩后
                             newPath.toBitmap()?.let {
-                                doodleDelegate?.addElement(BitmapElement(BitmapData().apply {
-                                    bitmap = it
+                                doodleDelegate?.addElement(BitmapElement(BitmapElementData().apply {
+                                    updateBitmap(doodleDelegate, it)
                                 }))
                             }
                         }
