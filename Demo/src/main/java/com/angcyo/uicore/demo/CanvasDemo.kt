@@ -36,8 +36,10 @@ import com.angcyo.canvas.items.setHoldData
 import com.angcyo.canvas.laser.pecker.CanvasLayoutHelper
 import com.angcyo.canvas.laser.pecker.loadingAsync
 import com.angcyo.canvas.utils.*
+import com.angcyo.component.getPhoto
 import com.angcyo.core.component.DebugFragment
 import com.angcyo.core.component.dslPermissions
+import com.angcyo.core.loadingAsyncTg
 import com.angcyo.core.showIn
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.DslAdapterItem
@@ -59,7 +61,9 @@ import com.angcyo.http.rx.doMain
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component._delay
 import com.angcyo.library.ex.*
+import com.angcyo.library.libCacheFile
 import com.angcyo.library.toast
+import com.angcyo.library.utils.fileNameUUID
 import com.angcyo.lifecycle.onStateChanged
 import com.angcyo.svg.Svg
 import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
@@ -263,6 +267,26 @@ class CanvasDemo : AppDslFragment() {
                 itemHolder.click(R.id.add_svg) {
                     canvasView?.canvasDelegate?.apply {
                         addDrawableRenderer(Sharp.loadResource(resources, R.raw.issue_19).drawable)
+                    }
+                }
+                itemHolder.click(R.id.add_image_svg) {
+                    /*canvasView?.canvasDelegate?.apply {
+                        addDrawableRenderer(Sharp.loadResource(resources, R.raw.issue_19).drawable)
+                    }*/
+                    getPhoto {
+                        it?.let {
+                            loadingAsyncTg({
+                                val file = libCacheFile(fileNameUUID(".png"))
+                                it.save(file.absolutePath)
+                                val svg = Svg.imageToSVG(file.absolutePath)
+                                libCacheFile(fileNameUUID(".svg")).appendText(svg!!)
+                                Svg.loadSvgDrawable(svg)
+                            }) { svgDrawable ->
+                                canvasView?.canvasDelegate?.apply {
+                                    addDrawableRenderer(svgDrawable!!)
+                                }
+                            }
+                        }
                     }
                 }
                 itemHolder.click(R.id.add_gcode) {
