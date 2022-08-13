@@ -45,11 +45,6 @@ class DoodleDemo : AppDslFragment() {
                 val doodleView = itemHolder.v<DoodleView>(R.id.doodle_view)
                 val doodleDelegate = doodleView?.doodleDelegate
 
-                doodleDelegate?.doodleConfig?.brushBitmap = BitmapFactory.decodeResource(
-                    fContext().resources,
-                    R.mipmap.brush
-                )
-
                 //
                 doodleDelegate?.doodleListenerList?.add(object : IDoodleListener {
                     override fun onDoodleUndoChanged(undoManager: DoodleUndoManager) {
@@ -157,6 +152,17 @@ class DoodleDemo : AppDslFragment() {
                 }
 
                 itemHolder.click(R.id.bitmap_brush_button) {
+                    //替换画刷
+                    doodleDelegate?.doodleConfig?.brushBitmap = BitmapFactory.decodeResource(
+                        fContext().resources,
+                        when (Library.CLICK_COUNT++ % 4) {
+                            1 -> R.mipmap.hua
+                            2 -> R.mipmap.huaduo
+                            3 -> R.mipmap.yanhua
+                            else -> R.mipmap.brush
+                        }
+                    )
+                    //
                     doodleTouchManager?.updateTouchRecognize(BitmapBrush())
                 }
 

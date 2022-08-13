@@ -2,8 +2,10 @@ package com.angcyo.uicore.demo
 
 import android.graphics.Color
 import android.os.Bundle
+import com.angcyo.core.component.fileSelector
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.http.base.jsonObject
+import com.angcyo.http.form.uploadFile
 import com.angcyo.http.post
 import com.angcyo.http.rx.ToastObserver
 import com.angcyo.http.rx.observer
@@ -12,6 +14,8 @@ import com.angcyo.item.style.addGridMedia
 import com.angcyo.item.style.gridMediaSpanCount
 import com.angcyo.library.L
 import com.angcyo.library.ex._colorDrawable
+import com.angcyo.library.ex.elseNull
+import com.angcyo.library.ex.loadUrl
 import com.angcyo.pager.dslitem.DslNineMediaItem
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.DslButton
@@ -66,10 +70,24 @@ class HttpDemo : AppDslFragment() {
                     }
                 }
 
-                itemHolder.click(R.id.request_loading_button) {
-                    (it as? DslLoadingButton)?.isLoading = true
-                    itemHolder.postDelay(2_000) {
-                        (it as? DslLoadingButton)?.isLoading = false
+                //上传文件
+                itemHolder.click(R.id.request_loading_button) { view ->
+                    (view as? DslLoadingButton)?.isLoading = true
+                    fileSelector {
+                        it?.run {
+                            fileUri.loadUrl()
+                                ?.uploadFile("https://server.hingin.com/pecker-web/oss/upload", {
+                                    enablePassCheck = false
+                                    configMultipartBody = {
+                                        addFormDataPart("type", "8")
+                                    }
+                                }) {
+                                    L.i(it)
+                                    (view as? DslLoadingButton)?.isLoading = false
+                                }
+                        }.elseNull {
+                            (view as? DslLoadingButton)?.isLoading = false
+                        }
                     }
                 }
             }
