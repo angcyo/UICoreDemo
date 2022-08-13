@@ -1,7 +1,9 @@
 package com.angcyo.uicore.demo
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import com.angcyo.component.getPhoto
+import com.angcyo.crop.CropView
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.library.Library
 import com.angcyo.library.ex.isDebugType
@@ -21,7 +23,10 @@ class CropImageDemo : AppDslFragment() {
 
         renderDslAdapter {
             bindItem(R.layout.demo_crop_image) { itemHolder, itemPosition, adapterItem, payloads ->
-                val imageView = itemHolder.img(R.id.crop_image_view)
+                val cropView = itemHolder.v<CropView>(R.id.crop_image_view)
+                cropView?.cropDelegate?.updateBitmap(
+                    BitmapFactory.decodeResource(resources, R.drawable.face)
+                )
 
                 //image
                 itemHolder.click(R.id.image_button) {
@@ -29,14 +34,14 @@ class CropImageDemo : AppDslFragment() {
                         dslSinglePickerImage {
                             it?.firstOrNull()?.let { media ->
                                 media.loadPath()?.apply {
-                                    imageView?.setImageBitmap(toBitmap())
+                                    cropView?.cropDelegate?.updateBitmap(toBitmap()!!)
                                 }
                             }
                         }
                     } else {
                         getPhoto {
                             it?.let {
-                                imageView?.setImageBitmap(it)
+                                cropView?.cropDelegate?.updateBitmap(it)
                             }
                         }
                     }
