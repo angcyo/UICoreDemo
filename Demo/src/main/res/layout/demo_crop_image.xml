@@ -23,12 +23,67 @@
         app:r_flow_item_vertical_space="@dimen/lib_dpi">
 
         <com.angcyo.widget.DslButton
+            android:id="@+id/reset_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="恢复" />
+
+        <com.angcyo.widget.DslButton
             android:id="@+id/image_button"
             style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="图片" />
 
+        <com.angcyo.widget.DslButton
+            android:id="@+id/type_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="type" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/origin_ratio_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="原始比例" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/ratio_11_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1:1" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/ratio_169_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="16:9" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/ratio_34_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3:4" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/crop_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="剪裁" />
+
     </com.angcyo.widget.layout.DslFlowLayout>
+
+    <com.angcyo.widget.image.AlphaImageView
+        android:id="@+id/image_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="fitCenter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
