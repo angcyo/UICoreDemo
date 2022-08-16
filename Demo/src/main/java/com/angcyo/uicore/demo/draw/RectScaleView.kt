@@ -7,10 +7,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.core.graphics.withRotation
 import com.angcyo.library.L
-import com.angcyo.library.ex.dp
-import com.angcyo.library.ex.interceptParentTouchEvent
-import com.angcyo.library.ex.paint
-import com.angcyo.library.ex.textHeight
+import com.angcyo.library.ex.*
 import com.angcyo.library.gesture.RectScaleGestureHandler
 
 /**
@@ -37,10 +34,15 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
 
     var rectPosition: Int = RectScaleGestureHandler.RECT_RB
 
+    var flipHorizontal = false
+    var flipVertical = false
+
     /**矩形缩放处理*/
     val rectScaleGestureHandler = RectScaleGestureHandler().apply {
         onRectScaleChangeAction = { rect, end ->
             drawRect.set(rect)
+            flipHorizontal = isFlipHorizontal
+            flipVertical = isFlipVertical
         }
     }
 
@@ -59,30 +61,26 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas.drawColor(Color.BLACK)
+        canvas.drawColor(Color.GRAY)
 
         //origin
         paint.style = Paint.Style.STROKE
         paint.color = Color.WHITE
-        canvas.withRotation(rotate, originRect.centerX(), originRect.centerY()) {
-            canvas.drawRect(originRect, paint)
-        }
-        drawCenter(canvas, originRect)
+        drawRect(canvas, originRect)
 
         //draw
         paint.color = Color.RED
-        canvas.withRotation(rotate, drawRect.centerX(), drawRect.centerY()) {
-            canvas.drawRect(drawRect, paint)
-        }
-        drawCenter(canvas, drawRect)
+        drawRect(canvas, drawRect)
 
         paint.color = Color.WHITE
         paint.style = Paint.Style.FILL
         val text1 =
             "w:${originRect.width()}->${drawRect.width()} h:${originRect.height()}->${drawRect.height()}"
         val text2 = "$drawRect"
+        val text3 = "flipH:$flipHorizontal flipV:$flipVertical $rectPosition"
         canvas.drawText(text1, 0f, paint.textHeight(), paint)
         canvas.drawText(text2, 0f, paint.textHeight() * 2, paint)
+        canvas.drawText(text3, 0f, paint.textHeight() * 3, paint)
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -97,6 +95,28 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         rectScaleGestureHandler.onTouchEvent(event.actionMasked, event.x, event.y)
         postInvalidate()
         return true
+    }
+
+
+    val _path = Path()
+    val dasEffect = DashPathEffect(floatArrayOf(4 * density, 5 * density), 0f)
+
+    /**绘制矩形, 包括旋转后的矩形*/
+    fun drawRect(canvas: Canvas, rect: RectF) {
+        _path.rewind()
+        _path.addRect(rect, Path.Direction.CW)
+        //用虚线绘制
+        paint.pathEffect = dasEffect
+        canvas.drawPath(_path, paint)
+        paint.pathEffect = null
+
+        //旋转后用实线绘制
+        canvas.withRotation(rotate, rect.centerX(), rect.centerY()) {
+            canvas.drawPath(_path, paint)
+        }
+
+        //中心线
+        drawCenter(canvas, originRect)
     }
 
     /**绘制中心十字线*/
