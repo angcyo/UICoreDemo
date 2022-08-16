@@ -119,7 +119,7 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
 
     fun test() {
         val matrix = Matrix()
-        matrix.setScale(-1f, 1f, drawRect.right, drawRect.centerY())
+        matrix.setScale(-0.6f, 0.6f, drawRect.right, drawRect.top)
         matrix.mapRect(drawRect)
         L.i(drawRect)
         postInvalidate()
