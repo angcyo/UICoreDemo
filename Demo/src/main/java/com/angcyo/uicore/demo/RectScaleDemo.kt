@@ -59,7 +59,7 @@ class RectScaleDemo : AppDslFragment() {
                     rectScaleView?.rectPosition = RectScaleGestureHandler.RECT_LT
                 }
                 itemHolder.click(R.id.rt_button) {
-                    rectScaleView?.rectPosition = RectScaleGestureHandler.RECT_RB
+                    rectScaleView?.rectPosition = RectScaleGestureHandler.RECT_RT
                 }
                 itemHolder.click(R.id.rb_button) {
                     rectScaleView?.rectPosition = RectScaleGestureHandler.RECT_RB
