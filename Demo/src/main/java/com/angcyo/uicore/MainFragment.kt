@@ -393,11 +393,12 @@ class MainFragment : BaseDemoDslFragment() {
             renderDemoListItem("CanvasDemo $GO")
             renderDemoListItem("DoodleDemo $GO")
             renderDemoListItem("CropImageDemo $GO")
+            renderDemoListItem("RectScaleDemo $GO")
             //https://github.com/sinawangnan7/CurrentActivity
             //renderDemoListItem("CurrentActivityDemo $GO")
 
             //position
-            //lockDemoPosition = 82 - 1 //canvas
+            //lockDemoPosition = 83 - 1 //canvas
 
             //设备信息.
             DslLastDeviceInfoItem()() {

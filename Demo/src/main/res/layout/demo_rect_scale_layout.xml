@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.angcyo.uicore.demo.draw.RectScaleView
+        android:id="@+id/rect_scale_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1" />
+
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:id="@+id/flow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/rect_scale_view"
+        app:r_flow_item_horizontal_space="@dimen/lib_ldpi"
+        app:r_flow_item_vertical_space="@dimen/lib_ldpi">
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/keep_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="Keep" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/rotate_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="Rotate" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/left_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="Left" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/top_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="Top" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/right_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="Right" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/bottom_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="Bottom" />
+
+        <!---->
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/lt_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="LT" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/rt_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="RT" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/rb_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="RB" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/lb_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="LB" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
