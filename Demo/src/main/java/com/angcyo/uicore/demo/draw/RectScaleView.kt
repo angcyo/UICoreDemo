@@ -9,7 +9,6 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.graphics.withRotation
-import com.angcyo.library.L
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.interceptParentTouchEvent
 import com.angcyo.library.ex.paint
@@ -44,7 +43,6 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
     val rectScaleGestureHandler = RectScaleGestureHandler().apply {
         onRectScaleChangeAction = { rect, end ->
             drawRect.set(rect)
-            L.i("$end $rect")
         }
     }
 
@@ -82,8 +80,11 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
 
         paint.color = Color.WHITE
         paint.style = Paint.Style.FILL
-        val text = "$drawRect"
-        canvas.drawText(text, 0f, paint.textHeight(), paint)
+        val text1 =
+            "w:${originRect.width()}->${drawRect.width()} h:${originRect.height()}->${drawRect.height()}"
+        val text2 = "$drawRect"
+        canvas.drawText(text1, 0f, paint.textHeight(), paint)
+        canvas.drawText(text2, 0f, paint.textHeight() * 2, paint)
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
