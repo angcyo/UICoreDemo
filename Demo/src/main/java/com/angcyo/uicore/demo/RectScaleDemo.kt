@@ -67,6 +67,11 @@ class RectScaleDemo : AppDslFragment() {
                 itemHolder.click(R.id.lb_button) {
                     rectScaleView?.rectPosition = RectScaleGestureHandler.RECT_LB
                 }
+
+                //test
+                itemHolder.click(R.id.test_button) {
+                    rectScaleView?.test()
+                }
             }
         }
     }

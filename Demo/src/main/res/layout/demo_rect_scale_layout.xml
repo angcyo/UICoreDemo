@@ -70,6 +70,11 @@
             style="@style/DefaultButtonMinStyle"
             android:text="LB" />
 
+        <com.angcyo.widget.DslButton
+            android:id="@+id/test_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="test" />
+
     </com.angcyo.widget.layout.DslFlowLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

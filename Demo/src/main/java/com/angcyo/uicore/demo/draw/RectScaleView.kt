@@ -1,14 +1,12 @@
 package com.angcyo.uicore.demo.draw
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.RectF
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.graphics.withRotation
+import com.angcyo.library.L
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.interceptParentTouchEvent
 import com.angcyo.library.ex.paint
@@ -117,5 +115,13 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
             measuredHeight.toFloat(),
             paint
         )
+    }
+
+    fun test() {
+        val matrix = Matrix()
+        matrix.setScale(-1f, 1f, drawRect.right, drawRect.centerY())
+        matrix.mapRect(drawRect)
+        L.i(drawRect)
+        postInvalidate()
     }
 }
