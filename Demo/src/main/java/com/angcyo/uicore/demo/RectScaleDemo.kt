@@ -21,13 +21,13 @@ class RectScaleDemo : AppDslFragment() {
                 val rectScaleView = itemHolder.v<RectScaleView>(R.id.rect_scale_view)
 
                 //radio
-                itemHolder.tv(R.id.keep_button)?.text = "Keep ${rectScaleView?.keepRadio?.toDC()}"
+                itemHolder.tv(R.id.keep_button)?.text = "Keep ${rectScaleView?.keepRadio.toDC()}"
                 itemHolder.click(R.id.keep_button) {
                     rectScaleView?.apply {
                         keepRadio = !keepRadio
                     }
                     itemHolder.tv(R.id.keep_button)?.text =
-                        "Keep ${rectScaleView?.keepRadio?.toDC()}"
+                        "Keep ${rectScaleView?.keepRadio.toDC()}"
                 }
 
                 //rotate

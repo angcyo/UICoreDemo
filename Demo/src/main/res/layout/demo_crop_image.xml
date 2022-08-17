@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/title_bar_height">
+    android:paddingBottom="@dimen/action_bar_height">
 
     <com.angcyo.crop.CropView
         android:id="@+id/crop_image_view"
@@ -42,6 +42,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="type" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/flip_horizontal_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="水平翻转" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/flip_vertical_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="垂直翻转" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/rotate_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="旋转" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/free_button"
