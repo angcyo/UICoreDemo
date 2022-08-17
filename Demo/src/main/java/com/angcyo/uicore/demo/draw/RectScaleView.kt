@@ -88,7 +88,9 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
                 //
-                rectScaleGestureHandler.initialize(originRect, rotate, rectPosition, keepRadio)
+                rectScaleGestureHandler.keepScaleRatio = true
+                rectScaleGestureHandler.keepScaleRatioOnFrame = false
+                rectScaleGestureHandler.initialize(originRect, rotate, rectPosition)
             }
         }
         //

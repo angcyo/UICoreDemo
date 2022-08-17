@@ -87,8 +87,11 @@ class CropImageDemo : AppDslFragment() {
                         }
                 }
                 //比例
-                itemHolder.click(R.id.origin_ratio_button) {
+                itemHolder.click(R.id.free_button) {//自由比例
                     cropView?.cropDelegate?.overlay?.clipRatio = null
+                }
+                itemHolder.click(R.id.origin_ratio_button) {//原始比例
+                    cropView?.cropDelegate?.overlay?.setBitmapRatio()
                 }
                 itemHolder.click(R.id.ratio_11_button) {
                     cropView?.cropDelegate?.overlay?.clipRatio = 1f
