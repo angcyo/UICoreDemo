@@ -1,6 +1,7 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import com.angcyo.drawable.BubbleDrawable
 import com.angcyo.drawable.progress.CircleProgressDrawable
 import com.angcyo.drawable.progress.LinearProgressDrawable
 import com.angcyo.dsladapter.bindItem
@@ -19,6 +20,7 @@ class LoadingDemo2 : AppDslFragment() {
         renderDslAdapter {
             bindItem(R.layout.item_loading_layout2) { itemHolder, itemPosition, adapterItem, payloads ->
 
+                //
                 val circleProgressDrawable = CircleProgressDrawable()
                 itemHolder.view(R.id.view1)?.apply {
                     //circleProgressDrawable.startOffsetAngle = 11f
@@ -34,6 +36,7 @@ class LoadingDemo2 : AppDslFragment() {
                     }
                 }
 
+                //
                 val linearProgressDrawable = LinearProgressDrawable()
                 itemHolder.view(R.id.view2)?.apply {
                     background = linearProgressDrawable
@@ -46,6 +49,10 @@ class LoadingDemo2 : AppDslFragment() {
                     }
                 }
 
+                //
+                itemHolder.view(R.id.view3)?.background = BubbleDrawable()
+
+                //
                 itemHolder.v<DslBlockSeekBar>(R.id.seek_bar)?.config {
                     onSeekChanged = { value, fraction, fromUser ->
                         if (fromUser) {

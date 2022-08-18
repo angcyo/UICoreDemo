@@ -25,6 +25,12 @@
             android:layout_width="160dp"
             android:layout_height="50dp" />
 
+        <View
+            android:id="@+id/view3"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@color/transparent20" />
+
         <com.angcyo.widget.progress.DslBlockSeekBar
             android:id="@+id/seek_bar"
             android:layout_width="match_parent"
