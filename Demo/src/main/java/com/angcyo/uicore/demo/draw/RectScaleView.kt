@@ -94,7 +94,7 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
             }
         }
         //
-        rectScaleGestureHandler.onTouchEvent(event.actionMasked, event.x, event.y)
+        rectScaleGestureHandler.onTouchEvent(event)
         postInvalidate()
         return true
     }
