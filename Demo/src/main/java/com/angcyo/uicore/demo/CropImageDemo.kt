@@ -72,6 +72,15 @@ class CropImageDemo : AppDslFragment() {
                         imageView?.setImageBitmap(it)
                     }
                 }
+                //剪切框的操作模式
+                itemHolder.clickAndInit(R.id.clip_move_button, {
+                    (it as? TextView)?.text =
+                        "ClipMove ${cropDelegate?.overlay?.enableClipMoveMode.toDC()}"
+                }) {
+                    cropDelegate?.overlay?.let {
+                        it.enableClipMoveMode = !it.enableClipMoveMode
+                    }
+                }
                 //type
                 itemHolder.clickAndInit(R.id.type_button, {
                     (it as? TextView)?.text = when (cropDelegate?.overlay?.clipType) {

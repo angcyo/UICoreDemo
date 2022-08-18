@@ -37,6 +37,13 @@
             android:text="图片" />
 
         <com.angcyo.widget.DslButton
+            android:id="@+id/clip_move_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ClipMove" />
+
+        <com.angcyo.widget.DslButton
             android:id="@+id/type_button"
             style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"
