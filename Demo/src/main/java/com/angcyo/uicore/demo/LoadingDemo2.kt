@@ -1,13 +1,21 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.View
+import com.angcyo.dialog.TargetWindow
+import com.angcyo.dialog.popup.PopupTipConfig
+import com.angcyo.dialog.popup.popupTipWindow
 import com.angcyo.drawable.BubbleDrawable
 import com.angcyo.drawable.progress.CircleProgressDrawable
 import com.angcyo.drawable.progress.LinearProgressDrawable
 import com.angcyo.dsladapter.bindItem
+import com.angcyo.library._screenWidth
+import com.angcyo.library.ex.interceptParentTouchEvent
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.base.clickIt
 import com.angcyo.widget.progress.DslBlockSeekBar
+import com.angcyo.widget.progress.DslProgressBar
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
@@ -61,7 +69,49 @@ class LoadingDemo2 : AppDslFragment() {
                         }
                     }
                 }
+                itemHolder.touch(R.id.seek_bar) { view, event ->
+                    showPopupTip(view, event)
+                    true
+                }
 
+                //
+                itemHolder.touch(R.id.popup_tip) { view, event ->
+                    showPopupTip(view, event)
+                    true
+                }
+            }
+        }
+    }
+
+    var window: TargetWindow? = null
+    var popupTipConfig: PopupTipConfig? = null
+
+    fun showPopupTip(view: View, event: MotionEvent) {
+        view.interceptParentTouchEvent(event)
+        when (event.actionMasked) {
+            MotionEvent.ACTION_DOWN -> {
+                window = fContext().popupTipWindow(view, R.layout.layout_bubble_tip) {
+                    touchX = event.x
+                    popupTipConfig = this
+                    onInitLayout = { window, viewHolder ->
+                        viewHolder.view(R.id.view)?.background = BubbleDrawable()
+                        viewHolder.tv(R.id.text_view)?.text = if (view is DslProgressBar) {
+                            "${view.progressValue}"
+                        } else {
+                            "${(touchX * 1f / _screenWidth * 100).toInt()}"
+                        }
+                    }
+                }
+            }
+            MotionEvent.ACTION_MOVE -> {
+                popupTipConfig?.apply {
+                    touchX = event.x
+                    updatePopup()
+                }
+            }
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                //window?.dismiss()
+                popupTipConfig?.hide()
             }
         }
     }

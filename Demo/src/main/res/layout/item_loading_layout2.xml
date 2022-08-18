@@ -37,6 +37,16 @@
             android:layout_height="wrap_content"
             app:progress_value="50" />
 
+        <com.angcyo.widget.DslButton
+            android:id="@+id/button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="Button" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/popup_tip"
+            style="@style/DefaultButtonMinStyle"
+            android:text="PopupTip" />
+
     </com.angcyo.widget.layout.DslFlowLayout>
 
 
