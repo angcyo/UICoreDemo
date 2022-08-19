@@ -391,9 +391,9 @@ class MainFragment : BaseDemoDslFragment() {
             renderDemoListItem("PaintDemo")
             renderDemoListItem("ColorChannelDemo")
             renderDemoListItem("RectScaleDemo")
+            renderDemoListItem("CropImageDemo")
+            renderDemoListItem("DoodleDemo")
             renderDemoListItem("CanvasDemo $GO")
-            renderDemoListItem("DoodleDemo $GO")
-            renderDemoListItem("CropImageDemo $GO")
             //https://github.com/sinawangnan7/CurrentActivity
             //renderDemoListItem("CurrentActivityDemo $GO")
 
