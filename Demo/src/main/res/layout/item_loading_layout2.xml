@@ -51,7 +51,8 @@
             android:id="@+id/seek_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:progress_value="50" />
+            app:progress_value="50"
+            app:seek_enable_halo_inset="false" />
 
     </com.angcyo.widget.layout.DslFlowLayout>
 
