@@ -3,11 +3,14 @@ package com.angcyo.uicore.demo
 import android.graphics.Color
 import android.os.Bundle
 import com.angcyo.core.component.fileSelector
+import com.angcyo.core.coreApp
+import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.http.base.jsonObject
 import com.angcyo.http.form.uploadFile
 import com.angcyo.http.post
 import com.angcyo.http.rx.ToastObserver
+import com.angcyo.http.rx.doMain
 import com.angcyo.http.rx.observer
 import com.angcyo.item.DslGridMediaItem
 import com.angcyo.item.style.addGridMedia
@@ -16,8 +19,12 @@ import com.angcyo.library.L
 import com.angcyo.library.ex._colorDrawable
 import com.angcyo.library.ex.elseNull
 import com.angcyo.library.ex.loadUrl
+import com.angcyo.library.ex.nowTimeString
 import com.angcyo.pager.dslitem.DslNineMediaItem
 import com.angcyo.uicore.base.AppDslFragment
+import com.angcyo.websocket.WSServer
+import com.angcyo.websocket.WSServerModel
+import com.angcyo.websocket.bindLogServer
 import com.angcyo.widget.DslButton
 import com.angcyo.widget.DslLoadingButton
 import com.angcyo.widget.base.setInputText
@@ -31,8 +38,25 @@ import retrofit2.Response
  */
 class HttpDemo : AppDslFragment() {
 
+    var wsServer: WSServer? = null
+
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
+
+        //WebSocket监听
+        vmApp<WSServerModel>().apply {
+            clientConnectData.observe {
+                it?.let {
+                    it.server.sendMessage("连接成功:${nowTimeString()}->${it.server.serverAddress}")
+                }
+            }
+            clientMessageData.observe {
+                it?.let {
+                    it.clientInfo.server.sendMessage("收到[${it.clientInfo.client.remoteSocketAddress}]消息:${nowTimeString()}->${it.message}")
+                }
+            }
+        }
+
         renderDslAdapter {
             bindItem(R.layout.item_http_layout) { itemHolder, itemPosition, adapterItem, payloads ->
                 val editText = itemHolder.ev(R.id.edit_text)
@@ -89,6 +113,21 @@ class HttpDemo : AppDslFragment() {
                             (view as? DslLoadingButton)?.isLoading = false
                         }
                     }
+                }
+
+                //WebSocket
+                itemHolder.click(R.id.websocket_button) {
+                    WSServer.bindWebSocketServer(this@HttpDemo) {
+                        wsServer = it
+                        doMain {
+                            itemHolder.tv(R.id.websocket_button)?.text = it.serverAddress
+                        }
+                    }
+                }
+
+                //log
+                itemHolder.click(R.id.log_button) {
+                    coreApp().bindLogServer()
                 }
             }
 

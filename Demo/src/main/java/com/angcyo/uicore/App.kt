@@ -11,6 +11,8 @@ import com.angcyo.base.restore
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bugly.Bugly
 import com.angcyo.core.CoreApplication
+import com.angcyo.core.component.DebugFragment
+import com.angcyo.core.coreApp
 import com.angcyo.core.fragment.BaseUI
 import com.angcyo.core.viewpager.RFragmentAdapter
 import com.angcyo.core.vmApp
@@ -31,6 +33,7 @@ import com.angcyo.speech.TTS
 import com.angcyo.tbs.DslTbs
 import com.angcyo.uicore.demo.*
 import com.angcyo.uicore.fragment.RecyclerTextFragment
+import com.angcyo.websocket.bindLogServer
 import io.objectbox.Box
 import kotlin.random.Random
 
@@ -86,6 +89,14 @@ class App : CoreApplication(), CameraXConfig.Provider {
         //fsc
         FscBleApiModel.init()
         vmApp<FscDeviceModel>().initDevice()
+
+        //WebSocket
+        DebugFragment.addDebugAction {
+            name = "LogServer"
+            action = {
+                coreApp().bindLogServer()
+            }
+        }
     }
 
     @CallComplianceAfter

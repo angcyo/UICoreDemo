@@ -12,30 +12,48 @@
         android:layout_height="wrap_content"
         android:minHeight="@dimen/lib_item_min_height" />
 
-    <com.angcyo.widget.DslButton
-        android:id="@+id/request_button"
-        style="@style/DefaultButtonMinStyle"
+    <com.angcyo.widget.layout.DslFlowLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/lib_hdpi"
-        android:text="请求"
-        app:layout_constraintTop_toBottomOf="@id/edit_text" />
+        app:layout_constraintTop_toBottomOf="@id/edit_text"
+        app:r_flow_item_horizontal_space="@dimen/lib_xhdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_xhdpi">
 
-    <com.angcyo.widget.DslLoadingButton
-        android:id="@+id/request_loading_button"
-        style="@style/DefaultButtonMinStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/lib_hdpi"
-        android:text="请求-loading"
-        app:layout_constraintTop_toBottomOf="@id/request_button" />
+        <com.angcyo.widget.DslButton
+            android:id="@+id/request_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请求" />
 
-    <com.angcyo.widget.text.DslTextView
-        android:id="@+id/text_view"
-        style="@style/LibBodyTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/lib_hdpi"
-        app:layout_constraintTop_toBottomOf="@id/request_loading_button" />
+        <com.angcyo.widget.DslLoadingButton
+            android:id="@+id/request_loading_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请求-loading" />
+
+        <com.angcyo.widget.DslLoadingButton
+            android:id="@+id/websocket_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="启动WebSocket" />
+
+       <com.angcyo.widget.DslLoadingButton
+            android:id="@+id/log_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="启动LogServer" />
+
+        <com.angcyo.widget.text.DslTextView
+            android:id="@+id/text_view"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

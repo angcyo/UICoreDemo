@@ -100,6 +100,7 @@ dependencies {
     implementation project(allModule.doodle)
     implementation project(allModule.wifip2p)
     implementation project(allModule.crop)
+    implementation project(allModule.websocket)
 
     //https://github.com/airbnb/lottie-android
     //http://airbnb.io/lottie
