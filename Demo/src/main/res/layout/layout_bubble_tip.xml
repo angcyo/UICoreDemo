@@ -6,8 +6,8 @@
 
     <com.angcyo.widget.BubbleView
         android:id="@+id/view"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         tools:background="@color/transparent20" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:text="99+" />
 
 </FrameLayout>

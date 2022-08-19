@@ -16,6 +16,7 @@ import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.base.clickIt
 import com.angcyo.widget.progress.DslBlockSeekBar
 import com.angcyo.widget.progress.DslProgressBar
+import com.angcyo.widget.progress.DslSeekBar
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
@@ -61,13 +62,17 @@ class LoadingDemo2 : AppDslFragment() {
                 itemHolder.view(R.id.view3)?.background = BubbleDrawable()
 
                 //
-                itemHolder.v<DslBlockSeekBar>(R.id.seek_bar)?.config {
+                itemHolder.v<DslBlockSeekBar>(R.id.block_seek_bar)?.config {
                     onSeekChanged = { value, fraction, fromUser ->
                         if (fromUser) {
                             circleProgressDrawable.currentProgressValue = value
                             linearProgressDrawable.currentProgressValue = value
                         }
                     }
+                }
+                itemHolder.touch(R.id.block_seek_bar) { view, event ->
+                    showPopupTip(view, event)
+                    true
                 }
                 itemHolder.touch(R.id.seek_bar) { view, event ->
                     showPopupTip(view, event)
@@ -100,6 +105,9 @@ class LoadingDemo2 : AppDslFragment() {
                         } else {
                             "${(touchX * 1f / _screenWidth * 100).toInt()}"
                         }
+                    }
+                    if (view is DslSeekBar) {
+                        limitTouchRect = view._progressBound
                     }
                 }
             }
