@@ -24,7 +24,7 @@ import com.angcyo.pager.dslitem.DslNineMediaItem
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.websocket.WSServer
 import com.angcyo.websocket.WSServerModel
-import com.angcyo.websocket.bindLogServer
+import com.angcyo.websocket.service.bindLogServer
 import com.angcyo.widget.DslButton
 import com.angcyo.widget.DslLoadingButton
 import com.angcyo.widget.base.setInputText

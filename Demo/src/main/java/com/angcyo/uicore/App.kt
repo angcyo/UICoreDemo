@@ -33,7 +33,7 @@ import com.angcyo.speech.TTS
 import com.angcyo.tbs.DslTbs
 import com.angcyo.uicore.demo.*
 import com.angcyo.uicore.fragment.RecyclerTextFragment
-import com.angcyo.websocket.bindLogServer
+import com.angcyo.websocket.service.bindLogServer
 import io.objectbox.Box
 import kotlin.random.Random
 
