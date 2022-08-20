@@ -13,6 +13,7 @@ import com.angcyo.behavior.HideTitleBarBehavior
 import com.angcyo.behavior.refresh.RefreshContentBehavior
 import com.angcyo.behavior.refresh.ScaleHeaderRefreshEffectConfig
 import com.angcyo.core.activity.BaseCoreAppCompatActivity
+import com.angcyo.core.component.DebugFragment
 import com.angcyo.core.component.fileSelector
 import com.angcyo.core.dslitem.DslLastDeviceInfoItem
 import com.angcyo.dsladapter.DslAdapter
@@ -93,12 +94,20 @@ class MainFragment : BaseDemoDslFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //left
         leftControl()?.appendItem(ico = R.drawable.app_ic_menu, action = {
             gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
             padding(0)
         }) {
             _vh.v<SliderMenuLayout>(R.id.menu_layout)?.openMenu()
         }
+        //right
+        rightControl()?.appendItem(ico = R.drawable.ic_android_debug) {
+            dslFHelper {
+                show(DebugFragment::class)
+            }
+        }
+        //menu
         _vh.rv(R.id.menu_recycler_view)?.apply {
             behavior()?.also {
                 if (it is RefreshContentBehavior) {
