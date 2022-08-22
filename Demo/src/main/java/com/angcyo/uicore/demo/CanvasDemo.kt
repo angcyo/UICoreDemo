@@ -1,9 +1,6 @@
 package com.angcyo.uicore.demo
 
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
-import android.graphics.RectF
+import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Gravity
@@ -42,6 +39,7 @@ import com.angcyo.core.component.dslPermissions
 import com.angcyo.core.loadingAsyncTg
 import com.angcyo.core.showIn
 import com.angcyo.core.vmApp
+import com.angcyo.crop.ui.cropDialog
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave.EngraveHelper
@@ -538,12 +536,18 @@ class CanvasDemo : AppDslFragment() {
                     /*dslAHelper {
                         start(FirmwareUpdateActivity::class)
                     }*/
-                    itemHolder.view(R.id.canvas_device_state_wrap_layout)?.apply {
-                        /*reveal {
+                    /*itemHolder.view(R.id.canvas_device_state_wrap_layout)?.apply {
+                        *//*reveal {
                             duration = 1_000
-                        }*/
+                        }*//*
                         //clipBoundsAnimator()
                         clipBoundsAnimatorFromLeft()
+                    }*/
+                    fContext().cropDialog {
+                        cropBitmap = BitmapFactory.decodeResource(resources, R.drawable.face)
+                        onCropResultAction = {
+                            canvasView?.addPictureBitmapRenderer(it)
+                        }
                     }
                 }
 
