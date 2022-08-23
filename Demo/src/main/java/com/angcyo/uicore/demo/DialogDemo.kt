@@ -482,7 +482,7 @@ class DialogDemo : AppDslFragment() {
             canceledOnTouchOutside = viewHolder.isChecked(R.id.cancel_outside_cb)
 
             if (viewHolder.isChecked(R.id.amount_cb)) {
-                config.amount =
+                config.dimAmount =
                     (viewHolder.v<DslSeekBar>(R.id.amount_progress_bar)?.progressValue ?: 0) / 100f
             }
 

@@ -202,4 +202,15 @@ class ExampleUnitTest {
         println("$version".split("").connect("."))
     }
 
+    @Test
+    fun testForeach() {
+        val list = mutableListOf(1, 2, 3, 4, 5)
+        list.forEach {
+            if (it > 2) {
+                return@forEach
+            }
+            println(it)
+        }
+    }
+
 }

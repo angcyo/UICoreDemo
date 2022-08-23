@@ -328,6 +328,11 @@
                 <data android:mimeType="*/*" />
             </intent-filter>
 
+            <!--首选项-->
+            <intent-filter>
+                <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
+            </intent-filter>
+
         </activity>
 
         <!--固件升级-->
