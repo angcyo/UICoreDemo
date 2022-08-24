@@ -75,6 +75,16 @@
             style="@style/DefaultButtonMinStyle"
             android:text="test" />
 
+        <com.angcyo.widget.DslButton
+            android:id="@+id/test_button2"
+            style="@style/DefaultButtonMinStyle"
+            android:text="test2" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/test_button3"
+            style="@style/DefaultButtonMinStyle"
+            android:text="test3" />
+
     </com.angcyo.widget.layout.DslFlowLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

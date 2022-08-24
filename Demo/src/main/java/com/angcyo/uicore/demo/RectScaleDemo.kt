@@ -70,7 +70,18 @@ class RectScaleDemo : AppDslFragment() {
 
                 //test
                 itemHolder.click(R.id.test_button) {
-                    rectScaleView?.test()
+                    //rectScaleView?.test()
+                    rectScaleView?.test2()
+                }
+
+                //test2
+                itemHolder.click(R.id.test_button2) {
+                    rectScaleView?.test3()
+                }
+
+                //test3
+                itemHolder.click(R.id.test_button3) {
+                    rectScaleView?.test4()
                 }
             }
         }

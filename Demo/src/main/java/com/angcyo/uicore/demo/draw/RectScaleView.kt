@@ -88,7 +88,7 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
                 //
-                rectScaleGestureHandler.keepScaleRatio = true
+                rectScaleGestureHandler.keepScaleRatio = keepRadio
                 rectScaleGestureHandler.keepScaleRatioOnFrame = false
                 rectScaleGestureHandler.initialize(originRect, rotate, rectPosition)
             }
@@ -146,4 +146,56 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         L.i(drawRect)
         postInvalidate()
     }
+
+    fun test2() {
+        val left = originRect.left
+        val top = originRect.top
+        val anchorPoint = PointF(left, top)
+        val matrix = Matrix()
+        matrix.setScale(1.5f, 1.5f, anchorPoint.x, anchorPoint.y)
+        matrix.mapRect(drawRect, originRect)
+
+        postInvalidate()
+    }
+
+    fun test3() {
+        val left = originRect.left
+        val top = originRect.top
+        val anchorRotatePoint = PointF(left, top)
+        val matrix = Matrix()
+        matrix.setRotate(rotate, originRect.centerX(), originRect.centerY())
+        matrix.mapPoint(anchorRotatePoint, anchorRotatePoint)
+
+        matrix.reset()
+        //等比缩放时, 锚点不会偏移. 不等比缩放时, 锚点就会移动, 此时需要额外处理
+        matrix.setScale(1.2f, 1.5f, anchorRotatePoint.x, anchorRotatePoint.y)
+        matrix.mapRect(drawRect, originRect)
+
+        //之后锚点的位置
+        val anchorRotatePoint2 = PointF(left, top)
+        matrix.reset()
+        matrix.setRotate(rotate, drawRect.centerX(), drawRect.centerY())
+        matrix.mapPoint(anchorRotatePoint2, anchorRotatePoint2)
+
+        //偏移到原始锚点的位置
+        matrix.reset()
+        matrix.setTranslate(
+            anchorRotatePoint.x - anchorRotatePoint2.x,
+            anchorRotatePoint.y - anchorRotatePoint2.y
+        )
+        matrix.mapRect(drawRect)
+
+        postInvalidate()
+    }
+
+    fun test4() {
+        val scaleHandler = RectScaleGestureHandler()
+        scaleHandler.onRectScaleChangeAction = { rect, end ->
+            drawRect.set(rect)
+            postInvalidate()
+        }
+        scaleHandler.initialize(drawRect, rotate, 10f, 10f)
+        scaleHandler.startScaleBy(0.9f, 0.9f, true)
+    }
+
 }
