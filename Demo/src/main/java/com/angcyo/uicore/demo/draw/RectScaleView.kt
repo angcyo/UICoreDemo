@@ -139,6 +139,19 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         )
     }
 
+    fun testScale() {
+        RectScaleGestureHandler.scaleRectTo(
+            originRect,
+            drawRect,
+            rotate,
+            1.5f,
+            1.2f,
+            originRect.left,
+            originRect.top
+        )
+        postInvalidate()
+    }
+
     fun test() {
         val matrix = Matrix()
         matrix.setScale(-0.6f, 0.6f, drawRect.right, drawRect.top)

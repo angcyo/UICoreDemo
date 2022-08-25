@@ -1,7 +1,10 @@
 package com.angcyo.uicore.demo
 
+import android.graphics.Matrix
+import android.graphics.RectF
 import android.os.Bundle
 import com.angcyo.dsladapter.bindItem
+import com.angcyo.library.L
 import com.angcyo.library.ex.toDC
 import com.angcyo.library.gesture.RectScaleGestureHandler
 import com.angcyo.uicore.base.AppDslFragment
@@ -67,11 +70,17 @@ class RectScaleDemo : AppDslFragment() {
                 itemHolder.click(R.id.lb_button) {
                     rectScaleView?.rectPosition = RectScaleGestureHandler.RECT_LB
                 }
+                itemHolder.click(R.id.test_scale_button) {
+                    rectScaleView?.testScale()
+                }
 
                 //test
                 itemHolder.click(R.id.test_button) {
                     //rectScaleView?.test()
                     rectScaleView?.test2()
+                    test(RectF(0f, 0f, 100f, 100f))
+                    test(RectF(10f, 10f, 100f, 100f))
+                    test(RectF(10f, 10f, -90f, -90f))
                 }
 
                 //test2
@@ -85,6 +94,27 @@ class RectScaleDemo : AppDslFragment() {
                 }
             }
         }
+    }
+
+    fun test(rect: RectF) {
+        val matrix = Matrix()
+        val result = RectF()
+
+        matrix.setScale(-1f, -1f)
+        matrix.mapRect(result, rect)
+        L.i(result, result.width(), result.height())
+
+        matrix.setScale(-1.5f, -1.2f)
+        matrix.mapRect(result, rect)
+        L.i(result, result.width(), result.height())
+
+        matrix.setScale(-1.5f, -1.2f, rect.centerX(), rect.centerY())
+        matrix.mapRect(result, rect)
+        L.i(result, result.width(), result.height())
+
+        matrix.setScale(-1.5f, -1.2f, rect.left, rect.top)
+        matrix.mapRect(result, rect)
+        L.i(result, result.width(), result.height())
     }
 
 }
