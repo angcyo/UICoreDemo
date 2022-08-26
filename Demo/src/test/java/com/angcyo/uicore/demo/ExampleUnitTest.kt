@@ -206,7 +206,8 @@ class ExampleUnitTest {
     fun testForeach() {
         val list = mutableListOf(1, 2, 3, 4, 5)
         list.forEach {
-            if (it > 2) {
+            if (it in 3..3) {
+                //只能 return 当前的action
                 return@forEach
             }
             println(it)

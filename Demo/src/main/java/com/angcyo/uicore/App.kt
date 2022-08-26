@@ -33,7 +33,7 @@ import com.angcyo.speech.TTS
 import com.angcyo.tbs.DslTbs
 import com.angcyo.uicore.demo.*
 import com.angcyo.uicore.fragment.RecyclerTextFragment
-import com.angcyo.websocket.service.bindLogServer
+import com.angcyo.websocket.service.bindLogWSServer
 import io.objectbox.Box
 import kotlin.random.Random
 
@@ -94,7 +94,7 @@ class App : CoreApplication(), CameraXConfig.Provider {
         DebugFragment.addDebugAction {
             name = "LogServer"
             action = {
-                coreApp().bindLogServer()
+                coreApp().bindLogWSServer()
             }
         }
     }
