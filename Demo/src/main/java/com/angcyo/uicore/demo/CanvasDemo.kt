@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.base.dslAHelper
@@ -28,7 +29,7 @@ import com.angcyo.canvas.core.InchValueUnit
 import com.angcyo.canvas.core.MmValueUnit
 import com.angcyo.canvas.core.PixelValueUnit
 import com.angcyo.canvas.items.PictureTextItem
-import com.angcyo.canvas.items.renderer.ShapeItemRenderer
+import com.angcyo.canvas.items.renderer.PictureShapeItemRenderer
 import com.angcyo.canvas.items.setHoldData
 import com.angcyo.canvas.laser.pecker.CanvasLayoutHelper
 import com.angcyo.canvas.laser.pecker.loadingAsync
@@ -42,7 +43,6 @@ import com.angcyo.core.vmApp
 import com.angcyo.crop.ui.cropDialog
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
-import com.angcyo.engrave.EngraveHelper
 import com.angcyo.engrave.EngraveLayoutHelper
 import com.angcyo.engrave.EngravePreviewLayoutHelper
 import com.angcyo.engrave.EngraveProductLayoutHelper
@@ -50,9 +50,9 @@ import com.angcyo.engrave.ble.DeviceConnectTipActivity
 import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.ble.EngraveHistoryFragment
 import com.angcyo.engrave.ble.bluetoothSearchListDialog
-import com.angcyo.engrave.data.EngraveDataInfo
-import com.angcyo.engrave.data.EngraveReadyDataInfo
+import com.angcyo.engrave.data.EngraveReadyInfo
 import com.angcyo.engrave.model.EngraveModel
+import com.angcyo.engrave.transition.EngraveTransitionManager
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.gcode.GCodeWriteHandler
 import com.angcyo.http.rx.doMain
@@ -205,14 +205,20 @@ class CanvasDemo : AppDslFragment() {
                                 unit.convertValueToPixel(30f)
                             )
                         }
-                        val renderer = ShapeItemRenderer(this).apply {
-                            addRect(limitRect)
-                        }
+                        val path = Path()
+                        path.addRect(limitRect, Path.Direction.CW)
+
+                        val renderer = PictureShapeItemRenderer(this)
+                        renderer.setRenderShapePath(path)
+
                         addItemRenderer(renderer, Strategy.normal)
                         showRectBounds(limitRect)
                     }
                 }
-                itemHolder.click(R.id.smart_button) {
+                itemHolder.clickAndInit(R.id.smart_button, {
+                    (it as TextView).text =
+                        "Smart ${canvasView?.canvasDelegate?.smartAssistant?.enable.toDC()}"
+                }) {
                     canvasView?.canvasDelegate?.apply {
                         smartAssistant.enable = !smartAssistant.enable
                         if (smartAssistant.enable) {
@@ -242,23 +248,8 @@ class CanvasDemo : AppDslFragment() {
                     canvasView?.canvasDelegate?.getCanvasViewBox()?.scaleBy(.8f, .8f)
                 }
                 //add
-                itemHolder.click(R.id.add_text) {
-                    canvasView?.apply {
-                        addTextRenderer(getRandomText())
-                    }
-                }
-                itemHolder.click(R.id.add_text2) {
-                    canvasView?.apply {
-                        addDrawableRenderer(getRandomText())
-                    }
-                }
-                itemHolder.click(R.id.add_text3) {
-                    canvasView?.apply {
-                        addPictureTextRenderer(getRandomText())
-                    }
-                }
                 itemHolder.click(R.id.add_picture_text) {
-                    canvasView?.apply {
+                    canvasView?.canvasDelegate?.apply {
                         addPictureTextRender(getRandomText())
                     }
                 }
@@ -522,9 +513,9 @@ class CanvasDemo : AppDslFragment() {
                 itemHolder.click(R.id.preproccess_button) {
                     canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
                         loadingAsync({
-                            EngraveHelper.handleEngraveData(
+                            EngraveTransitionManager().transitionEngraveData(
                                 renderer,
-                                EngraveReadyDataInfo(engraveData = EngraveDataInfo(index = CLICK_COUNT++))
+                                EngraveReadyInfo()
                             )
                         })
                     }
@@ -546,7 +537,7 @@ class CanvasDemo : AppDslFragment() {
                     fContext().cropDialog {
                         cropBitmap = BitmapFactory.decodeResource(resources, R.drawable.face)
                         onCropResultAction = {
-                            canvasView?.addPictureBitmapRenderer(it)
+                            canvasView?.canvasDelegate?.addPictureBitmapRenderer(it)
                         }
                     }
                 }
