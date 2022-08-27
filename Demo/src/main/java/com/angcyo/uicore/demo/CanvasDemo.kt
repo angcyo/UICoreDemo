@@ -27,8 +27,9 @@ import com.angcyo.canvas.Strategy
 import com.angcyo.canvas.core.InchValueUnit
 import com.angcyo.canvas.core.MmValueUnit
 import com.angcyo.canvas.core.PixelValueUnit
+import com.angcyo.canvas.items.PictureShapeItem
 import com.angcyo.canvas.items.PictureTextItem
-import com.angcyo.canvas.items.renderer.PictureShapeItemRenderer
+import com.angcyo.canvas.items.renderer.PictureItemRenderer
 import com.angcyo.canvas.laser.pecker.CanvasLayoutHelper
 import com.angcyo.canvas.laser.pecker.loadingAsync
 import com.angcyo.canvas.utils.*
@@ -210,8 +211,9 @@ class CanvasDemo : AppDslFragment() {
                         val path = Path()
                         path.addRect(limitRect, Path.Direction.CW)
 
-                        val renderer = PictureShapeItemRenderer(this)
-                        renderer.setRenderShapePath(path)
+                        val renderer = PictureItemRenderer<PictureShapeItem>(this)
+                        val item = PictureShapeItem(path)
+                        renderer.setRendererRenderItem(item)
 
                         addItemRenderer(renderer, Strategy.normal)
                         showRectBounds(limitRect)
@@ -298,7 +300,7 @@ class CanvasDemo : AppDslFragment() {
                             addDrawableRenderer(second)
                         }*/
                         loadSvgPathDrawable().apply {
-                            addPictureSharpRenderer(second)
+                            addPictureSharpRenderer(first, second)
                         }
                     }
                 }
@@ -508,7 +510,7 @@ class CanvasDemo : AppDslFragment() {
                 }
 
                 //预处理数据
-                itemHolder.click(R.id.pre_proccess_button) {
+                itemHolder.click(R.id.pre_process_button) {
                     canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
                         loadingAsync({
                             EngraveTransitionManager().apply {
@@ -658,7 +660,7 @@ class CanvasDemo : AppDslFragment() {
                     }
                 } else {
                     //bitmap to gcode
-                    val lineSpace = if (renderer.getRendererItem() is PictureTextItem) {
+                    val lineSpace = if (renderer.getRendererRenderItem() is PictureTextItem) {
                         GCodeWriteHandler.GCODE_SPACE_4K
                     } else {
                         GCodeWriteHandler.GCODE_SPACE_1K
@@ -737,14 +739,15 @@ class CanvasDemo : AppDslFragment() {
                 }
             }
             CanvasOpenActivity.SVG -> {
-                val drawable = info.url.file().readText()?.run {
+                val text = info.url.file().readText()
+                val drawable = text?.run {
                     loadTextSvgPath(this)
                 }
                 if (drawable == null) {
                     "数据异常:${info.url}"
                     toast("data exception!")
                 } else {
-                    canvasDelegate.addPictureSharpRenderer(drawable)
+                    canvasDelegate.addPictureSharpRenderer(text, drawable)
                 }
             }
         }
