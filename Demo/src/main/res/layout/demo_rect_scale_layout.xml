@@ -71,6 +71,11 @@
             android:text="LB" />
 
         <com.angcyo.widget.DslButton
+            android:id="@+id/p1_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="0.3,0.3" />
+
+        <com.angcyo.widget.DslButton
             android:id="@+id/test_button"
             style="@style/DefaultButtonMinStyle"
             android:text="test" />

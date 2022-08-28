@@ -1,10 +1,13 @@
 package com.angcyo.uicore.demo
 
 import android.graphics.Matrix
+import android.graphics.PointF
 import android.graphics.RectF
 import android.os.Bundle
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.library.L
+import com.angcyo.library.ex.mH
+import com.angcyo.library.ex.mW
 import com.angcyo.library.ex.toDC
 import com.angcyo.library.gesture.RectScaleGestureHandler
 import com.angcyo.uicore.base.AppDslFragment
@@ -70,6 +73,11 @@ class RectScaleDemo : AppDslFragment() {
                 itemHolder.click(R.id.lb_button) {
                     rectScaleView?.rectPosition = RectScaleGestureHandler.RECT_LB
                 }
+                itemHolder.click(R.id.p1_button) {
+                    rectScaleView?.anchorPoint =
+                        PointF(rectScaleView.mW() * 1 / 5f, rectScaleView.mH() * 1 / 5f)
+                }
+
                 itemHolder.click(R.id.test_scale_button) {
                     rectScaleView?.testScale()
                 }
