@@ -59,6 +59,8 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         drawRect.set(originRect)
     }
 
+    val _tempRect = RectF()
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         canvas.drawColor(Color.GRAY)
@@ -70,7 +72,9 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
 
         //draw
         paint.color = Color.RED
-        drawRect(canvas, drawRect)
+        _tempRect.set(drawRect)
+        _tempRect.sort()
+        drawRect(canvas, _tempRect)
 
         paint.color = Color.WHITE
         paint.style = Paint.Style.FILL
@@ -81,6 +85,8 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         canvas.drawText(text1, 0f, paint.textHeight(), paint)
         canvas.drawText(text2, 0f, paint.textHeight() * 2, paint)
         canvas.drawText(text3, 0f, paint.textHeight() * 3, paint)
+
+        //testLinePath(canvas)
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -98,7 +104,6 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         postInvalidate()
         return true
     }
-
 
     val _path = Path()
     val dasEffect = DashPathEffect(floatArrayOf(4 * density, 5 * density), 0f)
@@ -139,16 +144,79 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         )
     }
 
+    fun testLinePath(canvas: Canvas) {
+        val line1 = Path()
+        val y = measuredHeight / 3f
+        line1.moveTo(10f, y)
+        line1.lineTo(200f, y)
+        paint.style = Paint.Style.STROKE
+        canvas.drawPath(line1, paint)
+        val pathBounds = line1.computePathBounds()
+        L.i(pathBounds)
+        line1.eachPath { index, ratio, posArray ->
+            L.i(posArray)
+        }
+        val matrix = Matrix()
+        //matrix.setScale(1.5f, 1.5f, pathBounds.centerX(), pathBounds.centerY())
+        matrix.setScale(1.5f, 1.5f)
+        matrix.postRotate(rotate, pathBounds.centerX(), pathBounds.centerY())
+        matrix.postTranslate(0f, 10f)
+        line1.transform(matrix)
+        paint.color = Color.BLUE
+        canvas.drawPath(line1, paint)
+        line1.eachPath { index, ratio, posArray ->
+            L.w(posArray)
+        }
+
+        paint.color = Color.WHITE
+        val line2 = Path()
+        val y2 = measuredHeight * 2 / 3f
+        line2.moveTo(10f, y2)
+        line2.lineTo(200f, y2)
+        paint.style = Paint.Style.FILL
+        canvas.drawPath(line2, paint)
+        L.i(line2.computePathBounds())
+
+        val line3 = Path()
+        paint.color = Color.YELLOW
+        val y3 = measuredHeight * 3 / 4f
+        line3.moveTo(10f, y3)
+        line3.lineTo(200f, y3)
+        paint.style = Paint.Style.FILL_AND_STROKE
+        canvas.drawPath(line3, paint)
+    }
+
     fun testScale() {
+        L.i("原", originRect)
+        originRect.flipHorizontal(true).flipVertical(true)
+        L.i("翻转后", originRect)
+
+        //val matrix = Matrix()
+        //matrix.setRotate(15f, originRect.centerX(), originRect.centerY()) //旋转后,翻转信息丢失
+        //matrix.setScale(1.5f, 1.2f, originRect.centerX(), originRect.centerY()) //缩放后,翻转信息丢失
+        //matrix.mapRect(originRect)
+        //L.i("Matrix后", originRect)
+
         RectScaleGestureHandler.scaleRectTo(
             originRect,
             drawRect,
-            rotate,
             1.5f,
             1.2f,
+            rotate,
             originRect.left,
             originRect.top
         )
+        L.i("缩放后", drawRect)
+        RectScaleGestureHandler.scaleRectTo(
+            originRect,
+            originRect,
+            1.5f,
+            1.2f,
+            rotate,
+            originRect.left,
+            originRect.top
+        )
+        L.i("缩放后2", originRect)
         postInvalidate()
     }
 
