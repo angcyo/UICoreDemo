@@ -232,9 +232,20 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         val left = originRect.left
         val top = originRect.top
         val anchorPoint = PointF(left, top)
+        /*
         val matrix = Matrix()
         matrix.setScale(1.5f, 1.5f, anchorPoint.x, anchorPoint.y)
-        matrix.mapRect(drawRect, originRect)
+        matrix.mapRect(drawRect, originRect)*/
+
+        RectScaleGestureHandler.updateRectTo(
+            originRect,
+            drawRect,
+            originRect.width(),
+            1f,
+            rotate,
+            anchorPoint.x,
+            anchorPoint.y
+        )
 
         postInvalidate()
     }
