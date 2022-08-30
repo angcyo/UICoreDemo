@@ -9,6 +9,7 @@ import com.angcyo.baidu.trace.DslBaiduTrace
 import com.angcyo.core.component.model.BatteryModel
 import com.angcyo.core.vmCore
 import com.angcyo.library.L
+import com.angcyo.library.annotation.ForegroundCall
 import com.angcyo.library.utils.Device
 import com.baidu.trace.model.OnCustomAttributeListener
 
@@ -25,10 +26,24 @@ class BaiduTraceService : Service() {
         const val FLAG_RESUME = 1
         const val FLAG_DESTROY = 2
 
+        /**
+         * java.lang.IllegalStateException: Not allowed to start service Intent { cmp=com.angcyo.uicore.demo/com.angcyo.uicore.component.BaiduTraceService (has extras) }:
+         * app is in background uid UidRecord{300d3c8 u0a151 SVC  idle change:uncached procs:2 seq(0,0,0)}
+         *
+         * [com.angcyo.uicore.component.BaiduTraceService.FLAG_START]
+         * [com.angcyo.uicore.component.BaiduTraceService.FLAG_RESUME]
+         * [com.angcyo.uicore.component.BaiduTraceService.FLAG_DESTROY]
+         *
+         * */
+        @ForegroundCall
         fun start(context: Context, flag: Int) {
-            context.startService(Intent(context, BaiduTraceService::class.java).apply {
-                putExtra(FLAG_KEY, flag)
-            })
+            try {
+                context.startService(Intent(context, BaiduTraceService::class.java).apply {
+                    putExtra(FLAG_KEY, flag)
+                })
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
