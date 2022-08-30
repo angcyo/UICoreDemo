@@ -1,11 +1,9 @@
 package com.angcyo.uicore.demo
 
+import android.graphics.Color
 import android.os.Bundle
 import com.angcyo.dsladapter.renderItem
-import com.angcyo.library.ex.hawkGetList
-import com.angcyo.library.ex.hawkPutList
-import com.angcyo.library.ex.pattern
-import com.angcyo.library.ex.patternList
+import com.angcyo.library.ex.*
 import com.angcyo.library.utils.*
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.auto
@@ -35,9 +33,18 @@ class RegularPatternDemo : AppDslFragment() {
         KEY_PATTERN.hawkPutList(PATTERN_EMAIL, false)
         KEY_PATTERN.hawkPutList(PATTERN_URL, false)
         KEY_PATTERN.hawkPutList("(?<=compile).*(?=JavaWithJavac)", false)
+        KEY_PATTERN.hawkPutList("(?<=id=)\\d+", false)
+        KEY_PATTERN.hawkPutList("(?<=name=).+", false)
+        KEY_PATTERN.hawkPutList("(?<=[Gg])[-]?[\\d.]*\\d+", false)
+        KEY_PATTERN.hawkPutList("(?<=[Xx])[-]?[\\d.]*\\d+", false)
+        KEY_PATTERN.hawkPutList("(?<=[Yy])[-]?[\\d.]*\\d+", false)
+        KEY_PATTERN.hawkPutList("(?<=[Zz])[-]?[\\d.]*\\d+", false)
 
+        //内容
         KEY_CONTENT.hawkPutList("13678953476", false)
         KEY_CONTENT.hawkPutList("compile_devDebugJavaWithJavac", false)
+        KEY_CONTENT.hawkPutList("http://www.angcyo.com/api?id=123&name=xxx", false)
+        KEY_CONTENT.hawkPutList("G2X1.00Y20y20 x9. z.9,9 g-.9", false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -52,6 +59,7 @@ class RegularPatternDemo : AppDslFragment() {
                     itemHolder.auto(R.id.content_edit, KEY_CONTENT.hawkGetList())
                         ?.setInputText(KEY_CONTENT.hawkGetList().first())
 
+                    //match
                     itemHolder.click(R.id.matcher_button) {
                         val regexList = if (itemHolder.ev(R.id.pattern_edit).isEmpty()) {
                             patternTelAndMobile()
@@ -59,23 +67,39 @@ class RegularPatternDemo : AppDslFragment() {
                             mutableSetOf(itemHolder.ev(R.id.pattern_edit).string())
                         }
 
-                        val contentString = itemHolder.ev(R.id.content_edit).string()
-                        val pattern = contentString.pattern(regexList, false)
+                        val content = itemHolder.ev(R.id.content_edit).string()
 
                         KEY_PATTERN.hawkPutList(regexList.first())
-                        KEY_CONTENT.hawkPutList(contentString)
+                        KEY_CONTENT.hawkPutList(content)
 
                         itemHolder.tv(R.id.lib_text_view)?.text = span {
-                            append("匹配结果:$pattern")
-                            appendln()
-                            contentString.patternList(regexList.first()).forEach {
-                                append("matcher.find()->matcher.group()")
+                            appendLine("match结果:${content.pattern(regexList, false, false)}")
+                            appendLine("find结果:${content.pattern(regexList, false, true)}")
+                            val list = content.patternList(regexList.first())
+                            append("matcher.find()->matcher.group():${list.size()}↓")
+                            list.forEach {
                                 appendln()
-                                append(it)
+                                append(it) {
+                                    foregroundColor = Color.RED
+                                }
                                 appendln()
                             }
-                            append("--end")
+                            append("--end↑")
                         }
+                    }
+
+                    //replace
+                    itemHolder.click(R.id.replace_button) {
+                        val regexList = if (itemHolder.ev(R.id.pattern_edit).isEmpty()) {
+                            patternTelAndMobile()
+                        } else {
+                            mutableSetOf(itemHolder.ev(R.id.pattern_edit).string())
+                        }
+                        val content = itemHolder.ev(R.id.content_edit).string()
+                        val newContent = itemHolder.ev(R.id.replace_edit).string()
+
+                        itemHolder.tv(R.id.lib_text_view)?.text =
+                            content.replace(regexList.first().toRegex(), newContent)
                     }
                 }
             }

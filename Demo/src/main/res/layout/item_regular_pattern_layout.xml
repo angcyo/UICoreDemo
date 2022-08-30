@@ -5,27 +5,59 @@
     android:orientation="vertical"
     android:padding="@dimen/lib_xhdpi">
 
-    <com.angcyo.widget.edit.AutoCompleteEditText
-        android:id="@+id/content_edit"
-        style="@style/LibBodyTextStyle"
+    <org.buffer.android.buffertextinputlayout.BufferTextInputLayout
+        style="@style/LibTextInputLayoutStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:completionThreshold="0"
-        android:gravity="bottom"
-        android:hint="匹配内容"
-        android:inputType="textWebEmailAddress"
-        android:minHeight="80dp" />
+        android:layout_height="wrap_content">
 
-    <com.angcyo.widget.edit.AutoCompleteEditText
-        android:id="@+id/pattern_edit"
-        style="@style/LibBodyTextStyle"
+        <com.angcyo.widget.edit.AutoCompleteEditText
+            android:id="@+id/content_edit"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:completionThreshold="0"
+            android:gravity="bottom"
+            android:hint="匹配内容:"
+            android:inputType="textWebEmailAddress"
+            android:minHeight="80dp" />
+
+    </org.buffer.android.buffertextinputlayout.BufferTextInputLayout>
+
+    <org.buffer.android.buffertextinputlayout.BufferTextInputLayout
+        style="@style/LibTextInputLayoutStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:completionThreshold="0"
-        android:gravity="bottom"
-        android:hint="正则表达式"
-        android:inputType="textWebEmailAddress"
-        android:minHeight="@dimen/lib_item_min_height" />
+        android:layout_height="wrap_content">
+
+        <com.angcyo.widget.edit.AutoCompleteEditText
+            android:id="@+id/pattern_edit"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:completionThreshold="0"
+            android:gravity="bottom"
+            android:hint="正则表达式:"
+            android:inputType="textWebEmailAddress"
+            android:minHeight="@dimen/lib_item_min_height" />
+
+    </org.buffer.android.buffertextinputlayout.BufferTextInputLayout>
+
+    <org.buffer.android.buffertextinputlayout.BufferTextInputLayout
+        style="@style/LibTextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.angcyo.widget.edit.AutoCompleteEditText
+            android:id="@+id/replace_edit"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:completionThreshold="0"
+            android:gravity="bottom"
+            android:hint="替换的内容:"
+            android:inputType="text"
+            android:minHeight="80dp" />
+
+    </org.buffer.android.buffertextinputlayout.BufferTextInputLayout>
 
     <com.angcyo.widget.DslButton
         android:id="@+id/matcher_button"
@@ -36,8 +68,17 @@
         android:minHeight="@dimen/lib_item_min_height"
         android:text="匹配" />
 
+    <com.angcyo.widget.DslButton
+        android:id="@+id/replace_button"
+        style="@style/DefaultButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/lib_xhdpi"
+        android:minHeight="@dimen/lib_item_min_height"
+        android:text="替换" />
+
     <com.angcyo.widget.text.DslTextView
-        android:id="@+id/text_view"
+        android:id="@+id/lib_text_view"
         style="@style/LibBodyTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
