@@ -230,7 +230,7 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         //matrix.mapRect(originRect)
         //L.i("Matrix后", originRect)
 
-        RectScaleGestureHandler.scaleRectTo(
+        RectScaleGestureHandler.rectScaleTo(
             originRect,
             drawRect,
             1.5f,
@@ -240,7 +240,7 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
             originRect.top
         )
         L.i("缩放后", drawRect)
-        RectScaleGestureHandler.scaleRectTo(
+        RectScaleGestureHandler.rectScaleTo(
             originRect,
             originRect,
             1.5f,
@@ -270,7 +270,7 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         matrix.setScale(1.5f, 1.5f, anchorPoint.x, anchorPoint.y)
         matrix.mapRect(drawRect, originRect)*/
 
-        RectScaleGestureHandler.updateRectTo(
+        RectScaleGestureHandler.rectUpdateTo(
             originRect,
             drawRect,
             originRect.width(),
