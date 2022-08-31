@@ -138,6 +138,21 @@
             app:progress_radius="10dp"
             app:progress_show_text="true" />
 
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/blur_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="模糊 api31+"
+            app:switchPadding="10dp" />
+
+        <com.angcyo.widget.progress.DslSeekBar
+            android:id="@+id/blur_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:progress_bg_gradient_colors="@color/lib_line"
+            app:progress_radius="10dp"
+            app:progress_show_text="true" />
+
     </com.angcyo.widget.layout.DslFlowLayout>
 
     <com.angcyo.widget.layout.DslFlowLayout

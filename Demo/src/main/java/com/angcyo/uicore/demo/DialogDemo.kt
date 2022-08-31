@@ -486,6 +486,16 @@ class DialogDemo : AppDslFragment() {
                     (viewHolder.v<DslSeekBar>(R.id.amount_progress_bar)?.progressValue ?: 0) / 100f
             }
 
+            if (viewHolder.isChecked(R.id.blur_cb)) {
+                val progressValue =
+                    (viewHolder.v<DslSeekBar>(R.id.blur_progress_bar)?.progressValue ?: 0)
+                config.blurBehindRadius = if (progressValue == 0) {
+                    64
+                } else {
+                    progressValue
+                }
+            }
+
             dialogType = this@DialogDemo.dialogType
 
             if (viewHolder.isChecked(R.id.title_cb)) {
