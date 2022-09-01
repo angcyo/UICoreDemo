@@ -4,6 +4,9 @@ import android.graphics.Matrix
 import android.os.Bundle
 import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.dsladapter.bindItem
+import com.angcyo.library.component.pool.acquireTempMatrix
+import com.angcyo.library.component.pool.acquireTempPointF
+import com.angcyo.library.component.pool.acquireTempRectF
 import com.angcyo.library.ex.*
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.draw.DrawImageView
@@ -16,6 +19,10 @@ import com.angcyo.widget.base.string
  * @since 2022/04/07
  */
 class MatrixDemo : AppDslFragment() {
+
+    val _tempMatrix = acquireTempMatrix()
+    val _tempPoint = acquireTempPointF()
+    val _tempRectF = acquireTempRectF()
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)

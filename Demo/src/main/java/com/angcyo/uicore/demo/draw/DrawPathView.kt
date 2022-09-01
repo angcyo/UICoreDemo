@@ -10,6 +10,7 @@ import android.view.View
 import androidx.core.graphics.withMatrix
 import androidx.core.graphics.withTranslation
 import com.angcyo.canvas.utils.createPaint
+import com.angcyo.library.component.pool.acquireTempPointF
 import com.angcyo.library.ex.*
 
 /**
@@ -48,6 +49,8 @@ class DrawPathView(context: Context, attributeSet: AttributeSet? = null) :
     //手指按下时, 距离右下角的宽高差距
     var touchDiffWidth = 0f
     var touchDiffHeight = 0f
+
+    val _tempPoint = acquireTempPointF()
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.actionMasked) {
