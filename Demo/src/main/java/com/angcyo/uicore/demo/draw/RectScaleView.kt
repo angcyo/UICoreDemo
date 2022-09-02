@@ -121,7 +121,7 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
                 if (anchorPoint == null) {
                     rectScaleGestureHandler.initialize(originRect, rotate, rectPosition)
                 } else {
-                    rectScaleGestureHandler.initializeRotateAnchor(
+                    rectScaleGestureHandler.initializeAnchor(
                         originRect,
                         rotate,
                         anchorPoint!!.x,
@@ -319,7 +319,7 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
             drawRect.set(rect)
             postInvalidate()
         }
-        scaleHandler.initializeRotateAnchor(drawRect, rotate, 10f, 10f)
+        scaleHandler.initializeAnchor(drawRect, rotate, 10f, 10f)
         scaleHandler.rectScaleBy(0.9f, 0.9f, true)
     }
 
