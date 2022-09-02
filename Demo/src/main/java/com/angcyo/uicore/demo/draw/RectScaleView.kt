@@ -8,6 +8,7 @@ import android.view.View
 import androidx.core.graphics.withRotation
 import com.angcyo.library.L
 import com.angcyo.library.component.pool.acquireTempMatrix
+import com.angcyo.library.component.pool.acquireTempPointF
 import com.angcyo.library.component.pool.acquireTempRectF
 import com.angcyo.library.component.pool.release
 import com.angcyo.library.ex.*
@@ -354,5 +355,23 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         rotateScaleRect.release()
         rotateRect.release()
         matrix.release()
+    }
+
+    fun testHeight() {
+        val anchor = acquireTempPointF()
+        anchor.set(originRect.left, originRect.top)
+        anchor.rotate(rotate, originRect.centerX(), originRect.centerY())
+
+        RectScaleGestureHandler.rectUpdateTo(
+            drawRect,
+            drawRect,
+            drawRect.width(),
+            1f,
+            rotate,
+            anchor.x,
+            anchor.y
+        )
+        anchor.release()
+        postInvalidate()
     }
 }

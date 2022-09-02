@@ -104,6 +104,9 @@ class RectScaleDemo : AppDslFragment() {
                 itemHolder.click(R.id.test_scale_frame_button) {
                     rectScaleView?.testScaleFrame()
                 }
+                itemHolder.click(R.id.test_height_button) {
+                    rectScaleView?.testHeight()
+                }
             }
         }
     }
