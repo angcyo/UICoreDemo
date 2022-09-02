@@ -95,6 +95,11 @@
             style="@style/DefaultButtonMinStyle"
             android:text="testScale" />
 
+        <com.angcyo.widget.DslButton
+            android:id="@+id/test_scale_frame_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="testScaleFrame" />
+
     </com.angcyo.widget.layout.DslFlowLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,9 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.core.graphics.withRotation
 import com.angcyo.library.L
+import com.angcyo.library.component.pool.acquireTempMatrix
+import com.angcyo.library.component.pool.acquireTempRectF
+import com.angcyo.library.component.pool.release
 import com.angcyo.library.ex.*
 import com.angcyo.library.gesture.RectScaleGestureHandler
 
@@ -323,4 +326,33 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         scaleHandler.rectScaleBy(0.9f, 0.9f, true)
     }
 
+    fun testScaleFrame() {
+        val rotateRect = acquireTempRectF()
+        val rotateScaleRect = acquireTempRectF()
+        val originScaleRect = acquireTempRectF()
+        val originScaleRotateRect = acquireTempRectF()
+
+        val matrix = acquireTempMatrix()
+        matrix.setRotate(rotate, originRect.centerX(), originRect.centerY())
+        matrix.mapRect(rotateRect, originRect)
+
+        //现在缩放旋转后的矩形
+        matrix.reset()
+        matrix.setScale(0.5f, 0.5f, originRect.centerX(), originRect.centerY())
+        matrix.mapRect(rotateScaleRect, rotateRect)
+        matrix.mapRect(originScaleRect, originRect)
+
+        matrix.reset()
+        matrix.setRotate(rotate, originRect.centerX(), originRect.centerY())
+        matrix.mapRect(originScaleRotateRect, originScaleRect)
+
+        //最后判断
+        if (originScaleRotateRect == rotateScaleRect) {
+
+        }
+
+        rotateScaleRect.release()
+        rotateRect.release()
+        matrix.release()
+    }
 }
