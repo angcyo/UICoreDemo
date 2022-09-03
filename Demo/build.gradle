@@ -26,6 +26,9 @@ android {
 
         resValue "string", "CrashSightUrl", '"https://android.crashsight.qq.com/rqd/pb/async"'
         resValue "string", "CrashSightAppID", '"5d800f5f95"'
+
+        //resValue "string", "base_api", '"http://121.36.149.100:9009/pecker-web"'
+        //resValue "string", "custom_urls", '"测试 http://121.36.149.100:9009/pecker-web;正式 https://server.hingin.com/pecker-web"'
     }
     /*splits {
         abi {
