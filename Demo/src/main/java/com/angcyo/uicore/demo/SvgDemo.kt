@@ -3,6 +3,7 @@ package com.angcyo.uicore.demo
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.ImageView
+import com.angcyo.canvas.utils.createPaint
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.library.ex.readAssets
@@ -110,7 +111,7 @@ class SvgDemo : AppDslFragment() {
                     //Sharp.loadString(text).into(imageView!!)
                     imageView?.apply {
                         setBackgroundColor(Color.WHITE)
-                        setImageDrawable(GCodeHelper.parseGCode(text))
+                        setImageDrawable(GCodeHelper.parseGCode(text, createPaint(Color.BLACK)))
                     }
                 }
 
