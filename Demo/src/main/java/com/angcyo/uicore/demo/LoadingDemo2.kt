@@ -31,6 +31,7 @@ class LoadingDemo2 : AppDslFragment() {
 
                 //
                 val circleProgressDrawable = CircleProgressDrawable()
+                circleProgressDrawable.tailAngle = 0.05f * 360
                 itemHolder.view(R.id.view1)?.apply {
                     //circleProgressDrawable.startOffsetAngle = 11f
                     //circleProgressDrawable.progressWidth = 40f
