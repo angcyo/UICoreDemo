@@ -54,6 +54,12 @@
             app:progress_value="50"
             app:seek_enable_halo_inset="false" />
 
+        <com.angcyo.uicore.component.SlideSwitchView
+            android:id="@+id/slide_switch_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true" />
+
     </com.angcyo.widget.layout.DslFlowLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
