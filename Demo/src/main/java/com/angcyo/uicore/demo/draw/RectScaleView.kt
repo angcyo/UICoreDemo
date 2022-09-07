@@ -108,6 +108,7 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         canvas.drawText(text4, 0f, paint.textHeight() * 4, paint)
 
         //testLinePath(canvas)
+        testLine(canvas)
     }
 
     var touchX = 0f
@@ -373,5 +374,28 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         )
         anchor.release()
         postInvalidate()
+    }
+
+    fun testLine(canvas: Canvas) {
+        val paint = Paint().apply {
+            color = Color.GREEN
+            strokeWidth = 1f
+            style = Paint.Style.FILL_AND_STROKE
+        }
+        val path = Path()
+        path.moveTo(10f, 300f)
+        path.lineTo(100f, 300f)
+        canvas.drawPath(path, paint)
+        val bounds1 = path.computePathBounds()
+
+        val matrix = acquireTempMatrix()
+        //matrix.setTranslate(-bounds1.left, -bounds1.top)
+        matrix.setScale(2f, 2f, bounds1.left, bounds1.top)
+        val newPath = Path()
+        path.transform(matrix, newPath)
+        canvas.drawPath(newPath, paint)
+        val bounds2 = newPath.computePathBounds()
+
+        matrix.release()
     }
 }

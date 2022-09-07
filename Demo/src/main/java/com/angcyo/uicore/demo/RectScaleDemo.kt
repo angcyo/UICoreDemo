@@ -6,6 +6,9 @@ import android.graphics.RectF
 import android.os.Bundle
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.library.L
+import com.angcyo.library.component.pool.acquireTempMatrix
+import com.angcyo.library.component.pool.release
+import com.angcyo.library.ex.computePathBounds
 import com.angcyo.library.ex.mH
 import com.angcyo.library.ex.mW
 import com.angcyo.library.ex.toDC
@@ -89,6 +92,7 @@ class RectScaleDemo : AppDslFragment() {
                     test(RectF(0f, 0f, 100f, 100f))
                     test(RectF(10f, 10f, 100f, 100f))
                     test(RectF(10f, 10f, -90f, -90f))
+                    //rectScaleView?.testLine()
                 }
 
                 //test2
@@ -131,5 +135,7 @@ class RectScaleDemo : AppDslFragment() {
         matrix.mapRect(result, rect)
         L.i(result, result.width(), result.height())
     }
+
+
 
 }
