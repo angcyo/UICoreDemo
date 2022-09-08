@@ -290,7 +290,7 @@ class CanvasDemo : AppDslFragment() {
                 itemHolder.click(R.id.add_gcode) {
                     canvasView?.canvasDelegate?.apply {
                         val text = fContext().readAssets("gcode/LaserPecker.gcode")
-                        val drawable = GCodeHelper.parseGCode(text, createPaint(Color.BLACK))!!
+                        val drawable = GCodeHelper.parseGCode(text!!)!!
                         addPictureDrawableRenderer(drawable)
                     }
                 }
@@ -617,7 +617,7 @@ class CanvasDemo : AppDslFragment() {
 
     fun loadGCodeDrawable(): Pair<String, GCodeDrawable> {
         val text = fContext().readAssets(gCodeNameList.randomGetOnce()!!)
-        return text!! to GCodeHelper.parseGCode(text, createPaint(Color.BLACK))!!
+        return text!! to GCodeHelper.parseGCode(text)!!
     }
 
     @TestOnly
@@ -636,7 +636,7 @@ class CanvasDemo : AppDslFragment() {
                     //no
                     it?.readText()?.let { gCode ->
                         canvasView.canvasDelegate.addPictureDrawableRenderer(
-                            GCodeHelper.parseGCode(gCode, createPaint(Color.BLACK))
+                            GCodeHelper.parseGCode(gCode)
                         )
                     }
                 }
@@ -654,7 +654,7 @@ class CanvasDemo : AppDslFragment() {
                         //no
                         it?.readText()?.let { gCode ->
                             canvasView.canvasDelegate.addPictureDrawableRenderer(
-                                GCodeHelper.parseGCode(gCode, createPaint(Color.BLACK))
+                                GCodeHelper.parseGCode(gCode)
                             )
                         }
                     }
@@ -679,7 +679,7 @@ class CanvasDemo : AppDslFragment() {
                         //no
                         it?.readText()?.let { gCode ->
                             canvasView.canvasDelegate.addPictureDrawableRenderer(
-                                GCodeHelper.parseGCode(gCode, createPaint(Color.BLACK))
+                                GCodeHelper.parseGCode(gCode)
                             )
                         }
                     }
@@ -729,7 +729,7 @@ class CanvasDemo : AppDslFragment() {
             }
             CanvasOpenActivity.GCODE -> {
                 val drawable = info.url.file().readText()?.run {
-                    GCodeHelper.parseGCode(this, createPaint(Color.BLACK))
+                    GCodeHelper.parseGCode(this)
                 }
                 if (drawable == null) {
                     "数据异常:${info.url}"
