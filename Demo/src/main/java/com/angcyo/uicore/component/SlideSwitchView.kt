@@ -13,9 +13,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.Checkable
 import android.widget.OverScroller
-import com.angcyo.library.ex.disableParentInterceptTouchEvent
-import com.angcyo.library.ex.dpi
-import com.angcyo.library.ex.textWidth
 import kotlin.math.max
 import kotlin.math.min
 
@@ -212,7 +209,7 @@ class SlideSwitchView(context: Context, attrs: AttributeSet? = null) : View(cont
         if (MeasureSpec.getMode(heightSpec) != MeasureSpec.EXACTLY) {
             //wrap_content
             heightSpec = MeasureSpec.makeMeasureSpec(
-                30 * dpi + paddingTop + paddingBottom,
+                (30 * dp + paddingTop + paddingBottom).toInt(),
                 MeasureSpec.EXACTLY
             )
         }
@@ -268,6 +265,19 @@ class SlideSwitchView(context: Context, attrs: AttributeSet? = null) : View(cont
         ) {
             disableParentInterceptTouchEvent(false)
         }
+    }
+
+    /**禁止[Parent]拦截[TouchEvent]*/
+    fun View?.disableParentInterceptTouchEvent(disable: Boolean = true) {
+        this?.parent?.requestDisallowInterceptTouchEvent(disable)
+    }
+
+    /**文本的宽度*/
+    fun Paint.textWidth(text: String?): Float {
+        if (text == null) {
+            return 0f
+        }
+        return measureText(text)
     }
 
     fun clamp(value: Int, min: Int, max: Int): Int = min(max(value, min), max)
