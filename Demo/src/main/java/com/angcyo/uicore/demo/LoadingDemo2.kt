@@ -11,6 +11,7 @@ import com.angcyo.drawable.progress.CircleProgressDrawable
 import com.angcyo.drawable.progress.LinearProgressDrawable
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.library._screenWidth
+import com.angcyo.library.ex._drawable
 import com.angcyo.library.ex.interceptParentTouchEvent
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.base.clickIt
@@ -26,6 +27,9 @@ class LoadingDemo2 : AppDslFragment() {
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
+
+        val drawable = _drawable(R.drawable.lib_t2b_shadow)
+
         renderDslAdapter {
             bindItem(R.layout.item_loading_layout2) { itemHolder, itemPosition, adapterItem, payloads ->
 

@@ -13,6 +13,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.Checkable
 import android.widget.OverScroller
+import androidx.core.graphics.withTranslation
 import kotlin.math.max
 import kotlin.math.min
 
@@ -28,28 +29,43 @@ class SlideSwitchView(context: Context, attrs: AttributeSet? = null) : View(cont
 
     val dp = context.resources.displayMetrics.density
 
+    /**左右的文本*/
     var leftText: String? = "推荐档位"
     var rightText: String? = "阻力系数"
 
-    val leftPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.WHITE
-        textSize = 18 * dp
-    }
-
-    val rightPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.WHITE
-        textSize = 18 * dp
+    /**背景*/
+    var bgDrawable: Drawable? = GradientDrawable().apply {
+        shape = GradientDrawable.RECTANGLE
+        setColor("#283A46".toColor())
+        val radius = 100f
+        cornerRadii = floatArrayOf(radius, radius, radius, radius, radius, radius, radius, radius)
     }
 
     /**中间的浮子*/
     var thumbDrawable: Drawable? = GradientDrawable().apply {
         shape = GradientDrawable.OVAL
-        setColor(Color.RED)
-        val radius = 45f
+        colors = intArrayOf("#2FDFF6".toColor(), "#15BCE9".toColor())
+        val radius = 100f
         cornerRadii = floatArrayOf(radius, radius, radius, radius, radius, radius, radius, radius)
+        gradientType = GradientDrawable.LINEAR_GRADIENT
     }
 
-    var thumbMargin: Int = 2 * dp.toInt()
+    /**浮子4边空白*/
+    var thumbMargin: Int = 4 * dp.toInt()
+
+    /**文本左右的空白*/
+    var textMarginLeft: Int = 10 * dp.toInt()
+    var textMarginRight: Int = 6 * dp.toInt()
+
+    val leftPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = Color.WHITE
+        textSize = 16 * dp
+    }
+
+    val rightPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = Color.WHITE
+        textSize = 16 * dp
+    }
 
     /**状态*/
     var _checked = false
@@ -124,7 +140,7 @@ class SlideSwitchView(context: Context, attrs: AttributeSet? = null) : View(cont
 
     val minScrollX = 0
     val maxScrollX: Int
-        get() = max(leftTextWidth, rightTextWidth).toInt()
+        get() = max(leftTextWidth, rightTextWidth).toInt() + textMarginLeft + textMarginRight
 
     override fun scrollTo(x: Int, y: Int) {
         super.scrollTo(clamp(x, minScrollX, maxScrollX), y)
@@ -218,7 +234,7 @@ class SlideSwitchView(context: Context, attrs: AttributeSet? = null) : View(cont
 
         if (MeasureSpec.getMode(widthSpec) != MeasureSpec.EXACTLY) {
             //wrap_content
-            val textWidth = max(leftTextWidth, rightTextWidth)
+            val textWidth = max(leftTextWidth, rightTextWidth) + textMarginLeft + textMarginRight
             val thumbSize =
                 thumbDrawable?.run { heightSize - paddingTop - paddingBottom - thumbMargin - thumbMargin }
                     ?: 0
@@ -233,8 +249,15 @@ class SlideSwitchView(context: Context, attrs: AttributeSet? = null) : View(cont
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        //canvas.drawColor(Color.BLACK)
-        var x = thumbRect.left - thumbMargin - leftTextWidth
+
+        canvas.withTranslation(scrollX.toFloat()) {
+            bgDrawable?.let {
+                it.setBounds(0, 0, measuredWidth, measuredHeight)
+                it.draw(canvas)
+            }
+        }
+
+        var x = thumbRect.left - thumbMargin - leftTextWidth - textMarginRight
         var y = centerY + leftPaint.textHeight() / 2 - rightPaint.descent()
         canvas.drawText(leftText ?: "", x, y, leftPaint)
 
@@ -243,7 +266,7 @@ class SlideSwitchView(context: Context, attrs: AttributeSet? = null) : View(cont
             draw(canvas)
         }
 
-        x = thumbRect.right.toFloat()
+        x = thumbRect.right.toFloat() + thumbMargin + textMarginRight
         y = centerY + rightPaint.textHeight() / 2 - rightPaint.descent()
         canvas.drawText(rightText ?: "", x, y, rightPaint)
     }
@@ -281,4 +304,6 @@ class SlideSwitchView(context: Context, attrs: AttributeSet? = null) : View(cont
     }
 
     fun clamp(value: Int, min: Int, max: Int): Int = min(max(value, min), max)
+
+    fun String.toColor() = Color.parseColor(this)
 }
