@@ -140,7 +140,7 @@ class SlideSwitchView(context: Context, attrs: AttributeSet? = null) : View(cont
 
     val minScrollX = 0
     val maxScrollX: Int
-        get() = max(leftTextWidth, rightTextWidth).toInt() + textMarginLeft + textMarginRight
+        get() = measuredWidth - paddingRight - thumbMargin - thumbSize - thumbMargin
 
     override fun scrollTo(x: Int, y: Int) {
         super.scrollTo(clamp(x, minScrollX, maxScrollX), y)
