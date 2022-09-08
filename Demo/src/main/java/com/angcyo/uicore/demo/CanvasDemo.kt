@@ -290,7 +290,7 @@ class CanvasDemo : AppDslFragment() {
                 itemHolder.click(R.id.add_gcode) {
                     canvasView?.canvasDelegate?.apply {
                         val text = fContext().readAssets("gcode/LaserPecker.gcode")
-                        val drawable = GCodeHelper.parseGCode(text!!)!!
+                        val drawable = GCodeHelper.parseGCode(text)
                         addPictureDrawableRenderer(drawable)
                     }
                 }
