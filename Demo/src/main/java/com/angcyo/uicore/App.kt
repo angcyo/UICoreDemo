@@ -22,9 +22,7 @@ import com.angcyo.engrave.model.FscDeviceModel
 import com.angcyo.jpush.JPush
 import com.angcyo.library.annotation.CallComplianceAfter
 import com.angcyo.library.component.DslNotify
-import com.angcyo.library.ex.dp
-import com.angcyo.library.ex.padding
-import com.angcyo.library.ex.randomColor
+import com.angcyo.library.ex.*
 import com.angcyo.library.isMainProgress
 import com.angcyo.objectbox.DslBox
 import com.angcyo.objectbox.laser.pecker.LPBox
@@ -49,11 +47,11 @@ class App : CoreApplication(), CameraXConfig.Provider {
     companion object {
         //如果需要将url转成二维码, 参考以下链接, 注册app_id和app_secret
         //https://github.com/MZCretin/RollToolsApi#%E8%A7%A3%E9%94%81%E6%96%B0%E6%96%B9%E5%BC%8F
-        const val app_id = "rhqkxdsnjnrpp3xr"
-        const val app_secret = "Rlh4c1duMDZ4YnZrRks4dU55c1NEQT09"
+        const val app_id = "cmhxa3hkc25qbnJwcDN4cg=="
+        const val app_secret = "UmxoNGMxZHVNRFo0WW5aclJrczRkVTU1YzFORVFUMDk="
 
         val headerMap: HashMap<String, String> =
-            hashMapOf("app_id" to app_id, "app_secret" to app_secret)
+            hashMapOf("app_id" to app_id.base64Decoder(), "app_secret" to app_secret.base64Encode())
     }
 
     override fun onCreate() {
@@ -106,8 +104,8 @@ class App : CoreApplication(), CameraXConfig.Provider {
             TTS.init(
                 this,
                 1251235618,
-                "AKIDWVomMV0edaGbFT5dSowGvGpmjC49pBCb",
-                "0WbCzyN1ICYiFkSZ9Kv890GY1BPqUbsV"
+                "QUtJRFdWb21NVjBlZGFHYkZUNWRTb3dHdkdwbWpDNDlwQkNi".base64Decoder(),
+                "MFdiQ3p5TjFJQ1lpRmtTWjlLdjg5MEdZMUJQcVVic1Y=".base64Decoder()
             )
 
             JPush.init(this)
