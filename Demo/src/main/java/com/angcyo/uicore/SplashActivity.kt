@@ -7,7 +7,7 @@ import com.angcyo.core.component.ComplianceCheck
 import com.angcyo.noAnim
 
 /**
- *
+ * 启动页, 进行合规检查
  * Email:angcyo@126.com
  * @author angcyo
  * @date 2020/01/19
