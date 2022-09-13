@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.Gravity
 import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDialog
 import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.core.component.httpConfigDialog
 import com.angcyo.coroutine.onBack
@@ -36,6 +38,7 @@ import com.haibin.calendarview.today
 import kotlin.random.Random.Default.nextInt
 import kotlin.random.Random.Default.nextLong
 
+
 /**
  *
  * Email:angcyo@126.com
@@ -43,8 +46,9 @@ import kotlin.random.Random.Default.nextLong
  * @date 2020/02/01
  */
 class DialogDemo : AppDslFragment() {
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+
+    override fun initBaseView(savedInstanceState: Bundle?) {
+        super.initBaseView(savedInstanceState)
         renderDslAdapter {
             DslAdapterItem()() {
                 itemLayoutId = R.layout.item_dialog_demo_layout
@@ -372,6 +376,20 @@ class DialogDemo : AppDslFragment() {
                 dialogResult = calendarResult
                 _defaultConfig(holder, this)
             }
+        }
+
+        holder.click(R.id.system_button) {
+            /*AppCompatDialog(fContext()).apply {
+                setTitle("Title")
+                show()
+            }*/
+
+            val alertDialog: AppCompatDialog = AlertDialog.Builder(fContext())
+                .setTitle("Title")
+                .setMessage("Message")
+                .setCancelable(true)
+                .create()
+            alertDialog.show()
         }
 
         holder.hawkInstallAndRestore("dialog_")

@@ -346,6 +346,13 @@
             android:layout_height="wrap_content"
             android:text="日历选择对话框(带默认2)" />
 
+        <com.angcyo.widget.DslButton
+            android:id="@+id/system_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="系统1" />
+
     </com.angcyo.widget.layout.DslFlowLayout>
 
     <com.angcyo.widget.layout.DslFlowLayout
