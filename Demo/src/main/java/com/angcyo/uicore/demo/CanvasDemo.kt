@@ -31,7 +31,6 @@ import com.angcyo.canvas.laser.pecker.CanvasLayoutHelper
 import com.angcyo.canvas.laser.pecker.loadingAsync
 import com.angcyo.canvas.utils.*
 import com.angcyo.component.getPhoto
-import com.angcyo.core.component.DebugFragment
 import com.angcyo.core.component.dslPermissions
 import com.angcyo.core.loadingAsyncTg
 import com.angcyo.core.showIn
@@ -53,6 +52,7 @@ import com.angcyo.gcode.GCodeDrawable
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.gcode.GCodeWriteHandler
 import com.angcyo.http.rx.doMain
+import com.angcyo.item.component.DebugFragment
 import com.angcyo.library.L
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component._delay

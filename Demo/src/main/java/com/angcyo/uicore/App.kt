@@ -11,7 +11,6 @@ import com.angcyo.base.restore
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bugly.Bugly
 import com.angcyo.core.CoreApplication
-import com.angcyo.core.component.DebugFragment
 import com.angcyo.core.coreApp
 import com.angcyo.core.fragment.BaseUI
 import com.angcyo.core.viewpager.RFragmentAdapter
@@ -19,6 +18,7 @@ import com.angcyo.core.vmApp
 import com.angcyo.crash.sight.CrashSight
 import com.angcyo.download.DslDownload
 import com.angcyo.engrave.model.FscDeviceModel
+import com.angcyo.item.component.DebugFragment
 import com.angcyo.jpush.JPush
 import com.angcyo.library.annotation.CallComplianceAfter
 import com.angcyo.library.component.DslNotify
@@ -91,7 +91,7 @@ class App : CoreApplication(), CameraXConfig.Provider {
         //WebSocket
         DebugFragment.addDebugAction {
             name = "LogServer"
-            action = {
+            action = { _, _ ->
                 coreApp().bindLogWSServer()
             }
         }
