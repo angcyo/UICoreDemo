@@ -205,7 +205,7 @@ class DrawableSpanDemo : AppTitleFragment() {
                 backgroundDrawable =
                     _drawable(R.drawable.lib_back).colorFilter(getColor(R.color.text_general_color))
             }
-            drawable("返回") {
+            drawable(_string(R.string.ui_back)) {
                 textGravity = Gravity.CENTER
                 marginLeft = -8 * dpi
             }
