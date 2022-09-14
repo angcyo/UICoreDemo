@@ -36,6 +36,7 @@ import com.angcyo.core.loadingAsyncTg
 import com.angcyo.core.showIn
 import com.angcyo.core.vmApp
 import com.angcyo.crop.ui.cropDialog
+import com.angcyo.dialog.normalIosDialog
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave.EngraveLayoutHelper
@@ -106,8 +107,29 @@ class CanvasDemo : AppDslFragment() {
         }
     }
 
+    val canvasView: CanvasView?
+        get() = _vh.v<CanvasView>(R.id.canvas_view)
+
     override fun onBackPressed(): Boolean {
-        return super.onBackPressed()
+        val backPressed = super.onBackPressed()
+        if (backPressed) {
+            val count = canvasView?.canvasDelegate?.itemRendererCount ?: 0
+            if (count <= 0) {
+                return backPressed
+            } else {
+                fContext().normalIosDialog {
+                    dialogTitle = getString(R.string.canvas_tips)
+                    dialogMessage = getString(R.string.canvas_exit_edit)
+                    positiveButton { dialog, dialogViewHolder ->
+                        dialog.dismiss()
+                        activity?.finish()
+                    }
+                }
+                return false
+            }
+        } else {
+            return false
+        }
     }
 
     override fun canSwipeBack(): Boolean = false
