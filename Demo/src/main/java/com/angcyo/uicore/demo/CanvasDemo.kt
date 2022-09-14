@@ -795,12 +795,11 @@ class CanvasDemo : AppDslFragment() {
                 lifecycle.onStateChanged(true) { source, event, observer ->
                     _vh.v<CanvasView>(R.id.canvas_view)?.let { canvasView ->
                         laserPeckerModel.productInfoData.value?.let { productInfo ->
-                            val canvasViewBox = canvasView.canvasDelegate.getCanvasViewBox()
                             if (event == Lifecycle.Event.ON_START) {
                                 //界面显示
                                 canvasView.canvasDelegate.showRectBounds(
-                                    productInfo.bounds,
-                                    offsetY = (canvasViewBox.getContentHeight() - canvasViewBox.getContentWidth()) / 2
+                                    productInfo.previewBounds,
+                                    offsetRectTop = true
                                 )
                             } else if (event == Lifecycle.Event.ON_STOP) {
                                 //界面隐藏
