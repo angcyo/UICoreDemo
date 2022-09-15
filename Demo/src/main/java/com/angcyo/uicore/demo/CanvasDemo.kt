@@ -545,6 +545,13 @@ class CanvasDemo : AppDslFragment() {
                     }
                 }
 
+                //tip
+                itemHolder.click(R.id.tip_button) {
+                    dslAHelper {
+                        start(DeviceConnectTipActivity::class)
+                    }
+                }
+
                 //test
                 itemHolder.click(R.id.test_button) {
                     //test(itemHolder, canvasView)
