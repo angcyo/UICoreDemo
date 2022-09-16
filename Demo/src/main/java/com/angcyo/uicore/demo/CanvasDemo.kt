@@ -10,6 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
+import com.angcyo.base.removeThis
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.IReceiveBeanAction
 import com.angcyo.bluetooth.fsc.enqueue
@@ -122,7 +123,9 @@ class CanvasDemo : AppDslFragment() {
                     dialogMessage = getString(R.string.canvas_exit_edit)
                     positiveButton { dialog, dialogViewHolder ->
                         dialog.dismiss()
-                        activity?.finish()
+                        dslFHelper {
+                            removeThis()
+                        }
                     }
                 }
                 return false
