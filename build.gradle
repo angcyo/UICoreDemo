@@ -40,9 +40,10 @@ buildscript {
     dependencies {
         //7.x + Could not find method compile()
         //最后的版本 4.2.2/gradle-6.9-all
+        // 7.0.4/gradle-7.1.1
         //https://developer.android.google.cn/studio/releases/gradle-plugin?hl=zh_cn#updating-gradle
         //https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google
-        classpath 'com.android.tools.build:gradle:7.0.4'
+        classpath 'com.android.tools.build:gradle:7.3.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         //'kotlinx-serialization'
         //classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
