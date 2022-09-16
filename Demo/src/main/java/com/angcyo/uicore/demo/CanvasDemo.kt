@@ -571,7 +571,9 @@ class CanvasDemo : AppDslFragment() {
                     fContext().cropDialog {
                         cropBitmap = BitmapFactory.decodeResource(resources, R.drawable.face)
                         onCropResultAction = {
-                            canvasView?.canvasDelegate?.addPictureBitmapRenderer(it)
+                            it?.let {
+                                canvasView?.canvasDelegate?.addPictureBitmapRenderer(it)
+                            }
                         }
                     }
                 }
