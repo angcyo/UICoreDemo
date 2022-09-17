@@ -1,6 +1,9 @@
 package com.angcyo.uicore.demo
 
-import android.graphics.*
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.RectF
 import android.os.Bundle
 import android.view.Gravity
 import android.view.MotionEvent
@@ -36,7 +39,6 @@ import com.angcyo.core.component.dslPermissions
 import com.angcyo.core.loadingAsyncTg
 import com.angcyo.core.showIn
 import com.angcyo.core.vmApp
-import com.angcyo.crop.ui.cropDialog
 import com.angcyo.dialog.normalIosDialog
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
@@ -68,6 +70,7 @@ import com.angcyo.library.utils.fileNameUUID
 import com.angcyo.lifecycle.onStateChanged
 import com.angcyo.server.file.bindFileServer
 import com.angcyo.svg.Svg
+import com.angcyo.tablayout.logi
 import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
 import com.angcyo.uicore.activity.CanvasOpenActivity
 import com.angcyo.uicore.activity.CanvasOpenInfo
@@ -568,14 +571,18 @@ class CanvasDemo : AppDslFragment() {
                         //clipBoundsAnimator()
                         clipBoundsAnimatorFromLeft()
                     }*/
-                    fContext().cropDialog {
+                    /*fContext().cropDialog {
                         cropBitmap = BitmapFactory.decodeResource(resources, R.drawable.face)
                         onCropResultAction = {
                             it?.let {
                                 canvasView?.canvasDelegate?.addPictureBitmapRenderer(it)
                             }
                         }
-                    }
+                    }*/
+                    /*val path = "/system/fonts/"
+                    val file = path.file()
+                    val list = file.listFiles()
+                    list.logi()*/
                 }
 
                 //启动ws log服务

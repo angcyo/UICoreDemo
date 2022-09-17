@@ -4,7 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import com.angcyo.activity.BaseAppCompatActivity
-import com.angcyo.canvas.laser.pecker.CanvasFontPopupConfig
+import com.angcyo.canvas.utils.FontManager
 import com.angcyo.dsladapter.DslAdapterStatusItem
 import com.angcyo.getData
 import com.angcyo.library.ex.*
@@ -40,7 +40,7 @@ class CanvasFontImportActivity : BaseAppCompatActivity() {
             finish()
         } else {
             val name = info.url.getFileAttachmentName()
-            val typefaceInfo = CanvasFontPopupConfig.importFont(info.url)
+            val typefaceInfo = FontManager.importCustomFont(info.url)
             _vh.rv(R.id.lib_recycler_view)?.renderDslAdapter(false, false, false) {
                 if (typefaceInfo == null) {
                     //导入失败

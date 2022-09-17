@@ -550,7 +550,7 @@ class DialogDemo : AppDslFragment() {
         //popup
         holder.click(R.id.bottom) {
             fContext().popupWindow(it) {
-                layoutId = R.layout.item_dialog_demo_layout
+                popupLayoutId = R.layout.item_dialog_demo_layout
                 background = ColorDrawable(Color.RED)
                 exactlyHeight = true
                 onDismiss = {
@@ -565,7 +565,7 @@ class DialogDemo : AppDslFragment() {
         }
         holder.click(R.id.normal_popup_style) {
             fContext().popupWindow(it) {
-                layoutId = R.layout.item_dialog_demo_layout
+                popupLayoutId = R.layout.item_dialog_demo_layout
                 background = ColorDrawable(Color.RED)
                 onDismiss = {
                     L.i("...dismiss...")
@@ -579,7 +579,7 @@ class DialogDemo : AppDslFragment() {
         }
         holder.click(R.id.bottom_popup) {
             fContext().popupWindow(it) {
-                layoutId = R.layout.item_dialog_demo_layout
+                popupLayoutId = R.layout.item_dialog_demo_layout
                 background = ColorDrawable(Color.RED)
                 exactlyHeight = true
                 onDismiss = {
@@ -594,7 +594,7 @@ class DialogDemo : AppDslFragment() {
         }
         holder.click(R.id.normal_popup) {
             fContext().popupWindow(it) {
-                layoutId = R.layout.item_dialog_demo_layout
+                popupLayoutId = R.layout.item_dialog_demo_layout
                 background = ColorDrawable(Color.RED)
                 animationStyle = -1
                 onDismiss = {
@@ -608,7 +608,7 @@ class DialogDemo : AppDslFragment() {
 
         holder.click(R.id.width_full_popup) {
             fContext().popupWindow(it) {
-                layoutId = R.layout.item_dialog_demo_layout
+                popupLayoutId = R.layout.item_dialog_demo_layout
                 background = ColorDrawable(Color.RED)
                 width = -1
                 onDismiss = {
@@ -622,7 +622,7 @@ class DialogDemo : AppDslFragment() {
 
         holder.click(R.id.full_popup) {
             fContext().popupWindow(it) {
-                layoutId = R.layout.item_dialog_demo_layout
+                popupLayoutId = R.layout.item_dialog_demo_layout
                 background = ColorDrawable(Color.RED)
                 width = -1
                 height = -1
@@ -640,7 +640,7 @@ class DialogDemo : AppDslFragment() {
 
         holder.click(R.id.full_popup2) {
             fContext().popupWindow(it) {
-                layoutId = R.layout.item_dialog_demo_layout
+                popupLayoutId = R.layout.item_dialog_demo_layout
                 width = -1
                 background = ColorDrawable(getColor(R.color.transparent40))
                 exactlyHeight = true
@@ -655,7 +655,7 @@ class DialogDemo : AppDslFragment() {
 
         holder.click(R.id.full_popup_title) {
             fContext().popupWindow(titleBarLayout) {
-                layoutId = R.layout.item_dialog_demo_layout
+                popupLayoutId = R.layout.item_dialog_demo_layout
                 width = -1
                 background = ColorDrawable(getColor(R.color.transparent40))
                 exactlyHeight = true
@@ -676,7 +676,7 @@ class DialogDemo : AppDslFragment() {
         //FullPopupConfig
         holder.click(R.id.full_popup_config) {
             fContext().fullPopupWindow(titleBarLayout) {
-                layoutId = R.layout.item_popup_demo_layout
+                popupLayoutId = R.layout.item_popup_demo_layout
                 _defaultConfig(holder, this)
             }
         }
