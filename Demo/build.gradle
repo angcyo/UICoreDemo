@@ -90,6 +90,7 @@ dependencies {
     implementation project(allModule.jpush)
     implementation project(allModule.bdtrace)
     implementation project(allModule.acc)
+    implementation project(allModule.record)
 
     implementation project(allModule.bugly)
     implementation project(allModule.andserver)

@@ -2,8 +2,6 @@ package com.angcyo.uicore.component
 
 import android.graphics.Bitmap
 import android.widget.TextView
-import com.angcyo.library.app
-import com.angcyo.library.component.DslDensityAdapter
 import com.angcyo.library.ex._color
 import com.angcyo.library.ex._drawable
 import com.angcyo.library.ex.find
