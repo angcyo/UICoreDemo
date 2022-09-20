@@ -32,6 +32,7 @@ import com.angcyo.canvas.items.PictureShapeItem
 import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.PictureItemRenderer
 import com.angcyo.canvas.laser.pecker.CanvasLayoutHelper
+import com.angcyo.canvas.laser.pecker.canvasRegulateWindow2
 import com.angcyo.canvas.laser.pecker.loadingAsync
 import com.angcyo.canvas.utils.*
 import com.angcyo.component.getPhoto
@@ -70,7 +71,6 @@ import com.angcyo.library.utils.fileNameUUID
 import com.angcyo.lifecycle.onStateChanged
 import com.angcyo.server.file.bindFileServer
 import com.angcyo.svg.Svg
-import com.angcyo.tablayout.logi
 import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
 import com.angcyo.uicore.activity.CanvasOpenActivity
 import com.angcyo.uicore.activity.CanvasOpenInfo
@@ -583,6 +583,9 @@ class CanvasDemo : AppDslFragment() {
                     val file = path.file()
                     val list = file.listFiles()
                     list.logi()*/
+                    fContext().canvasRegulateWindow2(it) {
+
+                    }
                 }
 
                 //启动ws log服务
