@@ -34,7 +34,7 @@ import com.angcyo.canvas.items.renderer.PictureItemRenderer
 import com.angcyo.canvas.laser.pecker.CanvasLayoutHelper
 import com.angcyo.canvas.laser.pecker.canvasRegulateWindow2
 import com.angcyo.canvas.laser.pecker.loadingAsync
-import com.angcyo.canvas.laser.pecker.openFile
+import com.angcyo.canvas.laser.pecker.openCanvasFile
 import com.angcyo.canvas.utils.*
 import com.angcyo.component.getPhoto
 import com.angcyo.core.component.dslPermissions
@@ -626,7 +626,7 @@ class CanvasDemo : AppDslFragment() {
                             it?.let {
                                 canvasView?.canvasDelegate?.apply {
                                     removeAllItemRenderer()
-                                    openFile(this@CanvasDemo, it.fileUri)
+                                    openCanvasFile(this@CanvasDemo, it.fileUri)
                                 }
                             }
                         }
