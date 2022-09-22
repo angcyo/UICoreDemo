@@ -34,9 +34,11 @@ import com.angcyo.canvas.items.renderer.PictureItemRenderer
 import com.angcyo.canvas.laser.pecker.CanvasLayoutHelper
 import com.angcyo.canvas.laser.pecker.canvasRegulateWindow2
 import com.angcyo.canvas.laser.pecker.loadingAsync
+import com.angcyo.canvas.laser.pecker.openFile
 import com.angcyo.canvas.utils.*
 import com.angcyo.component.getPhoto
 import com.angcyo.core.component.dslPermissions
+import com.angcyo.core.component.fileSelector
 import com.angcyo.core.loadingAsyncTg
 import com.angcyo.core.showIn
 import com.angcyo.core.vmApp
@@ -56,6 +58,7 @@ import com.angcyo.engrave.transition.EngraveTransitionManager
 import com.angcyo.gcode.GCodeDrawable
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.gcode.GCodeWriteHandler
+import com.angcyo.http.base.toJson
 import com.angcyo.http.rx.doMain
 import com.angcyo.item.component.DebugFragment
 import com.angcyo.library.L
@@ -63,11 +66,14 @@ import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component._delay
 import com.angcyo.library.ex.*
 import com.angcyo.library.libCacheFile
+import com.angcyo.library.libFolderPath
 import com.angcyo.library.toast
 import com.angcyo.library.unit.InchValueUnit
 import com.angcyo.library.unit.MmValueUnit
 import com.angcyo.library.unit.PixelValueUnit
+import com.angcyo.library.utils.fileName
 import com.angcyo.library.utils.fileNameUUID
+import com.angcyo.library.utils.writeTo
 import com.angcyo.lifecycle.onStateChanged
 import com.angcyo.server.file.bindFileServer
 import com.angcyo.svg.Svg
@@ -593,6 +599,38 @@ class CanvasDemo : AppDslFragment() {
                     bindFileServer()
                     bindLogWSServer()
                     it.isEnabled = false
+                }
+
+                //save
+                itemHolder.click(R.id.save_button) {
+                    canvasView?.canvasDelegate?.apply {
+                        loadingAsync({
+                            getCanvasDataBean().let {
+                                val json = it.toJson()
+                                json.writeTo(libCacheFile(fileName(suffix = ".lp")))
+                                L.i(json)
+                            }
+                        })
+                    }
+                }
+
+                //open
+                itemHolder.click(R.id.open_button) {
+                    dslFHelper {
+                        fileSelector({
+                            showFileMd5 = true
+                            showFileMenu = true
+                            showHideFile = true
+                            targetPath = libFolderPath()
+                        }) {
+                            it?.let {
+                                canvasView?.canvasDelegate?.apply {
+                                    removeAllItemRenderer()
+                                    openFile(this@CanvasDemo, it.fileUri)
+                                }
+                            }
+                        }
+                    }
                 }
 
                 //canvas
