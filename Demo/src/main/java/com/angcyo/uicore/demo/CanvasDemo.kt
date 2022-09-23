@@ -28,6 +28,9 @@ import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
 import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.Strategy
+import com.angcyo.canvas.graphics.addGCodeRender
+import com.angcyo.canvas.graphics.addSvgRender
+import com.angcyo.canvas.graphics.addTextRender
 import com.angcyo.canvas.items.PictureShapeItem
 import com.angcyo.canvas.items.PictureTextItem
 import com.angcyo.canvas.items.renderer.PictureItemRenderer
@@ -288,17 +291,12 @@ class CanvasDemo : AppDslFragment() {
                 //add
                 itemHolder.click(R.id.add_picture_text) {
                     canvasView?.canvasDelegate?.apply {
-                        addPictureTextRender(getRandomText())
+                        addTextRender(getRandomText())
                     }
                 }
                 itemHolder.click(R.id.add_svg) {
                     canvasView?.canvasDelegate?.apply {
-                        addPictureDrawableRenderer(
-                            Sharp.loadResource(
-                                resources,
-                                R.raw.issue_19
-                            ).drawable
-                        )
+                        addSvgRender(resources.openRawResource(R.raw.issue_19).readText())
                     }
                 }
                 itemHolder.click(R.id.add_image_svg) {
@@ -312,10 +310,11 @@ class CanvasDemo : AppDslFragment() {
                                 it.save(file.absolutePath)
                                 val svg = Svg.imageToSVG(file.absolutePath)
                                 libCacheFile(fileNameUUID(".svg")).appendText(svg!!)
-                                Svg.loadSvgDrawable(svg)
-                            }) { svgDrawable ->
+                                svg
+                                //Svg.loadSvgDrawable(svg)
+                            }) { svg ->
                                 canvasView?.canvasDelegate?.apply {
-                                    addPictureDrawableRenderer(svgDrawable!!)
+                                    addSvgRender(svg)
                                 }
                             }
                         }
@@ -324,8 +323,7 @@ class CanvasDemo : AppDslFragment() {
                 itemHolder.click(R.id.add_gcode) {
                     canvasView?.canvasDelegate?.apply {
                         val text = fContext().readAssets("gcode/LaserPecker.gcode")
-                        val drawable = GCodeHelper.parseGCode(text)
-                        addPictureDrawableRenderer(drawable)
+                        addGCodeRender(text)
                     }
                 }
                 itemHolder.click(R.id.random_add_svg) {
@@ -334,14 +332,14 @@ class CanvasDemo : AppDslFragment() {
                             addDrawableRenderer(second)
                         }*/
                         loadSvgPathDrawable().apply {
-                            addPictureSharpRenderer(first, second)
+                            addSvgRender(first)
                         }
                     }
                 }
                 itemHolder.click(R.id.random_add_gcode) {
                     canvasView?.canvasDelegate?.apply {
                         loadGCodeDrawable().apply {
-                            addPictureDrawableRenderer(second)
+                            addGCodeRender(first)
                         }
                     }
                 }
