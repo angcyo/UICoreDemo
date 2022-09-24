@@ -13,7 +13,7 @@ import com.angcyo.bluetooth.fsc.laserpacker.parse.*
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.dslItem
 import com.angcyo.dsladapter.isUpdatePart
-import com.angcyo.engrave.EngraveHelper
+import com.angcyo.engrave.data.HawkKeys
 import com.angcyo.getData
 import com.angcyo.http.rx.doMain
 import com.angcyo.library.ex._dimen
@@ -296,7 +296,7 @@ class FscThroughputFragment : AppDslFragment() {
                                     0,
                                     60,
                                     20,
-                                    EngraveHelper.lastPwrProgress,
+                                    HawkKeys.lastPwrProgress,
                                     0
                                 ).toHexCommandString(),
                                 EngravePreviewParser::class.java
