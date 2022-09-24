@@ -23,7 +23,6 @@ import com.angcyo.bluetooth.fsc.laserpacker.command.EngravePreviewCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.FileModeCmd
 import com.angcyo.bluetooth.fsc.laserpacker.parse.FileTransferParser
-import com.angcyo.bluetooth.fsc.laserpacker.parse.QuerySettingParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
 import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasView
@@ -56,6 +55,7 @@ import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.ble.EngraveHistoryFragment
 import com.angcyo.engrave.ble.bluetoothSearchListDialog
 import com.angcyo.engrave.data.EngraveReadyInfo
+import com.angcyo.engrave.data.HawkEngraveKeys
 import com.angcyo.engrave.model.EngraveModel
 import com.angcyo.engrave.transition.EngraveTransitionManager
 import com.angcyo.gcode.GCodeDrawable
@@ -516,18 +516,17 @@ class CanvasDemo : AppDslFragment() {
 
                 //切换4点预览
                 itemHolder.tv(R.id.four_points_preview_button)?.text =
-                    if (QuerySettingParser.USE_FOUR_POINTS_PREVIEW) {
+                    if (HawkEngraveKeys.USE_FOUR_POINTS_PREVIEW) {
                         "4点预览√"
                     } else {
                         "4点预览×"
                     }
                 itemHolder.click(R.id.four_points_preview_button) {
-                    QuerySettingParser.USE_FOUR_POINTS_PREVIEW =
-                        !QuerySettingParser.USE_FOUR_POINTS_PREVIEW
+                    HawkEngraveKeys.USE_FOUR_POINTS_PREVIEW = !HawkEngraveKeys.USE_FOUR_POINTS_PREVIEW
 
                     //update
                     itemHolder.tv(R.id.four_points_preview_button)?.text =
-                        if (QuerySettingParser.USE_FOUR_POINTS_PREVIEW) {
+                        if (HawkEngraveKeys.USE_FOUR_POINTS_PREVIEW) {
                             "4点预览√"
                         } else {
                             "4点预览×"
