@@ -50,6 +50,7 @@ import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave.EngraveLayoutHelper
 import com.angcyo.engrave.EngravePreviewLayoutHelper
 import com.angcyo.engrave.EngraveProductLayoutHelper
+import com.angcyo.engrave.IEngraveCanvasFragment
 import com.angcyo.engrave.ble.DeviceConnectTipActivity
 import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.ble.EngraveHistoryFragment
@@ -58,6 +59,7 @@ import com.angcyo.engrave.data.EngraveReadyInfo
 import com.angcyo.engrave.data.HawkEngraveKeys
 import com.angcyo.engrave.model.EngraveModel
 import com.angcyo.engrave.transition.EngraveTransitionManager
+import com.angcyo.fragment.AbsFragment
 import com.angcyo.gcode.GCodeDrawable
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.gcode.GCodeWriteHandler
@@ -100,7 +102,7 @@ import kotlin.random.Random
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
  * @since 2022/04/01
  */
-class CanvasDemo : AppDslFragment() {
+class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -522,7 +524,8 @@ class CanvasDemo : AppDslFragment() {
                         "4点预览×"
                     }
                 itemHolder.click(R.id.four_points_preview_button) {
-                    HawkEngraveKeys.USE_FOUR_POINTS_PREVIEW = !HawkEngraveKeys.USE_FOUR_POINTS_PREVIEW
+                    HawkEngraveKeys.USE_FOUR_POINTS_PREVIEW =
+                        !HawkEngraveKeys.USE_FOUR_POINTS_PREVIEW
 
                     //update
                     itemHolder.tv(R.id.four_points_preview_button)?.text =
@@ -839,7 +842,7 @@ class CanvasDemo : AppDslFragment() {
     val engraveProductLayoutHelper = EngraveProductLayoutHelper(this)
 
     /**雕刻布局*/
-    val engraveLayoutHelper = EngraveLayoutHelper().apply {
+    val _engraveLayoutHelper = EngraveLayoutHelper().apply {
         backPressedDispatcherOwner = this@CanvasDemo
 
         onIViewEvent = { iView, event ->
@@ -853,7 +856,7 @@ class CanvasDemo : AppDslFragment() {
     }
 
     /**雕刻预览布局*/
-    val engravePreviewLayoutHelper = EngravePreviewLayoutHelper(this).apply {
+    val _engravePreviewLayoutHelper = EngravePreviewLayoutHelper(this).apply {
         backPressedDispatcherOwner = this@CanvasDemo
 
         //next
@@ -919,4 +922,17 @@ class CanvasDemo : AppDslFragment() {
     }
 
     //</editor-fold desc="touch">
+
+    //<editor-fold desc="IEngraveCanvasFragment">
+
+    override val fragment: AbsFragment
+        get() = this
+
+    override val engraveLayoutHelper: EngraveLayoutHelper
+        get() = _engraveLayoutHelper
+
+    override val engravePreviewLayoutHelper: EngravePreviewLayoutHelper
+        get() = _engravePreviewLayoutHelper
+
+    //</editor-fold desc="IEngraveCanvasFragment">
 }
