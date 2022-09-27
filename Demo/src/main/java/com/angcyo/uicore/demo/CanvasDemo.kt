@@ -9,7 +9,6 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
@@ -25,6 +24,7 @@ import com.angcyo.bluetooth.fsc.laserpacker.command.FileModeCmd
 import com.angcyo.bluetooth.fsc.laserpacker.parse.FileTransferParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
 import com.angcyo.bluetooth.fsc.parse
+import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.Strategy
 import com.angcyo.canvas.graphics.addGCodeRender
@@ -47,8 +47,8 @@ import com.angcyo.core.vmApp
 import com.angcyo.dialog.normalIosDialog
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
-import com.angcyo.engrave.EngraveLayoutHelper
-import com.angcyo.engrave.EngravePreviewLayoutHelper
+import com.angcyo.engrave.BaseEngraveLayoutHelper
+import com.angcyo.engrave.EngraveFlowLayoutHelper
 import com.angcyo.engrave.EngraveProductLayoutHelper
 import com.angcyo.engrave.IEngraveCanvasFragment
 import com.angcyo.engrave.ble.DeviceConnectTipActivity
@@ -57,7 +57,6 @@ import com.angcyo.engrave.ble.EngraveHistoryFragment
 import com.angcyo.engrave.ble.bluetoothSearchListDialog
 import com.angcyo.engrave.data.EngraveReadyInfo
 import com.angcyo.engrave.data.HawkEngraveKeys
-import com.angcyo.engrave.model.EngraveModel
 import com.angcyo.engrave.transition.EngraveTransitionManager
 import com.angcyo.fragment.AbsFragment
 import com.angcyo.gcode.GCodeDrawable
@@ -79,7 +78,6 @@ import com.angcyo.library.unit.PixelValueUnit
 import com.angcyo.library.utils.fileName
 import com.angcyo.library.utils.fileNameUUID
 import com.angcyo.library.utils.writeTo
-import com.angcyo.lifecycle.onStateChanged
 import com.angcyo.server.file.bindFileServer
 import com.angcyo.svg.Svg
 import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
@@ -420,9 +418,11 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
                 itemHolder.click(R.id.engrave_preview_button) {
                     //安全提示弹窗
-                    engravePreviewLayoutHelper.showPreviewSafetyTips(fContext()) {
-                        engravePreviewLayoutHelper.canvasDelegate = canvasView?.canvasDelegate
-                        engravePreviewLayoutHelper.showIn(this@CanvasDemo)
+                    engraveFlowLayoutHelper.showPreviewSafetyTips(fContext()) {
+                        //如果有第三轴, 还需要检查对应的配置
+                        engraveFlowLayoutHelper.engraveFlow =
+                            BaseEngraveLayoutHelper.ENGRAVE_FLOW_PREVIEW
+                        engraveFlowLayoutHelper.showIn(this@CanvasDemo)
                     }
                 }
 
@@ -445,13 +445,9 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 //雕刻
                 itemHolder.click(R.id.engrave_button) {
                     canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
-                        /*fContext().engraveDialog(renderer) {
-
-                        }*/
-
-                        engraveLayoutHelper.renderer = renderer
-                        engraveLayoutHelper.canvasDelegate = canvasView.canvasDelegate
-                        engraveLayoutHelper.showIn(this@CanvasDemo)
+                        engraveFlowLayoutHelper.engraveFlow =
+                            BaseEngraveLayoutHelper.ENGRAVE_FLOW_ENGRAVE_BEFORE_CONFIG
+                        engraveFlowLayoutHelper.showIn(this@CanvasDemo)
                     }
                 }
 
@@ -648,24 +644,28 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
             }
         }
 
-        //状态监听和恢复
-        engravePreviewLayoutHelper.laserPeckerModel.initializeData.observeOnce() { init ->
+        //设备状态监听和恢复
+        /*engraveFlowLayoutHelper.laserPeckerModel.initializeData.observeOnce() { init ->
             if (init == true) {
                 //监听第一次初始化
-                val stateParser = engravePreviewLayoutHelper.laserPeckerModel.deviceStateData.value
+                val stateParser = engraveFlowLayoutHelper.laserPeckerModel.deviceStateData.value
                 if (vmApp<EngraveModel>().isRestore()) {
                     //恢复状态
                     if (stateParser?.isModeEngravePreview() == true) {
                         //设备已经在雕刻预览中
-                        engravePreviewLayoutHelper.showIn(this@CanvasDemo)
+                        engraveFlowLayoutHelper.engraveFlow =
+                            BaseEngraveLayoutHelper.ENGRAVE_FLOW_PREVIEW
+                        engraveFlowLayoutHelper.showIn(this@CanvasDemo)
                     } else if (stateParser?.isModeEngrave() == true) {
                         //设备已经在雕刻中
-                        engraveLayoutHelper.showIn(this@CanvasDemo)
+                        engraveFlowLayoutHelper.engraveFlow =
+                            BaseEngraveLayoutHelper.ENGRAVE_FLOW_ENGRAVING
+                        engraveFlowLayoutHelper.showIn(this@CanvasDemo)
                     }
                 }
             }
             init == true
-        }
+        }*/
 
         //有需要打开的数据
         vmApp<CanvasOpenModel>().openPendingData.observe {
@@ -842,63 +842,18 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
     val engraveProductLayoutHelper = EngraveProductLayoutHelper(this)
 
     /**雕刻布局*/
-    val _engraveLayoutHelper = EngraveLayoutHelper().apply {
+    val _engraveFlowLayoutHelper = EngraveFlowLayoutHelper().apply {
         backPressedDispatcherOwner = this@CanvasDemo
 
-        onIViewEvent = { iView, event ->
+        onEngraveFlowChangedAction = { from, to ->
             //禁止手势
-            if (event == Lifecycle.Event.ON_RESUME) {
-                _vh.v<CanvasView>(R.id.canvas_view)?.canvasDelegate?.engraveMode(true)
-            } else if (event == Lifecycle.Event.ON_DESTROY) {
-                _vh.v<CanvasView>(R.id.canvas_view)?.canvasDelegate?.engraveMode(false)
-            }
-        }
-    }
+            val isEngraveMode = to >= BaseEngraveLayoutHelper.ENGRAVE_FLOW_ENGRAVE_BEFORE_CONFIG
+            _vh.v<CanvasView>(R.id.canvas_view)?.canvasDelegate?.engraveMode(isEngraveMode)
 
-    /**雕刻预览布局*/
-    val _engravePreviewLayoutHelper = EngravePreviewLayoutHelper(this).apply {
-        backPressedDispatcherOwner = this@CanvasDemo
-
-        //next
-        onNextAction = {
-            _vh.v<CanvasView>(R.id.canvas_view)?.canvasDelegate?.let { canvasDelegate ->
-                canvasDelegate.getSelectedRenderer()?.let { renderer ->
-                    engraveLayoutHelper.renderer = renderer
-                    engraveLayoutHelper.canvasDelegate = canvasDelegate
-                    engraveLayoutHelper.showIn(this@CanvasDemo)
-                }
-            }
-        }
-
-        //lifecycle
-        onIViewEvent = { iView, ev ->
-            val canvasDelegate = _vh.v<CanvasView>(R.id.canvas_view)?.canvasDelegate
-            if (ev == Lifecycle.Event.ON_CREATE) {
-                lifecycle.onStateChanged(true) { source, event, observer ->
-                    _vh.v<CanvasView>(R.id.canvas_view)?.let { canvasView ->
-                        laserPeckerModel.productInfoData.value?.let { productInfo ->
-                            if (event == Lifecycle.Event.ON_START) {
-                                //界面显示
-                                canvasView.canvasDelegate.showRectBounds(
-                                    productInfo.previewBounds,
-                                    offsetRectTop = true
-                                )
-                            } else if (event == Lifecycle.Event.ON_STOP) {
-                                //界面隐藏
-                                //canvasViewBox.translateTo(0f, dy)
-                            }
-                        }
-                    }
-                }
-            } else if (ev == Lifecycle.Event.ON_RESUME) {
-                canvasDelegate?.progressRenderer?.apply {
-                    drawBorderMode = true
-                    progressRenderer = canvasDelegate.getSelectedRenderer()
-                }
-            } else if (ev == Lifecycle.Event.ON_DESTROY) {
-                canvasDelegate?.progressRenderer?.apply {
-                    drawBorderMode = false
-                    progressRenderer = canvasDelegate.getSelectedRenderer()
+            if (to == BaseEngraveLayoutHelper.ENGRAVE_FLOW_PREVIEW) {
+                //预览中, 偏移画板界面
+                laserPeckerModel.productInfoData.value?.previewBounds?.let {
+                    canvasView?.canvasDelegate?.showRectBounds(it, offsetRectTop = true)
                 }
             }
         }
@@ -928,11 +883,13 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
     override val fragment: AbsFragment
         get() = this
 
-    override val engraveLayoutHelper: EngraveLayoutHelper
-        get() = _engraveLayoutHelper
+    override val engraveFlowLayoutHelper: EngraveFlowLayoutHelper
+        get() = _engraveFlowLayoutHelper.apply {
+            engraveCanvasFragment = this@CanvasDemo
+        }
 
-    override val engravePreviewLayoutHelper: EngravePreviewLayoutHelper
-        get() = _engravePreviewLayoutHelper
+    override val canvasDelegate: CanvasDelegate?
+        get() = canvasView?.canvasDelegate
 
     //</editor-fold desc="IEngraveCanvasFragment">
 }
