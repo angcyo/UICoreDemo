@@ -47,10 +47,7 @@ import com.angcyo.core.vmApp
 import com.angcyo.dialog.normalIosDialog
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
-import com.angcyo.engrave.BaseEngraveLayoutHelper
-import com.angcyo.engrave.EngraveFlowLayoutHelper
-import com.angcyo.engrave.EngraveProductLayoutHelper
-import com.angcyo.engrave.IEngraveCanvasFragment
+import com.angcyo.engrave.*
 import com.angcyo.engrave.ble.DeviceConnectTipActivity
 import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.ble.EngraveHistoryFragment
@@ -101,6 +98,10 @@ import kotlin.random.Random
  * @since 2022/04/01
  */
 class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
+
+    init {
+        enableSoftInput = false
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -421,8 +422,11 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                     engraveFlowLayoutHelper.showPreviewSafetyTips(fContext()) {
                         //如果有第三轴, 还需要检查对应的配置
                         engraveFlowLayoutHelper.engraveFlow =
-                            BaseEngraveLayoutHelper.ENGRAVE_FLOW_PREVIEW
-                        engraveFlowLayoutHelper.showIn(this@CanvasDemo)
+                            BaseFlowLayoutHelper.ENGRAVE_FLOW_PREVIEW
+                        engraveFlowLayoutHelper.showIn(
+                            this@CanvasDemo,
+                            itemHolder.group(R.id.lib_content_overlay_wrap_layout)
+                        )
                     }
                 }
 
@@ -446,7 +450,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 itemHolder.click(R.id.engrave_button) {
                     canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
                         engraveFlowLayoutHelper.engraveFlow =
-                            BaseEngraveLayoutHelper.ENGRAVE_FLOW_ENGRAVE_BEFORE_CONFIG
+                            BaseFlowLayoutHelper.ENGRAVE_FLOW_BEFORE_CONFIG
                         engraveFlowLayoutHelper.showIn(this@CanvasDemo)
                     }
                 }
@@ -847,10 +851,9 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
         onEngraveFlowChangedAction = { from, to ->
             //禁止手势
-            val isEngraveMode = to >= BaseEngraveLayoutHelper.ENGRAVE_FLOW_ENGRAVE_BEFORE_CONFIG
-            _vh.v<CanvasView>(R.id.canvas_view)?.canvasDelegate?.engraveMode(isEngraveMode)
+            _vh.v<CanvasView>(R.id.canvas_view)?.canvasDelegate?.engraveMode(to.isEngraveFlow())
 
-            if (to == BaseEngraveLayoutHelper.ENGRAVE_FLOW_PREVIEW) {
+            if (to == BaseFlowLayoutHelper.ENGRAVE_FLOW_PREVIEW) {
                 //预览中, 偏移画板界面
                 laserPeckerModel.productInfoData.value?.previewBounds?.let {
                     canvasView?.canvasDelegate?.showRectBounds(it, offsetRectTop = true)
