@@ -2,9 +2,9 @@ package com.angcyo.uicore.demo
 
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import com.angcyo.drawable.CheckerboardDrawable
 import com.angcyo.drawable.base.dslGradientDrawable
 import com.angcyo.dsladapter.renderItem
-import com.angcyo.github.widget.drawable.CheckerboardDrawable
 import com.angcyo.library.ex._color
 import com.angcyo.library.ex.copy
 import com.angcyo.library.ex.toHexColorString

@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.widget.ImageView
 import com.angcyo.canvas.utils.parseGCode
+import com.angcyo.drawable.CheckerboardDrawable
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.library.ex.readAssets
@@ -13,7 +14,6 @@ import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.base.setInputText
 import com.angcyo.widget.base.string
 import com.pixplicity.sharp.Sharp
-import top.defaults.checkerboarddrawable.CheckerboardDrawable
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
