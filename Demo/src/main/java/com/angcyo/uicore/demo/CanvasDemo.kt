@@ -450,7 +450,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 itemHolder.click(R.id.engrave_button) {
                     canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
                         engraveFlowLayoutHelper.engraveFlow =
-                            BaseFlowLayoutHelper.ENGRAVE_FLOW_BEFORE_CONFIG
+                            BaseFlowLayoutHelper.ENGRAVE_FLOW_TRANSFER_BEFORE_CONFIG
                         engraveFlowLayoutHelper.showIn(this@CanvasDemo)
                     }
                 }
