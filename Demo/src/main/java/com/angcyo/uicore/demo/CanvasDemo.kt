@@ -52,8 +52,8 @@ import com.angcyo.engrave.ble.DeviceConnectTipActivity
 import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.ble.EngraveHistoryFragment
 import com.angcyo.engrave.ble.bluetoothSearchListDialog
-import com.angcyo.engrave.data.EngraveReadyInfo
 import com.angcyo.engrave.data.HawkEngraveKeys
+import com.angcyo.engrave.data.TransferDataConfigInfo
 import com.angcyo.engrave.transition.EngraveTransitionManager
 import com.angcyo.fragment.AbsFragment
 import com.angcyo.gcode.GCodeDrawable
@@ -545,16 +545,14 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
                 //预处理数据
                 itemHolder.click(R.id.pre_process_button) {
-                    canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
-                        loadingAsync({
-                            EngraveTransitionManager().apply {
-                                val engraveReadyInfo =
-                                    transitionReadyData(renderer) ?: EngraveReadyInfo()
-                                transitionEngraveData(renderer, engraveReadyInfo)
-                                L.i(engraveReadyInfo.dataPath, engraveReadyInfo.previewDataPath)
-                            }
-                        })
-                    }
+                    loadingAsync({
+                        val dataList =
+                            EngraveTransitionManager().transitionTransferData(
+                                canvasDelegate!!,
+                                TransferDataConfigInfo("Test")
+                            )
+                        L.i(dataList)
+                    })
                 }
 
                 //tip
