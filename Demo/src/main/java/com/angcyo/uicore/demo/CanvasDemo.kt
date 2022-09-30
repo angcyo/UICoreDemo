@@ -706,6 +706,11 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
     @TestOnly
     fun test(viewHolder: DslViewHolder, canvasView: CanvasView?) {
+        /*History::class.java.updateOrCreateEntity(query = {
+
+        }) {
+
+        }*/
         canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
             val text = renderer.getGCodeText()
             if (!text.isNullOrEmpty()) {
