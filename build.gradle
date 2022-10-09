@@ -84,13 +84,6 @@ allprojects {
         //maven { url "https://gitcode.net/angcyo/maven/-/raw/master" }
         maven { url "https://gitcode.net/angcyo/maven/-/raw/hingin" }
 
-        //bmob
-        //maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
-        //maven { url "https://gitee.com/angcyo/bmob-android-sdk/raw/master" }
-        //maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
-        //maven { url "https://gitee.com/angcyo/bmob-android-sdk/raw/master" }
-        maven { url 'https://dl.bintray.com/chaozhouzhang/maven' }
-
         //umeng/Luban
         maven { url 'https://repo1.maven.org/maven2/' }
         //maven { url 'http://dl.bintray.com/umsdk/release' }
@@ -103,6 +96,13 @@ allprojects {
             url "http://maven.geelib.360.cn/nexus/service/rest/repository/browse/replugin/"
             allowInsecureProtocol = true
         }
+
+        //bmob
+        //maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
+        //maven { url "https://gitee.com/angcyo/bmob-android-sdk/raw/master" }
+        //maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
+        //maven { url "https://gitee.com/angcyo/bmob-android-sdk/raw/master" }
+        maven { url 'https://dl.bintray.com/chaozhouzhang/maven' }
 
         //本地仓库依赖
         //maven { url = 'E:/maven' /*'E:/AndroidProjects/maven'}*/ }
