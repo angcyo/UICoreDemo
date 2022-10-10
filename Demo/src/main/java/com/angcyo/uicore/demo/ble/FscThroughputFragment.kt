@@ -283,7 +283,7 @@ class FscThroughputFragment : AppDslFragment() {
                         //指令-预览图片
                         itemHolder.click(R.id.preview_command0) {
                             setCommand(
-                                EngravePreviewCmd.previewFlashBitmap(defaultName)
+                                EngravePreviewCmd.previewFlashBitmapCmd(defaultName)
                                     .toHexCommandString(),
                                 EngravePreviewParser::class.java
                             )
@@ -291,7 +291,7 @@ class FscThroughputFragment : AppDslFragment() {
                         //指令-预览范围
                         itemHolder.click(R.id.preview_command1) {
                             setCommand(
-                                EngravePreviewCmd.previewRange(
+                                EngravePreviewCmd._previewRangeCmd(
                                     0,
                                     0,
                                     60,
@@ -312,14 +312,14 @@ class FscThroughputFragment : AppDslFragment() {
                         //升支架
                         itemHolder.click(R.id.preview_command3) {
                             setCommand(
-                                EngravePreviewCmd.previewBracketUp().toHexCommandString(),
+                                EngravePreviewCmd.previewBracketUpCmd().toHexCommandString(),
                                 EngravePreviewParser::class.java
                             )
                         }
                         //降支架
                         itemHolder.click(R.id.preview_command4) {
                             setCommand(
-                                EngravePreviewCmd.previewBracketDown().toHexCommandString(),
+                                EngravePreviewCmd.previewBracketDownCmd().toHexCommandString(),
                                 EngravePreviewParser::class.java
                             )
                         }

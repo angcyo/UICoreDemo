@@ -433,7 +433,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
                 //结束预览
                 itemHolder.click(R.id.preview_stop_button) {
-                    val cmd = EngravePreviewCmd.previewStop()
+                    val cmd = EngravePreviewCmd.previewStopCmd()
                     cmdString = cmd.toHexCommandString()
                     //LaserPeckerHelper.sendCommand(cmd, action = receiveAction)
                     cmd.enqueue(action = receiveAction)
