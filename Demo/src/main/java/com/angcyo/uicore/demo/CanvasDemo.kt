@@ -53,7 +53,6 @@ import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.ble.EngraveHistoryFragment
 import com.angcyo.engrave.ble.bluetoothSearchListDialog
 import com.angcyo.engrave.data.HawkEngraveKeys
-import com.angcyo.engrave.data.TransferDataConfigInfo
 import com.angcyo.engrave.transition.EngraveTransitionManager
 import com.angcyo.fragment.AbsFragment
 import com.angcyo.gcode.GCodeDrawable
@@ -75,6 +74,7 @@ import com.angcyo.library.unit.PixelValueUnit
 import com.angcyo.library.utils.fileName
 import com.angcyo.library.utils.fileNameUUID
 import com.angcyo.library.utils.writeTo
+import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
 import com.angcyo.server.file.bindFileServer
 import com.angcyo.svg.Svg
 import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
@@ -421,6 +421,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                     //安全提示弹窗
                     engraveFlowLayoutHelper.showPreviewSafetyTips(fContext()) {
                         //如果有第三轴, 还需要检查对应的配置
+                        engraveFlowLayoutHelper.flowTaskId = uuid()
                         engraveFlowLayoutHelper.engraveFlow =
                             BaseFlowLayoutHelper.ENGRAVE_FLOW_PREVIEW
                         engraveFlowLayoutHelper.showIn(
@@ -546,12 +547,14 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 //预处理数据
                 itemHolder.click(R.id.pre_process_button) {
                     loadingAsync({
-                        val dataList =
-                            EngraveTransitionManager().transitionTransferData(
-                                canvasDelegate!!,
-                                TransferDataConfigInfo("Test")
+                        val entityList = EngraveTransitionManager().transitionTransferData(
+                            canvasDelegate!!,
+                            TransferConfigEntity(
+                                name = "Test",
+                                px = LaserPeckerHelper.DEFAULT_PX
                             )
-                        L.i(dataList)
+                        )
+                        L.i(entityList)
                     })
                 }
 
