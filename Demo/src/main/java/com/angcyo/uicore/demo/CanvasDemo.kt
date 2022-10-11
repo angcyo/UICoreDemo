@@ -593,6 +593,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                     fContext().canvasRegulateWindow2(it) {
 
                     }
+                    toast("toast-${nowTimeString()}")
                 }
 
                 //启动ws log服务
