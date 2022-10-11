@@ -551,7 +551,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                             canvasDelegate!!,
                             TransferConfigEntity(
                                 name = "Test",
-                                px = LaserPeckerHelper.DEFAULT_PX
+                                dpi = LaserPeckerHelper.DPI_254
                             )
                         )
                         L.i(entityList)
