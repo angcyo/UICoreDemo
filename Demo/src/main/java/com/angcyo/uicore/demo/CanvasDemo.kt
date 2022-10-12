@@ -418,6 +418,9 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 }
 
                 itemHolder.click(R.id.engrave_preview_button) {
+                    if (engraveFlowLayoutHelper.isAttach()) {
+                        return@click
+                    }
                     //安全提示弹窗
                     engraveFlowLayoutHelper.showPreviewSafetyTips(fContext()) {
                         //如果有第三轴, 还需要检查对应的配置
@@ -448,6 +451,9 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
                 //雕刻
                 itemHolder.click(R.id.engrave_button) {
+                    if (engraveFlowLayoutHelper.isAttach()) {
+                        return@click
+                    }
                     canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
                         engraveFlowLayoutHelper.engraveFlow =
                             BaseFlowLayoutHelper.ENGRAVE_FLOW_TRANSFER_BEFORE_CONFIG
