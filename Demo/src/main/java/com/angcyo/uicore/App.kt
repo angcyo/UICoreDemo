@@ -10,6 +10,7 @@ import com.angcyo.DslAHelper
 import com.angcyo.base.restore
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bugly.Bugly
+import com.angcyo.canvas.laser.pecker.mode.CanvasOpenModel
 import com.angcyo.core.CoreApplication
 import com.angcyo.core.coreApp
 import com.angcyo.core.fragment.BaseUI
@@ -77,6 +78,9 @@ class App : CoreApplication(), CameraXConfig.Provider {
 
         //LaserPecker
         LPBox.init(this)
+
+        CanvasOpenModel.OPEN_ACTIVITY_CLASS = MainActivity::class.java
+        CanvasOpenModel.OPEN_ACTIVITY_FRAGMENT_CLASS = CanvasDemo::class.java
     }
 
     override fun onCreateMain() {

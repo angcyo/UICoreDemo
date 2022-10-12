@@ -9,9 +9,6 @@
 
     <string name="language_auto">跟随系统</string>
 
-    <string name="font_import_fail">字体导入失败</string>
-    <string name="font_import_success">字体导入成功</string>
-
     <string name="canvas_tips">提示</string>
     <string name="canvas_exit_edit">放弃编辑?</string>
 </resources>

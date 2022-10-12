@@ -27,6 +27,7 @@ import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.Strategy
+import com.angcyo.canvas.graphics.GraphicsHelper
 import com.angcyo.canvas.graphics.addGCodeRender
 import com.angcyo.canvas.graphics.addSvgRender
 import com.angcyo.canvas.graphics.addTextRender
@@ -36,6 +37,7 @@ import com.angcyo.canvas.items.renderer.PictureItemRenderer
 import com.angcyo.canvas.laser.pecker.CanvasLayoutHelper
 import com.angcyo.canvas.laser.pecker.canvasRegulateWindow2
 import com.angcyo.canvas.laser.pecker.loadingAsync
+import com.angcyo.canvas.laser.pecker.mode.CanvasOpenModel
 import com.angcyo.canvas.laser.pecker.openCanvasFile
 import com.angcyo.canvas.utils.*
 import com.angcyo.component.getPhoto
@@ -78,9 +80,6 @@ import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
 import com.angcyo.server.file.bindFileServer
 import com.angcyo.svg.Svg
 import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
-import com.angcyo.uicore.activity.CanvasOpenActivity
-import com.angcyo.uicore.activity.CanvasOpenInfo
-import com.angcyo.uicore.activity.CanvasOpenModel
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
 import com.angcyo.uicore.demo.SvgDemo.Companion.svgResList
@@ -679,9 +678,11 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
         }*/
 
         //有需要打开的数据
-        vmApp<CanvasOpenModel>().openPendingData.observe {
-            it?.let {
-                openCanvasInfo(it)
+        vmApp<CanvasOpenModel>().openPendingData.observe { bean ->
+            bean?.let {
+                _delay {
+                    GraphicsHelper.addRenderItemDataBean(canvasDelegate, bean)
+                }
             }
         }
     }
@@ -805,51 +806,6 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
     //</editor-fold desc="bindCanvasRecyclerView">
 
     //<editor-fold desc="init">
-
-    /**打开外部数据*/
-    fun openCanvasInfo(info: CanvasOpenInfo) {
-        val canvasDelegate = _vh.v<CanvasView>(R.id.canvas_view)?.canvasDelegate
-        if (canvasDelegate == null) {
-            _delay(160L) {
-                openCanvasInfo(info)
-            }
-            return
-        }
-        when (info.type) {
-            CanvasOpenActivity.JPG -> {
-                val bitmap = info.url.toBitmap()
-                if (bitmap == null) {
-                    "数据异常:${info.url}"
-                    toast("data exception!")
-                } else {
-                    canvasDelegate.addPictureBitmapRenderer(bitmap)
-                }
-            }
-            CanvasOpenActivity.GCODE -> {
-                val drawable = info.url.file().readText()?.run {
-                    GCodeHelper.parseGCode(this)
-                }
-                if (drawable == null) {
-                    "数据异常:${info.url}"
-                    toast("data exception!")
-                } else {
-                    canvasDelegate.addPictureDrawableRenderer(drawable)
-                }
-            }
-            CanvasOpenActivity.SVG -> {
-                val text = info.url.file().readText()
-                val drawable = text?.run {
-                    loadTextSvgPath(this)
-                }
-                if (drawable == null) {
-                    "数据异常:${info.url}"
-                    toast("data exception!")
-                } else {
-                    canvasDelegate.addPictureSharpRenderer(text, drawable)
-                }
-            }
-        }
-    }
 
     /**Canvas布局*/
     val canvasLayoutHelper = CanvasLayoutHelper(this)
