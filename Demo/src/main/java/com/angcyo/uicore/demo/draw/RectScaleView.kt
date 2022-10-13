@@ -191,7 +191,7 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         canvas.drawPath(line1, paint)
         val pathBounds = line1.computePathBounds()
         L.i(pathBounds)
-        line1.eachPath { index, ratio, posArray ->
+        line1.eachPath { index, ratio, contourIndex, posArray ->
             L.i(posArray)
         }
         val matrix = Matrix()
@@ -202,7 +202,7 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         line1.transform(matrix)
         paint.color = Color.BLUE
         canvas.drawPath(line1, paint)
-        line1.eachPath { index, ratio, posArray ->
+        line1.eachPath { index, ratio, contourIndex, posArray ->
             L.w(posArray)
         }
 

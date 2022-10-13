@@ -32,7 +32,8 @@ import com.angcyo.canvas.graphics.addGCodeRender
 import com.angcyo.canvas.graphics.addSvgRender
 import com.angcyo.canvas.graphics.addTextRender
 import com.angcyo.canvas.items.PictureShapeItem
-import com.angcyo.canvas.items.PictureTextItem
+import com.angcyo.canvas.items.data.DataItemRenderer
+import com.angcyo.canvas.items.data.DataPathItem
 import com.angcyo.canvas.items.renderer.PictureItemRenderer
 import com.angcyo.canvas.laser.pecker.CanvasLayoutHelper
 import com.angcyo.canvas.laser.pecker.canvasRegulateWindow2
@@ -46,6 +47,7 @@ import com.angcyo.core.component.fileSelector
 import com.angcyo.core.loadingAsyncTg
 import com.angcyo.core.showIn
 import com.angcyo.core.vmApp
+import com.angcyo.dialog.itemsDialog
 import com.angcyo.dialog.normalIosDialog
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
@@ -59,7 +61,6 @@ import com.angcyo.engrave.transition.EngraveTransitionManager
 import com.angcyo.fragment.AbsFragment
 import com.angcyo.gcode.GCodeDrawable
 import com.angcyo.gcode.GCodeHelper
-import com.angcyo.gcode.GCodeWriteHandler
 import com.angcyo.http.base.toJson
 import com.angcyo.http.rx.doMain
 import com.angcyo.item.component.DebugFragment
@@ -639,6 +640,86 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                     }
                 }
 
+                //more
+                itemHolder.click(R.id.more_button) {
+                    val selectedRenderer = canvasDelegate?.getSelectedRenderer()
+                    val rendererBounds = selectedRenderer?.getBounds()
+                    val rendererRotate = selectedRenderer?.rotate
+                    var pathList: List<Path>? = null
+                    if (selectedRenderer is DataItemRenderer) {
+                        val renderItem = selectedRenderer.getRendererRenderItem()
+                        if (renderItem is DataPathItem) {
+                            pathList = renderItem.dataPathList
+                        }
+                    }
+                    fContext().itemsDialog {
+                        addDialogItem {
+                            itemText = "toStrokeGCode"
+                            itemClick = {
+                                pathList?.let {
+                                    this@CanvasDemo.loadingAsync({
+                                        L.i(
+                                            CanvasDataHandleOperate.pathStrokeToGCode(
+                                                pathList,
+                                                rendererBounds!!,
+                                                rendererRotate!!
+                                            )
+                                        )
+                                    })
+                                }
+                            }
+                        }
+                        addDialogItem {
+                            itemText = "toFillGCode"
+                            itemClick = {
+                                pathList?.let {
+                                    this@CanvasDemo.loadingAsync({
+                                        L.i(
+                                            CanvasDataHandleOperate.pathFillToGCode(
+                                                pathList,
+                                                rendererBounds!!,
+                                                rendererRotate!!
+                                            )
+                                        )
+                                    })
+                                }
+                            }
+                        }
+                        addDialogItem {
+                            itemText = "toStrokeSvg"
+                            itemClick = {
+                                pathList?.let {
+                                    this@CanvasDemo.loadingAsync({
+                                        L.i(
+                                            CanvasDataHandleOperate.pathStrokeToSvg(
+                                                pathList,
+                                                rendererBounds!!,
+                                                rendererRotate!!
+                                            )
+                                        )
+                                    })
+                                }
+                            }
+                        }
+                        addDialogItem {
+                            itemText = "toFillSvg"
+                            itemClick = {
+                                pathList?.let {
+                                    this@CanvasDemo.loadingAsync({
+                                        L.i(
+                                            CanvasDataHandleOperate.pathFillToSvg(
+                                                pathList,
+                                                rendererBounds!!,
+                                                rendererRotate!!
+                                            )
+                                        )
+                                    })
+                                }
+                            }
+                        }
+                    }
+                }//end more
+
                 //canvas
                 bindCanvasRecyclerView(itemHolder, adapterItem)
 
@@ -744,7 +825,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 if (!pathList.isNullOrEmpty()) {
                     //path list
                     loadingAsync({
-                        CanvasDataHandleOperate.pathToGCode(
+                        CanvasDataHandleOperate.pathStrokeToGCode(
                             pathList,
                             renderer.getBounds(),
                             renderer.rotate
@@ -759,18 +840,13 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                     }
                 } else {
                     //bitmap to gcode
-                    val lineSpace = if (renderer.getRendererRenderItem() is PictureTextItem) {
-                        GCodeWriteHandler.GCODE_SPACE_4K
-                    } else {
-                        GCodeWriteHandler.GCODE_SPACE_1K
-                    }
                     val bitmap = renderer.preview()?.toBitmap()
                     loadingAsync({
                         if (bitmap != null) {
-                            CanvasDataHandleOperate.bitmapToGCode(bitmap, Gravity.LEFT, lineSpace)
-                            CanvasDataHandleOperate.bitmapToGCode(bitmap, Gravity.TOP, lineSpace)
-                            CanvasDataHandleOperate.bitmapToGCode(bitmap, Gravity.RIGHT, lineSpace)
-                            CanvasDataHandleOperate.bitmapToGCode(bitmap, Gravity.BOTTOM, lineSpace)
+                            CanvasDataHandleOperate.bitmapToGCode(bitmap, Gravity.LEFT)
+                            CanvasDataHandleOperate.bitmapToGCode(bitmap, Gravity.TOP)
+                            CanvasDataHandleOperate.bitmapToGCode(bitmap, Gravity.RIGHT)
+                            CanvasDataHandleOperate.bitmapToGCode(bitmap, Gravity.BOTTOM)
                         } else {
                             null
                         }
