@@ -94,7 +94,7 @@ class App : CoreApplication(), CameraXConfig.Provider {
 
         //WebSocket
         DebugFragment.addDebugAction {
-            name = "LogServer"
+            name = "LogWSServer"
             action = { _, _ ->
                 coreApp().bindLogWSServer()
             }
