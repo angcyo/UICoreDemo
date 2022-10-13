@@ -12,7 +12,7 @@ import com.angcyo.library.component.dslIntentShare
 import com.angcyo.library.ex.*
 import com.angcyo.library.model.LoaderMedia
 import com.angcyo.library.utils.Constant
-import com.angcyo.library.utils.fileName
+import com.angcyo.library.utils.fileNameTime
 import com.angcyo.library.utils.filePath
 import com.angcyo.library.utils.resultString
 import com.angcyo.pager.dslPager
@@ -79,7 +79,7 @@ class MediaPickerDemo : AppDslFragment() {
                                 //渲染结果
                                 val filePath = filePath(
                                     Constant.CAMERA_FOLDER_NAME,
-                                    fileName(suffix = ".jpeg")
+                                    fileNameTime(suffix = ".jpeg")
                                 )
                                 it?.save(filePath)
                                 renderDslAdapter {

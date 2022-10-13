@@ -73,7 +73,7 @@ import com.angcyo.library.toast
 import com.angcyo.library.unit.InchValueUnit
 import com.angcyo.library.unit.MmValueUnit
 import com.angcyo.library.unit.PixelValueUnit
-import com.angcyo.library.utils.fileName
+import com.angcyo.library.utils.fileNameTime
 import com.angcyo.library.utils.fileNameUUID
 import com.angcyo.library.utils.writeTo
 import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
@@ -613,7 +613,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                         loadingAsync({
                             getCanvasDataBean().let {
                                 val json = it.toJson()
-                                json.writeTo(libCacheFile(fileName(suffix = ".lp")))
+                                json.writeTo(libCacheFile(fileNameTime(suffix = ".lp")))
                                 L.i(json)
                             }
                         })
