@@ -36,7 +36,6 @@ import com.angcyo.canvas.items.data.DataItemRenderer
 import com.angcyo.canvas.items.data.DataPathItem
 import com.angcyo.canvas.items.renderer.PictureItemRenderer
 import com.angcyo.canvas.laser.pecker.CanvasLayoutHelper
-import com.angcyo.canvas.laser.pecker.canvasRegulateWindow2
 import com.angcyo.canvas.laser.pecker.loadingAsync
 import com.angcyo.canvas.laser.pecker.mode.CanvasOpenModel
 import com.angcyo.canvas.laser.pecker.openCanvasFile
@@ -595,10 +594,19 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                     val file = path.file()
                     val list = file.listFiles()
                     list.logi()*/
-                    fContext().canvasRegulateWindow2(it) {
+                    /*fContext().canvasRegulateWindow2(it) {
 
-                    }
+                    }*/
                     toast("toast-${nowTimeString()}")
+                    /*TransferMonitorEntity::class.box(LPBox.PACKAGE_NAME) {
+                        val count = count()
+                        val result = query().build().find(count - 1, 1)
+                        val list = query().build().find()
+                        L.i()
+                    }*/
+                    /*val monitorEntity =
+                        EngraveFlowDataHelper.getTransferMonitor("180438d6-9b7a-4c33-af76-ded8c5ead288")
+                    L.i()*/
                 }
 
                 //启动ws log服务
