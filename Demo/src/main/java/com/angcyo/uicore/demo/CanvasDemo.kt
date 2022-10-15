@@ -27,6 +27,7 @@ import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.Strategy
+import com.angcyo.canvas.data.LimitDataInfo
 import com.angcyo.canvas.graphics.GraphicsHelper
 import com.angcyo.canvas.graphics.addGCodeRender
 import com.angcyo.canvas.graphics.addSvgRender
@@ -186,8 +187,9 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                                 unit.convertValueToPixel(50f)
                             )// 宽*高 100*100mm
 
-                            limitRenderer.updateLimit {
-                                addRect(limitRect, Path.Direction.CW)// 宽*高 100*100mm
+                            limitRenderer.resetLimit {
+                                // 宽*高 100*100mm
+                                add(LimitDataInfo(limitRect.toPath()))
                             }
 
                             showRectBounds(limitRect)
@@ -202,8 +204,9 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                                 unit.convertValueToPixel(400f)
                             )// 宽*高 300*400mm
 
-                            limitRenderer.updateLimit {
-                                addRect(limitRect, Path.Direction.CW)// 宽*高 300*400mm
+                            limitRenderer.resetLimit {
+                                // 宽*高 300*400mm
+                                add(LimitDataInfo(limitRect.toPath()))
                             }
 
                             showRectBounds(limitRect)
@@ -907,7 +910,12 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
             if (to == BaseFlowLayoutHelper.ENGRAVE_FLOW_PREVIEW) {
                 //预览中, 偏移画板界面
-                laserPeckerModel.productInfoData.value?.previewBounds?.let {
+                val productInfoData = laserPeckerModel.productInfoData
+                if (laserPeckerModel.haveExDevice()) {
+                    productInfoData.value?.bounds
+                } else {
+                    productInfoData.value?.previewBounds
+                }?.let {
                     canvasView?.canvasDelegate?.showRectBounds(it, offsetRectTop = true)
                 }
             }
