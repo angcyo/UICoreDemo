@@ -11,6 +11,7 @@ import com.angcyo.base.restore
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bugly.Bugly
 import com.angcyo.canvas.laser.pecker.mode.CanvasOpenModel
+import com.angcyo.canvas.utils.CanvasDataHandleOperate
 import com.angcyo.core.CoreApplication
 import com.angcyo.core.coreApp
 import com.angcyo.core.fragment.BaseUI
@@ -25,6 +26,7 @@ import com.angcyo.library.annotation.CallComplianceAfter
 import com.angcyo.library.component.DslNotify
 import com.angcyo.library.ex.*
 import com.angcyo.library.isMainProgress
+import com.angcyo.library.utils.appFolderPath
 import com.angcyo.objectbox.DslBox
 import com.angcyo.objectbox.laser.pecker.LPBox
 import com.angcyo.server.DslAndServer
@@ -97,6 +99,15 @@ class App : CoreApplication(), CameraXConfig.Provider {
             name = "LogWSServer"
             action = { _, _ ->
                 coreApp().bindLogWSServer()
+            }
+        }
+
+        //delete
+        DebugFragment.addDebugAction {
+            name = "清理${CanvasDataHandleOperate.ENGRAVE_CACHE_FILE_FOLDER}文件夹"
+            action = { _, _ ->
+                appFolderPath(CanvasDataHandleOperate.ENGRAVE_CACHE_FILE_FOLDER).file()
+                    .deleteRecursivelySafe()
             }
         }
     }
