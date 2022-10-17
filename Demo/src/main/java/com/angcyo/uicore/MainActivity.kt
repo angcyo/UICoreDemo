@@ -143,7 +143,11 @@ class MainActivity : BasePermissionsActivity() {
         //densityRestore()
         //densityAdapterFrom(2183)
         BaiduTraceService.start(this, BaiduTraceService.FLAG_RESUME)
-        PathTest.test()
+        try {
+            PathTest.test()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

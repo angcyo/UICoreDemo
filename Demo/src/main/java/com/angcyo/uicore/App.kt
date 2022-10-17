@@ -4,15 +4,21 @@ import android.graphics.DashPathEffect
 import androidx.camera.camera2.Camera2Config
 import androidx.camera.core.CameraXConfig
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import com.angcyo.DslAHelper
+import com.angcyo.base.dslFHelper
 import com.angcyo.base.restore
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bugly.Bugly
 import com.angcyo.canvas.laser.pecker.mode.CanvasOpenModel
 import com.angcyo.canvas.utils.CanvasDataHandleOperate
+import com.angcyo.canvas.utils.FontManager
 import com.angcyo.core.CoreApplication
+import com.angcyo.core.component.CacheFragment
+import com.angcyo.core.component.model.CacheInfo
+import com.angcyo.core.component.model.CacheModel
 import com.angcyo.core.coreApp
 import com.angcyo.core.fragment.BaseUI
 import com.angcyo.core.viewpager.RFragmentAdapter
@@ -24,9 +30,11 @@ import com.angcyo.item.component.DebugFragment
 import com.angcyo.jpush.JPush
 import com.angcyo.library.annotation.CallComplianceAfter
 import com.angcyo.library.component.DslNotify
+import com.angcyo.library.component.RBackground
 import com.angcyo.library.ex.*
 import com.angcyo.library.isMainProgress
 import com.angcyo.library.utils.appFolderPath
+import com.angcyo.library.utils.sdFolderPath
 import com.angcyo.objectbox.DslBox
 import com.angcyo.objectbox.laser.pecker.LPBox
 import com.angcyo.server.DslAndServer
@@ -62,9 +70,15 @@ class App : CoreApplication(), CameraXConfig.Provider {
 
         //FragmentAnimator.onlyTopScale()
 
-        BaseUI.fragmentUI.fragmentCreateBackItem = {
-            BaseUI.fragmentUI.onFragmentCreateBackItem(it)?.apply {
-                padding(0)
+        BaseUI.fragmentUI.apply {
+            fragmentCreateBefore = { fragment, fragmentConfig, savedInstanceState ->
+                fragmentConfig.isLightStyle = false
+                fragmentConfig.showTitleLineView = false
+            }
+            fragmentCreateBackItem = {
+                BaseUI.fragmentUI.onFragmentCreateBackItem(it)?.apply {
+                    padding(0)
+                }
             }
         }
 
@@ -75,8 +89,6 @@ class App : CoreApplication(), CameraXConfig.Provider {
 
         DslBox.default_package_name = BuildConfig.APPLICATION_ID
         DslBox.init(this, debug = false)
-
-        DslAndServer//init
 
         //LaserPecker
         LPBox.init(this)
@@ -93,6 +105,12 @@ class App : CoreApplication(), CameraXConfig.Provider {
         //fsc
         FscBleApiModel.init()
         vmApp<FscDeviceModel>().initDevice()
+    }
+
+    override fun initCoreApplication() {
+        super.initCoreApplication()
+
+        DslAndServer//init
 
         //WebSocket
         DebugFragment.addDebugAction {
@@ -109,6 +127,51 @@ class App : CoreApplication(), CameraXConfig.Provider {
                 appFolderPath(CanvasDataHandleOperate.ENGRAVE_CACHE_FILE_FOLDER).file()
                     .deleteRecursivelySafe()
             }
+        }
+
+        //cache
+        DebugFragment.addDebugAction {
+            name = "缓存管理"
+            action = { _, _ ->
+                RBackground.lastActivityRef?.get()?.apply {
+                    if (this is FragmentActivity) {
+                        dslFHelper {
+                            show(CacheFragment::class)
+                        }
+                    }
+                }
+            }
+        }
+
+        vmApp<CacheModel>().apply {
+            addCacheInfo(
+                CacheInfo(
+                    "雕刻缓存",
+                    "雕刻过程中产生的缓存数据",
+                    appFolderPath(CanvasDataHandleOperate.ENGRAVE_CACHE_FILE_FOLDER)
+                )
+            )
+            addCacheInfo(
+                CacheInfo(
+                    "矢量缓存",
+                    "生成的矢量文件缓存数据",
+                    appFolderPath(CanvasDataHandleOperate.VECTOR_CACHE_FILE_FOLDER)
+                )
+            )
+            addCacheInfo(
+                CacheInfo(
+                    "矢量缓存",
+                    "生成的矢量文件缓存数据",
+                    appFolderPath(CanvasDataHandleOperate.VECTOR_CACHE_FILE_FOLDER)
+                )
+            )
+            addCacheInfo(
+                CacheInfo(
+                    "字体缓存",
+                    "导入的自定义字体",
+                    appFolderPath(FontManager.DEFAULT_FONT_FOLDER_NAME)
+                )
+            )
         }
     }
 

@@ -3,6 +3,7 @@ package com.angcyo.uicore.test
 import android.graphics.Path
 import android.graphics.RectF
 import com.angcyo.library.L
+import com.angcyo.library.utils.sdFolderPath
 import kotlin.math.atan
 import kotlin.math.sqrt
 import kotlin.math.tan
@@ -16,6 +17,11 @@ object PathTest {
     fun test() {
         testOvalIntersect()
         testMaxRectInOval()
+
+        /*val def = sdFolderPath()
+        val def2 = sdFolderPath("test")
+        L.i(def)
+        L.i(def2)*/
     }
 
     fun testOvalIntersect() {
