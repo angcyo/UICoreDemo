@@ -5,7 +5,6 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
 import android.os.Bundle
-import android.view.Gravity
 import android.view.MotionEvent
 import android.view.ViewGroup
 import android.widget.TextView
@@ -26,21 +25,21 @@ import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
 import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.canvas.CanvasView
-import com.angcyo.canvas.Strategy
 import com.angcyo.canvas.data.LimitDataInfo
 import com.angcyo.canvas.graphics.GraphicsHelper
 import com.angcyo.canvas.graphics.addGCodeRender
 import com.angcyo.canvas.graphics.addSvgRender
 import com.angcyo.canvas.graphics.addTextRender
-import com.angcyo.canvas.items.PictureShapeItem
 import com.angcyo.canvas.items.data.DataItemRenderer
 import com.angcyo.canvas.items.data.DataPathItem
-import com.angcyo.canvas.items.renderer.PictureItemRenderer
 import com.angcyo.canvas.laser.pecker.CanvasLayoutHelper
 import com.angcyo.canvas.laser.pecker.loadingAsync
 import com.angcyo.canvas.laser.pecker.mode.CanvasOpenModel
 import com.angcyo.canvas.laser.pecker.openCanvasFile
-import com.angcyo.canvas.utils.*
+import com.angcyo.canvas.utils.CanvasConstant
+import com.angcyo.canvas.utils.CanvasDataHandleOperate
+import com.angcyo.canvas.utils.engraveMode
+import com.angcyo.canvas.utils.parseGCode
 import com.angcyo.component.getPhoto
 import com.angcyo.core.component.dslPermissions
 import com.angcyo.core.component.fileSelector
@@ -248,14 +247,6 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                                 unit.convertValueToPixel(30f)
                             )
                         }
-                        val path = Path()
-                        path.addRect(limitRect, Path.Direction.CW)
-
-                        val renderer = PictureItemRenderer<PictureShapeItem>(this)
-                        val item = PictureShapeItem(path)
-                        renderer.setRendererRenderItem(item)
-
-                        addItemRenderer(renderer, Strategy.normal)
                         showRectBounds(limitRect)
                     }
                 }
@@ -813,69 +804,6 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
         }) {
 
         }*/
-        canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
-            val text = renderer.getGCodeText()
-            if (!text.isNullOrEmpty()) {
-                //GCode
-                loadingAsync({
-                    CanvasDataHandleOperate.gCodeAdjust(
-                        text,
-                        renderer.getBounds(),
-                        renderer.rotate
-                    )
-                }) {
-                    //no
-                    it?.readText()?.let { gCode ->
-                        canvasView.canvasDelegate.addPictureDrawableRenderer(
-                            GCodeHelper.parseGCode(gCode)
-                        )
-                    }
-                }
-            } else {
-                val pathList = renderer.getPathList()
-                if (!pathList.isNullOrEmpty()) {
-                    //path list
-                    loadingAsync({
-                        CanvasDataHandleOperate.pathStrokeToGCode(
-                            pathList,
-                            renderer.getBounds(),
-                            renderer.rotate
-                        )
-                    }) {
-                        //no
-                        it?.readText()?.let { gCode ->
-                            canvasView.canvasDelegate.addPictureDrawableRenderer(
-                                GCodeHelper.parseGCode(gCode)
-                            )
-                        }
-                    }
-                } else {
-                    //bitmap to gcode
-                    val bitmap = renderer.preview()?.toBitmap()
-                    loadingAsync({
-                        if (bitmap != null) {
-                            CanvasDataHandleOperate.bitmapToGCode(bitmap, Gravity.LEFT)
-                            CanvasDataHandleOperate.bitmapToGCode(bitmap, Gravity.TOP)
-                            CanvasDataHandleOperate.bitmapToGCode(bitmap, Gravity.RIGHT)
-                            CanvasDataHandleOperate.bitmapToGCode(bitmap, Gravity.BOTTOM)
-                        } else {
-                            null
-                        }
-                    }) {
-                        //no
-                        it?.readText()?.let { gCode ->
-                            canvasView.canvasDelegate.addPictureDrawableRenderer(
-                                GCodeHelper.parseGCode(gCode)
-                            )
-                        }
-                    }
-                }
-            }
-        }.elseNull {
-            dslAHelper {
-                start(DeviceConnectTipActivity::class)
-            }
-        }
     }
 
     //<editor-fold desc="bindCanvasRecyclerView">
