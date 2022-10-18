@@ -112,20 +112,14 @@ class App : CoreApplication(), CameraXConfig.Provider {
 
         DslAndServer//init
 
+        //font
+        FontManager.customFontFolderList.add(sdFolderPath("${LPBox.DB_NAME}/${FontManager.DEFAULT_FONT_FOLDER_NAME}"))
+
         //WebSocket
         DebugFragment.addDebugAction {
             name = "LogWSServer"
             action = { _, _ ->
                 coreApp().bindLogWSServer()
-            }
-        }
-
-        //delete
-        DebugFragment.addDebugAction {
-            name = "清理${CanvasDataHandleOperate.ENGRAVE_CACHE_FILE_FOLDER}文件夹"
-            action = { _, _ ->
-                appFolderPath(CanvasDataHandleOperate.ENGRAVE_CACHE_FILE_FOLDER).file()
-                    .deleteRecursivelySafe()
             }
         }
 
@@ -176,7 +170,7 @@ class App : CoreApplication(), CameraXConfig.Provider {
                 CacheInfo(
                     "LaserPecker外部缓存",
                     "卸载重新可恢复的数据",
-                    sdFolderPath("LaserPecker")
+                    sdFolderPath(LPBox.DB_NAME)
                 )
             )
         }

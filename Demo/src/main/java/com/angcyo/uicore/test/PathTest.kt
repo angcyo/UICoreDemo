@@ -3,7 +3,7 @@ package com.angcyo.uicore.test
 import android.graphics.Path
 import android.graphics.RectF
 import com.angcyo.library.L
-import com.angcyo.library.utils.sdFolderPath
+import com.angcyo.library.utils.haveSdCardPermission
 import kotlin.math.atan
 import kotlin.math.sqrt
 import kotlin.math.tan
@@ -18,6 +18,9 @@ object PathTest {
         testOvalIntersect()
         testMaxRectInOval()
 
+        val have = haveSdCardPermission()
+
+        L.i(have)
         /*val def = sdFolderPath()
         val def2 = sdFolderPath("test")
         L.i(def)
