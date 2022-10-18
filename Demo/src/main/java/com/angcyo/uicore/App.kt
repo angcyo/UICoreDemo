@@ -172,6 +172,13 @@ class App : CoreApplication(), CameraXConfig.Provider {
                     appFolderPath(FontManager.DEFAULT_FONT_FOLDER_NAME)
                 )
             )
+            addCacheInfo(
+                CacheInfo(
+                    "LaserPecker外部缓存",
+                    "卸载重新可恢复的数据",
+                    sdFolderPath("LaserPecker")
+                )
+            )
         }
     }
 
