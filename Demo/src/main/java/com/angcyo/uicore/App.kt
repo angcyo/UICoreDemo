@@ -14,7 +14,6 @@ import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bugly.Bugly
 import com.angcyo.canvas.laser.pecker.mode.CanvasOpenModel
 import com.angcyo.canvas.utils.CanvasDataHandleOperate
-import com.angcyo.canvas.utils.FontManager
 import com.angcyo.core.CoreApplication
 import com.angcyo.core.component.CacheFragment
 import com.angcyo.core.component.model.CacheInfo
@@ -30,6 +29,7 @@ import com.angcyo.item.component.DebugFragment
 import com.angcyo.jpush.JPush
 import com.angcyo.library.annotation.CallComplianceAfter
 import com.angcyo.library.component.DslNotify
+import com.angcyo.library.component.FontManager
 import com.angcyo.library.component.LibHawkKeys
 import com.angcyo.library.component.RBackground
 import com.angcyo.library.ex.*
