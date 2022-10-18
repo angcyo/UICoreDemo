@@ -30,6 +30,7 @@ import com.angcyo.item.component.DebugFragment
 import com.angcyo.jpush.JPush
 import com.angcyo.library.annotation.CallComplianceAfter
 import com.angcyo.library.component.DslNotify
+import com.angcyo.library.component.LibHawkKeys
 import com.angcyo.library.component.RBackground
 import com.angcyo.library.ex.*
 import com.angcyo.library.isMainProgress
@@ -137,6 +138,15 @@ class App : CoreApplication(), CameraXConfig.Provider {
             }
         }
 
+        DebugFragment.addDebugAction {
+            label = "图片压缩质量"
+            des = "图片压缩的最小保持文件大小(kb)"
+            key = LibHawkKeys::minKeepSize.name
+            type = Int::class.java
+            defValue = LibHawkKeys.minKeepSize
+        }
+
+        //cache config
         vmApp<CacheModel>().apply {
             addCacheInfo(
                 CacheInfo(
