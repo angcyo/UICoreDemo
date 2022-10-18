@@ -28,7 +28,6 @@ import com.angcyo.engrave.model.FscDeviceModel
 import com.angcyo.item.component.DebugFragment
 import com.angcyo.jpush.JPush
 import com.angcyo.library.annotation.CallComplianceAfter
-import com.angcyo.library.component.DslNotify
 import com.angcyo.library.component.FontManager
 import com.angcyo.library.component.LibHawkKeys
 import com.angcyo.library.component.RBackground
@@ -85,7 +84,7 @@ class App : CoreApplication(), CameraXConfig.Provider {
 
         DslDownload.init(this)
 
-        DslNotify.DEFAULT_NOTIFY_ICON = R.drawable.ic_logo_small
+        //DslNotify.DEFAULT_NOTIFY_ICON = R.drawable.ic_logo_small
         DslAHelper.mainActivityClass = MainActivity::class.java
 
         DslBox.default_package_name = BuildConfig.APPLICATION_ID
