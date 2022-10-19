@@ -25,6 +25,8 @@ import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
 import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.canvas.CanvasView
+import com.angcyo.canvas.data.CanvasDataBean
+import com.angcyo.canvas.data.ItemDataBean
 import com.angcyo.canvas.data.LimitDataInfo
 import com.angcyo.canvas.graphics.GraphicsHelper
 import com.angcyo.canvas.graphics.addGCodeRender
@@ -614,7 +616,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 itemHolder.click(R.id.save_button) {
                     canvasView?.canvasDelegate?.apply {
                         loadingAsync({
-                            getCanvasDataBean().let {
+                            getCanvasDataBean("save-${nowTimeString()}", 200).let {
                                 val json = it.toJson()
                                 json.writeTo(libCacheFile(fileNameTime(suffix = ".lp")))
                                 L.i(json)
@@ -764,7 +766,11 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
         vmApp<CanvasOpenModel>().openPendingData.observe { bean ->
             bean?.let {
                 _delay {
-                    GraphicsHelper.addRenderItemDataBean(canvasDelegate, bean)
+                    if (bean is CanvasDataBean) {
+                        canvasDelegate?.openCanvasFile(this, bean)
+                    } else if (bean is ItemDataBean) {
+                        GraphicsHelper.addRenderItemDataBean(canvasDelegate, bean)
+                    }
                 }
             }
         }
