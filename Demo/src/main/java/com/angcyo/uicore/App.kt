@@ -33,6 +33,7 @@ import com.angcyo.library.component.LibHawkKeys
 import com.angcyo.library.component.RBackground
 import com.angcyo.library.ex.*
 import com.angcyo.library.isMainProgress
+import com.angcyo.library.utils.Constant
 import com.angcyo.library.utils.appFolderPath
 import com.angcyo.library.utils.sdFolderPath
 import com.angcyo.objectbox.DslBox
@@ -147,6 +148,44 @@ class App : CoreApplication(), CameraXConfig.Provider {
 
         //cache config
         vmApp<CacheModel>().apply {
+
+            addCacheInfo(CacheInfo("内部缓存", null, cacheDir.absolutePath))
+            externalCacheDir?.let {
+                addCacheInfo(CacheInfo("外部缓存", null, it.absolutePath))
+            }
+            addCacheInfo(CacheInfo("应用数据缓存", "包含程序运行的一些数据", appFolderPath()))
+            addCacheInfo(
+                CacheInfo(
+                    "网络缓存",
+                    "网络请求产生的日志",
+                    appFolderPath(Constant.HTTP_FOLDER_NAME)
+                )
+            )
+            addCacheInfo(
+                CacheInfo(
+                    "崩溃缓存",
+                    "程序崩溃产生的日志",
+                    appFolderPath(Constant.CRASH_FOLDER_NAME)
+                )
+            )
+            addCacheInfo(
+                CacheInfo(
+                    "崩溃缓存",
+                    "程序崩溃产生的日志",
+                    appFolderPath(Constant.LUBAN_FOLDER_NAME)
+                )
+            )
+            addCacheInfo(
+                CacheInfo(
+                    "日志缓存",
+                    "程序运行时产生的一些日志",
+                    appFolderPath(Constant.LOG_FOLDER_NAME)
+                )
+            )
+            /*DEFAULT_FILE_PRINT_PATH?.let {
+                addCacheInfo(CacheInfo("日志文件", "程序运行的日志数据", it))
+            }*/
+
             addCacheInfo(
                 CacheInfo(
                     "雕刻缓存",
