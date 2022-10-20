@@ -13,7 +13,7 @@ import com.angcyo.base.restore
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bugly.Bugly
 import com.angcyo.canvas.laser.pecker.mode.CanvasOpenModel
-import com.angcyo.canvas.utils.CanvasDataHandleOperate
+import com.angcyo.canvas.utils.CanvasConstant
 import com.angcyo.core.CoreApplication
 import com.angcyo.core.component.CacheFragment
 import com.angcyo.core.component.model.CacheInfo
@@ -151,21 +151,21 @@ class App : CoreApplication(), CameraXConfig.Provider {
                 CacheInfo(
                     "雕刻缓存",
                     "雕刻过程中产生的缓存数据",
-                    appFolderPath(CanvasDataHandleOperate.ENGRAVE_CACHE_FILE_FOLDER)
+                    appFolderPath(CanvasConstant.ENGRAVE_FILE_FOLDER)
                 )
             )
             addCacheInfo(
                 CacheInfo(
                     "矢量缓存",
                     "生成的矢量文件缓存数据",
-                    appFolderPath(CanvasDataHandleOperate.VECTOR_CACHE_FILE_FOLDER)
+                    appFolderPath(CanvasConstant.VECTOR_FILE_FOLDER)
                 )
             )
             addCacheInfo(
                 CacheInfo(
                     "矢量缓存",
                     "生成的矢量文件缓存数据",
-                    appFolderPath(CanvasDataHandleOperate.VECTOR_CACHE_FILE_FOLDER)
+                    appFolderPath(CanvasConstant.VECTOR_FILE_FOLDER)
                 )
             )
             addCacheInfo(

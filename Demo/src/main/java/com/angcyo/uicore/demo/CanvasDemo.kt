@@ -618,7 +618,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                         loadingAsync({
                             getCanvasDataBean("save-${nowTimeString()}", 200).let {
                                 val json = it.toJson()
-                                json.writeTo(libCacheFile(fileNameTime(suffix = ".lp")))
+                                json.writeTo(CanvasDataHandleOperate._defaultProjectOutputFile("LP-${nowTimeString()}"))
                                 L.i(json)
                             }
                         })
