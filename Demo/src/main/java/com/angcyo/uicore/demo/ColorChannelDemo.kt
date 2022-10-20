@@ -159,7 +159,7 @@ class ColorChannelDemo : AppDslFragment() {
         itemHolder.img(R.id.image_view)?.drawable?.let {
             if (it is BitmapDrawable) {
                 loadingAsync({
-                    it.bitmap.grayHandle(
+                    it.bitmap.toGrayHandle(
                         if (MainFragment.CLICK_COUNT++ % 2 == 0) {
                             Color.WHITE
                         } else {
@@ -183,7 +183,7 @@ class ColorChannelDemo : AppDslFragment() {
             drawable?.let {
                 if (it is BitmapDrawable) {
                     loadingAsync({
-                        it.bitmap.blackWhiteHandle(
+                        it.bitmap.toBlackWhiteHandle(
                             invert = tag != null,
                             alphaBgColor = if (MainFragment.CLICK_COUNT++ % 2 == 0) {
                                 Color.WHITE
