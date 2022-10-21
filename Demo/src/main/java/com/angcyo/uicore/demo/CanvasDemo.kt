@@ -416,7 +416,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                         return@click
                     }
                     //安全提示弹窗
-                    engraveFlowLayoutHelper.showPreviewSafetyTips(fContext()) {
+                    engraveFlowLayoutHelper.showSafetyTips(fContext()) {
                         //如果有第三轴, 还需要检查对应的配置
                         engraveFlowLayoutHelper.engraveFlow =
                             BaseFlowLayoutHelper.ENGRAVE_FLOW_PREVIEW
