@@ -24,6 +24,7 @@ import com.angcyo.core.viewpager.RFragmentAdapter
 import com.angcyo.core.vmApp
 import com.angcyo.crash.sight.CrashSight
 import com.angcyo.download.DslDownload
+import com.angcyo.engrave.auto.AutoEngraveHelper
 import com.angcyo.engrave.model.FscDeviceModel
 import com.angcyo.item.component.DebugFragment
 import com.angcyo.jpush.JPush
@@ -39,6 +40,7 @@ import com.angcyo.library.utils.sdFolderPath
 import com.angcyo.objectbox.DslBox
 import com.angcyo.objectbox.laser.pecker.LPBox
 import com.angcyo.server.DslAndServer
+import com.angcyo.server.file.FileWebConfig
 import com.angcyo.speech.TTS
 import com.angcyo.tbs.DslTbs
 import com.angcyo.uicore.demo.*
@@ -106,6 +108,9 @@ class App : CoreApplication(), CameraXConfig.Provider {
         //fsc
         FscBleApiModel.init()
         vmApp<FscDeviceModel>().initDevice()
+
+        //website
+        AutoEngraveHelper.init()
     }
 
     override fun initCoreApplication() {
@@ -191,13 +196,6 @@ class App : CoreApplication(), CameraXConfig.Provider {
                     "雕刻缓存",
                     "雕刻过程中产生的缓存数据",
                     appFolderPath(CanvasConstant.ENGRAVE_FILE_FOLDER)
-                )
-            )
-            addCacheInfo(
-                CacheInfo(
-                    "矢量缓存",
-                    "生成的矢量文件缓存数据",
-                    appFolderPath(CanvasConstant.VECTOR_FILE_FOLDER)
                 )
             )
             addCacheInfo(

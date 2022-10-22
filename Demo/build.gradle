@@ -105,6 +105,7 @@ dependencies {
     implementation project(allModule.wifip2p)
     implementation project(allModule.crop)
     implementation project(allModule.websocket)
+    implementation project(allModule.engrave_auto)
 
     //https://github.com/airbnb/lottie-android
     //http://airbnb.io/lottie

@@ -74,6 +74,7 @@ import com.angcyo.library.toast
 import com.angcyo.library.unit.InchValueUnit
 import com.angcyo.library.unit.MmValueUnit
 import com.angcyo.library.unit.PixelValueUnit
+import com.angcyo.library.utils.fileNameTime
 import com.angcyo.library.utils.fileNameUUID
 import com.angcyo.library.utils.writeTo
 import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
@@ -414,6 +415,10 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                     if (engraveFlowLayoutHelper.isAttach()) {
                         return@click
                     }
+                    if (!engraveFlowLayoutHelper.checkStartPreview()) {
+                        return@click
+                    }
+
                     //安全提示弹窗
                     engraveFlowLayoutHelper.showSafetyTips(fContext()) {
                         //如果有第三轴, 还需要检查对应的配置
@@ -618,7 +623,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                                 val json = it.toJson()
                                 json.writeTo(
                                     CanvasDataHandleOperate._defaultProjectOutputFile(
-                                        "LP-${nowTimeString("yyyy-MM-dd_HH:mm:ss.SSS")}"
+                                        "LP-${fileNameTime()}"
                                     ),
                                     false
                                 )
