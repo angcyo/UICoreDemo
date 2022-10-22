@@ -317,6 +317,25 @@ class DrawPathView(context: Context, attributeSet: AttributeSet? = null) :
         }
 
         testShader(canvas)
+
+        //虚线绘制
+        drawLine(canvas)
+    }
+
+    var dashWidth = 0f
+    var dashGap = 0f
+
+    private fun drawLine(canvas: Canvas) {
+        val paint = paint()
+        val path = Path()
+        val width = mW()
+        val height = mH()
+        path.moveTo(10f, height - 10f)
+        path.lineTo(width - 10f, height - 10f)
+
+        paint.style = Paint.Style.STROKE
+        paint.pathEffect = DashPathEffect(floatArrayOf(dashWidth, dashGap), 0f)
+        canvas.drawPath(path, paint)
     }
 
     private fun test1(canvas: Canvas) {

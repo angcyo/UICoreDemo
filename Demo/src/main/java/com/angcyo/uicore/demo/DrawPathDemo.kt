@@ -27,20 +27,42 @@ class DrawPathDemo : AppDslFragment() {
                     invalidate()
                 }
 
+                //
                 itemHolder.v<DslSeekBar>(R.id.seek_bar)?.apply {
                     progressTextFormatAction = {
                         "$progressValue"
                     }
                     config {
                         onSeekChanged = { value, fraction, fromUser ->
+                            drawPathView?.dashWidth = value * 1f
                             if (value > 2) {
                                 drawPathView?.polygonPath = ShapesHelper.polygonPath(
                                     value,
                                     drawPathView.mW() / 2f,
                                     drawPathView.mH() / 2f
                                 )
-                                drawPathView?.invalidate()
                             }
+                            drawPathView?.invalidate()
+                        }
+                    }
+                }
+
+                //
+                itemHolder.v<DslSeekBar>(R.id.seek_bar2)?.apply {
+                    progressTextFormatAction = {
+                        "$progressValue"
+                    }
+                    config {
+                        onSeekChanged = { value, fraction, fromUser ->
+                            drawPathView?.dashGap = value * 1f
+                            if (value > 2) {
+                                drawPathView?.polygonPath = ShapesHelper.polygonPath(
+                                    value,
+                                    drawPathView.mW() / 2f,
+                                    drawPathView.mH() / 2f
+                                )
+                            }
+                            drawPathView?.invalidate()
                         }
                     }
                 }
