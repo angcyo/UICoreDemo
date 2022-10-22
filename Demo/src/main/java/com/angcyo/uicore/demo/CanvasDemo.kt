@@ -25,8 +25,8 @@ import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
 import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.canvas.CanvasView
-import com.angcyo.canvas.data.CanvasDataBean
-import com.angcyo.canvas.data.ItemDataBean
+import com.angcyo.canvas.data.CanvasProjectBean
+import com.angcyo.canvas.data.CanvasProjectItemBean
 import com.angcyo.canvas.data.LimitDataInfo
 import com.angcyo.canvas.graphics.GraphicsHelper
 import com.angcyo.canvas.graphics.addGCodeRender
@@ -35,7 +35,6 @@ import com.angcyo.canvas.graphics.addTextRender
 import com.angcyo.canvas.items.data.DataItemRenderer
 import com.angcyo.canvas.items.data.DataPathItem
 import com.angcyo.canvas.laser.pecker.CanvasLayoutHelper
-import com.angcyo.canvas.laser.pecker.loadingAsync
 import com.angcyo.canvas.laser.pecker.mode.CanvasOpenModel
 import com.angcyo.canvas.laser.pecker.openCanvasFile
 import com.angcyo.canvas.utils.CanvasConstant
@@ -618,7 +617,9 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                             getCanvasDataBean("save-${nowTimeString()}", 200).let {
                                 val json = it.toJson()
                                 json.writeTo(
-                                    CanvasDataHandleOperate._defaultProjectOutputFile("LP-${nowTimeString()}"),
+                                    CanvasDataHandleOperate._defaultProjectOutputFile(
+                                        "LP-${nowTimeString("yyyy-MM-dd_HH:mm:ss.SSS")}"
+                                    ),
                                     false
                                 )
                                 L.i(json)
@@ -768,9 +769,9 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
         vmApp<CanvasOpenModel>().openPendingData.observe { bean ->
             bean?.let {
                 _delay {
-                    if (bean is CanvasDataBean) {
+                    if (bean is CanvasProjectBean) {
                         canvasDelegate?.openCanvasFile(this, bean)
-                    } else if (bean is ItemDataBean) {
+                    } else if (bean is CanvasProjectItemBean) {
                         GraphicsHelper.addRenderItemDataBean(canvasDelegate, bean)
                     }
                 }

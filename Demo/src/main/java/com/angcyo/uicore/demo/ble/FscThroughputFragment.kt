@@ -283,8 +283,10 @@ class FscThroughputFragment : AppDslFragment() {
                         //指令-预览图片
                         itemHolder.click(R.id.preview_command0) {
                             setCommand(
-                                EngravePreviewCmd.previewFlashBitmapCmd(defaultName)
-                                    .toHexCommandString(),
+                                EngravePreviewCmd.previewFlashBitmapCmd(
+                                    defaultName,
+                                    HawkEngraveKeys.lastPwrProgress
+                                ).toHexCommandString(),
                                 EngravePreviewParser::class.java
                             )
                         }
