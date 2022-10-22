@@ -12,7 +12,7 @@ ext {
 }
 apply from: allGradle.app
 
-//apply from: 'https://gitee.com/angcyo/gradle/raw/master/app.gradle'
+//apply from: "$gradleHost/master/app.gradle"
 
 android {
     defaultConfig {
