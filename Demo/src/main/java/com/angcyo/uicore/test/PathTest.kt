@@ -3,7 +3,7 @@ package com.angcyo.uicore.test
 import android.graphics.Path
 import android.graphics.RectF
 import com.angcyo.library.L
-import com.angcyo.library.utils.haveSdCardPermission
+import com.angcyo.library.utils.storage.haveSdCardPermission
 import kotlin.math.atan
 import kotlin.math.sqrt
 import kotlin.math.tan
