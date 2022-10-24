@@ -159,7 +159,7 @@ class App : CoreApplication(), CameraXConfig.Provider {
             externalCacheDir?.let {
                 addCacheInfo(CacheInfo("外部缓存", null, it.absolutePath))
             }
-            addCacheInfo(CacheInfo("应用数据缓存", "包含程序运行的一些数据", appFolderPath()))
+            addCacheInfo(CacheInfo("应用数据-请慎重删除", "包含程序运行的一些数据", appFolderPath()))
             addCacheInfo(
                 CacheInfo(
                     "网络缓存",
