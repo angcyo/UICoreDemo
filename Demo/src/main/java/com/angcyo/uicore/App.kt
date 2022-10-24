@@ -36,11 +36,10 @@ import com.angcyo.library.ex.*
 import com.angcyo.library.isMainProgress
 import com.angcyo.library.utils.Constant
 import com.angcyo.library.utils.appFolderPath
-import com.angcyo.library.utils.storage.sdFolderPath
+import com.angcyo.library.utils.storage.sdDocumentFolderPath
 import com.angcyo.objectbox.DslBox
 import com.angcyo.objectbox.laser.pecker.LPBox
 import com.angcyo.server.DslAndServer
-import com.angcyo.server.file.FileWebConfig
 import com.angcyo.speech.TTS
 import com.angcyo.tbs.DslTbs
 import com.angcyo.uicore.demo.*
@@ -118,9 +117,6 @@ class App : CoreApplication(), CameraXConfig.Provider {
 
         DslAndServer//init
 
-        //font
-        FontManager.customFontFolderList.add(sdFolderPath("${LPBox.DB_NAME}/${FontManager.DEFAULT_FONT_FOLDER_NAME}"))
-
         //WebSocket
         DebugFragment.addDebugAction {
             name = "LogWSServer"
@@ -151,6 +147,11 @@ class App : CoreApplication(), CameraXConfig.Provider {
             defValue = LibHawkKeys.minKeepSize
         }
 
+        //font
+        val fontsFolderPath =
+            sdDocumentFolderPath("${LPBox.DB_NAME}/${FontManager.DEFAULT_FONT_FOLDER_NAME}")
+        FontManager.defaultCustomFontFolder = fontsFolderPath
+
         //cache config
         vmApp<CacheModel>().apply {
 
@@ -175,8 +176,8 @@ class App : CoreApplication(), CameraXConfig.Provider {
             )
             addCacheInfo(
                 CacheInfo(
-                    "崩溃缓存",
-                    "程序崩溃产生的日志",
+                    "图片压缩缓存",
+                    "压缩图片时产生的缓存",
                     appFolderPath(Constant.LUBAN_FOLDER_NAME)
                 )
             )
@@ -205,18 +206,12 @@ class App : CoreApplication(), CameraXConfig.Provider {
                     appFolderPath(CanvasConstant.VECTOR_FILE_FOLDER)
                 )
             )
-            addCacheInfo(
-                CacheInfo(
-                    "字体缓存",
-                    "导入的自定义字体",
-                    appFolderPath(FontManager.DEFAULT_FONT_FOLDER_NAME)
-                )
-            )
+            addCacheInfo(CacheInfo("字体缓存", "导入的自定义字体", FontManager.defaultCustomFontFolder))
             addCacheInfo(
                 CacheInfo(
                     "LaserPecker外部缓存",
                     "卸载重新可恢复的数据",
-                    sdFolderPath(LPBox.DB_NAME)
+                    sdDocumentFolderPath(LPBox.DB_NAME)
                 )
             )
         }
