@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import com.angcyo.DslAHelper
+import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.base.restore
 import com.angcyo.bluetooth.fsc.FscBleApiModel
@@ -25,6 +26,7 @@ import com.angcyo.core.vmApp
 import com.angcyo.crash.sight.CrashSight
 import com.angcyo.download.DslDownload
 import com.angcyo.engrave.auto.AutoEngraveHelper
+import com.angcyo.engrave.ble.CommandActivity
 import com.angcyo.engrave.model.FscDeviceModel
 import com.angcyo.item.component.DebugFragment
 import com.angcyo.jpush.JPush
@@ -32,13 +34,13 @@ import com.angcyo.library.annotation.CallComplianceAfter
 import com.angcyo.library.component.FontManager
 import com.angcyo.library.component.LibHawkKeys
 import com.angcyo.library.component.RBackground
+import com.angcyo.library.component.lastContext
 import com.angcyo.library.ex.*
 import com.angcyo.library.isMainProgress
 import com.angcyo.library.utils.Constant
 import com.angcyo.library.utils.appFolderPath
 import com.angcyo.library.utils.storage.sdDocumentFolderPath
 import com.angcyo.library.utils.storage.sdDownloadFolderPath
-import com.angcyo.library.utils.storage.sdDownloads
 import com.angcyo.objectbox.DslBox
 import com.angcyo.objectbox.laser.pecker.LPBox
 import com.angcyo.server.DslAndServer
@@ -148,6 +150,17 @@ class App : CoreApplication(), CameraXConfig.Provider {
             type = Int::class.java
             defValue = LibHawkKeys.minKeepSize
         }
+
+        DebugFragment.addDebugAction {
+            name = "指令记录"
+            action = { _, _ ->
+                lastContext.dslAHelper {
+                    start(CommandActivity::class)
+                }
+            }
+        }
+
+        //---
 
         //font
         val fontsFolderPath =
