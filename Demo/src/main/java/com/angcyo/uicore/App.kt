@@ -160,6 +160,14 @@ class App : CoreApplication(), CameraXConfig.Provider {
             }
         }
 
+        DebugFragment.addDebugAction {
+            label = "滑台重复图片间距"
+            des = "为滑台重复图片间距。单位mm,保留一位小数。"
+            key = LibHawkKeys::lastSlipSpace.name
+            type = Float::class.java
+            defValue = LibHawkKeys.lastSlipSpace
+        }
+
         //---
 
         //font
