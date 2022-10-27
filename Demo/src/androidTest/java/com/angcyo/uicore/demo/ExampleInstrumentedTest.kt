@@ -90,7 +90,7 @@ class ExampleInstrumentedTest {
         val pathMeasure = PathMeasure(path, false)
         println(pathMeasure.length)
         //path.toBitmap()
-        path.eachPath { index, ratio, posArray ->
+        path.eachPath { index, ratio, contourIndex, posArray ->
             println("$index -> ${posArray[0]} ${posArray[1]}")
         }
 
@@ -105,7 +105,7 @@ class ExampleInstrumentedTest {
         val pathMeasure2 = PathMeasure(path2, true)
         println(pathMeasure2.length)
         //path2.toBitmap()
-        path2.eachPath { index, ratio, posArray ->
+        path2.eachPath { index, ratio, contourIndex, posArray ->
             println("$index -> ${posArray[0]} ${posArray[1]}")
         }
 

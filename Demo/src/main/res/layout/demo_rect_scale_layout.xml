@@ -105,6 +105,11 @@
             style="@style/DefaultButtonMinStyle"
             android:text="testHeight" />
 
+        <com.angcyo.widget.DslButton
+            android:id="@+id/adjust_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="调整测试" />
+
     </com.angcyo.widget.layout.DslFlowLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

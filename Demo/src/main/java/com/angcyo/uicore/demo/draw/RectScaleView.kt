@@ -76,12 +76,12 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         super.onDraw(canvas)
         canvas.drawColor(Color.GRAY)
 
-        //origin
+        //origin 原始矩形
         paint.style = Paint.Style.STROKE
         paint.color = Color.WHITE
-        drawRect(canvas, originRect)
+        drawRect(canvas, originRect)//绘制未旋转和旋转后的2个矩形
 
-        //draw
+        //draw 缩放后
         paint.color = Color.RED
         _tempRect.set(drawRect)
         _tempRect.sort()
@@ -109,6 +109,8 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
 
         //testLinePath(canvas)
         testLine(canvas)
+
+        testGroup(canvas)
     }
 
     var touchX = 0f
@@ -397,5 +399,54 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         val bounds2 = newPath.computePathBounds()
 
         matrix.release()
+    }
+
+    //--group
+
+    val groupAnchorPaint = paint().apply {
+        color = Color.YELLOW
+        style = Paint.Style.FILL
+        strokeWidth = 1 * dp
+    }
+
+    val groupAnchorPoint = PointF()
+
+    fun testGroup(canvas: Canvas) {
+        groupAnchorPoint.x = measuredWidth / 4f
+        groupAnchorPoint.y = measuredHeight / 4f
+        /*canvas.drawLine(
+            0f,
+            groupAnchorPoint.y,
+            measuredWidth.toFloat(),
+            groupAnchorPoint.y,
+            groupAnchorPaint
+        )
+        canvas.drawLine(
+            groupAnchorPoint.x,
+            0f,
+            groupAnchorPoint.x,
+            measuredHeight.toFloat(),
+            groupAnchorPaint
+        )*/
+        canvas.drawCircle(groupAnchorPoint.x, groupAnchorPoint.y, dp, groupAnchorPaint)
+    }
+
+    var groupScaleX = 1f
+    var groupScaleY = 1f
+
+    /**测试旋转矩形按照指定锚点, 缩放到指定比例*/
+    fun adjustTest() {
+        groupScaleX -= 0.05f
+        groupScaleY -= 0.1f
+        RectScaleGestureHandler.rectUpdateTo(
+            originRect,
+            drawRect,
+            originRect.width() * groupScaleX,
+            originRect.height() * groupScaleY,
+            rotate,
+            groupAnchorPoint.x,
+            groupAnchorPoint.y
+        )
+        postInvalidate()
     }
 }
