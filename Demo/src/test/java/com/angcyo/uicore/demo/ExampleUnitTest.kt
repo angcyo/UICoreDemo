@@ -160,6 +160,28 @@ class ExampleUnitTest {
     }
 
     @Test
+    fun testGCode2() {
+        val list = listOf(
+            "M05 S0",
+            "M05S0",
+            "G1 F2000",
+            "G1F2000",
+            "G21 ;//xxx",
+            "G21;//xxx",
+            "G1X2 Y3 I04;//xxx",
+            "G1X2Y3I04;//xxx",
+            "G2X02Y03 I04;//xxx",
+            "G2X02Y03I04;//xxx",
+            "G1  X83.4949 Y-8.0145",
+            "G1X83.4949Y-8.0145",
+        )
+        val regex = "[A-z][-]?[\\d.]*\\d+"
+        for (gcode in list) {
+            println(gcode.patternList(regex))
+        }
+    }
+
+    @Test
     fun testFirmwareVersion() {
         val ex = ".lpbin"
         val pathList = listOf(
