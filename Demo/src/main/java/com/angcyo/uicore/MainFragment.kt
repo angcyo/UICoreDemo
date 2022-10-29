@@ -117,94 +117,99 @@ class MainFragment : BaseDemoDslFragment() {
                 }
             }
             initDslAdapter {
-                render {
+                renderMenu()
+            }
+        }
+    }
 
-                    menuAdapter = this
-                    AppMenuHeaderItem()()
+    /**渲染菜单*/
+    fun DslAdapter.renderMenu() {
+        render {
 
-                    val insert = 10 * dpi
-                    val subInsert = 2 * dpi
-                    DslTextInfoItem()() {
-                        itemTopInsert = insert
-                        itemInfoText = "扫一扫"
-                        itemClick = {
-                            dslAHelper {
-                                start(Intent(context, AppScanActivity::class.java))
-                            }
-                        }
+            menuAdapter = this
+            AppMenuHeaderItem()()
+
+            val insert = 10 * dpi
+            val subInsert = 2 * dpi
+            DslTextInfoItem()() {
+                itemTopInsert = insert
+                itemInfoText = "扫一扫"
+                itemClick = {
+                    dslAHelper {
+                        start(Intent(context, AppScanActivity::class.java))
                     }
-
-                    DslTextInfoItem()() {
-                        itemTopInsert = insert
-                        itemInfoText = "QQ咨询"
-                        itemClick = {
-                            if (fContext().checkApkExist("com.tencent.mobileqq")) {
-                                dslAHelper {
-                                    start(RUtils.chatQQIntent(context)!!)
-                                }
-                            } else {
-                                toastQQ("请安装QQ")
-                            }
-                        }
-                    }
-
-                    DslTextInfoItem()() {
-                        itemTopInsert = subInsert
-                        itemInfoText = "QQ入群学习"
-                        itemClick = {
-                            if (fContext().checkApkExist("com.tencent.mobileqq")) {
-                                dslAHelper {
-                                    start(RUtils.joinQQGroupIntent(context)!!)
-                                }
-                            } else {
-                                toastQQ("请安装QQ")
-                            }
-                        }
-                    }
-
-                    DslTextInfoItem()() {
-                        itemTopInsert = insert
-                        itemInfoText = "CSDN博客"
-                        itemClick = {
-                            dslAHelper {
-                                start("https://angcyo.blog.csdn.net".urlIntent())
-                            }
-                        }
-                    }
-
-                    DslTextInfoItem()() {
-                        itemTopInsert = subInsert
-                        itemInfoText = "Github"
-                        itemClick = {
-                            dslAHelper {
-                                start("https://github.com/angcyo".urlIntent())
-                            }
-                        }
-                    }
-
-                    DslTextInfoItem()() {
-                        itemTopInsert = subInsert
-                        itemInfoText = "掘金"
-                        itemClick = {
-                            dslAHelper {
-                                start("https://juejin.im/user/576a151b2e958a00699c11f0".urlIntent())
-                            }
-                        }
-                    }
-
-                    DslTextInfoItem()() {
-                        itemTopInsert = subInsert
-                        itemInfoText = "官网"
-                        itemClick = {
-                            dslAHelper {
-                                start("https://www.angcyo.com".urlIntent())
-                            }
-                        }
-                    }
-
-                    AppMenuFooterItem()()
                 }
             }
+
+            DslTextInfoItem()() {
+                itemTopInsert = insert
+                itemInfoText = "QQ咨询"
+                itemClick = {
+                    if (fContext().checkApkExist("com.tencent.mobileqq")) {
+                        dslAHelper {
+                            start(RUtils.chatQQIntent(context)!!)
+                        }
+                    } else {
+                        toastQQ("请安装QQ")
+                    }
+                }
+            }
+
+            DslTextInfoItem()() {
+                itemTopInsert = subInsert
+                itemInfoText = "QQ入群学习"
+                itemClick = {
+                    if (fContext().checkApkExist("com.tencent.mobileqq")) {
+                        dslAHelper {
+                            start(RUtils.joinQQGroupIntent(context)!!)
+                        }
+                    } else {
+                        toastQQ("请安装QQ")
+                    }
+                }
+            }
+
+            DslTextInfoItem()() {
+                itemTopInsert = insert
+                itemInfoText = "CSDN博客"
+                itemClick = {
+                    dslAHelper {
+                        start("https://angcyo.blog.csdn.net".urlIntent())
+                    }
+                }
+            }
+
+            DslTextInfoItem()() {
+                itemTopInsert = subInsert
+                itemInfoText = "Github"
+                itemClick = {
+                    dslAHelper {
+                        start("https://github.com/angcyo".urlIntent())
+                    }
+                }
+            }
+
+            DslTextInfoItem()() {
+                itemTopInsert = subInsert
+                itemInfoText = "掘金"
+                itemClick = {
+                    dslAHelper {
+                        start("https://juejin.im/user/576a151b2e958a00699c11f0".urlIntent())
+                    }
+                }
+            }
+
+            DslTextInfoItem()() {
+                itemTopInsert = subInsert
+                itemInfoText = "官网"
+                itemClick = {
+                    dslAHelper {
+                        start("https://www.angcyo.com".urlIntent())
+                    }
+                }
+            }
+
+            AppMenuFooterItem()()
         }
     }
 
@@ -277,160 +282,166 @@ class MainFragment : BaseDemoDslFragment() {
     override fun onInitFragment(savedInstanceState: Bundle?) {
         super.onInitFragment(savedInstanceState)
         renderDslAdapter {
-            renderDemoListItem("FragmentInFragmentDemo", 10.toDpi()) {
-                dslAHelper {
-                    start(FragmentInFragmentActivity::class.java)
-                }
-            }
-            renderDemoListItem("ViewPagerInFragmentDemo") {
-                dslAHelper {
-                    start(ViewPagerInFragmentActivity::class.java)
-                }
-            }
-            renderDemoListItem("ViewPagerInViewPagerDemo") {
-                dslAHelper {
-                    start(ViewPagerInViewPagerActivity::class.java)
-                }
-            }
-            renderDemoListItem("ViewPager2InFragmentDemo") {
-                dslAHelper {
-                    start(ViewPager2InFragmentActivity::class.java)
-                }
-            }
-            renderDemoListItem("ViewPager2InViewPager2Demo") {
-                dslAHelper {
-                    start(ViewPager2InViewPager2Activity::class.java)
-                }
-            }
+            renderDemo(savedInstanceState)
+        }
+    }
 
-            renderDemoListItem("DrawableSpanDemo")
-            renderDemoListItem("WidgetDemo ArcLoadingView")
-            renderDemoListItem("LoadingDemo")
-            renderDemoListItem("LoadingDemo2 $GO")
-            renderDemoListItem("HttpDemo")
-            renderDemoListItem("WifiP2PDemo $GO")
-            renderDemoListItem("RefreshEffectDemo DslToast")
-            renderDemoListItem("RefreshDemo SwipeMenu")
-            renderDemoListItem("DslAffectDemo")
-            renderDemoListItem("ValueTextWatcherDemo DslSoftInputLayout")
-            renderDemoListItem("DslSoftInputDemo")
-            renderDemoListItem("ViewModelDemo")
-            renderDemoListItem("ViewGroupOverlayDemo")
-            renderDemoListItem("TransitionDemo")
-            renderDemoListItem("GlideImageDemo")
-            renderDemoListItem("RegularPatternDemo")
-            renderDemoListItem("OkDownloadDemo")
-            renderDemoListItem("MediaPickerDemo")
-            renderDemoListItem("DialogDemo")
-            renderDemoListItem("NotifyDemo ContentObserver")
-            renderDemoListItem("CameraXDemo")
-            renderDemoListItem("StyleDemo ThemeStyledAttributes")
-            renderDemoListItem("ShortcutDemo")
-            renderDemoListItem("DslDrawItemDecorationDemo")
-            renderDemoListItem("QrCodeDemo")
-            renderDemoListItem("TbsWebDemo")
-            renderDemoListItem("IntentDemo")
-            renderDemoListItem("LauncherDemo")
-            renderDemoListItem("GameRenderEngineDemo")
-            renderDemoListItem("JsoupDemo")
-            renderDemoListItem("PagerLayoutManagerDemo")
-            renderDemoListItem("LinkageSvBehaviorDemo Sv+Sv")
-            renderDemoListItem("LinkageSingleBehaviorDemo Sv+Rv")
-            renderDemoListItem("LinkageRvBehaviorDemo Rv+Rv")
-            renderDemoListItem("LinkageVpBehaviorDemo Rv+Vp")
-            renderDemoListItem("TitleBarBehaviorDemo")
-            renderDemoListItem("TitleBarDrawableBehaviorDemo")
-            renderDemoListItem("WaveLayerDemo")
-            renderDemoListItem("LineChartDemo")
-            renderDemoListItem("BarChartDemo")
-            renderDemoListItem("PieChartDemo")
-            renderDemoListItem("OtherChartDemo")
-            renderDemoListItem("FloatWindowDemo") {
-                fContext().dslFloatWindow {
-                    floatLayoutId = R.layout.float_window_layout
-
-                    initFloatLayout = { holder ->
-                        holder.clickItem {
-                            toastQQ("click...${nowTimeString()}")
-                        }
-                    }
-                }.apply {
-                    show()
-                    if (this is IFloatWindowImpl) {
-                        this.resetPosition(getView(), false)
-                    }
-                }
+    /**渲染demo*/
+    fun DslAdapter.renderDemo(savedInstanceState: Bundle?) {
+        renderDemoListItem("FragmentInFragmentDemo", 10.toDpi()) {
+            dslAHelper {
+                start(FragmentInFragmentActivity::class.java)
             }
-            renderDemoListItem("ObjectBoxDemo")
-            renderDemoListItem("AudioRecordDemo Player")
-            renderDemoListItem("TakeMediaDemo")
-            renderDemoListItem("SensorDemo")
-            renderDemoListItem("FocusDemo")
-            renderDemoListItem("RabbitMQDemo")
-            renderDemoListItem("WaveViewDemo")
-            renderDemoListItem("MoveBehaviorDemo")
-            renderDemoListItem("AMapDemo")
-            renderDemoListItem("LockDemo Speech")
-            renderDemoListItem("AccessibilityDemo")
-            renderDemoListItem("GithubDemo")
-            renderDemoListItem("LayerDemo ILayer Step")
-            renderDemoListItem("TbsJsBridgeDemo")
-            renderDemoListItem("SkeletonViewDemo")
-            renderDemoListItem("OkHttpProgressDemo")
-            renderDemoListItem("ExDialogDemo")
-            renderDemoListItem("NavigationDemo")
-            renderDemoListItem("CalendarDemo")
-            renderDemoListItem("BiometricDemo Finger")
-            renderDemoListItem("ComponentDemo")
-            renderDemoListItem("NfcDemo") {
-                dslAHelper {
-                    start(NfcHandleActivity::class.java)
-                }
+        }
+        renderDemoListItem("ViewPagerInFragmentDemo") {
+            dslAHelper {
+                start(ViewPagerInFragmentActivity::class.java)
             }
-            renderDemoListItem("BinderDemo IPC")
-            renderDemoListItem("StationDemo")
-            renderDemoListItem("NinePatchDemo")
-            renderDemoListItem("PathDemo")
-            renderDemoListItem("MultiLanguageDemo")
-            renderDemoListItem("BluetoothDemo")
-            renderDemoListItem("FscBleApiDemo")
-            renderDemoListItem("SvgDemo GCode")
-            renderDemoListItem("MatrixDemo")
-            renderDemoListItem("DrawPathDemo")
-            renderDemoListItem("PaintDemo")
-            renderDemoListItem("ColorChannelDemo")
-            renderDemoListItem("RectScaleDemo")
-            renderDemoListItem("CropImageDemo")
-            renderDemoListItem("DoodleDemo")
-            renderDemoListItem("CanvasDemo $GO")
-            //https://github.com/sinawangnan7/CurrentActivity
-            //renderDemoListItem("CurrentActivityDemo $GO")
+        }
+        renderDemoListItem("ViewPagerInViewPagerDemo") {
+            dslAHelper {
+                start(ViewPagerInViewPagerActivity::class.java)
+            }
+        }
+        renderDemoListItem("ViewPager2InFragmentDemo") {
+            dslAHelper {
+                start(ViewPager2InFragmentActivity::class.java)
+            }
+        }
+        renderDemoListItem("ViewPager2InViewPager2Demo") {
+            dslAHelper {
+                start(ViewPager2InViewPager2Activity::class.java)
+            }
+        }
 
-            //position
-            //lockDemoPosition = 83 - 1 //canvas
+        renderDemoListItem("DrawableSpanDemo")
+        renderDemoListItem("WidgetDemo ArcLoadingView")
+        renderDemoListItem("LoadingDemo")
+        renderDemoListItem("LoadingDemo2 $GO")
+        renderDemoListItem("HttpDemo")
+        renderDemoListItem("WifiP2PDemo $GO")
+        renderDemoListItem("RefreshEffectDemo DslToast")
+        renderDemoListItem("RefreshDemo SwipeMenu")
+        renderDemoListItem("DslAffectDemo")
+        renderDemoListItem("ValueTextWatcherDemo DslSoftInputLayout")
+        renderDemoListItem("DslSoftInputDemo")
+        renderDemoListItem("ViewModelDemo")
+        renderDemoListItem("ViewGroupOverlayDemo")
+        renderDemoListItem("TransitionDemo")
+        renderDemoListItem("GlideImageDemo")
+        renderDemoListItem("RegularPatternDemo")
+        renderDemoListItem("OkDownloadDemo")
+        renderDemoListItem("MediaPickerDemo")
+        renderDemoListItem("DialogDemo")
+        renderDemoListItem("NotifyDemo ContentObserver")
+        renderDemoListItem("CameraXDemo")
+        renderDemoListItem("StyleDemo ThemeStyledAttributes")
+        renderDemoListItem("ShortcutDemo")
+        renderDemoListItem("DslDrawItemDecorationDemo")
+        renderDemoListItem("QrCodeDemo")
+        renderDemoListItem("TbsWebDemo")
+        renderDemoListItem("IntentDemo")
+        renderDemoListItem("LauncherDemo")
+        renderDemoListItem("GameRenderEngineDemo")
+        renderDemoListItem("JsoupDemo")
+        renderDemoListItem("PagerLayoutManagerDemo")
+        renderDemoListItem("LinkageSvBehaviorDemo Sv+Sv")
+        renderDemoListItem("LinkageSingleBehaviorDemo Sv+Rv")
+        renderDemoListItem("LinkageRvBehaviorDemo Rv+Rv")
+        renderDemoListItem("LinkageVpBehaviorDemo Rv+Vp")
+        renderDemoListItem("TitleBarBehaviorDemo")
+        renderDemoListItem("TitleBarDrawableBehaviorDemo")
+        renderDemoListItem("WaveLayerDemo")
+        renderDemoListItem("LineChartDemo")
+        renderDemoListItem("BarChartDemo")
+        renderDemoListItem("PieChartDemo")
+        renderDemoListItem("OtherChartDemo")
+        renderDemoListItem("FloatWindowDemo") {
+            fContext().dslFloatWindow {
+                floatLayoutId = R.layout.float_window_layout
 
-            //设备信息.
-            DslLastDeviceInfoItem()() {
-                itemClick = {
-                    dslFHelper {
-                        fileSelector({
-                            showFileMd5 = true
-                            showFileMenu = true
-                            showHideFile = true
-                            targetPath =
-                                FileUtils.appRootExternalFolder().absolutePath ?: storageDirectory
-                        })
+                initFloatLayout = { holder ->
+                    holder.clickItem {
+                        toastQQ("click...${nowTimeString()}")
                     }
                 }
+            }.apply {
+                show()
+                if (this is IFloatWindowImpl) {
+                    this.resetPosition(getView(), false)
+                }
             }
+        }
+        renderDemoListItem("ObjectBoxDemo")
+        renderDemoListItem("AudioRecordDemo Player")
+        renderDemoListItem("TakeMediaDemo")
+        renderDemoListItem("SensorDemo")
+        renderDemoListItem("FocusDemo")
+        renderDemoListItem("RabbitMQDemo")
+        renderDemoListItem("WaveViewDemo")
+        renderDemoListItem("MoveBehaviorDemo")
+        renderDemoListItem("AMapDemo")
+        renderDemoListItem("LockDemo Speech")
+        renderDemoListItem("AccessibilityDemo")
+        renderDemoListItem("GithubDemo")
+        renderDemoListItem("LayerDemo ILayer Step")
+        renderDemoListItem("TbsJsBridgeDemo")
+        renderDemoListItem("SkeletonViewDemo")
+        renderDemoListItem("OkHttpProgressDemo")
+        renderDemoListItem("ExDialogDemo")
+        renderDemoListItem("NavigationDemo")
+        renderDemoListItem("CalendarDemo")
+        renderDemoListItem("BiometricDemo Finger")
+        renderDemoListItem("ComponentDemo")
+        renderDemoListItem("NfcDemo") {
+            dslAHelper {
+                start(NfcHandleActivity::class.java)
+            }
+        }
+        renderDemoListItem("BinderDemo IPC")
+        renderDemoListItem("StationDemo")
+        renderDemoListItem("NinePatchDemo")
+        renderDemoListItem("PathDemo")
+        renderDemoListItem("MultiLanguageDemo")
+        renderDemoListItem("BluetoothDemo")
+        renderDemoListItem("FscBleApiDemo")
+        renderDemoListItem("SvgDemo GCode")
+        renderDemoListItem("MatrixDemo")
+        renderDemoListItem("DrawPathDemo")
+        renderDemoListItem("DrawTextDemo")
+        renderDemoListItem("PaintDemo")
+        renderDemoListItem("ColorChannelDemo")
+        renderDemoListItem("RectScaleDemo")
+        renderDemoListItem("CropImageDemo")
+        renderDemoListItem("DoodleDemo")
+        renderDemoListItem("CanvasDemo $GO")
+        //https://github.com/sinawangnan7/CurrentActivity
+        //renderDemoListItem("CurrentActivityDemo $GO")
 
-            //jump
-            onDispatchUpdatesOnce {
-                if (!BaseCoreAppCompatActivity.haveLastCrash && savedInstanceState == null) {
-                    //自动跳转至指定Demo
-                    if (autoJump && JUMP_TO_LOCK_POSITION) {
-                        _jumpToLockPosition()
-                    }
+        //position
+        //lockDemoPosition = 83 - 1 //canvas
+
+        //设备信息.
+        DslLastDeviceInfoItem()() {
+            itemClick = {
+                dslFHelper {
+                    fileSelector({
+                        showFileMd5 = true
+                        showFileMenu = true
+                        showHideFile = true
+                        targetPath =
+                            FileUtils.appRootExternalFolder().absolutePath ?: storageDirectory
+                    })
+                }
+            }
+        }
+
+        //jump
+        onDispatchUpdatesOnce {
+            if (!BaseCoreAppCompatActivity.haveLastCrash && savedInstanceState == null) {
+                //自动跳转至指定Demo
+                if (autoJump && JUMP_TO_LOCK_POSITION) {
+                    _jumpToLockPosition()
                 }
             }
         }

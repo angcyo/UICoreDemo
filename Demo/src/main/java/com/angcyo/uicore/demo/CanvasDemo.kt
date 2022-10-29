@@ -84,6 +84,7 @@ import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
 import com.angcyo.uicore.demo.SvgDemo.Companion.svgResList
+import com.angcyo.uicore.getRandomText
 import com.angcyo.websocket.service.bindLogWSServer
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.recycler.initDslAdapter
@@ -91,7 +92,6 @@ import com.angcyo.widget.span.span
 import com.pixplicity.sharp.Sharp
 import com.pixplicity.sharp.SharpDrawable
 import org.jetbrains.annotations.TestOnly
-import kotlin.random.Random
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
@@ -783,9 +783,6 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
             }
         }
     }
-
-    fun getRandomText() =
-        "angcyo${randomString(Random.nextInt(0, 3))}\n${randomString(Random.nextInt(0, 3))}"
 
     fun loadSvgDrawable(): Pair<String, SharpDrawable> {
         val resId = svgResList.randomGetOnce()!!

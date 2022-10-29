@@ -310,3 +310,19 @@ fun <T> boxOf(
     box.action()
     return box
 }
+
+/**随机文本
+ * [line] 需要获取的行数*/
+fun getRandomText(
+    line: Int = Random.nextInt(1, 3),
+    count: Int = Random.nextInt(0, 3)
+) = buildString {
+    for (i in 0 until line) {
+        if (i == 0) {
+            append("angcyo")
+        } else {
+            appendLine()
+        }
+        append(randomString(count))
+    }
+}
