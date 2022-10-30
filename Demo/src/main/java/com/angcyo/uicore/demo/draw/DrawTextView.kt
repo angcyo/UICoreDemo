@@ -10,6 +10,7 @@ import com.angcyo.canvas.utils.createPaint
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.textHeight
 import com.angcyo.library.ex.textWidth
+import kotlin.math.absoluteValue
 
 /**
  *
@@ -34,7 +35,7 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
         super.onSizeChanged(w, h, oldw, oldh)
     }
 
-    var curvature = 0f//曲度[0~90]
+    var curvature = 0f//曲度[-90~90]
 
     val textRect = RectF()
 
@@ -71,7 +72,7 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
         val textHeight = paint.textHeight()
         val textCenterX = w / 2f
 
-        val c = curvature / 90
+        val c = curvature.absoluteValue / 90
         dx = textWidth / 2 / 2 * c
         dy = dx / 2 * c
 
@@ -82,7 +83,11 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
             h + dx + dy
         )
 
-        textPath.addArc(textRect, -180f, 180f)
+        if (curvature >= 0) {
+            textPath.addArc(textRect, -180f, 180f)
+        } else {
+            textPath.addArc(textRect, 0f, 180f)
+        }
     }
 
 }
