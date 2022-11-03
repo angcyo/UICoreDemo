@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
@@ -858,6 +859,12 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                     canvasView?.canvasDelegate?.showRectBounds(it, offsetRectTop = true)
                 }
             }
+        }
+
+        onIViewEvent = { iView, event ->
+            val enable = event == Lifecycle.Event.ON_DESTROY
+            _vh.enable(R.id.lib_title_wrap_layout, enable)
+            _vh.enable(R.id.device_tip_wrap_layout, enable)
         }
     }
 
