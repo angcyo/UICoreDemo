@@ -862,7 +862,9 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
         }
 
         onIViewEvent = { iView, event ->
+            val start = event == Lifecycle.Event.ON_START
             val destroy = event == Lifecycle.Event.ON_DESTROY
+
             if (destroy) {
                 _vh.enable(R.id.lib_title_wrap_layout, null)
                 _vh.enable(R.id.device_tip_wrap_layout, null)
