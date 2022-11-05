@@ -63,6 +63,8 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
     var dx = 0f
     var dy = 0f
 
+    var offsetX = 0f
+
     fun rebuild() {
         val w = measuredWidth
         val h = measuredHeight / 2
@@ -72,14 +74,16 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
         val textHeight = paint.textHeight()
         val textCenterX = w / 2f
 
-        val c = curvature.absoluteValue / 90
+        val c = curvature.absoluteValue / 90 //弯曲比例
         dx = textWidth / 2 / 2 * c
         dy = dx / 2 * c
 
+        //offsetX = dx * c
+
         textRect.set(
-            textCenterX - textWidth / 2 + dx,
+            textCenterX - textWidth / 2 + dx - offsetX / 2,
             h - 1f - dx - dy,
-            textCenterX + textWidth / 2 - dx,
+            textCenterX + textWidth / 2 - dx + offsetX / 2,
             h + dx + dy
         )
 
