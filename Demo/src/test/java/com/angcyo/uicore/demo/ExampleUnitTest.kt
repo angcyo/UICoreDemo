@@ -237,4 +237,20 @@ class ExampleUnitTest {
         }
     }
 
+    @Test
+    fun testPick() {
+        val text =
+            "[120.211942, 30.175489],[120.21192, 30.173652],[120.214495, 30.173912],[120.214538, 30.17547],[120.211942, 30.175489],"
+        val regex = "(?<=\\[)[^\\[\\]]+(?=\\])"
+
+        var index = 0
+        val matcher = regex.toPattern().matcher(text)
+        while (matcher.find()) {
+            print("${index++}->")
+            println(matcher.group())
+        }
+
+        println("...")
+    }
+
 }
