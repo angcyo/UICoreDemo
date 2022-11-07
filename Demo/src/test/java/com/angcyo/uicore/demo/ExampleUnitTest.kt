@@ -257,4 +257,11 @@ class ExampleUnitTest {
         println("end...")
     }
 
+    @Test
+    fun testBinary() {
+        val buildString = StringBuilder()
+        buildString.append("01010101")
+        println(buildString.toString().toByte(2))
+    }
+
 }
