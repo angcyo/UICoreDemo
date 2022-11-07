@@ -7,7 +7,7 @@ apply from: allGradle.saveStream
 apply from: allGradle.statisticsWord
 
 //apply from: "$gradleHost/master/init.gradle"
-//apply from: "$gradleHost/master/discardCache.gradle"
+//apply from: "$gradleHost/master/discardCache.gradle" //禁用缓存?
 
 buildscript {
     /*ext {
