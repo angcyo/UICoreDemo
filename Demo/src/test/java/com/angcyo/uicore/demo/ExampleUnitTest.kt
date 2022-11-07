@@ -243,6 +243,10 @@ class ExampleUnitTest {
             "[120.211942, 30.175489],[120.21192, 30.173652],[120.214495, 30.173912],[120.214538, 30.17547],[120.211942, 30.175489],"
         val regex = "(?<=\\[)[^\\[\\]]+(?=\\])"
 
+        regex.toRegex().findAll(text).forEachIndexed { index, matchResult ->
+            println("$index -> ${matchResult.range} ${matchResult.value}")
+        }
+
         var index = 0
         val matcher = regex.toPattern().matcher(text)
         while (matcher.find()) {
@@ -250,7 +254,7 @@ class ExampleUnitTest {
             println(matcher.group())
         }
 
-        println("...")
+        println("end...")
     }
 
 }
