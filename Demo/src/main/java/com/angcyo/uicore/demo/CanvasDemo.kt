@@ -21,7 +21,9 @@ import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
 import com.angcyo.bluetooth.fsc.laserpacker.command.EngravePreviewCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.FileModeCmd
+import com.angcyo.bluetooth.fsc.laserpacker.command.QueryCmd
 import com.angcyo.bluetooth.fsc.laserpacker.parse.FileTransferParser
+import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryLogParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
 import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasDelegate
@@ -727,6 +729,20 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                                             )
                                         )
                                     })
+                                }
+                            }
+                        }
+                        //
+                        addDialogItem {
+                            itemText = "查询机器日志"
+                            itemClick = {
+                                QueryCmd.log.enqueue { bean, error ->
+                                    if (error == null) {
+                                        bean?.parse<QueryLogParser>()?.let {
+                                            L.i(it)
+                                            toast(it.log)
+                                        }
+                                    }
                                 }
                             }
                         }
