@@ -36,6 +36,7 @@ import com.angcyo.library.component.LibHawkKeys
 import com.angcyo.library.component.RBackground
 import com.angcyo.library.component.lastContext
 import com.angcyo.library.ex.*
+import com.angcyo.library.getAppString
 import com.angcyo.library.isMainProgress
 import com.angcyo.library.utils.Constant
 import com.angcyo.library.utils.appFolderPath
@@ -173,7 +174,13 @@ class App : CoreApplication(), CameraXConfig.Provider {
             des = "格式:x~xx xx~xxx"
             key = LibHawkKeys::lpSupportFirmware.name
             type = String::class.java
-            defValue = LibHawkKeys.lpSupportFirmware
+            defValue = LibHawkKeys.lpSupportFirmware.run {
+                if (isNullOrBlank()) {
+                    getAppString("lp_support_firmware")
+                } else {
+                    this
+                }
+            }
         }
 
         //---
