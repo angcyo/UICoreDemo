@@ -14,6 +14,7 @@ import com.angcyo.library.L
 import com.angcyo.library.component.DslShortcut
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component.dslShortcut
+import com.angcyo.library.getAppString
 import com.angcyo.library.utils.RUtils
 import com.angcyo.library.utils.checkApkExist
 import com.angcyo.uicore.activity.NfcInfoDemo
@@ -139,6 +140,7 @@ class MainActivity : BasePermissionsActivity() {
 
     override fun onResume() {
         super.onResume()
+        L.i("本机ip:${getAppString("local_ip")}")
         //densityAdapter(750, 2f)
         //densityRestore()
         //densityAdapterFrom(2183)
