@@ -168,6 +168,14 @@ class App : CoreApplication(), CameraXConfig.Provider {
             defValue = LibHawkKeys.lastSlipSpace
         }
 
+        DebugFragment.addDebugAction {
+            label = "固件支持范围"
+            des = "格式:x~xx xx~xxx"
+            key = LibHawkKeys::lpSupportFirmware.name
+            type = String::class.java
+            defValue = LibHawkKeys.lpSupportFirmware
+        }
+
         //---
 
         //font
