@@ -740,7 +740,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                                     if (error == null) {
                                         bean?.parse<QueryLogParser>()?.let {
                                             L.i(it)
-                                            toast(it.log)
+                                            toast(it.log ?: "no log!")
                                         }
                                     }
                                 }
