@@ -52,8 +52,8 @@ fun blockTest() {
 
 /**并发协程测试*/
 fun backTest() {
-    launchGlobal(Dispatchers.Main + CoroutineErrorHandler {
-        L.e("自定义捕捉异常:$it")
+    launchGlobal(Dispatchers.Main + CoroutineErrorHandler { context, exception ->
+        L.e("自定义捕捉异常:$exception")
     }) {
 
         val i = try {
