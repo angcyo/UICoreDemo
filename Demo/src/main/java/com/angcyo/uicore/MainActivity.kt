@@ -8,7 +8,9 @@ import android.view.MotionEvent
 import com.angcyo.base.dslFHelper
 import com.angcyo.base.find
 import com.angcyo.core.activity.BasePermissionsActivity
+import com.angcyo.core.component.ScreenShotModel
 import com.angcyo.core.component.model.LanguageModel
+import com.angcyo.core.vmApp
 import com.angcyo.haveTargetFragment
 import com.angcyo.library.L
 import com.angcyo.library.component.DslShortcut
@@ -19,6 +21,8 @@ import com.angcyo.library.utils.RUtils
 import com.angcyo.library.utils.checkApkExist
 import com.angcyo.uicore.activity.NfcInfoDemo
 import com.angcyo.uicore.component.BaiduTraceService
+import com.angcyo.uicore.component.ScreenShotFileObserver
+import com.angcyo.uicore.component.ScreenShotFileObserverManager
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.test.PathTest
 
@@ -138,6 +142,28 @@ class MainActivity : BasePermissionsActivity() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        BaiduTraceService.start(this, BaiduTraceService.FLAG_START)
+        //dslBaiduTrace.startTrace(applicationContext)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        ScreenShotFileObserverManager.registerScreenShotFileObserver(object :
+            ScreenShotFileObserver.ScreenShotLister {
+            override fun finishScreenShot(path: String?) {
+                L.i("finishScreenShot path = $path")
+            }
+
+            override fun beganScreenShot(path: String?) {
+                L.i("beganScreenShot path = $path")
+            }
+        })
+
+        vmApp<ScreenShotModel>().startListen()
+    }
+
     override fun onResume() {
         super.onResume()
         L.i("本机ip:${getAppString("local_ip")}")
@@ -152,10 +178,10 @@ class MainActivity : BasePermissionsActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        BaiduTraceService.start(this, BaiduTraceService.FLAG_START)
-        //dslBaiduTrace.startTrace(applicationContext)
+    override fun onStop() {
+        super.onStop()
+        ScreenShotFileObserverManager.unregisterScreenShotFileObserver()
+        vmApp<ScreenShotModel>().stopListen()
     }
 
     override fun onDestroy() {
