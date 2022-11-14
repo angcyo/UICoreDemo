@@ -17,8 +17,8 @@ class SplashActivity : BaseAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ComplianceCheck.check {
-            //同意合规
-            ComplianceCheck.agree()
+            //同意合规, 在此弹出合规对话框
+            ComplianceCheck.agree()//用户同意之后, 调用此方法
         }
     }
 
