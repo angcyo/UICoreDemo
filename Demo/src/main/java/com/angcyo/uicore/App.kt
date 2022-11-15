@@ -28,6 +28,7 @@ import com.angcyo.download.DslDownload
 import com.angcyo.engrave.auto.AutoEngraveHelper
 import com.angcyo.engrave.ble.CommandActivity
 import com.angcyo.engrave.model.FscDeviceModel
+import com.angcyo.http.gitee.Gitee
 import com.angcyo.item.component.DebugFragment
 import com.angcyo.jpush.JPush
 import com.angcyo.library.annotation.CallComplianceAfter
@@ -106,6 +107,9 @@ class App : CoreApplication(), CameraXConfig.Provider {
 
     override fun onCreateMain() {
         super.onCreateMain()
+
+        //url
+        Gitee.BASE = "https://gitcode.net/angcyo/file/-/raw/master/UICoreDemo"
 
         DslTbs.init(this)
 
