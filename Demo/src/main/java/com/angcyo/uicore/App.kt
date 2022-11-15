@@ -129,7 +129,7 @@ class App : CoreApplication(), CameraXConfig.Provider {
         DeviceSettingFragment.createFirmwareUpdateItemAction = { fragment, adapter ->
             vmApp<LaserPeckerModel>().productInfoData.value?.softwareVersion?.run {
                 DslTextInfoItem().apply {
-                    itemInfoText = "固件版本"
+                    itemInfoText = _string(R.string.firmware_version)
                     itemDarkText = toLaserPeckerVersionName()
                 }
             }
