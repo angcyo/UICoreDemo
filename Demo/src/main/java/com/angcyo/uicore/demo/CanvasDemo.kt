@@ -629,7 +629,11 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 itemHolder.click(R.id.save_button) {
                     canvasView?.canvasDelegate?.apply {
                         loadingAsync({
-                            getCanvasDataBean("save-${nowTimeString()}", 200).let {
+                            getCanvasDataBean(
+                                "save-${nowTimeString()}",
+                                HawkEngraveKeys.projectOutSize,
+                                HawkEngraveKeys.projectOutSize
+                            ).let {
                                 val json = it.toJson()
                                 json.writeTo(
                                     CanvasDataHandleOperate._defaultProjectOutputFile(
