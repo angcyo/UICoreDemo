@@ -12,6 +12,8 @@ import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.base.restore
 import com.angcyo.bluetooth.fsc.FscBleApiModel
+import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
+import com.angcyo.bluetooth.fsc.laserpacker.parse.toLaserPeckerVersionName
 import com.angcyo.bugly.Bugly
 import com.angcyo.canvas.laser.pecker.mode.CanvasOpenModel
 import com.angcyo.canvas.utils.CanvasConstant
@@ -27,9 +29,12 @@ import com.angcyo.crash.sight.CrashSight
 import com.angcyo.download.DslDownload
 import com.angcyo.engrave.auto.AutoEngraveHelper
 import com.angcyo.engrave.ble.CommandActivity
+import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.model.FscDeviceModel
 import com.angcyo.http.gitee.Gitee
+import com.angcyo.item.DslTextInfoItem
 import com.angcyo.item.component.DebugFragment
+import com.angcyo.item.style.itemInfoText
 import com.angcyo.jpush.JPush
 import com.angcyo.library.annotation.CallComplianceAfter
 import com.angcyo.library.component.FontManager
@@ -119,6 +124,16 @@ class App : CoreApplication(), CameraXConfig.Provider {
 
         //website
         AutoEngraveHelper.init()
+
+        //固件升级
+        DeviceSettingFragment.createFirmwareUpdateItemAction = { fragment, adapter ->
+            vmApp<LaserPeckerModel>().productInfoData.value?.softwareVersion?.run {
+                DslTextInfoItem().apply {
+                    itemInfoText = "固件版本"
+                    itemDarkText = toLaserPeckerVersionName()
+                }
+            }
+        }
     }
 
     override fun initCoreApplication() {
