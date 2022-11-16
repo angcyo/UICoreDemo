@@ -42,7 +42,7 @@ abstract class BaseDemoDslFragment : AppDslFragment() {
         text: CharSequence?,
         topInsert: Int = 1 * dpi,
         fragment: Class<out Fragment>? = null,
-        init: DslAdapterItem.() -> Unit = {},
+        init: DslTextInfoItem.() -> Unit = {},
         click: ((View) -> Unit)? = null
     ) {
         this + DslTextInfoItem().apply {

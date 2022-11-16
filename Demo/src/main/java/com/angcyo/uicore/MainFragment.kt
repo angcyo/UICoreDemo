@@ -15,7 +15,10 @@ import com.angcyo.behavior.refresh.ScaleHeaderRefreshEffectConfig
 import com.angcyo.core.activity.BaseCoreAppCompatActivity
 import com.angcyo.core.component.fileSelector
 import com.angcyo.core.dslitem.DslLastDeviceInfoItem
+import com.angcyo.download.giteeVersionChange
+import com.angcyo.download.version.VersionChangeFragment
 import com.angcyo.dsladapter.DslAdapter
+import com.angcyo.engrave.loadingAsync
 import com.angcyo.github.window.dslFloatWindow
 import com.angcyo.http.ApiKt
 import com.angcyo.http.dslHttp
@@ -24,6 +27,7 @@ import com.angcyo.item.component.DebugFragment
 import com.angcyo.item.style.itemInfoText
 import com.angcyo.library.L
 import com.angcyo.library.ex.*
+import com.angcyo.library.getAppVersionName
 import com.angcyo.library.toastQQ
 import com.angcyo.library.utils.FileUtils
 import com.angcyo.library.utils.RUtils
@@ -288,7 +292,27 @@ class MainFragment : BaseDemoDslFragment() {
 
     /**渲染demo*/
     fun DslAdapter.renderDemo(savedInstanceState: Bundle?) {
-        renderDemoListItem("FragmentInFragmentDemo", 10.toDpi()) {
+
+        renderDemoListItem("Version", 10.toDpi(), init = {
+            itemDarkText = getAppVersionName()
+        }) {
+            loadingAsync({
+                //版本更新记录
+                sync<Unit> { countDownLatch, atomicReference ->
+                    giteeVersionChange() { list, error ->
+                        if (!list.isListEmpty()) {
+                            VersionChangeFragment.versionChangeList = list
+                            dslFHelper {
+                                show(VersionChangeFragment::class)
+                            }
+                        }
+                        countDownLatch.countDown()
+                    }
+                }
+            })
+        }
+
+        renderDemoListItem("FragmentInFragmentDemo") {
             dslAHelper {
                 start(FragmentInFragmentActivity::class.java)
             }
