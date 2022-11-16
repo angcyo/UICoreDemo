@@ -47,7 +47,6 @@ import com.angcyo.library.isMainProgress
 import com.angcyo.library.utils.Constant
 import com.angcyo.library.utils.appFolderPath
 import com.angcyo.library.utils.storage.sdDocumentFolderPath
-import com.angcyo.library.utils.storage.sdDownloadFolderPath
 import com.angcyo.objectbox.DslBox
 import com.angcyo.objectbox.laser.pecker.LPBox
 import com.angcyo.server.DslAndServer
@@ -203,11 +202,6 @@ class App : CoreApplication(), CameraXConfig.Provider {
         }
 
         //---
-
-        //font
-        val fontsFolderPath =
-            sdDownloadFolderPath("${LPBox.DB_NAME}/${FontManager.DEFAULT_FONT_FOLDER_NAME}")
-        FontManager.defaultCustomFontFolder = fontsFolderPath
 
         //cache config
         vmApp<CacheModel>().apply {
