@@ -812,6 +812,11 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        GraphicsHelper.restoreLocation()
+    }
+
     fun loadSvgDrawable(): Pair<String, SharpDrawable> {
         val resId = svgResList.randomGetOnce()!!
         val text = fContext().readResource(resId)
