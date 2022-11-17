@@ -81,7 +81,7 @@ import com.angcyo.library.utils.fileNameTime
 import com.angcyo.library.utils.fileNameUUID
 import com.angcyo.library.utils.writeTo
 import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
-import com.angcyo.server.file.bindFileServer
+import com.angcyo.server.bindFileServer
 import com.angcyo.svg.Svg
 import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
 import com.angcyo.uicore.base.AppDslFragment
