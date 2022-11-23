@@ -114,6 +114,22 @@ object AppDebugHelper {
             type = Int::class.java
             defValue = HawkEngraveKeys.showDeviceFilterCount
         }
+
+        DebugFragment.addDebugAction {
+            label = "传输数据大小限制"
+            des = "限制最大发送给机器的数据量大小(字节)"
+            key = HawkEngraveKeys::maxTransferDataSize.name
+            type = Long::class.java
+            defValue = HawkEngraveKeys.maxTransferDataSize
+        }
+
+        DebugFragment.addDebugAction {
+            label = "外部打开文件大小限制"
+            des = "限制最大打开的文件大小(字节)"
+            key = HawkEngraveKeys::openFileDataSize.name
+            type = Long::class.java
+            defValue = HawkEngraveKeys.openFileDataSize
+        }
     }
 
     @CallPoint
