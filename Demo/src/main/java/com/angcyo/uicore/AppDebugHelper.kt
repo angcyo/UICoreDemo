@@ -190,13 +190,13 @@ object AppDebugHelper {
                 )
             )
             addCacheInfo(CacheInfo("字体缓存", "导入的自定义字体", FontManager.defaultCustomFontFolder))
-            addCacheInfo(
+            /*addCacheInfo(
                 CacheInfo(
                     "LaserPecker外部缓存",
                     "卸载重新可恢复的数据",
                     sdDocumentFolderPath(LPBox.DB_NAME)
                 )
-            )
+            )*/
         }
     }
 
