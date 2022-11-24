@@ -813,6 +813,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
     override fun onDestroy() {
         super.onDestroy()
+        engraveFlowLayoutHelper.loopCheckDeviceState = false
         GraphicsHelper.restoreLocation()
     }
 
