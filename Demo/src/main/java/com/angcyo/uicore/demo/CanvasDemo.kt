@@ -674,7 +674,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                     if (selectedRenderer is DataItemRenderer) {
                         val renderItem = selectedRenderer.getRendererRenderItem()
                         if (renderItem is DataPathItem) {
-                            pathList = renderItem.dataPathList
+                            pathList = renderItem.drawPathList
                         }
                     }
                     fContext().itemsDialog {
