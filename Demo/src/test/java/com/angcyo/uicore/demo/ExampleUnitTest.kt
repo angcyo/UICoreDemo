@@ -7,6 +7,7 @@ import com.angcyo.library.ex.*
 import com.angcyo.uicore.test.PathTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import kotlin.math.pow
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -264,4 +265,38 @@ class ExampleUnitTest {
         println(buildString.toString().toByte(2))
     }
 
+    /**3个点, 求圆心*/
+    @Test
+    fun testCenterOfCircle() {
+        val p1x = 0f
+        val p1y = 0f
+        val p2x = 50f
+        val p2y = -50f
+        val p3x = 100f
+        val p3y = 0f
+
+        val tempA1: Float = p1x - p2x
+        val tempA2: Float = p3x - p2x
+        val tempB1: Float = p1y - p2y
+        val tempB2: Float = p3y - p2y
+        val tempC1: Float = ((p1x.toDouble().pow(2.0) - p2x.toDouble()
+            .pow(2.0) + p1y.toDouble()
+            .pow(2.0) - p2y.toDouble()
+            .pow(2.0)) / 2).toFloat()
+        val tempC2: Float = ((p3x.toDouble().pow(2.0) - p2x.toDouble()
+            .pow(2.0) + p3y.toDouble()
+            .pow(2.0) - p2y.toDouble().pow(2.0)) / 2).toFloat()
+        val temp: Float = tempA1 * tempB2 - tempA2 * tempB1
+        val x: Float
+        val y: Float
+        if (temp == 0f) {
+            x = p1x
+            y = p1y
+        } else {
+            x = (tempC1 * tempB2 - tempC2 * tempB1) / temp
+            y = (tempA1 * tempC2 - tempA2 * tempC1) / temp
+        }
+
+        println("圆心: x:${x} y:${y}")
+    }
 }

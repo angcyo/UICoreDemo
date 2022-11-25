@@ -1,9 +1,6 @@
 package com.angcyo.uicore.demo
 
-import android.graphics.Matrix
-import android.graphics.Path
-import android.graphics.PathMeasure
-import android.graphics.RectF
+import android.graphics.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.angcyo.canvas.core.BoundsOperateHandler
@@ -12,6 +9,7 @@ import com.angcyo.library.ex.eachPath
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.math.pow
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -110,5 +108,44 @@ class ExampleInstrumentedTest {
         }
 
         println("---")
+    }
+
+    /**3个点, 求圆心
+     * https://www.cnblogs.com/jason-star/archive/2013/04/22/3036130.html
+     * https://stackoverflow.com/questions/4103405/what-is-the-algorithm-for-finding-the-center-of-a-circle-from-three-points
+     * */
+    @Test
+    fun testCenterOfCircle() {
+        val p1 = PointF(0f, 0f)
+        val p2 = PointF(50f, 0f)
+        val p3 = PointF(100f, 0f)
+
+        val startPoint = p1
+        val secondPoint = p2
+        val endPoint = p3
+
+        val tempA1: Float = startPoint.x - secondPoint.x
+        val tempA2: Float = endPoint.x - secondPoint.x
+        val tempB1: Float = startPoint.y - secondPoint.y
+        val tempB2: Float = endPoint.y - secondPoint.y
+        val tempC1: Float = ((startPoint.x.toDouble().pow(2.0) - secondPoint.x.toDouble()
+            .pow(2.0) + startPoint.y.toDouble()
+            .pow(2.0) - secondPoint.y.toDouble()
+            .pow(2.0)) / 2).toFloat()
+        val tempC2: Float = ((endPoint.x.toDouble().pow(2.0) - secondPoint.x.toDouble()
+            .pow(2.0) + endPoint.y.toDouble()
+            .pow(2.0) - secondPoint.y.toDouble().pow(2.0)) / 2).toFloat()
+        val temp: Float = tempA1 * tempB2 - tempA2 * tempB1
+        val x: Float
+        val y: Float
+        if (temp == 0f) {
+            x = startPoint.x
+            y = startPoint.y
+        } else {
+            x = (tempC1 * tempB2 - tempC2 * tempB1) / temp
+            y = (tempA1 * tempC2 - tempA2 * tempC1) / temp
+        }
+
+        println("圆心: x:${x} y:${y}")
     }
 }

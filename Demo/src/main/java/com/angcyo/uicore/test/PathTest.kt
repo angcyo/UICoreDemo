@@ -1,10 +1,12 @@
 package com.angcyo.uicore.test
 
 import android.graphics.Path
+import android.graphics.PointF
 import android.graphics.RectF
 import com.angcyo.library.L
 import com.angcyo.library.utils.storage.haveSdCardPermission
 import kotlin.math.atan
+import kotlin.math.pow
 import kotlin.math.sqrt
 import kotlin.math.tan
 
@@ -15,16 +17,50 @@ import kotlin.math.tan
 object PathTest {
 
     fun test() {
-        testOvalIntersect()
-        testMaxRectInOval()
+        //testOvalIntersect()
+        //testMaxRectInOval()
+        //testCenterOfCircle()
 
         val have = haveSdCardPermission()
-
         L.i(have)
         /*val def = sdFolderPath()
         val def2 = sdFolderPath("test")
         L.i(def)
         L.i(def2)*/
+    }
+
+    fun testCenterOfCircle() {
+        val p1 = PointF(0f, 0f)
+        val p2 = PointF(50f, 0f)
+        val p3 = PointF(100f, 0f)
+
+        val startPoint = p1
+        val secondPoint = p2
+        val endPoint = p3
+
+        val tempA1: Float = startPoint.x - secondPoint.x
+        val tempA2: Float = endPoint.x - secondPoint.x
+        val tempB1: Float = startPoint.y - secondPoint.y
+        val tempB2: Float = endPoint.y - secondPoint.y
+        val tempC1: Float = ((startPoint.x.toDouble().pow(2.0) - secondPoint.x.toDouble()
+            .pow(2.0) + startPoint.y.toDouble()
+            .pow(2.0) - secondPoint.y.toDouble()
+            .pow(2.0)) / 2).toFloat()
+        val tempC2: Float = ((endPoint.x.toDouble().pow(2.0) - secondPoint.x.toDouble()
+            .pow(2.0) + endPoint.y.toDouble()
+            .pow(2.0) - secondPoint.y.toDouble().pow(2.0)) / 2).toFloat()
+        val temp: Float = tempA1 * tempB2 - tempA2 * tempB1
+        val x: Float
+        val y: Float
+        if (temp == 0f) {
+            x = startPoint.x
+            y = startPoint.y
+        } else {
+            x = (tempC1 * tempB2 - tempC2 * tempB1) / temp
+            y = (tempA1 * tempC2 - tempA2 * tempC1) / temp
+        }
+
+        println("圆心: x:${x} y:${y}")
     }
 
     fun testOvalIntersect() {
