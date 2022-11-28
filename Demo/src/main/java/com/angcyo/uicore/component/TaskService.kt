@@ -45,6 +45,7 @@ open class TaskService : Service() {
 
     /**触发Alarm广播*/
     lateinit var pendingIntent: PendingIntent
+
     /**Alarm广播接收*/
     lateinit var alarmReceiver: BroadcastReceiver
 
@@ -56,7 +57,7 @@ open class TaskService : Service() {
             this,
             0,
             Intent(ACTION),
-            PendingIntent.FLAG_UPDATE_CURRENT
+             PendingIntent.FLAG_UPDATE_CURRENT
         )
         alarmReceiver = AlarmReceiver()
         registerReceiver(alarmReceiver, IntentFilter(ACTION))
