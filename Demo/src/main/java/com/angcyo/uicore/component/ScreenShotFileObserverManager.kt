@@ -39,14 +39,14 @@ object ScreenShotFileObserverManager {
      * 注册内容监听
      */
     fun registerScreenShotFileObserver(lister: ScreenShotFileObserver.ScreenShotLister) {
-        L.i("registerScreenShotFileObserver")
-        L.i("screenshot_root_path = $SCREENSHOT_ROOT_PATH")
-        L.i("screenshot_path = $screenshot_path")
+        //L.i("registerScreenShotFileObserver")
+        //L.i("screenshot_root_path = $SCREENSHOT_ROOT_PATH")
+        //L.i("screenshot_path = $screenshot_path")
         screenShotFileObserver = screenShotFileObserver ?: let {
             for (keyword in KEYWORDS) {
                 val s = SCREENSHOT_ROOT_PATH.plus(keyword)
-                L.i("搜查 keyword = $keyword")
-                L.i("s = $s")
+                //L.i("搜查 keyword = $keyword")
+                //L.i("s = $s")
                 if (File(s).exists()) {
                     screenshot_path = s.plus(File.separator)// 找到了截图文件夹
                     L.i("找到了截图文件夹 path = $screenshot_path")
