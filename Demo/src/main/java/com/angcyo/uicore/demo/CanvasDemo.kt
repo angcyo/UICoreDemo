@@ -566,7 +566,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                                 dpi = LaserPeckerHelper.DPI_254
                             )
                         )
-                        L.i(entityList)
+                        L.w(entityList)
                     })
                 }
 
