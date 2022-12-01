@@ -41,7 +41,7 @@ class DoodleDemo : AppDslFragment() {
         super.initBaseView(savedInstanceState)
 
         renderDslAdapter {
-            bindItem(R.layout.doodle_layout) { itemHolder, itemPosition, adapterItem, payloads ->
+            bindItem(R.layout.demo_doodle_layout) { itemHolder, itemPosition, adapterItem, payloads ->
                 val doodleView = itemHolder.v<DoodleView>(R.id.doodle_view)
                 val doodleDelegate = doodleView?.doodleDelegate
 

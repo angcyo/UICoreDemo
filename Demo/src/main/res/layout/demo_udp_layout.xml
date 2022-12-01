@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/lib_hdpi">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/broadcast_wrap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.angcyo.widget.edit.DslEditText
+            android:id="@+id/broadcast_address_edit"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="UDP广播地址"
+            android:text="255.255.255.255" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/content_wrap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        app:layout_constraintTop_toBottomOf="@id/broadcast_wrap_layout">
+
+        <com.angcyo.widget.edit.DslEditText
+            android:id="@+id/content_edit"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="发送的内容"
+            android:text="Hello" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:id="@+id/flow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        app:layout_constraintTop_toBottomOf="@id/content_wrap_layout"
+        app:r_flow_item_horizontal_space="@dimen/lib_hdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_hdpi">
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/broadcast_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="发送广播" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/broadcast_listener_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="监听广播" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/result_text_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="..."
+        app:layout_constraintTop_toBottomOf="@id/flow_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
