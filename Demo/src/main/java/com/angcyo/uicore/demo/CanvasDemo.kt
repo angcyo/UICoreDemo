@@ -38,6 +38,7 @@ import com.angcyo.canvas.graphics.addTextRender
 import com.angcyo.canvas.items.data.DataItemRenderer
 import com.angcyo.canvas.items.data.DataPathItem
 import com.angcyo.canvas.laser.pecker.CanvasLayoutHelper
+import com.angcyo.canvas.laser.pecker.activity.ProjectListFragment
 import com.angcyo.canvas.laser.pecker.mode.CanvasOpenModel
 import com.angcyo.canvas.laser.pecker.openCanvasFile
 import com.angcyo.canvas.utils.CanvasConstant
@@ -481,6 +482,13 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 itemHolder.click(R.id.version_button) {
                     vmApp<LaserPeckerModel>().productInfoData.value?.let {
                         itemHolder.tv(R.id.result_text_view)?.text = "$it"
+                    }
+                }
+
+                //项目列表
+                itemHolder.click(R.id.project_button) {
+                    dslFHelper {
+                        show(ProjectListFragment::class)
                     }
                 }
 
