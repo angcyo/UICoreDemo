@@ -12,11 +12,14 @@ import com.angcyo.core.component.ScreenShotModel
 import com.angcyo.core.component.model.LanguageModel
 import com.angcyo.core.vmApp
 import com.angcyo.download.giteeVersionUpdate
+import com.angcyo.engrave.transition.EngraveTransitionManager
 import com.angcyo.haveTargetFragment
 import com.angcyo.library.L
 import com.angcyo.library.component.DslShortcut
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component.dslShortcut
+import com.angcyo.library.ex.toByteArray
+import com.angcyo.library.ex.trimAndPad
 import com.angcyo.library.getAppString
 import com.angcyo.library.utils.RUtils
 import com.angcyo.library.utils.checkApkExist
@@ -173,6 +176,11 @@ class MainActivity : BasePermissionsActivity() {
         //densityRestore()
         //densityAdapterFrom(2183)
         BaiduTraceService.start(this, BaiduTraceService.FLAG_RESUME)
+
+        //val number = EngraveTransitionManager.generateEngraveIndex()
+        //val b1 = number.toByteArray(4)
+        //val b2 = "$number".toByteArray().trimAndPad(4)
+
         try {
             PathTest.test()
         } catch (e: Exception) {
