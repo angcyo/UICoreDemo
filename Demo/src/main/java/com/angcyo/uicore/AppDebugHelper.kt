@@ -20,8 +20,6 @@ import com.angcyo.library.component.lastContext
 import com.angcyo.library.getAppString
 import com.angcyo.library.utils.Constant
 import com.angcyo.library.utils.appFolderPath
-import com.angcyo.library.utils.storage.sdDocumentFolderPath
-import com.angcyo.objectbox.laser.pecker.LPBox
 import com.angcyo.server.DslAndServer
 import com.angcyo.server.bindFileServer
 import com.angcyo.websocket.service.bindLogWSServer
@@ -94,13 +92,27 @@ object AppDebugHelper {
         }
 
         DebugFragment.addDebugAction {
-            label = "固件支持范围"
+            label = "创作功能固件支持范围"
             des = "格式:x~xx xx~xxx"
             key = LibHawkKeys::lpSupportFirmware.name
             type = String::class.java
             defValue = LibHawkKeys.lpSupportFirmware.run {
                 if (isNullOrBlank()) {
                     getAppString("lp_support_firmware")
+                } else {
+                    this
+                }
+            }
+        }
+
+        DebugFragment.addDebugAction {
+            label = "多文件雕刻固件范围"
+            des = "格式:x~xx xx~xxx"
+            key = HawkEngraveKeys::batchEngraveSupportFirmware.name
+            type = String::class.java
+            defValue = HawkEngraveKeys.batchEngraveSupportFirmware.run {
+                if (isNullOrBlank()) {
+                    getAppString("lp_batch_engrave_firmware")
                 } else {
                     this
                 }
