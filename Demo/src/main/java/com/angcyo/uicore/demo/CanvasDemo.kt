@@ -387,7 +387,6 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                     }
                 }
 
-                //雕刻预览
                 var cmdString: String = ""
                 val receiveAction: IReceiveBeanAction = { bean, error ->
                     val text = span {
@@ -415,6 +414,23 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                     vmApp<LaserPeckerModel>().queryDeviceState()
                 }
 
+                //结束预览
+                itemHolder.click(R.id.preview_stop_button) {
+                    val cmd = EngravePreviewCmd.previewStopCmd()
+                    cmdString = cmd.toHexCommandString()
+                    //LaserPeckerHelper.sendCommand(cmd, action = receiveAction)
+                    cmd.enqueue(action = receiveAction)
+                }
+
+                //退出指令
+                itemHolder.click(R.id.exit_button) {
+                    val cmd = ExitCmd()
+                    cmdString = cmd.toHexCommandString()
+                    //LaserPeckerHelper.sendCommand(cmd, action = receiveAction)
+                    cmd.enqueue(action = receiveAction)
+                }
+
+                //雕刻预览
                 itemHolder.click(R.id.engrave_preview_button) {
                     if (engraveFlowLayoutHelper.isAttach()) {
                         return@click
@@ -433,6 +449,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                     //安全提示弹窗
                     engraveFlowLayoutHelper.showSafetyTips(fContext()) {
                         //如果有第三轴, 还需要检查对应的配置
+                        engraveFlowLayoutHelper.flowTaskId = uuid()
                         engraveFlowLayoutHelper.startPreview()
                         engraveFlowLayoutHelper.showIn(
                             this@CanvasDemo,
@@ -441,28 +458,13 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                     }
                 }
 
-                //结束预览
-                itemHolder.click(R.id.preview_stop_button) {
-                    val cmd = EngravePreviewCmd.previewStopCmd()
-                    cmdString = cmd.toHexCommandString()
-                    //LaserPeckerHelper.sendCommand(cmd, action = receiveAction)
-                    cmd.enqueue(action = receiveAction)
-                }
-
-                //退出指令
-                itemHolder.click(R.id.exit_button) {
-                    val cmd = ExitCmd()
-                    cmdString = cmd.toHexCommandString()
-                    //LaserPeckerHelper.sendCommand(cmd, action = receiveAction)
-                    cmd.enqueue(action = receiveAction)
-                }
-
                 //雕刻
                 itemHolder.click(R.id.engrave_button) {
                     if (engraveFlowLayoutHelper.isAttach()) {
                         return@click
                     }
                     canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
+                        engraveFlowLayoutHelper.flowTaskId = uuid()
                         engraveFlowLayoutHelper.engraveFlow =
                             BaseFlowLayoutHelper.ENGRAVE_FLOW_TRANSFER_BEFORE_CONFIG
                         engraveFlowLayoutHelper.showIn(this@CanvasDemo)
@@ -638,7 +640,6 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                         loadingAsync({
                             getCanvasDataBean(
                                 "save-${nowTimeString()}",
-                                HawkEngraveKeys.projectOutSize,
                                 HawkEngraveKeys.projectOutSize
                             ).let {
                                 val json = it.toJson()
