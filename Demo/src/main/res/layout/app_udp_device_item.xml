@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/lib_xhdpi"
+    android:layout_marginVertical="@dimen/lib_ldpi"
+    tools:layout_gravity="center">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/lib_hdpi">
+
+        <com.angcyo.widget.text.DslTextView
+            android:id="@+id/lib_text_view"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="TextTextTextTextTextTextTextTextTextTextTextTextTextTextTextText" />
+
+        <com.angcyo.widget.text.DslTextView
+            android:id="@+id/lib_des_view"
+            style="@style/LibSubTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/lib_text_view"
+            tools:minHeight="100dp"
+            tools:text="TextTextTextTextTextText" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/send_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/lib_hdpi"
+            android:text="发送数据"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/connect_button"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/connect_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="连接设备"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

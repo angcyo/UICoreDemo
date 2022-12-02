@@ -107,6 +107,7 @@ dependencies {
     implementation project(allModule.websocket)
     implementation project(allModule.engrave_auto)
     //implementation project(allModule.jsEngine)//The minCompileSdk (33) specified in a
+    implementation project(allModule.deviceServer)
 
     //https://github.com/airbnb/lottie-android
     //http://airbnb.io/lottie

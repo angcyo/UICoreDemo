@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="@dimen/lib_hdpi">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -21,11 +21,28 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/content_wrap_layout"
+        android:id="@+id/port_wrap_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/lib_hdpi"
         app:layout_constraintTop_toBottomOf="@id/broadcast_wrap_layout">
+
+        <com.angcyo.widget.edit.DslEditText
+            android:id="@+id/port_edit"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="广播的端口"
+            android:text="9999" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/content_wrap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        app:layout_constraintTop_toBottomOf="@id/port_wrap_layout">
 
         <com.angcyo.widget.edit.DslEditText
             android:id="@+id/content_edit"
@@ -55,6 +72,16 @@
             android:id="@+id/broadcast_listener_button"
             style="@style/DefaultButtonMinStyle"
             android:text="监听广播" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/device_server_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="启动设备服务" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/device_search_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="启动设备发现" />
 
     </com.angcyo.widget.layout.DslFlowLayout>
 

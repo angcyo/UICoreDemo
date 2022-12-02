@@ -1,12 +1,16 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import com.angcyo.core.vmApp
+import com.angcyo.device.DeviceServerHelper
+import com.angcyo.device.client.DeviceDiscoverModel
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.http.rx.doBack
 import com.angcyo.http.rx.doMain
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.library.ex.size
 import com.angcyo.uicore.base.AppDslFragment
+import com.angcyo.uicore.demo.p2p.AppUdpDeviceItem
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.base.string
 import com.angcyo.widget.span.span
@@ -22,23 +26,58 @@ import java.nio.charset.Charset
 class UdpDemo : AppDslFragment() {
 
     /**广播的端口*/
-    val broadcastPort = 9999
+    var broadcastPort = 9999
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
         renderDslAdapter {
             bindItem(R.layout.demo_udp_layout) { itemHolder, itemPosition, adapterItem, payloads ->
                 itemHolder.click(R.id.broadcast_button) {
+                    broadcastPort =
+                        itemHolder.tv(R.id.port_edit).string().toIntOrNull() ?: broadcastPort
                     doBack {
                         sendBroadcast(itemHolder)
                     }
                 }
                 itemHolder.click(R.id.broadcast_listener_button) {
+                    broadcastPort =
+                        itemHolder.tv(R.id.port_edit).string().toIntOrNull() ?: broadcastPort
                     doBack {
                         listenerBroadcast(itemHolder)
                     }
                 }
+                itemHolder.click(R.id.device_server_button) {
+                    DeviceServerHelper.startServer()
+                }
+                itemHolder.click(R.id.device_search_button) {
+                    DeviceServerHelper.startDiscoverServer()
+                }
             }
+        }
+
+        //监听设备发现
+        vmApp<DeviceDiscoverModel>().apply {
+
+            //以前的数据
+            _adapter.renderFooter {
+                for (device in deviceList) {
+                    AppUdpDeviceItem()() {
+                        itemDeviceBean = device
+                    }
+                }
+            }
+
+            //监听新数据
+            deviceFoundData.observe {
+                it?.let { bean ->
+                    _adapter.renderFooter {
+                        AppUdpDeviceItem()() {
+                            itemDeviceBean = bean
+                        }
+                    }
+                }
+            }
+
         }
     }
 
@@ -134,7 +173,12 @@ class UdpDemo : AppDslFragment() {
                 itemHolder.tv(R.id.result_text_view)?.text = e.message
             }
         }
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        DeviceServerHelper.stopServer()
+        DeviceServerHelper.stopDiscoverServer()
     }
 
 }
