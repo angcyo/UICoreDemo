@@ -343,7 +343,8 @@ class MainFragment : BaseDemoDslFragment() {
         renderDemoListItem("LoadingDemo")
         renderDemoListItem("LoadingDemo2 $GO")
         renderDemoListItem("HttpDemo")
-        renderDemoListItem("WifiP2PDemo $GO")
+        renderDemoListItem("WifiP2PDemo")
+        renderDemoListItem("UdpDemo")
         renderDemoListItem("RefreshEffectDemo DslToast")
         renderDemoListItem("RefreshDemo SwipeMenu")
         renderDemoListItem("DslAffectDemo")
@@ -438,7 +439,6 @@ class MainFragment : BaseDemoDslFragment() {
         renderDemoListItem("RectScaleDemo")
         renderDemoListItem("CropImageDemo")
         renderDemoListItem("DoodleDemo")
-        renderDemoListItem("UdpDemo")
         renderDemoListItem("CanvasDemo $GO")
         //https://github.com/sinawangnan7/CurrentActivity
         //renderDemoListItem("CurrentActivityDemo $GO")
