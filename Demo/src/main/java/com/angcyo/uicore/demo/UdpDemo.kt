@@ -52,6 +52,16 @@ class UdpDemo : AppDslFragment() {
         appendln()
     }
 
+    fun Appendable.appendAddress(packet: DatagramPacket) {
+        appendln()
+        append("address:${packet.address}")
+        appendln()
+        append("socketAddress:${packet.socketAddress}")
+        appendln()
+        append("port:${packet.port} offset:${packet.offset} length:${packet.length}")
+        appendln()
+    }
+
     /**发送UDP广播*/
     fun sendBroadcast(itemHolder: DslViewHolder) {
         try {
@@ -76,6 +86,7 @@ class UdpDemo : AppDslFragment() {
                     appendln()
                     append("$address")
                     appendAddress(socket)
+                    appendAddress(data)
                     append("内容:${content}")
                 }
 
@@ -111,6 +122,7 @@ class UdpDemo : AppDslFragment() {
                 itemHolder.tv(R.id.result_text_view)?.text = span {
                     append("接收广播:${buffer.toString(Charset.defaultCharset())}")
                     appendAddress(socket)
+                    appendAddress(data)
                 }
 
                 socket.close()
