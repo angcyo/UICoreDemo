@@ -568,16 +568,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
                 //预处理数据
                 itemHolder.click(R.id.pre_process_button) {
-                    engraveLoadingAsync({
-                        val entityList = EngraveTransitionManager().transitionTransferData(
-                            canvasDelegate!!,
-                            TransferConfigEntity(
-                                name = "Test",
-                                dpi = LaserPeckerHelper.DPI_254
-                            )
-                        )
-                        L.w(entityList)
-                    })
+                    preProcessData(canvasDelegate)
                 }
 
                 //tip
@@ -730,6 +721,13 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                                 }
                             }
                         }
+                        //
+                        addDialogItem {
+                            itemText = "预处理数据"
+                            itemClick = {
+                                preProcessData(canvasDelegate)
+                            }
+                        }
                     }
                 }//end more
 
@@ -789,6 +787,21 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
         super.onDestroy()
         engraveFlowLayoutHelper.loopCheckDeviceState = false
         GraphicsHelper.restoreLocation()
+    }
+
+    /**预处理数据*/
+    fun preProcessData(canvasDelegate: CanvasDelegate?) {
+        canvasDelegate ?: return
+        engraveLoadingAsync({
+            val entityList = EngraveTransitionManager().transitionTransferData(
+                canvasDelegate,
+                TransferConfigEntity(
+                    name = "Test",
+                    dpi = LaserPeckerHelper.DPI_254
+                )
+            )
+            L.w(entityList)
+        })
     }
 
     fun loadSvgDrawable(): Pair<String, SharpDrawable> {
