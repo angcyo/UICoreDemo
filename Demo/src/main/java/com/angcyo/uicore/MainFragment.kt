@@ -18,7 +18,7 @@ import com.angcyo.core.dslitem.DslLastDeviceInfoItem
 import com.angcyo.download.giteeVersionChange
 import com.angcyo.download.version.VersionChangeFragment
 import com.angcyo.dsladapter.DslAdapter
-import com.angcyo.engrave.loadingAsync
+import com.angcyo.engrave.engraveLoadingAsync
 import com.angcyo.github.window.dslFloatWindow
 import com.angcyo.http.ApiKt
 import com.angcyo.http.dslHttp
@@ -296,7 +296,7 @@ class MainFragment : BaseDemoDslFragment() {
         renderDemoListItem("Version", 10.toDpi(), init = {
             itemDarkText = getAppVersionName()
         }) {
-            loadingAsync({
+            engraveLoadingAsync({
                 //版本更新记录
                 sync<Unit> { countDownLatch, atomicReference ->
                     giteeVersionChange() { list, error ->

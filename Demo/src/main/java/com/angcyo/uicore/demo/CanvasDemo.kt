@@ -568,7 +568,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
                 //预处理数据
                 itemHolder.click(R.id.pre_process_button) {
-                    loadingAsync({
+                    engraveLoadingAsync({
                         val entityList = EngraveTransitionManager().transitionTransferData(
                             canvasDelegate!!,
                             TransferConfigEntity(
@@ -589,42 +589,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
                 //test
                 itemHolder.click(R.id.test_button) {
-                    //test(itemHolder, canvasView)
-                    /*dslAHelper {
-                        start(FirmwareUpdateActivity::class)
-                    }*/
-                    /*itemHolder.view(R.id.canvas_device_state_wrap_layout)?.apply {
-                        *//*reveal {
-                            duration = 1_000
-                        }*//*
-                        //clipBoundsAnimator()
-                        clipBoundsAnimatorFromLeft()
-                    }*/
-                    /*fContext().cropDialog {
-                        cropBitmap = BitmapFactory.decodeResource(resources, R.drawable.face)
-                        onCropResultAction = {
-                            it?.let {
-                                canvasView?.canvasDelegate?.addPictureBitmapRenderer(it)
-                            }
-                        }
-                    }*/
-                    /*val path = "/system/fonts/"
-                    val file = path.file()
-                    val list = file.listFiles()
-                    list.logi()*/
-                    /*fContext().canvasRegulateWindow2(it) {
-
-                    }*/
-                    toast("toast-${nowTimeString()}")
-                    /*TransferMonitorEntity::class.box(LPBox.PACKAGE_NAME) {
-                        val count = count()
-                        val result = query().build().find(count - 1, 1)
-                        val list = query().build().find()
-                        L.i()
-                    }*/
-                    /*val monitorEntity =
-                        EngraveFlowDataHelper.getTransferMonitor("180438d6-9b7a-4c33-af76-ded8c5ead288")
-                    L.i()*/
+                    test(itemHolder, canvasView)
                 }
 
                 //启动ws log服务
@@ -637,7 +602,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 //save
                 itemHolder.click(R.id.save_button) {
                     canvasView?.canvasDelegate?.apply {
-                        loadingAsync({
+                        engraveLoadingAsync({
                             getCanvasDataBean(
                                 "save-${nowTimeString()}",
                                 HawkEngraveKeys.projectOutSize
@@ -691,7 +656,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                             itemText = "toStrokeGCode"
                             itemClick = {
                                 pathList?.let {
-                                    this@CanvasDemo.loadingAsync({
+                                    this@CanvasDemo.engraveLoadingAsync({
                                         L.i(
                                             CanvasDataHandleOperate.pathStrokeToGCode(
                                                 pathList,
@@ -707,7 +672,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                             itemText = "toFillGCode"
                             itemClick = {
                                 pathList?.let {
-                                    this@CanvasDemo.loadingAsync({
+                                    this@CanvasDemo.engraveLoadingAsync({
                                         L.i(
                                             CanvasDataHandleOperate.pathFillToGCode(
                                                 pathList,
@@ -723,7 +688,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                             itemText = "toStrokeSvg"
                             itemClick = {
                                 pathList?.let {
-                                    this@CanvasDemo.loadingAsync({
+                                    this@CanvasDemo.engraveLoadingAsync({
                                         L.i(
                                             CanvasDataHandleOperate.pathStrokeToSvg(
                                                 pathList,
@@ -739,7 +704,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                             itemText = "toFillSvg"
                             itemClick = {
                                 pathList?.let {
-                                    this@CanvasDemo.loadingAsync({
+                                    this@CanvasDemo.engraveLoadingAsync({
                                         L.i(
                                             CanvasDataHandleOperate.pathFillToSvg(
                                                 pathList,
@@ -857,6 +822,50 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
         }) {
 
         }*/
+
+        /*dslAHelper {
+                        start(FirmwareUpdateActivity::class)
+                    }*/
+        /*itemHolder.view(R.id.canvas_device_state_wrap_layout)?.apply {
+            *//*reveal {
+                            duration = 1_000
+                        }*//*
+                        //clipBoundsAnimator()
+                        clipBoundsAnimatorFromLeft()
+                    }*/
+        /*fContext().cropDialog {
+            cropBitmap = BitmapFactory.decodeResource(resources, R.drawable.face)
+            onCropResultAction = {
+                it?.let {
+                    canvasView?.canvasDelegate?.addPictureBitmapRenderer(it)
+                }
+            }
+        }*/
+        /*val path = "/system/fonts/"
+        val file = path.file()
+        val list = file.listFiles()
+        list.logi()*/
+        /*fContext().canvasRegulateWindow2(it) {
+
+        }*/
+        //toast("toast-${nowTimeString()}")
+        /*TransferMonitorEntity::class.box(LPBox.PACKAGE_NAME) {
+            val count = count()
+            val result = query().build().find(count - 1, 1)
+            val list = query().build().find()
+            L.i()
+        }*/
+        /*val monitorEntity =
+            EngraveFlowDataHelper.getTransferMonitor("180438d6-9b7a-4c33-af76-ded8c5ead288")
+        L.i()*/
+
+        engraveLoadingAsyncTimeout({
+            val time = 2000L
+            sleep(time)
+            time
+        }) {
+            toast("执行完成...$it")
+        }
     }
 
     //<editor-fold desc="bindCanvasRecyclerView">

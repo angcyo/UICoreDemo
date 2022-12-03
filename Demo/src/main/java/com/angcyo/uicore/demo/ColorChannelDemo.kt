@@ -9,7 +9,7 @@ import com.angcyo.canvas.utils.toEngraveBitmap
 import com.angcyo.component.getPhoto
 import com.angcyo.drawable.PathListDrawable
 import com.angcyo.dsladapter.bindItem
-import com.angcyo.engrave.loadingAsync
+import com.angcyo.engrave.engraveLoadingAsync
 import com.angcyo.library.ex.*
 import com.angcyo.uicore.MainFragment
 import com.angcyo.uicore.base.AppDslFragment
@@ -115,7 +115,7 @@ class ColorChannelDemo : AppDslFragment() {
     fun extractChannel(channel: Int, itemHolder: DslViewHolder) {
         itemHolder.img(R.id.image_view)?.drawable?.let {
             if (it is BitmapDrawable) {
-                loadingAsync({
+                engraveLoadingAsync({
                     val width = it.bitmap.width
                     val height = it.bitmap.height
                     val bytes = it.bitmap.colorChannel(channel)
@@ -140,7 +140,7 @@ class ColorChannelDemo : AppDslFragment() {
     fun extractEngraveChannel(itemHolder: DslViewHolder) {
         itemHolder.img(R.id.image_view)?.drawable?.let {
             if (it is BitmapDrawable) {
-                loadingAsync({
+                engraveLoadingAsync({
                     val width = it.bitmap.width
                     val height = it.bitmap.height
                     val bytes = it.bitmap.colorChannel(Color.RED)
@@ -158,7 +158,7 @@ class ColorChannelDemo : AppDslFragment() {
     fun grayHandle(itemHolder: DslViewHolder) {
         itemHolder.img(R.id.image_view)?.drawable?.let {
             if (it is BitmapDrawable) {
-                loadingAsync({
+                engraveLoadingAsync({
                     it.bitmap.toGrayHandle(
                         if (MainFragment.CLICK_COUNT++ % 2 == 0) {
                             Color.WHITE
@@ -182,7 +182,7 @@ class ColorChannelDemo : AppDslFragment() {
         itemHolder.img(R.id.image_view)?.apply {
             drawable?.let {
                 if (it is BitmapDrawable) {
-                    loadingAsync({
+                    engraveLoadingAsync({
                         it.bitmap.toBlackWhiteHandle(
                             invert = tag != null,
                             alphaBgColor = if (MainFragment.CLICK_COUNT++ % 2 == 0) {
