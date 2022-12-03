@@ -7,6 +7,8 @@ import com.angcyo.device.client.DeviceDiscoverModel
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.http.rx.doBack
 import com.angcyo.http.rx.doMain
+import com.angcyo.library.ex.dpi
+import com.angcyo.library.ex.getWifiIP
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.library.ex.size
 import com.angcyo.uicore.base.AppDslFragment
@@ -27,6 +29,15 @@ class UdpDemo : AppDslFragment() {
 
     /**广播的端口*/
     var broadcastPort = 9999
+
+    init {
+        fragmentTitle = span {
+            appendLine("UdpDemo")
+            append(getWifiIP()) {
+                fontSize = 12 * dpi
+            }
+        }
+    }
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)

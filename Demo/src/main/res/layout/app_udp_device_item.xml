@@ -29,25 +29,65 @@
             tools:minHeight="100dp"
             tools:text="TextTextTextTextTextText" />
 
-        <com.angcyo.widget.DslButton
-            android:id="@+id/send_button"
-            style="@style/DefaultButtonStyleNormal"
+        <com.angcyo.widget.text.DslTextView
+            android:id="@+id/lib_result_view"
+            style="@style/LibSubTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/lib_hdpi"
-            android:text="发送数据"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/connect_button"
-            app:layout_constraintRight_toRightOf="parent" />
+            android:paddingVertical="@dimen/lib_hdpi"
+            app:layout_constraintTop_toBottomOf="@id/lib_des_view"
+            tools:text="TextTextTextTextTextText" />
 
-        <com.angcyo.widget.DslButton
-            android:id="@+id/connect_button"
-            style="@style/DefaultButtonStyleNormal"
-            android:layout_width="wrap_content"
+        <com.angcyo.widget.layout.DslFlowLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="连接设备"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/lib_result_view"
+            app:r_flow_item_horizontal_space="@dimen/lib_ldpi"
+            app:r_flow_item_vertical_space="@dimen/lib_ldpi">
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/connect_button"
+                style="@style/DefaultButtonStyleNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="连接设备" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/device_button"
+                style="@style/DefaultButtonStyleNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设备信息" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/send_5_button"
+                style="@style/DefaultButtonStyleNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发送数据(5MB)" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/send_10_button"
+                style="@style/DefaultButtonStyleNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发送数据(10MB)" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/send_100_button"
+                style="@style/DefaultButtonStyleNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发送数据(100MB)" />
+
+            <com.angcyo.widget.DslButton
+                android:id="@+id/test_button"
+                style="@style/DefaultButtonStyleNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="test" />
+
+        </com.angcyo.widget.layout.DslFlowLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
