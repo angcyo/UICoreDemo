@@ -12,7 +12,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
-import com.angcyo.base.removeThis
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.IReceiveBeanAction
 import com.angcyo.bluetooth.fsc.enqueue
@@ -41,6 +40,8 @@ import com.angcyo.canvas.laser.pecker.CanvasLayoutHelper
 import com.angcyo.canvas.laser.pecker.activity.ProjectListFragment
 import com.angcyo.canvas.laser.pecker.mode.CanvasOpenModel
 import com.angcyo.canvas.laser.pecker.openCanvasFile
+import com.angcyo.canvas.laser.pecker.restoreInstanceState
+import com.angcyo.canvas.laser.pecker.saveInstanceState
 import com.angcyo.canvas.utils.CanvasConstant
 import com.angcyo.canvas.utils.CanvasDataHandleOperate
 import com.angcyo.canvas.utils.engraveMode
@@ -52,7 +53,6 @@ import com.angcyo.core.loadingAsyncTg
 import com.angcyo.core.showIn
 import com.angcyo.core.vmApp
 import com.angcyo.dialog.itemsDialog
-import com.angcyo.dialog.normalIosDialog
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave.*
@@ -103,6 +103,8 @@ import org.jetbrains.annotations.TestOnly
  */
 class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
+    //val restoreProjectPath =
+
     init {
         enableSoftInput = false
     }
@@ -129,7 +131,8 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
         get() = _vh.v<CanvasView>(R.id.canvas_view)
 
     override fun onBackPressed(): Boolean {
-        val backPressed = super.onBackPressed()
+        return super.onBackPressed()
+        /*val backPressed = super.onBackPressed()
         if (backPressed) {
             val count = canvasView?.canvasDelegate?.itemRendererCount ?: 0
             if (count <= 0) {
@@ -149,7 +152,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
             }
         } else {
             return false
-        }
+        }*/
     }
 
     override fun canSwipeBack(): Boolean = false
@@ -781,6 +784,20 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 }
             }
         }
+    }
+
+    override fun onFragmentFirstShow(bundle: Bundle?) {
+        super.onFragmentFirstShow(bundle)
+        //restore
+        _vh.post {
+            canvasDelegate?.restoreInstanceState()
+        }
+    }
+
+    override fun onDestroyView() {
+        //save
+        canvasDelegate?.saveInstanceState()
+        super.onDestroyView()
     }
 
     override fun onDestroy() {
