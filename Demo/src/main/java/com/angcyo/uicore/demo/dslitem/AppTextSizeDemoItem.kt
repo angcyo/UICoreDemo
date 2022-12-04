@@ -2,6 +2,7 @@ package com.angcyo.uicore.demo.dslitem
 
 import android.graphics.Paint
 import com.angcyo.dsladapter.DslAdapterItem
+import com.angcyo.library.annotation.Dp
 import com.angcyo.library.annotation.Pixel
 import com.angcyo.library.ex.*
 import com.angcyo.library.unit.InchValueUnit
@@ -10,6 +11,7 @@ import com.angcyo.library.unit.PointValueUnit
 import com.angcyo.library.unit.unitDecimal
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
+import com.angcyo.widget.base.setTextSizeDp
 import com.angcyo.widget.span.span
 
 /**
@@ -44,7 +46,7 @@ class AppTextSizeDemoItem : DslAdapterItem() {
 
         itemHolder.tv(R.id.lib_text_view)?.apply {
             text = itemDemoText
-            textSize = itemDemoTextSize.toDp()
+            setTextSizeDp(itemDemoTextSize)
         }
 
         //单位切换
@@ -55,14 +57,29 @@ class AppTextSizeDemoItem : DslAdapterItem() {
 
         val w = paint.textWidth("${itemDemoText?.get(0)}")
         val h = paint.textHeight()
-        val size1 = (h.toDpFromPixel() * 0.7535 - 0.00000007).toFloat().toDp()
+        val size1 = (h * 0.7535 - 0.00000007).toFloat()
         val h2 = paint.textBounds("$itemDemoText").height()
-        val size2 = (h2.toDpFromPixel() * 0.7535 - 0.00000007).toFloat().toDp()
+        val size2 = (h2 * 0.7535 - 0.00000007).toFloat()
 
         itemHolder.tv(R.id.lib_des_view)?.text = span {
             append("v:->")
             append(px)
+            appendln()
 
+            val newSize = paint.findNewTextSize(itemDemoText, height = h.toInt())
+            val newSize2 = paint.findNewTextSize(itemDemoText, height = h2)
+
+            @Dp
+            val calcHeight = (dp + 0.00000007) / 0.7535
+            append("<- ${calcHeight.unitDecimal()}dp ${calcHeight.toFloat().toDp()}px")
+            appendln()
+            append("s1:->")
+            append(newSize)
+            appendln()
+            append("s2:->")
+            append(newSize2)
+
+            appendln()
             appendln()
             append("w:->")
             append(w)
