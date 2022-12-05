@@ -68,13 +68,10 @@ import com.angcyo.gcode.GCodeHelper
 import com.angcyo.http.base.toJson
 import com.angcyo.http.rx.doMain
 import com.angcyo.item.component.DebugFragment
-import com.angcyo.library.L
+import com.angcyo.library.*
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component._delay
 import com.angcyo.library.ex.*
-import com.angcyo.library.libCacheFile
-import com.angcyo.library.libFolderPath
-import com.angcyo.library.toast
 import com.angcyo.library.unit.InchValueUnit
 import com.angcyo.library.unit.MmValueUnit
 import com.angcyo.library.unit.PixelValueUnit
@@ -818,6 +815,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 )
             )
             L.w(entityList)
+            toastQQ(entityList.connect { it.index.toStr() })
         })
     }
 
