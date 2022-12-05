@@ -66,8 +66,11 @@ class AppTextSizeDemoItem : DslAdapterItem() {
             append(px)
             appendln()
 
-            val newSize = paint.findNewTextSize(itemDemoText, height = h.toInt())
-            val newSize2 = paint.findNewTextSize(itemDemoText, height = h2)
+            val newSize = paint.findNewTextSizeByLayout(itemDemoText, height = h.toInt())
+            val newSize2 = paint.findNewTextSizeByLayout(itemDemoText, height = h2)
+
+            val newSize_1 = paint.findNewTextSize(h)
+            val newSize2_1 = paint.findNewTextSizeByBounds(itemDemoText, h2)
 
             @Dp
             val calcHeight = (dp + 0.00000007) / 0.7535
@@ -76,8 +79,18 @@ class AppTextSizeDemoItem : DslAdapterItem() {
             append("s1:->")
             append(newSize)
             appendln()
+            append("s1′:->")
+            append(newSize_1)
+
+            appendln()
             append("s2:->")
             append(newSize2)
+
+            appendln()
+            append("s2′:->")
+            append(newSize2_1)
+
+            //---
 
             appendln()
             appendln()
