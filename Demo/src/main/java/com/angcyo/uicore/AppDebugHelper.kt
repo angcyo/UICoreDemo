@@ -142,6 +142,14 @@ object AppDebugHelper {
             type = Long::class.java
             defValue = HawkEngraveKeys.openFileDataSize
         }
+
+        DebugFragment.addDebugAction {
+            label = "激活GCode G2/G3指令输出"
+            des = "矢量图形转GCode算法时,是否激活G2/G3指令"
+            key = LibHawkKeys::enableVectorArc.name
+            type = Boolean::class.java
+            defValue = LibHawkKeys.enableVectorArc
+        }
     }
 
     @CallPoint
