@@ -922,6 +922,10 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
     val _engraveFlowLayoutHelper = EngraveFlowLayoutHelper().apply {
         backPressedDispatcherOwner = this@CanvasDemo
 
+        onStartEngraveAction = {
+            canvasDelegate?.saveInstanceState()
+        }
+
         onEngraveFlowChangedAction = { from, to ->
             //禁止手势
             _vh.v<CanvasView>(R.id.canvas_view)?.canvasDelegate?.engraveMode(to.isEngraveFlow())
@@ -936,6 +940,10 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 }?.let {
                     canvasView?.canvasDelegate?.showRectBounds(it, offsetRectTop = true)
                 }
+            } else if (to == BaseFlowLayoutHelper.ENGRAVE_FLOW_TRANSMITTING ||
+                to == BaseFlowLayoutHelper.ENGRAVE_FLOW_BEFORE_CONFIG
+            ) {
+                canvasDelegate?.saveInstanceState()
             }
         }
 

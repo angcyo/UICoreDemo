@@ -468,7 +468,11 @@ class MainFragment : BaseDemoDslFragment() {
             if (!BaseCoreAppCompatActivity.haveLastCrash && savedInstanceState == null) {
                 //自动跳转至指定Demo
                 if (autoJump && JUMP_TO_LOCK_POSITION) {
-                    _jumpToLockPosition()
+                    if (isDebuggerConnected()) {
+                        //debug
+                    } else {
+                        _jumpToLockPosition()
+                    }
                 }
             }
         }
