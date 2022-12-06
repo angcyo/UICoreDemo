@@ -61,6 +61,7 @@ import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.ble.EngraveHistoryFragment
 import com.angcyo.engrave.ble.bluetoothSearchListDialog
 import com.angcyo.engrave.data.HawkEngraveKeys
+import com.angcyo.engrave.model.EngraveModel
 import com.angcyo.engrave.transition.EngraveTransitionManager
 import com.angcyo.fragment.AbsFragment
 import com.angcyo.gcode.GCodeDrawable
@@ -75,7 +76,6 @@ import com.angcyo.library.ex.*
 import com.angcyo.library.unit.InchValueUnit
 import com.angcyo.library.unit.MmValueUnit
 import com.angcyo.library.unit.PixelValueUnit
-import com.angcyo.library.utils.appFolderPath
 import com.angcyo.library.utils.fileNameTime
 import com.angcyo.library.utils.fileNameUUID
 import com.angcyo.library.utils.writeTo
@@ -781,6 +781,14 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                     }
                 }
             }
+        }
+
+        //首次进来, 检查是否要恢复雕刻进度
+        _vh.postDelay(1_000) {
+            engraveFlowLayoutHelper.checkRestoreEngrave(this)
+            vmApp<EngraveModel>()._listenerEngraveState =
+                vmApp<LaserPeckerModel>().deviceStateData.value?.isModeEngrave() == true
+            engraveFlowLayoutHelper.checkLoopQueryDeviceState()
         }
     }
 
