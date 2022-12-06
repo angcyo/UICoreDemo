@@ -75,6 +75,7 @@ import com.angcyo.library.ex.*
 import com.angcyo.library.unit.InchValueUnit
 import com.angcyo.library.unit.MmValueUnit
 import com.angcyo.library.unit.PixelValueUnit
+import com.angcyo.library.utils.appFolderPath
 import com.angcyo.library.utils.fileNameTime
 import com.angcyo.library.utils.fileNameUUID
 import com.angcyo.library.utils.writeTo
@@ -887,13 +888,25 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
             EngraveFlowDataHelper.getTransferMonitor("180438d6-9b7a-4c33-af76-ded8c5ead288")
         L.i()*/
 
-        engraveLoadingAsyncTimeout({
+        /*engraveLoadingAsyncTimeout({
             val time = 2000L
             sleep(time)
             time
         }) {
             toast("执行完成...$it")
-        }
+        }*/
+
+        /*val list = listOf(appFolderPath())
+        val zip = list.zip()
+        L.i("压缩->${zip}")
+        L.i("解压->${zip?.unzipFile()}")*/
+
+        /*val list = listOf(
+            LogFile.http.toLogFilePath(),
+            DslCrashHandler.currentCrashFile().absolutePath,
+            logPath()
+        )
+        L.i(list.zip())*/
     }
 
     //<editor-fold desc="bindCanvasRecyclerView">
