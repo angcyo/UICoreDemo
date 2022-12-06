@@ -590,6 +590,10 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                     bindLogWSServer()
                     it.isEnabled = false
                 }
+                //分享最后一次的雕刻日志
+                itemHolder.click(R.id.share_log_button) {
+                    EngraveFlowDataHelper.shareEngraveLog()
+                }
 
                 //save
                 itemHolder.click(R.id.save_button) {
