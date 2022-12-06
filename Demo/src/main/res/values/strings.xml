@@ -11,4 +11,6 @@
 
     <string name="canvas_tips">提示</string>
     <string name="canvas_exit_edit">放弃编辑?</string>
+
+    <string name="canvas_open_label">使用UICoreDemo打开</string>
 </resources>
