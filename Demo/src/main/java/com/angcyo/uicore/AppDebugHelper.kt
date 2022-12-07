@@ -150,6 +150,15 @@ object AppDebugHelper {
             type = Boolean::class.java
             defValue = LibHawkKeys.enableVectorArc
         }
+
+        DebugFragment.addDebugAction {
+            label = "透明颜色阈值"
+            des = "当不透明度小于此值时, 视为透明颜色"
+            key = LibHawkKeys::alphaThreshold.name
+            type = Int::class.java
+            defValue = LibHawkKeys.alphaThreshold
+        }
+
     }
 
     @CallPoint
