@@ -450,7 +450,6 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                     //安全提示弹窗
                     engraveFlowLayoutHelper.showSafetyTips(fContext()) {
                         //如果有第三轴, 还需要检查对应的配置
-                        engraveFlowLayoutHelper.flowTaskId = uuid()
                         engraveFlowLayoutHelper.startPreview()
                         engraveFlowLayoutHelper.showIn(
                             this@CanvasDemo,
@@ -465,7 +464,6 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                         return@click
                     }
                     canvasView?.canvasDelegate?.getSelectedRenderer()?.let { renderer ->
-                        engraveFlowLayoutHelper.flowTaskId = uuid()
                         engraveFlowLayoutHelper.engraveFlow =
                             BaseFlowLayoutHelper.ENGRAVE_FLOW_TRANSFER_BEFORE_CONFIG
                         engraveFlowLayoutHelper.showIn(this@CanvasDemo)
