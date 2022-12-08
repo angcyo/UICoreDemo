@@ -61,7 +61,6 @@ import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.ble.EngraveHistoryFragment
 import com.angcyo.engrave.ble.bluetoothSearchListDialog
 import com.angcyo.engrave.data.HawkEngraveKeys
-import com.angcyo.engrave.model.EngraveModel
 import com.angcyo.engrave.transition.EngraveTransitionManager
 import com.angcyo.fragment.AbsFragment
 import com.angcyo.gcode.GCodeDrawable
@@ -786,11 +785,13 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
         }
 
         //首次进来, 检查是否要恢复雕刻进度
-        _vh.postDelay(1_000) {
-            engraveFlowLayoutHelper.checkRestoreEngrave(this)
-            vmApp<EngraveModel>()._listenerEngraveState =
-                vmApp<LaserPeckerModel>().deviceStateData.value?.isModeEngrave() == true
-            engraveFlowLayoutHelper.checkLoopQueryDeviceState()
+        engraveFlowLayoutHelper.laserPeckerModel.initializeData.observe {
+            if (it == true) {
+                engraveFlowLayoutHelper.checkRestoreEngrave(this)
+                engraveFlowLayoutHelper.engraveModel._listenerEngraveState =
+                    engraveFlowLayoutHelper.laserPeckerModel.deviceStateData.value?.isModeEngrave() == true
+                engraveFlowLayoutHelper.checkLoopQueryDeviceState()
+            }
         }
     }
 
