@@ -159,6 +159,13 @@ object AppDebugHelper {
             defValue = LibHawkKeys.alphaThreshold
         }
 
+        DebugFragment.addDebugAction {
+            label = "激活传输数据时的索引检查"
+            des = "关闭后,所有数据直接传输,不检查机器是否已存在数据."
+            key = HawkEngraveKeys::enableTransferIndexCheck.name
+            type = Boolean::class.java
+            defValue = HawkEngraveKeys.enableTransferIndexCheck
+        }
     }
 
     @CallPoint
