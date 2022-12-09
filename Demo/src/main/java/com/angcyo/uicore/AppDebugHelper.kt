@@ -106,20 +106,6 @@ object AppDebugHelper {
         }
 
         DebugFragment.addDebugAction {
-            label = "多文件雕刻固件范围"
-            des = "格式:x~xx xx~xxx"
-            key = HawkEngraveKeys::batchEngraveSupportFirmware.name
-            type = String::class.java
-            defValue = HawkEngraveKeys.batchEngraveSupportFirmware.run {
-                if (isNullOrBlank()) {
-                    getAppString("lp_batch_engrave_firmware")
-                } else {
-                    this
-                }
-            }
-        }
-
-        DebugFragment.addDebugAction {
             label = "激活设备过滤"
             des = "蓝牙搜索列表,设备数量大于多少时,显示过滤布局."
             key = HawkEngraveKeys::showDeviceFilterCount.name
@@ -165,6 +151,14 @@ object AppDebugHelper {
             key = HawkEngraveKeys::enableTransferIndexCheck.name
             type = Boolean::class.java
             defValue = HawkEngraveKeys.enableTransferIndexCheck
+        }
+
+        DebugFragment.addDebugAction {
+            label = "激活第三方GCode数据全转换"
+            des = "激活后,将会重新生成第三方GCode数据,而不是在原始数据基础上修改."
+            key = HawkEngraveKeys::enableGCodeTransform.name
+            type = Boolean::class.java
+            defValue = HawkEngraveKeys.enableGCodeTransform
         }
     }
 
