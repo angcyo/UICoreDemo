@@ -130,14 +130,6 @@ object AppDebugHelper {
         }
 
         DebugFragment.addDebugAction {
-            label = "激活GCode G2/G3指令输出"
-            des = "矢量图形转GCode算法时,是否激活G2/G3指令"
-            key = LibHawkKeys::enableVectorArc.name
-            type = Boolean::class.java
-            defValue = LibHawkKeys.enableVectorArc
-        }
-
-        DebugFragment.addDebugAction {
             label = "透明颜色阈值"
             des = "当不透明度小于此值时, 视为透明颜色"
             key = LibHawkKeys::alphaThreshold.name
@@ -145,7 +137,7 @@ object AppDebugHelper {
             defValue = LibHawkKeys.alphaThreshold
         }
 
-        DebugFragment.addDebugAction {
+        /*DebugFragment.addDebugAction {
             label = "激活传输数据时的索引检查"
             des = "关闭后,所有数据直接传输,不检查机器是否已存在数据."
             key = HawkEngraveKeys::enableTransferIndexCheck.name
@@ -154,12 +146,20 @@ object AppDebugHelper {
         }
 
         DebugFragment.addDebugAction {
+            label = "激活GCode G2/G3指令输出"
+            des = "矢量图形转GCode算法时,是否激活G2/G3指令"
+            key = LibHawkKeys::enableVectorArc.name
+            type = Boolean::class.java
+            defValue = LibHawkKeys.enableVectorArc
+        }
+
+        DebugFragment.addDebugAction {
             label = "激活第三方GCode数据全转换"
             des = "激活后,将会重新生成第三方GCode数据,而不是在原始数据基础上修改."
             key = HawkEngraveKeys::enableGCodeTransform.name
             type = Boolean::class.java
             defValue = HawkEngraveKeys.enableGCodeTransform
-        }
+        }*/
     }
 
     @CallPoint
