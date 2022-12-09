@@ -111,7 +111,7 @@ class ExampleUnitTest {
         println(QueryCmd(2).toHexCommandString())
         println(QueryCmd(3).toHexCommandString())
         println("AA".padHexString(4))
-        println("AA".padHexString(4, false))
+        println("AA".padHexString(4, 1))
         println("AA".toInt(16))
         println("0101".toInt(16))
         println("0000F924".toInt(16))
@@ -298,5 +298,12 @@ class ExampleUnitTest {
         }
 
         println("圆心: x:${x} y:${y}")
+    }
+
+    @Test
+    fun testBit() {
+        val value = 17
+        println(value.toByte().high4Bit())
+        println(value.toByte().low4Bit())
     }
 }
