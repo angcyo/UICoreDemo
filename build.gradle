@@ -26,13 +26,14 @@ buildscript {
 
         //https://maven.aliyun.com/mvn/
         //central仓和jcenter仓的聚合仓
-        maven { url 'https://maven.aliyun.com/repository/public' }
-        maven { url 'https://maven.aliyun.com/repository/google' }
-        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        //maven { url 'https://maven.aliyun.com/repository/public' }
+        //maven { url 'https://maven.aliyun.com/repository/google' }
+        //maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
 
         google()
         //jcenter()
         mavenCentral()
+        maven { url 'https://jcenter.bintray.com' }
 
         //https://repo.maven.apache.org/maven2
         //https://repo1.maven.org/maven2/
@@ -65,10 +66,11 @@ allprojects {
         google()
         //jcenter()
         mavenCentral()
+        maven { url 'https://jcenter.bintray.com' }
 
-        maven { url 'https://maven.aliyun.com/repository/public' }
-        maven { url 'https://maven.aliyun.com/repository/google' }
-        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        //maven { url 'https://maven.aliyun.com/repository/public' }
+        //maven { url 'https://maven.aliyun.com/repository/google' }
+        //maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
 
         //println google().url
         //println mavenCentral().url
