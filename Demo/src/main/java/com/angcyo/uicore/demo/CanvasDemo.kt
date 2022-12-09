@@ -71,6 +71,8 @@ import com.angcyo.item.component.DebugFragment
 import com.angcyo.library.*
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component._delay
+import com.angcyo.library.component.isNotificationsEnabled
+import com.angcyo.library.component.openNotificationSetting
 import com.angcyo.library.ex.*
 import com.angcyo.library.unit.InchValueUnit
 import com.angcyo.library.unit.MmValueUnit
@@ -634,103 +636,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
                 //more
                 itemHolder.click(R.id.more_button) {
-                    val selectedRenderer = canvasDelegate?.getSelectedRenderer()
-                    val rendererBounds = selectedRenderer?.getBounds()
-                    val rendererRotate = selectedRenderer?.rotate
-                    var pathList: List<Path>? = null
-                    if (selectedRenderer is DataItemRenderer) {
-                        val renderItem = selectedRenderer.getRendererRenderItem()
-                        if (renderItem is DataPathItem) {
-                            pathList = renderItem.drawPathList
-                        }
-                    }
-                    fContext().itemsDialog {
-                        addDialogItem {
-                            itemText = "toStrokeGCode"
-                            itemClick = {
-                                pathList?.let {
-                                    this@CanvasDemo.engraveLoadingAsync({
-                                        L.i(
-                                            CanvasDataHandleOperate.pathStrokeToGCode(
-                                                pathList,
-                                                rendererBounds!!,
-                                                rendererRotate!!
-                                            )
-                                        )
-                                    })
-                                }
-                            }
-                        }
-                        addDialogItem {
-                            itemText = "toFillGCode"
-                            itemClick = {
-                                pathList?.let {
-                                    this@CanvasDemo.engraveLoadingAsync({
-                                        L.i(
-                                            CanvasDataHandleOperate.pathFillToGCode(
-                                                pathList,
-                                                rendererBounds!!,
-                                                rendererRotate!!
-                                            )
-                                        )
-                                    })
-                                }
-                            }
-                        }
-                        addDialogItem {
-                            itemText = "toStrokeSvg"
-                            itemClick = {
-                                pathList?.let {
-                                    this@CanvasDemo.engraveLoadingAsync({
-                                        L.i(
-                                            CanvasDataHandleOperate.pathStrokeToSvg(
-                                                pathList,
-                                                rendererBounds!!,
-                                                rendererRotate!!
-                                            )
-                                        )
-                                    })
-                                }
-                            }
-                        }
-                        addDialogItem {
-                            itemText = "toFillSvg"
-                            itemClick = {
-                                pathList?.let {
-                                    this@CanvasDemo.engraveLoadingAsync({
-                                        L.i(
-                                            CanvasDataHandleOperate.pathFillToSvg(
-                                                pathList,
-                                                rendererBounds!!,
-                                                rendererRotate!!
-                                            )
-                                        )
-                                    })
-                                }
-                            }
-                        }
-                        //
-                        addDialogItem {
-                            itemText = "查询机器日志"
-                            itemClick = {
-                                QueryCmd.log.enqueue { bean, error ->
-                                    if (error == null) {
-                                        bean?.parse<QueryLogParser>()?.let {
-                                            L.i(it)
-                                            toast(it.log ?: "no log!")
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        //
-                        addDialogItem {
-                            itemText = "预处理数据"
-                            itemClick = {
-                                preProcessData(canvasDelegate)
-                            }
-                        }
-                    }
+                    moreDialog()
                 }//end more
 
                 //canvas
@@ -853,6 +759,133 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
     fun loadGCodeDrawable(): Pair<String, GCodeDrawable> {
         val text = fContext().readAssets(gCodeNameList.randomGetOnce()!!)
         return text!! to GCodeHelper.parseGCode(text)!!
+    }
+
+    /**更多的对话框*/
+    fun moreDialog() {
+        val selectedRenderer = canvasDelegate?.getSelectedRenderer()
+        val rendererBounds = selectedRenderer?.getBounds()
+        val rendererRotate = selectedRenderer?.rotate
+        var pathList: List<Path>? = null
+        if (selectedRenderer is DataItemRenderer) {
+            val renderItem = selectedRenderer.getRendererRenderItem()
+            if (renderItem is DataPathItem) {
+                pathList = renderItem.drawPathList
+            }
+        }
+        fContext().itemsDialog {
+            addDialogItem {
+                itemText = "toStrokeGCode"
+                itemClick = {
+                    pathList?.let {
+                        this@CanvasDemo.engraveLoadingAsync({
+                            L.i(
+                                CanvasDataHandleOperate.pathStrokeToGCode(
+                                    pathList,
+                                    rendererBounds!!,
+                                    rendererRotate!!
+                                )
+                            )
+                        })
+                    }
+                }
+            }
+            addDialogItem {
+                itemText = "toFillGCode"
+                itemClick = {
+                    pathList?.let {
+                        this@CanvasDemo.engraveLoadingAsync({
+                            L.i(
+                                CanvasDataHandleOperate.pathFillToGCode(
+                                    pathList,
+                                    rendererBounds!!,
+                                    rendererRotate!!
+                                )
+                            )
+                        })
+                    }
+                }
+            }
+            addDialogItem {
+                itemText = "toStrokeSvg"
+                itemClick = {
+                    pathList?.let {
+                        this@CanvasDemo.engraveLoadingAsync({
+                            L.i(
+                                CanvasDataHandleOperate.pathStrokeToSvg(
+                                    pathList,
+                                    rendererBounds!!,
+                                    rendererRotate!!
+                                )
+                            )
+                        })
+                    }
+                }
+            }
+            addDialogItem {
+                itemText = "toFillSvg"
+                itemClick = {
+                    pathList?.let {
+                        this@CanvasDemo.engraveLoadingAsync({
+                            L.i(
+                                CanvasDataHandleOperate.pathFillToSvg(
+                                    pathList,
+                                    rendererBounds!!,
+                                    rendererRotate!!
+                                )
+                            )
+                        })
+                    }
+                }
+            }
+            //
+            addDialogItem {
+                itemText = "查询机器日志"
+                itemClick = {
+                    QueryCmd.log.enqueue { bean, error ->
+                        if (error == null) {
+                            bean?.parse<QueryLogParser>()?.let {
+                                L.i(it)
+                                toast(it.log ?: "no log!")
+                            }
+                        }
+                    }
+                }
+            }
+            //
+            addDialogItem {
+                itemText = "预处理数据"
+                itemClick = {
+                    preProcessData(canvasDelegate)
+                }
+            }
+            //
+            addDialogItem {
+                itemText = "显示雕刻通知"
+                itemClick = {
+                    if (!isNotificationsEnabled()) {
+                        openNotificationSetting()
+                    } else if (!EngraveNotifyHelper.isChannelEnable()) {
+                        EngraveNotifyHelper.openChannelSetting()
+                    } else {
+                        anim(0, 100) {
+                            onAnimatorConfig = {
+                                it.duration = 3_000
+                            }
+                            onAnimatorUpdateValue = { value, _ ->
+                                EngraveNotifyHelper.showEngraveNotify(value as Int)
+                            }
+                        }
+                    }
+                }
+            }
+            addDialogItem {
+                itemText = "隐藏雕刻通知"
+                itemClick = {
+                    EngraveNotifyHelper.hideEngraveNotify()
+                }
+            }
+        }
     }
 
     @TestOnly
