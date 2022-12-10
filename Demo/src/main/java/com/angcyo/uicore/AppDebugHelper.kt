@@ -137,6 +137,14 @@ object AppDebugHelper {
             defValue = LibHawkKeys.alphaThreshold
         }
 
+        DebugFragment.addDebugAction {
+            label = "最大允许雕刻数量"
+            des = "可以同时勾选多少个元素雕刻"
+            key = HawkEngraveKeys::maxEngraveItemCountLimit.name
+            type = Int::class.java
+            defValue = HawkEngraveKeys.maxEngraveItemCountLimit
+        }
+
         /*DebugFragment.addDebugAction {
             label = "激活传输数据时的索引检查"
             des = "关闭后,所有数据直接传输,不检查机器是否已存在数据."
