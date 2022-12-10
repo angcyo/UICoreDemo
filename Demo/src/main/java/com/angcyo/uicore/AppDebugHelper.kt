@@ -138,6 +138,14 @@ object AppDebugHelper {
         }
 
         DebugFragment.addDebugAction {
+            label = "灰度颜色阈值"
+            des = "当色值大于这个值时,视为白色,否则就是黑色"
+            key = LibHawkKeys::grayThreshold.name
+            type = Int::class.java
+            defValue = LibHawkKeys.grayThreshold
+        }
+
+        DebugFragment.addDebugAction {
             label = "最大允许雕刻数量"
             des = "可以同时勾选多少个元素雕刻"
             key = HawkEngraveKeys::maxEngraveItemCountLimit.name
