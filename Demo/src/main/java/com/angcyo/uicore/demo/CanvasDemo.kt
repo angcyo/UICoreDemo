@@ -62,7 +62,7 @@ import com.angcyo.engrave.ble.EngraveHistoryFragment
 import com.angcyo.engrave.ble.bluetoothSearchListDialog
 import com.angcyo.engrave.data.HawkEngraveKeys
 import com.angcyo.engrave.transition.EngraveTransitionManager
-import com.angcyo.fragment.AbsFragment
+import com.angcyo.fragment.AbsLifecycleFragment
 import com.angcyo.gcode.GCodeDrawable
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.http.base.toJson
@@ -990,11 +990,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
             if (to == BaseFlowLayoutHelper.ENGRAVE_FLOW_PREVIEW) {
                 //预览中, 偏移画板界面
                 val productInfoData = laserPeckerModel.productInfoData
-                if (laserPeckerModel.haveExDevice()) {
-                    productInfoData.value?.bounds
-                } else {
-                    productInfoData.value?.previewBounds
-                }?.let {
+                productInfoData.value?.bounds?.let {
                     canvasView?.canvasDelegate?.showRectBounds(it, offsetRectTop = true)
                 }
             } else if (to == BaseFlowLayoutHelper.ENGRAVE_FLOW_TRANSMITTING ||
@@ -1039,7 +1035,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
     //<editor-fold desc="IEngraveCanvasFragment">
 
-    override val fragment: AbsFragment
+    override val fragment: AbsLifecycleFragment
         get() = this
 
     override val engraveFlowLayoutHelper: EngraveFlowLayoutHelper
