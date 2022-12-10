@@ -106,6 +106,20 @@ object AppDebugHelper {
         }
 
         DebugFragment.addDebugAction {
+            label = "多文件雕刻固件范围"
+            des = "格式:x~xx xx~xxx"
+            key = HawkEngraveKeys::batchEngraveSupportFirmware.name
+            type = String::class.java
+            defValue = HawkEngraveKeys.batchEngraveSupportFirmware.run {
+                if (isNullOrBlank()) {
+                    getAppString("lp_batch_engrave_firmware")
+                } else {
+                    this
+                }
+            }
+        }
+
+        DebugFragment.addDebugAction {
             label = "激活设备过滤"
             des = "蓝牙搜索列表,设备数量大于多少时,显示过滤布局."
             key = HawkEngraveKeys::showDeviceFilterCount.name
