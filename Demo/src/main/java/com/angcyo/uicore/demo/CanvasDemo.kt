@@ -568,7 +568,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
                 //预处理数据
                 itemHolder.click(R.id.pre_process_button) {
-                    preProcessData(canvasDelegate)
+                    preProcessData(itemHolder, canvasDelegate)
                 }
 
                 //tip
@@ -636,7 +636,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
                 //more
                 itemHolder.click(R.id.more_button) {
-                    moreDialog()
+                    moreDialog(itemHolder)
                 }//end more
 
                 //canvas
@@ -722,7 +722,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
     }
 
     /**预处理数据*/
-    fun preProcessData(canvasDelegate: CanvasDelegate?) {
+    fun preProcessData(itemHolder: DslViewHolder, canvasDelegate: CanvasDelegate?) {
         canvasDelegate ?: return
         engraveLoadingAsync({
             val entityList = EngraveTransitionManager().transitionTransferData(
@@ -733,7 +733,9 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 )
             )
             L.w(entityList)
-            toastQQ(entityList.connect { it.index.toStr() })
+            val string = entityList.connect { it.index.toStr() }
+            toastQQ(string)
+            itemHolder.tv(R.id.result_text_view)?.text = string
         })
     }
 
@@ -762,7 +764,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
     }
 
     /**更多的对话框*/
-    fun moreDialog() {
+    fun moreDialog(itemHolder: DslViewHolder) {
         val selectedRenderer = canvasDelegate?.getSelectedRenderer()
         val rendererBounds = selectedRenderer?.getBounds()
         val rendererRotate = selectedRenderer?.rotate
@@ -856,7 +858,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
             addDialogItem {
                 itemText = "预处理数据"
                 itemClick = {
-                    preProcessData(canvasDelegate)
+                    preProcessData(itemHolder, canvasDelegate)
                 }
             }
             //
