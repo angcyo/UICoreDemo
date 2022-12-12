@@ -4,57 +4,37 @@ import android.graphics.DashPathEffect
 import androidx.camera.camera2.Camera2Config
 import androidx.camera.core.CameraXConfig
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import com.angcyo.DslAHelper
-import com.angcyo.base.dslAHelper
-import com.angcyo.base.dslFHelper
 import com.angcyo.base.restore
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
 import com.angcyo.bluetooth.fsc.laserpacker.parse.toLaserPeckerVersionName
 import com.angcyo.bugly.Bugly
 import com.angcyo.canvas.laser.pecker.mode.CanvasOpenModel
-import com.angcyo.canvas.utils.CanvasConstant
 import com.angcyo.core.CoreApplication
-import com.angcyo.core.component.CacheFragment
-import com.angcyo.core.component.model.CacheInfo
-import com.angcyo.core.component.model.CacheModel
-import com.angcyo.core.coreApp
 import com.angcyo.core.fragment.BaseUI
 import com.angcyo.core.viewpager.RFragmentAdapter
 import com.angcyo.core.vmApp
 import com.angcyo.crash.sight.CrashSight
 import com.angcyo.download.DslDownload
 import com.angcyo.engrave.auto.AutoEngraveHelper
-import com.angcyo.engrave.ble.CommandActivity
 import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.model.FscDeviceModel
 import com.angcyo.http.gitee.Gitee
 import com.angcyo.item.DslTextInfoItem
-import com.angcyo.item.component.DebugFragment
 import com.angcyo.item.style.itemInfoText
 import com.angcyo.jpush.JPush
 import com.angcyo.library.annotation.CallComplianceAfter
-import com.angcyo.library.component.FontManager
-import com.angcyo.library.component.LibHawkKeys
-import com.angcyo.library.component.RBackground
-import com.angcyo.library.component.lastContext
 import com.angcyo.library.ex.*
-import com.angcyo.library.getAppString
 import com.angcyo.library.isMainProgress
-import com.angcyo.library.utils.Constant
-import com.angcyo.library.utils.appFolderPath
-import com.angcyo.library.utils.storage.sdDocumentFolderPath
 import com.angcyo.objectbox.DslBox
 import com.angcyo.objectbox.laser.pecker.LPBox
-import com.angcyo.server.DslAndServer
 import com.angcyo.speech.TTS
 import com.angcyo.tbs.DslTbs
 import com.angcyo.uicore.demo.*
 import com.angcyo.uicore.fragment.RecyclerTextFragment
-import com.angcyo.websocket.service.bindLogWSServer
 import io.objectbox.Box
 import kotlin.random.Random
 
@@ -130,6 +110,9 @@ class App : CoreApplication(), CameraXConfig.Provider {
                 DslTextInfoItem().apply {
                     itemInfoText = _string(R.string.firmware_version)
                     itemDarkText = toLaserPeckerVersionName()
+                    configInfoTextStyle {
+                        textSize = _dimen(R.dimen.text_sub_size).toFloat()
+                    }
                 }
             }
         }
