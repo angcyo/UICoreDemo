@@ -23,6 +23,9 @@
         android:name="android.hardware.nfc"
         android:required="false" />
 
+    <!--Android 13通知权限-->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <!-- Android 11 软件包可见性适配 -->
     <!--https://developer.android.google.cn/guide/topics/manifest/queries-element-->
     <queries>
