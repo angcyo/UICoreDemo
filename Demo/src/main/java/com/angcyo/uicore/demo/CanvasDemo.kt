@@ -646,7 +646,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 engraveProductLayoutHelper.bindCanvasView(
                     itemHolder,
                     _vh.itemView as ViewGroup,
-                    itemHolder.v<CanvasView>(R.id.canvas_view)!!
+                    itemHolder.v<CanvasView>(R.id.canvas_view)
                 )
 
                 //test
