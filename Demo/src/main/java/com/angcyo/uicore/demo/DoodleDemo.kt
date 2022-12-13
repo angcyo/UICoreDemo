@@ -14,19 +14,16 @@ import com.angcyo.doodle.core.Strategy
 import com.angcyo.doodle.data.BitmapElementData
 import com.angcyo.doodle.element.BitmapElement
 import com.angcyo.dsladapter.bindItem
-import com.angcyo.library.L
-import com.angcyo.library.Library
-import com.angcyo.library.ex.isDebugType
-import com.angcyo.library.ex.save
-import com.angcyo.library.ex.size
-import com.angcyo.library.ex.toBitmap
-import com.angcyo.library.libCacheFile
+import com.angcyo.library.*
+import com.angcyo.library.component.pad.isInPadMode
+import com.angcyo.library.ex.*
 import com.angcyo.library.model.loadPath
 import com.angcyo.library.utils.fileNameUUID
 import com.angcyo.picker.dslSinglePickerImage
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.component.paintWidthPickerDialog
 import com.angcyo.widget.span.span
+import kotlin.math.max
 
 /**
  *
@@ -44,6 +41,10 @@ class DoodleDemo : AppDslFragment() {
             bindItem(R.layout.demo_doodle_layout) { itemHolder, itemPosition, adapterItem, payloads ->
                 val doodleView = itemHolder.v<DoodleView>(R.id.doodle_view)
                 val doodleDelegate = doodleView?.doodleDelegate
+
+                if (isInPadMode()) {
+                    doodleView?.setHeight(max(_screenWidth, _screenHeight) / 3)
+                }
 
                 //
                 doodleDelegate?.doodleListenerList?.add(object : IDoodleListener {

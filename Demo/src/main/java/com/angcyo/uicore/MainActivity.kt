@@ -12,14 +12,11 @@ import com.angcyo.core.component.ScreenShotModel
 import com.angcyo.core.component.model.LanguageModel
 import com.angcyo.core.vmApp
 import com.angcyo.download.giteeVersionUpdate
-import com.angcyo.engrave.transition.EngraveTransitionManager
 import com.angcyo.haveTargetFragment
 import com.angcyo.library.L
 import com.angcyo.library.component.DslShortcut
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component.dslShortcut
-import com.angcyo.library.ex.toByteArray
-import com.angcyo.library.ex.trimAndPad
 import com.angcyo.library.getAppString
 import com.angcyo.library.utils.RUtils
 import com.angcyo.library.utils.checkApkExist
@@ -70,6 +67,7 @@ class MainActivity : BasePermissionsActivity() {
 //        )
 
         doubleBackTime = 1_000
+        activityLayoutPadId = R.layout.lib_activity_main_pad_layout
     }
 
     override fun onCreateAfter(savedInstanceState: Bundle?) {

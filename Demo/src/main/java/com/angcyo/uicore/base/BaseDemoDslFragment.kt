@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.base.dslFHelper
 import com.angcyo.dsladapter.DslAdapter
-import com.angcyo.dsladapter.DslAdapterItem
+import com.angcyo.dsladapter.updateItemSelected
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.item.style.itemInfoText
+import com.angcyo.library.component.pad.isInPadMode
+import com.angcyo.library.ex._drawable
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.getColor
 import com.angcyo.library.toast
@@ -53,39 +55,54 @@ abstract class BaseDemoDslFragment : AppDslFragment() {
             itemDarkIconColor = getColor(R.color.colorPrimaryDark)
 
             itemAnimateRes = R.anim.item_scale_animation
+            itemSingleSelectMutex = true
+
+            if (isInPadMode()) {
+                itemBackgroundDrawable = _drawable(R.drawable.lib_bg_checked_selector)
+            }
 
             itemClick = { view ->
+                if (!itemIsSelected) {
 
-                var cls: Class<out Fragment>? = fragment
-                val className = "$baseClassPackage.${text?.split(" ")?.get(0)}"
-                try {
-                    if (fragment == null) {
-                        cls = Class.forName(className) as? Class<out Fragment>
+                    var cls: Class<out Fragment>? = fragment
+                    val className = "$baseClassPackage.${text?.split(" ")?.get(0)}"
+                    try {
+                        if (fragment == null) {
+                            cls = Class.forName(className) as? Class<out Fragment>
+                        }
+                    } catch (e: Exception) {
+                        //Tip.tip("未找到类:\n$className")
+                        if (click == null) {
+                            toast("未找到类:\n$className")
+                        }
                     }
-                } catch (e: Exception) {
-                    //Tip.tip("未找到类:\n$className")
-                    if (click == null) {
-                        toast("未找到类:\n$className")
+
+                    cls?.let {
+                        /*dslAHelper {
+                            start(it)
+                        }*/
+                        dslFHelper {
+                            if (isInPadMode()) {
+                                configDetailContainer()
+                                removeAll()
+                            }
+                            show(it)
+                        }
+                    }
+
+                    click?.invoke(view)
+
+                    //平板模式下, 选中
+                    if (isInPadMode()) {
+                        updateItemSelected()
                     }
                 }
-
-                cls?.let {
-
-//                    dslAHelper {
-//                        start(it)
-//                    }
-
-                    dslFHelper {
-                        show(it)
-                    }
-                }
-
-                click?.invoke(view)
             }
 
             this.init()
         }
 
+        //跳转索引支持
         if (text?.contains(GO, true) == true) {
             if (_firstGoPosition == RecyclerView.NO_POSITION) {
                 _firstGoPosition = this.adapterItems.lastIndex

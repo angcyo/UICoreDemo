@@ -27,6 +27,7 @@ import com.angcyo.item.DslTextInfoItem
 import com.angcyo.item.style.itemInfoText
 import com.angcyo.jpush.JPush
 import com.angcyo.library.annotation.CallComplianceAfter
+import com.angcyo.library.component.pad.IPadAdaptive
 import com.angcyo.library.ex.*
 import com.angcyo.library.isMainProgress
 import com.angcyo.objectbox.DslBox
@@ -45,7 +46,7 @@ import kotlin.random.Random
  * @date 2019/12/23
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
-class App : CoreApplication(), CameraXConfig.Provider {
+class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
 
     companion object {
         //如果需要将url转成二维码, 参考以下链接, 注册app_id和app_secret
@@ -149,6 +150,8 @@ class App : CoreApplication(), CameraXConfig.Provider {
     override fun getCameraXConfig(): CameraXConfig {
         return Camera2Config.defaultConfig()
     }
+
+    override fun enablePadAdaptive(): Boolean = true
 }
 
 fun ViewPager.initAdapter(fragmentManager: FragmentManager, count: Int = 5) {
