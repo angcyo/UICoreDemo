@@ -67,7 +67,7 @@ class MainActivity : BasePermissionsActivity() {
 //        )
 
         doubleBackTime = 1_000
-        activityLayoutPadId = R.layout.lib_activity_main_pad_layout
+        activityPadLayoutId = R.layout.lib_activity_main_pad_layout
     }
 
     override fun onCreateAfter(savedInstanceState: Bundle?) {
