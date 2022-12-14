@@ -845,7 +845,9 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                         if (error == null) {
                             bean?.parse<QueryLogParser>()?.let {
                                 L.i(it)
-                                toast(it.log ?: "no log!")
+                                val log = it.log ?: "no log!"
+                                toast(log)
+                                itemHolder.tv(R.id.result_text_view)?.text = log
                             }
                         }
                     }
