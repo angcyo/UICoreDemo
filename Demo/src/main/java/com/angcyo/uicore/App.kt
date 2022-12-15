@@ -114,6 +114,7 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
                     configInfoTextStyle {
                         textSize = _dimen(R.dimen.text_sub_size).toFloat()
                     }
+                    itemClick = {}//清空事件
                 }
             }
         }
