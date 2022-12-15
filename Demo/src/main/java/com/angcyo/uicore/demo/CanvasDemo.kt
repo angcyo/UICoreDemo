@@ -701,7 +701,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
     override fun onFragmentFirstShow(bundle: Bundle?) {
         super.onFragmentFirstShow(bundle)
         //restore
-        _vh.post {
+        _vh.postDelay(0) {
             canvasDelegate?.restoreInstanceState()
         }
     }
