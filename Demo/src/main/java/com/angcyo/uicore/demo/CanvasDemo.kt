@@ -450,7 +450,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                     //安全提示弹窗
                     engraveFlowLayoutHelper.showSafetyTips(fContext()) {
                         //如果有第三轴, 还需要检查对应的配置
-                        engraveFlowLayoutHelper.startPreview(this@CanvasDemo, itemHolder)
+                        engraveFlowLayoutHelper.startPreview(this@CanvasDemo)
                     }
                 }
 
@@ -1038,6 +1038,9 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
     override val canvasDelegate: CanvasDelegate?
         get() = canvasView?.canvasDelegate
+
+    override val flowLayoutContainer: ViewGroup?
+        get() = fragment._vh.group(R.id.engrave_flow_wrap_layout)
 
     //</editor-fold desc="IEngraveCanvasFragment">
 }
