@@ -47,7 +47,6 @@ import com.angcyo.canvas.utils.CanvasDataHandleOperate
 import com.angcyo.canvas.utils.engraveMode
 import com.angcyo.canvas.utils.parseGCode
 import com.angcyo.component.getPhoto
-import com.angcyo.core.component.dslPermissions
 import com.angcyo.core.component.fileSelector
 import com.angcyo.core.loadingAsyncTg
 import com.angcyo.core.showIn
@@ -59,7 +58,6 @@ import com.angcyo.engrave.*
 import com.angcyo.engrave.ble.DeviceConnectTipActivity
 import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.ble.EngraveHistoryFragment
-import com.angcyo.engrave.ble.bluetoothSearchListDialog
 import com.angcyo.engrave.data.HawkEngraveKeys
 import com.angcyo.engrave.transition.EngraveTransitionManager
 import com.angcyo.fragment.AbsLifecycleFragment
@@ -377,7 +375,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 }
 
                 //bluetooth
-                itemHolder.click(R.id.bluetooth_button) {
+                /*itemHolder.click(R.id.bluetooth_button) {
                     dslPermissions(FscBleApiModel.bluetoothPermissionList()) { allGranted, foreverDenied ->
                         if (allGranted) {
                             //vmApp<FscBleApiModel>().connect("DC:0D:30:10:05:E7")
@@ -388,7 +386,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                             toast("蓝牙权限被禁用!")
                         }
                     }
-                }
+                }*/
 
                 var cmdString: String = ""
                 val receiveAction: IReceiveBeanAction = { bean, error ->
@@ -980,10 +978,6 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
     val _engraveFlowLayoutHelper = EngraveFlowLayoutHelper().apply {
         backPressedDispatcherOwner = this@CanvasDemo
 
-        onStartEngraveAction = {
-            canvasDelegate?.saveInstanceState()
-        }
-
         onEngraveFlowChangedAction = { from, to ->
             //禁止手势
             _vh.v<CanvasView>(R.id.canvas_view)?.canvasDelegate?.engraveMode(to.isEngraveFlow())
@@ -994,9 +988,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 productInfoData.value?.bounds?.let {
                     canvasView?.canvasDelegate?.showRectBounds(it, offsetRectTop = true)
                 }
-            } else if (to == BaseFlowLayoutHelper.ENGRAVE_FLOW_TRANSMITTING ||
-                to == BaseFlowLayoutHelper.ENGRAVE_FLOW_BEFORE_CONFIG
-            ) {
+            } else if (to == BaseFlowLayoutHelper.ENGRAVE_FLOW_BEFORE_CONFIG) {
                 canvasDelegate?.saveInstanceState()
             }
         }
