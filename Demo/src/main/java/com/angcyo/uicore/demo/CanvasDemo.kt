@@ -436,11 +436,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                     if (engraveFlowLayoutHelper.isAttach()) {
                         return@click
                     }
-                    if (engraveFlowLayoutHelper.checkRestoreEngrave(
-                            this@CanvasDemo,
-                            itemHolder.group(R.id.lib_content_overlay_wrap_layout)
-                        )
-                    ) {
+                    if (engraveFlowLayoutHelper.checkRestoreEngrave(this@CanvasDemo)) {
                         return@click
                     }
                     if (!engraveFlowLayoutHelper.checkStartPreview()) {
