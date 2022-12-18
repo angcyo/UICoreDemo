@@ -42,7 +42,6 @@ import com.angcyo.canvas.laser.pecker.mode.CanvasOpenModel
 import com.angcyo.canvas.laser.pecker.openCanvasFile
 import com.angcyo.canvas.laser.pecker.restoreInstanceState
 import com.angcyo.canvas.laser.pecker.saveInstanceState
-import com.angcyo.canvas.utils.CanvasConstant
 import com.angcyo.canvas.utils.CanvasDataHandleOperate
 import com.angcyo.canvas.utils.engraveMode
 import com.angcyo.canvas.utils.parseGCode
@@ -163,13 +162,6 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 val canvasView = itemHolder.v<CanvasView>(R.id.canvas_view)
                 //?.setBgDrawable(_colorDrawable("#20000000".toColorInt()))
                 //?.setBgDrawable(CheckerboardDrawable.create())
-
-                //单位恢复
-                canvasView?.canvasDelegate?.getCanvasViewBox()
-                    ?.updateCoordinateSystemUnit(CanvasConstant.valueUnit)
-                //智能指南恢复
-                canvasView?.canvasDelegate?.smartAssistant?.enable =
-                    CanvasConstant.CANVAS_SMART_ASSISTANT
 
                 //switch_origin_button
                 itemHolder.click(R.id.switch_origin_button) {
