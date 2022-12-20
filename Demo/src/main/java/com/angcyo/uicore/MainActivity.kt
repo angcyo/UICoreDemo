@@ -162,8 +162,6 @@ class MainActivity : BasePermissionsActivity() {
                 L.i("beganScreenShot path = $path")
             }
         })
-
-        vmApp<ScreenShotModel>().startListen()
     }
 
     override fun onResume() {
