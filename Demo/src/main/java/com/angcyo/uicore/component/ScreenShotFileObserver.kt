@@ -39,6 +39,7 @@ class ScreenShotFileObserver(path: String) : FileObserver(path, ALL_EVENTS) {
     }
 
     override fun onEvent(event: Int, path: String?) {
+        L.i("onEvent:$event $path")
         when (event) {
             CREATE -> {
                 L.i("CREATE = $event , s = $path")
