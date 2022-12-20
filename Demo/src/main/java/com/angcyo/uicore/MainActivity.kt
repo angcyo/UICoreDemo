@@ -8,9 +8,7 @@ import android.view.MotionEvent
 import com.angcyo.base.dslFHelper
 import com.angcyo.base.find
 import com.angcyo.core.activity.BasePermissionsActivity
-import com.angcyo.core.component.ScreenShotModel
 import com.angcyo.core.component.model.LanguageModel
-import com.angcyo.core.vmApp
 import com.angcyo.download.giteeVersionUpdate
 import com.angcyo.haveTargetFragment
 import com.angcyo.library.L
@@ -187,7 +185,6 @@ class MainActivity : BasePermissionsActivity() {
     override fun onStop() {
         super.onStop()
         ScreenShotFileObserverManager.unregisterScreenShotFileObserver()
-        vmApp<ScreenShotModel>().stopListen()
     }
 
     override fun onDestroy() {
