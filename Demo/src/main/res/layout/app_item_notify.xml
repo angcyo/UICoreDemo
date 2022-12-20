@@ -234,4 +234,24 @@
             android:text="通知消息" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.angcyo.widget.DslButton
+        android:id="@+id/toast_qq_layout"
+        style="@style/DefaultButtonStyleNormal"
+        android:text="toastQQLayout" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/toast_wx_layout"
+        style="@style/DefaultButtonStyleNormal"
+        android:text="toastWXLayout" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/toast_qq"
+        style="@style/DefaultButtonStyleNormal"
+        android:text="toastQQ" />
+
+    <com.angcyo.widget.DslButton
+        android:id="@+id/toast_wx"
+        style="@style/DefaultButtonStyleNormal"
+        android:text="toastWX" />
+
 </com.angcyo.widget.layout.DslFlowLayout>

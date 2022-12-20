@@ -14,11 +14,13 @@ import com.angcyo.bluetooth.fsc.laserpacker.parse.toLaserPeckerVersionName
 import com.angcyo.bugly.Bugly
 import com.angcyo.canvas.laser.pecker.mode.CanvasOpenModel
 import com.angcyo.core.CoreApplication
+import com.angcyo.core.component.ScreenShotModel
 import com.angcyo.core.fragment.BaseUI
 import com.angcyo.core.viewpager.RFragmentAdapter
 import com.angcyo.core.vmApp
 import com.angcyo.crash.sight.CrashSight
 import com.angcyo.download.DslDownload
+import com.angcyo.engrave.EngraveFlowDataHelper
 import com.angcyo.engrave.auto.AutoEngraveHelper
 import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.model.FscDeviceModel
@@ -115,6 +117,16 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
                         textSize = _dimen(R.dimen.text_sub_size).toFloat()
                     }
                     itemClick = {}//清空事件
+                }
+            }
+        }
+
+        //截图分享
+        vmApp<ScreenShotModel>().apply {
+            startListen()
+            screenShotPathData.observeForever {
+                if (!it.isNullOrBlank()) {
+                    EngraveFlowDataHelper.showEngraveScreenShotShare(it)
                 }
             }
         }

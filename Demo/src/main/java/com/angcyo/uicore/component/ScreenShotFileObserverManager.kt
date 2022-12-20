@@ -5,12 +5,13 @@ import com.angcyo.library.L
 import java.io.File
 
 /**
- *
+ * [com.angcyo.core.component.ScreenShotModel]
  * Email:angcyo@126.com
  * @author angcyo
  * @date 2022/11/12
  * Copyright (c) 2020 angcyo. All rights reserved.
  */
+@Deprecated("使用[com.angcyo.core.component.ScreenShotModel]")
 object ScreenShotFileObserverManager {
 
     private var screenShotFileObserver: ScreenShotFileObserver? = null

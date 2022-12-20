@@ -9,6 +9,8 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.Person
 import androidx.core.graphics.drawable.IconCompat
 import com.angcyo.component.hawkInstallAndRestore
+import com.angcyo.core.component.layoutQQ
+import com.angcyo.core.component.layoutWX
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.library.component.DslNotify
 import com.angcyo.library.component.dslNotify
@@ -17,6 +19,8 @@ import com.angcyo.library.ex._color
 import com.angcyo.library.ex.anim
 import com.angcyo.library.ex.nowTime
 import com.angcyo.library.ex.nowTimeString
+import com.angcyo.library.toastQQ
+import com.angcyo.library.toastWX
 import com.angcyo.uicore.MainActivity
 import com.angcyo.uicore.app.AppBroadcastReceiver
 import com.angcyo.uicore.app.AppService
@@ -356,5 +360,20 @@ class AppNotifyItem : DslAdapterItem() {
 
         //自动保存值
         itemHolder.hawkInstallAndRestore("notify")
+
+        //toast layout 控制
+        itemHolder.click(R.id.toast_qq_layout) {
+            layoutQQ(nowTimeString())
+        }
+        itemHolder.click(R.id.toast_wx_layout) {
+            layoutWX(nowTimeString())
+        }
+
+        itemHolder.click(R.id.toast_qq) {
+            toastQQ(nowTimeString())
+        }
+        itemHolder.click(R.id.toast_wx) {
+            toastWX(nowTimeString())
+        }
     }
 }

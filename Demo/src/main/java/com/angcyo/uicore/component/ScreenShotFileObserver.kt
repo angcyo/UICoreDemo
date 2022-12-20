@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit
  * @date 2022/11/12
  * Copyright (c) 2020 angcyo. All rights reserved.
  */
+@Deprecated("使用[com.angcyo.core.component.ScreenShotModel]")
 class ScreenShotFileObserver(path: String) : FileObserver(path, ALL_EVENTS) {
 
     interface ScreenShotLister {
