@@ -425,21 +425,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
                 //雕刻预览
                 itemHolder.click(R.id.engrave_preview_button) {
-                    if (engraveFlowLayoutHelper.isAttach()) {
-                        return@click
-                    }
-                    if (engraveFlowLayoutHelper.checkRestoreEngrave(this@CanvasDemo)) {
-                        return@click
-                    }
-                    if (!engraveFlowLayoutHelper.checkStartPreview()) {
-                        return@click
-                    }
-
-                    //安全提示弹窗
-                    engraveFlowLayoutHelper.showSafetyTips(fContext()) {
-                        //如果有第三轴, 还需要检查对应的配置
-                        engraveFlowLayoutHelper.startPreview(this@CanvasDemo)
-                    }
+                    engraveFlowLayoutHelper.startPreview(this@CanvasDemo)
                 }
 
                 //雕刻
