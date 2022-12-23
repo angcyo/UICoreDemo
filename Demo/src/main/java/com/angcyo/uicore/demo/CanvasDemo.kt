@@ -979,6 +979,10 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 _vh.enable(R.id.device_tip_wrap_layout, destroy)
             }
         }
+
+        onEngraveParamsChangeAction = {
+            canvasLayoutHelper.updateLayerLayout(_vh, canvasView!!)
+        }
     }
 
     //</editor-fold desc="init">
