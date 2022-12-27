@@ -58,6 +58,7 @@ import com.angcyo.engrave.ble.DeviceConnectTipActivity
 import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.ble.EngraveHistoryFragment
 import com.angcyo.engrave.data.HawkEngraveKeys
+import com.angcyo.engrave.model.PreviewModel
 import com.angcyo.engrave.transition.EngraveTransitionManager
 import com.angcyo.fragment.AbsLifecycleFragment
 import com.angcyo.gcode.GCodeDrawable
@@ -693,6 +694,8 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
     /**预处理数据*/
     fun preProcessData(itemHolder: DslViewHolder, canvasDelegate: CanvasDelegate?) {
         canvasDelegate ?: return
+        val previewBounds = PreviewModel.getPreviewCmdRect(canvasDelegate)
+        L.w("预览范围:${previewBounds}")
         engraveLoadingAsync({
             val entityList = EngraveTransitionManager().transitionTransferData(
                 canvasDelegate,
