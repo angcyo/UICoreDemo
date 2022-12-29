@@ -3,6 +3,7 @@ package com.angcyo.uicore
 import androidx.fragment.app.FragmentActivity
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
+import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.canvas.utils.CanvasConstant
 import com.angcyo.core.component.CacheFragment
 import com.angcyo.core.component.model.CacheInfo
@@ -92,7 +93,7 @@ object AppDebugHelper {
         }
 
         DebugFragment.addDebugAction {
-            label = "创作功能固件支持范围"
+            label = "创作功能支持的固件范围"
             des = "格式:x~xx xx~xxx"
             key = LibHawkKeys::lpSupportFirmware.name
             type = String::class.java
@@ -106,13 +107,28 @@ object AppDebugHelper {
         }
 
         DebugFragment.addDebugAction {
-            label = "多文件雕刻固件范围"
+            label = "支持多文件雕刻的固件范围"
             des = "格式:x~xx xx~xxx"
             key = HawkEngraveKeys::batchEngraveSupportFirmware.name
             type = String::class.java
             defValue = HawkEngraveKeys.batchEngraveSupportFirmware.run {
                 if (isNullOrBlank()) {
                     getAppString("lp_batch_engrave_firmware")
+                } else {
+                    this
+                }
+            }
+        }
+
+        DebugFragment.addDebugAction {
+            label = "中心点在物理中心的固件范围"
+            des = "格式:x~xx xx~xxx"
+            key = LibHawkKeys::lpDeviceOriginCenter.name
+            type = String::class.java
+            defValue = LibHawkKeys.lpDeviceOriginCenter.run {
+                if (isNullOrBlank()) {
+                    getAppString("lp_device_origin_center")
+                        ?: LaserPeckerHelper.DEFAULT_ORIGIN_CENTER
                 } else {
                     this
                 }
