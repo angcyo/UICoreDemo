@@ -707,7 +707,9 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
             L.w(entityList)
             val string = entityList.connect { it.index.toStr() }
             toastQQ(string)
-            itemHolder.tv(R.id.result_text_view)?.text = string
+            doMain {
+                itemHolder.tv(R.id.result_text_view)?.text = string
+            }
         })
     }
 
