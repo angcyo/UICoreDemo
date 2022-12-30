@@ -751,6 +751,22 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
         }
         fContext().itemsDialog {
             addDialogItem {
+                itemText = "toFillAndStrokeGCode"
+                itemClick = {
+                    pathList?.let {
+                        this@CanvasDemo.engraveLoadingAsync({
+                            L.i(
+                                CanvasDataHandleOperate.pathToGCode(
+                                    pathList,
+                                    rendererBounds!!,
+                                    rendererRotate!!
+                                )
+                            )
+                        })
+                    }
+                }
+            }
+            addDialogItem {
                 itemText = "toStrokeGCode"
                 itemClick = {
                     pathList?.let {
