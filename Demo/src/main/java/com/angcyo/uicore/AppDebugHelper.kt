@@ -15,8 +15,9 @@ import com.angcyo.engrave.data.HawkEngraveKeys
 import com.angcyo.item.component.DebugFragment
 import com.angcyo.library.annotation.CallPoint
 import com.angcyo.library.component.FontManager
-import com.angcyo.library.component.LibHawkKeys
 import com.angcyo.library.component.RBackground
+import com.angcyo.library.component.hawk.LibHawkKeys
+import com.angcyo.library.component.hawk.LibLpHawkKeys
 import com.angcyo.library.component.lastContext
 import com.angcyo.library.getAppString
 import com.angcyo.library.utils.Constant
@@ -87,17 +88,17 @@ object AppDebugHelper {
         DebugFragment.addDebugAction {
             label = "滑台重复图片间距"
             des = "为滑台重复图片间距。单位mm,保留一位小数。"
-            key = LibHawkKeys::lastSlipSpace.name
+            key = LibLpHawkKeys::lastSlipSpace.name
             type = Float::class.java
-            defValue = LibHawkKeys.lastSlipSpace
+            defValue = LibLpHawkKeys.lastSlipSpace
         }
 
         DebugFragment.addDebugAction {
             label = "创作功能支持的固件范围"
             des = "格式:x~xx xx~xxx"
-            key = LibHawkKeys::lpSupportFirmware.name
+            key = LibLpHawkKeys::lpSupportFirmware.name
             type = String::class.java
-            defValue = LibHawkKeys.lpSupportFirmware.run {
+            defValue = LibLpHawkKeys.lpSupportFirmware.run {
                 if (isNullOrBlank()) {
                     getAppString("lp_support_firmware")
                 } else {
@@ -123,9 +124,9 @@ object AppDebugHelper {
         DebugFragment.addDebugAction {
             label = "中心点在物理中心的固件范围"
             des = "格式:x~xx xx~xxx"
-            key = LibHawkKeys::lpDeviceOriginCenter.name
+            key = LibLpHawkKeys::lpDeviceOriginCenter.name
             type = String::class.java
-            defValue = LibHawkKeys.lpDeviceOriginCenter.run {
+            defValue = LibLpHawkKeys.lpDeviceOriginCenter.run {
                 if (isNullOrBlank()) {
                     getAppString("lp_device_origin_center")
                         ?: LaserPeckerHelper.DEFAULT_ORIGIN_CENTER
