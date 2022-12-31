@@ -12,6 +12,7 @@ import com.angcyo.core.component.model.LanguageModel
 import com.angcyo.download.giteeVersionUpdate
 import com.angcyo.haveTargetFragment
 import com.angcyo.library.L
+import com.angcyo.library.Library
 import com.angcyo.library.component.DslShortcut
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component.dslShortcut
@@ -24,6 +25,7 @@ import com.angcyo.uicore.component.ScreenShotFileObserver
 import com.angcyo.uicore.component.ScreenShotFileObserverManager
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.test.PathTest
+import com.orhanobut.hawk.HawkValueParserHelper
 
 /**
  *
@@ -176,6 +178,11 @@ class MainActivity : BasePermissionsActivity() {
         //val b2 = "$number".toByteArray().trimAndPad(4)
 
         try {
+            val path = Library.hawkPath
+            val value = HawkValueParserHelper.parse(
+                "KEY_COMPLIANCE_STATE_1",
+                "java.lang.String##0V@AQLf4+PnoAYmLEofEnsL5bXhT3D/UTk5WUYjVN17gWIAmg4P"
+            )
             PathTest.test()
         } catch (e: Exception) {
             e.printStackTrace()
