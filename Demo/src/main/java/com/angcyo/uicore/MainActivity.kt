@@ -2,6 +2,7 @@ package com.angcyo.uicore
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.RectF
 import android.net.Uri
 import android.os.Bundle
 import android.view.MotionEvent
@@ -16,6 +17,7 @@ import com.angcyo.library.Library
 import com.angcyo.library.component.DslShortcut
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component.dslShortcut
+import com.angcyo.library.ex.limitInRect
 import com.angcyo.library.getAppString
 import com.angcyo.library.utils.RUtils
 import com.angcyo.library.utils.checkApkExist
@@ -178,6 +180,9 @@ class MainActivity : BasePermissionsActivity() {
         //val b2 = "$number".toByteArray().trimAndPad(4)
 
         try {
+            val limit = RectF(15f, 15f, 25f, 25f)
+            val rect = RectF(10f, 10f, 25f, 30f)
+            rect.limitInRect(limit)
             val path = Library.hawkPath
             val value = HawkValueParserHelper.parse(
                 "KEY_COMPLIANCE_STATE_1",
