@@ -246,7 +246,7 @@
                 android:layout_weight="1"
                 android:digits="@string/lib_number_digits"
                 android:hint="setSkewX"
-                android:text="1"
+                android:text="0.1"
                 app:r_draw_left="skewX: " />
 
             <com.angcyo.widget.edit.DslEditText
@@ -257,7 +257,7 @@
                 android:layout_weight="1"
                 android:digits="@string/lib_number_digits"
                 android:hint="setSkewY"
-                android:text="1"
+                android:text="0.1"
                 app:r_draw_left="skewY: " />
 
             <com.angcyo.widget.DslButton

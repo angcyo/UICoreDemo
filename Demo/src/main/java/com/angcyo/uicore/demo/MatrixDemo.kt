@@ -198,6 +198,14 @@ class MatrixDemo : AppDslFragment() {
                         itemHolder.updateText()
                     }
                 }
+
+                //test
+                itemHolder.click(R.id.image_view) {
+                    it.gone()
+                }
+                itemHolder.click(R.id.text_view) {
+                    it.gone()
+                }
             }
         }
     }

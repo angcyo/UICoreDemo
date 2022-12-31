@@ -105,22 +105,26 @@ class DrawImageView(context: Context, attributeSet: AttributeSet? = null) :
                 paint.color = Color.BLUE
             }
 
+            paint.color = paint.color.alphaRatio(0.5f)
             canvas.drawRect(rect, paint)
         }
 
         drawableMatrix.mapRect(drawRect, rect)
         paint.color = Color.RED
+        paint.color = paint.color.alphaRatio(0.5f)
         canvas.drawRect(drawRect, paint)
 
         //反转一下
         if (drawableMatrix.invert(invertMatrix)) {
             invertMatrix.mapRect(invertRect, drawRect)
             paint.color = Color.YELLOW
+            paint.color = paint.color.alphaRatio(0.5f)
             canvas.drawRect(invertRect, paint)
 
             invertMatrix.postScale(drawableMatrix.getScaleX(), drawableMatrix.getScaleY())
             invertMatrix.mapRect(invertRect, drawRect)
             paint.color = Color.MAGENTA
+            paint.color = paint.color.alphaRatio(0.5f)
             canvas.drawRect(invertRect, paint)
         }
 
