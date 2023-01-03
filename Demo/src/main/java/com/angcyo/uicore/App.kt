@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import com.angcyo.DslAHelper
+import com.angcyo.base.dslFHelper
 import com.angcyo.base.restore
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
@@ -14,6 +15,7 @@ import com.angcyo.bluetooth.fsc.laserpacker.parse.toLaserPeckerVersionName
 import com.angcyo.bugly.Bugly
 import com.angcyo.canvas.laser.pecker.mode.CanvasOpenModel
 import com.angcyo.core.CoreApplication
+import com.angcyo.core.Debug
 import com.angcyo.core.component.ScreenShotModel
 import com.angcyo.core.fragment.BaseUI
 import com.angcyo.core.viewpager.RFragmentAdapter
@@ -26,6 +28,7 @@ import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.model.FscDeviceModel
 import com.angcyo.http.gitee.Gitee
 import com.angcyo.item.DslTextInfoItem
+import com.angcyo.item.component.DebugFragment
 import com.angcyo.item.style.itemInfoText
 import com.angcyo.jpush.JPush
 import com.angcyo.library.annotation.CallComplianceAfter
@@ -136,6 +139,13 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
         super.initCoreApplication()
         AppDebugHelper.initDebugAction()
         AppDebugHelper.initCacheAction()
+
+        //debug
+        Debug.onShowDebugFragment = {
+            it.dslFHelper {
+                show(DebugFragment::class)
+            }
+        }
     }
 
     @CallComplianceAfter
