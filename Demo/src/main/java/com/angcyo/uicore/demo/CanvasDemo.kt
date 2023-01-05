@@ -56,7 +56,7 @@ import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave.*
 import com.angcyo.engrave.ble.DeviceConnectTipActivity
 import com.angcyo.engrave.ble.DeviceSettingFragment
-import com.angcyo.engrave.ble.EngraveHistoryFragment
+import com.angcyo.engrave.ble.history.EngraveHistoryFragment
 import com.angcyo.engrave.data.HawkEngraveKeys
 import com.angcyo.engrave.model.PreviewModel
 import com.angcyo.engrave.transition.EngraveTransitionManager
