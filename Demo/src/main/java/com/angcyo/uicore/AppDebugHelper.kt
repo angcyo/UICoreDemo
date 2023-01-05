@@ -10,7 +10,8 @@ import com.angcyo.core.component.model.CacheInfo
 import com.angcyo.core.component.model.CacheModel
 import com.angcyo.core.coreApp
 import com.angcyo.core.vmApp
-import com.angcyo.engrave.ble.CommandActivity
+import com.angcyo.engrave.ble.CommandFragment
+import com.angcyo.engrave.ble.ConnectFragment
 import com.angcyo.engrave.data.HawkEngraveKeys
 import com.angcyo.item.component.DebugFragment
 import com.angcyo.library.annotation.CallPoint
@@ -80,7 +81,16 @@ object AppDebugHelper {
             name = "指令记录"
             action = { _, _ ->
                 lastContext.dslAHelper {
-                    start(CommandActivity::class)
+                    start(CommandFragment::class)
+                }
+            }
+        }
+
+        DebugFragment.addDebugAction {
+            name = "连接记录"
+            action = { _, _ ->
+                lastContext.dslAHelper {
+                    start(ConnectFragment::class)
                 }
             }
         }
