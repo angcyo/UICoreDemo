@@ -977,7 +977,9 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
             //禁止手势
             val isEngraveFlow = to.isEngraveFlow()
             _vh.v<CanvasView>(R.id.canvas_view)?.canvasDelegate?.engraveMode(isEngraveFlow)
-            canvasLayoutHelper.disableEditItem(_vh, canvasView, isEngraveFlow)
+            if (isInPadMode()) {
+                canvasLayoutHelper.disableEditItem(_vh, canvasView, isEngraveFlow)
+            }
 
             if (to == BaseFlowLayoutHelper.ENGRAVE_FLOW_PREVIEW) {
                 //预览中, 偏移画板界面
