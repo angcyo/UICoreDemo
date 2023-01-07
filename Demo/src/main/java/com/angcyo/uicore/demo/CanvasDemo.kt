@@ -34,8 +34,10 @@ import com.angcyo.canvas.graphics.GraphicsHelper
 import com.angcyo.canvas.graphics.addGCodeRender
 import com.angcyo.canvas.graphics.addSvgRender
 import com.angcyo.canvas.graphics.addTextRender
+import com.angcyo.canvas.items.SimpleItem
 import com.angcyo.canvas.items.data.DataItemRenderer
 import com.angcyo.canvas.items.data.DataPathItem
+import com.angcyo.canvas.items.renderer.SimpleItemRenderer
 import com.angcyo.canvas.laser.pecker.CanvasLayoutHelper
 import com.angcyo.canvas.laser.pecker.activity.ProjectListFragment
 import com.angcyo.canvas.laser.pecker.mode.CanvasOpenModel
@@ -163,6 +165,16 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 val canvasView = itemHolder.v<CanvasView>(R.id.canvas_view)
                 //?.setBgDrawable(_colorDrawable("#20000000".toColorInt()))
                 //?.setBgDrawable(CheckerboardDrawable.create())
+
+                canvasView?.canvasDelegate?.apply {
+                    val simpleItem = SimpleItem().apply {
+                        val width = 22 * dp
+                        val height = width
+                        renderBounds = RectF(0f, -height, width, 0f)
+                        renderDrawable = _drawable(R.drawable.lib_notify_icon)
+                    }
+                    rendererBeforeList.add(SimpleItemRenderer(this, simpleItem))
+                }
 
                 //switch_origin_button
                 itemHolder.click(R.id.switch_origin_button) {
