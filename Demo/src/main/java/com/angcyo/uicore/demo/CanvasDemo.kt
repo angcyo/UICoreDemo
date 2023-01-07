@@ -27,6 +27,7 @@ import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
 import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.canvas.CanvasView
+import com.angcyo.canvas.core.ItemsOperateHandler
 import com.angcyo.canvas.data.CanvasProjectBean
 import com.angcyo.canvas.data.CanvasProjectItemBean
 import com.angcyo.canvas.data.LimitDataInfo
@@ -167,14 +168,32 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 //?.setBgDrawable(CheckerboardDrawable.create())
 
                 canvasView?.canvasDelegate?.apply {
-                    val simpleItem = SimpleItem().apply {
-                        val width = 22 * dp
-                        val height = width
-                        renderBounds = RectF(0f, -height, width, 0f)
-                        renderDrawable = _drawable(R.drawable.lib_notify_icon)
+                    if (!isDebuggerConnected()) {
+                        val simpleItem = SimpleItem().apply {
+                            val width = 22 * dp
+                            val height = width
+                            renderBounds = RectF(0f, -height, width, 0f)
+                            renderDrawable = _drawable(R.drawable.lib_notify_icon)
+                        }
+                        rendererBeforeList.add(SimpleItemRenderer(this, simpleItem))
                     }
-                    rendererBeforeList.add(SimpleItemRenderer(this, simpleItem))
+
+                    val simpleItem2 = SimpleItem().apply {
+                        val width = 600f
+                        val height = 426f
+                        val left = ItemsOperateHandler.BOUNDS_LIMIT?.left ?: 0f
+                        val top = (ItemsOperateHandler.BOUNDS_LIMIT?.top ?: 0f) - height
+                        renderBounds = RectF(left, top, left + width, top + height)
+                        renderDrawable = _drawable(R.drawable.all_in2)
+                    }
+                    rendererBeforeList.add(SimpleItemRenderer(this).apply {
+                        needLimitRendererBounds = false
+                        setRendererRenderItem(simpleItem2)
+                    })
                 }
+
+                //limit
+                itemHolder.tv(R.id.result_text_view)?.text = "${ItemsOperateHandler.BOUNDS_LIMIT}"
 
                 //switch_origin_button
                 itemHolder.click(R.id.switch_origin_button) {
