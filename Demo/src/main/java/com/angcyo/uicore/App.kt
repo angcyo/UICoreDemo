@@ -32,6 +32,7 @@ import com.angcyo.item.component.DebugFragment
 import com.angcyo.item.style.itemInfoText
 import com.angcyo.jpush.JPush
 import com.angcyo.library.annotation.CallComplianceAfter
+import com.angcyo.library.component.RBackground
 import com.angcyo.library.component.pad.IPadAdaptive
 import com.angcyo.library.ex.*
 import com.angcyo.library.isMainProgress
@@ -128,7 +129,7 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
         vmApp<ScreenShotModel>().apply {
             startListen()
             screenShotPathData.observeForever {
-                if (!it.isNullOrBlank()) {
+                if (!it.isNullOrBlank() && !RBackground.isBackground()) {
                     EngraveFlowDataHelper.showEngraveScreenShotShare(it)
                 }
             }
