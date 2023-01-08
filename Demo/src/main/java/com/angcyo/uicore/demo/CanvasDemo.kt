@@ -186,10 +186,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                         renderBounds = RectF(left, top, left + width, top + height)
                         renderDrawable = _drawable(R.drawable.all_in2)
                     }
-                    rendererBeforeList.add(SimpleItemRenderer(this).apply {
-                        needLimitRendererBounds = false
-                        setRendererRenderItem(simpleItem2)
-                    })
+                    rendererBeforeList.add(SimpleItemRenderer(this, simpleItem2))
                 }
 
                 //limit
