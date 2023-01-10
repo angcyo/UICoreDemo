@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/lib_hdpi">
+
+    <com.angcyo.uicore.demo.draw.DrawSkewView
+        android:id="@+id/draw_skew_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/transparent20"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/draw_skew_view"
+        app:r_flow_item_horizontal_space="@dimen/lib_hdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_hdpi">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/lib_xhdpi"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/rotate_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="rotate:" />
+
+                <com.angcyo.widget.progress.DslSeekBar
+                    android:id="@+id/rotate_seek"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:progress_show_text="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/scale_x_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="scaleX:" />
+
+                <com.angcyo.widget.progress.DslSeekBar
+                    android:id="@+id/scale_x_seek"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:progress_show_text="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/scale_y_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="scaleY:" />
+
+                <com.angcyo.widget.progress.DslSeekBar
+                    android:id="@+id/scale_y_seek"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:progress_show_text="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/skew_x_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="skewX:" />
+
+                <com.angcyo.widget.progress.DslSeekBar
+                    android:id="@+id/skew_x_seek"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:progress_show_text="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/skew_y_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="skewY:" />
+
+                <com.angcyo.widget.progress.DslSeekBar
+                    android:id="@+id/skew_y_seek"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:progress_show_text="true" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/result_text_view"
+            style="@style/LibTitleTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="angcyo" />
+        
+    </com.angcyo.widget.layout.DslFlowLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

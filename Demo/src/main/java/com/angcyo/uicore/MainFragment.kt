@@ -432,6 +432,7 @@ class MainFragment : BaseDemoDslFragment() {
         renderDemoListItem("FscBleApiDemo")
         renderDemoListItem("SvgDemo GCode")
         renderDemoListItem("MatrixDemo")
+        renderDemoListItem("MatrixSkewDemo")
         renderDemoListItem("DrawPathDemo")
         renderDemoListItem("DrawTextDemo")
         renderDemoListItem("PaintDemo")

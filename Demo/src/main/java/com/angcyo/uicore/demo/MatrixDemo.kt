@@ -270,31 +270,6 @@ class MatrixDemo : AppDslFragment() {
         append(editMatrix().mapRectF(_tempRectF))
     }
 
-    fun Matrix.toLogString(): String = buildString {
-
-        appendLine()
-        val rotate = getRotateDegrees()
-        appendLine("rotate:${rotate}° ${rotate.toRadians()}")
-        appendLine("isAffine:${isAffine}")
-        appendLine("isIdentity:${isIdentity}")
-        appendLine()
-
-        getValues(_tempValues)
-        for (i in 0 until 9) {
-            if (i % 3 == 0) {
-                append("[")
-            }
-            append(_tempValues[i])
-            if (i % 3 != 2) {
-                append(", ")
-            }
-            if (i % 3 == 2) {
-                append("]")
-                appendLine()
-            }
-        }
-    }
-
     /**更新输出文本*/
     fun DslViewHolder.updateText(matrix: Matrix = editMatrix()) {
         tv(R.id.text_view)?.text = buildString {
