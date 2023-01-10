@@ -63,6 +63,7 @@ class MatrixDemo : AppDslFragment() {
                     itemHolder.tv(R.id.text_view)?.text = buildString {
                         append(itemHolder.editMatrix().toLogString())
                         append(itemHolder.mapString())
+                        itemHolder.updateMatrix(itemHolder.editMatrix())
                     }
                 }
                 itemHolder.click(R.id.map_and_set_button) {

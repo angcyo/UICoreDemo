@@ -27,7 +27,7 @@
                 android:digits="@string/lib_number_digits"
                 android:hint="scaleX"
                 android:text="1"
-                app:r_draw_left="scaleX: " />
+                app:r_draw_left="sx: " />
 
             <com.angcyo.widget.edit.DslEditText
                 android:id="@+id/skew_x_edit"
@@ -38,7 +38,7 @@
                 android:digits="@string/lib_number_digits"
                 android:hint="skewX"
                 android:text="0"
-                app:r_draw_left="skewX: " />
+                app:r_draw_left="kx: " />
 
             <com.angcyo.widget.edit.DslEditText
                 android:id="@+id/trans_x_edit"
@@ -49,7 +49,7 @@
                 android:digits="@string/lib_number_digits"
                 android:hint="transX"
                 android:text="0"
-                app:r_draw_left="transX: " />
+                app:r_draw_left="tx: " />
 
         </LinearLayout>
 
@@ -68,7 +68,7 @@
                 android:digits="@string/lib_number_digits"
                 android:hint="skewY"
                 android:text="0"
-                app:r_draw_left="skewY: " />
+                app:r_draw_left="ky: " />
 
             <com.angcyo.widget.edit.DslEditText
                 android:id="@+id/scale_y_edit"
@@ -79,7 +79,7 @@
                 android:digits="@string/lib_number_digits"
                 android:hint="scaleY"
                 android:text="1"
-                app:r_draw_left="scaleY: " />
+                app:r_draw_left="sy: " />
 
             <com.angcyo.widget.edit.DslEditText
                 android:id="@+id/trans_y_edit"
@@ -90,7 +90,7 @@
                 android:digits="@string/lib_number_digits"
                 android:hint="transY"
                 android:text="0"
-                app:r_draw_left="transY: " />
+                app:r_draw_left="ty: " />
 
         </LinearLayout>
 
@@ -151,7 +151,7 @@
                 android:digits="@string/lib_number_digits"
                 android:hint="setScaleX"
                 android:text="1.25"
-                app:r_draw_left="scaleX: " />
+                app:r_draw_left="sx: " />
 
             <com.angcyo.widget.edit.DslEditText
                 android:id="@+id/set_scale_y_edit"
@@ -162,7 +162,7 @@
                 android:digits="@string/lib_number_digits"
                 android:hint="setScaleY"
                 android:text="1.25"
-                app:r_draw_left="scaleY: " />
+                app:r_draw_left="sy: " />
 
             <com.angcyo.widget.DslButton
                 android:id="@+id/set_scale_button"
@@ -199,7 +199,7 @@
                 android:digits="@string/lib_number_digits"
                 android:hint="setTransX"
                 android:text="100"
-                app:r_draw_left="transX: " />
+                app:r_draw_left="tx: " />
 
             <com.angcyo.widget.edit.DslEditText
                 android:id="@+id/set_trans_y_edit"
@@ -210,7 +210,7 @@
                 android:digits="@string/lib_number_digits"
                 android:hint="setTransY"
                 android:text="100"
-                app:r_draw_left="transY: " />
+                app:r_draw_left="ty: " />
 
             <com.angcyo.widget.DslButton
                 android:id="@+id/set_trans_button"
@@ -247,7 +247,7 @@
                 android:digits="@string/lib_number_digits"
                 android:hint="setSkewX"
                 android:text="0.1"
-                app:r_draw_left="skewX: " />
+                app:r_draw_left="kx: " />
 
             <com.angcyo.widget.edit.DslEditText
                 android:id="@+id/set_skew_y_edit"
@@ -258,7 +258,7 @@
                 android:digits="@string/lib_number_digits"
                 android:hint="setSkewY"
                 android:text="0.1"
-                app:r_draw_left="skewY: " />
+                app:r_draw_left="ky: " />
 
             <com.angcyo.widget.DslButton
                 android:id="@+id/set_skew_button"
