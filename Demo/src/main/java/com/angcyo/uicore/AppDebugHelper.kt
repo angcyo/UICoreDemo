@@ -12,6 +12,7 @@ import com.angcyo.core.coreApp
 import com.angcyo.core.vmApp
 import com.angcyo.engrave.ble.CommandFragment
 import com.angcyo.engrave.ble.ConnectFragment
+import com.angcyo.engrave.ble.TransferDataFragment
 import com.angcyo.engrave.data.HawkEngraveKeys
 import com.angcyo.item.component.DebugFragment
 import com.angcyo.library.annotation.CallPoint
@@ -91,6 +92,15 @@ object AppDebugHelper {
             action = { _, _ ->
                 lastContext.dslAHelper {
                     start(ConnectFragment::class)
+                }
+            }
+        }
+
+        DebugFragment.addDebugAction {
+            name = "数据记录"
+            action = { _, _ ->
+                lastContext.dslAHelper {
+                    start(TransferDataFragment::class)
                 }
             }
         }

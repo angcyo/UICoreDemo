@@ -24,7 +24,10 @@ import com.angcyo.crash.sight.CrashSight
 import com.angcyo.download.DslDownload
 import com.angcyo.engrave.EngraveFlowDataHelper
 import com.angcyo.engrave.auto.AutoEngraveHelper
+import com.angcyo.engrave.ble.CommandFragment
+import com.angcyo.engrave.ble.ConnectFragment
 import com.angcyo.engrave.ble.DeviceSettingFragment
+import com.angcyo.engrave.ble.TransferDataFragment
 import com.angcyo.engrave.model.FscDeviceModel
 import com.angcyo.http.gitee.Gitee
 import com.angcyo.item.DslTextInfoItem
@@ -142,9 +145,20 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
         AppDebugHelper.initCacheAction()
 
         //debug
-        Debug.onShowDebugFragment = {
-            it.dslFHelper {
-                show(DebugFragment::class)
+        Debug.onShowFragmentAction = { fragmentActivity, show ->
+            when (show) {
+                "debug" -> fragmentActivity.dslFHelper {
+                    show(DebugFragment::class)
+                }
+                "connect" -> fragmentActivity.dslFHelper {
+                    show(ConnectFragment::class)
+                }
+                "command" -> fragmentActivity.dslFHelper {
+                    show(CommandFragment::class)
+                }
+                "transferData" -> fragmentActivity.dslFHelper {
+                    show(TransferDataFragment::class)
+                }
             }
         }
     }
