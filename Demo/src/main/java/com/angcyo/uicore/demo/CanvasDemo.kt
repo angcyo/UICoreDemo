@@ -110,6 +110,11 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
         enableSoftInput = false
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        canvasDelegate?.saveInstanceState(async = false)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         vmApp<FscBleApiModel>().connectDeviceListData.observe {
