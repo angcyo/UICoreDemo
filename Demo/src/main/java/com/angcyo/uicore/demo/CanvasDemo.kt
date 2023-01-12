@@ -49,6 +49,7 @@ import com.angcyo.canvas.utils.CanvasDataHandleOperate
 import com.angcyo.canvas.utils.engraveMode
 import com.angcyo.canvas.utils.parseGCode
 import com.angcyo.component.getPhoto
+import com.angcyo.core.component.file.writeToLog
 import com.angcyo.core.component.fileSelector
 import com.angcyo.core.loadingAsyncTg
 import com.angcyo.core.showIn
@@ -112,7 +113,13 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        "CanvasDemo:onSaveInstanceState:$outState".writeToLog()
         canvasDelegate?.saveInstanceState(async = false)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        "CanvasDemo:onViewStateRestored:$savedInstanceState".writeToLog()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
