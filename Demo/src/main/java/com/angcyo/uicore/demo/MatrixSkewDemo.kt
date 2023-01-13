@@ -26,6 +26,22 @@ class MatrixSkewDemo : AppDslFragment() {
             bindItem(R.layout.demo_matrix_skew) { itemHolder, itemPosition, adapterItem, payloads ->
                 val drawSkewView = itemHolder.v<DrawSkewView>(R.id.draw_skew_view)
 
+                //---rotate
+                itemHolder.click(R.id.group_rotate_label) {
+                    drawSkewView?.groupRotate = 0f
+                    drawSkewView?.invalidate()
+                }
+                itemHolder.v<DslSeekBar>(R.id.group_rotate_seek)?.apply {
+                    progressTextFormatAction = this@MatrixSkewDemo::formatRotateTextAction
+                    config {
+                        onSeekChanged = { value, fraction, fromUser ->
+                            drawSkewView?.groupRotate = formatRotateValue(fraction)
+                            drawSkewView?.invalidate()
+                            updateResult(itemHolder)
+                        }
+                    }
+                }
+
                 itemHolder.click(R.id.rotate_label) {
                     drawSkewView?.subRotate = 0f
                     drawSkewView?.invalidate()
@@ -41,7 +57,7 @@ class MatrixSkewDemo : AppDslFragment() {
                     }
                 }
 
-                //---
+                //---scale
                 itemHolder.click(R.id.scale_x_label) {
                     drawSkewView?.groupScaleX = 1f
                     drawSkewView?.invalidate()
@@ -70,7 +86,8 @@ class MatrixSkewDemo : AppDslFragment() {
                         }
                     }
                 }
-                //---
+
+                //---skew
                 itemHolder.click(R.id.skew_x_label) {
                     drawSkewView?.subSkewX = 0f
                     drawSkewView?.invalidate()
@@ -118,10 +135,10 @@ class MatrixSkewDemo : AppDslFragment() {
             )
             itemHolder.tv(R.id.result_text_view)?.text = buildString {
                 appendLine(it.groupScaleX * it.subRotate.toRadians()) //a tan
-                appendLine("$skewX") //a tan
-                appendLine("1:${matrix.toLogString()}") //a tan
-                appendLine("2:${it.subMatrix.toLogString()}") //a tan
-                appendLine("3:${it.subMatrix2.toLogString()}") //a tan
+                appendLine("$skewX")
+                appendLine("1:${matrix.toLogString()}")
+                appendLine("2:${it.subMatrix.toLogString()}")
+                appendLine("3:${it.subMatrix2.toLogString()}")
             }
         }
     }
