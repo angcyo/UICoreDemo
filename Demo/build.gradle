@@ -8,7 +8,7 @@ ext {
 
     application_id = "com.angcyo.uicore.demo"
 
-    apkName = "#an-#vn_#fn_#bn_#ka.apk"
+    apkName = "#an-#vn_#fn_#bn_#ka"
 }
 apply from: allGradle.app
 
