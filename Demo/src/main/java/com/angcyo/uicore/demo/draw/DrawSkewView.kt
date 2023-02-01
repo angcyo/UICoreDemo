@@ -139,6 +139,26 @@ class DrawSkewView(context: Context, attributeSet: AttributeSet? = null) :
 
         matrix.postConcat(rotateMatrix)*/
 
+        testMatrix()
+
+        L.d()
+    }
+
+    fun testMatrix() {
+        val m = Matrix()
+        m.setScale(1.5f, 1.3f)
+        m.postSkew(1f, 1f)
+
+        val m2 = Matrix()
+        m2.setScale(1.5f, 1.3f, 100f, 100f)
+        m2.postSkew(1f, 1f, 100f, 100f)
+
+        val m3 = Matrix()
+        m3.setTranslate(-100f, -100f)
+        m3.preConcat(m)
+        val m4 = Matrix()
+        m4.setTranslate(-100f, -100f)
+        m4.postConcat(m)
         L.d()
     }
 
