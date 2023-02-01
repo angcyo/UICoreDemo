@@ -3,10 +3,7 @@ package com.angcyo.uicore.demo
 import android.graphics.Matrix
 import android.os.Bundle
 import com.angcyo.dsladapter.bindItem
-import com.angcyo.library.ex.getSkewX
-import com.angcyo.library.ex.getSkewY
-import com.angcyo.library.ex.toLogString
-import com.angcyo.library.ex.toRadians
+import com.angcyo.library.ex.*
 import com.angcyo.library.unit.unitDecimal
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.draw.DrawSkewView
@@ -38,6 +35,8 @@ class MatrixSkewDemo : AppDslFragment() {
                             drawSkewView?.groupRotate = formatRotateValue(fraction)
                             drawSkewView?.invalidate()
                             updateResult(itemHolder)
+
+                            //itemHolder.v<DslSeekBar>(R.id.rotate_seek)?.setProgress()
                         }
                     }
                 }
@@ -123,6 +122,9 @@ class MatrixSkewDemo : AppDslFragment() {
     fun updateResult(itemHolder: DslViewHolder) {
         val drawSkewView = itemHolder.v<DrawSkewView>(R.id.draw_skew_view)
         drawSkewView?.let {
+            val groupMatrix = it.groupMatrix()
+            val subMatrix = it.subMatrix()
+
             val matrix = Matrix()
             matrix.postScale(it.groupScaleX, it.groupScaleY)
             matrix.postRotate(it.subRotate)
@@ -134,6 +136,10 @@ class MatrixSkewDemo : AppDslFragment() {
                 denom
             )
             itemHolder.tv(R.id.result_text_view)?.text = buildString {
+                appendLine("GroupRotate:${groupMatrix.getRotateDegrees()} y:${groupMatrix.getRotateDegreesY()} SubRotate:${subMatrix.getRotateDegrees()} y:${subMatrix.getRotateDegreesY()} ${it.subRotate}")
+                appendLine("1:${subMatrix.toLogString()}")
+                appendLine("↓")
+                //--
                 appendLine(it.groupScaleX * it.subRotate.toRadians()) //a tan
                 appendLine("$skewX")
                 appendLine("1:${matrix.toLogString()}")
