@@ -3,7 +3,6 @@ package com.angcyo.uicore.demo.draw
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.view.View
 import androidx.core.graphics.*
 import com.angcyo.canvas.utils.createPaint
 import com.angcyo.library.L
@@ -19,27 +18,11 @@ import kotlin.math.tan
  * @since 2023/01/09
  */
 class DrawSkewView(context: Context, attributeSet: AttributeSet? = null) :
-    View(context, attributeSet) {
+    BaseMatrixView(context, attributeSet) {
     val anchorPoint = PointF()
 
     val subRect = RectF()
     val groupRect = RectF()
-    var subRotate = 30f
-        set(value) {
-            field = value % 360
-            updateGroupRect()
-        }
-    var groupRotate = 0f
-        set(value) {
-            field = value % 360
-            subRotate += value
-        }
-
-    var groupScaleX = 1f
-    var groupScaleY = 1f
-
-    var subSkewX = 0f
-    var subSkewY = 0f
 
     val subMatrix = Matrix()
     val subMatrix2 = Matrix()
@@ -50,6 +33,7 @@ class DrawSkewView(context: Context, attributeSet: AttributeSet? = null) :
 
     init {
         groupRotate = 0f
+        subRotate = 30f
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {

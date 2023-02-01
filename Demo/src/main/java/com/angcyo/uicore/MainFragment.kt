@@ -238,7 +238,7 @@ class MainFragment : BaseDemoDslFragment() {
                 L.i(response)
             } catch (e: Exception) {
                 L.e("捕捉异常:$e")
-                throw  e
+                throw e
             }
         }
 
@@ -433,6 +433,7 @@ class MainFragment : BaseDemoDslFragment() {
         renderDemoListItem("SvgDemo GCode")
         renderDemoListItem("MatrixDemo")
         renderDemoListItem("MatrixSkewDemo")
+        renderDemoListItem("GroupScaleDemo")
         renderDemoListItem("DrawPathDemo")
         renderDemoListItem("DrawTextDemo")
         renderDemoListItem("PaintDemo")
