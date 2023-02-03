@@ -169,12 +169,6 @@ class DrawSkewView(context: Context, attributeSet: AttributeSet? = null) :
         }*/
     }
 
-    fun rotateMatrix(rotate: Float): Matrix {
-        val matrix = Matrix()
-        matrix.setRotate(rotate)
-        return matrix
-    }
-
     fun groupMatrix(): Matrix {
         val matrix = Matrix()
         //matrix.setRotate(groupRotate, groupRect.centerX(), groupRect.centerY())

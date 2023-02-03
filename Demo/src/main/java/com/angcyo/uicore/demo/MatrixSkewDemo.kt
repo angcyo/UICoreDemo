@@ -109,27 +109,27 @@ open class MatrixSkewDemo : AppDslFragment() {
         }
     }
 
-    fun bindScale(itemHolder: DslViewHolder, view: IMatrixView?) {
+    fun bindScale(itemHolder: DslViewHolder, view: BaseMatrixView?) {
         itemHolder.click(R.id.scale_x_label) {
-            view?.groupScaleX = 1f
+            view?.scaleGroupTo(1f)
         }
         itemHolder.v<DslSeekBar>(R.id.scale_x_seek)?.apply {
             progressTextFormatAction = this@MatrixSkewDemo::formatScaleTextAction
             config {
                 onSeekChanged = { value, fraction, fromUser ->
-                    view?.groupScaleX = fraction
+                    view?.scaleGroupTo(fraction)
                     updateResult(itemHolder)
                 }
             }
         }
         itemHolder.click(R.id.scale_y_label) {
-            view?.groupScaleY = 1f
+            view?.scaleGroupTo(sy = 1f)
         }
         itemHolder.v<DslSeekBar>(R.id.scale_y_seek)?.apply {
             progressTextFormatAction = this@MatrixSkewDemo::formatScaleTextAction
             config {
                 onSeekChanged = { value, fraction, fromUser ->
-                    view?.groupScaleY = fraction
+                    view?.scaleGroupTo(sy = fraction)
                     updateResult(itemHolder)
                 }
             }
@@ -138,28 +138,28 @@ open class MatrixSkewDemo : AppDslFragment() {
         //---
 
         itemHolder.click(R.id.sub_scale_x_label) {
-            view?.subScaleX = 1f
+            view?.scaleSubTo(1f)
         }
         itemHolder.v<DslSeekBar>(R.id.sub_scale_x_seek)?.apply {
             progressTextFormatAction = this@MatrixSkewDemo::formatScaleTextAction
             config {
                 onSeekChanged = { value, fraction, fromUser ->
                     if (fromUser) {
-                        view?.subScaleX = fraction
+                        view?.scaleSubTo(fraction)
                         updateResult(itemHolder)
                     }
                 }
             }
         }
         itemHolder.click(R.id.sub_scale_y_label) {
-            view?.subScaleY = 1f
+            view?.scaleSubTo(sy = 1f)
         }
         itemHolder.v<DslSeekBar>(R.id.sub_scale_y_seek)?.apply {
             progressTextFormatAction = this@MatrixSkewDemo::formatScaleTextAction
             config {
                 onSeekChanged = { value, fraction, fromUser ->
                     if (fromUser) {
-                        view?.subScaleY = fraction
+                        view?.scaleSubTo(sy = fraction)
                         updateResult(itemHolder)
                     }
                 }
@@ -167,30 +167,30 @@ open class MatrixSkewDemo : AppDslFragment() {
         }
     }
 
-    fun bindSkew(itemHolder: DslViewHolder, view: IMatrixView?) {
+    fun bindSkew(itemHolder: DslViewHolder, view: BaseMatrixView?) {
         itemHolder.click(R.id.skew_x_label) {
-            view?.subSkewX = 0f
+            view?.skewSubTo(1f)
         }
         itemHolder.v<DslSeekBar>(R.id.skew_x_seek)?.apply {
             progressTextFormatAction = this@MatrixSkewDemo::formatSkewTextAction
             config {
                 onSeekChanged = { value, fraction, fromUser ->
                     if (fromUser) {
-                        view?.subSkewX = formatSkewValue(fraction)
+                        view?.skewSubTo(formatSkewValue(fraction))
                         updateResult(itemHolder)
                     }
                 }
             }
         }
         itemHolder.click(R.id.skew_y_label) {
-            view?.subSkewY = 0f
+            view?.skewSubTo(ky = 0f)
         }
         itemHolder.v<DslSeekBar>(R.id.skew_y_seek)?.apply {
             progressTextFormatAction = this@MatrixSkewDemo::formatSkewTextAction
             config {
                 onSeekChanged = { value, fraction, fromUser ->
                     if (fromUser) {
-                        view?.subSkewY = formatSkewValue(fraction)
+                        view?.skewSubTo(ky = formatSkewValue(fraction))
                         updateResult(itemHolder)
                     }
                 }

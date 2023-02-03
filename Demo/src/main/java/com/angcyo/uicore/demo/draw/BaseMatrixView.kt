@@ -3,12 +3,14 @@ package com.angcyo.uicore.demo.draw
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import androidx.core.graphics.withMatrix
 import androidx.core.graphics.withRotation
 import com.angcyo.canvas.data.CanvasProperty
 import com.angcyo.canvas.utils.createPaint
 import com.angcyo.library.ex.*
+import com.angcyo.widget.base.isTouchDown
 import java.lang.Math.pow
 import kotlin.math.atan2
 import kotlin.math.sqrt
@@ -112,10 +114,28 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
 
     var _subMatrix: Matrix? = null
 
+    var testDrawAction: Canvas.() -> Unit = {}
+    var nextDrawAction: Canvas.() -> Unit = {}
+    var nextDrawAction2: Canvas.() -> Unit = {}
+
+    override fun draw(canvas: Canvas) {
+        super.draw(canvas)
+        //
+        nextDrawAction(canvas)
+        nextDrawAction2(canvas)
+        testDrawAction(canvas)
+    }
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-
         _subMatrix?.let { canvas.drawSub(Color.YELLOW, it) }
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        if (event.isTouchDown()) {
+            invalidate()
+        }
+        return super.onTouchEvent(event)
     }
 
     /**更新Group包裹范围*/
@@ -133,6 +153,12 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
     }
 
     //---
+
+    fun rotateMatrix(rotate: Float): Matrix {
+        val matrix = Matrix()
+        matrix.setRotate(rotate)
+        return matrix
+    }
 
     /**group指定旋转角度的矩阵*/
     fun groupMatrix(rotate: Float = groupRotate): Matrix {
@@ -162,7 +188,88 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
         return matrix
     }
 
-    /**将[matrix]拆解成[CanvasProperty]*/
+    fun canvasPropertyMatrix(rect: RectF, property: CanvasProperty): Matrix {
+        val scaleRect = RectF(rect)
+        val matrix = Matrix()
+        val anchor = PointF(scaleRect.centerX(), scaleRect.centerY())
+        //val anchor = PointF(scaleRect.left, scaleRect.top)
+        /*matrix.setScale(property.scaleX, property.scaleY, anchor.x, anchor.y)
+        matrix.postSkew(
+            tan(property.skewX.toRadians()),
+            tan(property.skewY.toRadians()),
+            anchor.x, anchor.y
+        )
+        //matrix.postRotate(property.angle, anchor.x, anchor.y)
+
+        *//*matrix.mapRect(scaleRect)
+        matrix.postSkew(
+            tan(property.skewX.toRadians()),
+            tan(property.skewY.toRadians()),
+            scaleRect.centerX(), scaleRect.centerY()
+        )*//*
+        //matrix.postRotate(property.angle, scaleRect.centerX(), scaleRect.centerY())*/
+
+        //matrix.setRotate(property.angle, anchor.x, anchor.y)
+        /*matrix.postScale(property.scaleX, property.scaleY, anchor.x, anchor.y)
+        *//*matrix.postSkew(
+            tan(property.skewX.toRadians()),
+            tan(property.skewY.toRadians()),
+            anchor.x, anchor.y
+        )*//*
+        matrix.mapRect(scaleRect)
+        matrix.postRotate(property.angle, scaleRect.centerX(), scaleRect.centerY())
+        matrix.postSkew(
+            tan(property.skewX.toRadians()),
+            tan(property.skewY.toRadians()),
+            scaleRect.centerX(), scaleRect.centerY()
+        )*/
+
+
+        //√, 使用pre
+        //matrix.setRotate(property.angle, anchor.x, anchor.y)
+        /*matrix.preScale(property.scaleX, property.scaleY, anchor.x, anchor.y)
+        matrix.preSkew(
+            tan(property.skewX.toRadians()),
+            tan(property.skewY.toRadians()),
+            anchor.x, anchor.y
+        )*/
+
+        //×
+        /*matrix.postSkew(
+            tan(property.skewX.toRadians()),
+            tan(property.skewY.toRadians()),
+            anchor.x, anchor.y
+        )
+        matrix.preScale(property.scaleX, property.scaleY, anchor.x, anchor.y)*/
+
+        //√, 使用post
+        /*matrix.setSkew(
+            tan(property.skewX.toRadians()),
+            tan(property.skewY.toRadians()),
+            anchor.x, anchor.y
+        )
+        matrix.postScale(property.scaleX, property.scaleY, anchor.x, anchor.y)*/
+        //matrix.postRotate(property.angle, anchor.x, anchor.y)
+
+        //√, 先post 再pre 代码顺序不影响计算顺序, [pre × post] 执行顺序与代码顺序无关
+        matrix.postScale(property.scaleX, property.scaleY, anchor.x, anchor.y)
+        matrix.preSkew(
+            tan(property.skewX.toRadians()),
+            tan(property.skewY.toRadians()),
+            anchor.x, anchor.y
+        )
+
+        return matrix
+    }
+
+    /**将[matrix]拆解成[CanvasProperty]
+     * QR分解
+     * https://ristohinno.medium.com/qr-decomposition-903e8c61eaab
+     *
+     * https://zh.wikipedia.org/zh-hans/QR%E5%88%86%E8%A7%A3
+     *
+     * https://rosettacode.org/wiki/QR_decomposition#Java
+     * */
     fun getSaveCanvasProperty(matrix: Matrix): CanvasProperty {
         val property = CanvasProperty()
         val angle = atan2(matrix.getSkewY(), matrix.getScaleX()).toDegrees()
@@ -194,7 +301,8 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
     /**绘制group*/
     fun Canvas.drawGroup(color: Int = Color.WHITE) {
         val rect = RectF(groupRect)
-
+        val matrix = groupMatrix(0f)
+        matrix.mapRect(rect)
         withRotation(groupRotate, rect.centerX(), rect.centerY()) {
             paint.color = color
             drawRect(rect, paint)
@@ -202,8 +310,11 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
     }
 
     /**绘制sub*/
-    fun Canvas.drawSub(color: Int = Color.BLACK, matrix: Matrix = subDataMatrix()) {
-        val rect = RectF(subRect)
+    fun Canvas.drawSub(
+        color: Int = Color.BLACK,
+        matrix: Matrix = subDataMatrix(),
+        rect: RectF = RectF(subRect)
+    ) {
         withMatrix(matrix) {
             paint.color = color
             drawRect(rect, paint)
@@ -211,8 +322,7 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
     }
 
     /**绘制sub使用, 修改数据, 然后旋转的方式绘制*/
-    fun Canvas.drawSubPath(color: Int = Color.BLACK) {
-        val rect = RectF(subRect)
+    fun Canvas.drawSubPath(color: Int = Color.BLACK, rect: RectF = RectF(subRect)) {
         val matrix = subDataMatrix(false)
 
         val path = Path()
@@ -228,8 +338,7 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
     }
 
     /**绘制sub使用, 恢复后的属性*/
-    fun Canvas.drawSubPath(color: Int, property: CanvasProperty) {
-        val rect = RectF(subRect)
+    fun Canvas.drawSubPath(color: Int, property: CanvasProperty, rect: RectF = RectF(subRect)) {
         val matrix = Matrix()
         matrix.setScale(property.scaleX, property.scaleY, rect.left, rect.top)
         matrix.postSkew(
@@ -253,7 +362,21 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
 
     //---
 
-    /**旋转组到指定的角度*/
+    /**缩放Sub到指定比例*/
+    fun scaleSubTo(sx: Float = subScaleX, sy: Float = subScaleY) {
+        subScaleX = sx
+        subScaleY = sy
+        updateGroupRect()
+    }
+
+    /**错切/倾斜Sub到指定比例*/
+    fun skewSubTo(kx: Float = subSkewX, ky: Float = subSkewY) {
+        subSkewX = kx
+        subSkewY = ky
+        updateGroupRect()
+    }
+
+    /**旋转Group到指定的度数, 角度单位*/
     fun rotateGroupTo(rotate: Float) {
         val sub = RectF(subRect)
         val group = RectF(groupRect)
@@ -270,6 +393,57 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
 
         subRotate += dr
         groupRotate = rotate
+    }
+
+    /**缩放Group到指定比例*/
+    fun scaleGroupTo(sx: Float = groupScaleX, sy: Float = groupScaleY) {
+        val sub = RectF(subRect)
+        val group = RectF(groupRect)
+        val anchor = PointF(group.left, group.top)
+        val subBounds = RectF(subRect)
+
+        val subMatrix = subDataMatrix(true)
+        subMatrix.mapRect(subBounds)
+        groupScaleX = sx
+        groupScaleY = sy
+        val groupMatrix = groupMatrix()
+        subMatrix.postConcat(groupMatrix)
+
+        val subBounds2 = RectF(subBounds)
+        subMatrix.mapRect(subBounds2)
+
+        val property = getSaveCanvasProperty(subMatrix)
+        nextDrawAction = {
+            withMatrix(subMatrix) {
+                paint.color = Color.RED
+                drawRect(sub, paint)
+            }
+            /*drawSubPath(
+                Color.YELLOW,
+                property
+                *//*,sub.offsetCenterTo(subBounds2.centerX(), subBounds2.centerY())*//*
+            )*/
+
+            /*withMatrix(canvasPropertyMatrix(subRect, property)) {
+                paint.color = Color.YELLOW
+                drawRect(sub, paint)
+            }*/
+
+
+            withRotation(property.angle, sub.centerX(), sub.centerY()) {
+                val path = Path()
+                path.addRect(sub, Path.Direction.CW)
+                path.transform(canvasPropertyMatrix(subRect, property))
+                paint.color = Color.YELLOW
+                drawPath(path, paint)
+            }
+        }
+        nextDrawAction2 = {
+            /*paint.color = Color.GREEN
+            drawRect(subBounds, paint)
+            paint.color = Color.BLUE
+            drawRect(subBounds2, paint)*/
+        }
     }
 
 }
