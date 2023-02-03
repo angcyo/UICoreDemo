@@ -30,14 +30,14 @@ class DrawPathDemo : AppDslFragment() {
                 //
                 itemHolder.v<DslSeekBar>(R.id.seek_bar)?.apply {
                     progressTextFormatAction = {
-                        "$progressValue"
+                        "${progressValue.toInt()}"
                     }
                     config {
                         onSeekChanged = { value, fraction, fromUser ->
                             drawPathView?.dashWidth = value * 1f
                             if (value > 2) {
                                 drawPathView?.polygonPath = ShapesHelper.polygonPath(
-                                    value,
+                                    value.toInt(),
                                     drawPathView.mW() / 2f,
                                     drawPathView.mH() / 2f
                                 )
@@ -50,14 +50,14 @@ class DrawPathDemo : AppDslFragment() {
                 //
                 itemHolder.v<DslSeekBar>(R.id.seek_bar2)?.apply {
                     progressTextFormatAction = {
-                        "$progressValue"
+                        "${progressValue.toInt()}"
                     }
                     config {
                         onSeekChanged = { value, fraction, fromUser ->
                             drawPathView?.dashGap = value * 1f
                             if (value > 2) {
                                 drawPathView?.polygonPath = ShapesHelper.polygonPath(
-                                    value,
+                                    value.toInt(),
                                     drawPathView.mW() / 2f,
                                     drawPathView.mH() / 2f
                                 )

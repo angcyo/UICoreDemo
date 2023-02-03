@@ -70,8 +70,8 @@ class LoadingDemo2 : AppDslFragment() {
                 itemHolder.v<DslBlockSeekBar>(R.id.block_seek_bar)?.config {
                     onSeekChanged = { value, fraction, fromUser ->
                         if (fromUser) {
-                            circleProgressDrawable.currentProgressValue = value
-                            linearProgressDrawable.currentProgressValue = value
+                            circleProgressDrawable.currentProgressValue = value.toInt()
+                            linearProgressDrawable.currentProgressValue = value.toInt()
                         }
                     }
                 }

@@ -40,7 +40,7 @@ class WidgetDemo : AppTitleFragment() {
         _vh.view(R.id.path_loading_view)?.background = pathLoadingDrawable
         _vh.v<DslSeekBar>(R.id.path_loading_seek_bar)?.config {
             onSeekChanged = { value, fraction, fromUser ->
-                pathLoadingDrawable.progress = value
+                pathLoadingDrawable.progress = value.toInt()
             }
         }
 
@@ -75,7 +75,7 @@ class WidgetDemo : AppTitleFragment() {
             onSeekChanged = { value, _, _ ->
                 _vh.v<ArcLoadingView>(R.id.arc_load_view)?.run {
                     endLoading()
-                    progress = value
+                    progress = value.toInt()
                 }
             }
         }

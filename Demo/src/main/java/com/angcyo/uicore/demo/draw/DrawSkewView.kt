@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import androidx.core.graphics.*
-import com.angcyo.canvas.utils.createPaint
 import com.angcyo.library.L
 import com.angcyo.library.ex.*
 import com.angcyo.library.gesture.RectScaleGestureHandler
@@ -19,51 +18,9 @@ import kotlin.math.tan
  */
 class DrawSkewView(context: Context, attributeSet: AttributeSet? = null) :
     BaseMatrixView(context, attributeSet) {
-    val anchorPoint = PointF()
-
-    val subRect = RectF()
-    val groupRect = RectF()
 
     val subMatrix = Matrix()
     val subMatrix2 = Matrix()
-
-    val paint = createPaint().apply {
-        strokeWidth = 1 * dp
-    }
-
-    init {
-        groupRotate = 0f
-        subRotate = 30f
-    }
-
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
-        val centerX = w / 2
-        val centerY = h / 2
-
-        val width = 100 * dp
-        val height = width
-
-        val margin = width / 2
-        //anchorPoint.set(centerX - 2 * width, centerY - 2 * height)
-        //anchorPoint.set(centerX - width, centerY - height)
-        //anchorPoint.set(0f, 0f)
-
-        /*subRect.set(
-            centerX - width / 2f,
-            centerY - height / 2f,
-            centerX + width / 2f,
-            centerY + height / 2f
-        )*/
-        val r = w - margin
-        val b = h - margin
-        val l = r - width
-        val t = b - height
-        subRect.set(l, t, r, b)
-        anchorPoint.set(l - width, t - height)
-
-        updateGroupRect()
-    }
 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
@@ -1034,18 +991,6 @@ class DrawSkewView(context: Context, attributeSet: AttributeSet? = null) :
     }
 
     //---
-
-    /**更新Group包裹范围*/
-    fun updateGroupRect() {
-        val scaleRect = RectF(subRect)
-        scaleRect.rotate(subRotate)
-        groupRect.set(
-            minOf(anchorPoint.x, scaleRect.left),
-            minOf(anchorPoint.y, scaleRect.top),
-            maxOf(anchorPoint.x, scaleRect.right),
-            maxOf(anchorPoint.y, scaleRect.bottom)
-        )
-    }
 
     fun calcGroupRect(): RectF {
         /*val scaleRect =

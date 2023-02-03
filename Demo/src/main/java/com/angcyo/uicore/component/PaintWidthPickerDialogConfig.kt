@@ -75,7 +75,7 @@ class PaintWidthPickerDialogConfig : BaseDialogConfig() {
         return ((value - minPaintWidth) / (maxPaintWidth - minPaintWidth) * 100).toInt()
     }
 
-    fun _value(progress: Int): Float {
+    fun _value(progress: Float): Float {
         //
         return minPaintWidth + (maxPaintWidth - minPaintWidth) * progress / 100
     }

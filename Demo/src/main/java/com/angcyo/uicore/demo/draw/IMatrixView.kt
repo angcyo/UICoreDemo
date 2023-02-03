@@ -20,7 +20,7 @@ interface IMatrixView {
     var subScaleX: Float
     var subScaleY: Float
 
-    //---倾斜度数, 角度单位
+    //---缩放后的, 倾斜度数, 角度单位
 
     var subSkewX: Float
     var subSkewY: Float

@@ -7,6 +7,7 @@ import com.angcyo.dsladapter.bindItem
 import com.angcyo.library.ex.*
 import com.angcyo.library.unit.unitDecimal
 import com.angcyo.uicore.base.AppDslFragment
+import com.angcyo.uicore.demo.draw.BaseMatrixView
 import com.angcyo.uicore.demo.draw.DrawSkewView
 import com.angcyo.uicore.demo.draw.IMatrixView
 import com.angcyo.widget.DslViewHolder
@@ -71,14 +72,22 @@ open class MatrixSkewDemo : AppDslFragment() {
 
     fun bindRotate(itemHolder: DslViewHolder, view: IMatrixView?) {
         itemHolder.click(R.id.group_rotate_label) {
-            view?.groupRotate = 0f
+            //view?.groupRotate = 0f
+            if (view is BaseMatrixView) {
+                view.updateGroupRect()
+            }
         }
         itemHolder.v<DslSeekBar>(R.id.group_rotate_seek)?.apply {
             progressTextFormatAction = this@MatrixSkewDemo::formatRotateTextAction
             config {
                 onSeekChanged = { value, fraction, fromUser ->
-                    view?.groupRotate = formatRotateValue(fraction)
-                    updateResult(itemHolder)
+                    //view?.groupRotate = formatRotateValue(fraction)
+                    if (fromUser) {
+                        if (view is BaseMatrixView) {
+                            view.rotateGroupTo(formatRotateValue(fraction))
+                        }
+                        updateResult(itemHolder)
+                    }
                     //itemHolder.v<DslSeekBar>(R.id.rotate_seek)?.setProgress()
                 }
             }
@@ -91,8 +100,10 @@ open class MatrixSkewDemo : AppDslFragment() {
             progressTextFormatAction = this@MatrixSkewDemo::formatRotateTextAction
             config {
                 onSeekChanged = { value, fraction, fromUser ->
-                    view?.subRotate = formatRotateValue(fraction)
-                    updateResult(itemHolder)
+                    if (fromUser) {
+                        view?.subRotate = formatRotateValue(fraction)
+                        updateResult(itemHolder)
+                    }
                 }
             }
         }
@@ -133,8 +144,10 @@ open class MatrixSkewDemo : AppDslFragment() {
             progressTextFormatAction = this@MatrixSkewDemo::formatScaleTextAction
             config {
                 onSeekChanged = { value, fraction, fromUser ->
-                    view?.subScaleX = fraction
-                    updateResult(itemHolder)
+                    if (fromUser) {
+                        view?.subScaleX = fraction
+                        updateResult(itemHolder)
+                    }
                 }
             }
         }
@@ -145,8 +158,10 @@ open class MatrixSkewDemo : AppDslFragment() {
             progressTextFormatAction = this@MatrixSkewDemo::formatScaleTextAction
             config {
                 onSeekChanged = { value, fraction, fromUser ->
-                    view?.subScaleY = fraction
-                    updateResult(itemHolder)
+                    if (fromUser) {
+                        view?.subScaleY = fraction
+                        updateResult(itemHolder)
+                    }
                 }
             }
         }
@@ -160,8 +175,10 @@ open class MatrixSkewDemo : AppDslFragment() {
             progressTextFormatAction = this@MatrixSkewDemo::formatSkewTextAction
             config {
                 onSeekChanged = { value, fraction, fromUser ->
-                    view?.subSkewX = formatSkewValue(fraction)
-                    updateResult(itemHolder)
+                    if (fromUser) {
+                        view?.subSkewX = formatSkewValue(fraction)
+                        updateResult(itemHolder)
+                    }
                 }
             }
         }
@@ -172,8 +189,10 @@ open class MatrixSkewDemo : AppDslFragment() {
             progressTextFormatAction = this@MatrixSkewDemo::formatSkewTextAction
             config {
                 onSeekChanged = { value, fraction, fromUser ->
-                    view?.subSkewY = formatSkewValue(fraction)
-                    updateResult(itemHolder)
+                    if (fromUser) {
+                        view?.subSkewY = formatSkewValue(fraction)
+                        updateResult(itemHolder)
+                    }
                 }
             }
         }

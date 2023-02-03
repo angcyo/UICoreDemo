@@ -501,12 +501,12 @@ class DialogDemo : AppDslFragment() {
 
             if (viewHolder.isChecked(R.id.amount_cb)) {
                 config.dimAmount =
-                    (viewHolder.v<DslSeekBar>(R.id.amount_progress_bar)?.progressValue ?: 0) / 100f
+                    (viewHolder.v<DslSeekBar>(R.id.amount_progress_bar)?.progressValue ?: 0f) / 100f
             }
 
             if (viewHolder.isChecked(R.id.blur_cb)) {
                 val progressValue =
-                    (viewHolder.v<DslSeekBar>(R.id.blur_progress_bar)?.progressValue ?: 0)
+                    (viewHolder.v<DslSeekBar>(R.id.blur_progress_bar)?.progressValue ?: 0f).toInt()
                 config.blurBehindRadius = if (progressValue == 0) {
                     64
                 } else {
@@ -689,7 +689,7 @@ class DialogDemo : AppDslFragment() {
 
             if (_vh.cb(R.id.amount_cb)?.isChecked == true) {
                 config.amount =
-                    (_vh.v<DslSeekBar>(R.id.amount_progress_bar)?.progressValue ?: 0) / 100f
+                    (_vh.v<DslSeekBar>(R.id.amount_progress_bar)?.progressValue ?: 0f) / 100f
             }
         }
     }

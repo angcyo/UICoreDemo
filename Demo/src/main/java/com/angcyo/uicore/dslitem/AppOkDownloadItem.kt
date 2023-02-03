@@ -138,7 +138,7 @@ class AppOkDownloadItem : DslAdapterItem() {
 
                 onTaskFinish = { downloadTask, cause, exception ->
                     if (cause == EndCause.COMPLETED) {
-                        itemHolder.v<DslProgressBar>(R.id.progress_bar)?.setProgress(100)
+                        itemHolder.v<DslProgressBar>(R.id.progress_bar)?.setProgress(100f)
 
                         //下载完成是个APK, 则安装
                         if (downloadTask.file?.absolutePath?.endsWith("apk") == true) {
