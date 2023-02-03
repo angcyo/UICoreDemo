@@ -232,15 +232,15 @@ open class MatrixSkewDemo : AppDslFragment() {
     fun updateScaleSkewToViewResult(itemHolder: DslViewHolder, view: IMatrixView?) {
         view ?: return
         itemHolder.v<DslSeekBar>(R.id.rotate_seek)
-            ?.setProgress((view.subRotate / 360f * 100).toInt())
+            ?.setProgress(view.subRotate / 360f * 100)
 
-        itemHolder.v<DslSeekBar>(R.id.sub_scale_x_seek)?.setProgress((view.subScaleX * 100).toInt())
-        itemHolder.v<DslSeekBar>(R.id.sub_scale_y_seek)?.setProgress((view.subScaleY * 100).toInt())
+        itemHolder.v<DslSeekBar>(R.id.sub_scale_x_seek)?.setProgress(view.subScaleX * 100)
+        itemHolder.v<DslSeekBar>(R.id.sub_scale_y_seek)?.setProgress(view.subScaleY * 100)
 
         itemHolder.v<DslSeekBar>(R.id.skew_x_seek)
-            ?.setProgress(((view.subSkewX + 180) / 360f * 100).toInt())
+            ?.setProgress((view.subSkewX + 180) / 360f * 100)
         itemHolder.v<DslSeekBar>(R.id.skew_y_seek)
-            ?.setProgress(((view.subSkewY + 180) / 360f * 100).toInt())
+            ?.setProgress((view.subSkewY + 180) / 360f * 100)
     }
 
     //---
