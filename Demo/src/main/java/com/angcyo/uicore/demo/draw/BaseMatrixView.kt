@@ -7,6 +7,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.core.graphics.withMatrix
 import androidx.core.graphics.withRotation
+import androidx.core.graphics.withTranslation
 import com.angcyo.canvas.data.CanvasProperty
 import com.angcyo.canvas.utils.createPaint
 import com.angcyo.library.ex.*
@@ -191,6 +192,8 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
     fun canvasPropertyMatrix(rect: RectF, property: CanvasProperty): Matrix {
         val scaleRect = RectF(rect)
         val matrix = Matrix()
+
+        //锚点不影响效果, 只影响偏移量
         val anchor = PointF(scaleRect.centerX(), scaleRect.centerY())
         //val anchor = PointF(scaleRect.left, scaleRect.top)
         /*matrix.setScale(property.scaleX, property.scaleY, anchor.x, anchor.y)
@@ -429,13 +432,23 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
                 drawRect(sub, paint)
             }*/
 
+            val canvasPropertyMatrix = canvasPropertyMatrix(subRect, property)
+            val rect = RectF(sub)
+            canvasPropertyMatrix.mapRect(rect)
 
-            withRotation(property.angle, sub.centerX(), sub.centerY()) {
-                val path = Path()
-                path.addRect(sub, Path.Direction.CW)
-                path.transform(canvasPropertyMatrix(subRect, property))
-                paint.color = Color.YELLOW
-                drawPath(path, paint)
+            val tx = subBounds2.centerX() - rect.centerX()
+            val ty = subBounds2.centerY() - rect.centerY()
+            withTranslation(tx, ty) {
+                withRotation(property.angle, sub.centerX(), sub.centerY()) {
+                    val path = Path()
+                    path.addRect(sub, Path.Direction.CW)
+                    path.transform(canvasPropertyMatrix)
+                    paint.color = Color.YELLOW
+                    drawPath(path, paint)
+
+                    paint.color = Color.WHITE
+                    drawRect(rect, paint)
+                }
             }
         }
         nextDrawAction2 = {
