@@ -9,7 +9,9 @@ import androidx.core.graphics.withMatrix
 import androidx.core.graphics.withRotation
 import androidx.core.graphics.withTranslation
 import com.angcyo.canvas.data.CanvasProperty
+import com.angcyo.canvas.data.CanvasRectProperty
 import com.angcyo.canvas.utils.createPaint
+import com.angcyo.library.component.pool.release
 import com.angcyo.library.ex.*
 import com.angcyo.widget.base.isTouchDown
 import java.lang.Math.pow
@@ -75,9 +77,16 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
     }
 
     val anchorPoint = PointF()
+    val subAnchorPoint = PointF(0f, 0f)
 
     val subRect = RectF()
     val groupRect = RectF()
+
+    //---
+
+    var groupRectProperty = CanvasRectProperty()
+
+    var subRectProperty = CanvasRectProperty()
 
     init {
         groupRotate = 0f
@@ -111,6 +120,25 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
         anchorPoint.set(l - width, t - height)
 
         updateGroupRect()
+
+        resetGroupRectProperty()
+        resetSubRectProperty()
+    }
+
+    fun resetSubRectProperty() {
+        subRectProperty = CanvasRectProperty()
+        subRectProperty.initWithRect(subRect)
+        subRectProperty.angle = subRotate
+        subRectProperty.scaleX = subScaleX
+        subRectProperty.scaleY = subScaleY
+        subRectProperty.skewX = subSkewX
+        subRectProperty.skewY = subSkewY
+    }
+
+    fun resetGroupRectProperty() {
+        groupRectProperty = CanvasRectProperty()
+        groupRectProperty.initWithRect(groupRect)
+        groupRectProperty.angle = groupRotate
     }
 
     var _subMatrix: Matrix? = null
@@ -155,6 +183,11 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
 
     //---
 
+    fun updateSubAnchor(x: Float = subAnchorPoint.x, y: Float = subAnchorPoint.y) {
+        subAnchorPoint.x = x
+        subAnchorPoint.y = y
+    }
+
     fun rotateMatrix(rotate: Float): Matrix {
         val matrix = Matrix()
         matrix.setRotate(rotate)
@@ -175,16 +208,16 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
     fun subDataMatrix(rotate: Boolean = true): Matrix {
         val scaleRect = RectF(subRect)
         val matrix = Matrix()
-        matrix.setScale(subScaleX, subScaleY, scaleRect.left, scaleRect.top)
-        matrix.postSkew(
+        val px = scaleRect.centerX()
+        val py = scaleRect.centerY()
+        matrix.setSkew(
             tan(subSkewX.toRadians()),
             tan(subSkewY.toRadians()),
-            scaleRect.left,
-            scaleRect.top
+            px, py
         )
-        matrix.mapRect(scaleRect)
+        matrix.postScale(subScaleX, subScaleY, px, py)
         if (rotate) {
-            matrix.postRotate(subRotate, scaleRect.centerX(), scaleRect.centerY())
+            matrix.postRotate(subRotate, px, py)
         }
         return matrix
     }
@@ -229,8 +262,8 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
 
 
         //√, 使用pre
-        //matrix.setRotate(property.angle, anchor.x, anchor.y)
-        /*matrix.preScale(property.scaleX, property.scaleY, anchor.x, anchor.y)
+        /*matrix.setRotate(property.angle, anchor.x, anchor.y)
+        matrix.preScale(property.scaleX, property.scaleY, anchor.x, anchor.y)
         matrix.preSkew(
             tan(property.skewX.toRadians()),
             tan(property.skewY.toRadians()),
@@ -245,14 +278,23 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
         )
         matrix.preScale(property.scaleX, property.scaleY, anchor.x, anchor.y)*/
 
-        //√, 使用post
+        //√, 使用post, 直接把所有属性放在一个矩阵中, 然后直接绘制rect
+        /*matrix.setSkew(
+             tan(property.skewX.toRadians()),
+             tan(property.skewY.toRadians()),
+             anchor.x, anchor.y
+         )
+         matrix.postScale(property.scaleX, property.scaleY, anchor.x, anchor.y)
+         matrix.postRotate(property.angle, anchor.x, anchor.y)*/
+
+        //×, 一定要先进行skew, 在scale, 最后rotate, 因为scale操作会影响skew的值, 但是skew操作, 不会响应scale的值
         /*matrix.setSkew(
             tan(property.skewX.toRadians()),
             tan(property.skewY.toRadians()),
             anchor.x, anchor.y
         )
+        matrix.postRotate(property.angle, anchor.x, anchor.y)
         matrix.postScale(property.scaleX, property.scaleY, anchor.x, anchor.y)*/
-        //matrix.postRotate(property.angle, anchor.x, anchor.y)
 
         //√, 先post 再pre 代码顺序不影响计算顺序, [pre × post] 执行顺序与代码顺序无关
         matrix.postScale(property.scaleX, property.scaleY, anchor.x, anchor.y)
@@ -260,7 +302,7 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
             tan(property.skewX.toRadians()),
             tan(property.skewY.toRadians()),
             anchor.x, anchor.y
-        )
+        )//之后绘制的时候, 再处理按照中心点旋转withRotation
 
         return matrix
     }
@@ -363,6 +405,26 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
         }
     }
 
+    fun Canvas.drawRectProperty(color: Int, property: CanvasRectProperty) {
+        val path = Path()
+        val rect = property.getRect()
+        val matrix = property.getMatrix(false)
+
+        path.addRect(rect, Path.Direction.CW)
+        path.transform(matrix)
+
+        withRotation(property.angle, rect.centerX(), rect.centerY()) {
+            //data
+            paint.color = color
+            drawPath(path, paint)
+            //bounds
+            matrix.mapRect(rect)
+            paint.color = Color.WHITE
+            drawRect(rect, paint)
+            rect.release()
+        }
+    }
+
     //---
 
     /**缩放Sub到指定比例*/
@@ -370,6 +432,8 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
         subScaleX = sx
         subScaleY = sy
         updateGroupRect()
+
+        subRectProperty.scaleTo(sx, sy)
     }
 
     /**错切/倾斜Sub到指定比例*/
@@ -377,25 +441,29 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
         subSkewX = kx
         subSkewY = ky
         updateGroupRect()
+
+        subRectProperty.skewTo(kx, ky)
     }
 
     /**旋转Group到指定的度数, 角度单位*/
     fun rotateGroupTo(rotate: Float) {
-        val sub = RectF(subRect)
-        val group = RectF(groupRect)
-
-        val dr = rotate - groupRotate
-
-        val subMatrix = subDataMatrix()
-        val groupMatrix = Matrix() //groupMatrix(dr)
-        groupMatrix.setRotate(dr, group.centerX(), group.centerY())
-
-        subMatrix.postConcat(groupMatrix)
-
-        _subMatrix = subMatrix
-
-        subRotate += dr
         groupRotate = rotate
+        val group = RectF(groupRect)
+        val groupMatrix = groupMatrix()
+        groupMatrix.mapRect(group)
+
+        val anchorX = group.centerX()
+        val anchorY = group.centerY()
+
+        resetSubRectProperty()
+        subRectProperty.wrapScale(groupScaleX, groupScaleY, groupRect.left, groupRect.top)
+        subRectProperty.wrapRotate(rotate, anchorX, anchorY)
+        invalidate()
+    }
+
+    fun subRotateTo(rotate: Float) {
+        subRotate = rotate
+        subRectProperty.angle = rotate
     }
 
     /**缩放Group到指定比例*/
@@ -433,6 +501,12 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
             }*/
 
             val canvasPropertyMatrix = canvasPropertyMatrix(subRect, property)
+            /*val rect = RectF(sub)
+            withMatrix(canvasPropertyMatrix) {
+                paint.color = Color.YELLOW
+                drawRect(rect, paint)
+            }*/
+
             val rect = RectF(sub)
             canvasPropertyMatrix.mapRect(rect)
 
@@ -457,6 +531,20 @@ open class BaseMatrixView(context: Context, attributeSet: AttributeSet? = null) 
             paint.color = Color.BLUE
             drawRect(subBounds2, paint)*/
         }
+    }
+
+    fun scaleGroupTo2(sx: Float = groupScaleX, sy: Float = groupScaleY) {
+        val group = RectF(groupRect)
+
+        val anchorX = group.left
+        val anchorY = group.top
+
+        groupScaleX = sx
+        groupScaleY = sy
+
+        resetSubRectProperty()
+        subRectProperty.wrapScale(sx, sy, anchorX, anchorY)
+        invalidate()
     }
 
 }

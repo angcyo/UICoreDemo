@@ -16,6 +16,9 @@ class GroupScaleDemo : MatrixSkewDemo() {
             bindItem(R.layout.demo_group_scale) { itemHolder, itemPosition, adapterItem, payloads ->
                 val demoView = itemHolder.v<GroupScaleView>(R.id.group_scale_view)
 
+                //---anchor
+                bindAnchor(itemHolder, demoView)
+
                 //---rotate
                 bindRotate(itemHolder, demoView)
 

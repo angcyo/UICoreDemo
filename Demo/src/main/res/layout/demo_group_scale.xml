@@ -35,6 +35,50 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/anchor_x_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="anchorX:" />
+
+                <com.angcyo.widget.progress.DslSeekBar
+                    android:id="@+id/anchor_x_seek"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:progress_show_text="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/anchor_y_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="anchorY:" />
+
+                <com.angcyo.widget.progress.DslSeekBar
+                    android:id="@+id/anchor_y_seek"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:progress_show_text="true" />
+
+            </LinearLayout>
+
+            <!---->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -70,6 +114,8 @@
                     app:progress_show_text="true" />
 
             </LinearLayout>
+
+            <!---->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -150,6 +196,8 @@
                     app:progress_show_text="true" />
 
             </LinearLayout>
+
+            <!---->
 
             <LinearLayout
                 android:layout_width="match_parent"

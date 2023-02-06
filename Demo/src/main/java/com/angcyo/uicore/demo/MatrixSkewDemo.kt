@@ -69,13 +69,42 @@ open class MatrixSkewDemo : AppDslFragment() {
     }
 
     //---
+    fun bindAnchor(itemHolder: DslViewHolder, view: BaseMatrixView?) {
+        itemHolder.click(R.id.anchor_x_label) {
+            view?.updateSubAnchor(0f)
+        }
+        itemHolder.v<DslSeekBar>(R.id.anchor_x_seek)?.apply {
+            progressTextFormatAction = this@MatrixSkewDemo::formatRotateTextAction
+            config {
+                onSeekChanged = { value, fraction, fromUser ->
+                    if (fromUser) {
+                        view?.updateSubAnchor(0f)
+                    }
+                }
+            }
+        }
 
-    fun bindRotate(itemHolder: DslViewHolder, view: IMatrixView?) {
+        itemHolder.click(R.id.anchor_y_label) {
+            view?.updateSubAnchor(y = 0f)
+        }
+        itemHolder.v<DslSeekBar>(R.id.anchor_y_seek)?.apply {
+            progressTextFormatAction = this@MatrixSkewDemo::formatRotateTextAction
+            config {
+                onSeekChanged = { value, fraction, fromUser ->
+                    if (fromUser) {
+                        view?.updateSubAnchor(y = 0f)
+                    }
+                }
+            }
+        }
+    }
+
+    //---
+
+    fun bindRotate(itemHolder: DslViewHolder, view: BaseMatrixView?) {
         itemHolder.click(R.id.group_rotate_label) {
             //view?.groupRotate = 0f
-            if (view is BaseMatrixView) {
-                view.updateGroupRect()
-            }
+            view?.updateGroupRect()
         }
         itemHolder.v<DslSeekBar>(R.id.group_rotate_seek)?.apply {
             progressTextFormatAction = this@MatrixSkewDemo::formatRotateTextAction
@@ -83,9 +112,7 @@ open class MatrixSkewDemo : AppDslFragment() {
                 onSeekChanged = { value, fraction, fromUser ->
                     //view?.groupRotate = formatRotateValue(fraction)
                     if (fromUser) {
-                        if (view is BaseMatrixView) {
-                            view.rotateGroupTo(formatRotateValue(fraction))
-                        }
+                        view?.rotateGroupTo(formatRotateValue(fraction))
                         updateResult(itemHolder)
                     }
                     //itemHolder.v<DslSeekBar>(R.id.rotate_seek)?.setProgress()
@@ -94,14 +121,14 @@ open class MatrixSkewDemo : AppDslFragment() {
         }
 
         itemHolder.click(R.id.rotate_label) {
-            view?.subRotate = 0f
+            view?.subRotateTo(0f)
         }
         itemHolder.v<DslSeekBar>(R.id.rotate_seek)?.apply {
             progressTextFormatAction = this@MatrixSkewDemo::formatRotateTextAction
             config {
                 onSeekChanged = { value, fraction, fromUser ->
                     if (fromUser) {
-                        view?.subRotate = formatRotateValue(fraction)
+                        view?.subRotateTo(formatRotateValue(fraction))
                         updateResult(itemHolder)
                     }
                 }
@@ -111,25 +138,25 @@ open class MatrixSkewDemo : AppDslFragment() {
 
     fun bindScale(itemHolder: DslViewHolder, view: BaseMatrixView?) {
         itemHolder.click(R.id.scale_x_label) {
-            view?.scaleGroupTo(1f)
+            view?.scaleGroupTo2(1f)
         }
         itemHolder.v<DslSeekBar>(R.id.scale_x_seek)?.apply {
             progressTextFormatAction = this@MatrixSkewDemo::formatScaleTextAction
             config {
                 onSeekChanged = { value, fraction, fromUser ->
-                    view?.scaleGroupTo(fraction)
+                    view?.scaleGroupTo2(fraction)
                     updateResult(itemHolder)
                 }
             }
         }
         itemHolder.click(R.id.scale_y_label) {
-            view?.scaleGroupTo(sy = 1f)
+            view?.scaleGroupTo2(sy = 1f)
         }
         itemHolder.v<DslSeekBar>(R.id.scale_y_seek)?.apply {
             progressTextFormatAction = this@MatrixSkewDemo::formatScaleTextAction
             config {
                 onSeekChanged = { value, fraction, fromUser ->
-                    view?.scaleGroupTo(sy = fraction)
+                    view?.scaleGroupTo2(sy = fraction)
                     updateResult(itemHolder)
                 }
             }

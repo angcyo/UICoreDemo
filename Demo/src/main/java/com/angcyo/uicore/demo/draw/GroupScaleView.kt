@@ -29,7 +29,10 @@ class GroupScaleView(context: Context, attributeSet: AttributeSet? = null) :
         //canvas.drawSubPath(Color.RED)
         //canvas.drawSubPath(Color.RED, getSaveCanvasProperty(subDataMatrix(true)))
 
+        canvas.drawRectProperty(Color.RED, subRectProperty)
         //test()
+
+        //testMatrix()
     }
 
     fun test() {
@@ -62,6 +65,20 @@ class GroupScaleView(context: Context, attributeSet: AttributeSet? = null) :
             test.mapRect(scaleRect2)
             drawRect(scaleRect2, paint)
         }
+        L.d()
+    }
+
+    fun testMatrix() {
+        val t = Matrix()
+        t.setTranslate(100f, 100f)
+
+        val m = Matrix()
+        m.setScale(0.5f, 0.5f, 100f, 100f)
+
+        val m2 = Matrix()
+        m2.setScale(0.5f, 0.5f)
+        m2.preConcat(t)
+
         L.d()
     }
 
