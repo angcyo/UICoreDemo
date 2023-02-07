@@ -6,6 +6,7 @@ apply from: 'UICore/_gradle/init.gradle'
 apply from: allGradle.saveStream
 apply from: allGradle.statisticsWord
 apply from: allGradle.excelMaterial
+apply from: allGradle.mergeFile
 
 //apply from: "$gradleHost/master/init.gradle"
 //apply from: "$gradleHost/master/discardCache.gradle" //禁用缓存?
