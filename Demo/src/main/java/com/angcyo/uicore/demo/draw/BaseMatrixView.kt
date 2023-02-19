@@ -8,12 +8,12 @@ import android.view.View
 import androidx.core.graphics.withMatrix
 import androidx.core.graphics.withRotation
 import androidx.core.graphics.withTranslation
-import com.angcyo.canvas.data.CanvasProperty
-import com.angcyo.canvas.data.CanvasRectProperty
 import com.angcyo.canvas.utils.createPaint
 import com.angcyo.library.component.pool.release
 import com.angcyo.library.ex.*
-import com.angcyo.widget.base.isTouchDown
+import com.angcyo.library.ex.isTouchDown
+import com.angcyo.uicore.component.CanvasProperty
+import com.angcyo.uicore.component.CanvasRectProperty
 import java.lang.Math.pow
 import kotlin.math.atan2
 import kotlin.math.sqrt
