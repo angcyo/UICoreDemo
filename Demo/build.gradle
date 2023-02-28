@@ -108,6 +108,7 @@ dependencies {
     implementation project(allModule.engrave_auto)
     //implementation project(allModule.jsEngine)//The minCompileSdk (33) specified in a
     implementation project(allModule.deviceServer)
+    implementation project(allModule.canvas2)
 
     //https://github.com/airbnb/lottie-android
     //http://airbnb.io/lottie
