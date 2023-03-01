@@ -5,11 +5,13 @@ import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.widget.TextView
+import com.angcyo.bitmap.handle.BitmapHandle
 import com.angcyo.canvas.utils.toEngraveBitmap
 import com.angcyo.component.getPhoto
 import com.angcyo.drawable.PathListDrawable
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave.engraveLoadingAsync
+import com.angcyo.library.component.hawk.LibHawkKeys
 import com.angcyo.library.ex.*
 import com.angcyo.uicore.MainFragment
 import com.angcyo.uicore.base.AppDslFragment
@@ -159,12 +161,14 @@ class ColorChannelDemo : AppDslFragment() {
         itemHolder.img(R.id.image_view)?.drawable?.let {
             if (it is BitmapDrawable) {
                 engraveLoadingAsync({
-                    it.bitmap.toGrayHandle(
-                        if (MainFragment.CLICK_COUNT++ % 2 == 0) {
+                    BitmapHandle.toGrayHandle(
+                        it.bitmap,
+                        alphaBgColor = if (MainFragment.CLICK_COUNT++ % 2 == 0) {
                             Color.WHITE
                         } else {
                             Color.TRANSPARENT
-                        }
+                        },
+                        alphaThreshold = LibHawkKeys.bgAlphaThreshold
                     )
                 }) { bitmap ->
                     itemHolder.img(R.id.blue_image_view)?.setImageBitmap(bitmap)

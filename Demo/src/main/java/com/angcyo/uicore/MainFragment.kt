@@ -443,8 +443,8 @@ class MainFragment : BaseDemoDslFragment() {
         renderDemoListItem("CropImageDemo")
         renderDemoListItem("DoodleDemo")
         renderDemoListItem("BitmapDrawSizeDemo")
-        renderDemoListItem("CanvasDemo")
-        renderDemoListItem("Canvas2Demo $GO")
+        renderDemoListItem("CanvasDemo $GO")
+        renderDemoListItem("Canvas2Demo")
 
         //https://github.com/sinawangnan7/CurrentActivity
         //renderDemoListItem("CurrentActivityDemo $GO")
