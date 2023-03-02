@@ -132,7 +132,6 @@ class AppFscDeviceItem : DslAdapterItem(), IFragmentItem {
                     val byteArray = it.context.readAssetsBytes("fsc/BT986916.dfu")
                     fscBleApiModel.connectToOTAWithFactory(
                         device.address,
-                        "",
                         byteArray!!
                     ) {
                         toastQQ("更新进度:$it")
