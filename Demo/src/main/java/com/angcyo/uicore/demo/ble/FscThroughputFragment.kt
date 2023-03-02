@@ -14,8 +14,9 @@ import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.dslItem
 import com.angcyo.dsladapter.isUpdatePart
 import com.angcyo.engrave.data.HawkEngraveKeys
-import com.angcyo.getData
+import com.angcyo.getParcelable
 import com.angcyo.http.rx.doMain
+import com.angcyo.library.L
 import com.angcyo.library.ex._dimen
 import com.angcyo.library.ex.fileSizeString
 import com.angcyo.library.ex.toHexByteArray
@@ -31,6 +32,7 @@ import com.angcyo.widget.progress.DslProgressBar
 import com.angcyo.widget.span.span
 import com.feasycom.common.bean.FscDevice
 import okhttp3.internal.toHexString
+import java.nio.charset.Charset
 import java.util.zip.CRC32
 import kotlin.math.max
 
@@ -61,7 +63,7 @@ class FscThroughputFragment : AppDslFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        fscDevice = getData()
+        fscDevice = getParcelable()
     }
 
     override fun initBaseView(savedInstanceState: Bundle?) {
@@ -103,6 +105,11 @@ class FscThroughputFragment : AppDslFragment() {
 
                     //接收到的数据
                     itemHolder.tv(R.id.receive_text_view)?.text = receiveBuffer.toHexString(true)
+
+                    if (receiveBuffer.isNotEmpty()) {
+                        itemHolder.tv(R.id.result_text_view)?.text =
+                            receiveBuffer.toString(Charset.defaultCharset())
+                    }
 
                     if (payloads.isUpdatePart()) {
                         //进度更新
@@ -324,6 +331,17 @@ class FscThroughputFragment : AppDslFragment() {
                                 EngravePreviewCmd.previewBracketDownCmd().toHexCommandString(),
                                 EngravePreviewParser::class.java
                             )
+                        }
+
+                        //AT
+                        itemHolder.click(R.id.at_ver_command) {
+                            fscDevice?.let { device ->
+                                //AT+VER 9.1.1,FSC-BT986 5 2
+                                //fscModel.fscApi.sendATCommand(device.address, setOf("AT+VER"))
+                                fscModel.sendAtCommand("AT+VER") {
+                                    L.i(it)
+                                }
+                            }
                         }
                     }
                 }

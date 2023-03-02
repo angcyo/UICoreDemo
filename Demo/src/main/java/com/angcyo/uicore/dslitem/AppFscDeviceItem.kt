@@ -4,10 +4,12 @@ import androidx.fragment.app.Fragment
 import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.DeviceConnectState
 import com.angcyo.bluetooth.fsc.FscBleApiModel
-import com.angcyo.dsladapter.item.IFragmentItem
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.DslAdapterItem
-import com.angcyo.putData
+import com.angcyo.dsladapter.item.IFragmentItem
+import com.angcyo.library.ex.readAssetsBytes
+import com.angcyo.library.toastQQ
+import com.angcyo.putParcelable
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.demo.ble.FscThroughputFragment
 import com.angcyo.widget.DslViewHolder
@@ -43,7 +45,7 @@ class AppFscDeviceItem : DslAdapterItem(), IFragmentItem {
         itemClick = {
             itemFragment?.dslFHelper {
                 show(FscThroughputFragment::class) {
-                    putData(fscDevice)
+                    putParcelable(fscDevice)
                 }
             }
         }
@@ -100,6 +102,53 @@ class AppFscDeviceItem : DslAdapterItem(), IFragmentItem {
                 } else {
                     //连接
                     fscBleApiModel.connect(device)
+                }
+            }
+        }
+
+        //connect_at_button AT指令
+        itemHolder.click(R.id.connect_at_button) {
+            fscDevice?.let { device ->
+                if (fscBleApiModel.isConnected(device)) {
+                    //断开
+                    fscBleApiModel.disconnect(device)
+                } else {
+                    //连接
+                    fscBleApiModel.connect(device, connectToModify = true)
+                }
+            }
+        }
+
+        //connect_factory_button 蓝牙模块固件升级
+        itemHolder.click(R.id.connect_factory_button) {
+            fscDevice?.let { device ->
+                if (fscBleApiModel.isConnected(device)) {
+                    //断开
+                    fscBleApiModel.disconnect(device)
+                    fscDevice = null
+                } else {
+                    //模块升级
+                    //val byteArray = it.context.readAssetsBytes("fsc/HAIXING_BT986916.dfu")
+                    val byteArray = it.context.readAssetsBytes("fsc/BT986916.dfu")
+                    fscBleApiModel.connectToOTAWithFactory(
+                        device.address,
+                        "",
+                        byteArray!!
+                    ) {
+                        toastQQ("更新进度:$it")
+                    }
+
+                    /*val url = "https://dfu.feasycom.com/HAIXING%2FBT986916.dfu"
+                    url.download() { task: DownloadTask, error: Throwable? ->
+                        if (task.isFinish) {
+                            doMain {
+                                val byteArray = task.savePath.file().readBytes()
+                                fscBleApiModel.connectToOTAWithFactory(device.address, byteArray) {
+                                    toastQQ("更新进度:$it")
+                                }
+                            }
+                        }
+                    }*/
                 }
             }
         }
