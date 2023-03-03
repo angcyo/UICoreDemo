@@ -7,6 +7,7 @@ import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.item.IFragmentItem
+import com.angcyo.http.rx.doMain
 import com.angcyo.library.ex.readAssetsBytes
 import com.angcyo.library.toastQQ
 import com.angcyo.putParcelable
@@ -120,7 +121,7 @@ class AppFscDeviceItem : DslAdapterItem(), IFragmentItem {
         }
 
         //connect_factory_button 蓝牙模块固件升级
-        itemHolder.click(R.id.connect_factory_button) {
+        itemHolder.click(R.id.factory_upgrade_button) {
             fscDevice?.let { device ->
                 if (fscBleApiModel.isConnected(device)) {
                     //断开
@@ -128,13 +129,20 @@ class AppFscDeviceItem : DslAdapterItem(), IFragmentItem {
                     fscDevice = null
                 } else {
                     //模块升级
-                    //val byteArray = it.context.readAssetsBytes("fsc/HAIXING_BT986916.dfu")
                     val byteArray = it.context.readAssetsBytes("fsc/BT986916.dfu")
                     fscBleApiModel.connectToOTAWithFactory(
                         device.address,
                         byteArray!!
-                    ) {
-                        toastQQ("更新进度:$it")
+                    ) { percentage, status ->
+                        if (status == 10086) {
+                            toastQQ("升级成功")
+                        } else if (status == 120) {
+                            toastQQ("升级失败")
+                        } else {
+                            doMain {
+                                itemHolder.tv(R.id.factory_upgrade_button)?.text = "$percentage"
+                            }
+                        }
                     }
 
                     /*val url = "https://dfu.feasycom.com/HAIXING%2FBT986916.dfu"
@@ -148,6 +156,34 @@ class AppFscDeviceItem : DslAdapterItem(), IFragmentItem {
                             }
                         }
                     }*/
+                }
+            }
+        }
+
+        //降级
+        itemHolder.click(R.id.factory_demotion_button) {
+            fscDevice?.let { device ->
+                if (fscBleApiModel.isConnected(device)) {
+                    //断开
+                    fscBleApiModel.disconnect(device)
+                    fscDevice = null
+                } else {
+                    //模块升级
+                    val byteArray = it.context.readAssetsBytes("fsc/BT986911.dfu")
+                    fscBleApiModel.connectToOTAWithFactory(
+                        device.address,
+                        byteArray!!
+                    ) { percentage, status ->
+                        if (status == 10086) {
+                            toastQQ("降级成功")
+                        } else if (status == 120) {
+                            toastQQ("降级失败")
+                        } else {
+                            doMain {
+                                itemHolder.tv(R.id.factory_demotion_button)?.text = "$percentage"
+                            }
+                        }
+                    }
                 }
             }
         }

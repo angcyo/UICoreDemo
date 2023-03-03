@@ -58,13 +58,23 @@
             android:text="连接(AT)" />
 
         <com.angcyo.widget.DslButton
-            android:id="@+id/connect_factory_button"
+            android:id="@+id/factory_upgrade_button"
             style="@style/DefaultButtonMinStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/lib_hdpi"
             android:padding="2dp"
-            android:text="模块升级" />
+            android:text="模块(9.1.6)" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/factory_demotion_button"
+            style="@style/DefaultButtonMinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/lib_hdpi"
+            android:padding="2dp"
+            android:text="模块(9.1.1)" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
