@@ -303,7 +303,7 @@ class DrawableSpanDemo : AppTitleFragment() {
             onSeekChanged = { value, _, _ ->
                 _vh.v<ArcLoadingView>(R.id.arc_load_view)?.run {
                     endLoading()
-                    progress = value.toInt()
+                    progress = value
                 }
             }
         }

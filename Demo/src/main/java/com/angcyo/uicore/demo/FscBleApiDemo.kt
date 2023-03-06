@@ -81,7 +81,7 @@ class FscBleApiDemo : AppDslFragment() {
                         itemHolder.v<ArcLoadingView>(R.id.arc_load_view)?.startLoading()
                     } else {
                         itemHolder.v<ArcLoadingView>(R.id.arc_load_view)?.endLoading()
-                        itemHolder.v<ArcLoadingView>(R.id.arc_load_view)?.progress = 0
+                        itemHolder.v<ArcLoadingView>(R.id.arc_load_view)?.progress = 0f
                     }
 
                     itemHolder.tv(R.id.start_scan_button)?.text =

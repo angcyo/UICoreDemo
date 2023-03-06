@@ -26,7 +26,14 @@
 
         <com.angcyo.widget.loading.CircleScaleLoadingView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:r_loading_circle_from_color="#FF0000" />
+
+        <com.angcyo.widget.loading.CircleScaleLoadingView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:r_loading_circle_fill_style="true"
+            app:r_loading_circle_from_color="#FF0000" />
 
     </com.angcyo.widget.layout.DslFlowLayout>
 
