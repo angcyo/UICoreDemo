@@ -98,7 +98,7 @@ dependencies {
     implementation project(allModule.browser)
     implementation project(allModule.engrave)
     implementation project(allModule.objectbox_lp)
-    implementation project(allModule.canvas_lp)
+    implementation project(allModule.canvas_lp)//canvas
     implementation project(allModule.CrashSight)
     implementation project(allModule.umeng_lp)
     implementation project(allModule.doodle)
@@ -108,7 +108,7 @@ dependencies {
     implementation project(allModule.engrave_auto)
     //implementation project(allModule.jsEngine)//The minCompileSdk (33) specified in a
     implementation project(allModule.deviceServer)
-    implementation project(allModule.canvas2)
+    implementation project(allModule.canvas2_lp)//canvas2 2023-3-3
 
     //https://github.com/airbnb/lottie-android
     //http://airbnb.io/lottie

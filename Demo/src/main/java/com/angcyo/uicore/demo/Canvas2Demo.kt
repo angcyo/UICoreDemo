@@ -2,23 +2,27 @@ package com.angcyo.uicore.demo
 
 import android.os.Bundle
 import android.view.Gravity
+import android.view.ViewGroup
+import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.canvas.CanvasRenderView
-import com.angcyo.canvas.render.core.CanvasUndoManager
-import com.angcyo.canvas.render.core.ICanvasRenderListener
 import com.angcyo.canvas.render.operation.RectElement
 import com.angcyo.canvas.render.renderer.CanvasElementRenderer
+import com.angcyo.canvas2.laser.pecker.CanvasLayoutHelper
 import com.angcyo.dsladapter.bindItem
-import com.angcyo.library.ex.size
+import com.angcyo.engrave.EngraveFlowLayoutHelper
+import com.angcyo.engrave.IEngraveCanvasFragment
+import com.angcyo.fragment.AbsLifecycleFragment
 import com.angcyo.library.unit.toPixel
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.DslViewHolder
-import com.angcyo.widget.span.span
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
  * @since 2023-2-11
  */
-class Canvas2Demo : AppDslFragment() {
+class Canvas2Demo : AppDslFragment(), IEngraveCanvasFragment {
+
+    val canvasLayoutHelper = CanvasLayoutHelper(this)
 
     init {
         enableSoftInput = false
@@ -31,51 +35,22 @@ class Canvas2Demo : AppDslFragment() {
 
         renderDslAdapter {
             bindItem(R.layout.canvas2_layout) { itemHolder, itemPosition, adapterItem, payloads ->
-                val canvasRenderView = itemHolder.v<CanvasRenderView>(R.id.canvas_render_view)
-                itemHolder.click(R.id.canvas_render_view) {
+                val canvasRenderView = itemHolder.v<CanvasRenderView>(R.id.canvas_view)
+
+                //1.
+                canvasLayoutHelper.bindCanvasLayout(itemHolder)
+
+                itemHolder.click(R.id.canvas_view) {
                     canvasRenderView?.invalidate()
                 }
 
-                bindCanvasRenderListener(itemHolder)
                 testCanvasRenderView(itemHolder)
             }
         }
     }
 
-    /**[CanvasRenderView]事件监听*/
-    fun bindCanvasRenderListener(itemHolder: DslViewHolder) {
-        val canvasRenderView = itemHolder.v<CanvasRenderView>(R.id.canvas_render_view)
-        itemHolder.enable(R.id.undo_button, false)
-        itemHolder.enable(R.id.redo_button, false)
-
-        itemHolder.click(R.id.undo_button) {
-            canvasRenderView?.delegate?.undoManager?.undo()
-        }
-        itemHolder.click(R.id.redo_button) {
-            canvasRenderView?.delegate?.undoManager?.redo()
-        }
-        canvasRenderView?.delegate?.renderListenerList?.add(object : ICanvasRenderListener {
-            override fun onRenderUndoChange(undoManager: CanvasUndoManager) {
-                itemHolder.tv(R.id.undo_button)?.text = span {
-                    append("撤销")
-                    append("${undoManager.undoStack.size()}") {
-                        isSuperscript = true
-                    }
-                }
-                itemHolder.tv(R.id.redo_button)?.text = span {
-                    append("重做")
-                    append("${undoManager.redoStack.size()}") {
-                        isSuperscript = true
-                    }
-                }
-                itemHolder.enable(R.id.undo_button, undoManager.canUndo())
-                itemHolder.enable(R.id.redo_button, undoManager.canRedo())
-            }
-        })
-    }
-
     fun testCanvasRenderView(itemHolder: DslViewHolder) {
-        val canvasRenderView = itemHolder.v<CanvasRenderView>(R.id.canvas_render_view)
+        val canvasRenderView = itemHolder.v<CanvasRenderView>(R.id.canvas_view)
         canvasRenderView?.delegate?.apply {
             renderViewBox.originGravity = Gravity.CENTER
             renderManager.elementRendererList.add(CanvasElementRenderer().apply {
@@ -117,4 +92,20 @@ class Canvas2Demo : AppDslFragment() {
             })
         }
     }
+
+    //<editor-fold desc="IEngraveCanvasFragment">
+
+    override val fragment: AbsLifecycleFragment
+        get() = this
+
+    override val engraveFlowLayoutHelper: EngraveFlowLayoutHelper
+        get() = EngraveFlowLayoutHelper()
+
+    override val canvasDelegate: CanvasDelegate?
+        get() = null
+
+    override val flowLayoutContainer: ViewGroup?
+        get() = fragment._vh.group(R.id.engrave_flow_wrap_layout)
+
+    //</editor-fold desc="IEngraveCanvasFragment">
 }
