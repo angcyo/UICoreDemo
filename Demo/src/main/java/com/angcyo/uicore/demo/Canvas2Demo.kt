@@ -54,10 +54,10 @@ class Canvas2Demo : AppDslFragment(), IEngraveCanvasFragment {
         canvasRenderView?.delegate?.apply {
             renderViewBox.originGravity = Gravity.CENTER
             renderManager.elementRendererList.add(CanvasElementRenderer().apply {
-                element = RectElement()
+                renderElement = RectElement()
             })
             renderManager.elementRendererList.add(CanvasElementRenderer().apply {
-                element = RectElement().apply {
+                renderElement = RectElement().apply {
                     renderProperty.apply {
                         anchorX = (-4.8f).toPixel()
                         anchorY = (-37.704956f).toPixel()
@@ -74,7 +74,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveCanvasFragment {
                 }
             })
             renderManager.elementRendererList.add(CanvasElementRenderer().apply {
-                element = RectElement().apply {
+                renderElement = RectElement().apply {
                     renderProperty.apply {
                         anchorX = (-40.8f).toPixel()
                         anchorY = (-40.704956f).toPixel()
