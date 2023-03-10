@@ -8,7 +8,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.graphics.withMatrix
-import com.angcyo.canvas.utils.createPaint
+import com.angcyo.widget.base.createPaint
 import com.angcyo.library.ex.*
 import com.angcyo.uicore.demo.R
 
