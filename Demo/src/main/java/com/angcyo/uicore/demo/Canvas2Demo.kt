@@ -5,14 +5,15 @@ import android.view.Gravity
 import android.view.ViewGroup
 import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.canvas.CanvasRenderView
-import com.angcyo.canvas.render.operation.RectElement
-import com.angcyo.canvas.render.renderer.CanvasElementRenderer
 import com.angcyo.canvas2.laser.pecker.CanvasLayoutHelper
+import com.angcyo.canvas2.laser.pecker.renderDelegate
+import com.angcyo.canvas2.laser.pecker.util.restoreProjectState
+import com.angcyo.canvas2.laser.pecker.util.saveProjectState
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave.EngraveFlowLayoutHelper
 import com.angcyo.engrave.IEngraveCanvasFragment
+import com.angcyo.engrave.data.HawkEngraveKeys
 import com.angcyo.fragment.AbsLifecycleFragment
-import com.angcyo.library.unit.toPixel
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.DslViewHolder
 
@@ -44,7 +45,8 @@ class Canvas2Demo : AppDslFragment(), IEngraveCanvasFragment {
                     canvasRenderView?.invalidate()
                 }
 
-                testCanvasRenderView(itemHolder)
+                //testCanvasRenderView(itemHolder)
+                testDemo(itemHolder)
             }
         }
     }
@@ -53,45 +55,53 @@ class Canvas2Demo : AppDslFragment(), IEngraveCanvasFragment {
         val canvasRenderView = itemHolder.v<CanvasRenderView>(R.id.canvas_view)
         canvasRenderView?.delegate?.apply {
             renderViewBox.originGravity = Gravity.CENTER
-            renderManager.elementRendererList.add(CanvasElementRenderer().apply {
-                renderElement = RectElement()
-            })
-            renderManager.elementRendererList.add(CanvasElementRenderer().apply {
-                renderElement = RectElement().apply {
-                    renderProperty.apply {
-                        anchorX = (-4.8f).toPixel()
-                        anchorY = (-37.704956f).toPixel()
-                        width = 12.933333f.toPixel()
-                        height = 10.8f.toPixel()
-
-                        scaleX = 1.7841423f
-                        scaleY = 0.8901337f
-                        angle = 297f
-
-                        skewX = -37.52056f
-                        skewY = 0f
-                    }
-                }
-            })
-            renderManager.elementRendererList.add(CanvasElementRenderer().apply {
-                renderElement = RectElement().apply {
-                    renderProperty.apply {
-                        anchorX = (-40.8f).toPixel()
-                        anchorY = (-40.704956f).toPixel()
-                        width = 12.933333f.toPixel()
-                        height = 10.8f.toPixel()
-
-                        scaleX = 1.7841423f
-                        scaleY = 2.8901336f
-                        angle = 297f
-
-                        skewX = -37.52056f
-                        skewY = 0f
-                    }
-                }
-            })
         }
     }
+
+    fun testDemo(itemHolder: DslViewHolder) {
+        itemHolder.click(R.id.preview_button) {
+            _adapter.render {
+                PreviewBitmapItem()() {
+                    itemHolder.renderDelegate?.let {
+                        bitmap = it.preview()
+                    }
+                }
+            }
+        }
+        itemHolder.click(R.id.preview_rect_button) {
+            _adapter.render {
+                PreviewBitmapItem()() {
+                    itemHolder.renderDelegate?.let {
+                        bitmap = it.preview(overrideSize = HawkEngraveKeys.projectOutSize.toFloat())
+                    }
+                }
+            }
+        }
+    }
+
+    //region---core---
+
+    override fun onFragmentFirstShow(bundle: Bundle?) {
+        super.onFragmentFirstShow(bundle)
+        //restore
+        _vh.postDelay(0) {
+            canvasLayoutHelper.canvasRenderDelegate?.restoreProjectState()
+        }
+    }
+
+    override fun onDestroyView() {
+        //save
+        canvasLayoutHelper.canvasRenderDelegate?.saveProjectState()
+        super.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        //engraveFlowLayoutHelper.loopCheckDeviceState = false
+        //GraphicsHelper.restoreLocation()
+    }
+
+    //endregion---core---
 
     //<editor-fold desc="IEngraveCanvasFragment">
 
