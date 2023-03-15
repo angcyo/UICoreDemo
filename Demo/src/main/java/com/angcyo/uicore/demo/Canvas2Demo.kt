@@ -1,5 +1,6 @@
 package com.angcyo.uicore.demo
 
+import android.graphics.RectF
 import android.os.Bundle
 import android.view.Gravity
 import android.view.ViewGroup
@@ -14,6 +15,8 @@ import com.angcyo.engrave.EngraveFlowLayoutHelper
 import com.angcyo.engrave.IEngraveCanvasFragment
 import com.angcyo.engrave.data.HawkEngraveKeys
 import com.angcyo.fragment.AbsLifecycleFragment
+import com.angcyo.library.unit.MmValueUnit
+import com.angcyo.uicore.MainFragment
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.DslViewHolder
 
@@ -75,6 +78,32 @@ class Canvas2Demo : AppDslFragment(), IEngraveCanvasFragment {
                         bitmap = it.preview(overrideSize = HawkEngraveKeys.projectOutSize.toFloat())
                     }
                 }
+            }
+        }
+        itemHolder.click(R.id.bounds_button) {
+            itemHolder.renderDelegate?.apply {
+                val unit = MmValueUnit()
+                val limitRect = when {
+                    MainFragment.CLICK_COUNT++ % 3 == 2 -> RectF(
+                        unit.convertValueToPixel(100f),
+                        unit.convertValueToPixel(100f),
+                        unit.convertValueToPixel(300f),
+                        unit.convertValueToPixel(300f)
+                    )
+                    MainFragment.CLICK_COUNT++ % 2 == 0 -> RectF(
+                        unit.convertValueToPixel(-30f),
+                        unit.convertValueToPixel(-30f),
+                        unit.convertValueToPixel(-10f),
+                        unit.convertValueToPixel(-10f)
+                    )
+                    else -> RectF(
+                        unit.convertValueToPixel(10f),
+                        unit.convertValueToPixel(10f),
+                        unit.convertValueToPixel(30f),
+                        unit.convertValueToPixel(30f)
+                    )
+                }
+                showRectBounds(limitRect)
             }
         }
     }
