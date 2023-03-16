@@ -6,7 +6,7 @@ import android.view.Gravity
 import android.view.ViewGroup
 import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.canvas.CanvasRenderView
-import com.angcyo.canvas2.laser.pecker.CanvasLayoutHelper
+import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
 import com.angcyo.canvas2.laser.pecker.renderDelegate
 import com.angcyo.canvas2.laser.pecker.util.restoreProjectState
 import com.angcyo.canvas2.laser.pecker.util.saveProjectState
@@ -26,7 +26,7 @@ import com.angcyo.widget.DslViewHolder
  */
 class Canvas2Demo : AppDslFragment(), IEngraveCanvasFragment {
 
-    val canvasLayoutHelper = CanvasLayoutHelper(this)
+    val renderLayoutHelper = RenderLayoutHelper(this)
 
     init {
         enableSoftInput = false
@@ -42,7 +42,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveCanvasFragment {
                 val canvasRenderView = itemHolder.v<CanvasRenderView>(R.id.canvas_view)
 
                 //1.
-                canvasLayoutHelper.bindCanvasLayout(itemHolder)
+                renderLayoutHelper.bindCanvasLayout(itemHolder)
 
                 itemHolder.click(R.id.canvas_view) {
                     canvasRenderView?.invalidate()
@@ -114,13 +114,13 @@ class Canvas2Demo : AppDslFragment(), IEngraveCanvasFragment {
         super.onFragmentFirstShow(bundle)
         //restore
         _vh.postDelay(0) {
-            canvasLayoutHelper.canvasRenderDelegate?.restoreProjectState()
+            renderLayoutHelper.canvasRenderDelegate?.restoreProjectState()
         }
     }
 
     override fun onDestroyView() {
         //save
-        canvasLayoutHelper.canvasRenderDelegate?.saveProjectState()
+        renderLayoutHelper.canvasRenderDelegate?.saveProjectState()
         super.onDestroyView()
     }
 
