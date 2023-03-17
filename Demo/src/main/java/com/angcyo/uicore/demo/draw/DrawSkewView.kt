@@ -82,6 +82,7 @@ class DrawSkewView(context: Context, attributeSet: AttributeSet? = null) :
 
         testMatrix()
 
+        testRect()
         L.d()
     }
 
@@ -1428,5 +1429,18 @@ class DrawSkewView(context: Context, attributeSet: AttributeSet? = null) :
         }*/
 
         L.i()
+    }
+
+    fun testRect() {
+        val rect = RectF(0f, 0f, 100f, 0f)
+        val result = RectF()
+        val matrix = Matrix()
+        matrix.setRotate(30f)
+        matrix.mapRect(result, rect)
+
+        matrix.setScale(3f, 3f)
+        matrix.mapRect(result, rect)
+
+        L.d(rect)
     }
 }
