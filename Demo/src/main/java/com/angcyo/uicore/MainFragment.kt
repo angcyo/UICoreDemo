@@ -338,6 +338,7 @@ class MainFragment : BaseDemoDslFragment() {
             }
         }
 
+        renderDemoListItem("DrawableDemo")
         renderDemoListItem("DrawableSpanDemo")
         renderDemoListItem("WidgetDemo ArcLoadingView")
         renderDemoListItem("LoadingDemo")
