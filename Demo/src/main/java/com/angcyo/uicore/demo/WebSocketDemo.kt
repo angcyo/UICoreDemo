@@ -3,6 +3,7 @@ package com.angcyo.uicore.demo
 import android.os.Bundle
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.bindItem
+import com.angcyo.http.rx.doBack
 import com.angcyo.item.DslTextItem
 import com.angcyo.item.style.itemText
 import com.angcyo.library.component.NetUtils
@@ -89,9 +90,11 @@ class WebSocketDemo : AppDslFragment() {
     }
 
     fun clientSendBytes(num: Int) {
-        val bytes = ByteArray(num * 1024 * 1024)
-        renderTextItem("C发送:${bytes.size.toSizeString()}")
-        wsClient?.send(bytes)
+        doBack {
+            val bytes = ByteArray(num * 1024 * 1024)
+            renderTextItem("C发送:${bytes.size.toSizeString()}")
+            wsClient?.send(bytes)
+        }
     }
 
     //region ---client---
