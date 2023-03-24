@@ -7,6 +7,7 @@ apply from: allGradle.saveStream
 apply from: allGradle.statisticsWord
 apply from: allGradle.excelMaterial
 apply from: allGradle.mergeFile
+apply from: allGradle.replaceRes
 
 //apply from: "$gradleHost/master/init.gradle"
 //apply from: "$gradleHost/master/discardCache.gradle" //禁用缓存?
