@@ -346,6 +346,7 @@ class MainFragment : BaseDemoDslFragment() {
         renderDemoListItem("HttpDemo")
         renderDemoListItem("WifiP2PDemo")
         renderDemoListItem("UdpDemo")
+        renderDemoListItem("WebSocketDemo")
         renderDemoListItem("RefreshEffectDemo DslToast")
         renderDemoListItem("RefreshDemo SwipeMenu")
         renderDemoListItem("DslAffectDemo")

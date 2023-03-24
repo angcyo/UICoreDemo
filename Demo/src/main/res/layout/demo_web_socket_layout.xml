@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/lib_hdpi">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/server_wrap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.angcyo.widget.edit.DslEditText
+            android:id="@+id/address_edit"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ws://服务器地址"
+            android:text="ws://192.168.32.192:9300" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/content_wrap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        app:layout_constraintTop_toBottomOf="@id/server_wrap_layout">
+
+        <com.angcyo.widget.edit.DslEditText
+            android:id="@+id/content_edit"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="发送的内容"
+            android:text="Hello" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:id="@+id/flow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        app:layout_constraintTop_toBottomOf="@id/content_wrap_layout"
+        app:r_flow_item_horizontal_space="@dimen/lib_hdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_hdpi">
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/connect_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="连接服务器" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/start_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="启动本机WS服务" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/client_send_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="C发送内容" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/server_send_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="S发送内容" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/send_5_button"
+            style="@style/DefaultButtonMinStyle"
+            android:tag="5"
+            android:text="C发送5MB数据" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/send_10_button"
+            style="@style/DefaultButtonMinStyle"
+            android:tag="10"
+            android:text="C发送10MB数据" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/send_20_button"
+            style="@style/DefaultButtonMinStyle"
+            android:tag="20"
+            android:text="C发送20MB数据" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/send_100_button"
+            style="@style/DefaultButtonMinStyle"
+            android:tag="100"
+            android:text="C发送100MB数据" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tip_text_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="..."
+        app:layout_constraintTop_toBottomOf="@id/flow_layout" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/result_text_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tip_text_view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
