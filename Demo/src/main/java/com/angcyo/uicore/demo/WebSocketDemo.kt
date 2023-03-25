@@ -7,6 +7,7 @@ import com.angcyo.dsladapter.bindItem
 import com.angcyo.http.rx.doBack
 import com.angcyo.item.DslTextItem
 import com.angcyo.item.style.itemText
+import com.angcyo.library.LTime
 import com.angcyo.library.component.NetUtils
 import com.angcyo.library.ex._color
 import com.angcyo.library.ex.nowTimeString
@@ -52,7 +53,9 @@ class WebSocketDemo : AppDslFragment() {
                     try {
                         val message = itemHolder.tv(R.id.content_edit).string()
                         renderTextItem("C发送:${message}")
+                        LTime.tick()
                         wsClient?.send(message)
+                        renderTextItem("耗时:${LTime.time()}")
                     } catch (e: Exception) {
                         renderTextItem("$e")
                     }
@@ -61,7 +64,9 @@ class WebSocketDemo : AppDslFragment() {
                     try {
                         val message = itemHolder.tv(R.id.content_edit).string()
                         renderTextItem("S发送:${message}")
+                        LTime.tick()
                         wsServer?.sendMessage(message)
+                        renderTextItem("耗时:${LTime.time()}")
                     } catch (e: Exception) {
                         renderTextItem("$e")
                     }
@@ -112,7 +117,9 @@ class WebSocketDemo : AppDslFragment() {
             try {
                 val bytes = ByteArray(num * 1024)
                 renderTextItem("C发送:${bytes.size.toSizeString()}")
+                LTime.tick()
                 wsClient?.send(bytes)
+                renderTextItem("耗时:${LTime.time()}")
             } catch (e: Exception) {
                 renderTextItem("$e")
             }
@@ -124,7 +131,9 @@ class WebSocketDemo : AppDslFragment() {
             try {
                 val bytes = ByteArray(num * 1024 * 1024)
                 renderTextItem("C发送:${bytes.size.toSizeString()}")
+                LTime.tick()
                 wsClient?.send(bytes)
+                renderTextItem("耗时:${LTime.time()}")
             } catch (e: Exception) {
                 renderTextItem("$e")
             }

@@ -3,7 +3,10 @@ package com.angcyo.uicore.demo
 import android.graphics.RectF
 import android.os.Bundle
 import android.view.Gravity
+import android.view.MotionEvent
 import android.view.ViewGroup
+import androidx.lifecycle.Lifecycle
+import com.angcyo.base.dslFHelper
 import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.canvas.CanvasRenderView
 import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
@@ -11,10 +14,15 @@ import com.angcyo.canvas2.laser.pecker.renderDelegate
 import com.angcyo.canvas2.laser.pecker.util.restoreProjectState
 import com.angcyo.canvas2.laser.pecker.util.saveProjectState
 import com.angcyo.dsladapter.bindItem
+import com.angcyo.engrave.BaseFlowLayoutHelper
 import com.angcyo.engrave.EngraveFlowLayoutHelper
 import com.angcyo.engrave.IEngraveCanvasFragment
 import com.angcyo.engrave.data.HawkEngraveKeys
+import com.angcyo.engrave.isEngraveFlow
 import com.angcyo.fragment.AbsLifecycleFragment
+import com.angcyo.item.component.DebugFragment
+import com.angcyo.library.component.MultiFingeredHelper
+import com.angcyo.library.component.pad.isInPadMode
 import com.angcyo.library.unit.MmValueUnit
 import com.angcyo.uicore.MainFragment
 import com.angcyo.uicore.base.AppDslFragment
@@ -25,8 +33,6 @@ import com.angcyo.widget.DslViewHolder
  * @since 2023-2-11
  */
 class Canvas2Demo : AppDslFragment(), IEngraveCanvasFragment {
-
-    val renderLayoutHelper = RenderLayoutHelper(this)
 
     init {
         enableSoftInput = false
@@ -132,13 +138,83 @@ class Canvas2Demo : AppDslFragment(), IEngraveCanvasFragment {
 
     //endregion---core---
 
+    //<editor-fold desc="touch">
+
+    val pinchGestureDetector = MultiFingeredHelper.PinchGestureDetector().apply {
+        onPinchAction = {
+            dslFHelper {
+                show(DebugFragment::class)
+            }
+        }
+    }
+
+    override fun onDispatchTouchEvent(event: MotionEvent) {
+        super.onDispatchTouchEvent(event)
+        pinchGestureDetector.onTouchEvent(event)
+    }
+
+    //</editor-fold desc="touch">
+
+    //<editor-fold desc="init">
+
+    /**Canvas2布局*/
+    val renderLayoutHelper = RenderLayoutHelper(this)
+
+    /**雕刻布局*/
+    val _engraveFlowLayoutHelper = EngraveFlowLayoutHelper().apply {
+        backPressedDispatcherOwner = this@Canvas2Demo
+
+        onEngraveFlowChangedAction = { from, to ->
+            //禁止手势
+            val isEngraveFlow = to.isEngraveFlow()
+            renderLayoutHelper.canvasRenderDelegate?.disableEditTouchGesture(isEngraveFlow)
+            if (isInPadMode()) {
+                renderLayoutHelper.disableEditItem(isEngraveFlow)
+            }
+
+            if (to == BaseFlowLayoutHelper.ENGRAVE_FLOW_PREVIEW) {
+                //预览中, 偏移画板界面
+                val productInfoData = laserPeckerModel.productInfoData
+                productInfoData.value?.bounds?.let {
+                    renderLayoutHelper.canvasRenderDelegate?.showRectBounds(
+                        it,
+                        offsetRectTop = true
+                    )
+                }
+            } else if (to == BaseFlowLayoutHelper.ENGRAVE_FLOW_BEFORE_CONFIG) {
+                renderLayoutHelper.canvasRenderDelegate?.saveProjectState()
+            }
+        }
+
+        onIViewEvent = { iView, event ->
+            val start = event == Lifecycle.Event.ON_START
+            val destroy = event == Lifecycle.Event.ON_DESTROY
+
+            if (destroy) {
+                _vh.enable(R.id.lib_title_wrap_layout, null)
+                _vh.enable(R.id.device_tip_wrap_layout, null)
+            } else {
+                _vh.enable(R.id.lib_title_wrap_layout, destroy)
+                _vh.enable(R.id.device_tip_wrap_layout, destroy)
+            }
+        }
+
+        onEngraveParamsChangeAction = {
+            renderLayoutHelper.updateLayerListLayout()
+        }
+    }
+
+    //</editor-fold desc="init">
+
     //<editor-fold desc="IEngraveCanvasFragment">
 
     override val fragment: AbsLifecycleFragment
         get() = this
 
     override val engraveFlowLayoutHelper: EngraveFlowLayoutHelper
-        get() = EngraveFlowLayoutHelper()
+        get() = _engraveFlowLayoutHelper.apply {
+            engraveCanvasFragment = this@Canvas2Demo
+        }
 
     override val canvasDelegate: CanvasDelegate?
         get() = null
