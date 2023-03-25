@@ -1,6 +1,7 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.http.rx.doBack
@@ -32,36 +33,53 @@ class WebSocketDemo : AppDslFragment() {
         super.initBaseView(savedInstanceState)
         renderDslAdapter {
             bindItem(R.layout.demo_web_socket_layout) { itemHolder, itemPosition, adapterItem, payloads ->
+                itemHolder.hawkInstallAndRestore("WebSocket_")
+
                 itemHolder.tv(R.id.tip_text_view)?.text = "${NetUtils.localIPAddress}"
                 //itemHolder.tv(R.id.result_text_view)?.text = "${NetUtils.localIPAddress}"
 
                 itemHolder.click(R.id.connect_button) {
                     startClientTest(itemHolder)
                 }
+                itemHolder.click(R.id.disconnect_button) {
+                    wsClient?.close()
+                    wsClient = null
+                }
                 itemHolder.click(R.id.start_button) {
                     startServerTest(itemHolder)
                 }
                 itemHolder.click(R.id.client_send_button) {
-                    val message = itemHolder.tv(R.id.content_edit).string()
-                    renderTextItem("C发送:${message}")
-                    wsClient?.send(message)
+                    try {
+                        val message = itemHolder.tv(R.id.content_edit).string()
+                        renderTextItem("C发送:${message}")
+                        wsClient?.send(message)
+                    } catch (e: Exception) {
+                        renderTextItem("$e")
+                    }
                 }
                 itemHolder.click(R.id.server_send_button) {
-                    val message = itemHolder.tv(R.id.content_edit).string()
-                    renderTextItem("S发送:${message}")
-                    wsServer?.sendMessage(message)
+                    try {
+                        val message = itemHolder.tv(R.id.content_edit).string()
+                        renderTextItem("S发送:${message}")
+                        wsServer?.sendMessage(message)
+                    } catch (e: Exception) {
+                        renderTextItem("$e")
+                    }
+                }
+                itemHolder.click(R.id.send_1_button) {
+                    clientSendBytesKb(1)
                 }
                 itemHolder.click(R.id.send_5_button) {
-                    clientSendBytes(5)
+                    clientSendBytesMb(5)
                 }
                 itemHolder.click(R.id.send_10_button) {
-                    clientSendBytes(10)
+                    clientSendBytesMb(10)
                 }
                 itemHolder.click(R.id.send_20_button) {
-                    clientSendBytes(20)
+                    clientSendBytesMb(20)
                 }
                 itemHolder.click(R.id.send_100_button) {
-                    clientSendBytes(100)
+                    clientSendBytesMb(100)
                 }
             }
         }
@@ -89,11 +107,27 @@ class WebSocketDemo : AppDslFragment() {
         }
     }
 
-    fun clientSendBytes(num: Int) {
+    fun clientSendBytesKb(num: Int) {
         doBack {
-            val bytes = ByteArray(num * 1024 * 1024)
-            renderTextItem("C发送:${bytes.size.toSizeString()}")
-            wsClient?.send(bytes)
+            try {
+                val bytes = ByteArray(num * 1024)
+                renderTextItem("C发送:${bytes.size.toSizeString()}")
+                wsClient?.send(bytes)
+            } catch (e: Exception) {
+                renderTextItem("$e")
+            }
+        }
+    }
+
+    fun clientSendBytesMb(num: Int) {
+        doBack {
+            try {
+                val bytes = ByteArray(num * 1024 * 1024)
+                renderTextItem("C发送:${bytes.size.toSizeString()}")
+                wsClient?.send(bytes)
+            } catch (e: Exception) {
+                renderTextItem("$e")
+            }
         }
     }
 

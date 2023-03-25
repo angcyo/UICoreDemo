@@ -52,6 +52,11 @@
             android:text="连接服务器" />
 
         <com.angcyo.widget.DslButton
+            android:id="@+id/disconnect_button"
+            style="@style/DefaultButtonMinStyle"
+            android:text="断开服务器" />
+
+        <com.angcyo.widget.DslButton
             android:id="@+id/start_button"
             style="@style/DefaultButtonMinStyle"
             android:text="启动本机WS服务" />
@@ -65,6 +70,12 @@
             android:id="@+id/server_send_button"
             style="@style/DefaultButtonMinStyle"
             android:text="S发送内容" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/send_1_button"
+            style="@style/DefaultButtonMinStyle"
+            android:tag="1"
+            android:text="C发送1KB数据" />
 
         <com.angcyo.widget.DslButton
             android:id="@+id/send_5_button"
