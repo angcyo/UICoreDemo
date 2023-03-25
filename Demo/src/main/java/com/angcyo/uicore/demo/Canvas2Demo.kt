@@ -42,7 +42,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveCanvasFragment {
                 val canvasRenderView = itemHolder.v<CanvasRenderView>(R.id.canvas_view)
 
                 //1.
-                renderLayoutHelper.bindCanvasLayout(itemHolder)
+                renderLayoutHelper.bindRenderLayout(itemHolder)
 
                 itemHolder.click(R.id.canvas_view) {
                     canvasRenderView?.invalidate()
