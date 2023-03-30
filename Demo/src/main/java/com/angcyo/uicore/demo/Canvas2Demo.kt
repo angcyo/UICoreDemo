@@ -7,32 +7,40 @@ import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import com.angcyo.base.dslFHelper
-import com.angcyo.canvas.CanvasDelegate
+import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.canvas.CanvasRenderView
+import com.angcyo.canvas.render.core.CanvasRenderDelegate
+import com.angcyo.canvas2.laser.pecker.IEngraveRenderFragment
 import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
+import com.angcyo.canvas2.laser.pecker.engrave.BaseFlowLayoutHelper
+import com.angcyo.canvas2.laser.pecker.engrave.EngraveFlowLayoutHelper
+import com.angcyo.canvas2.laser.pecker.engrave.isEngraveFlow
 import com.angcyo.canvas2.laser.pecker.renderDelegate
+import com.angcyo.canvas2.laser.pecker.util.LPElementHelper
 import com.angcyo.canvas2.laser.pecker.util.restoreProjectState
 import com.angcyo.canvas2.laser.pecker.util.saveProjectState
+import com.angcyo.core.component.file.writeToLog
+import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.bindItem
-import com.angcyo.engrave.BaseFlowLayoutHelper
-import com.angcyo.engrave.EngraveFlowLayoutHelper
-import com.angcyo.engrave.IEngraveCanvasFragment
 import com.angcyo.engrave.data.HawkEngraveKeys
-import com.angcyo.engrave.isEngraveFlow
 import com.angcyo.fragment.AbsLifecycleFragment
 import com.angcyo.item.component.DebugFragment
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component.pad.isInPadMode
+import com.angcyo.library.ex._drawable
+import com.angcyo.library.ex.dp
+import com.angcyo.library.ex.dpi
 import com.angcyo.library.unit.MmValueUnit
 import com.angcyo.uicore.MainFragment
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.DslViewHolder
+import com.angcyo.widget.span.span
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
  * @since 2023-2-11
  */
-class Canvas2Demo : AppDslFragment(), IEngraveCanvasFragment {
+class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
 
     init {
         enableSoftInput = false
@@ -40,12 +48,45 @@ class Canvas2Demo : AppDslFragment(), IEngraveCanvasFragment {
 
     override fun canSwipeBack(): Boolean = false
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        vmApp<FscBleApiModel>().connectDeviceListData.observe {
+            if (it.isNullOrEmpty()) {
+                fragmentTitle = "未连接设备"
+            } else {
+                it.first().let { deviceState ->
+                    fragmentTitle = span {
+                        appendLine(deviceState.device.name)
+                        append(deviceState.device.address) {
+                            fontSize = 12 * dpi
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
 
         renderDslAdapter {
-            bindItem(R.layout.canvas2_layout) { itemHolder, itemPosition, adapterItem, payloads ->
+            bindItem(if (isInPadMode()) R.layout.canvas2_pad_layout else R.layout.canvas2_layout) { itemHolder, itemPosition, adapterItem, payloads ->
                 val canvasRenderView = itemHolder.v<CanvasRenderView>(R.id.canvas_view)
+
+                //demo
+                canvasRenderView?.delegate?.renderManager?.apply {
+                    var width = 22 * dp
+                    var height = width
+                    var bounds = RectF(0f, -height, width, 0f)
+                    addBeforeRendererList(bounds, _drawable(R.drawable.lib_notify_icon))
+
+                    width = 600f
+                    height = 426f
+                    val left = -1000f
+                    val top = -1000f - height
+                    bounds = RectF(left, top, left + width, top + height)
+                    addBeforeRendererList(bounds, _drawable(R.drawable.all_in2))
+                }
 
                 //1.
                 renderLayoutHelper.bindRenderLayout(itemHolder)
@@ -54,11 +95,50 @@ class Canvas2Demo : AppDslFragment(), IEngraveCanvasFragment {
                     canvasRenderView?.invalidate()
                 }
 
+                //itemHolder.click()
+
                 //testCanvasRenderView(itemHolder)
                 testDemo(itemHolder)
             }
         }
     }
+
+    //region---core---
+
+    override fun onFragmentFirstShow(bundle: Bundle?) {
+        super.onFragmentFirstShow(bundle)
+        //restore
+        _vh.postDelay(0) {
+            renderLayoutHelper.canvasRenderDelegate?.restoreProjectState()
+        }
+    }
+
+    override fun onDestroyView() {
+        //save
+        renderLayoutHelper.canvasRenderDelegate?.saveProjectState()
+        super.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        engraveFlowLayoutHelper.loopCheckDeviceState = false
+        LPElementHelper.restoreLocation()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        "CanvasDemo:onSaveInstanceState:$outState".writeToLog()
+        renderDelegate?.saveProjectState(async = false)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        "CanvasDemo:onViewStateRestored:$savedInstanceState".writeToLog()
+    }
+
+    //endregion---core---
+
+    //region---test---
 
     fun testCanvasRenderView(itemHolder: DslViewHolder) {
         val canvasRenderView = itemHolder.v<CanvasRenderView>(R.id.canvas_view)
@@ -114,29 +194,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveCanvasFragment {
         }
     }
 
-    //region---core---
-
-    override fun onFragmentFirstShow(bundle: Bundle?) {
-        super.onFragmentFirstShow(bundle)
-        //restore
-        _vh.postDelay(0) {
-            renderLayoutHelper.canvasRenderDelegate?.restoreProjectState()
-        }
-    }
-
-    override fun onDestroyView() {
-        //save
-        renderLayoutHelper.canvasRenderDelegate?.saveProjectState()
-        super.onDestroyView()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        //engraveFlowLayoutHelper.loopCheckDeviceState = false
-        //GraphicsHelper.restoreLocation()
-    }
-
-    //endregion---core---
+    //endregion---test---
 
     //<editor-fold desc="touch">
 
@@ -216,7 +274,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveCanvasFragment {
             engraveCanvasFragment = this@Canvas2Demo
         }
 
-    override val canvasDelegate: CanvasDelegate?
+    override val renderDelegate: CanvasRenderDelegate?
         get() = null
 
     override val flowLayoutContainer: ViewGroup?
