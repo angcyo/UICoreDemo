@@ -1,19 +1,25 @@
 package com.angcyo.uicore.demo
 
 import android.graphics.Color
+import android.graphics.Paint
 import android.os.Bundle
 import android.widget.ImageView
 import com.angcyo.canvas.utils.parseGCode
 import com.angcyo.drawable.CheckerboardDrawable
 import com.angcyo.dsladapter.bindItem
+import com.angcyo.gcode.GCodeDrawable
 import com.angcyo.gcode.GCodeHelper
+import com.angcyo.library.component.lastContext
+import com.angcyo.library.ex.randomGetOnce
 import com.angcyo.library.ex.readAssets
 import com.angcyo.library.ex.readResource
 import com.angcyo.library.ex.setBgDrawable
+import com.angcyo.svg.Svg
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.base.setInputText
 import com.angcyo.widget.base.string
 import com.pixplicity.sharp.Sharp
+import com.pixplicity.sharp.SharpDrawable
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
@@ -81,6 +87,30 @@ class SvgDemo : AppDslFragment() {
             add("gcode/LaserPecker.gcode")
             add("gcode/snowflakes.gcode")
             add("gcode/love.gcode")
+        }
+
+        fun loadSvgDrawable(): Pair<String, SharpDrawable> {
+            val resId = svgResList.randomGetOnce()!!
+            val text = lastContext.readResource(resId)
+            return text!! to Sharp.loadString(text).drawable
+        }
+
+        fun loadSvgPathDrawable(): Pair<String, SharpDrawable> {
+            val resId = svgResList.randomGetOnce()!!
+            val text = lastContext.readResource(resId)
+            return text!! to Svg.loadSvgPathDrawable(
+                text,
+                Color.BLACK,
+                Paint.Style.STROKE,
+                null,
+                0,
+                0
+            )!!
+        }
+
+        fun loadGCodeDrawable(): Pair<String, GCodeDrawable> {
+            val text = lastContext.readAssets(gCodeNameList.randomGetOnce()!!)
+            return text!! to GCodeHelper.parseGCode(text)!!
         }
     }
 

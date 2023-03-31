@@ -24,16 +24,17 @@ import com.angcyo.crash.sight.CrashSight
 import com.angcyo.download.DslDownload
 import com.angcyo.engrave.EngraveFlowDataHelper
 import com.angcyo.engrave.auto.AutoEngraveHelper
-import com.angcyo.engrave.ble.CommandFragment
-import com.angcyo.engrave.ble.ConnectFragment
-import com.angcyo.engrave.ble.DeviceSettingFragment
-import com.angcyo.engrave.ble.TransferDataFragment
-import com.angcyo.engrave.model.FscDeviceModel
 import com.angcyo.http.gitee.Gitee
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.item.component.DebugFragment
 import com.angcyo.item.style.itemInfoText
 import com.angcyo.jpush.JPush
+import com.angcyo.laserpacker.device.DeviceHelper
+import com.angcyo.laserpacker.device.ble.CommandFragment
+import com.angcyo.laserpacker.device.ble.ConnectFragment
+import com.angcyo.laserpacker.device.ble.DeviceSettingFragment
+import com.angcyo.laserpacker.device.ble.TransferDataFragment
+import com.angcyo.laserpacker.device.model.FscDeviceModel
 import com.angcyo.library.annotation.CallComplianceAfter
 import com.angcyo.library.component.RBackground
 import com.angcyo.library.component.pad.IPadAdaptive
@@ -133,7 +134,7 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
             startListen()
             screenShotPathData.observeForever {
                 if (!it.isNullOrBlank() && !RBackground.isBackground()) {
-                    EngraveFlowDataHelper.showEngraveScreenShotShare(it)
+                    DeviceHelper.showEngraveScreenShotShare(it)
                 }
             }
         }

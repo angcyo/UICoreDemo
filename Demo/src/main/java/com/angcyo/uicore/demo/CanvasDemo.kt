@@ -1,7 +1,5 @@
 package com.angcyo.uicore.demo
 
-import android.graphics.Color
-import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
 import android.os.Bundle
@@ -47,7 +45,6 @@ import com.angcyo.canvas.laser.pecker.restoreInstanceState
 import com.angcyo.canvas.laser.pecker.saveInstanceState
 import com.angcyo.canvas.utils.CanvasDataHandleOperate
 import com.angcyo.canvas.utils.engraveMode
-import com.angcyo.canvas.utils.parseGCode
 import com.angcyo.component.getPhoto
 import com.angcyo.core.component.file.writeToLog
 import com.angcyo.core.component.fileSelector
@@ -58,18 +55,18 @@ import com.angcyo.dialog.itemsDialog
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave.*
-import com.angcyo.engrave.ble.DeviceConnectTipActivity
-import com.angcyo.engrave.ble.DeviceSettingFragment
 import com.angcyo.engrave.ble.history.EngraveHistoryFragment
-import com.angcyo.engrave.data.HawkEngraveKeys
 import com.angcyo.engrave.model.PreviewModel
 import com.angcyo.engrave.transition.EngraveTransitionManager
 import com.angcyo.fragment.AbsLifecycleFragment
-import com.angcyo.gcode.GCodeDrawable
-import com.angcyo.gcode.GCodeHelper
 import com.angcyo.http.base.toJson
 import com.angcyo.http.rx.doMain
 import com.angcyo.item.component.DebugFragment
+import com.angcyo.laserpacker.device.DeviceHelper
+import com.angcyo.laserpacker.device.EngraveNotifyHelper
+import com.angcyo.laserpacker.device.HawkEngraveKeys
+import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
+import com.angcyo.laserpacker.device.ble.DeviceSettingFragment
 import com.angcyo.library.*
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component._delay
@@ -88,15 +85,13 @@ import com.angcyo.server.bindFileServer
 import com.angcyo.svg.Svg
 import com.angcyo.uicore.MainFragment.Companion.CLICK_COUNT
 import com.angcyo.uicore.base.AppDslFragment
-import com.angcyo.uicore.demo.SvgDemo.Companion.gCodeNameList
-import com.angcyo.uicore.demo.SvgDemo.Companion.svgResList
+import com.angcyo.uicore.demo.SvgDemo.Companion.loadGCodeDrawable
+import com.angcyo.uicore.demo.SvgDemo.Companion.loadSvgPathDrawable
 import com.angcyo.uicore.getRandomText
 import com.angcyo.websocket.service.bindLogWSServer
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.recycler.initDslAdapter
 import com.angcyo.widget.span.span
-import com.pixplicity.sharp.Sharp
-import com.pixplicity.sharp.SharpDrawable
 import org.jetbrains.annotations.TestOnly
 
 /**
@@ -601,7 +596,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 }
                 //分享最后一次的雕刻日志
                 itemHolder.click(R.id.share_log_button) {
-                    EngraveFlowDataHelper.shareEngraveLog()
+                    DeviceHelper.shareEngraveLog()
                 }
 
                 //save
@@ -751,30 +746,6 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 itemHolder.tv(R.id.result_text_view)?.text = string
             }
         })
-    }
-
-    fun loadSvgDrawable(): Pair<String, SharpDrawable> {
-        val resId = svgResList.randomGetOnce()!!
-        val text = fContext().readResource(resId)
-        return text!! to Sharp.loadString(text).drawable
-    }
-
-    fun loadSvgPathDrawable(): Pair<String, SharpDrawable> {
-        val resId = svgResList.randomGetOnce()!!
-        val text = fContext().readResource(resId)
-        return text!! to Svg.loadSvgPathDrawable(
-            text,
-            Color.BLACK,
-            Paint.Style.STROKE,
-            null,
-            0,
-            0
-        )!!
-    }
-
-    fun loadGCodeDrawable(): Pair<String, GCodeDrawable> {
-        val text = fContext().readAssets(gCodeNameList.randomGetOnce()!!)
-        return text!! to GCodeHelper.parseGCode(text)!!
     }
 
     /**更多的对话框*/

@@ -6,33 +6,57 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
+import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.fsc.FscBleApiModel
+import com.angcyo.bluetooth.fsc.IReceiveBeanAction
+import com.angcyo.bluetooth.fsc.enqueue
+import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
+import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
+import com.angcyo.bluetooth.fsc.laserpacker.command.FileModeCmd
+import com.angcyo.bluetooth.fsc.laserpacker.command.QueryCmd
+import com.angcyo.bluetooth.fsc.laserpacker.parse.FileTransferParser
+import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryLogParser
+import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
+import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasRenderView
 import com.angcyo.canvas.render.core.CanvasRenderDelegate
+import com.angcyo.canvas.render.core.Reason
+import com.angcyo.canvas.utils.CanvasDataHandleOperate
 import com.angcyo.canvas2.laser.pecker.IEngraveRenderFragment
 import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
+import com.angcyo.canvas2.laser.pecker.activity.ProjectListFragment
 import com.angcyo.canvas2.laser.pecker.engrave.BaseFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.EngraveFlowLayoutHelper
+import com.angcyo.canvas2.laser.pecker.engrave.LPEngraveHelper
 import com.angcyo.canvas2.laser.pecker.engrave.isEngraveFlow
-import com.angcyo.canvas2.laser.pecker.renderDelegate
-import com.angcyo.canvas2.laser.pecker.util.LPElementHelper
-import com.angcyo.canvas2.laser.pecker.util.restoreProjectState
-import com.angcyo.canvas2.laser.pecker.util.saveProjectState
+import com.angcyo.canvas2.laser.pecker.history.EngraveHistoryFragment
+import com.angcyo.canvas2.laser.pecker.util.*
 import com.angcyo.core.component.file.writeToLog
+import com.angcyo.core.component.fileSelector
+import com.angcyo.core.showIn
 import com.angcyo.core.vmApp
+import com.angcyo.dialog.itemsDialog
 import com.angcyo.dsladapter.bindItem
-import com.angcyo.engrave.data.HawkEngraveKeys
+import com.angcyo.engrave.engraveLoadingAsync
 import com.angcyo.fragment.AbsLifecycleFragment
+import com.angcyo.http.base.toJson
+import com.angcyo.http.rx.doMain
 import com.angcyo.item.component.DebugFragment
+import com.angcyo.laserpacker.device.DeviceHelper
+import com.angcyo.laserpacker.device.HawkEngraveKeys
+import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
+import com.angcyo.library.L
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component.pad.isInPadMode
-import com.angcyo.library.ex._drawable
-import com.angcyo.library.ex.dp
-import com.angcyo.library.ex.dpi
-import com.angcyo.library.unit.MmValueUnit
-import com.angcyo.uicore.MainFragment
+import com.angcyo.library.ex.*
+import com.angcyo.library.libFolderPath
+import com.angcyo.library.toast
+import com.angcyo.library.toastQQ
+import com.angcyo.library.utils.fileNameTime
+import com.angcyo.library.utils.writeTo
 import com.angcyo.uicore.base.AppDslFragment
+import com.angcyo.uicore.getRandomText
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.span.span
 
@@ -56,7 +80,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
             } else {
                 it.first().let { deviceState ->
                     fragmentTitle = span {
-                        appendLine(deviceState.device.name)
+                        appendLine(DeviceConnectTipActivity.formatDeviceName(deviceState.device.name))
                         append(deviceState.device.address) {
                             fontSize = 12 * dpi
                         }
@@ -91,11 +115,36 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 //1.
                 renderLayoutHelper.bindRenderLayout(itemHolder)
 
+                //雕刻预览
+                itemHolder.click(R.id.engrave_preview_button) {
+                    engraveFlowLayoutHelper.startPreview(this@Canvas2Demo)
+                }
+
+                //雕刻
+                itemHolder.click(R.id.engrave_button) {
+                    if (engraveFlowLayoutHelper.isAttach()) {
+                        return@click
+                    }
+                    val list = LPEngraveHelper.getAllValidRendererList(renderDelegate)
+                    if (list.isNullOrEmpty()) {
+                        toastQQ("无元素需要雕刻")
+                    } else {
+                        renderDelegate?.selectorManager?.resetSelectorRenderer(list, Reason.user)
+
+                        engraveFlowLayoutHelper.engraveFlow =
+                            com.angcyo.engrave.BaseFlowLayoutHelper.ENGRAVE_FLOW_TRANSFER_BEFORE_CONFIG
+                        engraveFlowLayoutHelper.showIn(this@Canvas2Demo)
+                    }
+                }
+
+                //---
+
                 itemHolder.click(R.id.canvas_view) {
                     canvasRenderView?.invalidate()
                 }
 
-                //itemHolder.click()
+                //demo
+                bindTestDemo(itemHolder)
 
                 //testCanvasRenderView(itemHolder)
                 testDemo(itemHolder)
@@ -136,23 +185,120 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         "CanvasDemo:onViewStateRestored:$savedInstanceState".writeToLog()
     }
 
-    //endregion---core---
+    /**测试布局*/
+    private fun bindTestDemo(itemHolder: DslViewHolder) {
 
-    //region---test---
-
-    fun testCanvasRenderView(itemHolder: DslViewHolder) {
-        val canvasRenderView = itemHolder.v<CanvasRenderView>(R.id.canvas_view)
-        canvasRenderView?.delegate?.apply {
-            renderViewBox.originGravity = Gravity.CENTER
+        //---
+        var cmdString = ""
+        val receiveAction: IReceiveBeanAction = { bean, error ->
+            val text = span {
+                append(Thread.currentThread().name)
+                append(" ${vmApp<LaserPeckerModel>().productInfoData.value?.name}")
+                append(" ${vmApp<LaserPeckerModel>().deviceVersionData.value?.softwareVersion}")
+                appendln()
+                if (cmdString.isNotEmpty()) {
+                    append("发送:${cmdString}")
+                }
+                appendln()
+                error?.let {
+                    append("接收:${it.message}")
+                }
+                bean?.let {
+                    append("接收:${it.receivePacket.toHexString(true)}")
+                    appendln()
+                    append("耗时:${it.receiveFinishTime - it.receiveStartTime} ms")
+                }
+            }
+            doMain {
+                itemHolder.tv(R.id.result_text_view)?.text = text
+            }
+            //查询工作状态
+            vmApp<LaserPeckerModel>().queryDeviceState()
         }
-    }
 
-    fun testDemo(itemHolder: DslViewHolder) {
-        itemHolder.click(R.id.preview_button) {
+        //---
+
+        //设备指令
+        itemHolder.click(R.id.device_command_button) {
+            showDeviceCommand(itemHolder)
+        }
+
+        //测试算法
+        itemHolder.click(R.id.arithmetic_button) {
+            showArithmeticHandle(itemHolder)
+        }
+
+        //退出指令
+        itemHolder.click(R.id.exit_button) {
+            val cmd = ExitCmd()
+            cmdString = cmd.toHexCommandString()
+            //LaserPeckerHelper.sendCommand(cmd, action = receiveAction)
+            cmd.enqueue(action = receiveAction)
+        }
+
+        //当前设备版本
+        itemHolder.click(R.id.version_button) {
+            vmApp<LaserPeckerModel>().productInfoData.value?.let {
+                itemHolder.tv(R.id.result_text_view)?.text = "$it"
+            }
+        }
+
+        //项目列表
+        itemHolder.click(R.id.project_button) {
+            dslFHelper {
+                show(ProjectListFragment::class)
+            }
+        }
+
+        //雕刻历史
+        itemHolder.click(R.id.file_button) {
+            dslFHelper {
+                show(EngraveHistoryFragment::class)
+            }
+        }
+
+        //分享最后一次的雕刻日志
+        itemHolder.click(R.id.share_log_button) {
+            DeviceHelper.shareEngraveLog()
+        }
+
+        //---
+
+        //添加随机文本
+        itemHolder.click(R.id.add_picture_text) {
+            LPElementHelper.addTextElement(renderDelegate, getRandomText())
+        }
+        itemHolder.click(R.id.random_add_svg) {
+            SvgDemo.loadSvgPathDrawable().apply {
+
+            }
+        }
+        itemHolder.click(R.id.random_add_gcode) {
+            SvgDemo.loadGCodeDrawable().apply {
+                LPElementHelper.addPathElement(
+                    renderDelegate,
+                    LPConstant.DATA_TYPE_GCODE,
+                    first,
+                    second.gCodePath.toListOf()
+                )
+            }
+        }
+
+        //截图
+        itemHolder.click(R.id.preview_button) { view ->
             _adapter.render {
                 PreviewBitmapItem()() {
-                    itemHolder.renderDelegate?.let {
+                    renderDelegate?.let {
                         bitmap = it.preview()
+                    }
+                }
+            }
+        }
+        itemHolder.click(R.id.preview_override_button) { view ->
+            _adapter.render {
+                PreviewBitmapItem()() {
+                    renderDelegate?.let {
+                        bitmap = it.preview(overrideSize = HawkEngraveKeys.projectOutSize.toFloat())
                     }
                 }
             }
@@ -160,45 +306,172 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         itemHolder.click(R.id.preview_rect_button) {
             _adapter.render {
                 PreviewBitmapItem()() {
-                    itemHolder.renderDelegate?.let {
-                        bitmap = it.preview(overrideSize = HawkEngraveKeys.projectOutSize.toFloat())
+                    renderDelegate?.let {
+                        val unit = it.axisManager.renderUnit
+                        val left = unit.convertValueToPixel(0f)
+                        val top = unit.convertValueToPixel(0f)
+                        val width = unit.convertValueToPixel(10f)
+                        val height = unit.convertValueToPixel(10f)
+                        bitmap = it.preview(RectF(left, top, width, height))
                     }
                 }
             }
         }
-        itemHolder.click(R.id.bounds_button) {
-            itemHolder.renderDelegate?.apply {
-                val unit = MmValueUnit()
-                val limitRect = when {
-                    MainFragment.CLICK_COUNT++ % 3 == 2 -> RectF(
-                        unit.convertValueToPixel(100f),
-                        unit.convertValueToPixel(100f),
-                        unit.convertValueToPixel(300f),
-                        unit.convertValueToPixel(300f)
-                    )
-                    MainFragment.CLICK_COUNT++ % 2 == 0 -> RectF(
-                        unit.convertValueToPixel(-30f),
-                        unit.convertValueToPixel(-30f),
-                        unit.convertValueToPixel(-10f),
-                        unit.convertValueToPixel(-10f)
-                    )
-                    else -> RectF(
-                        unit.convertValueToPixel(10f),
-                        unit.convertValueToPixel(10f),
-                        unit.convertValueToPixel(30f),
-                        unit.convertValueToPixel(30f)
-                    )
-                }
-                showRectBounds(limitRect)
+
+        //tip
+        itemHolder.click(R.id.tip_button) {
+            dslAHelper {
+                start(DeviceConnectTipActivity::class)
             }
         }
+
+        //test
+        itemHolder.click(R.id.test_button) {
+
+        }
+
+        //save
+        itemHolder.click(R.id.save_button) {
+            renderDelegate?.apply {
+                engraveLoadingAsync({
+                    getProjectBean().apply {
+                        file_name = "save-${nowTimeString()}"
+                        val json = toJson()
+                        json.writeTo(
+                            CanvasDataHandleOperate._defaultProjectOutputFile(
+                                "LP-${fileNameTime()}"
+                            ),
+                            false
+                        )
+                        L.i(json)
+                    }
+                }) {
+                    toastQQ("save success!")
+                }
+            }
+        }
+
+        //open
+        itemHolder.click(R.id.open_button) {
+            dslFHelper {
+                fileSelector({
+                    showFileMd5 = true
+                    showFileMenu = true
+                    showHideFile = true
+                    targetPath = libFolderPath()
+                }) {
+                    it?.let {
+                        renderDelegate?.apply {
+                            engraveLoadingAsync({
+                                openProjectUri(it.fileUri)
+                            })
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**设备指令*/
+    private fun showDeviceCommand(itemHolder: DslViewHolder) {
+        fContext().itemsDialog {
+            addDialogItem {
+                itemText = "查询设备状态"
+                itemClick = {
+                    vmApp<LaserPeckerModel>().queryDeviceState { bean, error ->
+                        bean?.parse<QueryStateParser>()?.let {
+                            doMain {
+                                itemHolder.tv(R.id.result_text_view)?.text = "$it"
+                            }
+                        }
+                    }
+                }
+            }
+            addDialogItem {
+                itemText = "查询机器日志"
+                itemClick = {
+                    QueryCmd.log.enqueue { bean, error ->
+                        if (error == null) {
+                            bean?.parse<QueryLogParser>()?.let {
+                                L.i(it)
+                                val log = it.log ?: "no log!"
+                                toast(log)
+                                itemHolder.tv(R.id.result_text_view)?.text = log
+                            }
+                        }
+                    }
+                }
+            }
+            addDialogItem {
+                itemText = "清除设备历史"
+                itemClick = {
+                    FileModeCmd.deleteAllHistory().enqueue { bean, error ->
+                        if (bean?.parse<FileTransferParser>()?.isFileDeleteSuccess() == true) {
+                            toast("清除成功")
+                        }
+                        error?.let { toast(it.message) }
+                    }
+                }
+            }
+        }
+    }
+
+    /**算法测试*/
+    private fun showArithmeticHandle(itemHolder: DslViewHolder) {
+        fContext().itemsDialog {
+            addDialogItem {
+                itemText = "转普通图片"
+                itemClick = {
+
+                }
+            }
+            addDialogItem {
+                itemText = "转抖动图片"
+                itemClick = {
+
+                }
+            }
+            addDialogItem {
+                itemText = "转图片线段"
+                itemClick = {
+
+                }
+            }
+            addDialogItem {
+                itemText = "转GCode(OpenCV)"
+                itemClick = {
+
+                }
+            }
+            addDialogItem {
+                itemText = "转GCode(Pixel)"
+                itemClick = {
+
+                }
+            }
+        }
+    }
+
+    //endregion---core---
+
+    //region---test---
+
+    private fun testCanvasRenderView(itemHolder: DslViewHolder) {
+        val canvasRenderView = itemHolder.v<CanvasRenderView>(R.id.canvas_view)
+        canvasRenderView?.delegate?.apply {
+            renderViewBox.originGravity = Gravity.CENTER
+        }
+    }
+
+    private fun testDemo(itemHolder: DslViewHolder) {
+
     }
 
     //endregion---test---
 
     //<editor-fold desc="touch">
 
-    val pinchGestureDetector = MultiFingeredHelper.PinchGestureDetector().apply {
+    private val pinchGestureDetector = MultiFingeredHelper.PinchGestureDetector().apply {
         onPinchAction = {
             dslFHelper {
                 show(DebugFragment::class)
@@ -216,10 +489,10 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     //<editor-fold desc="init">
 
     /**Canvas2布局*/
-    val renderLayoutHelper = RenderLayoutHelper(this)
+    private val renderLayoutHelper = RenderLayoutHelper(this)
 
     /**雕刻布局*/
-    val _engraveFlowLayoutHelper = EngraveFlowLayoutHelper().apply {
+    private val _engraveFlowLayoutHelper = EngraveFlowLayoutHelper().apply {
         backPressedDispatcherOwner = this@Canvas2Demo
 
         onEngraveFlowChangedAction = { from, to ->
@@ -275,7 +548,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         }
 
     override val renderDelegate: CanvasRenderDelegate?
-        get() = null
+        get() = renderLayoutHelper.canvasRenderDelegate
 
     override val flowLayoutContainer: ViewGroup?
         get() = fragment._vh.group(R.id.engrave_flow_wrap_layout)
