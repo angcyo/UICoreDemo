@@ -67,6 +67,7 @@ import com.angcyo.laserpacker.device.EngraveNotifyHelper
 import com.angcyo.laserpacker.device.HawkEngraveKeys
 import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
 import com.angcyo.laserpacker.device.ble.DeviceSettingFragment
+import com.angcyo.laserpacker.device.engraveLoadingAsync
 import com.angcyo.library.*
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component._delay

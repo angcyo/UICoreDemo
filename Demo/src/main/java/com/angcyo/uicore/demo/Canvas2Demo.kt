@@ -11,6 +11,7 @@ import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.IReceiveBeanAction
 import com.angcyo.bluetooth.fsc.enqueue
+import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
 import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.FileModeCmd
@@ -38,23 +39,24 @@ import com.angcyo.core.showIn
 import com.angcyo.core.vmApp
 import com.angcyo.dialog.itemsDialog
 import com.angcyo.dsladapter.bindItem
-import com.angcyo.engrave.engraveLoadingAsync
+import com.angcyo.engrave2.data.TransitionParam
+import com.angcyo.engrave2.transition.EngraveTransitionHelper
 import com.angcyo.fragment.AbsLifecycleFragment
 import com.angcyo.http.base.toJson
 import com.angcyo.http.rx.doMain
 import com.angcyo.item.component.DebugFragment
 import com.angcyo.laserpacker.device.DeviceHelper
+import com.angcyo.laserpacker.device.EngraveHelper
 import com.angcyo.laserpacker.device.HawkEngraveKeys
 import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
-import com.angcyo.library.L
+import com.angcyo.laserpacker.device.engraveLoadingAsync
+import com.angcyo.library.*
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component.pad.isInPadMode
 import com.angcyo.library.ex.*
-import com.angcyo.library.libFolderPath
-import com.angcyo.library.toast
-import com.angcyo.library.toastQQ
 import com.angcyo.library.utils.fileNameTime
 import com.angcyo.library.utils.writeTo
+import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.getRandomText
 import com.angcyo.widget.DslViewHolder
@@ -418,37 +420,97 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
 
     /**算法测试*/
     private fun showArithmeticHandle(itemHolder: DslViewHolder) {
+        val list = renderDelegate?.selectorManager?.getSelectorRendererList(true, false)
+        val renderer = list?.firstOrNull() ?: return
+        val element = renderer.lpElement() ?: return
+
+        val transferConfigEntity = TransferConfigEntity().apply {
+            taskId = "Test-${nowTimeString()}"
+            name = EngraveHelper.generateEngraveName()
+            dpi = LaserPeckerHelper.DPI_254
+        }
+
         fContext().itemsDialog {
             addDialogItem {
                 itemText = "转普通图片"
                 itemClick = {
-
+                    wrapDuration(itemHolder) {
+                        L.i(
+                            EngraveTransitionHelper.transitionToBitmap(
+                                element,
+                                transferConfigEntity
+                            )
+                        )
+                    }
                 }
             }
             addDialogItem {
                 itemText = "转抖动图片"
                 itemClick = {
-
+                    wrapDuration(itemHolder) {
+                        L.i(
+                            EngraveTransitionHelper.transitionToBitmapDithering(
+                                element,
+                                transferConfigEntity,
+                                TransitionParam()
+                            )
+                        )
+                    }
                 }
             }
             addDialogItem {
                 itemText = "转图片线段"
                 itemClick = {
-
+                    wrapDuration(itemHolder) {
+                        L.i(
+                            EngraveTransitionHelper.transitionToBitmapPath(
+                                element,
+                                transferConfigEntity
+                            )
+                        )
+                    }
                 }
             }
             addDialogItem {
                 itemText = "转GCode(OpenCV)"
                 itemClick = {
-
+                    wrapDuration(itemHolder) {
+                        L.i(
+                            EngraveTransitionHelper.transitionToGCode(
+                                element,
+                                transferConfigEntity,
+                                TransitionParam(useOpenCvHandleGCode = true)
+                            )
+                        )
+                    }
                 }
             }
             addDialogItem {
                 itemText = "转GCode(Pixel)"
                 itemClick = {
-
+                    wrapDuration(itemHolder) {
+                        L.i(
+                            EngraveTransitionHelper.transitionToGCode(
+                                element,
+                                transferConfigEntity,
+                                TransitionParam(
+                                    useOpenCvHandleGCode = false,
+                                    isSingleLine = element.elementBean.isLineShape
+                                )
+                            )
+                        )
+                    }
                 }
             }
+        }
+    }
+
+    private fun wrapDuration(itemHolder: DslViewHolder, action: () -> Unit) {
+        engraveLoadingAsync({
+            LTime.tick()
+            action()
+        }) {
+            itemHolder.tv(R.id.result_text_view)?.text = "耗时:${LTime.time()}"
         }
     }
 

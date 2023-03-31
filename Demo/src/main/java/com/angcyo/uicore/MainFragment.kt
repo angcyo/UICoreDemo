@@ -18,13 +18,13 @@ import com.angcyo.core.dslitem.DslLastDeviceInfoItem
 import com.angcyo.download.giteeVersionChange
 import com.angcyo.download.version.VersionChangeFragment
 import com.angcyo.dsladapter.DslAdapter
-import com.angcyo.engrave.engraveLoadingAsync
 import com.angcyo.github.window.dslFloatWindow
 import com.angcyo.http.ApiKt
 import com.angcyo.http.dslHttp
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.item.component.DebugFragment
 import com.angcyo.item.style.itemInfoText
+import com.angcyo.laserpacker.device.engraveLoadingAsync
 import com.angcyo.library.L
 import com.angcyo.library.ex.*
 import com.angcyo.library.getAppVersionName

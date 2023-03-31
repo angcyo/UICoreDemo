@@ -10,7 +10,7 @@ import com.angcyo.canvas.utils.toEngraveBitmap
 import com.angcyo.component.getPhoto
 import com.angcyo.drawable.PathListDrawable
 import com.angcyo.dsladapter.bindItem
-import com.angcyo.engrave.engraveLoadingAsync
+import com.angcyo.laserpacker.device.engraveLoadingAsync
 import com.angcyo.library.component.hawk.LibHawkKeys
 import com.angcyo.library.ex.*
 import com.angcyo.uicore.MainFragment
