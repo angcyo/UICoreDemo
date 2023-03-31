@@ -51,6 +51,7 @@ import com.angcyo.laserpacker.device.HawkEngraveKeys
 import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
 import com.angcyo.laserpacker.device.engraveLoadingAsync
 import com.angcyo.library.*
+import com.angcyo.library.Library.CLICK_COUNT
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component.pad.isInPadMode
 import com.angcyo.library.ex.*
@@ -452,7 +453,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                             EngraveTransitionHelper.transitionToBitmapDithering(
                                 element,
                                 transferConfigEntity,
-                                TransitionParam()
+                                TransitionParam(CLICK_COUNT++ % 2 == 1)
                             )
                         )
                     }
@@ -472,6 +473,20 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 }
             }
             addDialogItem {
+                itemText = "转GCode"
+                itemClick = {
+                    wrapDuration(itemHolder) {
+                        L.i(
+                            EngraveTransitionHelper.transitionToGCode(
+                                element,
+                                transferConfigEntity,
+                                TransitionParam()
+                            )
+                        )
+                    }
+                }
+            }
+            addDialogItem {
                 itemText = "转GCode(OpenCV)"
                 itemClick = {
                     wrapDuration(itemHolder) {
@@ -479,7 +494,10 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                             EngraveTransitionHelper.transitionToGCode(
                                 element,
                                 transferConfigEntity,
-                                TransitionParam(useOpenCvHandleGCode = true)
+                                TransitionParam(
+                                    onlyUseBitmapToGCode = true,
+                                    useOpenCvHandleGCode = true
+                                )
                             )
                         )
                     }
@@ -494,6 +512,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                                 element,
                                 transferConfigEntity,
                                 TransitionParam(
+                                    onlyUseBitmapToGCode = true,
                                     useOpenCvHandleGCode = false,
                                     isSingleLine = element.elementBean.isLineShape
                                 )
@@ -510,7 +529,13 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
             LTime.tick()
             action()
         }) {
-            itemHolder.tv(R.id.result_text_view)?.text = "耗时:${LTime.time()}"
+            itemHolder.tv(R.id.result_text_view)?.text = span {
+                append(nowTimeString()) {
+                    foregroundColor = randomColor()
+                }
+                appendLine()
+                append("耗时:${LTime.time()}")
+            }
         }
     }
 
