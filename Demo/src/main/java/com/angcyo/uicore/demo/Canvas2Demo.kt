@@ -160,13 +160,13 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         super.onFragmentFirstShow(bundle)
         //restore
         _vh.postDelay(0) {
-            renderLayoutHelper.canvasRenderDelegate?.restoreProjectState()
+            renderLayoutHelper.delegate?.restoreProjectState()
         }
     }
 
     override fun onDestroyView() {
         //save
-        renderLayoutHelper.canvasRenderDelegate?.saveProjectState()
+        renderLayoutHelper.delegate?.saveProjectState()
         super.onDestroyView()
     }
 
@@ -560,7 +560,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         onEngraveFlowChangedAction = { from, to ->
             //禁止手势
             val isEngraveFlow = to.isEngraveFlow()
-            renderLayoutHelper.canvasRenderDelegate?.disableEditTouchGesture(isEngraveFlow)
+            renderLayoutHelper.delegate?.disableEditTouchGesture(isEngraveFlow)
             if (isInPadMode()) {
                 renderLayoutHelper.disableEditItem(isEngraveFlow)
             }
@@ -569,13 +569,13 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 //预览中, 偏移画板界面
                 val productInfoData = laserPeckerModel.productInfoData
                 productInfoData.value?.bounds?.let {
-                    renderLayoutHelper.canvasRenderDelegate?.showRectBounds(
+                    renderLayoutHelper.delegate?.showRectBounds(
                         it,
                         offsetRectTop = true
                     )
                 }
             } else if (to == BaseFlowLayoutHelper.ENGRAVE_FLOW_BEFORE_CONFIG) {
-                renderLayoutHelper.canvasRenderDelegate?.saveProjectState()
+                renderLayoutHelper.delegate?.saveProjectState()
             }
         }
 
@@ -610,7 +610,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         }
 
     override val renderDelegate: CanvasRenderDelegate?
-        get() = renderLayoutHelper.canvasRenderDelegate
+        get() = renderLayoutHelper.delegate
 
     override val flowLayoutContainer: ViewGroup?
         get() = fragment._vh.group(R.id.engrave_flow_wrap_layout)
