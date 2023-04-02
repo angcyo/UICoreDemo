@@ -4,14 +4,14 @@ import androidx.fragment.app.FragmentActivity
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
-import com.angcyo.canvas.utils.CanvasConstant
 import com.angcyo.core.component.CacheFragment
 import com.angcyo.core.component.model.CacheInfo
 import com.angcyo.core.component.model.CacheModel
 import com.angcyo.core.coreApp
 import com.angcyo.core.vmApp
-import com.angcyo.laserpacker.device.HawkEngraveKeys
 import com.angcyo.item.component.DebugFragment
+import com.angcyo.laserpacker.LPDataConstant
+import com.angcyo.laserpacker.device.HawkEngraveKeys
 import com.angcyo.laserpacker.device.ble.CommandFragment
 import com.angcyo.laserpacker.device.ble.ConnectFragment
 import com.angcyo.laserpacker.device.ble.TransferDataFragment
@@ -276,14 +276,14 @@ object AppDebugHelper {
                 CacheInfo(
                     "雕刻缓存",
                     "雕刻过程中产生的缓存数据",
-                    appFolderPath(CanvasConstant.ENGRAVE_FILE_FOLDER)
+                    appFolderPath(LPDataConstant.ENGRAVE_FILE_FOLDER)
                 )
             )
             addCacheInfo(
                 CacheInfo(
                     "矢量缓存",
                     "生成的矢量文件缓存数据",
-                    appFolderPath(CanvasConstant.VECTOR_FILE_FOLDER)
+                    appFolderPath(LPDataConstant.VECTOR_FILE_FOLDER)
                 )
             )
             addCacheInfo(CacheInfo("字体缓存", "导入的自定义字体", FontManager.defaultCustomFontFolder))

@@ -26,8 +26,6 @@ import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasDelegate
 import com.angcyo.canvas.CanvasView
 import com.angcyo.canvas.core.ItemsOperateHandler
-import com.angcyo.canvas.data.CanvasProjectBean
-import com.angcyo.canvas.data.CanvasProjectItemBean
 import com.angcyo.canvas.data.LimitDataInfo
 import com.angcyo.canvas.graphics.GraphicsHelper
 import com.angcyo.canvas.graphics.addGCodeRender
@@ -62,7 +60,10 @@ import com.angcyo.fragment.AbsLifecycleFragment
 import com.angcyo.http.base.toJson
 import com.angcyo.http.rx.doMain
 import com.angcyo.item.component.DebugFragment
+import com.angcyo.laserpacker.bean.LPElementBean
+import com.angcyo.laserpacker.bean.LPProjectBean
 import com.angcyo.laserpacker.device.DeviceHelper
+import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFile
 import com.angcyo.laserpacker.device.EngraveNotifyHelper
 import com.angcyo.laserpacker.device.HawkEngraveKeys
 import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
@@ -610,10 +611,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                             ).let {
                                 val json = it.toJson()
                                 json.writeTo(
-                                    CanvasDataHandleOperate._defaultProjectOutputFile(
-                                        "LP-${fileNameTime()}"
-                                    ),
-                                    false
+                                    _defaultProjectOutputFile("LP-${fileNameTime()}"), false
                                 )
                                 L.i(json)
                             }
@@ -687,9 +685,9 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
         vmApp<CanvasOpenModel>().openPendingData.observe { bean ->
             bean?.let {
                 _delay {
-                    if (bean is CanvasProjectBean) {
+                    if (bean is LPProjectBean) {
                         canvasDelegate?.openCanvasFile(this, bean)
-                    } else if (bean is CanvasProjectItemBean) {
+                    } else if (bean is LPElementBean) {
                         GraphicsHelper.addRenderItemDataBean(canvasDelegate, bean)
                     }
                 }

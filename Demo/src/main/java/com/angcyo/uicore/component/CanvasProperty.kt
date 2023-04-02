@@ -10,7 +10,7 @@ import kotlin.math.tan
 /**
  * Canvas绘制时的一些属性
  *
- * [CanvasProjectItemBean]
+ * [LPElementBean]
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
  * @since 2023/02/02
  */

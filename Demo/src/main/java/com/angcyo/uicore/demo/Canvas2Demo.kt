@@ -23,7 +23,6 @@ import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasRenderView
 import com.angcyo.canvas.render.core.CanvasRenderDelegate
 import com.angcyo.canvas.render.core.Reason
-import com.angcyo.canvas.utils.CanvasDataHandleOperate
 import com.angcyo.canvas2.laser.pecker.IEngraveRenderFragment
 import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
 import com.angcyo.canvas2.laser.pecker.activity.ProjectListFragment
@@ -45,7 +44,9 @@ import com.angcyo.fragment.AbsLifecycleFragment
 import com.angcyo.http.base.toJson
 import com.angcyo.http.rx.doMain
 import com.angcyo.item.component.DebugFragment
+import com.angcyo.laserpacker.LPDataConstant
 import com.angcyo.laserpacker.device.DeviceHelper
+import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFile
 import com.angcyo.laserpacker.device.EngraveHelper
 import com.angcyo.laserpacker.device.HawkEngraveKeys
 import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
@@ -280,7 +281,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
             SvgDemo.loadGCodeDrawable().apply {
                 LPElementHelper.addPathElement(
                     renderDelegate,
-                    LPConstant.DATA_TYPE_GCODE,
+                    LPDataConstant.DATA_TYPE_GCODE,
                     first,
                     second.gCodePath.toListOf()
                 )
@@ -341,10 +342,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                         file_name = "save-${nowTimeString()}"
                         val json = toJson()
                         json.writeTo(
-                            CanvasDataHandleOperate._defaultProjectOutputFile(
-                                "LP-${fileNameTime()}"
-                            ),
-                            false
+                            _defaultProjectOutputFile("LP-${fileNameTime()}"), false
                         )
                         L.i(json)
                     }
