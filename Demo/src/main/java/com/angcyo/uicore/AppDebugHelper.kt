@@ -11,6 +11,7 @@ import com.angcyo.core.coreApp
 import com.angcyo.core.vmApp
 import com.angcyo.item.component.DebugFragment
 import com.angcyo.laserpacker.LPDataConstant
+import com.angcyo.laserpacker.device.DeviceHelper
 import com.angcyo.laserpacker.device.HawkEngraveKeys
 import com.angcyo.laserpacker.device.ble.CommandFragment
 import com.angcyo.laserpacker.device.ble.ConnectFragment
@@ -120,7 +121,7 @@ object AppDebugHelper {
             type = String::class.java
             defValue = LibLpHawkKeys.lpSupportFirmware.run {
                 if (isNullOrBlank()) {
-                    getAppString("lp_support_firmware")
+                    LaserPeckerHelper.supportFirmwareRange()
                 } else {
                     this
                 }
@@ -134,7 +135,7 @@ object AppDebugHelper {
             type = String::class.java
             defValue = HawkEngraveKeys.batchEngraveSupportFirmware.run {
                 if (isNullOrBlank()) {
-                    getAppString("lp_batch_engrave_firmware")
+                    DeviceHelper.batchEngraveSupportFirmware
                 } else {
                     this
                 }

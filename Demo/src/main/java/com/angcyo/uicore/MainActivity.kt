@@ -190,6 +190,8 @@ class MainActivity : BasePermissionsActivity() {
                 "java.lang.String##0V@AQLf4+PnoAYmLEofEnsL5bXhT3D/UTk5WUYjVN17gWIAmg4P"
             )
             PathTest.test()
+
+            //LaserPeckerConfigHelper.init()
         } catch (e: Exception) {
             e.printStackTrace()
         }
