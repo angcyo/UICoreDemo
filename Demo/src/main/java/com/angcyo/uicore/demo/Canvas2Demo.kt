@@ -338,7 +338,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         itemHolder.click(R.id.save_button) {
             renderDelegate?.apply {
                 engraveLoadingAsync({
-                    getProjectBean().apply {
+                    getProjectBean()?.apply {
                         file_name = "save-${nowTimeString()}"
                         val json = toJson()
                         json.writeTo(
@@ -347,7 +347,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                         L.i(json)
                     }
                 }) {
-                    toastQQ("save success!")
+                    it?.let { toastQQ("save success!") }
                 }
             }
         }
