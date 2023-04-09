@@ -302,6 +302,33 @@
             android:name=".service.CurrentActivityService"
             android:enabled="true"
             android:exported="false" />
+
+        <!--2023-04-09 发送文件到服务器-->
+        <activity
+            android:name="com.angcyo.uicore.activity.ShareSendActivity"
+            android:exported="true"
+            android:label="@string/core_send_to_label">
+
+            <!--使用xxx打开-->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="file" />
+                <data android:scheme="content" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+
+            <!--发送给xxx-->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>
