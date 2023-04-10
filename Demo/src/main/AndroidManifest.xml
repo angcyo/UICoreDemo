@@ -306,6 +306,7 @@
         <!--2023-04-09 发送文件到服务器-->
         <activity
             android:name="com.angcyo.uicore.activity.ShareSendActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode|smallestScreenSize"
             android:exported="true"
             android:label="@string/core_send_to_label">
 
