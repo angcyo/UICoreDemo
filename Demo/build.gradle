@@ -1,13 +1,16 @@
-def apk_time = apkTime()
+def release_time = releaseTime()
 
 ext {
     V_CODE = "1"
-    V_NAME = "1.0.0($apk_time)"
+    V_NAME = "1.0.0($release_time)"
     APP_NAME = "UICoreDemo"
     schema = "demo"
 
     application_id = "com.angcyo.uicore.demo"
 
+    //apk.gradle
+    //可用参数: #an:app名字; #vn:版本名; #t:当天日期; #fn:风味名; #bn:编译类型名;
+    //         #sn:使用的签名名称; #ka:使用的签名别名;
     apkName = "#an-#vn_#fn_#bn_#ka"
 }
 apply from: allGradle.app
@@ -116,10 +119,6 @@ dependencies {
     //http://airbnb.io/lottie/#/android
     //https://lottiefiles.com/
     implementation 'com.airbnb.android:lottie:5.2.0'
-}
-
-static def apkTime() {
-    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("Asia/Shanghai"))
 }
 
 //apply from: allGradle.v7a
