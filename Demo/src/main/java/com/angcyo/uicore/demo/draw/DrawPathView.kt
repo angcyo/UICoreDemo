@@ -9,7 +9,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.core.graphics.withMatrix
 import androidx.core.graphics.withTranslation
-import com.angcyo.widget.base.createPaint
+import com.angcyo.library.ex.createPaint
 import com.angcyo.library.component.pool.acquireTempPointF
 import com.angcyo.library.ex.*
 

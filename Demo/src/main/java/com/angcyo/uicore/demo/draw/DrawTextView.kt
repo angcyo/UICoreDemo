@@ -6,7 +6,7 @@ import android.graphics.Path
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
-import com.angcyo.widget.base.createPaint
+import com.angcyo.library.ex.createPaint
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.textHeight
 import com.angcyo.library.ex.textWidth
