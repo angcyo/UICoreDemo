@@ -278,12 +278,20 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
             }
         }
         itemHolder.click(R.id.random_add_gcode) {
-            SvgDemo.loadGCodeDrawable().apply {
+            /*SvgDemo.loadGCodeDrawable().apply {
                 LPElementHelper.addPathElement(
                     renderDelegate,
                     LPDataConstant.DATA_TYPE_GCODE,
                     first,
                     second.gCodePath.toListOf()
+                )
+            }*/
+            SvgDemo.loadGCodePathJni().apply {
+                LPElementHelper.addPathElement(
+                    renderDelegate,
+                    LPDataConstant.DATA_TYPE_GCODE,
+                    first,
+                    second.toListOf()
                 )
             }
         }

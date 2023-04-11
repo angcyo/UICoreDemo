@@ -2,18 +2,17 @@ package com.angcyo.uicore.demo
 
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Path
 import android.os.Bundle
 import android.widget.ImageView
 import com.angcyo.canvas.utils.parseGCode
 import com.angcyo.drawable.CheckerboardDrawable
 import com.angcyo.dsladapter.bindItem
+import com.angcyo.engrave2.transition.toGCodePath
 import com.angcyo.gcode.GCodeDrawable
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.library.component.lastContext
-import com.angcyo.library.ex.randomGetOnce
-import com.angcyo.library.ex.readAssets
-import com.angcyo.library.ex.readResource
-import com.angcyo.library.ex.setBgDrawable
+import com.angcyo.library.ex.*
 import com.angcyo.svg.Svg
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.base.setInputText
@@ -112,6 +111,11 @@ class SvgDemo : AppDslFragment() {
             val text = lastContext.readAssets(gCodeNameList.randomGetOnce()!!)
             return text!! to GCodeHelper.parseGCode(text)!!
         }
+
+        fun loadGCodePathJni(): Pair<String, Path> {
+            val text = lastContext.readAssets(gCodeNameList.randomGetOnce()!!)
+            return text!! to text.toGCodePath()!!
+        }
     }
 
     init {
@@ -141,7 +145,8 @@ class SvgDemo : AppDslFragment() {
                     //Sharp.loadString(text).into(imageView!!)
                     imageView?.apply {
                         setBackgroundColor(Color.WHITE)
-                        setImageDrawable(GCodeHelper.parseGCode(text))
+                        //setImageDrawable(GCodeHelper.parseGCode(text))
+                        setImageDrawable(text.toGCodePath().toDrawable())
                     }
                 }
 
