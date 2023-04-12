@@ -509,7 +509,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                             EngraveTransitionHelper.transitionToBitmapDithering(
                                 element,
                                 transferConfigEntity,
-                                TransitionParam(CLICK_COUNT++ % 2 == 1)
+                                TransitionParam(invert = CLICK_COUNT++ % 2 == 1)
                             )
                         )
                     }
