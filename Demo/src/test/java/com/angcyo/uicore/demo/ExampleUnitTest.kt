@@ -1,7 +1,7 @@
 package com.angcyo.uicore.demo
 
 import com.angcyo.bluetooth.fsc.laserpacker.command.QueryCmd
-import com.angcyo.canvas.utils.parseGCode
+import com.angcyo.laserpacker.parseGCode
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.library.ex.*
 import com.angcyo.uicore.test.PathTest

@@ -25,13 +25,16 @@ import com.angcyo.canvas.render.core.CanvasRenderDelegate
 import com.angcyo.canvas.render.core.Reason
 import com.angcyo.canvas2.laser.pecker.IEngraveRenderFragment
 import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
-import com.angcyo.canvas2.laser.pecker.activity.ProjectListFragment
 import com.angcyo.canvas2.laser.pecker.engrave.BaseFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.EngraveFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.LPEngraveHelper
 import com.angcyo.canvas2.laser.pecker.engrave.isEngraveFlow
 import com.angcyo.canvas2.laser.pecker.history.EngraveHistoryFragment
-import com.angcyo.canvas2.laser.pecker.util.*
+import com.angcyo.canvas2.laser.pecker.manager.LPProjectManager
+import com.angcyo.canvas2.laser.pecker.manager.restoreProjectStateV2
+import com.angcyo.canvas2.laser.pecker.manager.saveProjectStateV2
+import com.angcyo.canvas2.laser.pecker.util.LPElementHelper
+import com.angcyo.canvas2.laser.pecker.util.lpElement
 import com.angcyo.core.component.file.writeToLog
 import com.angcyo.core.component.fileSelector
 import com.angcyo.core.showIn
@@ -41,23 +44,27 @@ import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave2.data.TransitionParam
 import com.angcyo.engrave2.transition.EngraveTransitionHelper
 import com.angcyo.fragment.AbsLifecycleFragment
-import com.angcyo.http.base.toJson
 import com.angcyo.http.rx.doMain
 import com.angcyo.item.component.DebugFragment
 import com.angcyo.laserpacker.LPDataConstant
+import com.angcyo.laserpacker.bean.LPElementBean
+import com.angcyo.laserpacker.bean.LPProjectBean
 import com.angcyo.laserpacker.device.DeviceHelper
 import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFile
+import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFileV2
 import com.angcyo.laserpacker.device.EngraveHelper
 import com.angcyo.laserpacker.device.HawkEngraveKeys
 import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
 import com.angcyo.laserpacker.device.engraveLoadingAsync
+import com.angcyo.laserpacker.open.CanvasOpenModel
+import com.angcyo.laserpacker.project.ProjectListFragment
 import com.angcyo.library.*
 import com.angcyo.library.Library.CLICK_COUNT
 import com.angcyo.library.component.MultiFingeredHelper
+import com.angcyo.library.component._delay
 import com.angcyo.library.component.pad.isInPadMode
 import com.angcyo.library.ex.*
 import com.angcyo.library.utils.fileNameTime
-import com.angcyo.library.utils.writeTo
 import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.getRandomText
@@ -154,6 +161,31 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 testDemo(itemHolder)
             }
         }
+
+        //有需要打开的数据
+        vmApp<CanvasOpenModel>().openPendingData.observe { bean ->
+            bean?.let {
+                _delay {
+                    renderDelegate?.let { delegate ->
+                        if (bean is LPProjectBean) {
+                            LPProjectManager().openProjectBean(delegate, bean)
+                        } else if (bean is LPElementBean) {
+                            LPProjectManager().openElementBean(delegate, bean)
+                        }
+                    }
+                }
+            }
+        }
+
+        //首次进来, 检查是否要恢复雕刻进度
+        engraveFlowLayoutHelper.laserPeckerModel.initializeData.observe {
+            if (it == true) {
+                engraveFlowLayoutHelper.checkRestoreEngrave(this)
+                engraveFlowLayoutHelper.engraveModel._listenerEngraveState =
+                    engraveFlowLayoutHelper.laserPeckerModel.deviceStateData.value?.isModeEngrave() == true
+                engraveFlowLayoutHelper.checkLoopQueryDeviceState()
+            }
+        }
     }
 
     //region---core---
@@ -162,13 +194,13 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         super.onFragmentFirstShow(bundle)
         //restore
         _vh.postDelay(0) {
-            renderLayoutHelper.delegate?.restoreProjectState()
+            renderLayoutHelper.delegate?.restoreProjectStateV2()
         }
     }
 
     override fun onDestroyView() {
         //save
-        renderLayoutHelper.delegate?.saveProjectState()
+        renderLayoutHelper.delegate?.saveProjectStateV2(async = false)
         super.onDestroyView()
     }
 
@@ -181,7 +213,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         "CanvasDemo:onSaveInstanceState:$outState".writeToLog()
-        renderDelegate?.saveProjectState(async = false)
+        renderDelegate?.saveProjectStateV2(async = false)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -343,16 +375,34 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         }
 
         //save
-        itemHolder.click(R.id.save_button) {
+        itemHolder.click(R.id.save1_button) {
             renderDelegate?.apply {
                 engraveLoadingAsync({
-                    getProjectBean()?.apply {
-                        file_name = "save-${nowTimeString()}"
-                        val json = toJson()
-                        json.writeTo(
-                            _defaultProjectOutputFile("LP-${fileNameTime()}"), false
+                    LPProjectManager().apply {
+                        projectName = "save-v1-${nowTimeString()}"
+                        L.i(
+                            saveProjectV1To(
+                                _defaultProjectOutputFile("LP-${fileNameTime()}"),
+                                renderDelegate!!
+                            )
                         )
-                        L.i(json)
+                    }
+                }) {
+                    it?.let { toastQQ("save success!") }
+                }
+            }
+        }
+        itemHolder.click(R.id.save2_button) {
+            renderDelegate?.apply {
+                engraveLoadingAsync({
+                    LPProjectManager().apply {
+                        projectName = "save-v2-${nowTimeString()}"
+                        L.i(
+                            saveProjectV2To(
+                                _defaultProjectOutputFileV2("LP-${fileNameTime()}"),
+                                renderDelegate!!
+                            )
+                        )
                     }
                 }) {
                     it?.let { toastQQ("save success!") }
@@ -372,7 +422,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     it?.let {
                         renderDelegate?.apply {
                             engraveLoadingAsync({
-                                openProjectUri(it.fileUri)
+                                LPProjectManager().openProjectUri(renderDelegate!!, it.fileUri)
                             })
                         }
                     }
@@ -606,7 +656,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     )
                 }
             } else if (to == BaseFlowLayoutHelper.ENGRAVE_FLOW_BEFORE_CONFIG) {
-                renderLayoutHelper.delegate?.saveProjectState()
+                renderLayoutHelper.delegate?.saveProjectStateV2()
             }
         }
 

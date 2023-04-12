@@ -13,7 +13,6 @@ import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
 import com.angcyo.bluetooth.fsc.laserpacker.parse.toLaserPeckerVersionName
 import com.angcyo.bugly.Bugly
-import com.angcyo.canvas.laser.pecker.mode.CanvasOpenModel
 import com.angcyo.core.CoreApplication
 import com.angcyo.core.Debug
 import com.angcyo.core.component.ScreenShotModel
@@ -22,7 +21,6 @@ import com.angcyo.core.viewpager.RFragmentAdapter
 import com.angcyo.core.vmApp
 import com.angcyo.crash.sight.CrashSight
 import com.angcyo.download.DslDownload
-import com.angcyo.engrave.EngraveFlowDataHelper
 import com.angcyo.engrave.auto.AutoEngraveHelper
 import com.angcyo.http.gitee.Gitee
 import com.angcyo.item.DslTextInfoItem
@@ -35,6 +33,7 @@ import com.angcyo.laserpacker.device.ble.ConnectFragment
 import com.angcyo.laserpacker.device.ble.DeviceSettingFragment
 import com.angcyo.laserpacker.device.ble.TransferDataFragment
 import com.angcyo.laserpacker.device.model.FscDeviceModel
+import com.angcyo.laserpacker.open.CanvasOpenModel
 import com.angcyo.library.annotation.CallComplianceAfter
 import com.angcyo.library.component.RBackground
 import com.angcyo.library.component.pad.IPadAdaptive
@@ -97,7 +96,8 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
         LPBox.init(this)
 
         CanvasOpenModel.OPEN_ACTIVITY_CLASS = MainActivity::class.java
-        CanvasOpenModel.OPEN_ACTIVITY_FRAGMENT_CLASS = CanvasDemo::class.java
+        //CanvasOpenModel.OPEN_ACTIVITY_FRAGMENT_CLASS = CanvasDemo::class.java
+        CanvasOpenModel.OPEN_ACTIVITY_FRAGMENT_CLASS = Canvas2Demo::class.java
     }
 
     override fun onCreateMain() {

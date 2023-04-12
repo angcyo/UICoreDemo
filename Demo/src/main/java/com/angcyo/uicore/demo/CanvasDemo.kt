@@ -36,8 +36,6 @@ import com.angcyo.canvas.items.data.DataItemRenderer
 import com.angcyo.canvas.items.data.DataPathItem
 import com.angcyo.canvas.items.renderer.SimpleItemRenderer
 import com.angcyo.canvas.laser.pecker.CanvasLayoutHelper
-import com.angcyo.canvas.laser.pecker.activity.ProjectListFragment
-import com.angcyo.canvas.laser.pecker.mode.CanvasOpenModel
 import com.angcyo.canvas.laser.pecker.openCanvasFile
 import com.angcyo.canvas.laser.pecker.restoreInstanceState
 import com.angcyo.canvas.laser.pecker.saveInstanceState
@@ -69,6 +67,8 @@ import com.angcyo.laserpacker.device.HawkEngraveKeys
 import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
 import com.angcyo.laserpacker.device.ble.DeviceSettingFragment
 import com.angcyo.laserpacker.device.engraveLoadingAsync
+import com.angcyo.laserpacker.open.CanvasOpenModel
+import com.angcyo.laserpacker.project.ProjectListFragment
 import com.angcyo.library.*
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component._delay
