@@ -474,7 +474,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 }
             }
             addDialogItem {
-                itemText = "清除设备历史"
+                itemText = "清除设备所有历史"
                 itemClick = {
                     FileModeCmd.deleteAllHistory().enqueue { bean, error ->
                         if (bean?.parse<FileTransferParser>()?.isFileDeleteSuccess() == true) {
