@@ -9,10 +9,13 @@ import com.angcyo.core.component.model.DataShareModel
 import com.angcyo.core.component.receiveFileDialogConfig
 import com.angcyo.core.vmApp
 import com.angcyo.library.component.ROpenFileHelper
+import com.angcyo.library.ex._color
 import com.angcyo.putData
 import com.angcyo.putParcelableList
 import com.angcyo.server.startFileServer
 import com.angcyo.server.stopFileServer
+import com.angcyo.uicore.demo.R
+import com.angcyo.widget.span.span
 
 /**
  * 分享过来用来发送文件到指定服务器
@@ -34,7 +37,22 @@ class ShareSendActivity : BaseCoreAppCompatActivity() {
                         vmApp<DataShareModel>().shareServerAddressOnceData.observeOnce { address ->
                             address?.let {
                                 receiveFileDialogConfig {
-                                    dialogTitle = "服务接口: ${address}/uploadFile"
+                                    dialogTitle = span {
+                                        append("服务地址: ") {
+                                            foregroundColor = _color(R.color.colorAccent)
+                                        }
+                                        append(address)
+                                        appendln()
+                                        append("发送文件[POST]: ") {
+                                            foregroundColor = _color(R.color.colorAccent)
+                                        }
+                                        append("/uploadFile")
+                                        appendln()
+                                        append("发送文本[POST]: ") {
+                                            foregroundColor = _color(R.color.colorAccent)
+                                        }
+                                        append("/body")
+                                    }
                                     onDismissListener = {
                                         stopFileServer()
                                     }
