@@ -5,9 +5,14 @@ import android.os.Bundle
 import com.angcyo.base.dslFHelper
 import com.angcyo.core.activity.BaseCoreAppCompatActivity
 import com.angcyo.core.component.ShareSendFragment
+import com.angcyo.core.component.model.DataShareModel
+import com.angcyo.core.component.receiveFileDialogConfig
+import com.angcyo.core.vmApp
 import com.angcyo.library.component.ROpenFileHelper
 import com.angcyo.putData
 import com.angcyo.putParcelableList
+import com.angcyo.server.startFileServer
+import com.angcyo.server.stopFileServer
 
 /**
  * 分享过来用来发送文件到指定服务器
@@ -23,6 +28,22 @@ class ShareSendActivity : BaseCoreAppCompatActivity() {
         dslFHelper {
             removeAll()
             show(ShareSendFragment::class) {
+                if (this is ShareSendFragment) {
+                    receiveFileAction = {
+                        startFileServer()
+                        vmApp<DataShareModel>().shareServerAddressOnceData.observeOnce { address ->
+                            address?.let {
+                                receiveFileDialogConfig {
+                                    dialogTitle = "服务接口: ${address}/uploadFile"
+                                    onDismissListener = {
+                                        stopFileServer()
+                                    }
+                                }
+                            }
+                            address != null
+                        }
+                    }
+                }
                 ROpenFileHelper.parseIntentUri(intent)?.let {
                     putParcelableList(it, ShareSendFragment.KEY_URI_LIST)
                 }
