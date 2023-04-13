@@ -13,7 +13,7 @@ import com.angcyo.bluetooth.fsc.laserpacker.parse.*
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.dslItem
 import com.angcyo.dsladapter.isUpdatePart
-import com.angcyo.laserpacker.device.HawkEngraveKeys
+import com.angcyo.bluetooth.fsc.laserpacker.HawkEngraveKeys
 import com.angcyo.getParcelable
 import com.angcyo.http.rx.doMain
 import com.angcyo.library.L

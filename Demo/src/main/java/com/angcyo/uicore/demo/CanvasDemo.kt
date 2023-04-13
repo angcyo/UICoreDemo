@@ -13,6 +13,8 @@ import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.IReceiveBeanAction
 import com.angcyo.bluetooth.fsc.enqueue
+import com.angcyo.bluetooth.fsc.laserpacker.DeviceStateModel
+import com.angcyo.bluetooth.fsc.laserpacker.HawkEngraveKeys
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
 import com.angcyo.bluetooth.fsc.laserpacker.command.EngravePreviewCmd
@@ -63,7 +65,6 @@ import com.angcyo.laserpacker.bean.LPProjectBean
 import com.angcyo.laserpacker.device.DeviceHelper
 import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFile
 import com.angcyo.laserpacker.device.EngraveNotifyHelper
-import com.angcyo.laserpacker.device.HawkEngraveKeys
 import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
 import com.angcyo.laserpacker.device.ble.DeviceSettingFragment
 import com.angcyo.laserpacker.device.engraveLoadingAsync
@@ -270,12 +271,14 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                                 unit.convertValueToPixel(300f),
                                 unit.convertValueToPixel(300f)
                             )
+
                             CLICK_COUNT++ % 2 == 0 -> RectF(
                                 unit.convertValueToPixel(-30f),
                                 unit.convertValueToPixel(-30f),
                                 unit.convertValueToPixel(-10f),
                                 unit.convertValueToPixel(-10f)
                             )
+
                             else -> RectF(
                                 unit.convertValueToPixel(10f),
                                 unit.convertValueToPixel(10f),
@@ -442,7 +445,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                         itemHolder.tv(R.id.result_text_view)?.text = text
                     }
                     //查询工作状态
-                    vmApp<LaserPeckerModel>().queryDeviceState()
+                    vmApp<DeviceStateModel>().queryDeviceState()
                 }
 
                 //结束预览
@@ -480,7 +483,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
                 //状态
                 itemHolder.click(R.id.state_button) {
-                    vmApp<LaserPeckerModel>().queryDeviceState { bean, error ->
+                    vmApp<DeviceStateModel>().queryDeviceState { bean, error ->
                         bean?.parse<QueryStateParser>()?.let {
                             doMain {
                                 itemHolder.tv(R.id.result_text_view)?.text = "$it"
@@ -698,9 +701,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
         engraveFlowLayoutHelper.laserPeckerModel.initializeData.observe {
             if (it == true) {
                 engraveFlowLayoutHelper.checkRestoreEngrave(this)
-                engraveFlowLayoutHelper.engraveModel._listenerEngraveState =
-                    engraveFlowLayoutHelper.laserPeckerModel.deviceStateData.value?.isModeEngrave() == true
-                engraveFlowLayoutHelper.checkLoopQueryDeviceState()
+                engraveFlowLayoutHelper.deviceStateModel.startLoopCheckState(engraveFlowLayoutHelper.deviceStateModel.deviceStateData.value?.isModeEngrave() == true)
             }
         }
     }
@@ -721,7 +722,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
     override fun onDestroy() {
         super.onDestroy()
-        engraveFlowLayoutHelper.loopCheckDeviceState = false
+        engraveFlowLayoutHelper.deviceStateModel.startLoopCheckState(false)
         GraphicsHelper.restoreLocation()
     }
 

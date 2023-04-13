@@ -11,6 +11,8 @@ import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.IReceiveBeanAction
 import com.angcyo.bluetooth.fsc.enqueue
+import com.angcyo.bluetooth.fsc.laserpacker.DeviceStateModel
+import com.angcyo.bluetooth.fsc.laserpacker.HawkEngraveKeys
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
 import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
@@ -53,17 +55,26 @@ import com.angcyo.laserpacker.device.DeviceHelper
 import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFile
 import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFileV2
 import com.angcyo.laserpacker.device.EngraveHelper
-import com.angcyo.laserpacker.device.HawkEngraveKeys
 import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
 import com.angcyo.laserpacker.device.engraveLoadingAsync
 import com.angcyo.laserpacker.open.CanvasOpenModel
 import com.angcyo.laserpacker.project.ProjectListFragment
-import com.angcyo.library.*
+import com.angcyo.library.L
+import com.angcyo.library.LTime
 import com.angcyo.library.Library.CLICK_COUNT
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component._delay
 import com.angcyo.library.component.pad.isInPadMode
-import com.angcyo.library.ex.*
+import com.angcyo.library.ex._drawable
+import com.angcyo.library.ex.dp
+import com.angcyo.library.ex.dpi
+import com.angcyo.library.ex.nowTimeString
+import com.angcyo.library.ex.randomColor
+import com.angcyo.library.ex.toHexString
+import com.angcyo.library.ex.toListOf
+import com.angcyo.library.libFolderPath
+import com.angcyo.library.toast
+import com.angcyo.library.toastQQ
 import com.angcyo.library.utils.fileNameTime
 import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
 import com.angcyo.uicore.base.AppDslFragment
@@ -181,9 +192,10 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         engraveFlowLayoutHelper.laserPeckerModel.initializeData.observe {
             if (it == true) {
                 engraveFlowLayoutHelper.checkRestoreEngrave(this)
-                engraveFlowLayoutHelper.engraveModel._listenerEngraveState =
-                    engraveFlowLayoutHelper.laserPeckerModel.deviceStateData.value?.isModeEngrave() == true
-                engraveFlowLayoutHelper.checkLoopQueryDeviceState()
+                val deviceState = engraveFlowLayoutHelper.deviceStateModel.deviceStateData.value
+                if (deviceState != null) {
+                    engraveFlowLayoutHelper.deviceStateModel.startLoopCheckState(!deviceState.isModeIdle())
+                }
             }
         }
     }
@@ -206,7 +218,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
 
     override fun onDestroy() {
         super.onDestroy()
-        engraveFlowLayoutHelper.loopCheckDeviceState = false
+        engraveFlowLayoutHelper.deviceStateModel.startLoopCheckState(false)
         LPElementHelper.restoreLocation()
     }
 
@@ -249,7 +261,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 itemHolder.tv(R.id.result_text_view)?.text = text
             }
             //查询工作状态
-            vmApp<LaserPeckerModel>().queryDeviceState()
+            vmApp<DeviceStateModel>().queryDeviceState()
         }
 
         //---
@@ -437,7 +449,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
             addDialogItem {
                 itemText = "查询设备状态"
                 itemClick = {
-                    vmApp<LaserPeckerModel>().queryDeviceState { bean, error ->
+                    vmApp<DeviceStateModel>().queryDeviceState { bean, error ->
                         bean?.parse<QueryStateParser>()?.let {
                             doMain {
                                 itemHolder.tv(R.id.result_text_view)?.text = "$it"

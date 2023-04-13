@@ -12,7 +12,7 @@ import com.angcyo.core.vmApp
 import com.angcyo.item.component.DebugFragment
 import com.angcyo.laserpacker.LPDataConstant
 import com.angcyo.laserpacker.device.DeviceHelper
-import com.angcyo.laserpacker.device.HawkEngraveKeys
+import com.angcyo.bluetooth.fsc.laserpacker.HawkEngraveKeys
 import com.angcyo.laserpacker.device.ble.CommandFragment
 import com.angcyo.laserpacker.device.ble.ConnectFragment
 import com.angcyo.laserpacker.device.ble.TransferDataFragment
@@ -136,21 +136,6 @@ object AppDebugHelper {
             defValue = HawkEngraveKeys.batchEngraveSupportFirmware.run {
                 if (isNullOrBlank()) {
                     DeviceHelper.batchEngraveSupportFirmware
-                } else {
-                    this
-                }
-            }
-        }
-
-        DebugFragment.addDebugAction {
-            label = "中心点在物理中心的固件范围"
-            des = "格式:x~xx xx~xxx"
-            key = LibLpHawkKeys::lpDeviceOriginCenter.name
-            type = String::class.java
-            defValue = LibLpHawkKeys.lpDeviceOriginCenter.run {
-                if (isNullOrBlank()) {
-                    getAppString("lp_device_origin_center")
-                        ?: LaserPeckerHelper.DEFAULT_ORIGIN_CENTER
                 } else {
                     this
                 }
