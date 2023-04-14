@@ -30,6 +30,7 @@ import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.BaseFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.EngraveFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.LPEngraveHelper
+import com.angcyo.canvas2.laser.pecker.engrave.dslitem.transfer.TransferDataPxItem
 import com.angcyo.canvas2.laser.pecker.engrave.isEngraveFlow
 import com.angcyo.canvas2.laser.pecker.history.EngraveHistoryFragment
 import com.angcyo.canvas2.laser.pecker.manager.LPProjectManager
@@ -48,6 +49,7 @@ import com.angcyo.engrave2.transition.EngraveTransitionHelper
 import com.angcyo.fragment.AbsLifecycleFragment
 import com.angcyo.http.rx.doMain
 import com.angcyo.item.component.DebugFragment
+import com.angcyo.item.style.itemCurrentIndex
 import com.angcyo.laserpacker.LPDataConstant
 import com.angcyo.laserpacker.bean.LPElementBean
 import com.angcyo.laserpacker.bean.LPProjectBean
@@ -500,6 +502,17 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         }
 
         fContext().itemsDialog {
+            //分辨率dpi
+            addItem(TransferDataPxItem().apply {
+                itemPxList = LaserPeckerHelper.findProductSupportPxList()
+                selectorCurrentDpi(transferConfigEntity.dpi)
+                itemHidden = itemPxList.isNullOrEmpty() //自动隐藏
+                observeItemChange {
+                    //保存最后一次选择的dpi
+                    val dpi = itemPxList?.get(itemCurrentIndex)?.dpi ?: LaserPeckerHelper.DPI_254
+                    transferConfigEntity.dpi = dpi
+                }
+            })
             addDialogItem {
                 itemText = "转普通图片"
                 itemClick = {
