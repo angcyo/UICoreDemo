@@ -418,7 +418,7 @@ class DialogDemo : AppDslFragment() {
                     }
                 }
             } else if (this is GridDialogConfig) {
-                addDialogItem {
+                addGridItem {
                     itemText = span {
                         append(" ${tx()} $i")
                     }

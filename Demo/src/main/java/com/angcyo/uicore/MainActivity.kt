@@ -191,6 +191,15 @@ class MainActivity : BasePermissionsActivity() {
             )
             PathTest.test()
 
+            /*thread {
+                Ping.ping("www.baidu.com") {
+
+                }
+                Ping.ping("www.google.com") {
+
+                }
+            }*/
+
             //LaserPeckerConfigHelper.init()
         } catch (e: Exception) {
             e.printStackTrace()
