@@ -721,5 +721,8 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     override val flowLayoutContainer: ViewGroup?
         get() = fragment._vh.group(R.id.engrave_flow_wrap_layout)
 
+    override val dangerLayoutContainer: ViewGroup?
+        get() = fragment._vh.group(R.id.canvas_wrap_layout) ?: _vh.itemView as ViewGroup
+
     //</editor-fold desc="IEngraveCanvasFragment">
 }
