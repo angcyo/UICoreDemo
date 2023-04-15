@@ -61,22 +61,12 @@ import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
 import com.angcyo.laserpacker.device.engraveLoadingAsync
 import com.angcyo.laserpacker.open.CanvasOpenModel
 import com.angcyo.laserpacker.project.ProjectListFragment
-import com.angcyo.library.L
-import com.angcyo.library.LTime
+import com.angcyo.library.*
 import com.angcyo.library.Library.CLICK_COUNT
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component._delay
 import com.angcyo.library.component.pad.isInPadMode
-import com.angcyo.library.ex._drawable
-import com.angcyo.library.ex.dp
-import com.angcyo.library.ex.dpi
-import com.angcyo.library.ex.nowTimeString
-import com.angcyo.library.ex.randomColor
-import com.angcyo.library.ex.toHexString
-import com.angcyo.library.ex.toListOf
-import com.angcyo.library.libFolderPath
-import com.angcyo.library.toast
-import com.angcyo.library.toastQQ
+import com.angcyo.library.ex.*
 import com.angcyo.library.utils.fileNameTime
 import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
 import com.angcyo.uicore.base.AppDslFragment
@@ -534,7 +524,10 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                             EngraveTransitionHelper.transitionToBitmapDithering(
                                 element,
                                 transferConfigEntity,
-                                TransitionParam(invert = CLICK_COUNT++ % 2 == 1)
+                                TransitionParam(
+                                    isBitmapInvert = false,
+                                    invert = CLICK_COUNT++ % 2 == 1
+                                )
                             )
                         )
                     }
