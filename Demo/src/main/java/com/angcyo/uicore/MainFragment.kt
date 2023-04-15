@@ -455,19 +455,7 @@ class MainFragment : BaseDemoDslFragment() {
         //lockDemoPosition = 83 - 1 //canvas
 
         //设备信息.
-        DslLastDeviceInfoItem()() {
-            itemClick = {
-                dslFHelper {
-                    fileSelector({
-                        showFileMd5 = true
-                        showFileMenu = true
-                        showHideFile = true
-                        targetPath =
-                            FileUtils.appRootExternalFolder().absolutePath ?: storageDirectory
-                    })
-                }
-            }
-        }
+        DslLastDeviceInfoItem()()
 
         //jump
         onDispatchUpdatesOnce {
