@@ -183,7 +183,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                         if (bean is LPProjectBean) {
                             LPProjectManager().openProjectBean(delegate, bean)
                         } else if (bean is LPElementBean) {
-                            LPProjectManager().openElementBean(delegate, bean)
+                            LPProjectManager().openElementBean(delegate, bean, true)
                         }
                     }
                 }
