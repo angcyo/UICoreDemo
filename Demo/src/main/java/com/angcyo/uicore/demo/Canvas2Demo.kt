@@ -156,7 +156,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                         renderDelegate?.selectorManager?.resetSelectorRenderer(list, Reason.user)
 
                         engraveFlowLayoutHelper.engraveFlow =
-                            com.angcyo.engrave.BaseFlowLayoutHelper.ENGRAVE_FLOW_TRANSFER_BEFORE_CONFIG
+                            BaseFlowLayoutHelper.ENGRAVE_FLOW_TRANSFER_BEFORE_CONFIG
                         engraveFlowLayoutHelper.showIn(this@Canvas2Demo)
                     }
                 }

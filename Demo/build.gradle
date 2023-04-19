@@ -99,16 +99,16 @@ dependencies {
     implementation project(allModule.andserver)
     implementation project(allModule.bluetooth)
     implementation project(allModule.browser)
-    implementation project(allModule.engrave)
+    //implementation project(allModule.engrave)
     implementation project(allModule.objectbox_lp)
-    implementation project(allModule.canvas_lp)//canvas
+    //implementation project(allModule.canvas_lp)//canvas
     implementation project(allModule.CrashSight)
     implementation project(allModule.umeng_lp)
     implementation project(allModule.doodle)
     implementation project(allModule.wifip2p)
     implementation project(allModule.crop)
     implementation project(allModule.websocket)
-    implementation project(allModule.engrave_auto)
+    //implementation project(allModule.engrave_auto)
     //implementation project(allModule.jsEngine)//The minCompileSdk (33) specified in a
     implementation project(allModule.deviceServer)
     implementation project(allModule.canvas2_lp)//canvas2 2023-3-3

@@ -21,7 +21,6 @@ import com.angcyo.core.viewpager.RFragmentAdapter
 import com.angcyo.core.vmApp
 import com.angcyo.crash.sight.CrashSight
 import com.angcyo.download.DslDownload
-import com.angcyo.engrave.auto.AutoEngraveHelper
 import com.angcyo.http.gitee.Gitee
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.item.component.DebugFragment
@@ -113,7 +112,7 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
         vmApp<FscDeviceModel>().initDevice()
 
         //website
-        AutoEngraveHelper.init()
+        //AutoEngraveHelper.init()
 
         //固件升级
         DeviceSettingFragment.createFirmwareUpdateItemAction = { fragment, adapter ->
@@ -151,12 +150,15 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
                 "debug" -> fragmentActivity.dslFHelper {
                     show(DebugFragment::class)
                 }
+
                 "connect" -> fragmentActivity.dslFHelper {
                     show(ConnectFragment::class)
                 }
+
                 "command" -> fragmentActivity.dslFHelper {
                     show(CommandFragment::class)
                 }
+
                 "transferData" -> fragmentActivity.dslFHelper {
                     show(TransferDataFragment::class)
                 }

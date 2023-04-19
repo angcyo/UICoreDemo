@@ -1,3 +1,4 @@
+/*
 package com.angcyo.uicore.demo
 
 import android.graphics.Path
@@ -97,10 +98,12 @@ import com.angcyo.widget.recycler.initDslAdapter
 import com.angcyo.widget.span.span
 import org.jetbrains.annotations.TestOnly
 
+*/
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
  * @since 2022/04/01
- */
+ *//*
+
 class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
     //val restoreProjectPath =
@@ -143,7 +146,8 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
     override fun onBackPressed(): Boolean {
         return super.onBackPressed()
-        /*val backPressed = super.onBackPressed()
+        */
+/*val backPressed = super.onBackPressed()
         if (backPressed) {
             val count = canvasView?.canvasDelegate?.itemRendererCount ?: 0
             if (count <= 0) {
@@ -163,7 +167,8 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
             }
         } else {
             return false
-        }*/
+        }*//*
+
     }
 
     override fun canSwipeBack(): Boolean = false
@@ -333,9 +338,11 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                     }
                 }
                 itemHolder.click(R.id.add_image_svg) {
-                    /*canvasView?.canvasDelegate?.apply {
+                    */
+/*canvasView?.canvasDelegate?.apply {
                         addDrawableRenderer(Sharp.loadResource(resources, R.raw.issue_19).drawable)
-                    }*/
+                    }*//*
+
                     getPhoto {
                         it?.let {
                             loadingAsyncTg({
@@ -361,9 +368,11 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 }
                 itemHolder.click(R.id.random_add_svg) {
                     canvasView?.canvasDelegate?.apply {
-                        /*loadSvgDrawable().apply {
+                        */
+/*loadSvgDrawable().apply {
                             addDrawableRenderer(second)
-                        }*/
+                        }*//*
+
                         loadSvgPathDrawable().apply {
                             addSvgRender(first)
                         }
@@ -408,7 +417,8 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 }
 
                 //bluetooth
-                /*itemHolder.click(R.id.bluetooth_button) {
+                */
+/*itemHolder.click(R.id.bluetooth_button) {
                     dslPermissions(FscBleApiModel.bluetoothPermissionList()) { allGranted, foreverDenied ->
                         if (allGranted) {
                             //vmApp<FscBleApiModel>().connect("DC:0D:30:10:05:E7")
@@ -419,7 +429,8 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                             toast("蓝牙权限被禁用!")
                         }
                     }
-                }*/
+                }*//*
+
 
                 var cmdString: String = ""
                 val receiveAction: IReceiveBeanAction = { bean, error ->
@@ -509,7 +520,8 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                     dslFHelper {
                         show(EngraveHistoryFragment::class)
                     }
-                    /*QueryCmd.fileList.sendCommand { bean, error ->
+                    */
+/*QueryCmd.fileList.sendCommand { bean, error ->
                         doMain {
                             bean?.parse<QueryEngraveFileParser>()?.let {
                                 fContext().itemsDialog {
@@ -530,7 +542,8 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                                 }
                             }
                         }
-                    }*/
+                    }*//*
+
                 }
 
                 //清除历史
@@ -662,7 +675,8 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
         }
 
         //设备状态监听和恢复
-        /*engraveFlowLayoutHelper.laserPeckerModel.initializeData.observeOnce() { init ->
+        */
+/*engraveFlowLayoutHelper.laserPeckerModel.initializeData.observeOnce() { init ->
             if (init == true) {
                 //监听第一次初始化
                 val stateParser = engraveFlowLayoutHelper.laserPeckerModel.deviceStateData.value
@@ -682,7 +696,8 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 }
             }
             init == true
-        }*/
+        }*//*
+
 
         //有需要打开的数据
         vmApp<CanvasOpenModel>().openPendingData.observe { bean ->
@@ -726,7 +741,9 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
         GraphicsHelper.restoreLocation()
     }
 
-    /**预处理数据*/
+    */
+/**预处理数据*//*
+
     fun preProcessData(itemHolder: DslViewHolder, canvasDelegate: CanvasDelegate?) {
         canvasDelegate ?: return
         val previewBounds = PreviewModel.getPreviewCmdRect(canvasDelegate)
@@ -748,7 +765,9 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
         })
     }
 
-    /**更多的对话框*/
+    */
+/**更多的对话框*//*
+
     fun moreDialog(itemHolder: DslViewHolder) {
         val selectedRenderer = canvasDelegate?.getSelectedRenderer()
         val rendererBounds = selectedRenderer?.getBounds()
@@ -895,72 +914,100 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
     @TestOnly
     fun test(viewHolder: DslViewHolder, canvasView: CanvasView?) {
-        /*History::class.java.updateOrCreateEntity(query = {
+        */
+/*History::class.java.updateOrCreateEntity(query = {
 
         }) {
 
-        }*/
+        }*//*
 
-        /*dslAHelper {
+
+        */
+/*dslAHelper {
                         start(FirmwareUpdateActivity::class)
-                    }*/
-        /*itemHolder.view(R.id.canvas_device_state_wrap_layout)?.apply {
-            *//*reveal {
+                    }*//*
+
+        */
+/*itemHolder.view(R.id.canvas_device_state_wrap_layout)?.apply {
+            *//*
+*/
+/*reveal {
                             duration = 1_000
                         }*//*
+*/
+/*
                         //clipBoundsAnimator()
                         clipBoundsAnimatorFromLeft()
-                    }*/
-        /*fContext().cropDialog {
+                    }*//*
+
+        */
+/*fContext().cropDialog {
             cropBitmap = BitmapFactory.decodeResource(resources, R.drawable.face)
             onCropResultAction = {
                 it?.let {
                     canvasView?.canvasDelegate?.addPictureBitmapRenderer(it)
                 }
             }
-        }*/
-        /*val path = "/system/fonts/"
+        }*//*
+
+        */
+/*val path = "/system/fonts/"
         val file = path.file()
         val list = file.listFiles()
-        list.logi()*/
-        /*fContext().canvasRegulateWindow2(it) {
+        list.logi()*//*
 
-        }*/
+        */
+/*fContext().canvasRegulateWindow2(it) {
+
+        }*//*
+
         //toast("toast-${nowTimeString()}")
-        /*TransferMonitorEntity::class.box(LPBox.PACKAGE_NAME) {
+        */
+/*TransferMonitorEntity::class.box(LPBox.PACKAGE_NAME) {
             val count = count()
             val result = query().build().find(count - 1, 1)
             val list = query().build().find()
             L.i()
-        }*/
-        /*val monitorEntity =
-            EngraveFlowDataHelper.getTransferMonitor("180438d6-9b7a-4c33-af76-ded8c5ead288")
-        L.i()*/
+        }*//*
 
-        /*engraveLoadingAsyncTimeout({
+        */
+/*val monitorEntity =
+            EngraveFlowDataHelper.getTransferMonitor("180438d6-9b7a-4c33-af76-ded8c5ead288")
+        L.i()*//*
+
+
+        */
+/*engraveLoadingAsyncTimeout({
             val time = 2000L
             sleep(time)
             time
         }) {
             toast("执行完成...$it")
-        }*/
+        }*//*
 
-        /*val list = listOf(appFolderPath())
+
+        */
+/*val list = listOf(appFolderPath())
         val zip = list.zip()
         L.i("压缩->${zip}")
-        L.i("解压->${zip?.unzipFile()}")*/
+        L.i("解压->${zip?.unzipFile()}")*//*
 
-        /*val list = listOf(
+
+        */
+/*val list = listOf(
             LogFile.http.toLogFilePath(),
             DslCrashHandler.currentCrashFile().absolutePath,
             logPath()
         )
-        L.i(list.zip())*/
+        L.i(list.zip())*//*
+
     }
 
     //<editor-fold desc="bindCanvasRecyclerView">
 
-    /**Canvas控制*/
+    */
+/**Canvas控制*//*
+
     fun bindCanvasRecyclerView(itemHolder: DslViewHolder, adapterItem: DslAdapterItem) {
         val canvasView = itemHolder.v<CanvasView>(R.id.canvas_view)
         val itemRecyclerView = itemHolder.v<RecyclerView>(R.id.canvas_item_view)
@@ -974,13 +1021,19 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
 
     //<editor-fold desc="init">
 
-    /**Canvas布局*/
+    */
+/**Canvas布局*//*
+
     val canvasLayoutHelper = CanvasLayoutHelper(this)
 
-    /**产品布局*/
+    */
+/**产品布局*//*
+
     val engraveProductLayoutHelper = EngraveProductLayoutHelper(this)
 
-    /**雕刻布局*/
+    */
+/**雕刻布局*//*
+
     val _engraveFlowLayoutHelper = EngraveFlowLayoutHelper().apply {
         backPressedDispatcherOwner = this@CanvasDemo
 
@@ -1057,4 +1110,4 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
         get() = fragment._vh.group(R.id.engrave_flow_wrap_layout)
 
     //</editor-fold desc="IEngraveCanvasFragment">
-}
+}*/

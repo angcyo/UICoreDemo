@@ -1,10 +1,7 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
-import com.angcyo.canvas.utils.ShapesHelper
 import com.angcyo.dsladapter.bindItem
-import com.angcyo.library.ex.mH
-import com.angcyo.library.ex.mW
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.draw.DrawPathView
 import com.angcyo.widget.progress.DslSeekBar
@@ -36,11 +33,11 @@ class DrawPathDemo : AppDslFragment() {
                         onSeekChanged = { value, fraction, fromUser ->
                             drawPathView?.dashWidth = value * 1f
                             if (value > 2) {
-                                drawPathView?.polygonPath = ShapesHelper.polygonPath(
+                                /*drawPathView?.polygonPath = ShapesHelper.polygonPath(
                                     value.toInt(),
                                     drawPathView.mW() / 2f,
                                     drawPathView.mH() / 2f
-                                )
+                                )*/
                             }
                             drawPathView?.invalidate()
                         }
@@ -56,11 +53,11 @@ class DrawPathDemo : AppDslFragment() {
                         onSeekChanged = { value, fraction, fromUser ->
                             drawPathView?.dashGap = value * 1f
                             if (value > 2) {
-                                drawPathView?.polygonPath = ShapesHelper.polygonPath(
+                                /*drawPathView?.polygonPath = ShapesHelper.polygonPath(
                                     value.toInt(),
                                     drawPathView.mW() / 2f,
                                     drawPathView.mH() / 2f
-                                )
+                                )*/
                             }
                             drawPathView?.invalidate()
                         }

@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.MotionEvent
 import com.angcyo.base.dslFHelper
 import com.angcyo.base.find
-import com.angcyo.canvas.core.ItemsOperateHandler
 import com.angcyo.core.activity.BasePermissionsActivity
 import com.angcyo.core.component.model.LanguageModel
 import com.angcyo.download.giteeVersionUpdate
@@ -170,7 +169,7 @@ class MainActivity : BasePermissionsActivity() {
     override fun onResume() {
         super.onResume()
         giteeVersionUpdate()
-        L.i("本机ip:${getAppString("local_ip")} canvasLimit:${ItemsOperateHandler.BOUNDS_LIMIT}")
+        L.i("本机ip:${getAppString("local_ip")}")
         //densityAdapter(750, 2f)
         //densityRestore()
         //densityAdapterFrom(2183)
