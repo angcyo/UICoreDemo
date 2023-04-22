@@ -21,6 +21,7 @@ import com.angcyo.core.viewpager.RFragmentAdapter
 import com.angcyo.core.vmApp
 import com.angcyo.crash.sight.CrashSight
 import com.angcyo.download.DslDownload
+import com.angcyo.http.DslHttp
 import com.angcyo.http.gitee.Gitee
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.item.component.DebugFragment
@@ -136,6 +137,14 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
                     DeviceHelper.showEngraveScreenShotShare(it)
                 }
             }
+        }
+
+        //test
+        DslHttp.uploadFileAction = { filePath, callback ->
+            callback(
+                "https://upcdn.io/FW25b4F/raw/uploads/scribble-diffusion/1.0.0/2023-04-22/scribble_input_3qb16Np3.png",
+                null
+            )
         }
     }
 
