@@ -1,12 +1,22 @@
 package com.angcyo.uicore.demo
 
 import com.angcyo.bluetooth.fsc.laserpacker.command.QueryCmd
-import com.angcyo.laserpacker.parseGCode
 import com.angcyo.gcode.GCodeHelper
-import com.angcyo.library.ex.*
+import com.angcyo.laserpacker.parseGCode
+import com.angcyo.library.ex.connect
+import com.angcyo.library.ex.high4Bit
+import com.angcyo.library.ex.lastName
+import com.angcyo.library.ex.low4Bit
+import com.angcyo.library.ex.padHexString
+import com.angcyo.library.ex.patternList
+import com.angcyo.library.ex.toHexByteArray
+import com.angcyo.library.ex.toHexInt
+import com.angcyo.library.ex.toHexString
+import com.angcyo.library.ex.uuid
 import com.angcyo.uicore.test.PathTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import kotlin.math.absoluteValue
 import kotlin.math.pow
 
 /**
@@ -305,5 +315,34 @@ class ExampleUnitTest {
         val value = 17
         println(value.toByte().high4Bit())
         println(value.toByte().low4Bit())
+    }
+
+    @Test
+    fun testRandom() {
+        val result = mutableListOf<Int>()
+        //1682135311648 269520350402700 -1623236339
+        println("${System.currentTimeMillis()} ${System.nanoTime()} ${uuid().hashCode()}")
+
+        for (i in 0..999999) {
+            //val index = System.nanoTime().toInt() //第:428491 次后出现重复
+            val index = (System.nanoTime() shr 4).toInt().absoluteValue //第:633577 次后出现重复
+            //重复:-724726203 第:658114 次后出现重复
+            //重复:14527200 第:309596 次后出现重复
+            if (result.contains(index)) {
+                println("重复:$index 第:$i")
+            } else {
+                result.add(index)
+            }
+        }
+
+        /*for (i in 0..999999) {
+            //val index = EngraveHelper.generateEngraveIndex()
+            val index = uuid().hashCode() //第:79009 次后出现重复
+            if (result.contains(index)) {
+                println("重复:$index 第:$i")
+            } else {
+                result.add(index)
+            }
+        }*/
     }
 }
