@@ -323,7 +323,7 @@ class ExampleUnitTest {
         //1682135311648 269520350402700 -1623236339
         println("${System.currentTimeMillis()} ${System.nanoTime()} ${uuid().hashCode()}")
 
-        for (i in 0..999999) {
+        /*for (i in 0..999999) {
             //val index = System.nanoTime().toInt() //第:428491 次后出现重复
             val index = (System.nanoTime() shr 4).toInt().absoluteValue //第:633577 次后出现重复
             //重复:-724726203 第:658114 次后出现重复
@@ -333,7 +333,7 @@ class ExampleUnitTest {
             } else {
                 result.add(index)
             }
-        }
+        }*/
 
         /*for (i in 0..999999) {
             //val index = EngraveHelper.generateEngraveIndex()
@@ -344,5 +344,15 @@ class ExampleUnitTest {
                 result.add(index)
             }
         }*/
+
+        for (i in 0..999999) {
+            val index = System.currentTimeMillis().toInt().absoluteValue
+            if (result.contains(index)) {
+                println("重复:$index 第:$i")
+            } else {
+                result.add(index)
+            }
+            Thread.sleep(1)
+        }
     }
 }
