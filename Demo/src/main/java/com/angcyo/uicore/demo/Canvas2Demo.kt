@@ -58,6 +58,7 @@ import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFile
 import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFileV2
 import com.angcyo.laserpacker.device.EngraveHelper
 import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
+import com.angcyo.laserpacker.device.ble.EngraveExperimentalFragment
 import com.angcyo.laserpacker.device.engraveLoadingAsync
 import com.angcyo.laserpacker.open.CanvasOpenModel
 import com.angcyo.laserpacker.project.ProjectListFragment
@@ -380,6 +381,13 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         itemHolder.click(R.id.tip_button) {
             dslAHelper {
                 start(DeviceConnectTipActivity::class)
+            }
+        }
+
+        //实验性功能界面
+        itemHolder.click(R.id.experimental_button) {
+            dslFHelper {
+                show(EngraveExperimentalFragment::class)
             }
         }
 
