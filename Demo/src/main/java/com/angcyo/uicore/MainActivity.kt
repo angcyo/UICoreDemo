@@ -12,6 +12,7 @@ import com.angcyo.core.activity.BasePermissionsActivity
 import com.angcyo.core.component.model.LanguageModel
 import com.angcyo.download.giteeVersionUpdate
 import com.angcyo.haveTargetFragment
+import com.angcyo.http.tcp.TcpSend
 import com.angcyo.library.L
 import com.angcyo.library.Library
 import com.angcyo.library.component.DslShortcut
@@ -200,6 +201,18 @@ class MainActivity : BasePermissionsActivity() {
             }*/
 
             //LaserPeckerConfigHelper.init()
+
+            /*TcpSend().apply {
+                address = "192.168.31.88"//"www.baidu.com"
+                port = 8080
+                sendBytes = "123".toByteArray()
+                onSendAction = { receiveBytes, error ->
+                    receiveBytes?.let {
+                        L.i("TCP收到字节:${it.size} :${it.toString(Charsets.UTF_8)}")
+                    }
+                }
+                startSend()
+            }*/
         } catch (e: Exception) {
             e.printStackTrace()
         }
