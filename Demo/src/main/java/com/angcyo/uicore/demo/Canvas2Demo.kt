@@ -71,6 +71,7 @@ import com.angcyo.library.component.pad.isInPadMode
 import com.angcyo.library.ex._drawable
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.dpi
+import com.angcyo.library.ex.isDebugType
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.library.ex.randomColor
 import com.angcyo.library.ex.toHexString
@@ -143,6 +144,13 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 //雕刻预览
                 itemHolder.click(R.id.engrave_preview_button) {
                     engraveFlowLayoutHelper.startPreview(this@Canvas2Demo)
+                }
+
+                //长按预览
+                if (isDebugType()) {
+                    itemHolder.longClick(R.id.engrave_preview_button) {
+                        engraveFlowLayoutHelper._startPreview(this@Canvas2Demo)
+                    }
                 }
 
                 //雕刻
@@ -335,10 +343,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
             }*/
             SvgDemo.loadGCodePathJni().apply {
                 LPElementHelper.addPathElement(
-                    renderDelegate,
-                    LPDataConstant.DATA_TYPE_GCODE,
-                    first,
-                    second.toListOf()
+                    renderDelegate, LPDataConstant.DATA_TYPE_GCODE, first, second.toListOf()
                 )
             }
         }
@@ -404,8 +409,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                         projectName = "save-v1-${nowTimeString()}"
                         L.i(
                             saveProjectV1To(
-                                _defaultProjectOutputFile("LP-${fileNameTime()}"),
-                                renderDelegate!!
+                                _defaultProjectOutputFile("LP-${fileNameTime()}"), renderDelegate!!
                             )
                         )
                     }
@@ -527,8 +531,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     wrapDuration(itemHolder) {
                         L.i(
                             EngraveTransitionHelper.transitionToBitmap(
-                                element,
-                                transferConfigEntity
+                                element, transferConfigEntity
                             )
                         )
                     }
@@ -540,11 +543,8 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     wrapDuration(itemHolder) {
                         L.i(
                             EngraveTransitionHelper.transitionToBitmapDithering(
-                                element,
-                                transferConfigEntity,
-                                TransitionParam(
-                                    isBitmapInvert = false,
-                                    invert = CLICK_COUNT++ % 2 == 1
+                                element, transferConfigEntity, TransitionParam(
+                                    isBitmapInvert = false, invert = CLICK_COUNT++ % 2 == 1
                                 )
                             )
                         )
@@ -557,8 +557,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     wrapDuration(itemHolder) {
                         L.i(
                             EngraveTransitionHelper.transitionToBitmapPath(
-                                element,
-                                transferConfigEntity
+                                element, transferConfigEntity
                             )
                         )
                     }
@@ -570,9 +569,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     wrapDuration(itemHolder) {
                         L.i(
                             EngraveTransitionHelper.transitionToGCode(
-                                element,
-                                transferConfigEntity,
-                                TransitionParam()
+                                element, transferConfigEntity, TransitionParam()
                             )
                         )
                     }
@@ -584,11 +581,8 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     wrapDuration(itemHolder) {
                         L.i(
                             EngraveTransitionHelper.transitionToGCode(
-                                element,
-                                transferConfigEntity,
-                                TransitionParam(
-                                    onlyUseBitmapToGCode = true,
-                                    useOpenCvHandleGCode = true
+                                element, transferConfigEntity, TransitionParam(
+                                    onlyUseBitmapToGCode = true, useOpenCvHandleGCode = true
                                 )
                             )
                         )
@@ -601,9 +595,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     wrapDuration(itemHolder) {
                         L.i(
                             EngraveTransitionHelper.transitionToGCode(
-                                element,
-                                transferConfigEntity,
-                                TransitionParam(
+                                element, transferConfigEntity, TransitionParam(
                                     onlyUseBitmapToGCode = true,
                                     useOpenCvHandleGCode = false,
                                     isSingleLine = element.elementBean.isLineShape
@@ -687,8 +679,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 val productInfoData = laserPeckerModel.productInfoData
                 productInfoData.value?.bounds?.let {
                     renderLayoutHelper.delegate?.showRectBounds(
-                        it,
-                        offsetRectTop = true
+                        it, offsetRectTop = true
                     )
                 }
             } else if (to == BaseFlowLayoutHelper.ENGRAVE_FLOW_BEFORE_CONFIG) {
