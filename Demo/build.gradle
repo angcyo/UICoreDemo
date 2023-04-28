@@ -64,7 +64,7 @@ dependencies {
     //http://mvnrepository.com/artifact/androidx.work
     def work_version = "2.8.1"
     // (Java only)
-    implementation "androidx.work:work-runtime:$work_version"
+    //implementation "androidx.work:work-runtime:$work_version"
     // Kotlin + coroutines
     implementation "androidx.work:work-runtime-ktx:$work_version"
     // optional - RxJava2 support
