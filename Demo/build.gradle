@@ -54,14 +54,15 @@ android {
 
 dependencies {
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
+    //http://mvnrepository.com/artifact/androidx.emoji/emoji
     debugImplementation "androidx.emoji:emoji:1.1.0"
 
     //https://developer.android.google.cn/topic/libraries/architecture/workmanager.html
     //http://mvnrepository.com/artifact/androidx.work
-    def work_version = "2.7.1"
+    def work_version = "2.8.1"
     // (Java only)
     implementation "androidx.work:work-runtime:$work_version"
     // Kotlin + coroutines
