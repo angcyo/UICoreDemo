@@ -90,9 +90,16 @@ allprojects {
         //maven { url "https://gitcode.net/angcyo/maven/-/raw/master" }
         //maven { url "https://gitcode.net/angcyo/maven/-/raw/hingin" }
 
-        def osName = System.getProperty("os.name").toLowerCase()
+        def os = System.getProperty("os.name")
+        def osName = os.toLowerCase()
         def userName = System.getProperty("user.name")
+        System.err.println("user:$userName os:$os") //user:angcyo os:Mac OS X
         if (userName == "angcyo" && osName.contains("windows")) {
+            /*if (osName.contains("windows")) {
+                maven { url "E:/AndroidProjects/maven" }
+            } else {
+                maven { url "/Users/angcyo/project/maven/hingin" }
+            }*/
             maven { url "E:/AndroidProjects/maven" }
         } else {
             maven { url "https://gitcode.net/angcyo/maven/-/raw/hingin" }
