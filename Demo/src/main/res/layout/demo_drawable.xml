@@ -104,4 +104,18 @@
 
     </com.angcyo.widget.layout.DslFlowLayout>
 
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:id="@+id/flow3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/flow2"
+        app:r_flow_item_horizontal_space="@dimen/lib_hdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_hdpi">
+
+        <com.angcyo.widget.StrokeHaloView
+            android:layout_width="match_parent"
+            android:layout_height="80dp" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -77,7 +77,7 @@ class LoadingDemo : AppDslFragment() {
                             it.duration = 3_000
                         }
                         onAnimatorUpdateValue = { value, fraction ->
-                            val progress = value as Int
+                            val progress = (value as Int).toFloat()
                             tgSolidLoadingDrawable.progress = progress
                             tgStrokeLoadingDrawable.progress = progress
                             tgStrokeLoadingDrawable2.progress = progress
