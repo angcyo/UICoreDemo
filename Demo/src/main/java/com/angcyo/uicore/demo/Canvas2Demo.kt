@@ -30,6 +30,7 @@ import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.BaseFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.EngraveFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.LPEngraveHelper
+import com.angcyo.canvas2.laser.pecker.engrave.LPTransferHelper
 import com.angcyo.canvas2.laser.pecker.engrave.dslitem.transfer.TransferDataPxItem
 import com.angcyo.canvas2.laser.pecker.engrave.isEngraveFlow
 import com.angcyo.canvas2.laser.pecker.history.EngraveHistoryFragment
@@ -76,6 +77,7 @@ import com.angcyo.library.ex.nowTimeString
 import com.angcyo.library.ex.randomColor
 import com.angcyo.library.ex.toHexString
 import com.angcyo.library.ex.toListOf
+import com.angcyo.library.ex.uuid
 import com.angcyo.library.libFolderPath
 import com.angcyo.library.toast
 import com.angcyo.library.toastQQ
@@ -164,6 +166,15 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     } else {
                         renderDelegate?.selectorManager?.resetSelectorRenderer(list, Reason.user)
 
+                        engraveFlowLayoutHelper.engraveFlow =
+                            BaseFlowLayoutHelper.ENGRAVE_FLOW_TRANSFER_BEFORE_CONFIG
+                        engraveFlowLayoutHelper.showIn(this@Canvas2Demo)
+                    }
+                }
+
+                //长按雕刻
+                if (isDebugType()) {
+                    itemHolder.longClick(R.id.engrave_button) {
                         engraveFlowLayoutHelper.engraveFlow =
                             BaseFlowLayoutHelper.ENGRAVE_FLOW_TRANSFER_BEFORE_CONFIG
                         engraveFlowLayoutHelper.showIn(this@Canvas2Demo)
@@ -398,7 +409,12 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
 
         //test
         itemHolder.click(R.id.test_button) {
-
+            LPTransferHelper.startCreateTransferData(
+                vmApp(),
+                "test-${uuid()}",
+                renderDelegate
+            )
+            toastQQ("test")
         }
 
         //save
