@@ -30,7 +30,6 @@ import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.BaseFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.EngraveFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.LPEngraveHelper
-import com.angcyo.canvas2.laser.pecker.engrave.LPTransferHelper
 import com.angcyo.canvas2.laser.pecker.engrave.dslitem.transfer.TransferDataPxItem
 import com.angcyo.canvas2.laser.pecker.engrave.isEngraveFlow
 import com.angcyo.canvas2.laser.pecker.history.EngraveHistoryFragment
@@ -77,7 +76,6 @@ import com.angcyo.library.ex.nowTimeString
 import com.angcyo.library.ex.randomColor
 import com.angcyo.library.ex.toHexString
 import com.angcyo.library.ex.toListOf
-import com.angcyo.library.ex.uuid
 import com.angcyo.library.libFolderPath
 import com.angcyo.library.toast
 import com.angcyo.library.toastQQ
@@ -409,12 +407,13 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
 
         //test
         itemHolder.click(R.id.test_button) {
-            LPTransferHelper.startCreateTransferData(
+            /*LPTransferHelper.startCreateTransferData(
                 vmApp(),
                 "test-${uuid()}",
                 renderDelegate
             )
-            toastQQ("test")
+            toastQQ("test")*/
+            EngraveTransitionHelper.saveTaskAerialView("e2bebf35ff624b9bba2f9bce86633524")
         }
 
         //save
