@@ -93,7 +93,7 @@ allprojects {
         def os = System.getProperty("os.name")
         def osName = os.toLowerCase()
         def userName = System.getProperty("user.name")
-        //System.err.println("user:$userName os:$os") //user:angcyo os:Mac OS X
+        //System.err.println("user:$userName os:$os") //user:angcyo os:Mac OS X //user:angcyo os:Windows 10
         if (userName == "angcyo" && osName.contains("windows")) {
             /*if (osName.contains("windows")) {
                 maven { url "E:/AndroidProjects/maven" }
