@@ -212,7 +212,10 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 engraveFlowLayoutHelper.checkRestoreEngrave(this)
                 val deviceState = engraveFlowLayoutHelper.deviceStateModel.deviceStateData.value
                 if (deviceState != null) {
-                    engraveFlowLayoutHelper.deviceStateModel.startLoopCheckState(!deviceState.isModeIdle())
+                    if (deviceState.error == 0) {
+                        //无错误
+                        engraveFlowLayoutHelper.deviceStateModel.startLoopCheckState(!deviceState.isModeIdle())
+                    }
                 }
             }
         }
