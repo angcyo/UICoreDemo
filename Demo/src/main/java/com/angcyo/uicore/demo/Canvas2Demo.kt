@@ -96,8 +96,6 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         enableSoftInput = false
     }
 
-    override fun canSwipeBack(): Boolean = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         vmApp<FscBleApiModel>().connectDeviceListData.observe {
@@ -220,38 +218,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         }
     }
 
-    //region---core---
-
-    override fun onFragmentFirstShow(bundle: Bundle?) {
-        super.onFragmentFirstShow(bundle)
-        //restore
-        _vh.postDelay(0) {
-            renderLayoutHelper.delegate?.restoreProjectStateV2()
-        }
-    }
-
-    override fun onDestroyView() {
-        //save
-        renderLayoutHelper.delegate?.saveProjectStateV2()
-        super.onDestroyView()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        engraveFlowLayoutHelper.deviceStateModel.startLoopCheckState(false)
-        LPElementHelper.restoreLocation()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        "CanvasDemo:onSaveInstanceState:$outState".writeToLog()
-        renderDelegate?.saveProjectStateV2()
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        "CanvasDemo:onViewStateRestored:$savedInstanceState".writeToLog()
-    }
+    //region---test---
 
     /**测试布局*/
     private fun bindTestDemo(itemHolder: DslViewHolder) {
@@ -638,10 +605,6 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         }
     }
 
-    //endregion---core---
-
-    //region---test---
-
     private fun testCanvasRenderView(itemHolder: DslViewHolder) {
         val canvasRenderView = itemHolder.v<CanvasRenderView>(R.id.canvas_view)
         canvasRenderView?.delegate?.apply {
@@ -654,6 +617,50 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     }
 
     //endregion---test---
+
+    //region---core---
+
+    override fun canSwipeBack(): Boolean = false
+
+    override fun onBackPressed(): Boolean {
+        return super.onBackPressed()
+    }
+
+    override fun onFragmentFirstShow(bundle: Bundle?) {
+        super.onFragmentFirstShow(bundle)
+        //restore
+        _vh.postDelay {
+            renderLayoutHelper.delegate?.restoreProjectStateV2()
+        }
+    }
+
+    override fun onDestroyView() {
+        //save
+        "CanvasDemo:onDestroyView".writeToLog()
+        vmApp<DeviceStateModel>().exitIfNeed()
+        renderLayoutHelper.delegate?.saveProjectStateV2(false)
+        super.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        "CanvasDemo:onDestroy".writeToLog()
+        super.onDestroy()
+        engraveFlowLayoutHelper.deviceStateModel.startLoopCheckState(false)
+        LPElementHelper.restoreLocation()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        "CanvasDemo:onSaveInstanceState:$outState".writeToLog()
+        renderDelegate?.saveProjectStateV2(true)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        "CanvasDemo:onViewStateRestored:$savedInstanceState".writeToLog()
+    }
+
+    //endregion---core---
 
     //<editor-fold desc="touch">
 
@@ -693,9 +700,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 //预览中, 偏移画板界面
                 val productInfoData = laserPeckerModel.productInfoData
                 productInfoData.value?.bounds?.let {
-                    renderLayoutHelper.delegate?.showRectBounds(
-                        it, offsetRectTop = true
-                    )
+                    renderLayoutHelper.delegate?.showRectBounds(it, offsetRectTop = true)
                 }
             } else if (to == BaseFlowLayoutHelper.ENGRAVE_FLOW_BEFORE_CONFIG) {
                 renderLayoutHelper.delegate?.saveProjectStateV2()
@@ -710,8 +715,8 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 _vh.enable(R.id.lib_title_wrap_layout, null)
                 _vh.enable(R.id.device_tip_wrap_layout, null)
             } else {
-                _vh.enable(R.id.lib_title_wrap_layout, destroy)
-                _vh.enable(R.id.device_tip_wrap_layout, destroy)
+                _vh.enable(R.id.lib_title_wrap_layout, false)
+                _vh.enable(R.id.device_tip_wrap_layout, false)
             }
         }
 
