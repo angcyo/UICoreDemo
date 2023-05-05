@@ -13,11 +13,11 @@ import com.angcyo.behavior.HideTitleBarBehavior
 import com.angcyo.behavior.refresh.RefreshContentBehavior
 import com.angcyo.behavior.refresh.ScaleHeaderRefreshEffectConfig
 import com.angcyo.core.activity.BaseCoreAppCompatActivity
-import com.angcyo.core.component.fileSelector
 import com.angcyo.core.dslitem.DslLastDeviceInfoItem
 import com.angcyo.download.giteeVersionChange
 import com.angcyo.download.version.VersionChangeFragment
 import com.angcyo.dsladapter.DslAdapter
+import com.angcyo.exoplayer.SingleExoPlayerActivity
 import com.angcyo.github.window.dslFloatWindow
 import com.angcyo.http.ApiKt
 import com.angcyo.http.dslHttp
@@ -26,13 +26,25 @@ import com.angcyo.item.component.DebugFragment
 import com.angcyo.item.style.itemInfoText
 import com.angcyo.laserpacker.device.engraveLoadingAsync
 import com.angcyo.library.L
-import com.angcyo.library.ex.*
+import com.angcyo.library.ex.dpi
+import com.angcyo.library.ex.isDebuggerConnected
+import com.angcyo.library.ex.isListEmpty
+import com.angcyo.library.ex.nowTimeString
+import com.angcyo.library.ex.padding
+import com.angcyo.library.ex.reveal
+import com.angcyo.library.ex.sync
+import com.angcyo.library.ex.toDpi
+import com.angcyo.library.ex.urlIntent
 import com.angcyo.library.getAppVersionName
 import com.angcyo.library.toastQQ
-import com.angcyo.library.utils.FileUtils
 import com.angcyo.library.utils.RUtils
 import com.angcyo.library.utils.checkApkExist
-import com.angcyo.uicore.activity.*
+import com.angcyo.uicore.activity.FragmentInFragmentActivity
+import com.angcyo.uicore.activity.NfcHandleActivity
+import com.angcyo.uicore.activity.ViewPager2InFragmentActivity
+import com.angcyo.uicore.activity.ViewPager2InViewPager2Activity
+import com.angcyo.uicore.activity.ViewPagerInFragmentActivity
+import com.angcyo.uicore.activity.ViewPagerInViewPagerActivity
 import com.angcyo.uicore.base.BaseDemoDslFragment
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.dslitem.AppMenuFooterItem
@@ -447,6 +459,9 @@ class MainFragment : BaseDemoDslFragment() {
         renderDemoListItem("BitmapDrawSizeDemo")
         //renderDemoListItem("CanvasDemo")
         renderDemoListItem("Canvas2Demo $GO")
+        renderDemoListItem("ExoPlayerDemo") {
+            SingleExoPlayerActivity.play("http://8.218.75.39:8888/down/9vG6hZhEz5NO.MP4")
+        }
 
         //https://github.com/sinawangnan7/CurrentActivity
         //renderDemoListItem("CurrentActivityDemo $GO")

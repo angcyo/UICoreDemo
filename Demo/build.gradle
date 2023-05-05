@@ -114,6 +114,7 @@ dependencies {
     implementation project(allModule.deviceServer)
     implementation project(allModule.canvas2_lp)//canvas2 2023-3-3
     implementation project(allModule.engrave2)//2023-3-31
+    implementation project(allModule.exoplayer)//2023-05-05
 
     //https://github.com/airbnb/lottie-android
     //http://airbnb.io/lottie
