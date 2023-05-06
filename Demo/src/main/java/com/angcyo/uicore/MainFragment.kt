@@ -460,7 +460,11 @@ class MainFragment : BaseDemoDslFragment() {
         //renderDemoListItem("CanvasDemo")
         renderDemoListItem("Canvas2Demo $GO")
         renderDemoListItem("ExoPlayerDemo") {
-            SingleExoPlayerActivity.play("http://8.218.75.39:8888/down/9vG6hZhEz5NO.MP4")
+            SingleExoPlayerActivity.play(
+                "http://8.218.75.39:8888/down/9vG6hZhEz5NO.MP4",
+                "https://storage.googleapis.com/exoplayer-test-media-1/ssa/test-subs-styling.ass",
+                "测试字幕",
+            )
         }
 
         //https://github.com/sinawangnan7/CurrentActivity
