@@ -12,7 +12,6 @@ import com.angcyo.core.activity.BasePermissionsActivity
 import com.angcyo.core.component.model.LanguageModel
 import com.angcyo.download.giteeVersionUpdate
 import com.angcyo.haveTargetFragment
-import com.angcyo.http.tcp.TcpSend
 import com.angcyo.library.L
 import com.angcyo.library.Library
 import com.angcyo.library.component.DslShortcut

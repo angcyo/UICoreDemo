@@ -462,8 +462,9 @@ class MainFragment : BaseDemoDslFragment() {
         renderDemoListItem("ExoPlayerDemo") {
             SingleExoPlayerActivity.play(
                 "http://8.218.75.39:8888/down/9vG6hZhEz5NO.MP4",
-                "https://storage.googleapis.com/exoplayer-test-media-1/ssa/test-subs-styling.ass",
+                "https://laserpecker-prod.oss-cn-hongkong.aliyuncs.com/pecker/doc/L3_subtitle.srt",
                 "测试字幕",
+                "application/x-subrip"
             )
         }
 
