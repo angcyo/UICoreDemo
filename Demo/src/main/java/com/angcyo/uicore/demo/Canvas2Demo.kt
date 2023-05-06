@@ -66,6 +66,7 @@ import com.angcyo.library.L
 import com.angcyo.library.LTime
 import com.angcyo.library.Library.CLICK_COUNT
 import com.angcyo.library.component.MultiFingeredHelper
+import com.angcyo.library.component.RBackground
 import com.angcyo.library.component._delay
 import com.angcyo.library.component.pad.isInPadMode
 import com.angcyo.library.ex._drawable
@@ -641,7 +642,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         //save
         "CanvasDemo:onDestroyView".writeToLog()
         vmApp<DeviceStateModel>().exitIfNeed()
-        renderLayoutHelper.delegate?.saveProjectStateV2(false)
+        renderLayoutHelper.delegate?.saveProjectStateV2(!RBackground.isBackground())
         super.onDestroyView()
     }
 
