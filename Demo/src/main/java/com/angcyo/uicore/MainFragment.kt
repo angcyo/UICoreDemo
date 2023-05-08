@@ -461,7 +461,7 @@ class MainFragment : BaseDemoDslFragment() {
         renderDemoListItem("Canvas2Demo $GO")
         renderDemoListItem("ExoPlayerDemo") {
             SingleExoPlayerActivity.play(
-                "http://8.218.75.39:8888/down/9vG6hZhEz5NO.MP4",
+                "http://8.218.75.39:8888/down/1tRJELfNObh9.mp4", //"http://8.218.75.39:8888/down/9vG6hZhEz5NO.MP4",
                 //"https://laserpecker-prod.oss-cn-hongkong.aliyuncs.com/pecker/doc/0508-1.ass",//"https://laserpecker-prod.oss-cn-hongkong.aliyuncs.com/pecker/doc/L3_subtitle.ass",
                 "https://laserpecker-prod.oss-cn-hongkong.aliyuncs.com/test/0508-1.ass",
                 "测试字幕"
