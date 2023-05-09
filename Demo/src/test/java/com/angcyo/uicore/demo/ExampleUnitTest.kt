@@ -7,6 +7,7 @@ import com.angcyo.library.ex.connect
 import com.angcyo.library.ex.high4Bit
 import com.angcyo.library.ex.lastName
 import com.angcyo.library.ex.low4Bit
+import com.angcyo.library.ex.nowTime
 import com.angcyo.library.ex.padHexString
 import com.angcyo.library.ex.patternList
 import com.angcyo.library.ex.toHexByteArray
@@ -354,5 +355,27 @@ class ExampleUnitTest {
             }
             Thread.sleep(1)
         }
+    }
+
+    @Test
+    fun testBits() {
+        /*val num1 = 100
+        val num2 = 200
+
+        val num = num1 or (num2 shl 8)
+
+        val num1_1 = num and 0xFF
+        val num2_2 = (num shr 8) and 0xFF
+
+        println("num1:$num1 $num1_1")
+        println("num2:$num2 $num2_2")*/
+
+        val time = nowTime()
+        val num = Int.MAX_VALUE
+
+        val sum = time shl 32 or num.toLong()
+
+        println("time:$time ${sum shr 32}")
+        println("num:$num ${sum and 0xFFFFFFFF}")
     }
 }
