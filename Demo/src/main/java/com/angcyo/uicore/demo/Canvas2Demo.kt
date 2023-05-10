@@ -215,7 +215,10 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 if (deviceState != null) {
                     if (deviceState.error == 0) {
                         //无错误
-                        engraveFlowLayoutHelper.deviceStateModel.startLoopCheckState(!deviceState.isModeIdle())
+                        engraveFlowLayoutHelper.deviceStateModel.startLoopCheckState(
+                            !deviceState.isModeIdle(),
+                            reason = "恢复雕刻进度"
+                        )
                     }
                 }
             }
@@ -649,7 +652,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     override fun onDestroy() {
         "CanvasDemo:onDestroy".writeToLog()
         super.onDestroy()
-        engraveFlowLayoutHelper.deviceStateModel.startLoopCheckState(false)
+        engraveFlowLayoutHelper.deviceStateModel.startLoopCheckState(false, reason = "界面销毁")
         LPElementHelper.restoreLocation()
     }
 
