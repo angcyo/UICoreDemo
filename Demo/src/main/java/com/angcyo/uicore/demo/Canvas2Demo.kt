@@ -27,6 +27,7 @@ import com.angcyo.canvas.render.core.CanvasRenderDelegate
 import com.angcyo.canvas.render.core.Reason
 import com.angcyo.canvas2.laser.pecker.IEngraveRenderFragment
 import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
+import com.angcyo.canvas2.laser.pecker.dslitem.control.TypefaceItem
 import com.angcyo.canvas2.laser.pecker.engrave.BaseFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.EngraveFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.LPEngraveHelper
@@ -62,6 +63,7 @@ import com.angcyo.laserpacker.device.ble.EngraveExperimentalFragment
 import com.angcyo.laserpacker.device.engraveLoadingAsync
 import com.angcyo.laserpacker.open.CanvasOpenModel
 import com.angcyo.laserpacker.project.ProjectListFragment
+import com.angcyo.laserpacker.project.dslitem.ProjectListItem
 import com.angcyo.library.L
 import com.angcyo.library.LTime
 import com.angcyo.library.Library.CLICK_COUNT
@@ -95,6 +97,22 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
 
     init {
         enableSoftInput = false
+
+        TypefaceItem.getTypefaceItemSyncStateRes = {
+            if (isDebugType()) {
+                R.drawable.canvas_synchronized_svg
+            } else {
+                null
+            }
+        }
+
+        ProjectListItem.getProjectListSyncStateRes = {
+            if (isDebugType()) {
+                R.drawable.canvas_synchronized_svg
+            } else {
+                null
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
