@@ -100,7 +100,11 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
 
         TypefaceItem.getTypefaceItemSyncStateRes = {
             if (isDebugType()) {
-                R.drawable.canvas_synchronized_svg
+                if (it.itemTypefaceInfo?.isCustom == true) {
+                    R.drawable.canvas_synchronized_svg
+                } else {
+                    null
+                }
             } else {
                 null
             }
