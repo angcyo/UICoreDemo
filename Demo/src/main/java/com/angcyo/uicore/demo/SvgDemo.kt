@@ -11,8 +11,12 @@ import com.angcyo.gcode.GCodeDrawable
 import com.angcyo.gcode.GCodeHelper
 import com.angcyo.laserpacker.parseGCode
 import com.angcyo.laserpacker.toGCodePath
+import com.angcyo.laserpacker.toGCodePathDrawable
 import com.angcyo.library.component.lastContext
-import com.angcyo.library.ex.*
+import com.angcyo.library.ex.randomGetOnce
+import com.angcyo.library.ex.readAssets
+import com.angcyo.library.ex.readResource
+import com.angcyo.library.ex.setBgDrawable
 import com.angcyo.svg.Svg
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.base.setInputText
@@ -146,7 +150,7 @@ class SvgDemo : AppDslFragment() {
                     imageView?.apply {
                         setBackgroundColor(Color.WHITE)
                         //setImageDrawable(GCodeHelper.parseGCode(text))
-                        setImageDrawable(text.toGCodePath().toDrawable())
+                        setImageDrawable(text.toGCodePathDrawable())
                     }
                 }
 
