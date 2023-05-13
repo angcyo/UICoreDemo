@@ -83,6 +83,7 @@ import com.angcyo.library.libFolderPath
 import com.angcyo.library.toast
 import com.angcyo.library.toastQQ
 import com.angcyo.library.utils.fileNameTime
+import com.angcyo.objectbox.laser.pecker.entity.MaterialEntity
 import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.getRandomText
@@ -111,6 +112,14 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         }
 
         ProjectListItem.getProjectListSyncStateRes = {
+            if (isDebugType()) {
+                R.drawable.canvas_synchronized_svg
+            } else {
+                null
+            }
+        }
+
+        MaterialEntity.getMaterialItemSyncStateRes = {
             if (isDebugType()) {
                 R.drawable.canvas_synchronized_svg
             } else {
