@@ -25,6 +25,7 @@ import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasRenderView
 import com.angcyo.canvas.render.core.CanvasRenderDelegate
 import com.angcyo.canvas.render.core.Reason
+import com.angcyo.canvas.render.util.toDrawable
 import com.angcyo.canvas2.laser.pecker.IEngraveRenderFragment
 import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
 import com.angcyo.canvas2.laser.pecker.dslitem.control.TypefaceItem
@@ -37,6 +38,7 @@ import com.angcyo.canvas2.laser.pecker.history.EngraveHistoryFragment
 import com.angcyo.canvas2.laser.pecker.manager.LPProjectManager
 import com.angcyo.canvas2.laser.pecker.manager.restoreProjectStateV2
 import com.angcyo.canvas2.laser.pecker.manager.saveProjectStateV2
+import com.angcyo.canvas2.laser.pecker.toRendererList
 import com.angcyo.canvas2.laser.pecker.util.LPElementHelper
 import com.angcyo.canvas2.laser.pecker.util.lpElement
 import com.angcyo.core.component.file.writeToLog
@@ -62,6 +64,7 @@ import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
 import com.angcyo.laserpacker.device.ble.EngraveExperimentalFragment
 import com.angcyo.laserpacker.device.engraveLoadingAsync
 import com.angcyo.laserpacker.open.CanvasOpenModel
+import com.angcyo.laserpacker.open.CanvasOpenPreviewActivity
 import com.angcyo.laserpacker.project.ProjectListFragment
 import com.angcyo.laserpacker.project.dslitem.ProjectListItem
 import com.angcyo.library.L
@@ -98,34 +101,6 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
 
     init {
         enableSoftInput = false
-
-        TypefaceItem.getTypefaceItemSyncStateRes = {
-            if (isDebugType()) {
-                if (it.itemTypefaceInfo?.isCustom == true) {
-                    R.drawable.canvas_synchronized_svg
-                } else {
-                    null
-                }
-            } else {
-                null
-            }
-        }
-
-        ProjectListItem.getProjectListSyncStateRes = {
-            if (isDebugType()) {
-                R.drawable.canvas_synchronized_svg
-            } else {
-                null
-            }
-        }
-
-        MaterialEntity.getMaterialItemSyncStateRes = {
-            if (isDebugType()) {
-                R.drawable.canvas_synchronized_svg
-            } else {
-                null
-            }
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -228,10 +203,18 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
             bean?.let {
                 _delay {
                     renderDelegate?.let { delegate ->
-                        if (bean is LPProjectBean) {
-                            LPProjectManager().openProjectBean(delegate, bean)
-                        } else if (bean is LPElementBean) {
-                            LPProjectManager().openElementBean(delegate, bean, true)
+                        when (bean) {
+                            is LPProjectBean -> LPProjectManager().openProjectBean(delegate, bean)
+                            is LPElementBean -> LPProjectManager().openElementBean(
+                                delegate,
+                                bean,
+                                true
+                            )
+
+                            is List<*> -> LPProjectManager().openElementBeanList(
+                                delegate,
+                                bean as List<LPElementBean>?, true
+                            )
                         }
                     }
                 }

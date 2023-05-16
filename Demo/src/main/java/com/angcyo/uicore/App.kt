@@ -13,6 +13,9 @@ import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
 import com.angcyo.bluetooth.fsc.laserpacker.parse.toLaserPeckerVersionName
 import com.angcyo.bugly.Bugly
+import com.angcyo.canvas.render.util.toDrawable
+import com.angcyo.canvas2.laser.pecker.dslitem.control.TypefaceItem
+import com.angcyo.canvas2.laser.pecker.toRendererList
 import com.angcyo.core.CoreApplication
 import com.angcyo.core.Debug
 import com.angcyo.core.component.ScreenShotModel
@@ -34,6 +37,8 @@ import com.angcyo.laserpacker.device.ble.DeviceSettingFragment
 import com.angcyo.laserpacker.device.ble.TransferDataFragment
 import com.angcyo.laserpacker.device.model.FscDeviceModel
 import com.angcyo.laserpacker.open.CanvasOpenModel
+import com.angcyo.laserpacker.open.CanvasOpenPreviewActivity
+import com.angcyo.laserpacker.project.dslitem.ProjectListItem
 import com.angcyo.library.annotation.CallComplianceAfter
 import com.angcyo.library.component.RBackground
 import com.angcyo.library.component.pad.IPadAdaptive
@@ -41,6 +46,7 @@ import com.angcyo.library.ex.*
 import com.angcyo.library.isMainProgress
 import com.angcyo.objectbox.DslBox
 import com.angcyo.objectbox.laser.pecker.LPBox
+import com.angcyo.objectbox.laser.pecker.entity.MaterialEntity
 import com.angcyo.speech.TTS
 import com.angcyo.tbs.DslTbs
 import com.angcyo.uicore.demo.*
@@ -98,6 +104,38 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
         CanvasOpenModel.OPEN_ACTIVITY_CLASS = MainActivity::class.java
         //CanvasOpenModel.OPEN_ACTIVITY_FRAGMENT_CLASS = CanvasDemo::class.java
         CanvasOpenModel.OPEN_ACTIVITY_FRAGMENT_CLASS = Canvas2Demo::class.java
+
+        TypefaceItem.getTypefaceItemSyncStateRes = {
+            if (isDebugType()) {
+                if (it.itemTypefaceInfo?.isCustom == true) {
+                    R.drawable.canvas_synchronized_svg
+                } else {
+                    null
+                }
+            } else {
+                null
+            }
+        }
+
+        ProjectListItem.getProjectListSyncStateRes = {
+            if (isDebugType()) {
+                R.drawable.canvas_synchronized_svg
+            } else {
+                null
+            }
+        }
+
+        MaterialEntity.getMaterialItemSyncStateRes = {
+            if (isDebugType()) {
+                R.drawable.canvas_synchronized_svg
+            } else {
+                null
+            }
+        }
+
+        CanvasOpenPreviewActivity.convertElementBeanListToDrawable = {
+            it?.toRendererList()?.toDrawable()
+        }
     }
 
     override fun onCreateMain() {
