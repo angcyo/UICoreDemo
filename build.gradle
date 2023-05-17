@@ -8,6 +8,7 @@ apply from: allGradle.statisticsWord
 apply from: allGradle.excelMaterial
 apply from: allGradle.mergeFile
 apply from: allGradle.replaceRes
+apply from: allGradle.parseXml
 //apply from: allGradle.discardCache
 
 //apply from: "$gradleHost/master/init.gradle"
