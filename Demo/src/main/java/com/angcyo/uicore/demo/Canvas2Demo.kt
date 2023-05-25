@@ -641,14 +641,23 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     postSkew(0.3f, 0f)
                 })*/
 
-                val bool = LibLpHawkKeys.enableVectorArc
-                LibLpHawkKeys.enableVectorArc = true
-                val file = toListOf().toSVGContent(libCacheFile("svg.txt"), Paint.Style.STROKE)
-                LibLpHawkKeys.enableVectorArc = bool
-                val text = file.readText()
-                L.i(text)
+                testPath(this)
+            }
+
+            Path().apply {
+                addCircle(100f, 100f, 100f, Path.Direction.CW)
+                testPath(this)
             }
         }
+    }
+
+    private fun testPath(path: Path) {
+        val bool = LibLpHawkKeys.enableVectorArc
+        LibLpHawkKeys.enableVectorArc = true
+        val file = path.toListOf().toSVGContent(libCacheFile("svg.txt"), Paint.Style.STROKE)
+        LibLpHawkKeys.enableVectorArc = bool
+        val text = file.readText()
+        L.i(text)
     }
 
     //endregion---test---
