@@ -1,5 +1,7 @@
 package com.angcyo.uicore.demo
 
+import android.graphics.Paint
+import android.graphics.Path
 import android.graphics.RectF
 import android.os.Bundle
 import android.view.Gravity
@@ -25,10 +27,8 @@ import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasRenderView
 import com.angcyo.canvas.render.core.CanvasRenderDelegate
 import com.angcyo.canvas.render.core.Reason
-import com.angcyo.canvas.render.util.toDrawable
 import com.angcyo.canvas2.laser.pecker.IEngraveRenderFragment
 import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
-import com.angcyo.canvas2.laser.pecker.dslitem.control.TypefaceItem
 import com.angcyo.canvas2.laser.pecker.engrave.BaseFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.EngraveFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.LPEngraveHelper
@@ -38,7 +38,6 @@ import com.angcyo.canvas2.laser.pecker.history.EngraveHistoryFragment
 import com.angcyo.canvas2.laser.pecker.manager.LPProjectManager
 import com.angcyo.canvas2.laser.pecker.manager.restoreProjectStateV2
 import com.angcyo.canvas2.laser.pecker.manager.saveProjectStateV2
-import com.angcyo.canvas2.laser.pecker.toRendererList
 import com.angcyo.canvas2.laser.pecker.util.LPElementHelper
 import com.angcyo.canvas2.laser.pecker.util.lpElement
 import com.angcyo.core.component.file.writeToLog
@@ -64,15 +63,14 @@ import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
 import com.angcyo.laserpacker.device.ble.EngraveExperimentalFragment
 import com.angcyo.laserpacker.device.engraveLoadingAsync
 import com.angcyo.laserpacker.open.CanvasOpenModel
-import com.angcyo.laserpacker.open.CanvasOpenPreviewActivity
 import com.angcyo.laserpacker.project.ProjectListFragment
-import com.angcyo.laserpacker.project.dslitem.ProjectListItem
 import com.angcyo.library.L
 import com.angcyo.library.LTime
 import com.angcyo.library.Library.CLICK_COUNT
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component.RBackground
 import com.angcyo.library.component._delay
+import com.angcyo.library.component.hawk.LibLpHawkKeys
 import com.angcyo.library.component.pad.isInPadMode
 import com.angcyo.library.ex._drawable
 import com.angcyo.library.ex.dp
@@ -82,12 +80,13 @@ import com.angcyo.library.ex.nowTimeString
 import com.angcyo.library.ex.randomColor
 import com.angcyo.library.ex.toHexString
 import com.angcyo.library.ex.toListOf
+import com.angcyo.library.libCacheFile
 import com.angcyo.library.libFolderPath
 import com.angcyo.library.toast
 import com.angcyo.library.toastQQ
 import com.angcyo.library.utils.fileNameTime
-import com.angcyo.objectbox.laser.pecker.entity.MaterialEntity
 import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
+import com.angcyo.toSVGContent
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.getRandomText
 import com.angcyo.widget.DslViewHolder
@@ -393,17 +392,6 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
             }
         }
 
-        //test
-        itemHolder.click(R.id.test_button) {
-            /*LPTransferHelper.startCreateTransferData(
-                vmApp(),
-                "test-${uuid()}",
-                renderDelegate
-            )
-            toastQQ("test")*/
-            EngraveTransitionHelper.saveTaskAerialView("e2bebf35ff624b9bba2f9bce86633524")
-        }
-
         //save
         itemHolder.click(R.id.save1_button) {
             renderDelegate?.apply {
@@ -634,7 +622,33 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     }
 
     private fun testDemo(itemHolder: DslViewHolder) {
+        //test
+        itemHolder.click(R.id.test_button) {
+            /*LPTransferHelper.startCreateTransferData(
+                vmApp(),
+                "test-${uuid()}",
+                renderDelegate
+            )
+            toastQQ("test")*/
+            //EngraveTransitionHelper.saveTaskAerialView("e2bebf35ff624b9bba2f9bce86633524")
 
+            Path().apply {
+                //addCircle(100f, 100f, 100f, Path.Direction.CW)
+                addRoundRect(0f, 0f, 200f, 200f, 40f, 40f, Path.Direction.CW)
+
+                /*transform(Matrix().apply {
+                    setRotate(30f, 100f, 100f)
+                    postSkew(0.3f, 0f)
+                })*/
+
+                val bool = LibLpHawkKeys.enableVectorArc
+                LibLpHawkKeys.enableVectorArc = true
+                val file = toListOf().toSVGContent(libCacheFile("svg.txt"), Paint.Style.STROKE)
+                LibLpHawkKeys.enableVectorArc = bool
+                val text = file.readText()
+                L.i(text)
+            }
+        }
     }
 
     //endregion---test---
