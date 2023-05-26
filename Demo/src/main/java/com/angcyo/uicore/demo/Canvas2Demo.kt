@@ -87,6 +87,8 @@ import com.angcyo.library.toast
 import com.angcyo.library.toastQQ
 import com.angcyo.library.utils.fileNameTime
 import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
+import com.angcyo.path.toSvgPathContent
+import com.angcyo.toGCodeContent
 import com.angcyo.toSVGContent
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.getRandomText
@@ -677,9 +679,13 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     private fun testPath(path: Path) {
         val bool = LibLpHawkKeys.enableVectorArc
         LibLpHawkKeys.enableVectorArc = true
-        val file = path.toListOf().toSVGContent(libCacheFile("svg.txt"), Paint.Style.STROKE)
+        val svgFile = path.toListOf().toSVGContent(libCacheFile("svg.txt"), Paint.Style.STROKE)
+        val svgSysFile = path.toListOf().toSvgPathContent(libCacheFile("svg-sys.txt"))
+        val gcodeFile =
+            path.toListOf().toGCodeContent(libCacheFile("gcode.txt"), Paint.Style.STROKE)
+        //val gcodeSysFile = path.toListOf().toGCodePathContent(libCacheFile("gcode-sys.txt"))
         LibLpHawkKeys.enableVectorArc = bool
-        val text = file.readText()
+        val text = svgFile.readText()
         L.i(text)
     }
 
