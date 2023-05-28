@@ -467,6 +467,7 @@ class MainFragment : BaseDemoDslFragment() {
                 "测试字幕"
             )
         }
+        renderDemoListItem("MagnifierDemo")
 
         //https://github.com/sinawangnan7/CurrentActivity
         //renderDemoListItem("CurrentActivityDemo $GO")
