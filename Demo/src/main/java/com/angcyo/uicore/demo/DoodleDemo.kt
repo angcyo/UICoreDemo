@@ -10,11 +10,11 @@ import com.angcyo.doodle.DoodleView
 import com.angcyo.doodle.brush.*
 import com.angcyo.doodle.core.DoodleUndoManager
 import com.angcyo.doodle.core.IDoodleListener
-import com.angcyo.doodle.core.Strategy
 import com.angcyo.doodle.data.BitmapElementData
 import com.angcyo.doodle.element.BitmapElement
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.library.*
+import com.angcyo.library.component.Strategy
 import com.angcyo.library.component.pad.isInPadMode
 import com.angcyo.library.ex.*
 import com.angcyo.library.model.loadPath
@@ -83,7 +83,7 @@ class DoodleDemo : AppDslFragment() {
                     it.isSelected = !it.isSelected
                     doodleDelegate?.doodleLayerManager?.hideBackgroundLayer(
                         it.isSelected,
-                        Strategy.Normal()
+                        Strategy.normal
                     )
                 }
 
