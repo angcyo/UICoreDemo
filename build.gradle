@@ -11,6 +11,7 @@ apply from: allGradle.replaceRes
 apply from: allGradle.parseXml
 apply from: allGradle.excelToCsv
 apply from: allGradle.mergeXmlToExcel
+apply from: allGradle.replenishXml
 //apply from: allGradle.discardCache
 
 //apply from: "$gradleHost/master/init.gradle"
