@@ -9,9 +9,10 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.core.graphics.withMatrix
 import androidx.core.graphics.withTranslation
-import com.angcyo.library.ex.createPaint
 import com.angcyo.library.component.pool.acquireTempPointF
 import com.angcyo.library.ex.*
+import com.angcyo.vector.VectorHelper
+import com.angcyo.vector.toPath
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
@@ -84,6 +85,7 @@ class DrawPathView(context: Context, attributeSet: AttributeSet? = null) :
 
                 disableParentInterceptTouchEvent()
             }
+
             MotionEvent.ACTION_MOVE -> {
                 _movePoint.set(event.x, event.y)
 
@@ -185,11 +187,13 @@ class DrawPathView(context: Context, attributeSet: AttributeSet? = null) :
 
                 _touchPoint.set(_movePoint)
             }
+
             MotionEvent.ACTION_UP -> {
                 rotate += 10f
                 invalidate()
                 disableParentInterceptTouchEvent(false)
             }
+
             MotionEvent.ACTION_CANCEL -> {
                 disableParentInterceptTouchEvent(false)
             }
@@ -320,6 +324,48 @@ class DrawPathView(context: Context, attributeSet: AttributeSet? = null) :
 
         //虚线绘制
         drawLine(canvas)
+
+        //测试svg指令解析
+        testSvgPath(canvas)
+    }
+
+    private fun testSvgPath(canvas: Canvas) {
+        val sx = 100f
+        val sy = 100f
+        val cx = 150f
+        val cy = 20f
+        val ex = 200f
+        val ey = 100f
+        val test = Path()
+        test.moveTo(sx, sy)
+        test.lineTo(cx, cy)
+        test.lineTo(ex, ey)
+        paint.color = Color.RED
+        canvas.drawPath(test, paint)
+
+        val svg = "M${sx},${sy} Q${cx},${cy},${ex},${ey}"
+        val svgPath = svg.toPath()
+        canvas.drawPath(svgPath, paint)
+
+        val path = Path()
+        path.moveTo(sx, sy)
+        path.quadTo(cx, cy, ex, ey)
+        paint.color = Color.GREEN
+        canvas.drawPath(path, paint)
+
+        val circle = VectorHelper.quadCenterOfCircle(sx, sy, cx, cy, ex, ey)
+        val originPoint = VectorHelper.calculateCircleCenter(sx, sy, cx, cy, ex, ey)
+        val originX = originPoint.x
+        val originY = originPoint.y
+        val circlePath = Path()
+        circlePath.addCircle(originX, originY, circle.r, Path.Direction.CW)
+        paint.color = Color.BLUE
+        test.rewind()
+        test.moveTo(sx, sy)
+        test.lineTo(originX, originY)
+        test.lineTo(ex, ey)
+        canvas.drawPath(test, paint)
+        canvas.drawPath(circlePath, paint)
     }
 
     var dashWidth = 0f
