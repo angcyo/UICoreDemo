@@ -1,5 +1,6 @@
 package com.angcyo.uicore.demo
 
+import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
@@ -87,7 +88,9 @@ import com.angcyo.library.toastQQ
 import com.angcyo.library.utils.fileNameTime
 import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
 import com.angcyo.path.toGCodePathContent
+import com.angcyo.path.toSvgPathContent
 import com.angcyo.toGCodeContent
+import com.angcyo.toSVGContent
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.getRandomText
 import com.angcyo.vector.toPath
@@ -634,15 +637,15 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
             toastQQ("test")*/
             //EngraveTransitionHelper.saveTaskAerialView("e2bebf35ff624b9bba2f9bce86633524")
 
-            /*"M12.981 6.677c.006.122.008.243.008.366a7.991 7.991 0 0 1-8.046 8.047 8.01 8.01 0 0 1-4.335-1.271 5.805 5.805 0 0 0 .675.04 5.68 5.68 0 0 0 3.513-1.21 2.832 2.832 0 0 1-2.642-1.965 2.813 2.813 0 0 0 .531.051 2.865 2.865 0 0 0 .746-.1 2.831 2.831 0 0 1-2.269-2.772v-.037a2.805 2.805 0 0 0 1.281.354 2.828 2.828 0 0 1-.874-3.775 8.024 8.024 0 0 0 5.828 2.954 2.83 2.83 0 0 1 2.755-3.472 2.826 2.826 0 0 1 2.064.893 5.654 5.654 0 0 0 1.796-.686 2.835 2.835 0 0 1-1.244 1.564 5.642 5.642 0 0 0 1.624-.445 5.735 5.735 0 0 1-1.41 1.464z".toPath()
+            "M12.981 6.677c.006.122.008.243.008.366a7.991 7.991 0 0 1-8.046 8.047 8.01 8.01 0 0 1-4.335-1.271 5.805 5.805 0 0 0 .675.04 5.68 5.68 0 0 0 3.513-1.21 2.832 2.832 0 0 1-2.642-1.965 2.813 2.813 0 0 0 .531.051 2.865 2.865 0 0 0 .746-.1 2.831 2.831 0 0 1-2.269-2.772v-.037a2.805 2.805 0 0 0 1.281.354 2.828 2.828 0 0 1-.874-3.775 8.024 8.024 0 0 0 5.828 2.954 2.83 2.83 0 0 1 2.755-3.472 2.826 2.826 0 0 1 2.064.893 5.654 5.654 0 0 0 1.796-.686 2.835 2.835 0 0 1-1.244 1.564 5.642 5.642 0 0 0 1.624-.445 5.735 5.735 0 0 1-1.41 1.464z".toPath()
                 .apply {
                     val matrix = Matrix()
                     matrix.setScale(10f, 10f)
                     transform(matrix)
                     testPath(this)
-                }*/
+                }
 
-            val sx = 100f
+            /*val sx = 100f
             val sy = 100f
             val cx = 150f
             val cy = 0f
@@ -650,7 +653,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
             val ey = 100f
             val svg = "M${sx},${sy} Q${cx},${cy},${ex},${ey}"
             val svgPath = svg.toPath()
-            testPath(svgPath)
+            testPath(svgPath)*/
 
             /*val o = PointF(0f, 0f)
             val p1 = PointF(45f, -45f)
@@ -687,14 +690,14 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     private fun testPath(path: Path) {
         val bool = LibLpHawkKeys.enableVectorArc
         LibLpHawkKeys.enableVectorArc = true
-        //val svgFile = path.toListOf().toSVGContent(libCacheFile("svg.txt"), Paint.Style.STROKE)
-        //val svgSysFile = path.toListOf().toSvgPathContent(libCacheFile("svg-sys.txt"))
+        val svgFile = path.toListOf().toSVGContent(libCacheFile("svg.txt"), Paint.Style.STROKE)
+        val svgSysFile = path.toListOf().toSvgPathContent(libCacheFile("svg-sys.txt"))
         val gcodeFile =
             path.toListOf().toGCodeContent(libCacheFile("gcode.txt"), Paint.Style.STROKE)
         val gcodeSysFile = path.toListOf().toGCodePathContent(libCacheFile("gcode-sys.txt"))
         LibLpHawkKeys.enableVectorArc = bool
-        //val text = svgFile.readText()
-        //L.i(text)
+        val text = svgFile.readText()
+        L.i(text)
     }
 
     //endregion---test---
