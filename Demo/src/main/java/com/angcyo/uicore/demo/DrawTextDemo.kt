@@ -25,14 +25,15 @@ class DrawTextDemo : AppDslFragment() {
                 drawTextView?.text = getRandomText(1, Random.nextInt(5, 10))
 
                 itemHolder.v<DslSeekBar>(R.id.seek_bar)?.apply {
-                    val min = -90
-                    val max = 90
+                    progressMinValue = -360f
+                    progressMaxValue = 360f
+                    showCenterProgressTip = true
                     progressTextFormatAction = {
-                        "${(min + progressValue / 100f * (max - min)).toInt()}"
+                        getValue().toInt().toString()
                     }
                     config {
                         onSeekChanged = { value, fraction, fromUser ->
-                            drawTextView?.curvature = min + fraction * (max - min)
+                            drawTextView?.curvature = value
                             drawTextView?.invalidate()
                         }
                     }
