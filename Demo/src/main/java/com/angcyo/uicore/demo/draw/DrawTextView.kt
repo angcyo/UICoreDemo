@@ -7,7 +7,6 @@ import android.graphics.Path
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
-import androidx.core.graphics.withTranslation
 import com.angcyo.library.ex.createPaint
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.getPointOnCircle
@@ -88,7 +87,7 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
             val curveTextInfo = CurveTextInfo(curvature, radius.toFloat(), outRadius.toFloat())
             val cx = measuredWidth / 2f
             val cy = measuredHeight / 2f
-            canvas.withTranslation(
+            /*canvas.withTranslation(
                 cx - curveTextInfo.curveTextWidth / 2,
                 cy - curveTextInfo.curveTextHeight / 2 + curveTextInfo.curveTextHeight / 2 - textHeight
             ) {
@@ -105,7 +104,12 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
                     curveTextInfo.curveTextHeight,
                     paint
                 )
-            }
+            }*/
+
+            val testPath = Path()
+            testPath.addCircle(cx, cy, radius.toFloat(), Path.Direction.CCW)
+            canvas.drawTextOnPath(text, testPath, 0f, 0f, paint)
+
 
             /*val path = Path()
             *//*val innerRect = RectF(
@@ -278,21 +282,21 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
                     cy + innerRadius,
                 )
             } else {
-                /*RectF(
+                RectF(
                     cx - outerRadius,
                     cy - outerRadius,
                     cx + outerRadius,
                     cy + outerRadius,
-                )*/
-                RectF(
+                )
+                /*RectF(
                     cx - innerRadius,
                     cy - innerRadius,
                     cx + innerRadius,
                     cy + innerRadius,
-                )
+                )*/
             }
-            //path.addArc(oval, leftAngleDegrees, curvature)
-            path.addOval(oval, Path.Direction.CW)
+            path.addArc(oval, leftAngleDegrees, curvature)
+            //path.addOval(oval, Path.Direction.CW)
             return path
         }
 
