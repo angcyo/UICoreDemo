@@ -154,6 +154,7 @@ class ExampleInstrumentedTest {
         //参数加密
         //参数加密
         val context = "{\"pageNo\":1,\"pageSize\":10}"
+        //NNCSG5m508RxRt66KTPr7+tuKM6ZEwSUdeh2bcCzcoA=
         val s: String = AESEncrypt.encrypt(context, "wba2022041620221", "123456")
         println(s)
         println(AESEncrypt.decrypt(s, "wba2022041620221", "123456"))
