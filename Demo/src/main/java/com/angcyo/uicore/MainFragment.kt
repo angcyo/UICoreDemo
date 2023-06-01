@@ -449,7 +449,7 @@ class MainFragment : BaseDemoDslFragment() {
         renderDemoListItem("MatrixSkewDemo")
         renderDemoListItem("GroupScaleDemo")
         renderDemoListItem("DrawPathDemo")
-        renderDemoListItem("DrawTextDemo")
+        renderDemoListItem("DrawTextDemo $GO")
         renderDemoListItem("PaintDemo")
         renderDemoListItem("TextSizeDemo")
         renderDemoListItem("ColorChannelDemo")
@@ -458,7 +458,7 @@ class MainFragment : BaseDemoDslFragment() {
         renderDemoListItem("DoodleDemo")
         renderDemoListItem("BitmapDrawSizeDemo")
         //renderDemoListItem("CanvasDemo")
-        renderDemoListItem("Canvas2Demo $GO")
+        renderDemoListItem("Canvas2Demo")
         renderDemoListItem("ExoPlayerDemo") {
             SingleExoPlayerActivity.play(
                 "https://laserpecker-prod.oss-cn-hongkong.aliyuncs.com/test/%E9%A3%9E%E4%B9%A620230512-100632.mp4", //"http://8.218.75.39:8888/down/1tRJELfNObh9.mp4", //"http://8.218.75.39:8888/down/9vG6hZhEz5NO.MP4",

@@ -51,13 +51,13 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
         //
         canvas.drawLine(measuredWidth / 2f, 0f, measuredWidth / 2f, measuredHeight + 0f, paint)
         canvas.drawLine(0f, measuredHeight / 2f, measuredWidth + 0f, measuredHeight / 2f, paint)
-        rebuild()
+        /*rebuild()
         canvas.drawLine(0f, textRect.bottom, measuredWidth + 0f, textRect.bottom, paint)
         canvas.drawRect(textRect, paint)
 
         //
         val textWidth = paint.textWidth(text)
-        canvas.drawText(text, measuredWidth / 2f - textWidth / 2, 100f, paint)
+        canvas.drawText(text, measuredWidth / 2f - textWidth / 2, 100f, paint)*/
 
         /*//
         canvas.drawTextOnPath(text, textPath, 0f, -paint.descent(), paint)
@@ -70,7 +70,6 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
     }
 
     fun testTextOnPath(canvas: Canvas) {
-        paint.color = Color.RED
         //曲度占用整个圆度数的比例
         val fraction = curvature / 360f
         if (fraction == 0f) {
@@ -85,19 +84,31 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
             //圆的半径
             val radius = circleLength / 2 / Math.PI
             //外圆的半径
-            val outRadius = radius + textHeight - paint.descent()
-            val path = Path()
-            /*path.addCircle(
-                measuredWidth / 2f,
-                measuredHeight / 2f,
-                radius.toFloat(),
-                Path.Direction.CW
-            )*/
+            val outRadius = radius + textHeight
+            val curveTextInfo = CurveTextInfo(curvature, radius.toFloat(), outRadius.toFloat())
             val cx = measuredWidth / 2f
             val cy = measuredHeight / 2f
-            val curveTextInfo =
-                CurveTextInfo().init(curvature, radius.toFloat(), outRadius.toFloat())
-            /*val innerRect = RectF(
+            canvas.withTranslation(
+                cx - curveTextInfo.curveTextWidth / 2,
+                cy - curveTextInfo.curveTextHeight / 2 + curveTextInfo.curveTextHeight / 2 - textHeight
+            ) {
+                val drawPath = curveTextInfo.getTextDrawPath()
+                canvas.drawTextOnPath(text, drawPath, 0f, -paint.descent(), paint)
+                paint.color = Color.RED
+                canvas.drawPath(curveTextInfo.getTextDrawInnerCirclePath(), paint)
+                canvas.drawPath(curveTextInfo.getTextDrawOuterCirclePath(), paint)
+                paint.color = Color.BLUE
+                canvas.drawRect(
+                    0f,
+                    0f,
+                    curveTextInfo.curveTextWidth,
+                    curveTextInfo.curveTextHeight,
+                    paint
+                )
+            }
+
+            /*val path = Path()
+            *//*val innerRect = RectF(
                 cx - curveTextInfo.innerWidth / 2,
                 cy - curveTextInfo.innerHeight / 2,
                 cx + curveTextInfo.innerWidth / 2,
@@ -108,7 +119,7 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
                 cy - curveTextInfo.outerHeight / 2,
                 cx + curveTextInfo.outerWidth / 2,
                 cy + curveTextInfo.outerHeight / 2,
-            )*/
+            )*//*
             val innerRect = RectF(
                 (cx - radius).toFloat(), (cy - radius).toFloat(),
                 (cx + radius).toFloat(), (cy + radius).toFloat()
@@ -142,7 +153,7 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
             bounds.top = cy - textHeight + paint.descent()
             bounds.bottom = bounds.top + curveTextInfo.outerHeight
             paint.color = Color.BLUE
-            canvas.drawRect(bounds, paint)
+            canvas.drawRect(bounds, paint)*/
         }
     }
 
@@ -201,46 +212,115 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
     data class CurveTextInfo(
         /**曲度[-360~360], 角度*/
         var curvature: Float = 0f,
-        /**曲线文本的内部宽度*/
-        var innerWidth: Float = 0f,
-        var innerHeight: Float = 0f,
-        /**曲线文本的外部宽度*/
-        var outerWidth: Float = 0f,
-        var outerHeight: Float = 0f,
+        /**内圈半径*/
+        var innerRadius: Float = 0f,
+        /**外圈半径*/
+        var outerRadius: Float = 0f,
+
+        /**曲线文本的宽高*/
+        var curveTextWidth: Float = 0f,
+        var curveTextHeight: Float = 0f,
     ) {
-        /**初始化一个数据*/
-        fun init(curvature: Float, innerRadius: Float, outerRadius: Float): CurveTextInfo {
-            this.curvature = curvature
-            val baseAngleDegrees = 270f
-            val leftAngleDegrees = baseAngleDegrees - curvature.absoluteValue / 2
-            val rightAngleDegrees = baseAngleDegrees + curvature.absoluteValue / 2
 
-            val cx = 0f
-            val cy = 0f
-            val innerLeftPoint = getPointOnCircle(cx, cy, innerRadius, leftAngleDegrees)
-            val innerRightPoint = getPointOnCircle(cx, cy, innerRadius, rightAngleDegrees)
-            val innerTopPoint = getPointOnCircle(cx, cy, innerRadius, baseAngleDegrees)
-            val innerBottomPoint = innerLeftPoint
-            val outerLeftPoint = getPointOnCircle(cx, cy, outerRadius, leftAngleDegrees)
-            val outerRightPoint = getPointOnCircle(cx, cy, outerRadius, rightAngleDegrees)
-            val outerTopPoint = getPointOnCircle(cx, cy, outerRadius, baseAngleDegrees)
-            val outerBottomPoint = outerLeftPoint
+        /**基准角度*/
+        val baseAngleDegrees: Float
+            get() = if (curvature > 0) 270f else 90f
 
-            if (curvature >= 180) {
-                innerWidth = innerRadius * 2
-                outerWidth = outerRadius * 2
+        /**左边角度*/
+        val leftAngleDegrees: Float
+            get() = baseAngleDegrees - curvature / 2
 
-                innerHeight = (innerBottomPoint.y - innerTopPoint.y).absoluteValue
-                outerHeight = (outerBottomPoint.y - outerTopPoint.y).absoluteValue
+        /**右边角度*/
+        val rightAngleDegrees: Float
+            get() = baseAngleDegrees + curvature / 2
+
+        init {
+            measureCurveTextSize()
+        }
+
+        /**测量曲线文本的宽高大小*/
+        fun measureCurveTextSize() {
+            if (curvature.absoluteValue == 360f) {
+                curveTextWidth = outerRadius * 2
+                curveTextHeight = outerRadius * 2
+            } else if (curvature.absoluteValue >= 180) {
+                curveTextWidth = outerRadius * 2
+
+                val top = getPointOnCircle(0f, 0f, outerRadius, baseAngleDegrees)
+                val bottom = getPointOnCircle(0f, 0f, outerRadius, leftAngleDegrees)
+                curveTextHeight = (top.y - bottom.y).absoluteValue
             } else {
-                innerWidth = (innerRightPoint.x - innerLeftPoint.x).absoluteValue
-                outerWidth = (outerRightPoint.x - outerLeftPoint.x).absoluteValue
+                val left = getPointOnCircle(0f, 0f, outerRadius, leftAngleDegrees)
+                val right = getPointOnCircle(0f, 0f, outerRadius, rightAngleDegrees)
+                curveTextWidth = (left.x - right.x).absoluteValue
 
-                innerHeight = (innerBottomPoint.y - innerTopPoint.y).absoluteValue
-                outerHeight = (innerBottomPoint.y - outerTopPoint.y).absoluteValue
+                val top = getPointOnCircle(0f, 0f, outerRadius, baseAngleDegrees)
+                val bottom = getPointOnCircle(0f, 0f, innerRadius, leftAngleDegrees)
+                curveTextHeight = (top.y - bottom.y).absoluteValue
             }
+        }
 
-            return this
+        /**获取文本绘制的路径*/
+        fun getTextDrawPath(): Path {
+            val path = Path()
+            val textHeight = outerRadius - innerRadius
+            val cx = curveTextWidth / 2
+            val cy = if (curvature > 0) {
+                textHeight + innerRadius
+            } else {
+                curveTextHeight - textHeight - innerRadius
+            }
+            val oval = if (curvature > 0) {
+                RectF(
+                    cx - innerRadius,
+                    cy - innerRadius,
+                    cx + innerRadius,
+                    cy + innerRadius,
+                )
+            } else {
+                /*RectF(
+                    cx - outerRadius,
+                    cy - outerRadius,
+                    cx + outerRadius,
+                    cy + outerRadius,
+                )*/
+                RectF(
+                    cx - innerRadius,
+                    cy - innerRadius,
+                    cx + innerRadius,
+                    cy + innerRadius,
+                )
+            }
+            //path.addArc(oval, leftAngleDegrees, curvature)
+            path.addOval(oval, Path.Direction.CW)
+            return path
+        }
+
+        /**提示圆圈的path*/
+        fun getTextDrawInnerCirclePath(): Path {
+            val path = Path()
+            val textHeight = outerRadius - innerRadius
+            val cx = curveTextWidth / 2
+            val cy = if (curvature > 0) {
+                textHeight + innerRadius
+            } else {
+                curveTextHeight - textHeight - innerRadius
+            }
+            path.addCircle(cx, cy, innerRadius, Path.Direction.CW)
+            return path
+        }
+
+        fun getTextDrawOuterCirclePath(): Path {
+            val path = Path()
+            val textHeight = outerRadius - innerRadius
+            val cx = curveTextWidth / 2
+            val cy = if (curvature > 0) {
+                textHeight + innerRadius
+            } else {
+                curveTextHeight - textHeight - innerRadius
+            }
+            path.addCircle(cx, cy, outerRadius, Path.Direction.CW)
+            return path
         }
     }
 
