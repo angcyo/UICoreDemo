@@ -3,7 +3,7 @@ package com.angcyo.uicore.demo
 import android.graphics.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.angcyo.canvas.core.ItemsOperateHandler
+import com.angcyo.http.rsa.AESEncrypt
 import com.angcyo.library.L
 import com.angcyo.library.ex.eachPath
 import org.junit.Assert.assertEquals
@@ -61,7 +61,7 @@ class ExampleInstrumentedTest {
         resultBounds.bottom = resultBounds.height() * scale
         resultRotateBounds.set(resultBounds)*/
 
-        ItemsOperateHandler().calcBoundsWidthHeightWithFrame(
+        /*ItemsOperateHandler().calcBoundsWidthHeightWithFrame(
             bounds,
             rotateBounds,
             rotateBoundsAfter,
@@ -72,7 +72,7 @@ class ExampleInstrumentedTest {
             resultBounds.bottom = this[1]
 
             resultRotateBounds.set(resultBounds)
-        }
+        }*/
 
         matrix.mapRect(resultRotateBounds)
         L.i("\n->矩形:$resultBounds\n->旋转:$resultRotateBounds\n->${rotateBounds.height()} ${rotateBoundsAfter.height()} ${resultRotateBounds.height()}")
@@ -147,5 +147,15 @@ class ExampleInstrumentedTest {
         }
 
         println("圆心: x:${x} y:${y}")
+    }
+
+    @Test
+    fun testRES() {
+        //参数加密
+        //参数加密
+        val context = "{\"pageNo\":1,\"pageSize\":10}"
+        val s: String = AESEncrypt.encrypt(context, "wba2022041620221", "123456")
+        println(s)
+        println(AESEncrypt.decrypt(s, "wba2022041620221", "123456"))
     }
 }
