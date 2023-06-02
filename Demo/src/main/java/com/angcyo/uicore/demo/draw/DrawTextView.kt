@@ -85,7 +85,7 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
             //文本高度
             //val textHeight = paint.textHeight()
             val textHeight = paint.textBounds(text).height().toFloat()
-            val curveTextInfo = CurveTextDraw.create(curvature, textWidth, textHeight)
+            val curveTextInfo = CurveTextDraw.create(text, curvature, textWidth, textHeight)
             val cx = measuredWidth / 2f
             val cy = measuredHeight / 2f
             val tx = cx - curveTextInfo.curveTextWidth / 2
@@ -116,7 +116,7 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
                 //
                 paint.color = Color.MAGENTA
                 paint.style = Paint.Style.FILL
-                curveTextInfo.draw(canvas, paint, text)
+                curveTextInfo.draw(canvas, paint)
 
                 canvas.drawLine(
                     -tx,
