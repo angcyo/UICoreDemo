@@ -212,6 +212,12 @@ class MainActivity : BasePermissionsActivity() {
                 }
                 startSend()
             }*/
+
+            /*val context = "{\"pageNo\":1,\"pageSize\":10}"
+            val encrypt = AESEncrypt.encrypt(context, "wba2022041620221", "123456")
+            val decrypt = AESEncrypt.decrypt(encrypt, "wba2022041620221", "123456")
+            println(encrypt)
+            println(decrypt)*/
         } catch (e: Exception) {
             e.printStackTrace()
         }
