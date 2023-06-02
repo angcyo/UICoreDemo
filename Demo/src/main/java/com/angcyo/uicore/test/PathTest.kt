@@ -4,6 +4,7 @@ import android.graphics.Path
 import android.graphics.PointF
 import android.graphics.RectF
 import com.angcyo.library.L
+import com.angcyo.library.annotation.TestPoint
 import com.angcyo.library.utils.storage.haveSdCardPermission
 import kotlin.math.atan
 import kotlin.math.pow
@@ -16,6 +17,7 @@ import kotlin.math.tan
  */
 object PathTest {
 
+    @TestPoint
     fun test() {
         //testOvalIntersect()
         //testMaxRectInOval()

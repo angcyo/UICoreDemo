@@ -2,7 +2,6 @@ package com.angcyo.uicore
 
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.RectF
 import android.net.Uri
 import android.os.Bundle
 import android.view.MotionEvent
@@ -13,11 +12,9 @@ import com.angcyo.core.component.model.LanguageModel
 import com.angcyo.download.giteeVersionUpdate
 import com.angcyo.haveTargetFragment
 import com.angcyo.library.L
-import com.angcyo.library.Library
 import com.angcyo.library.component.DslShortcut
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component.dslShortcut
-import com.angcyo.library.ex.limitInRect
 import com.angcyo.library.getAppString
 import com.angcyo.library.utils.RUtils
 import com.angcyo.library.utils.checkApkExist
@@ -26,8 +23,9 @@ import com.angcyo.uicore.component.BaiduTraceService
 import com.angcyo.uicore.component.ScreenShotFileObserver
 import com.angcyo.uicore.component.ScreenShotFileObserverManager
 import com.angcyo.uicore.demo.R
+import com.angcyo.uicore.test.HttpTest
 import com.angcyo.uicore.test.PathTest
-import com.orhanobut.hawk.HawkValueParserHelper
+import com.angcyo.uicore.test.Test
 
 /**
  *
@@ -175,49 +173,10 @@ class MainActivity : BasePermissionsActivity() {
         //densityAdapterFrom(2183)
         BaiduTraceService.start(this, BaiduTraceService.FLAG_RESUME)
 
-        //val number = EngraveTransitionManager.generateEngraveIndex()
-        //val b1 = number.toByteArray(4)
-        //val b2 = "$number".toByteArray().trimAndPad(4)
-
         try {
-            val limit = RectF(15f, 15f, 25f, 25f)
-            val rect = RectF(10f, 10f, 25f, 30f)
-            rect.limitInRect(limit)
-            val path = Library.hawkPath
-            val value = HawkValueParserHelper.parse(
-                "KEY_COMPLIANCE_STATE_1",
-                "java.lang.String##0V@AQLf4+PnoAYmLEofEnsL5bXhT3D/UTk5WUYjVN17gWIAmg4P"
-            )
             PathTest.test()
-
-            /*thread {
-                Ping.ping("www.baidu.com") {
-
-                }
-                Ping.ping("www.google.com") {
-
-                }
-            }*/
-
-            //LaserPeckerConfigHelper.init()
-
-            /*TcpSend().apply {
-                address = "192.168.31.88"//"www.baidu.com"
-                port = 8080
-                sendBytes = "123".toByteArray()
-                onSendAction = { receiveBytes, error ->
-                    receiveBytes?.let {
-                        L.i("TCP收到字节:${it.size} :${it.toString(Charsets.UTF_8)}")
-                    }
-                }
-                startSend()
-            }*/
-
-            /*val context = "{\"pageNo\":1,\"pageSize\":10}"
-            val encrypt = AESEncrypt.encrypt(context, "wba2022041620221", "123456")
-            val decrypt = AESEncrypt.decrypt(encrypt, "wba2022041620221", "123456")
-            println(encrypt)
-            println(decrypt)*/
+            HttpTest.test()
+            Test.test()
         } catch (e: Exception) {
             e.printStackTrace()
         }

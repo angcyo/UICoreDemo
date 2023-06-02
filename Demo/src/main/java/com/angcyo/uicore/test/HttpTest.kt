@@ -6,6 +6,7 @@ import com.angcyo.http.get
 import com.angcyo.http.get2Body
 import com.angcyo.http.rx.BaseObserver
 import com.angcyo.library.L
+import com.angcyo.library.annotation.TestPoint
 import com.angcyo.uicore.App
 
 /**
@@ -14,6 +15,15 @@ import com.angcyo.uicore.App
  * @author angcyo
  * @date 2020/03/17
  */
+
+object HttpTest {
+
+    @TestPoint
+    fun test() {
+
+    }
+
+}
 
 fun testHttp() {
     //testGet()
