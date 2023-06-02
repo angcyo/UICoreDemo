@@ -50,6 +50,7 @@ import com.angcyo.objectbox.laser.pecker.entity.MaterialEntity
 import com.angcyo.speech.TTS
 import com.angcyo.tbs.DslTbs
 import com.angcyo.uicore.demo.*
+import com.angcyo.uicore.demo.draw.DrawTextView
 import com.angcyo.uicore.fragment.RecyclerTextFragment
 import io.objectbox.Box
 import kotlin.random.Random
@@ -294,7 +295,7 @@ fun getRandomText(
 ) = buildString {
     for (i in 0 until line) {
         if (i == 0) {
-            append("angcyo")
+            append(DrawTextView.DEF)
         } else {
             appendLine()
         }

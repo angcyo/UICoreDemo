@@ -1,12 +1,18 @@
 package com.angcyo.uicore.test
 
 import com.angcyo.coroutine.launchGlobal
+import com.angcyo.http.base.jsonObject
 import com.angcyo.http.base.readString
+import com.angcyo.http.base.toTextBody
 import com.angcyo.http.get
 import com.angcyo.http.get2Body
+import com.angcyo.http.post
+import com.angcyo.http.rsa.aesEncrypt
 import com.angcyo.http.rx.BaseObserver
+import com.angcyo.http.rx.observer
 import com.angcyo.library.L
 import com.angcyo.library.annotation.TestPoint
+import com.angcyo.library.ex.md5
 import com.angcyo.uicore.App
 
 /**
@@ -21,6 +27,33 @@ object HttpTest {
     @TestPoint
     fun test() {
 
+    }
+
+    /**2023-6-2*/
+    fun test1() {
+        post {
+            url = "http://192.168.31.13:9009/pecker-web/app/log/getOperationLogPageInfo"
+            val key = "wba2022041620221"
+            val json = jsonObject {
+                add("a", 1)
+                add("b", "2.2")
+                add("c", 3.3)
+            }
+            val body = json.toString()
+            val bodyAes = body.aesEncrypt(key)!!
+            val encryption = (bodyAes + key).md5()!!
+            header =
+                hashMapOf("token" to "68b366a5ad56418497235c465a1132b8", "encryption" to encryption)
+            requestBody = bodyAes.toTextBody()
+            isSuccessful = {
+                it.isSuccessful
+            }
+        }.observer {
+            onObserverEnd = { data, error ->
+                L.i(error)
+                L.i(data)
+            }
+        }
     }
 
 }

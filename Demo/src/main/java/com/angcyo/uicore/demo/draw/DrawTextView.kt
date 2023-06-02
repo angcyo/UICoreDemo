@@ -3,12 +3,16 @@ package com.angcyo.uicore.demo.draw
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.graphics.withRotation
+import androidx.core.graphics.withTranslation
 import com.angcyo.library.ex.createPaint
 import com.angcyo.library.ex.dp
+import com.angcyo.library.ex.ensure
 import com.angcyo.library.ex.getPointOnCircle
 import com.angcyo.library.ex.textBounds
 import com.angcyo.library.ex.textHeight
@@ -26,7 +30,11 @@ import kotlin.math.absoluteValue
 class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
     View(context, attributeSet) {
 
-    var text = "angcyo"
+    companion object {
+        const val DEF = "j angcyoJ"
+    }
+
+    var text = DEF
 
     val paint = createPaint().apply {
         strokeWidth = 1 * dp
@@ -46,6 +54,7 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         paint.color = Color.BLACK
+        paint.style = Paint.Style.STROKE
 
         //
         canvas.drawLine(measuredWidth / 2f, 0f, measuredWidth / 2f, measuredHeight + 0f, paint)
@@ -84,19 +93,28 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
             val radius = circleLength / 2 / Math.PI
             //外圆的半径
             val outRadius = radius + textHeight
-            val curveTextInfo = CurveTextInfo(curvature, radius.toFloat(), outRadius.toFloat())
+            val curveTextInfo =
+                CurveTextInfo(curvature, textWidth, radius.toFloat(), outRadius.toFloat())
             val cx = measuredWidth / 2f
             val cy = measuredHeight / 2f
-            /*canvas.withTranslation(
-                cx - curveTextInfo.curveTextWidth / 2,
+            val tx = cx - curveTextInfo.curveTextWidth / 2
+            val ty = if (curvature > 0) {
                 cy - curveTextInfo.curveTextHeight / 2 + curveTextInfo.curveTextHeight / 2 - textHeight
-            ) {
+            } else {
+                cy - curveTextInfo.curveTextHeight
+            }
+            canvas.withTranslation(tx, ty) {
+                paint.style = Paint.Style.FILL
                 val drawPath = curveTextInfo.getTextDrawPath()
-                canvas.drawTextOnPath(text, drawPath, 0f, -paint.descent(), paint)
+                //canvas.drawTextOnPath(text, drawPath, 0f, -paint.descent(), paint)
+                //
                 paint.color = Color.RED
+                paint.style = Paint.Style.STROKE
                 canvas.drawPath(curveTextInfo.getTextDrawInnerCirclePath(), paint)
                 canvas.drawPath(curveTextInfo.getTextDrawOuterCirclePath(), paint)
+                //
                 paint.color = Color.BLUE
+                paint.style = Paint.Style.STROKE
                 canvas.drawRect(
                     0f,
                     0f,
@@ -104,60 +122,26 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
                     curveTextInfo.curveTextHeight,
                     paint
                 )
-            }*/
+                //
+                paint.color = Color.MAGENTA
+                paint.style = Paint.Style.FILL
+                curveTextInfo.draw(canvas, paint, text)
 
-            val testPath = Path()
-            testPath.addCircle(cx, cy, radius.toFloat(), Path.Direction.CCW)
-            canvas.drawTextOnPath(text, testPath, 0f, 0f, paint)
-
-
-            /*val path = Path()
-            *//*val innerRect = RectF(
-                cx - curveTextInfo.innerWidth / 2,
-                cy - curveTextInfo.innerHeight / 2,
-                cx + curveTextInfo.innerWidth / 2,
-                cy + curveTextInfo.innerHeight / 2,
-            )
-            val outerRect = RectF(
-                cx - curveTextInfo.outerWidth / 2,
-                cy - curveTextInfo.outerHeight / 2,
-                cx + curveTextInfo.outerWidth / 2,
-                cy + curveTextInfo.outerHeight / 2,
-            )*//*
-            val innerRect = RectF(
-                (cx - radius).toFloat(), (cy - radius).toFloat(),
-                (cx + radius).toFloat(), (cy + radius).toFloat()
-            )
-            val outerRect = RectF(
-                (cx - outRadius).toFloat(), (cy - outRadius).toFloat(),
-                (cx + outRadius).toFloat(), (cy + outRadius).toFloat(),
-            )
-            val baselineAngle = if (curvature > 0) 270f else 90f
-            canvas.withTranslation(0f, radius.toFloat()) {
-                if (curvature > 0) {
-                    path.addArc(innerRect, baselineAngle - curvature.absoluteValue / 2, curvature)
-                } else {
-                    path.addArc(outerRect, baselineAngle + curvature.absoluteValue / 2, curvature)
-                }
-                canvas.drawPath(path, paint)
-                canvas.drawTextOnPath(text, path, 0f, 0f, paint)
-                canvas.drawRect(innerRect, paint)
-                canvas.drawRect(outerRect, paint)
-                canvas.drawCircle(innerRect.centerX(), innerRect.centerY(), radius.toFloat(), paint)
-                canvas.drawCircle(
-                    outerRect.centerX(),
-                    outerRect.centerY(),
-                    outRadius.toFloat(),
+                canvas.drawLine(
+                    -tx,
+                    curveTextInfo.curveCy,
+                    -tx + measuredWidth.toFloat(),
+                    curveTextInfo.curveCy,
+                    paint
+                )
+                canvas.drawLine(
+                    curveTextInfo.curveCx,
+                    -ty,
+                    curveTextInfo.curveCx,
+                    -ty + measuredHeight.toFloat(),
                     paint
                 )
             }
-            val bounds = RectF()
-            bounds.left = cx - curveTextInfo.outerWidth / 2
-            bounds.right = cx + curveTextInfo.outerWidth / 2
-            bounds.top = cy - textHeight + paint.descent()
-            bounds.bottom = bounds.top + curveTextInfo.outerHeight
-            paint.color = Color.BLUE
-            canvas.drawRect(bounds, paint)*/
         }
     }
 
@@ -216,11 +200,18 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
     data class CurveTextInfo(
         /**曲度[-360~360], 角度*/
         var curvature: Float = 0f,
+        /**文本默认的原始宽度*/
+        var textWidth: Float = 0f,
         /**内圈半径*/
         var innerRadius: Float = 0f,
         /**外圈半径*/
         var outerRadius: Float = 0f,
 
+        //---计算结果↓---
+
+        /**曲线绘制中心坐标*/
+        var curveCx: Float = 0f,
+        var curveCy: Float = 0f,
         /**曲线文本的宽高*/
         var curveTextWidth: Float = 0f,
         var curveTextHeight: Float = 0f,
@@ -238,12 +229,17 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
         val rightAngleDegrees: Float
             get() = baseAngleDegrees + curvature / 2
 
+        /**文本的高度*/
+        val textHeight: Float
+            get() = outerRadius - innerRadius
+
         init {
-            measureCurveTextSize()
+            measureCurveText()
         }
 
         /**测量曲线文本的宽高大小*/
-        fun measureCurveTextSize() {
+        fun measureCurveText() {
+            //计算宽高
             if (curvature.absoluteValue == 360f) {
                 curveTextWidth = outerRadius * 2
                 curveTextHeight = outerRadius * 2
@@ -262,11 +258,8 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
                 val bottom = getPointOnCircle(0f, 0f, innerRadius, leftAngleDegrees)
                 curveTextHeight = (top.y - bottom.y).absoluteValue
             }
-        }
 
-        /**获取文本绘制的路径*/
-        fun getTextDrawPath(): Path {
-            val path = Path()
+            //计算相对于0,0位置应该绘制的中心位置
             val textHeight = outerRadius - innerRadius
             val cx = curveTextWidth / 2
             val cy = if (curvature > 0) {
@@ -274,6 +267,20 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
             } else {
                 curveTextHeight - textHeight - innerRadius
             }
+            curveCx = cx
+            curveCy = cy
+        }
+
+        /**获取文本绘制的路径
+         * 这种方式在正向曲线绘制时没有问题,
+         * 但是反向绘制时, 大圈内绘制文本无法闭合
+         * 小圈外绘制文本会叠加
+         * 解决方案: 一个字符一个字符绘制
+         * [draw]*/
+        fun getTextDrawPath(): Path {
+            val path = Path()
+            val cx = curveCx
+            val cy = curveCy
             val oval = if (curvature > 0) {
                 RectF(
                     cx - innerRadius,
@@ -303,28 +310,73 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
         /**提示圆圈的path*/
         fun getTextDrawInnerCirclePath(): Path {
             val path = Path()
-            val textHeight = outerRadius - innerRadius
-            val cx = curveTextWidth / 2
-            val cy = if (curvature > 0) {
-                textHeight + innerRadius
-            } else {
-                curveTextHeight - textHeight - innerRadius
-            }
+            val cx = curveCx
+            val cy = curveCy
             path.addCircle(cx, cy, innerRadius, Path.Direction.CW)
             return path
         }
 
         fun getTextDrawOuterCirclePath(): Path {
             val path = Path()
-            val textHeight = outerRadius - innerRadius
-            val cx = curveTextWidth / 2
-            val cy = if (curvature > 0) {
-                textHeight + innerRadius
-            } else {
-                curveTextHeight - textHeight - innerRadius
-            }
+            val cx = curveCx
+            val cy = curveCy
             path.addCircle(cx, cy, outerRadius, Path.Direction.CW)
             return path
+        }
+
+        /**绘制曲线文本,按照角度变化, 一个一个字符绘制 */
+        fun draw(canvas: Canvas, paint: Paint, text: String) {
+            //开始绘制的角度
+            val startAngle = leftAngleDegrees
+            //每个像素对应的角度
+            val pixelAngle = (curvature.absoluteValue / textWidth).ensure(0f)
+
+            var textSumWidth = 0f
+            for (char in text) {
+                val charStr = char.toString()
+                val charWidth = paint.textWidth(charStr)
+                textSumWidth += charWidth
+            }
+            //间隙角度
+            val gapAngle: Float =
+                (curvature.absoluteValue - pixelAngle * textSumWidth) / (text.length - 1)
+
+            //自旋角度
+            val charRotate = if (curvature > 0) 90f else -90f
+            var charStartAngle = startAngle
+            for (char in text) {
+                val charStr = char.toString()
+                val charWidth = paint.textWidth(charStr)
+                val charHeight = textHeight
+                /*val charMinSize = min(charWidth, charHeight)
+                val charMaxSize = max(charWidth, charHeight)*/
+                val textRotateCenterX = curveCx + innerRadius + charHeight / 2
+                val textRotateCenterY = curveCy /*+ charWidth / 2*/
+                val x = textRotateCenterX - charWidth / 2
+                val y = textRotateCenterY + charHeight / 2 - paint.descent()
+
+                val charAngle = pixelAngle * charWidth
+                val rotate =
+                    if (curvature > 0) charStartAngle + charAngle / 2 else charStartAngle - charAngle / 2
+                canvas.withRotation(rotate, curveCx, curveCy) {
+                    canvas.withRotation(charRotate, textRotateCenterX, textRotateCenterY) {
+                        //文本
+                        canvas.drawText(charStr, x, y, paint)
+                    }
+                }
+                /*if (charStartAngle == startAngle) {
+                    canvas.drawText(charStr, x, y, paint)
+                    paint.color = Color.MAGENTA
+                    canvas.withRotation(charRotate, textRotateCenterX, textRotateCenterY) {
+                        canvas.drawText(charStr, x, y, paint)
+                    }
+                }*/
+                if (curvature > 0) {
+                    charStartAngle += gapAngle + charAngle
+                } else {
+                    charStartAngle -= gapAngle + charAngle
+                }
+            }
         }
     }
 
