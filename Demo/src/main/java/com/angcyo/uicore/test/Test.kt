@@ -4,6 +4,7 @@ import android.graphics.RectF
 import com.angcyo.library.Library
 import com.angcyo.library.annotation.TestPoint
 import com.angcyo.library.ex.limitInRect
+import com.angcyo.quickjs.QuickJSEngine
 import com.orhanobut.hawk.HawkValueParserHelper
 
 /**
@@ -55,6 +56,9 @@ object Test {
         val decrypt = AESEncrypt.decrypt(encrypt, "wba2022041620221", "123456")
         println(encrypt)
         println(decrypt)*/
+
+        //V8Engine.test()
+        QuickJSEngine.test()
     }
 
 }
