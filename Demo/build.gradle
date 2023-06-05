@@ -110,7 +110,7 @@ dependencies {
     implementation project(allModule.crop)
     implementation project(allModule.websocket)
     //implementation project(allModule.engrave_auto)
-    //implementation project(allModule.jsEngine)//The minCompileSdk (33) specified in a
+    implementation project(allModule.jsEngine)//The minCompileSdk (33) specified in a
     implementation project(allModule.deviceServer)
     implementation project(allModule.canvas2_lp)//canvas2 2023-3-3
     implementation project(allModule.engrave2)//2023-3-31
