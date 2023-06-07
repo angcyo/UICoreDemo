@@ -85,7 +85,7 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
             //文本高度
             //val textHeight = paint.textHeight()
             val textHeight = paint.textBounds(text).height().toFloat()
-            val curveTextInfo = CurveTextDraw.create(text, curvature, textWidth, textHeight)
+            val curveTextInfo = CurveTextDraw.create(text, curvature, textWidth, textHeight, paint)
             val cx = measuredWidth / 2f
             val cy = measuredHeight / 2f
             val tx = cx - curveTextInfo.curveTextWidth / 2
