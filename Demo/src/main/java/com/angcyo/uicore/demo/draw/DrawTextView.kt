@@ -96,7 +96,7 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
             }
             canvas.withTranslation(tx, ty) {
                 paint.style = Paint.Style.FILL
-                val drawPath = curveTextInfo.getTextDrawPath()
+                //val drawPath = curveTextInfo.getTextDrawPath()
                 //canvas.drawTextOnPath(text, drawPath, 0f, -paint.descent(), paint)
                 //
                 paint.color = Color.RED
