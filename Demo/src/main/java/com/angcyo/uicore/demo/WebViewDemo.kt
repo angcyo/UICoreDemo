@@ -16,8 +16,9 @@ import com.angcyo.web.core.DslWebView
 class WebViewDemo : WebFragment() {
 
     init {
-        webConfig.uri = "http://192.168.31.171:65050/?l=zh-CN".toUri()
+//        webConfig.uri = "http://192.168.31.171:65050/?l=zh-CN".toUri()
 //        webConfig.uri = "https://www.baidu.com/".toUri()
+        webConfig.uri = "https://angcyo.gitee.io/ua.html".toUri()
     }
 
     override fun onInitWebView(webView: DslWebView) {
