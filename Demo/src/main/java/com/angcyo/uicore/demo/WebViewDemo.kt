@@ -1,5 +1,6 @@
 package com.angcyo.uicore.demo
 
+import android.os.Bundle
 import android.webkit.JavascriptInterface
 import androidx.annotation.Keep
 import com.angcyo.library.L
@@ -17,8 +18,23 @@ class WebViewDemo : WebFragment() {
 
     init {
 //        webConfig.uri = "http://192.168.31.171:65050/?l=zh-CN".toUri()
-//        webConfig.uri = "https://www.baidu.com/".toUri()
-        webConfig.uri = "https://angcyo.gitee.io/ua.html".toUri()
+        webConfig.uri = "https://www.baidu.com/".toUri()
+        //webConfig.uri = "https://angcyo.gitee.io/ua.html".toUri()
+
+        contentLayoutId = R.layout.demo_webview_layout
+    }
+
+    override fun initBaseView(savedInstanceState: Bundle?) {
+        super.initBaseView(savedInstanceState)
+        _vh.click(R.id.baidu) {
+            loadUrl("https://www.baidu.com")
+        }
+        _vh.click(R.id.ua) {
+            loadUrl("https://angcyo.gitee.io/ua.html")
+        }
+        _vh.click(R.id.login) {
+            loadUrl("http://192.168.31.171:65050/?l=zh-CN")
+        }
     }
 
     override fun onInitWebView(webView: DslWebView) {

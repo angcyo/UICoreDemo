@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/lib_wrap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lib_hdpi"
+        app:r_flow_item_horizontal_space="@dimen/lib_xhdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_xhdpi">
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/baidu"
+            style="@style/DefaultButtonStyleNormal"
+            android:text="百度" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/ua"
+            style="@style/DefaultButtonStyleNormal"
+            android:text="UA" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/login"
+            style="@style/DefaultButtonStyleNormal"
+            android:text="Login" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
+</FrameLayout>
