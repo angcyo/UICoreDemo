@@ -468,7 +468,7 @@ class MainFragment : BaseDemoDslFragment() {
             )
         }
         renderDemoListItem("MagnifierDemo")
-        renderDemoListItem("WebViewDemo $GO")
+        renderDemoListItem("WebViewDemo")
 
         //https://github.com/sinawangnan7/CurrentActivity
         //renderDemoListItem("CurrentActivityDemo $GO")
