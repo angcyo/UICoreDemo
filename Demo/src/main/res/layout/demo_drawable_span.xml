@@ -55,5 +55,13 @@
             android:layout_height="wrap_content"
             android:background="@color/transparent20" />
 
+        <com.angcyo.widget.text.DslTextView
+            android:id="@+id/text_view5"
+            style="@style/LibBodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent20"
+            android:gravity="top" />
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

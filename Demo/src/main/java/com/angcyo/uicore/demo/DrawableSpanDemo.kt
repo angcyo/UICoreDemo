@@ -6,11 +6,20 @@ import android.os.Bundle
 import android.text.style.ForegroundColorSpan
 import android.text.style.LeadingMarginSpan
 import android.view.Gravity
-import com.angcyo.library.ex.*
+import com.angcyo.library.ex._drawable
+import com.angcyo.library.ex._string
+import com.angcyo.library.ex.anim
+import com.angcyo.library.ex.colorFilter
+import com.angcyo.library.ex.dp
+import com.angcyo.library.ex.dpi
+import com.angcyo.library.ex.getColor
+import com.angcyo.library.ex.infinite
+import com.angcyo.library.ex.toDpi
 import com.angcyo.uicore.base.AppTitleFragment
 import com.angcyo.widget.base.clickIt
 import com.angcyo.widget.progress.ArcLoadingView
 import com.angcyo.widget.progress.DslSeekBar
+import com.angcyo.widget.span.RandomTextSpan
 import com.angcyo.widget.span.SpanClickMethod
 import com.angcyo.widget.span.span
 
@@ -310,6 +319,32 @@ class DrawableSpanDemo : AppTitleFragment() {
 
         _vh.click(R.id.button) {
             _vh.v<ArcLoadingView>(R.id.arc_load_view)?.startLoading()
+        }
+
+        //---
+
+        val randomTextList = listOf("0", "1")
+        _vh.tv(R.id.text_view5)?.text = span {
+            for (i in 0..1000) {
+                appendSpan(RandomTextSpan(randomTextList))
+            }
+        }
+        _vh.click(R.id.text_view5) {
+            anim(0, 100) {
+                onAnimatorConfig = {
+                    it.infinite()
+                }
+                onAnimatorUpdateValue = { _, _ ->
+                    _vh.tv(R.id.text_view5)?.invalidate()
+                }
+            }
+            //it.startAnimation()
+            /*it.animate()
+                .setUpdateListener {
+                    _vh.tv(R.id.text_view5)?.invalidate()
+                }
+                .setDuration(3000)
+                .start()*/
         }
 
         //baseViewHolder.group(R.id.lib_wrap_layout).helper()
