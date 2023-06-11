@@ -19,14 +19,14 @@ object Test {
         //val b1 = number.toByteArray(4)
         //val b2 = "$number".toByteArray().trimAndPad(4)
 
-        val limit = RectF(15f, 15f, 25f, 25f)
+        /*val limit = RectF(15f, 15f, 25f, 25f)
         val rect = RectF(10f, 10f, 25f, 30f)
         rect.limitInRect(limit)
         val path = Library.hawkPath
         val value = HawkValueParserHelper.parse(
             "KEY_COMPLIANCE_STATE_1",
             "java.lang.String##0V@AQLf4+PnoAYmLEofEnsL5bXhT3D/UTk5WUYjVN17gWIAmg4P"
-        )
+        )*/
 
         /*thread {
                        Ping.ping("www.baidu.com") {
@@ -58,7 +58,7 @@ object Test {
         println(decrypt)*/
 
         //V8Engine.test()
-        QuickJSEngine.test()
+        //QuickJSEngine.test()
     }
 
 }
