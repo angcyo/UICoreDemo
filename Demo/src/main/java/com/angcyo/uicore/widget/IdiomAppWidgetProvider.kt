@@ -46,17 +46,6 @@ class IdiomAppWidgetProvider : AppWidgetProvider() {
         L.d("更新小部件:", appWidgetIds)
         IdiomHelper.init()
 
-        updateLayout(context, appWidgetManager, appWidgetIds) {
-            setOnClickPendingIntent(
-                R.id.lib_image_view,
-                DslNotify.pendingBroadcast(
-                    context,
-                    Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE).apply {
-                        putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds)
-                    })
-            )
-        }
-
         IdiomHelper.fetchIdiomInfo {
             updateLayout(context, appWidgetManager, appWidgetIds) {
                 setTextViewText(R.id.lib_title_view, it?.name)
@@ -72,6 +61,14 @@ class IdiomAppWidgetProvider : AppWidgetProvider() {
                 })
 
                 //click
+                setOnClickPendingIntent(
+                    R.id.lib_image_view,
+                    DslNotify.pendingBroadcast(
+                        context,
+                        Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE).apply {
+                            putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds)
+                        })
+                )
                 it?.url?.let { url ->
                     setOnClickPendingIntent(
                         R.id.lib_root_layout,
@@ -99,6 +96,9 @@ class IdiomAppWidgetProvider : AppWidgetProvider() {
         newOptions: Bundle?
     ) {
         L.d("小部件配置改变:", appWidgetId, newOptions)
+        if (IdiomHelper.todayIdiomList.isEmpty()) {
+            requestUpdate(context)
+        }
     }
 
     override fun onRestored(context: Context, oldWidgetIds: IntArray, newWidgetIds: IntArray) {

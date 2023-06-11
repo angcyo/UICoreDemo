@@ -4,6 +4,7 @@ import com.angcyo.http.base.fromJson
 import com.angcyo.http.base.listType
 import com.angcyo.http.base.toJson
 import com.angcyo.jsoup.dslJsoup
+import com.angcyo.library.ex.readText
 import com.angcyo.library.ex.writeText
 import com.angcyo.library.libCacheFile
 import org.jsoup.nodes.Element
@@ -24,7 +25,7 @@ object IdiomHelper {
     /**初始化*/
     fun init() {
         allIdiomList.clear()
-        cacheFile.readText().fromJson<List<IdiomInfoBean>>(listType(IdiomInfoBean::class))?.let {
+        cacheFile.readText()?.fromJson<List<IdiomInfoBean>>(listType(IdiomInfoBean::class))?.let {
             allIdiomList.addAll(it)
         }
     }
