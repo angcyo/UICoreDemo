@@ -330,6 +330,21 @@
             </intent-filter>
 
         </activity>
+
+        <!--小部件-->
+        <receiver
+            android:name="com.angcyo.uicore.widget.IdiomAppWidgetProvider"
+            android:exported="true"
+            android:label="每日一词">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/idiom_app_widget_info" />
+        </receiver>
+
     </application>
 
 </manifest>
