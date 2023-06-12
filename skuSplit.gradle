@@ -1,0 +1,64 @@
+/**
+ * 2023-6-12
+ * 拆分SKU
+ * */
+
+buildscript {
+    repositories {
+        mavenCentral()
+        /*maven {
+            url "http://repo.serebryanskiy.site/"
+            allowInsecureProtocol = true
+        }*/
+    }
+    dependencies {
+        // https://mvnrepository.com/artifact/org.apache.poi/poi
+        //classpath 'org.apache.poi:poi:5.2.3'
+        classpath 'org.apache.poi:poi-ooxml:5.2.3'
+        // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+        classpath 'org.apache.logging.log4j:log4j-core:2.20.0'
+    }
+}
+
+task _skuSplit(group: 'angcyo', description: '合并多个Excel文件, 按照对应的列合并到一个Excel文件中') {
+    //配置任务
+}
+
+_skuSplit.doFirst {
+    def workbook = new org.apache.poi.xssf.usermodel.XSSFWorkbook()
+    def sheet = workbook.createSheet("Sheet1")
+
+    def path = file("sku.xlsx")
+    def lines = readExcelLines(path)
+
+    //枚举原始数据
+    lines.eachWithIndex { line, lineIndex ->
+        //订单号
+        def order = line[0]
+        def state = line[1]
+
+        line.subList(2, line.size()).eachWithIndex { value, index ->
+            if (value == null || value.isEmpty() || (lineIndex == 0 && index > 0)) {
+
+            } else {
+                def row = sheet.createRow(sheet.lastRowNum + 1)
+                def cell = row.createCell(0)
+                cell.setCellValue(order)
+
+                cell = row.createCell(1)
+                cell.setCellValue(state)
+
+                cell = row.createCell(2)
+                cell.setCellValue(value)
+            }
+        }
+    }
+
+    //写入到excel文件中
+    def file = file("sku_result.xlsx")
+    file.withOutputStream { outputStream ->
+        workbook.write(outputStream)
+    }
+
+    System.err.println "结果-> ${file.absolutePath}"
+}

@@ -14,6 +14,7 @@ apply from: allGradle.mergeXmlToExcel
 apply from: allGradle.replenishXml
 apply from: allGradle.mergeExcel
 //apply from: allGradle.discardCache
+apply from: allGradle.skuSplit
 
 //apply from: "$gradleHost/master/init.gradle"
 //apply from: "$gradleHost/master/discardCache.gradle" //禁用缓存?
