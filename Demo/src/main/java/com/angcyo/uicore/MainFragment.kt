@@ -39,6 +39,7 @@ import com.angcyo.library.getAppVersionName
 import com.angcyo.library.toastQQ
 import com.angcyo.library.utils.RUtils
 import com.angcyo.library.utils.checkApkExist
+import com.angcyo.server.bindAndServer
 import com.angcyo.uicore.activity.FragmentInFragmentActivity
 import com.angcyo.uicore.activity.NfcHandleActivity
 import com.angcyo.uicore.activity.ViewPager2InFragmentActivity
@@ -46,6 +47,7 @@ import com.angcyo.uicore.activity.ViewPager2InViewPager2Activity
 import com.angcyo.uicore.activity.ViewPagerInFragmentActivity
 import com.angcyo.uicore.activity.ViewPagerInViewPagerActivity
 import com.angcyo.uicore.base.BaseDemoDslFragment
+import com.angcyo.uicore.demo.BuildConfig
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.dslitem.AppMenuFooterItem
 import com.angcyo.uicore.dslitem.AppMenuHeaderItem
@@ -89,6 +91,10 @@ class MainFragment : BaseDemoDslFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         CREATE_COUNT++
+
+        if (BuildConfig.DEBUG) {
+            bindAndServer()
+        }
     }
 
     override fun onDoubleTitleLayout(): Boolean {
