@@ -20,7 +20,7 @@ buildscript {
     }
 }
 
-task _skuSplit(group: 'angcyo', description: '合并多个Excel文件, 按照对应的列合并到一个Excel文件中') {
+task _skuSplit(group: 'angcyo', description: '将sku多列, 拆分成多行') {
     //配置任务
 }
 
