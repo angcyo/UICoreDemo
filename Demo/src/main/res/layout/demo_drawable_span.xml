@@ -63,5 +63,9 @@
             android:background="@color/transparent20"
             android:gravity="top" />
 
+        <com.angcyo.widget.text.RandomTextView
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

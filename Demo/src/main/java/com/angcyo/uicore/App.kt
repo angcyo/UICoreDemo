@@ -19,6 +19,7 @@ import com.angcyo.canvas2.laser.pecker.toRendererList
 import com.angcyo.core.CoreApplication
 import com.angcyo.core.Debug
 import com.angcyo.core.component.ScreenShotModel
+import com.angcyo.core.component.model.DataShareModel
 import com.angcyo.core.fragment.BaseUI
 import com.angcyo.core.viewpager.RFragmentAdapter
 import com.angcyo.core.vmApp
@@ -47,6 +48,7 @@ import com.angcyo.library.isMainProgress
 import com.angcyo.objectbox.DslBox
 import com.angcyo.objectbox.laser.pecker.LPBox
 import com.angcyo.objectbox.laser.pecker.entity.MaterialEntity
+import com.angcyo.quickjs.QuickJSEngine
 import com.angcyo.speech.TTS
 import com.angcyo.tbs.DslTbs
 import com.angcyo.uicore.demo.*
@@ -136,6 +138,11 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
 
         CanvasOpenPreviewActivity.convertElementBeanListToDrawable = {
             it?.toRendererList()?.toDrawable()
+        }
+
+        vmApp<DataShareModel>().activityDispatchTouchEventAction.add {
+            QuickJSEngine.checkTouchScriptRunTip(it)
+            false
         }
     }
 
