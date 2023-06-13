@@ -103,4 +103,7 @@ data class IdiomInfoBean(
     var synonym: String = "",
     /**页面详情*/
     var url: String = "",
+
+    /**时间*/
+    val time: Long = System.currentTimeMillis()
 )

@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.RemoteViews
+import com.angcyo.activity.FragmentWrapActivity
 import com.angcyo.library.L
 import com.angcyo.library.component.DslNotify
 import com.angcyo.library.ex.elseBlank
@@ -68,6 +69,13 @@ class IdiomAppWidgetProvider : AppWidgetProvider() {
                         Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE).apply {
                             putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds)
                         })
+                )
+                setOnClickPendingIntent(
+                    R.id.history_view,
+                    DslNotify.pendingActivity(
+                        context,
+                        FragmentWrapActivity.getIntent(context, IdiomHistoryFragment::class.java)
+                    )
                 )
                 it?.url?.let { url ->
                     setOnClickPendingIntent(
