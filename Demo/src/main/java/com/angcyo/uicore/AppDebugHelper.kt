@@ -3,6 +3,7 @@ package com.angcyo.uicore
 import androidx.fragment.app.FragmentActivity
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
+import com.angcyo.bluetooth.fsc.laserpacker.HawkEngraveKeys
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.core.component.CacheFragment
 import com.angcyo.core.component.model.CacheInfo
@@ -12,7 +13,6 @@ import com.angcyo.core.vmApp
 import com.angcyo.item.component.DebugFragment
 import com.angcyo.laserpacker.LPDataConstant
 import com.angcyo.laserpacker.device.DeviceHelper
-import com.angcyo.bluetooth.fsc.laserpacker.HawkEngraveKeys
 import com.angcyo.laserpacker.device.ble.CommandFragment
 import com.angcyo.laserpacker.device.ble.ConnectFragment
 import com.angcyo.laserpacker.device.ble.TransferDataFragment
@@ -22,7 +22,6 @@ import com.angcyo.library.component.RBackground
 import com.angcyo.library.component.hawk.LibHawkKeys
 import com.angcyo.library.component.hawk.LibLpHawkKeys
 import com.angcyo.library.component.lastContext
-import com.angcyo.library.getAppString
 import com.angcyo.library.utils.Constant
 import com.angcyo.library.utils.appFolderPath
 import com.angcyo.server.DslAndServer
@@ -225,7 +224,13 @@ object AppDebugHelper {
             context.externalCacheDir?.let {
                 addCacheInfo(CacheInfo("外部缓存", null, it.absolutePath))
             }
-            addCacheInfo(CacheInfo("应用数据-请慎重删除", "包含程序运行的一些数据", appFolderPath()))
+            addCacheInfo(
+                CacheInfo(
+                    "应用数据-请慎重删除",
+                    "包含程序运行的一些数据",
+                    appFolderPath()
+                )
+            )
             addCacheInfo(
                 CacheInfo(
                     "网络缓存",
@@ -272,7 +277,13 @@ object AppDebugHelper {
                     appFolderPath(LPDataConstant.VECTOR_FILE_FOLDER)
                 )
             )
-            addCacheInfo(CacheInfo("字体缓存", "导入的自定义字体", FontManager.defaultCustomFontFolder))
+            addCacheInfo(
+                CacheInfo(
+                    "字体缓存",
+                    "导入的自定义字体",
+                    FontManager.defaultCustomFontFolder
+                )
+            )
             /*addCacheInfo(
                 CacheInfo(
                     "LaserPecker外部缓存",
