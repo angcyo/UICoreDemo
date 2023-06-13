@@ -19,7 +19,6 @@ import com.angcyo.canvas2.laser.pecker.toRendererList
 import com.angcyo.core.CoreApplication
 import com.angcyo.core.Debug
 import com.angcyo.core.component.ScreenShotModel
-import com.angcyo.core.component.model.DataShareModel
 import com.angcyo.core.fragment.BaseUI
 import com.angcyo.core.viewpager.RFragmentAdapter
 import com.angcyo.core.vmApp
@@ -140,10 +139,8 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
             it?.toRendererList()?.toDrawable()
         }
 
-        vmApp<DataShareModel>().activityDispatchTouchEventAction.add {
-            QuickJSEngine.checkTouchScriptRunTip(it)
-            false
-        }
+        //js
+        QuickJSEngine.initAndListen()
     }
 
     override fun onCreateMain() {
