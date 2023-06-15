@@ -130,8 +130,6 @@ class MainActivity : BasePermissionsActivity() {
                 )
             }
         }
-
-        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
     override fun onPermissionGranted(savedInstanceState: Bundle?) {

@@ -54,6 +54,7 @@
             android:name="com.angcyo.uicore.SplashActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode|smallestScreenSize"
             android:exported="true"
+            android:forceDarkAllowed="false"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
