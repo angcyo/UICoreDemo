@@ -540,7 +540,23 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                         L.i(
                             EngraveTransitionHelper.transitionToBitmapDithering(
                                 element, transferConfigEntity, TransitionParam(
-                                    isBitmapInvert = false, invert = CLICK_COUNT++ % 2 == 1
+                                    isBitmapInvert = false, invert = CLICK_COUNT++ % 2 == 1,
+                                    useNewDithering = false
+                                )
+                            )
+                        )
+                    }
+                }
+            }
+            addDialogItem {
+                itemText = "转抖动图片-new"
+                itemClick = {
+                    wrapDuration(itemHolder) {
+                        L.i(
+                            EngraveTransitionHelper.transitionToBitmapDithering(
+                                element, transferConfigEntity, TransitionParam(
+                                    isBitmapInvert = false, invert = CLICK_COUNT++ % 2 == 1,
+                                    useNewDithering = true
                                 )
                             )
                         )
