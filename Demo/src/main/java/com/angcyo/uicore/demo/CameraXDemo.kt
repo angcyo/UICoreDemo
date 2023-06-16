@@ -38,7 +38,7 @@ class CameraXDemo : AppDslFragment() {
                 if (it) {
                     _adapter.render {
                         AppCameraViewItem()() {
-                            cameraLifecycleOwner = this@CameraXDemo
+                            itemCameraLifecycleOwner = this@CameraXDemo
                         }
                         
                         DslButtonItem()() {
