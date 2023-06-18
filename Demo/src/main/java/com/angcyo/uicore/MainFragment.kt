@@ -475,6 +475,7 @@ class MainFragment : BaseDemoDslFragment() {
         }
         renderDemoListItem("MagnifierDemo")
         renderDemoListItem("WebViewDemo")
+        renderDemoListItem("CameraXPreviewDemo $GO")
 
         //https://github.com/sinawangnan7/CurrentActivity
         //renderDemoListItem("CurrentActivityDemo $GO")

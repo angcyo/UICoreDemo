@@ -1,7 +1,7 @@
 package com.angcyo.uicore.dslitem
 
 import androidx.camera.view.PreviewView
-import com.angcyo.camerax.dslitem.DslCameraViewHelper
+import com.angcyo.camerax.control.DslCameraViewHelper
 import com.angcyo.camerax.dslitem.DslCameraViewItem
 import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.dsladapter.DslAdapterItem

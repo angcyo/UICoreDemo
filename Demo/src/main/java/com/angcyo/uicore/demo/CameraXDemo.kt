@@ -2,7 +2,7 @@ package com.angcyo.uicore.demo
 
 import android.os.Bundle
 import com.angcyo.base.dslAHelper
-import com.angcyo.camerax.dslitem.DslCameraViewHelper
+import com.angcyo.camerax.control.DslCameraViewHelper
 import com.angcyo.camerax.recordVideoCameraX
 import com.angcyo.dsladapter.renderEmptyItem
 import com.angcyo.dsladapter.updateOrInsertItem

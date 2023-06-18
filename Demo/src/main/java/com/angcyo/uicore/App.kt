@@ -238,10 +238,20 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
     /**
      * 不重写这个, 混淆后, 会崩溃.
      * 参见:[androidx.camera.core.CameraX.getOrCreateInstance]
+     * [androidx.camera.lifecycle.ProcessCameraProvider.getOrCreateCameraXInstance]
+     *
+     * 在此处触发:
+     * [androidx.camera.core.CameraX.CameraX]
+     * [androidx.camera.core.CameraX.getConfigProvider]
+     *
      * @returns Camera2 default configuration
      * */
     override fun getCameraXConfig(): CameraXConfig {
-        return Camera2Config.defaultConfig()
+        return CameraXConfig.Builder.fromConfig(Camera2Config.defaultConfig())
+            //.setCameraExecutor(myExecutor)
+            //.setSchedulerHandler(mySchedulerHandler)
+            .build()
+        //return Camera2Config.defaultConfig()
     }
 
     override fun enablePadAdaptive(): Boolean = true
