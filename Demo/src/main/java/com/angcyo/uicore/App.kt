@@ -23,9 +23,11 @@ import com.angcyo.core.fragment.BaseUI
 import com.angcyo.core.viewpager.RFragmentAdapter
 import com.angcyo.core.vmApp
 import com.angcyo.crash.sight.CrashSight
+import com.angcyo.dialog.other.singleImageDialog
 import com.angcyo.download.DslDownload
 import com.angcyo.http.DslHttp
 import com.angcyo.http.gitee.Gitee
+import com.angcyo.http.rx.doMain
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.item.component.DebugFragment
 import com.angcyo.item.style.itemInfoText
@@ -41,6 +43,7 @@ import com.angcyo.laserpacker.open.CanvasOpenPreviewActivity
 import com.angcyo.laserpacker.project.dslitem.ProjectListItem
 import com.angcyo.library.annotation.CallComplianceAfter
 import com.angcyo.library.component.RBackground
+import com.angcyo.library.component.lastContext
 import com.angcyo.library.component.pad.IPadAdaptive
 import com.angcyo.library.ex.*
 import com.angcyo.library.isMainProgress
@@ -48,6 +51,7 @@ import com.angcyo.objectbox.DslBox
 import com.angcyo.objectbox.laser.pecker.LPBox
 import com.angcyo.objectbox.laser.pecker.entity.MaterialEntity
 import com.angcyo.quickjs.QuickJSEngine
+import com.angcyo.quickjs.api.Api
 import com.angcyo.speech.TTS
 import com.angcyo.tbs.DslTbs
 import com.angcyo.uicore.demo.*
@@ -141,6 +145,15 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
 
         //js
         QuickJSEngine.initAndListen()
+
+        //js api
+        Api.injectApiAction { _, appJs ->
+            appJs.registerJavaMethod({ _, _ ->
+                doMain {
+                    lastContext.singleImageDialog(_drawable(R.drawable.all_in2))
+                }
+            }, "showReceiveCode")
+        }
     }
 
     override fun onCreateMain() {
