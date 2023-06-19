@@ -1,4 +1,5 @@
 //rootProject.name='UICoreDemo'
 apply from: 'UICore/_gradle/includeAllModule.gradle'
 
+//1: 自动设置仓库, include模块
 //apply from: 'https://gitee.com/angcyo/gradle/raw/master/initSettings.gradle'

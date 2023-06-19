@@ -15,6 +15,7 @@ ext {
 }
 apply from: allGradle.app
 
+//3: 自动配置相关参数
 //apply from: "$gradleHost/master/app.gradle"
 
 android {
