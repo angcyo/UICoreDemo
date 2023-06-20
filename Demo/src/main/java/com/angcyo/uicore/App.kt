@@ -1,6 +1,7 @@
 package com.angcyo.uicore
 
 import android.graphics.DashPathEffect
+import android.util.Log
 import androidx.camera.camera2.Camera2Config
 import androidx.camera.core.CameraXConfig
 import androidx.fragment.app.Fragment
@@ -263,6 +264,7 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
         return CameraXConfig.Builder.fromConfig(Camera2Config.defaultConfig())
             //.setCameraExecutor(myExecutor)
             //.setSchedulerHandler(mySchedulerHandler)
+            .setMinimumLoggingLevel(Log.DEBUG)
             .build()
         //return Camera2Config.defaultConfig()
     }
