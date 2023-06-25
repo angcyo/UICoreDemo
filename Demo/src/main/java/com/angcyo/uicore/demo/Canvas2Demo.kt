@@ -18,9 +18,12 @@ import com.angcyo.bluetooth.fsc.laserpacker.DeviceStateModel
 import com.angcyo.bluetooth.fsc.laserpacker.HawkEngraveKeys
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
+import com.angcyo.bluetooth.fsc.laserpacker.command.BytesCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
+import com.angcyo.bluetooth.fsc.laserpacker.command.FactoryCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.FileModeCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.QueryCmd
+import com.angcyo.bluetooth.fsc.laserpacker.command.commandByteWriter
 import com.angcyo.bluetooth.fsc.laserpacker.parse.FileTransferParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryLogParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
@@ -492,6 +495,22 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                         }
                         error?.let { toast(it.message) }
                     }
+                }
+            }
+            addDialogItem {
+                itemText = "无较正范围预览"
+                itemClick = {
+                    FactoryCmd(0x05).enqueue { bean, error ->
+                        error?.let { toast(it.message) }
+                    }
+
+                    /*BytesCmd(commandByteWriter {
+                        write(0x0f)
+                        write(0x05)
+                        write(0, 4)//补齐4个字节
+                    }).enqueue { bean, error ->
+                        error?.let { toast(it.message) }
+                    }*/
                 }
             }
         }
