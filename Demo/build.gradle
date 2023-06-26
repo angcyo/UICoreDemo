@@ -14,6 +14,7 @@ ext {
     apkName = "#an-#vn_#fn_#bn_#ka"
 }
 apply from: allGradle.app
+apply from: allGradle.generate
 
 //3: 自动配置相关参数
 //apply from: "$gradleHost/master/app.gradle"

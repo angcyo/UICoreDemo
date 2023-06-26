@@ -1,0 +1,26 @@
+/**
+ * 2023-6-26
+ * 一键打包
+ * */
+
+task _generate(group: 'angcyo', description: '一键打包') {
+    dependsOn "generateAab"
+    doLast {
+        System.err.println "一键打包完成!"
+    }
+}
+
+/**1: 先构建测试版*/
+task generatePretest() {
+    dependsOn "assemblePrePretest"
+}
+
+/**2: 再构建正式版*/
+task generateRelease() {
+    dependsOn = ["generatePretest", "assembleApkRelease"]
+}
+
+/**3: 最后构建aab*/
+task generateAab() {
+    dependsOn = ["generateRelease", "bundleApkRelease"]
+}
