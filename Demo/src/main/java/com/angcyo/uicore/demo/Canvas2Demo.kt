@@ -22,6 +22,7 @@ import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.FactoryCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.FileModeCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.QueryCmd
+import com.angcyo.bluetooth.fsc.laserpacker.command.toLaserPeckerPower
 import com.angcyo.bluetooth.fsc.laserpacker.parse.FileTransferParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryLogParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
@@ -31,6 +32,7 @@ import com.angcyo.canvas.render.core.CanvasRenderDelegate
 import com.angcyo.canvas.render.core.Reason
 import com.angcyo.canvas2.laser.pecker.IEngraveRenderFragment
 import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
+import com.angcyo.canvas2.laser.pecker.dialog.previewPowerSettingDialog
 import com.angcyo.canvas2.laser.pecker.engrave.BaseFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.EngraveFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.LPEngraveHelper
@@ -457,10 +459,6 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
 
     /**设备指令*/
     private fun showDeviceCommand(itemHolder: DslViewHolder) {
-        val powerMax = 100
-        if (HawkEngraveKeys.lastPower >= powerMax) {
-            HawkEngraveKeys.lastPower = 1
-        }
         fContext().itemsDialog {
             addDialogItem {
                 itemText = "查询设备状态"
@@ -500,6 +498,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     }
                 }
             }
+            //---工厂指令---
             addDialogItem {
                 itemText = "无较正范围预览"
                 itemClick = {
@@ -529,14 +528,14 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
             addDialogItem {
                 itemText = buildString {
                     append("跳至指定AD值[x:$x,y:$y]")
-                    append(" ${HawkEngraveKeys.lastPower}")
+                    append(" ${HawkEngraveKeys.lastPwrProgress.toLaserPeckerPower()}")
                     append(" ${HawkEngraveKeys.lastType.toLaserTypeString(true)}")
                 }
                 itemClick = {
                     FactoryCmd.jumpToAdCmd(
                         x,
                         y,
-                        HawkEngraveKeys.lastPower.toByte(),
+                        HawkEngraveKeys.lastPwrProgress.toLaserPeckerPower(),
                         HawkEngraveKeys.lastType.toByte()
                     ).enqueue { bean, error ->
                         error?.let { toast(it.message) }
@@ -552,27 +551,9 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 }
             }
             addDialogItem {
-                itemText = buildString {
-                    append("激光点预览功率设置")
-                    append(" ${HawkEngraveKeys.lastPower}")
-                    append(" ${HawkEngraveKeys.lastType.toLaserTypeString(true)}")
-                }
+                itemText = "激光点预览功率设置"
                 itemClick = {
-                    val last = HawkEngraveKeys.lastType.toByte()
-                    val type = if (last == LaserPeckerHelper.LASER_TYPE_BLUE) {
-                        LaserPeckerHelper.LASER_TYPE_WHITE
-                    } else {
-                        LaserPeckerHelper.LASER_TYPE_BLUE
-                    }
-                    HawkEngraveKeys.lastType = type.toInt()
-                    var power = HawkEngraveKeys.lastPower + 1
-                    if (power >= powerMax) {
-                        power = 1
-                    }
-                    HawkEngraveKeys.lastPower = power
-                    FactoryCmd.previewPowerSettingCmd(power.toByte(), type).enqueue { bean, error ->
-                        error?.let { toast(it.message) }
-                    }
+                    it.context.previewPowerSettingDialog()
                 }
             }
         }
