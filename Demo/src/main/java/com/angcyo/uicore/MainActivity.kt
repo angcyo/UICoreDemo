@@ -165,7 +165,10 @@ class MainActivity : BasePermissionsActivity() {
     override fun onResume() {
         super.onResume()
         giteeVersionUpdate()
-        L.i("本机ip:${getAppString("local_ip")}")
+        L.i(buildString {
+            append("本机ip:${getAppString("local_ip")}")
+            append(" ${getAppString("versionCode")}/${getAppString("versionName")}")
+        })
         //densityAdapter(750, 2f)
         //densityRestore()
         //densityAdapterFrom(2183)
