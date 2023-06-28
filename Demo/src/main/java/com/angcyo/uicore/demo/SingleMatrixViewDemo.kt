@@ -61,6 +61,7 @@ class SingleMatrixViewDemo : AppDslFragment() {
                 paint.color = Color.RED
                 canSelect = false
             })
+            delegate.showRectBounds()
         }
         delegate.renderManager.rendererList.addAll(elementList)
         delegate.touchManager.touchListenerList.add(
