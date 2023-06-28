@@ -88,7 +88,7 @@
             android:exported="true"
             android:launchMode="singleTask"
             android:resizeableActivity="true"
-            android:rotationAnimation="seamless"
+            android:rotationAnimation="rotate"
             android:screenOrientation="fullUser"
             android:windowSoftInputMode="adjustResize">
 
@@ -151,7 +151,7 @@
             android:exported="true"
             android:launchMode="standard"
             android:noHistory="false"
-            android:rotationAnimation="seamless"
+            android:rotationAnimation="rotate"
             android:screenOrientation="fullSensor"
             android:windowSoftInputMode="adjustResize">
 
