@@ -47,13 +47,17 @@ class SingleMatrixViewDemo : AppDslFragment() {
         var x = gap + size
         for (i in 0..count) {
             elementList.add(PathElement().apply {
-                path.addCircle(x, size + gap, size, Path.Direction.CW)
+                updatePath {
+                    addCircle(x, size + gap, size, Path.Direction.CW)
+                }
             })
             x += size * 2 + gap
         }
         singleMatrixView.post {
             delegate.renderManager.rendererList.add(PathElement().apply {
-                path.addRect(canvasViewBox.renderBounds, Path.Direction.CW)
+                updatePath {
+                    addRect(canvasViewBox.renderBounds, Path.Direction.CW)
+                }
                 paint.color = Color.RED
                 canSelect = false
             })
@@ -76,18 +80,19 @@ class SingleMatrixViewDemo : AppDslFragment() {
                 canvasViewBox.transformToInside(_tempPoint)
                 when (event.actionMasked) {
                     MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
-                        touchElement.path.rewind()
-                        val l = min(canvasViewBox.renderBounds.left, _tempPoint.x)
-                        val t = min(canvasViewBox.renderBounds.top, _tempPoint.y)
-                        val r = max(canvasViewBox.renderBounds.right, _tempPoint.x)
-                        val b = max(canvasViewBox.renderBounds.bottom, _tempPoint.y)
+                        touchElement.updatePath {
+                            val l = min(canvasViewBox.renderBounds.left, _tempPoint.x)
+                            val t = min(canvasViewBox.renderBounds.top, _tempPoint.y)
+                            val r = max(canvasViewBox.renderBounds.right, _tempPoint.x)
+                            val b = max(canvasViewBox.renderBounds.bottom, _tempPoint.y)
 
-                        touchElement.path.moveTo(l, _tempPoint.y)
-                        touchElement.path.lineTo(r, _tempPoint.y)
-                        touchElement.path.moveTo(_tempPoint.x, t)
-                        touchElement.path.lineTo(_tempPoint.x, b)
-                        delegate.renderManager.addRenderer(touchElement)
-                        delegate.refresh()
+                            moveTo(l, _tempPoint.y)
+                            lineTo(r, _tempPoint.y)
+                            moveTo(_tempPoint.x, t)
+                            lineTo(_tempPoint.x, b)
+                            delegate.renderManager.addRenderer(touchElement)
+                            delegate.refresh()
+                        }
                     }
 
                     MotionEvent.ACTION_UP -> {
