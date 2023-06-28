@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.angcyo.library.canvas.SingleMatrixView
+        android:id="@+id/single_matrix_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1" />
+
+    <com.angcyo.widget.text.DslTextView
+        android:id="@+id/lib_result_view"
+        style="@style/LibSubTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/lib_hdpi"
+        app:layout_constraintTop_toBottomOf="@id/single_matrix_view"
+        tools:text="TextTextTextTextTextText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

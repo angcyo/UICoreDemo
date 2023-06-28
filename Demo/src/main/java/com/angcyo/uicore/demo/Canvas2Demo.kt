@@ -29,7 +29,7 @@ import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
 import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasRenderView
 import com.angcyo.canvas.render.core.CanvasRenderDelegate
-import com.angcyo.canvas.render.core.Reason
+import com.angcyo.library.canvas.core.Reason
 import com.angcyo.canvas2.laser.pecker.IEngraveRenderFragment
 import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
 import com.angcyo.canvas2.laser.pecker.dialog.previewPowerSettingDialog
