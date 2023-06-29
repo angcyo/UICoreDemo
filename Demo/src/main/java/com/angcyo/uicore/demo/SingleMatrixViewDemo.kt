@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.MotionEvent
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.library.canvas.SingleMatrixView
-import com.angcyo.library.canvas.core.ElementClickComponent
+import com.angcyo.library.canvas.component.ElementClickComponent
 import com.angcyo.library.canvas.core.ICanvasTouchListener
 import com.angcyo.library.canvas.core.IRenderElement
 import com.angcyo.library.canvas.element.PathElement
