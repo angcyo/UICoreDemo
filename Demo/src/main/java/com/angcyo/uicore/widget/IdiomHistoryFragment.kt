@@ -18,6 +18,7 @@ class IdiomHistoryFragment : BaseDslFragment() {
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
+        IdiomHelper.init()
         loadDataEnd(IdiomHistoryItem::class, IdiomHelper.allIdiomList)
     }
 
