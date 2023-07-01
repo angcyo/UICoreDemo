@@ -6,6 +6,7 @@ import android.graphics.PointF
 import android.os.Bundle
 import android.view.MotionEvent
 import com.angcyo.dsladapter.bindItem
+import com.angcyo.item.DslStepAdjustItem
 import com.angcyo.library.canvas.SingleMatrixView
 import com.angcyo.library.canvas.component.ElementClickComponent
 import com.angcyo.library.canvas.core.ICanvasTouchListener
@@ -30,6 +31,8 @@ class SingleMatrixViewDemo : AppDslFragment() {
                     testCircleElement(this)
                 }
             }
+
+            DslStepAdjustItem()()
         }
     }
 
