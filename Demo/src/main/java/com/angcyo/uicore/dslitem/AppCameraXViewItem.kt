@@ -2,7 +2,7 @@ package com.angcyo.uicore.dslitem
 
 import androidx.camera.view.PreviewView
 import com.angcyo.camerax.control.DslCameraViewHelper
-import com.angcyo.camerax.dslitem.DslCameraViewItem
+import com.angcyo.camerax.dslitem.DslCameraXViewItem
 import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.library.ex.simpleClassName
@@ -19,7 +19,7 @@ import com.angcyo.widget.DslViewHolder
  * @date 2020/02/14
  */
 
-class AppCameraViewItem : DslCameraViewItem() {
+class AppCameraXViewItem : DslCameraXViewItem() {
     init {
         itemLayoutId = R.layout.app_item_camerax_view
     }

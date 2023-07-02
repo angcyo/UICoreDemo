@@ -1,26 +1,12 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
-import com.angcyo.base.dslAHelper
-import com.angcyo.camerax.control.DslCameraViewHelper
-import com.angcyo.camerax.recordVideoCameraX
+import com.angcyo.camerax.dslitem.DslCameraXViewItem
+import com.angcyo.camerax.dslitem.itemCameraLifecycleOwner
 import com.angcyo.dsladapter.renderEmptyItem
-import com.angcyo.dsladapter.updateOrInsertItem
-import com.angcyo.fragment.requestPermissions
-import com.angcyo.item.DslButtonItem
-import com.angcyo.item.DslImageItem
-import com.angcyo.item.DslTextItem
-import com.angcyo.item.style.itemButtonText
-import com.angcyo.item.style.itemLoadUri
-import com.angcyo.item.style.itemText
 import com.angcyo.library.ex.dpi
-import com.angcyo.library.ex.fileSizeString
 import com.angcyo.library.ex.randomColorAlpha
-import com.angcyo.library.ex.toUri
-import com.angcyo.library.toastQQ
-import com.angcyo.pager.dslPager
 import com.angcyo.uicore.base.AppDslFragment
-import com.angcyo.uicore.dslitem.AppCameraViewItem
 
 /**
  *
@@ -31,9 +17,22 @@ import com.angcyo.uicore.dslitem.AppCameraViewItem
 
 class CameraXDemo : AppDslFragment() {
 
+    override fun initBaseView(savedInstanceState: Bundle?) {
+        super.initBaseView(savedInstanceState)
+        renderDslAdapter {
+            DslCameraXViewItem()() {
+                itemCameraLifecycleOwner = this@CameraXDemo
+            }
+
+            for (i in 0..5) {
+                renderEmptyItem(300 * dpi + i * 100 * dpi, randomColorAlpha())
+            }
+        }
+    }
+
     override fun onFragmentFirstShow(bundle: Bundle?) {
         super.onFragmentFirstShow(bundle)
-        _vh.post {
+        /*_vh.post {
             activity?.requestPermissions(DslCameraViewHelper().recordPermissionList) {
                 if (it) {
                     _adapter.render {
@@ -87,6 +86,6 @@ class CameraXDemo : AppDslFragment() {
                     toastQQ("未获取到权限")
                 }
             }
-        }
+        }*/
     }
 }

@@ -85,7 +85,7 @@ class MainFragment : BaseDemoDslFragment() {
 
     init {
         fragmentLayoutId = R.layout.fragment_main
-        goFirst = false
+        goFirst = true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -360,7 +360,7 @@ class MainFragment : BaseDemoDslFragment() {
         renderDemoListItem("DrawableSpanDemo")
         renderDemoListItem("WidgetDemo ArcLoadingView")
         renderDemoListItem("LoadingDemo")
-        renderDemoListItem("LoadingDemo2 $GO")
+        renderDemoListItem("LoadingDemo2")
         renderDemoListItem("HttpDemo")
         renderDemoListItem("WifiP2PDemo")
         renderDemoListItem("UdpDemo")
@@ -379,7 +379,7 @@ class MainFragment : BaseDemoDslFragment() {
         renderDemoListItem("MediaPickerDemo")
         renderDemoListItem("DialogDemo")
         renderDemoListItem("NotifyDemo ContentObserver")
-        renderDemoListItem("CameraXDemo")
+        renderDemoListItem("CameraXDemo $GO")
         renderDemoListItem("StyleDemo ThemeStyledAttributes")
         renderDemoListItem("ShortcutDemo")
         renderDemoListItem("DslDrawItemDecorationDemo")
