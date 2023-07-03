@@ -1,8 +1,8 @@
 package com.angcyo.uicore.dslitem
 
-import androidx.camera.view.PreviewView
-import com.angcyo.camerax.control.DslCameraViewHelper
+import androidx.core.net.toFile
 import com.angcyo.camerax.dslitem.DslCameraXViewItem
+import com.angcyo.camerax.dslitem.itemCaptureToDCIM
 import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.dsladapter.DslAdapterItem
 import com.angcyo.library.ex.simpleClassName
@@ -20,6 +20,7 @@ import com.angcyo.widget.DslViewHolder
  */
 
 class AppCameraXViewItem : DslCameraXViewItem() {
+
     init {
         itemLayoutId = R.layout.app_item_camerax_view
     }
@@ -31,8 +32,11 @@ class AppCameraXViewItem : DslCameraXViewItem() {
         payloads: List<Any>
     ) {
         super.onItemBind(itemHolder, itemPosition, adapterItem, payloads)
+        itemHolder.check(R.id.dcim_cb, true) { buttonView, isChecked ->
+            itemCaptureToDCIM = isChecked
+        }
 
-        val cameraView: PreviewView? = itemHolder.v(R.id.lib_camera_view)
+        /*val cameraView: PreviewView? = itemHolder.v(R.id.lib_camera_view)
 
         val dslCameraViewHelper = DslCameraViewHelper()
         dslCameraViewHelper.cameraView = cameraView
@@ -70,6 +74,29 @@ class AppCameraXViewItem : DslCameraXViewItem() {
 
             itemHolder.postDelay(5_000) {
                 dslCameraViewHelper.stopRecording()
+            }
+        }*/
+
+        //录像
+        itemHolder.click(R.id.do_take_video) {
+            if (startRecordingCamera { uri, exception ->
+                    if (exception == null) {
+                        itemDslAdapter?.changeHeaderItems {
+                            it.add(DslPickerImageItem().apply {
+                                checkModel = false
+                                loaderMedia = LoaderMedia(localPath = uri?.toFile()?.absolutePath)
+                            })
+                        }
+                        toast("$uri")
+                    } else {
+                        toast("${exception.message}")
+                    }
+                }) {
+                toast("开始录像")
+            }
+
+            itemHolder.postDelay(5_000) {
+                stopRecordingCamera()
             }
         }
 
