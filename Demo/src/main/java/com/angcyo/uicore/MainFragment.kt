@@ -85,7 +85,7 @@ class MainFragment : BaseDemoDslFragment() {
 
     init {
         fragmentLayoutId = R.layout.fragment_main
-        goFirst = true
+        goFirst = false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
