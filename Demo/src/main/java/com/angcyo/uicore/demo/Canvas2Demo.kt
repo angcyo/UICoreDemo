@@ -116,26 +116,30 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         super.onCreate(savedInstanceState)
         val deviceStateModel = vmApp<DeviceStateModel>()
         vmApp<FscBleApiModel>().connectDeviceListData.observe {
-            if (!deviceStateModel.isDeviceConnect()) {
-                fragmentTitle = "未连接设备"
-            } else {
-                it?.firstOrNull()?.let { deviceState ->
-                    fragmentTitle = span {
-                        appendLine(DeviceConnectTipActivity.formatDeviceName(deviceState.device.name))
-                        append(deviceState.device.address) {
-                            fontSize = 12 * dpi
+            if (!WifiApiModel.isUseWifiConnect) {
+                if (!deviceStateModel.isDeviceConnect()) {
+                    fragmentTitle = "未连接设备"
+                } else {
+                    it?.firstOrNull()?.let { deviceState ->
+                        fragmentTitle = span {
+                            appendLine(DeviceConnectTipActivity.formatDeviceName(deviceState.device.name))
+                            append(deviceState.device.address) {
+                                fontSize = 12 * dpi
+                            }
                         }
                     }
                 }
             }
         }
         vmApp<WifiApiModel>().tcpStateData.observe {
-            if (!deviceStateModel.isDeviceConnect()) {
-                fragmentTitle = "未连接设备"
-            } else {
-                it?.let { tcpState ->
-                    fragmentTitle = span {
-                        append("${tcpState.tcp.address}:${tcpState.tcp.port}")
+            if (WifiApiModel.isUseWifiConnect) {
+                if (!deviceStateModel.isDeviceConnect()) {
+                    fragmentTitle = "未连接设备"
+                } else {
+                    it?.let { tcpState ->
+                        fragmentTitle = span {
+                            append("${tcpState.tcp.address}:${tcpState.tcp.port}")
+                        }
                     }
                 }
             }
