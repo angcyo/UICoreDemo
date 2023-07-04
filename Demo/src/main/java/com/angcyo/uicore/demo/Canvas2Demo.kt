@@ -13,6 +13,7 @@ import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.IReceiveBeanAction
+import com.angcyo.bluetooth.fsc.WifiApiModel
 import com.angcyo.bluetooth.fsc.enqueue
 import com.angcyo.bluetooth.fsc.laserpacker.DeviceStateModel
 import com.angcyo.bluetooth.fsc.laserpacker.HawkEngraveKeys
@@ -29,7 +30,6 @@ import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
 import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasRenderView
 import com.angcyo.canvas.render.core.CanvasRenderDelegate
-import com.angcyo.library.canvas.core.Reason
 import com.angcyo.canvas2.laser.pecker.IEngraveRenderFragment
 import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
 import com.angcyo.canvas2.laser.pecker.dialog.previewPowerSettingDialog
@@ -72,6 +72,7 @@ import com.angcyo.laserpacker.project.ProjectListFragment
 import com.angcyo.library.L
 import com.angcyo.library.LTime
 import com.angcyo.library.Library.CLICK_COUNT
+import com.angcyo.library.canvas.core.Reason
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component.RBackground
 import com.angcyo.library.component._delay
@@ -113,16 +114,28 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val deviceStateModel = vmApp<DeviceStateModel>()
         vmApp<FscBleApiModel>().connectDeviceListData.observe {
-            if (it.isNullOrEmpty()) {
+            if (!deviceStateModel.isDeviceConnect()) {
                 fragmentTitle = "未连接设备"
             } else {
-                it.first().let { deviceState ->
+                it?.firstOrNull()?.let { deviceState ->
                     fragmentTitle = span {
                         appendLine(DeviceConnectTipActivity.formatDeviceName(deviceState.device.name))
                         append(deviceState.device.address) {
                             fontSize = 12 * dpi
                         }
+                    }
+                }
+            }
+        }
+        vmApp<WifiApiModel>().tcpStateData.observe {
+            if (!deviceStateModel.isDeviceConnect()) {
+                fragmentTitle = "未连接设备"
+            } else {
+                it?.let { tcpState ->
+                    fragmentTitle = span {
+                        append("${tcpState.tcp.address}:${tcpState.tcp.port}")
                     }
                 }
             }
