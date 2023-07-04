@@ -3,8 +3,9 @@ package com.angcyo.uicore.demo
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.camera.view.CameraController
-import androidx.camera.view.LifecycleCameraController
+import androidx.camera.view.DslLifecycleCameraController
 import com.angcyo.base.dslAHelper
+import com.angcyo.camerax.core.BitmapImageAnalysisAnalyzer
 import com.angcyo.camerax.dslitem.itemCameraLifecycleOwner
 import com.angcyo.camerax.dslitem.itemCaptureCameraPhotoAction
 import com.angcyo.camerax.dslitem.itemCaptureToDCIM
@@ -17,6 +18,7 @@ import com.angcyo.item.DslTextItem
 import com.angcyo.item.style.itemButtonText
 import com.angcyo.item.style.itemLoadUri
 import com.angcyo.item.style.itemText
+import com.angcyo.library.L
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.fileSizeString
 import com.angcyo.library.ex.logInfo
@@ -66,9 +68,27 @@ class CameraXDemo : AppDslFragment() {
                     }
                 }
                 initItemCameraControllerIfNeed {
-                    LifecycleCameraController(fContext()).apply {
+                    /*LifecycleCameraController(fContext()).apply {
                         setEnabledUseCases(CameraController.IMAGE_CAPTURE or CameraController.VIDEO_CAPTURE)
                         cameraSelector = cameraItemConfig.itemCameraSelector
+                    }*/
+                    DslLifecycleCameraController(fContext()).apply {
+                        //setEnabledUseCases(CameraController.IMAGE_CAPTURE or CameraController.VIDEO_CAPTURE)
+                        cameraSelector = cameraItemConfig.itemCameraSelector
+
+                        val analyzer = BitmapImageAnalysisAnalyzer(
+                            CameraController.COORDINATE_SYSTEM_VIEW_REFERENCED
+                        ) { imageProxy, bitmap, coordinateMatrix ->
+                            L.i(coordinateMatrix)
+                            imageProxy.close()
+                        }
+
+                        updatePreviewViewTransformList.add {
+                            analyzer.updateTransform(it)
+                        }
+
+                        //image分析
+                        addCameraUseCase(buildBitmapAnalysisUseCase(analyzer = analyzer))
                     }
                 }
             }
