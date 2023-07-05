@@ -10,6 +10,13 @@ task _generate(group: 'angcyo', description: '一键打包') {
     }
 }
 
+task _generateAndUpload(group: 'angcyo', description: '一键打包并上传') {
+    dependsOn "generateUpload"
+    doLast {
+        System.err.println "一键打包并上传!"
+    }
+}
+
 /**1: 先构建测试版*/
 task generatePretest() {
     dependsOn "assemblePrePretest"
@@ -23,4 +30,9 @@ task generateRelease() {
 /**3: 最后构建aab*/
 task generateAab() {
     dependsOn = ["generateRelease", "bundleApkRelease"]
+}
+
+/**4: 上传蒲公英*/
+task generateUpload() {
+    dependsOn = ["generateAab", "_pgyerUpload"]
 }
