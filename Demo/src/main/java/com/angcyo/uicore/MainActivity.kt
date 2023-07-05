@@ -14,6 +14,7 @@ import com.angcyo.haveTargetFragment
 import com.angcyo.library.L
 import com.angcyo.library.component.DslShortcut
 import com.angcyo.library.component.MultiFingeredHelper
+import com.angcyo.library.component.RBackground
 import com.angcyo.library.component.dslShortcut
 import com.angcyo.library.getAppString
 import com.angcyo.library.utils.RUtils
@@ -173,6 +174,9 @@ class MainActivity : BasePermissionsActivity() {
         //densityRestore()
         //densityAdapterFrom(2183)
         BaiduTraceService.start(this, BaiduTraceService.FLAG_RESUME)
+
+        val b1 = RBackground.isCreatedActivity(MainActivity::class)
+        val b2 = RBackground.isLastActivity(MainActivity::class)
 
         try {
             PathTest.test()
