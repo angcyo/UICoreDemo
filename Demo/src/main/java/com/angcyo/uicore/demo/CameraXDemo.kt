@@ -81,6 +81,7 @@ class CameraXDemo : AppDslFragment() {
                         ) { imageProxy, bitmap, coordinateMatrix ->
                             //Matrix{[2.25, 0.0, 0.0][0.0, 2.25, -180.0][0.0, 0.0, 1.0]}
                             L.i(coordinateMatrix)
+                            bitmap.recycle()
                             imageProxy.close()
                         }
 
