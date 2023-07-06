@@ -1,10 +1,12 @@
 package com.angcyo.uicore.dslitem
 
+import android.graphics.ImageFormat
 import androidx.core.net.toFile
 import com.angcyo.camerax.dslitem.DslCameraXViewItem
 import com.angcyo.camerax.dslitem.itemCaptureToDCIM
 import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.dsladapter.DslAdapterItem
+import com.angcyo.library.L
 import com.angcyo.library.ex.decimal
 import com.angcyo.library.ex.simpleClassName
 import com.angcyo.library.model.LoaderMedia
@@ -46,6 +48,8 @@ class AppCameraXViewItem : DslCameraXViewItem() {
             config {
                 onSeekChanged = { value, fraction, fromUser ->
                     setLinerZoomCamera(fraction)
+                    L.i("ImageFormat.YUV_420_888:" + getCameraSupportOutputSizes(ImageFormat.YUV_420_888)?.joinToString())
+                    L.i("ImageFormat.RGB_565:" + getCameraSupportOutputSizes(ImageFormat.RGB_565)?.joinToString())
                 }
             }
         }
