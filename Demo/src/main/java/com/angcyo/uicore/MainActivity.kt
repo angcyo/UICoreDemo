@@ -15,6 +15,7 @@ import com.angcyo.library.L
 import com.angcyo.library.component.DslShortcut
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component.RBackground
+import com.angcyo.library.component.RSoundPool
 import com.angcyo.library.component.dslShortcut
 import com.angcyo.library.getAppString
 import com.angcyo.library.utils.RUtils
@@ -147,6 +148,10 @@ class MainActivity : BasePermissionsActivity() {
         super.onCreate(savedInstanceState)
         BaiduTraceService.start(this, BaiduTraceService.FLAG_START)
         //dslBaiduTrace.startTrace(applicationContext)
+
+        RSoundPool().apply {
+            //playDefaultRingtone(RingtoneManager.TYPE_RINGTONE)
+        }
     }
 
     override fun onStart() {
