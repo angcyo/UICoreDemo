@@ -264,6 +264,7 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
         return CameraXConfig.Builder.fromConfig(Camera2Config.defaultConfig())
             //.setCameraExecutor(myExecutor)
             //.setSchedulerHandler(mySchedulerHandler)
+            //.setAvailableCamerasLimiter()
             .setMinimumLoggingLevel(Log.DEBUG)
             .build()
         //return Camera2Config.defaultConfig()

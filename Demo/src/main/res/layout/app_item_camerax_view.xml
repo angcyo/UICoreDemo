@@ -65,5 +65,11 @@
 
     </com.angcyo.widget.layout.DslFlowLayout>
 
+    <com.angcyo.widget.progress.DslSeekBar
+        android:id="@+id/lib_seek_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:progress_show_text="true"
+        app:progress_value="100" />
 
 </com.angcyo.widget.layout.RConstraintLayout>

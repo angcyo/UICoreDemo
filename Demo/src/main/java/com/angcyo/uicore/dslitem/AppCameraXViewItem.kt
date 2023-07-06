@@ -5,12 +5,14 @@ import com.angcyo.camerax.dslitem.DslCameraXViewItem
 import com.angcyo.camerax.dslitem.itemCaptureToDCIM
 import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.dsladapter.DslAdapterItem
+import com.angcyo.library.ex.decimal
 import com.angcyo.library.ex.simpleClassName
 import com.angcyo.library.model.LoaderMedia
 import com.angcyo.library.toast
 import com.angcyo.picker.dslitem.DslPickerImageItem
 import com.angcyo.uicore.demo.R
 import com.angcyo.widget.DslViewHolder
+import com.angcyo.widget.progress.DslSeekBar
 
 /**
  *
@@ -32,8 +34,20 @@ class AppCameraXViewItem : DslCameraXViewItem() {
         payloads: List<Any>
     ) {
         super.onItemBind(itemHolder, itemPosition, adapterItem, payloads)
+
         itemHolder.check(R.id.dcim_cb, true) { buttonView, isChecked ->
             itemCaptureToDCIM = isChecked
+        }
+
+        itemHolder.v<DslSeekBar>(R.id.lib_seek_view)?.apply {
+            progressTextFormatAction = {
+                it._progressFraction.decimal(1)
+            }
+            config {
+                onSeekChanged = { value, fraction, fromUser ->
+                    setLinerZoomCamera(fraction)
+                }
+            }
         }
 
         /*val cameraView: PreviewView? = itemHolder.v(R.id.lib_camera_view)
