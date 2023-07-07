@@ -2,6 +2,7 @@ package com.angcyo.uicore
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.MotionEvent
@@ -16,7 +17,9 @@ import com.angcyo.library.component.DslShortcut
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component.RBackground
 import com.angcyo.library.component.RSoundPool
+import com.angcyo.library.component._delay
 import com.angcyo.library.component.dslShortcut
+import com.angcyo.library.component.lastContext
 import com.angcyo.library.getAppString
 import com.angcyo.library.utils.RUtils
 import com.angcyo.library.utils.checkApkExist
@@ -24,6 +27,7 @@ import com.angcyo.uicore.activity.NfcInfoDemo
 import com.angcyo.uicore.component.BaiduTraceService
 import com.angcyo.uicore.component.ScreenShotFileObserver
 import com.angcyo.uicore.component.ScreenShotFileObserverManager
+import com.angcyo.uicore.demo.BuildConfig
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.test.HttpTest
 import com.angcyo.uicore.test.PathTest
@@ -187,6 +191,16 @@ class MainActivity : BasePermissionsActivity() {
             PathTest.test()
             HttpTest.test()
             Test.test()
+
+            if (BuildConfig.DEBUG) {
+                val soundPool: RSoundPool = RSoundPool().apply {
+                    init(lastContext)
+                    loadDefaultRingtone(RingtoneManager.TYPE_RINGTONE)
+                }
+                _delay(1000L) {
+                    soundPool.playDefaultRingtone(RingtoneManager.TYPE_RINGTONE)
+                }
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }
