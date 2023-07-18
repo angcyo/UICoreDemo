@@ -426,6 +426,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                         projectName = "save-v1-${nowTimeString()}"
                         L.i(
                             saveProjectV1To(
+                                engraveFlowLayoutHelper.flowTaskId,
                                 _defaultProjectOutputFile("LP-${fileNameTime()}"), renderDelegate!!
                             )
                         )
@@ -442,6 +443,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                         projectName = "save-v2-${nowTimeString()}"
                         L.i(
                             saveProjectV2To(
+                                engraveFlowLayoutHelper.flowTaskId,
                                 _defaultProjectOutputFileV2("LP-${fileNameTime()}"),
                                 renderDelegate!!
                             )
@@ -817,7 +819,10 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         //save
         "CanvasDemo:onDestroyView".writeToLog()
         vmApp<DeviceStateModel>().exitIfNeed()
-        renderLayoutHelper.delegate?.saveProjectStateV2(!RBackground.isBackground())
+        renderLayoutHelper.delegate?.saveProjectStateV2(
+            engraveFlowLayoutHelper.flowTaskId,
+            !RBackground.isBackground()
+        )
         super.onDestroyView()
     }
 
@@ -831,7 +836,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         "CanvasDemo:onSaveInstanceState:$outState".writeToLog()
-        renderDelegate?.saveProjectStateV2(true)
+        renderDelegate?.saveProjectStateV2(engraveFlowLayoutHelper.flowTaskId, true)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -882,7 +887,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     renderLayoutHelper.delegate?.showRectBounds(it, offsetRectTop = true)
                 }
             } else if (to == BaseFlowLayoutHelper.ENGRAVE_FLOW_BEFORE_CONFIG) {
-                renderLayoutHelper.delegate?.saveProjectStateV2()
+                renderLayoutHelper.delegate?.saveProjectStateV2(engraveFlowLayoutHelper.flowTaskId)
             }
         }
 
