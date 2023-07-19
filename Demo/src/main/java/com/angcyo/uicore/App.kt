@@ -166,6 +166,7 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
         DslTbs.init(this)
 
         //fsc
+        FscBleApiModel.NO_BLE
         FscBleApiModel.init()
         vmApp<FscDeviceModel>().initDevice()
 
