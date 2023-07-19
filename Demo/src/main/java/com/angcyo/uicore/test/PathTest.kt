@@ -1,11 +1,15 @@
 package com.angcyo.uicore.test
 
+import android.graphics.Matrix
 import android.graphics.Path
 import android.graphics.PointF
 import android.graphics.RectF
+import com.angcyo.canvas2.laser.pecker.element.LPPathElement
 import com.angcyo.library.L
 import com.angcyo.library.annotation.TestPoint
-import com.angcyo.library.utils.storage.haveSdCardPermission
+import com.angcyo.library.ex.op
+import com.angcyo.library.unit.toPixel
+import com.angcyo.toSVGStrokeContent
 import kotlin.math.atan
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -23,12 +27,54 @@ object PathTest {
         //testMaxRectInOval()
         //testCenterOfCircle()
 
-        val have = haveSdCardPermission()
-        L.i(have)
+        //val have = haveSdCardPermission()
+        //L.i(have)
         /*val def = sdFolderPath()
         val def2 = sdFolderPath("test")
         L.i(def)
         L.i(def2)*/
+
+        testPathOp()
+    }
+
+    /**测试[Path]的op操作*/
+    fun testPathOp() {
+
+        /*val p1 = Path().apply {
+            addCircle(100f, 100f, 100f, Path.Direction.CW)
+        }
+
+        val p2 = Path().apply {
+            addCircle(50f, 50f, 20f, Path.Direction.CW)
+        }*/
+
+        val p1 = Path().apply {
+            val width = LPPathElement.SHAPE_DEFAULT_WIDTH.toPixel()
+            val height = LPPathElement.SHAPE_DEFAULT_HEIGHT.toPixel()
+            addOval(0f, 0f, width, height, Path.Direction.CW)
+            transform(Matrix().apply {
+                setScale(5f, 5f, width / 2f, height / 2f)
+            })
+        }
+
+        val p2 = Path().apply {
+            addOval(-200f, 200f, -50f, -50f, Path.Direction.CW)
+        }
+
+        val list = mutableListOf(p1, p2)
+        val newPathList = list//list.translateToOrigin()!!
+        /*val matrix = Matrix()
+        matrix.setTranslate(1392f, 1390f)
+        matrix.postScale(0.6f, 0.6f)
+        matrix.postRotate(30f)
+        for (path in newPathList) {
+            path.transform(matrix)
+        }*/
+        //val svg = newPathList.op(Path.Op.DIFFERENCE).toSvgPathContent()
+        val svg = newPathList.op(Path.Op.DIFFERENCE).toSVGStrokeContent {
+            it.isSinglePath = true
+        }
+        L.e(svg)
     }
 
     fun testCenterOfCircle() {
