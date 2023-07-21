@@ -229,7 +229,11 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 _delay {
                     renderDelegate?.let { delegate ->
                         when (bean) {
-                            is LPProjectBean -> LPProjectManager().openProjectBean(delegate, bean)
+                            is LPProjectBean -> LPProjectManager().apply {
+                                engraveFlowLayoutHelper.projectBean = bean
+                                openProjectBean(delegate, bean)
+                            }
+
                             is LPElementBean -> LPProjectManager().openElementBean(
                                 delegate,
                                 bean,
