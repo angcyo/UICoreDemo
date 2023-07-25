@@ -16,6 +16,7 @@ import com.angcyo.bluetooth.fsc.laserpacker.parse.toLaserPeckerVersionName
 import com.angcyo.bugly.Bugly
 import com.angcyo.canvas.render.util.toDrawable
 import com.angcyo.canvas2.laser.pecker.dslitem.control.TypefaceItem
+import com.angcyo.canvas2.laser.pecker.engrave.dslitem.preview.GCodeDataOffsetItem
 import com.angcyo.canvas2.laser.pecker.toRendererList
 import com.angcyo.core.CoreApplication
 import com.angcyo.core.Debug
@@ -55,6 +56,7 @@ import com.angcyo.quickjs.QuickJSEngine
 import com.angcyo.quickjs.api.Api
 import com.angcyo.speech.TTS
 import com.angcyo.tbs.DslTbs
+import com.angcyo.tbs.openUrlWithTbs
 import com.angcyo.uicore.demo.*
 import com.angcyo.uicore.demo.draw.DrawTextView
 import com.angcyo.uicore.fragment.RecyclerTextFragment
@@ -142,6 +144,10 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
 
         CanvasOpenPreviewActivity.convertElementBeanListToDrawable = {
             it?.toRendererList()?.toDrawable()
+        }
+
+        GCodeDataOffsetItem.onOpenUrlAction = { url ->
+            openUrlWithTbs(url)
         }
 
         //js
