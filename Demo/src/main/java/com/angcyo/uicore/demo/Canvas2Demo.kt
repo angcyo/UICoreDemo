@@ -91,6 +91,7 @@ import com.angcyo.library.libFolderPath
 import com.angcyo.library.toast
 import com.angcyo.library.toastQQ
 import com.angcyo.library.utils.fileNameTime
+import com.angcyo.objectbox.laser.pecker.entity.EntitySync
 import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
 import com.angcyo.path.toGCodePathContent
 import com.angcyo.path.toSvgPathContent
@@ -428,12 +429,12 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 engraveLoadingAsync({
                     LPProjectManager().apply {
                         projectName = "save-v1-${nowTimeString()}"
-                        L.i(
-                            saveProjectV1To(
-                                engraveFlowLayoutHelper.flowTaskId,
-                                _defaultProjectOutputFile("LP-${fileNameTime()}"), renderDelegate!!
-                            )
+                        val file = saveProjectV1To(
+                            engraveFlowLayoutHelper.flowTaskId,
+                            _defaultProjectOutputFile("LP-${fileNameTime()}"), renderDelegate!!
                         )
+                        L.i(file)
+                        EntitySync.saveProjectSyncEntity(projectName, file?.absolutePath)
                     }
                 }) {
                     it?.let { toastQQ("save success!") }
@@ -445,13 +446,13 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 engraveLoadingAsync({
                     LPProjectManager().apply {
                         projectName = "save-v2-${nowTimeString()}"
-                        L.i(
-                            saveProjectV2To(
-                                engraveFlowLayoutHelper.flowTaskId,
-                                _defaultProjectOutputFileV2("LP-${fileNameTime()}"),
-                                renderDelegate!!
-                            )
+                        val file = saveProjectV2To(
+                            engraveFlowLayoutHelper.flowTaskId,
+                            _defaultProjectOutputFileV2("LP-${fileNameTime()}"),
+                            renderDelegate!!
                         )
+                        L.i(file)
+                        EntitySync.saveProjectSyncEntity(projectName, file?.absolutePath)
                     }
                 }) {
                     it?.let { toastQQ("save success!") }

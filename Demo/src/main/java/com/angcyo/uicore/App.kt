@@ -107,48 +107,7 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
         DslBox.default_package_name = BuildConfig.APPLICATION_ID
         DslBox.init(this, debug = false)
 
-        //LaserPecker
-        LPBox.init(this)
-
-        CanvasOpenModel.OPEN_ACTIVITY_CLASS = MainActivity::class.java
-        //CanvasOpenModel.OPEN_ACTIVITY_FRAGMENT_CLASS = CanvasDemo::class.java
-        CanvasOpenModel.OPEN_ACTIVITY_FRAGMENT_CLASS = Canvas2Demo::class.java
-
-        TypefaceItem.getTypefaceItemSyncStateRes = {
-            if (isDebugType()) {
-                if (it.itemTypefaceInfo?.isCustom == true) {
-                    R.drawable.canvas_synchronized_svg
-                } else {
-                    null
-                }
-            } else {
-                null
-            }
-        }
-
-        ProjectListItem.getProjectListSyncStateRes = {
-            if (isDebugType()) {
-                R.drawable.canvas_synchronized_svg
-            } else {
-                null
-            }
-        }
-
-        MaterialEntity.getMaterialItemSyncStateRes = {
-            if (isDebugType()) {
-                R.drawable.canvas_synchronized_svg
-            } else {
-                null
-            }
-        }
-
-        CanvasOpenPreviewActivity.convertElementBeanListToDrawable = {
-            it?.toRendererList()?.toDrawable()
-        }
-
-        GCodeDataOffsetItem.onOpenUrlAction = { url ->
-            openUrlWithTbs(url)
-        }
+      LPAppHelper.initLPApp(this)
 
         //js
         QuickJSEngine.initAndListen()
