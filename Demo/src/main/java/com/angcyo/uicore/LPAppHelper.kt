@@ -4,13 +4,23 @@ import android.app.Application
 import com.angcyo.canvas.render.util.toDrawable
 import com.angcyo.canvas2.laser.pecker.dslitem.control.TypefaceItem
 import com.angcyo.canvas2.laser.pecker.engrave.dslitem.preview.GCodeDataOffsetItem
+import com.angcyo.canvas2.laser.pecker.manager.LPProjectManager
+import com.angcyo.canvas2.laser.pecker.manager.ShareProjectInfo
 import com.angcyo.canvas2.laser.pecker.toRendererList
+import com.angcyo.laserpacker.LPDataConstant
 import com.angcyo.laserpacker.open.CanvasOpenModel
 import com.angcyo.laserpacker.open.CanvasOpenPreviewActivity
 import com.angcyo.laserpacker.project.dslitem.ProjectListItem
 import com.angcyo.library.annotation.CallPoint
 import com.angcyo.library.component.FontManager
+import com.angcyo.library.ex.file
+import com.angcyo.library.ex.isDebug
 import com.angcyo.library.ex.isDebugType
+import com.angcyo.library.ex.save
+import com.angcyo.library.ex.shareFile
+import com.angcyo.library.ex.toBitmapOfBase64
+import com.angcyo.library.libCacheFile
+import com.angcyo.library.utils.uuid
 import com.angcyo.objectbox.laser.pecker.LPBox
 import com.angcyo.objectbox.laser.pecker.entity.EntitySync
 import com.angcyo.objectbox.laser.pecker.entity.MaterialEntity
@@ -81,6 +91,21 @@ object LPAppHelper {
         }
         FontManager.deleteCustomFontActionList.add {
             EntitySync.deleteFontSyncEntity(it)
+        }
+
+        //分享工程
+        ProjectListItem.onShareProjectAction = {
+            val file = it._filePath?.file()
+            if (isDebug()) {
+                file?.shareFile()
+            } else if (file != null) {
+                val bitmap = it._previewImgBitmap ?: it.preview_img?.toBitmapOfBase64()
+                val previewFile = libCacheFile("${uuid()}${LPDataConstant.EXT_PREVIEW}")
+                bitmap?.save(previewFile)
+                LPProjectManager.onShareProjectAction.invoke(
+                    ShareProjectInfo(null, file, previewFile, it)
+                )
+            }
         }
     }
 }
