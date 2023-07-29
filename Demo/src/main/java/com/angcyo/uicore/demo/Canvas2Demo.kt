@@ -598,13 +598,14 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         fContext().itemsDialog {
             //分辨率dpi
             addItem(TransferDataPxItem().apply {
-                itemPxList = LaserPeckerHelper.findProductSupportPxList()
-                selectorCurrentDpi(transferConfigEntity.dpi)
+                itemPxList = LaserPeckerHelper.findProductLayerSupportPxList()
+                selectorCurrentDpi(transferConfigEntity.getLayerConfigDpi(HawkEngraveKeys.lastLayerId))
                 itemHidden = itemPxList.isNullOrEmpty() //自动隐藏
                 observeItemChange {
                     //保存最后一次选择的dpi
                     val dpi = itemPxList?.get(itemCurrentIndex)?.dpi ?: LaserPeckerHelper.DPI_254
                     transferConfigEntity.dpi = dpi
+                    transferConfigEntity.layerJson = HawkEngraveKeys.lastDpiLayerJson
                 }
             })
             addDialogItem {
