@@ -20,6 +20,7 @@ import com.angcyo.library.component.RSoundPool
 import com.angcyo.library.component._delay
 import com.angcyo.library.component.dslShortcut
 import com.angcyo.library.component.lastContext
+import com.angcyo.library.ex.isBuildDebug
 import com.angcyo.library.getAppString
 import com.angcyo.library.utils.RUtils
 import com.angcyo.library.utils.checkApkExist
@@ -192,7 +193,7 @@ class MainActivity : BasePermissionsActivity() {
             HttpTest.test()
             Test.test()
 
-            if (BuildConfig.DEBUG) {
+            if (BuildConfig.BUILD_TYPE.isBuildDebug()) {
                 val soundPool: RSoundPool = RSoundPool().apply {
                     init(lastContext)
                     loadDefaultRingtone(RingtoneManager.TYPE_RINGTONE)
