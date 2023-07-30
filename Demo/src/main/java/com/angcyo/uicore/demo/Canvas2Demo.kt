@@ -67,6 +67,7 @@ import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
 import com.angcyo.laserpacker.device.ble.EngraveExperimentalFragment
 import com.angcyo.laserpacker.device.engraveLoadingAsync
 import com.angcyo.laserpacker.device.toLaserTypeString
+import com.angcyo.laserpacker.device.wifi.AddWifiDeviceFragment
 import com.angcyo.laserpacker.open.CanvasOpenModel
 import com.angcyo.laserpacker.project.ProjectListFragment
 import com.angcyo.library.L
@@ -303,6 +304,13 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         }
 
         //---
+
+        //配网
+        itemHolder.click(R.id.wifi_button) {
+            dslFHelper {
+                show(AddWifiDeviceFragment::class)
+            }
+        }
 
         //设备指令
         itemHolder.click(R.id.device_command_button) {
