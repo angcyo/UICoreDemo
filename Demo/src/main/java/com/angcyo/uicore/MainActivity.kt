@@ -20,6 +20,7 @@ import com.angcyo.library.component.RSoundPool
 import com.angcyo.library.component._delay
 import com.angcyo.library.component.dslShortcut
 import com.angcyo.library.component.lastContext
+import com.angcyo.library.ex.getWifiSSID
 import com.angcyo.library.ex.isBuildDebug
 import com.angcyo.library.getAppString
 import com.angcyo.library.utils.RUtils
@@ -177,7 +178,8 @@ class MainActivity : BasePermissionsActivity() {
         super.onResume()
         giteeVersionUpdate()
         L.i(buildString {
-            append("本机ip:${getAppString("local_ip")}")
+            append("Wifi:${getWifiSSID()}")
+            append(" 本机ip:${getAppString("local_ip")}")
             append(" ${getAppString("versionCode")}/${getAppString("versionName")}")
         })
         //densityAdapter(750, 2f)
