@@ -5,15 +5,21 @@ import android.text.method.TextKeyListener
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.ReceivePacket
 import com.angcyo.bluetooth.fsc.core.DevicePacketState
+import com.angcyo.bluetooth.fsc.laserpacker.HawkEngraveKeys
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.bluetooth.fsc.laserpacker.command.EngraveCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.EngravePreviewCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.QueryCmd
-import com.angcyo.bluetooth.fsc.laserpacker.parse.*
+import com.angcyo.bluetooth.fsc.laserpacker.parse.EngravePreviewParser
+import com.angcyo.bluetooth.fsc.laserpacker.parse.EngraveReceiveParser
+import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryEngraveFileParser
+import com.angcyo.bluetooth.fsc.laserpacker.parse.QuerySafeCodeParser
+import com.angcyo.bluetooth.fsc.laserpacker.parse.QuerySettingParser
+import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
+import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryVersionParser
 import com.angcyo.core.vmApp
 import com.angcyo.dsladapter.dslItem
 import com.angcyo.dsladapter.isUpdatePart
-import com.angcyo.bluetooth.fsc.laserpacker.HawkEngraveKeys
 import com.angcyo.getParcelable
 import com.angcyo.http.rx.doMain
 import com.angcyo.library.L
@@ -338,7 +344,7 @@ class FscThroughputFragment : AppDslFragment() {
                             fscDevice?.let { device ->
                                 //AT+VER 9.1.1,FSC-BT986 5 2
                                 //fscModel.fscApi.sendATCommand(device.address, setOf("AT+VER"))
-                                fscModel.sendAtCommand("AT+VER") {
+                                fscModel.sendAtCommand("AT+VER") { bean, error ->
                                     L.i(it)
                                 }
                             }

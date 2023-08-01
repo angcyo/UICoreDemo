@@ -600,19 +600,21 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         val transferConfigEntity = TransferConfigEntity().apply {
             taskId = "Test-${nowTimeString()}"
             name = EngraveHelper.generateEngraveName()
-            dpi = LaserPeckerHelper.DPI_254
+            layerJson = HawkEngraveKeys.lastDpiLayerJson
         }
 
         fContext().itemsDialog {
             //分辨率dpi
             addItem(TransferDataPxItem().apply {
-                itemPxList = LaserPeckerHelper.findProductLayerSupportPxList()
+                itemPxList =
+                    LaserPeckerHelper.findProductLayerSupportPxList(HawkEngraveKeys.lastLayerId)
                 selectorCurrentDpi(transferConfigEntity.getLayerConfigDpi(HawkEngraveKeys.lastLayerId))
                 itemHidden = itemPxList.isNullOrEmpty() //自动隐藏
                 observeItemChange {
                     //保存最后一次选择的dpi
                     val dpi = itemPxList?.get(itemCurrentIndex)?.dpi ?: LaserPeckerHelper.DPI_254
-                    transferConfigEntity.dpi = dpi
+                    HawkEngraveKeys.lastDpiLayerJson =
+                        HawkEngraveKeys.getLayerConfigJson(HawkEngraveKeys.lastLayerId, dpi)
                     transferConfigEntity.layerJson = HawkEngraveKeys.lastDpiLayerJson
                 }
             })
