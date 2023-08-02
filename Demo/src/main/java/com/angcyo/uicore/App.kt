@@ -14,10 +14,6 @@ import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
 import com.angcyo.bluetooth.fsc.laserpacker.parse.toLaserPeckerVersionName
 import com.angcyo.bugly.Bugly
-import com.angcyo.canvas.render.util.toDrawable
-import com.angcyo.canvas2.laser.pecker.dslitem.control.TypefaceItem
-import com.angcyo.canvas2.laser.pecker.engrave.dslitem.preview.GCodeDataOffsetItem
-import com.angcyo.canvas2.laser.pecker.toRendererList
 import com.angcyo.core.CoreApplication
 import com.angcyo.core.Debug
 import com.angcyo.core.component.ScreenShotModel
@@ -40,9 +36,6 @@ import com.angcyo.laserpacker.device.ble.ConnectFragment
 import com.angcyo.laserpacker.device.ble.DeviceSettingFragment
 import com.angcyo.laserpacker.device.ble.TransferDataFragment
 import com.angcyo.laserpacker.device.model.FscDeviceModel
-import com.angcyo.laserpacker.open.CanvasOpenModel
-import com.angcyo.laserpacker.open.CanvasOpenPreviewActivity
-import com.angcyo.laserpacker.project.dslitem.ProjectListItem
 import com.angcyo.library.annotation.CallComplianceAfter
 import com.angcyo.library.component.RBackground
 import com.angcyo.library.component.lastContext
@@ -50,13 +43,10 @@ import com.angcyo.library.component.pad.IPadAdaptive
 import com.angcyo.library.ex.*
 import com.angcyo.library.isMainProgress
 import com.angcyo.objectbox.DslBox
-import com.angcyo.objectbox.laser.pecker.LPBox
-import com.angcyo.objectbox.laser.pecker.entity.MaterialEntity
 import com.angcyo.quickjs.QuickJSEngine
 import com.angcyo.quickjs.api.Api
 import com.angcyo.speech.TTS
 import com.angcyo.tbs.DslTbs
-import com.angcyo.tbs.openUrlWithTbs
 import com.angcyo.uicore.demo.*
 import com.angcyo.uicore.demo.draw.DrawTextView
 import com.angcyo.uicore.fragment.RecyclerTextFragment
@@ -107,7 +97,7 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
         DslBox.default_package_name = BuildConfig.APPLICATION_ID
         DslBox.init(this, debug = false)
 
-      LPAppHelper.initLPApp(this)
+        LPAppHelper.initLPApp(this)
 
         //js
         QuickJSEngine.initAndListen()
@@ -131,7 +121,7 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
         DslTbs.init(this)
 
         //fsc
-        FscBleApiModel.NO_BLE
+        //FscBleApiModel.NO_BLE = false //2023-7-31 LP5 使用ble扫描
         FscBleApiModel.init()
         vmApp<FscDeviceModel>().initDevice()
 
