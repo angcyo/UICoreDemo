@@ -118,11 +118,11 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         super.onCreate(savedInstanceState)
         val deviceStateModel = vmApp<DeviceStateModel>()
         vmApp<FscBleApiModel>().connectDeviceListData.observe {
-            if (!WifiApiModel.isUseWifiConnect) {
+            if (it != null) {
                 if (!deviceStateModel.isDeviceConnect()) {
                     fragmentTitle = "未连接设备"
                 } else {
-                    it?.firstOrNull()?.let { deviceState ->
+                    it.firstOrNull()?.let { deviceState ->
                         fragmentTitle = span {
                             appendLine(DeviceConnectTipActivity.formatDeviceName(deviceState.device.name))
                             append(deviceState.device.address) {
@@ -133,14 +133,15 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 }
             }
         }
-        vmApp<WifiApiModel>().tcpStateData.observe {
-            if (WifiApiModel.isUseWifiConnect) {
+        vmApp<WifiApiModel>().tcpStateData.observe { tcpState ->
+            if (tcpState != null) {
                 if (!deviceStateModel.isDeviceConnect()) {
                     fragmentTitle = "未连接设备"
                 } else {
-                    it?.let { tcpState ->
-                        fragmentTitle = span {
-                            append("${tcpState.tcp.address}:${tcpState.tcp.port}")
+                    fragmentTitle = span {
+                        appendLine(DeviceConnectTipActivity.formatDeviceName(tcpState.tcpDevice.deviceName))
+                        append(tcpState.tcpDevice.address) {
+                            fontSize = 12 * dpi
                         }
                     }
                 }
