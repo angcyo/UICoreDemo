@@ -37,7 +37,7 @@ class FscBleApiDemo : AppDslFragment() {
             }
         }
 
-        fscModel.bleDeviceData.observe { device ->
+        fscModel.bleDeviceOnceData.observe { device ->
             device?.let {
                 _adapter.render {
 

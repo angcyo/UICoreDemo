@@ -75,7 +75,7 @@ class FscThroughputFragment : AppDslFragment() {
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
         updateTitle()
-        fscModel.connectStateData.observe {
+        fscModel.connectStateOnceData.observe {
             if (it?.device == fscDevice) {
                 updateTitle()
             }

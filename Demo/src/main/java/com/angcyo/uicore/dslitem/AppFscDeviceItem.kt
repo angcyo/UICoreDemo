@@ -35,7 +35,7 @@ class AppFscDeviceItem : DslAdapterItem(), IFragmentItem {
 
         thisAreItemsTheSame
 
-        fscBleApiModel.connectStateData.observe(this) {
+        fscBleApiModel.connectStateOnceData.observe(this) {
             if (it != null) {
                 if (it.device == fscDevice) {
                     updateAdapterItem()
