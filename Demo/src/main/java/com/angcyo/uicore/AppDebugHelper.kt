@@ -106,14 +106,6 @@ object AppDebugHelper {
         }
 
         DebugFragment.addDebugAction {
-            label = "滑台重复图片间距"
-            des = "为滑台重复图片间距。单位mm,保留一位小数。"
-            key = LibLpHawkKeys::lastSlipSpace.name
-            type = Float::class.java
-            defValue = LibLpHawkKeys.lastSlipSpace
-        }
-
-        DebugFragment.addDebugAction {
             label = "创作功能支持的固件范围"
             des = "格式:x~xx xx~xxx"
             key = LibLpHawkKeys::lpSupportFirmware.name
