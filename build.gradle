@@ -105,13 +105,12 @@ allprojects {
         def osName = os.toLowerCase()
         def userName = System.getProperty("user.name")
         //System.err.println("user:$userName os:$os") //user:angcyo os:Mac OS X //user:angcyo os:Windows 10
-        if (userName == "angcyo" && osName.contains("windows")) {
-            /*if (osName.contains("windows")) {
+        if (userName == "angcyo") {
+            if (osName.contains("windows")) {
                 maven { url "E:/AndroidProjects/maven" }
             } else {
                 maven { url "/Users/angcyo/project/maven/hingin" }
-            }*/
-            maven { url "E:/AndroidProjects/maven" }
+            }
         } else {
             maven { url "https://gitcode.net/angcyo/maven/-/raw/hingin" }
         }
