@@ -39,6 +39,7 @@ import com.angcyo.canvas2.laser.pecker.engrave.LPEngraveHelper
 import com.angcyo.canvas2.laser.pecker.engrave.dslitem.transfer.TransferDataPxItem
 import com.angcyo.canvas2.laser.pecker.engrave.isEngraveFlow
 import com.angcyo.canvas2.laser.pecker.history.EngraveHistoryFragment
+import com.angcyo.canvas2.laser.pecker.manager.FileManagerFragment
 import com.angcyo.canvas2.laser.pecker.manager.LPProjectManager
 import com.angcyo.canvas2.laser.pecker.manager.restoreProjectStateV2
 import com.angcyo.canvas2.laser.pecker.manager.saveProjectStateV2
@@ -69,7 +70,6 @@ import com.angcyo.laserpacker.device.engraveLoadingAsync
 import com.angcyo.laserpacker.device.toLaserTypeString
 import com.angcyo.laserpacker.device.wifi.AddWifiDeviceFragment
 import com.angcyo.laserpacker.open.CanvasOpenModel
-import com.angcyo.laserpacker.project.FileManagerFragment
 import com.angcyo.laserpacker.project.ProjectListFragment
 import com.angcyo.library.L
 import com.angcyo.library.LTime
@@ -177,19 +177,19 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
 
                 //雕刻预览
                 itemHolder.click(R.id.engrave_preview_button) {
-                    engraveFlowLayoutHelper.startPreview(this@Canvas2Demo)
+                    flowLayoutHelper.startPreview(this@Canvas2Demo)
                 }
 
                 //长按预览
                 if (isDebugType()) {
                     itemHolder.longClick(R.id.engrave_preview_button) {
-                        engraveFlowLayoutHelper._startPreview(this@Canvas2Demo)
+                        flowLayoutHelper._startPreview(this@Canvas2Demo)
                     }
                 }
 
                 //雕刻
                 itemHolder.click(R.id.engrave_button) {
-                    if (engraveFlowLayoutHelper.isAttach()) {
+                    if (flowLayoutHelper.isAttach()) {
                         return@click
                     }
                     val list = LPEngraveHelper.getAllValidRendererList(renderDelegate)
@@ -198,18 +198,18 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     } else {
                         renderDelegate?.selectorManager?.resetSelectorRenderer(list, Reason.user)
 
-                        engraveFlowLayoutHelper.engraveFlow =
+                        flowLayoutHelper.engraveFlow =
                             BaseFlowLayoutHelper.ENGRAVE_FLOW_TRANSFER_BEFORE_CONFIG
-                        engraveFlowLayoutHelper.showIn(this@Canvas2Demo)
+                        flowLayoutHelper.showIn(this@Canvas2Demo)
                     }
                 }
 
                 //长按雕刻
                 if (isDebugType()) {
                     itemHolder.longClick(R.id.engrave_button) {
-                        engraveFlowLayoutHelper.engraveFlow =
+                        flowLayoutHelper.engraveFlow =
                             BaseFlowLayoutHelper.ENGRAVE_FLOW_TRANSFER_BEFORE_CONFIG
-                        engraveFlowLayoutHelper.showIn(this@Canvas2Demo)
+                        flowLayoutHelper.showIn(this@Canvas2Demo)
                     }
                 }
 
@@ -234,7 +234,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     renderDelegate?.let { delegate ->
                         when (bean) {
                             is LPProjectBean -> LPProjectManager().apply {
-                                engraveFlowLayoutHelper.projectBean = bean
+                                flowLayoutHelper.projectBean = bean
                                 openProjectBean(delegate, bean)
                             }
 
@@ -255,14 +255,14 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         }
 
         //首次进来, 检查是否要恢复雕刻进度
-        engraveFlowLayoutHelper.laserPeckerModel.initializeData.observe {
+        flowLayoutHelper.laserPeckerModel.initializeData.observe {
             if (it == true) {
-                engraveFlowLayoutHelper.checkRestoreEngrave(this)
-                val deviceState = engraveFlowLayoutHelper.deviceStateModel.deviceStateData.value
+                flowLayoutHelper.checkRestoreEngrave(this)
+                val deviceState = flowLayoutHelper.deviceStateModel.deviceStateData.value
                 if (deviceState != null) {
                     if (deviceState.error == 0) {
                         //无错误
-                        engraveFlowLayoutHelper.deviceStateModel.startLoopCheckState(
+                        flowLayoutHelper.deviceStateModel.startLoopCheckState(
                             !deviceState.isModeIdle(),
                             reason = "恢复雕刻进度"
                         )
@@ -447,7 +447,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     LPProjectManager().apply {
                         projectName = "save-v1-${nowTimeString()}"
                         val file = saveProjectV1To(
-                            engraveFlowLayoutHelper.flowTaskId,
+                            flowLayoutHelper.flowTaskId,
                             _defaultProjectOutputFile("LP-${fileNameTime()}"), renderDelegate!!
                         )
                         L.i(file)
@@ -464,7 +464,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     LPProjectManager().apply {
                         projectName = "save-v2-${nowTimeString()}"
                         val file = saveProjectV2To(
-                            engraveFlowLayoutHelper.flowTaskId,
+                            flowLayoutHelper.flowTaskId,
                             _defaultProjectOutputFileV2("LP-${fileNameTime()}"),
                             renderDelegate!!
                         )
@@ -845,7 +845,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         "CanvasDemo:onDestroyView".writeToLog()
         vmApp<DeviceStateModel>().exitIfNeed()
         renderLayoutHelper.delegate?.saveProjectStateV2(
-            engraveFlowLayoutHelper.flowTaskId,
+            flowLayoutHelper.flowTaskId,
             !RBackground.isBackground()
         )
         super.onDestroyView()
@@ -854,14 +854,14 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     override fun onDestroy() {
         "CanvasDemo:onDestroy".writeToLog()
         super.onDestroy()
-        engraveFlowLayoutHelper.deviceStateModel.startLoopCheckState(false, reason = "界面销毁")
+        flowLayoutHelper.deviceStateModel.startLoopCheckState(false, reason = "界面销毁")
         LPElementHelper.restoreLocation()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         "CanvasDemo:onSaveInstanceState:$outState".writeToLog()
-        renderDelegate?.saveProjectStateV2(engraveFlowLayoutHelper.flowTaskId, true)
+        renderDelegate?.saveProjectStateV2(flowLayoutHelper.flowTaskId, true)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -912,7 +912,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     renderLayoutHelper.delegate?.showRectBounds(it, offsetRectTop = true)
                 }
             } else if (to == BaseFlowLayoutHelper.ENGRAVE_FLOW_BEFORE_CONFIG) {
-                renderLayoutHelper.delegate?.saveProjectStateV2(engraveFlowLayoutHelper.flowTaskId)
+                renderLayoutHelper.delegate?.saveProjectStateV2(flowLayoutHelper.flowTaskId)
             }
         }
 
@@ -941,7 +941,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     override val fragment: AbsLifecycleFragment
         get() = this
 
-    override val engraveFlowLayoutHelper: EngraveFlowLayoutHelper
+    override val flowLayoutHelper: EngraveFlowLayoutHelper
         get() = _engraveFlowLayoutHelper.apply {
             engraveCanvasFragment = this@Canvas2Demo
         }
