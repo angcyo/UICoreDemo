@@ -39,6 +39,11 @@
                 android:layout_height="wrap_content"
                 android:hint="占位2" />
 
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="系统输入控件" />
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
