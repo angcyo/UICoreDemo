@@ -1,7 +1,7 @@
 def release_time = releaseTime()
 
 ext {
-    V_CODE = "1"
+    V_CODE = "2"
     V_NAME = "1.0.0($release_time)"
     APP_NAME = "UICoreDemo"
     schema = "demo"
