@@ -12,6 +12,7 @@ import com.angcyo.library.component.pad.isInPadMode
 import com.angcyo.library.ex._drawable
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.getColor
+import com.angcyo.library.ex.isRtlContext
 import com.angcyo.library.toast
 import com.angcyo.uicore.demo.R
 
@@ -48,10 +49,17 @@ abstract class BaseDemoDslFragment : AppDslFragment() {
         click: ((View) -> Unit)? = null
     ) {
         this + DslTextInfoItem().apply {
-            itemInfoText = "${this@renderDemoListItem.adapterItems.size + 1}.$text"
+            if (isRtlContext) {
+                itemInfoText = "$text.${this@renderDemoListItem.adapterItems.size + 1}"
+                itemDarkIcon = R.drawable.lib_prev
+            } else {
+                itemInfoText = "${this@renderDemoListItem.adapterItems.size + 1}.$text"
+                itemDarkIcon = R.drawable.lib_next
+            }
+
             itemTopInsert = topInsert
             itemInfoIcon = R.drawable.ic_logo_small
-            itemDarkIcon = R.drawable.lib_next
+
             itemDarkIconColor = getColor(R.color.colorPrimaryDark)
 
             itemAnimateRes = R.anim.item_scale_animation
