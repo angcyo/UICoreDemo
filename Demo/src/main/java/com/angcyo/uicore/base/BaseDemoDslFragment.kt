@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.base.dslFHelper
 import com.angcyo.dsladapter.DslAdapter
+import com.angcyo.dsladapter.itemIndexPosition
 import com.angcyo.dsladapter.updateItemSelected
 import com.angcyo.item.DslTextInfoItem
 import com.angcyo.item.style.itemInfoText
+import com.angcyo.library.component.hawk.HawkPropertyValue
 import com.angcyo.library.component.pad.isInPadMode
 import com.angcyo.library.ex._drawable
 import com.angcyo.library.ex.dpi
@@ -27,6 +29,9 @@ abstract class BaseDemoDslFragment : AppDslFragment() {
 
     companion object {
         const val GO = "√"
+
+        /**最后一次点击跳转的位置*/
+        var lastJumpPosition: Int by HawkPropertyValue<Any, Int>(-1)
     }
 
     /**调转首次遇到的[GO], 否则则是最后一次*/
@@ -90,6 +95,7 @@ abstract class BaseDemoDslFragment : AppDslFragment() {
                             start(it)
                         }*/
                         dslFHelper {
+                            lastJumpPosition = itemIndexPosition()
                             if (isInPadMode()) {
                                 configDetailContainer()
                                 removeAll()

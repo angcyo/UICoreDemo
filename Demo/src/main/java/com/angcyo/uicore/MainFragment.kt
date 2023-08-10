@@ -270,9 +270,13 @@ class MainFragment : BaseDemoDslFragment() {
     }
 
     fun _jumpToLockPosition() {
-        if (lockDemoPosition >= 0) {
+        var position = lastJumpPosition
+        if (position < 0) {
+            position = lockDemoPosition
+        }
+        if (position >= 0) {
             _vh.postDelay(300) {
-                _adapter[lockDemoPosition]?.itemClick?.invoke(_vh.itemView)
+                _adapter[position]?.itemClick?.invoke(_vh.itemView)
             }
         }
     }
