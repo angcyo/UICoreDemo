@@ -84,6 +84,11 @@
         style="@style/DefaultButtonMinStyle"
         android:text="browser" />
 
+    <com.angcyo.widget.DslButton
+        android:id="@+id/single_container_button"
+        style="@style/DefaultButtonMinStyle"
+        android:text="简单容器" />
+
     <com.angcyo.widget.text.DslTextView
         android:id="@+id/result_text_view"
         style="@style/LibBodyTextStyle"

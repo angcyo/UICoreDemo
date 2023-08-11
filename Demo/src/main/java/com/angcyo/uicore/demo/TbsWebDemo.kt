@@ -14,6 +14,7 @@ import com.angcyo.dsladapter.renderItem
 import com.angcyo.dsladapter.updateItem
 import com.angcyo.library.ex.*
 import com.angcyo.tbs.open
+import com.angcyo.tbs.openSingle
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.widget.base.clickIt
 import com.angcyo.widget.base.string
@@ -42,6 +43,13 @@ class TbsWebDemo : AppDslFragment() {
                     }
                     itemHolder.click(R.id.browser_button) {
                         itemHolder.tv(R.id.edit_text).string().openCustomTab(requireActivity())
+                    }
+                    itemHolder.click(R.id.single_container_button) {
+                        dslAHelper {
+                            openSingle {
+                                uri = Uri.parse(itemHolder.tv(R.id.edit_text).string())
+                            }
+                        }
                     }
 
                     itemHolder.click(R.id.open_url2) {

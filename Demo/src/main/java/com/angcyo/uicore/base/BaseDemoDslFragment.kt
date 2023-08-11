@@ -11,12 +11,14 @@ import com.angcyo.item.DslTextInfoItem
 import com.angcyo.item.style.itemInfoText
 import com.angcyo.library.component.hawk.HawkPropertyValue
 import com.angcyo.library.component.pad.isInPadMode
+import com.angcyo.library.ex._color
 import com.angcyo.library.ex._drawable
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.getColor
 import com.angcyo.library.ex.isRtlContext
 import com.angcyo.library.toast
 import com.angcyo.uicore.demo.R
+import com.angcyo.widget.span.span
 
 /**
  * 自动识别class, 跳转的demo, list item 界面
@@ -61,10 +63,20 @@ abstract class BaseDemoDslFragment : AppDslFragment() {
             }
 
             if (isRtlContext) {
-                itemInfoText = "$last $text.${this@renderDemoListItem.adapterItems.size + 1}"
+                itemInfoText = span {
+                    append(last) {
+                        foregroundColor = _color(R.color.colorAccent)
+                    }
+                    append(" $text.${this@renderDemoListItem.adapterItems.size + 1}")
+                }
                 itemDarkIcon = R.drawable.lib_prev
             } else {
-                itemInfoText = "${this@renderDemoListItem.adapterItems.size + 1}.$text  $last"
+                itemInfoText = span {
+                    append("${this@renderDemoListItem.adapterItems.size + 1}.$text ")
+                    append(last) {
+                        foregroundColor = _color(R.color.colorAccent)
+                    }
+                }
                 itemDarkIcon = R.drawable.lib_next
             }
 
