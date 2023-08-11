@@ -181,6 +181,14 @@ object AppDebugHelper {
             defValue = HawkEngraveKeys.maxEngraveItemCountLimit
         }
 
+        DebugFragment.addDebugAction {
+            label = "使用调试配置信息"
+            des = "使用调试device_config/setting_config配置信息, 用于测试"
+            key = HawkEngraveKeys::useDebugConfig.name
+            type = Boolean::class.java
+            defValue = HawkEngraveKeys.useDebugConfig
+        }
+
         /*DebugFragment.addDebugAction {
             label = "激活传输数据时的索引检查"
             des = "关闭后,所有数据直接传输,不检查机器是否已存在数据."
