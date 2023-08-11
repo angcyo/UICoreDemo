@@ -35,6 +35,10 @@
         </intent>
     </queries>
 
+    <!--Android 14前台服务权限-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+
     <!--android:requestLegacyExternalStorage="true"-->
     <application
         android:name="com.angcyo.uicore.App"
@@ -80,7 +84,8 @@
         <service
             android:name="com.angcyo.uicore.component.TaskService"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
 
         <activity
             android:name="com.angcyo.uicore.MainActivity"
@@ -118,7 +123,8 @@
 
         <service
             android:name="com.angcyo.uicore.app.AppService"
-            android:exported="false" />
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
 
         <!--快捷方式测试-->
         <activity
@@ -230,6 +236,7 @@
             android:name="com.angcyo.core.component.accessibility.RAccessibilityService"
             android:enabled="true"
             android:exported="true"
+            android:foregroundServiceType="dataSync"
             tools:replace="android:enabled,android:exported" />
 
         <!--NFC-->
@@ -292,17 +299,20 @@
         <service
             android:name=".ipc.BinderService"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
 
         <service
             android:name="com.angcyo.uicore.component.BaiduTraceService"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="false"
+            android:foregroundServiceType="location" />
 
         <service
             android:name=".service.CurrentActivityService"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
 
         <!--2023-04-09 发送文件到服务器-->
         <activity
