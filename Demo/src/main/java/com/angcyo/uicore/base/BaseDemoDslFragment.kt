@@ -54,11 +54,17 @@ abstract class BaseDemoDslFragment : AppDslFragment() {
         click: ((View) -> Unit)? = null
     ) {
         this + DslTextInfoItem().apply {
+            val last = if (adapterItems.size == lastJumpPosition) {
+                "last"
+            } else {
+                ""
+            }
+
             if (isRtlContext) {
-                itemInfoText = "$text.${this@renderDemoListItem.adapterItems.size + 1}"
+                itemInfoText = "$last $text.${this@renderDemoListItem.adapterItems.size + 1}"
                 itemDarkIcon = R.drawable.lib_prev
             } else {
-                itemInfoText = "${this@renderDemoListItem.adapterItems.size + 1}.$text"
+                itemInfoText = "${this@renderDemoListItem.adapterItems.size + 1}.$text  $last"
                 itemDarkIcon = R.drawable.lib_next
             }
 
