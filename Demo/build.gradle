@@ -20,6 +20,7 @@ apply from: allGradle.generate
 //apply from: "$gradleHost/master/app.gradle"
 
 android {
+
     defaultConfig {
         ndk {
             // 设置支持的SO库架构

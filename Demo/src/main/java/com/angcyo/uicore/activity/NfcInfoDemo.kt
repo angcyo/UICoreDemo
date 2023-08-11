@@ -6,6 +6,7 @@ import android.nfc.NdefMessage
 import android.nfc.NdefRecord
 import android.nfc.NfcAdapter
 import android.nfc.NfcEvent
+import android.os.Build
 import android.os.Bundle
 import com.angcyo.dsladapter.dslItem
 import com.angcyo.getOriginIntent
@@ -38,7 +39,10 @@ class NfcInfoDemo : AppDslFragment(), NfcAdapter.CreateNdefMessageCallback {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (RNfc.isNfcEnable()) {
-            RNfc.nfcAdapter?.setNdefPushMessageCallback(this, requireActivity())
+            if (Build.VERSION.SDK_INT >= 34) {
+            } else {
+                //RNfc.nfcAdapter?.setNdefPushMessageCallback(this, requireActivity())
+            }
         }
     }
 
@@ -109,10 +113,11 @@ class NfcInfoDemo : AppDslFragment(), NfcAdapter.CreateNdefMessageCallback {
                     }
 
                     itemHolder.click(R.id.message_button) {
-                        RNfc.nfcAdapter?.setNdefPushMessage(
+                        toastQQ("不支持在api 34中")
+                        /*RNfc.nfcAdapter?.setNdefPushMessage(
                             ndefMessage("button"),
                             requireActivity()
-                        )
+                        )*/
                     }
 
                     itemHolder.click(R.id.close_dispatch_button) {
