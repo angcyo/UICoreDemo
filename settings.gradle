@@ -1,3 +1,77 @@
+if (gradle.gradleVersion.charAt(0) >= '8') {
+    pluginManagement {
+        repositories {
+            google()
+            mavenCentral()
+            gradlePluginPortal()
+        }
+    }
+    dependencyResolutionManagement {
+        repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+        repositories {
+            google()
+            mavenCentral()
+
+            maven { url 'https://jcenter.bintray.com' }
+
+            //maven { url 'https://maven.aliyun.com/repository/public' }
+            //maven { url 'https://maven.aliyun.com/repository/google' }
+            //maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+
+            //println google().url
+            //println mavenCentral().url
+            //maven { url 'https://maven.google.com' }
+
+            maven { url 'https://jitpack.io' }
+
+            //angcyo
+            //maven { url "https://gitee.com/angcyo/maven/raw/master" }
+            //maven { url "https://codechina.csdn.net/angcyo/maven/-/raw/master" }
+            //maven { url "https://gitlab.com/angcyo/maven/-/raw/master" }
+            //maven { url file('E:/AndroidProjects/maven') }
+            //maven { url "https://gitcode.net/angcyo/maven/-/raw/master" }
+            //maven { url "https://gitcode.net/angcyo/maven/-/raw/hingin" }
+
+            def os = System.getProperty("os.name")
+            def osName = os.toLowerCase()
+            def userName = System.getProperty("user.name")
+            //System.err.println("user:$userName os:$os") //user:angcyo os:Mac OS X //user:angcyo os:Windows 10
+            if (userName == "angcyo") {
+                if (osName.contains("windows")) {
+                    maven { url "E:/AndroidProjects/maven" }
+                } else {
+                    maven { url "/Users/angcyo/project/maven/hingin" }
+                }
+            } else {
+                maven { url "https://gitcode.net/angcyo/maven/-/raw/hingin" }
+            }
+
+            //umeng/Luban
+            maven { url 'https://repo1.maven.org/maven2/' }
+            //maven { url 'http://dl.bintray.com/umsdk/release' }
+
+            //huawei
+            maven { url 'https://developer.huawei.com/repo/' }
+
+            //RePlugin https://github.com/Qihoo360/RePlugin/
+            maven {
+                url "http://maven.geelib.360.cn/nexus/service/rest/repository/browse/replugin/"
+                allowInsecureProtocol = true
+            }
+
+            //bmob
+            //maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
+            //maven { url "https://gitee.com/angcyo/bmob-android-sdk/raw/master" }
+            //maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
+            //maven { url "https://gitee.com/angcyo/bmob-android-sdk/raw/master" }
+            maven { url 'https://dl.bintray.com/chaozhouzhang/maven' }
+
+            //本地仓库依赖
+            //maven { url = 'E:/maven' /*'E:/AndroidProjects/maven'}*/ }
+        }
+    }
+}
+
 //rootProject.name='UICoreDemo'
 apply from: 'UICore/_gradle/includeAllModule.gradle'
 

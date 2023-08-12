@@ -36,6 +36,9 @@ android {
         //resValue "string", "base_api", '"http://121.36.149.100:9009/pecker-web"'
         //resValue "string", "custom_urls", '"测试 http://121.36.149.100:9009/pecker-web;正式 https://server.hingin.com/pecker-web"'
     }
+    buildFeatures {
+        aidl true
+    }
     /*splits {
         abi {
             reset()
