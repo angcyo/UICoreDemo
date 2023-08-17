@@ -4,8 +4,10 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Matrix
+import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import androidx.core.graphics.withMatrix
 import androidx.core.graphics.withTranslation
@@ -32,6 +34,23 @@ class CurveTextView(context: Context, attributeSet: AttributeSet? = null) :
         color = Color.GREEN
     }
     val text = "测试文本\nangcyo"
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        event?.apply {
+            when (actionMasked) {
+                MotionEvent.ACTION_DOWN -> {
+                    if (textPaint.style == Paint.Style.STROKE) {
+                        textPaint.style = Paint.Style.FILL
+                    } else {
+                        textPaint.style = Paint.Style.STROKE
+                    }
+                    invalidate()
+                    return true
+                }
+            }
+        }
+        return super.onTouchEvent(event)
+    }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
