@@ -8,11 +8,8 @@ import android.graphics.Path
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
-import androidx.core.graphics.withTranslation
-import com.angcyo.canvas.render.element.CurveTextDraw
 import com.angcyo.library.ex.createPaint
 import com.angcyo.library.ex.dp
-import com.angcyo.library.ex.textBounds
 import com.angcyo.library.ex.textHeight
 import com.angcyo.library.ex.textWidth
 import kotlin.math.absoluteValue
@@ -77,7 +74,7 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
 
     fun testTextOnPath(canvas: Canvas) {
         //曲度占用整个圆度数的比例
-        val fraction = curvature / 360f
+        /*val fraction = curvature / 360f
         if (fraction == 0f) {
         } else {
             //文本宽度
@@ -133,7 +130,7 @@ class DrawTextView(context: Context, attributeSet: AttributeSet? = null) :
                     paint
                 )
             }
-        }
+        }*/
     }
 
     fun test2(canvas: Canvas) {
