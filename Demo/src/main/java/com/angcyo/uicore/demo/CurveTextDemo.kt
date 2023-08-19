@@ -31,6 +31,17 @@ class CurveTextDemo : AppDslFragment() {
                             }
                         }
                     }
+                    itemHolder.v<DslSeekBar>(R.id.seek_bar2)?.apply {
+                        progressTextFormatAction = {
+                            "${progressValue.toInt()}"
+                        }
+                        config {
+                            onSeekChanged = { value, fraction, fromUser ->
+                                curveTextView?.curve = value
+                                curveTextView?.invalidate()
+                            }
+                        }
+                    }
                 }
             }
         }

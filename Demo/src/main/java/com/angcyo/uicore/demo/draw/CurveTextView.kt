@@ -11,6 +11,8 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.core.graphics.withMatrix
 import androidx.core.graphics.withTranslation
+import com.angcyo.canvas.render.data.CharDrawInfo
+import com.angcyo.canvas.render.element.CurveTextDraw
 import com.angcyo.library.ex.createPaint
 import com.angcyo.library.ex.createTextPaint
 import com.angcyo.library.ex.dp
@@ -28,21 +30,30 @@ class CurveTextView(context: Context, attributeSet: AttributeSet? = null) :
 
     val textPaint = createTextPaint().apply {
         textSize = 16 * dp
+        style = Paint.Style.STROKE
     }
     val borderPaint = createPaint().apply {
         strokeWidth = 1 * dp
         color = Color.GREEN
     }
-    val text = "测试文本\nangcyo"
+    val text1 = "测试文本\nangcyoo"
+    val text2 = "测试文本\nangcyoo angcyo"
+
+    var testText = text1
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         event?.apply {
             when (actionMasked) {
                 MotionEvent.ACTION_DOWN -> {
-                    if (textPaint.style == Paint.Style.STROKE) {
+                    /*if (textPaint.style == Paint.Style.STROKE) {
                         textPaint.style = Paint.Style.FILL
                     } else {
                         textPaint.style = Paint.Style.STROKE
+                    }*/
+                    testText = if (testText == text1) {
+                        text2
+                    } else {
+                        text1
                     }
                     invalidate()
                     return true
@@ -56,18 +67,28 @@ class CurveTextView(context: Context, attributeSet: AttributeSet? = null) :
         super.onDraw(canvas)
         val tx = measuredWidth / 2f
         val ty = measuredHeight / 2f
-        canvas.withTranslation(tx, ty) {
-            drawLine(-measuredWidth + 0f, 0f, measuredWidth + 0f, 0f, textPaint)
-            drawLine(0f, -measuredHeight + 0f, 0f, measuredHeight + 0f, textPaint)
+        /*canvas.withTranslation(tx / 2, ty / 2) {
+            drawLine(0f, 0f)
 
             //drawNormalText(this)
             drawCurveText(this)
             measureCurveText(this)
+        }*/
+
+        canvas.withTranslation(tx / 2, ty / 2) {
+            drawLine(0f, 0f)
+
+            drawCurveText2(this)
         }
     }
 
+    private fun Canvas.drawLine(x: Float, y: Float, paint: Paint = borderPaint) {
+        drawLine(-measuredWidth + x, y, measuredWidth + x, y, paint)
+        drawLine(x, -measuredHeight + y, x, measuredHeight + y, paint)
+    }
+
     private fun drawNormalText(canvas: Canvas) {
-        val list = text.lines()
+        val list = testText.lines()
         var top = 0f
         list.forEach {
             top -= textPaint.textHeight()
@@ -100,7 +121,7 @@ class CurveTextView(context: Context, attributeSet: AttributeSet? = null) :
         get() = 270f - curve / 2
 
     private fun drawCurveText(canvas: Canvas) {
-        val list = text.lines()
+        val list = testText.lines()
         var top = 0f
         var textMaxWidth = 0f
         var textMaxHeight = 0f
@@ -157,7 +178,7 @@ class CurveTextView(context: Context, attributeSet: AttributeSet? = null) :
     }
 
     private fun measureCurveText(canvas: Canvas) {
-        val list = text.lines()
+        val list = testText.lines()
         var top = 0f
         var textMaxWidth = 0f
         var textMaxHeight = 0f
@@ -208,8 +229,8 @@ class CurveTextView(context: Context, attributeSet: AttributeSet? = null) :
 
         var minLeft = Float.MAX_VALUE
         var minTop = Float.MAX_VALUE
-        var maxRight = Float.MIN_VALUE
-        var maxBottom = Float.MIN_VALUE
+        var maxRight = -minLeft
+        var maxBottom = -minTop
 
         rectList.forEach { lineRectList ->
             lineRectList.forEach { rect ->
@@ -226,4 +247,86 @@ class CurveTextView(context: Context, attributeSet: AttributeSet? = null) :
         canvas.drawRect(textBoundsRect, borderPaint)
     }
 
+    private fun drawCurveText2(canvas: Canvas) {
+        CurveTextDraw.create(getCharDrawInfoList(), curve).apply {
+            canvas.drawLine(curveCx, curveCy, borderPaint)
+            draw(canvas, textPaint)
+            //绘制文本的边界, 这个边界有误差
+            //canvas.drawRect(curveOutlineBounds, borderPaint)
+            //curveOutlineBounds.offsetTo(0f, curveOutlineBounds.top)
+            canvas.drawRect(0f, 0f, curveTextWidth, curveTextHeight, borderPaint)
+            canvas.drawCircle(curveCx, curveCy, innerRadius, borderPaint)
+        }
+    }
+
+    //每行的文本宽度列表
+    private val _textWidthList = mutableListOf<Float>()
+
+    //每行的文本高度列表
+    private val _textHeightList = mutableListOf<Float>()
+
+    private var textMaxWidth = 0f
+    private var textMaxHeight = 0f
+
+    private fun measureTextWidth(text: String): Float {
+        return textPaint.textWidth(text)
+    }
+
+    private fun measureTextHeight(text: String): Float {
+        //textPaint.textBoundsHeight(text)
+        return textPaint.textHeight()
+    }
+
+    private fun getCharDrawInfoList(): List<CharDrawInfo> {
+        val list = testText.lines()
+
+        list.forEach { line ->
+            val lineTextWidth = measureTextWidth(line)
+            val lineTextHeight = measureTextHeight(line)
+
+            _textWidthList.add(lineTextWidth)
+            _textHeightList.add(lineTextHeight)
+
+            textMaxWidth = max(textMaxWidth, lineTextWidth)
+            textMaxHeight = max(textMaxHeight, lineTextHeight)
+        }
+
+        val result = mutableListOf<CharDrawInfo>()
+
+        var top = 0f
+        list.forEachIndexed { lineIndex, line ->
+            val lineTextWidth = _textWidthList[lineIndex]
+            val lineTextHeight = _textHeightList[lineIndex]
+
+            var left = 0f
+            line.forEachIndexed { columnIndex, char ->
+                val text = char.toStr()
+                val textWidth = measureTextWidth(text)
+                val textHeight = measureTextHeight(text)
+
+                val textRect = RectF()
+                textRect.set(left, top, left + textWidth, top + lineTextHeight)
+                result.add(
+                    CharDrawInfo(
+                        text,
+                        textWidth,
+                        textHeight,
+                        textRect,
+                        0f,
+                        0f,
+                        columnIndex,
+                        lineIndex,
+                        lineTextWidth,
+                        lineTextHeight,
+                        textPaint.descent()
+                    )
+                )
+
+                left += textWidth
+            }
+            top += lineTextHeight
+        }
+
+        return result
+    }
 }

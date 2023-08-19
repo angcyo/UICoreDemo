@@ -13,10 +13,21 @@
         android:id="@+id/seek_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/lib_xhdpi"
+        android:paddingLeft="@dimen/lib_xxhdpi"
+        android:paddingRight="@dimen/lib_xxhdpi"
+        app:layout_constraintBottom_toTopOf="@id/seek_bar2"
+        app:progress_max_value="360"
+        app:progress_min_value="0" />
+
+    <com.angcyo.widget.progress.DslSeekBar
+        android:id="@+id/seek_bar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:paddingLeft="@dimen/lib_xxhdpi"
         android:paddingRight="@dimen/lib_xxhdpi"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:progress_max_value="360"
-        app:progress_min_value="0" />
+        app:progress_max_value="0"
+        app:progress_min_value="-360" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
