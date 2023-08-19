@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.Paint
+import android.graphics.Path
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.MotionEvent
@@ -14,6 +15,7 @@ import androidx.core.graphics.withMatrix
 import androidx.core.graphics.withTranslation
 import com.angcyo.canvas.render.data.CharDrawInfo
 import com.angcyo.canvas.render.element.CurveTextDraw
+import com.angcyo.library.ex.addFillArc
 import com.angcyo.library.ex.createPaint
 import com.angcyo.library.ex.createTextPaint
 import com.angcyo.library.ex.dp
@@ -43,6 +45,7 @@ class CurveTextView(context: Context, attributeSet: AttributeSet? = null) :
     }
     val text1 = "测试文本\nangcyoo"
     val text2 = "测试文本\nangcyoo angcyo"
+    val text3 = "abc\nangcyoo"
 
     var testText = text1
 
@@ -57,10 +60,10 @@ class CurveTextView(context: Context, attributeSet: AttributeSet? = null) :
                     } else {
                         textPaint.style = Paint.Style.STROKE
                     }*/
-                    testText = if (testText == text1) {
-                        text2
-                    } else {
-                        text1
+                    testText = when (testText) {
+                        text1 -> text2
+                        text2 -> text3
+                        else -> text1
                     }
                     invalidate()
                     return true
@@ -81,6 +84,11 @@ class CurveTextView(context: Context, attributeSet: AttributeSet? = null) :
             drawCurveText(this)
             measureCurveText(this)
         }*/
+
+        Path().apply {
+            addFillArc(10f, 100f, 100f, 50f, 245f, 90f)
+            canvas.drawPath(this, borderPaint)
+        }
 
         canvas.withTranslation(tx / 2, ty / 2) {
             drawLine(0f, 0f)
@@ -324,6 +332,7 @@ class CurveTextView(context: Context, attributeSet: AttributeSet? = null) :
                             0f,
                             columnIndex,
                             lineIndex,
+                            orientation,
                             lineTextWidth,
                             lineTextHeight,
                             textPaint.descent()
@@ -358,6 +367,7 @@ class CurveTextView(context: Context, attributeSet: AttributeSet? = null) :
                             0f,
                             columnIndex,
                             lineIndex,
+                            orientation,
                             lineTextWidth,
                             lineTextHeight,
                             textPaint.descent()
