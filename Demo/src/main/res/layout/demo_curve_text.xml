@@ -9,6 +9,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <com.angcyo.tablayout.DslTabLayout
+        android:id="@+id/lib_tab_layout"
+        style="@style/LibTabSegmentSolidStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/lib_xhdpi"
+        app:layout_constraintBottom_toTopOf="@id/seek_bar"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/lib_hdpi"
+            android:text="横向" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/LibBodyTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/lib_hdpi"
+            android:text="纵向" />
+
+    </com.angcyo.tablayout.DslTabLayout>
+
     <com.angcyo.widget.progress.DslSeekBar
         android:id="@+id/seek_bar"
         android:layout_width="match_parent"
@@ -18,7 +43,8 @@
         android:paddingRight="@dimen/lib_xxhdpi"
         app:layout_constraintBottom_toTopOf="@id/seek_bar2"
         app:progress_max_value="360"
-        app:progress_min_value="0" />
+        app:progress_min_value="0"
+        app:progress_show_text="true" />
 
     <com.angcyo.widget.progress.DslSeekBar
         android:id="@+id/seek_bar2"
@@ -28,6 +54,7 @@
         android:paddingRight="@dimen/lib_xxhdpi"
         app:layout_constraintBottom_toBottomOf="parent"
         app:progress_max_value="0"
-        app:progress_min_value="-360" />
+        app:progress_min_value="-360"
+        app:progress_show_text="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

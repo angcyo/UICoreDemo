@@ -1,10 +1,12 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import android.widget.LinearLayout
 import com.angcyo.dsladapter.renderItem
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.demo.draw.CurveTextView
 import com.angcyo.widget.progress.DslSeekBar
+import com.angcyo.widget.tab
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
@@ -40,6 +42,14 @@ class CurveTextDemo : AppDslFragment() {
                                 curveTextView?.curve = value
                                 curveTextView?.invalidate()
                             }
+                        }
+                    }
+                    itemHolder.tab(R.id.lib_tab_layout)?.configTabLayoutConfig {
+                        onSelectIndexChange = { fromIndex, selectIndexList, reselect, fromUser ->
+                            val toIndex = selectIndexList.firstOrNull() ?: 0
+                            curveTextView?.orientation =
+                                if (toIndex == 1) LinearLayout.VERTICAL else LinearLayout.HORIZONTAL
+                            curveTextView?.invalidate()
                         }
                     }
                 }

@@ -9,6 +9,7 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import android.widget.LinearLayout
 import androidx.core.graphics.withMatrix
 import androidx.core.graphics.withTranslation
 import com.angcyo.canvas.render.data.CharDrawInfo
@@ -32,6 +33,10 @@ class CurveTextView(context: Context, attributeSet: AttributeSet? = null) :
         textSize = 16 * dp
         style = Paint.Style.STROKE
     }
+    val linePaint = createPaint().apply {
+        strokeWidth = 1 * dp
+        color = Color.BLUE
+    }
     val borderPaint = createPaint().apply {
         strokeWidth = 1 * dp
         color = Color.GREEN
@@ -40,6 +45,8 @@ class CurveTextView(context: Context, attributeSet: AttributeSet? = null) :
     val text2 = "测试文本\nangcyoo angcyo"
 
     var testText = text1
+
+    var orientation = LinearLayout.HORIZONTAL
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         event?.apply {
@@ -82,7 +89,7 @@ class CurveTextView(context: Context, attributeSet: AttributeSet? = null) :
         }
     }
 
-    private fun Canvas.drawLine(x: Float, y: Float, paint: Paint = borderPaint) {
+    private fun Canvas.drawLine(x: Float, y: Float, paint: Paint = linePaint) {
         drawLine(-measuredWidth + x, y, measuredWidth + x, y, paint)
         drawLine(x, -measuredHeight + y, x, measuredHeight + y, paint)
     }
@@ -293,38 +300,74 @@ class CurveTextView(context: Context, attributeSet: AttributeSet? = null) :
 
         val result = mutableListOf<CharDrawInfo>()
 
-        var top = 0f
-        list.forEachIndexed { lineIndex, line ->
-            val lineTextWidth = _textWidthList[lineIndex]
-            val lineTextHeight = _textHeightList[lineIndex]
+        if (orientation == LinearLayout.HORIZONTAL) {
+            var top = 0f
+            list.forEachIndexed { lineIndex, line ->
+                val lineTextWidth = _textWidthList[lineIndex]
+                val lineTextHeight = _textHeightList[lineIndex]
 
-            var left = 0f
-            line.forEachIndexed { columnIndex, char ->
-                val text = char.toStr()
-                val textWidth = measureTextWidth(text)
-                val textHeight = measureTextHeight(text)
+                var left = 0f
+                line.forEachIndexed { columnIndex, char ->
+                    val text = char.toStr()
+                    val textWidth = measureTextWidth(text)
+                    val textHeight = measureTextHeight(text)
 
-                val textRect = RectF()
-                textRect.set(left, top, left + textWidth, top + lineTextHeight)
-                result.add(
-                    CharDrawInfo(
-                        text,
-                        textWidth,
-                        textHeight,
-                        textRect,
-                        0f,
-                        0f,
-                        columnIndex,
-                        lineIndex,
-                        lineTextWidth,
-                        lineTextHeight,
-                        textPaint.descent()
+                    val textRect = RectF()
+                    textRect.set(left, top, left + textWidth, top + lineTextHeight)
+                    result.add(
+                        CharDrawInfo(
+                            text,
+                            textWidth,
+                            textHeight,
+                            textRect,
+                            0f,
+                            0f,
+                            columnIndex,
+                            lineIndex,
+                            lineTextWidth,
+                            lineTextHeight,
+                            textPaint.descent()
+                        )
                     )
-                )
 
-                left += textWidth
+                    left += textWidth
+                }
+                top += lineTextHeight
             }
-            top += lineTextHeight
+        } else {
+            var left = 0f
+            list.forEachIndexed { lineIndex, line ->
+                val lineTextWidth = _textWidthList[lineIndex]
+                val lineTextHeight = _textHeightList[lineIndex]
+
+                var top = 0f
+                line.forEachIndexed { columnIndex, char ->
+                    val text = char.toStr()
+                    val textWidth = measureTextWidth(text)
+                    val textHeight = measureTextHeight(text)
+
+                    val textRect = RectF()
+                    textRect.set(left, top, left + textWidth, top + textHeight)
+                    result.add(
+                        CharDrawInfo(
+                            text,
+                            textWidth,
+                            textHeight,
+                            textRect,
+                            0f,
+                            0f,
+                            columnIndex,
+                            lineIndex,
+                            lineTextWidth,
+                            lineTextHeight,
+                            textPaint.descent()
+                        )
+                    )
+
+                    top += textHeight
+                }
+                left += lineTextHeight
+            }
         }
 
         return result
