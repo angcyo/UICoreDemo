@@ -16,6 +16,7 @@ import com.angcyo.laserpacker.device.DeviceHelper
 import com.angcyo.laserpacker.device.ble.CommandFragment
 import com.angcyo.laserpacker.device.ble.ConnectFragment
 import com.angcyo.laserpacker.device.ble.TransferDataFragment
+import com.angcyo.laserpacker.device.wifi.AddWifiDeviceFragment
 import com.angcyo.library.annotation.CallPoint
 import com.angcyo.library.component.FontManager
 import com.angcyo.library.component.RBackground
@@ -104,6 +105,17 @@ object AppDebugHelper {
                 }
             }
         }
+
+        DebugFragment.addDebugAction {
+            name = "Wifi配网"
+            action = { _, _ ->
+                lastContext.dslAHelper {
+                    start(AddWifiDeviceFragment::class)
+                }
+            }
+        }
+
+        //---
 
         DebugFragment.addDebugAction {
             label = "创作功能支持的固件范围"
