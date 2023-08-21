@@ -10,6 +10,7 @@ import com.angcyo.core.component.model.CacheInfo
 import com.angcyo.core.component.model.CacheModel
 import com.angcyo.core.coreApp
 import com.angcyo.core.vmApp
+import com.angcyo.download.version.VersionChangeFragment
 import com.angcyo.item.component.DebugFragment
 import com.angcyo.laserpacker.LPDataConstant
 import com.angcyo.laserpacker.device.DeviceHelper
@@ -102,6 +103,15 @@ object AppDebugHelper {
             action = { _, _ ->
                 lastContext.dslAHelper {
                     start(TransferDataFragment::class)
+                }
+            }
+        }
+
+        DebugFragment.addDebugAction {
+            name = "更新记录"
+            action = { _, _ ->
+                lastContext.dslAHelper {
+                    start(VersionChangeFragment::class)
                 }
             }
         }
