@@ -262,8 +262,12 @@ class CurveTextView(context: Context, attributeSet: AttributeSet? = null) :
         canvas.drawRect(textBoundsRect, borderPaint)
     }
 
+    var isCurveDebug = false
+
     private fun drawCurveText2(canvas: Canvas) {
+        textPaint.color = Color.BLACK
         CurveTextDraw.create(getCharDrawInfoList(), curve).apply {
+            isDebug = isCurveDebug
             canvas.drawLine(curveCx, curveCy, borderPaint)
             draw(canvas, textPaint)
             //绘制文本的边界, 这个边界有误差

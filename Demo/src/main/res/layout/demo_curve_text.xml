@@ -16,7 +16,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/lib_xhdpi"
         app:layout_constraintBottom_toTopOf="@id/seek_bar"
-        app:layout_constraintLeft_toLeftOf="parent">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:tab_border_solid_color="@color/bg_sub_color"
+        app:tab_border_stroke_color="@color/bg_sub_color">
 
         <androidx.appcompat.widget.AppCompatTextView
             style="@style/LibBodyTextStyle"
@@ -33,6 +35,16 @@
             android:text="纵向" />
 
     </com.angcyo.tablayout.DslTabLayout>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/debug_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lib_xhdpi"
+        android:text="调试"
+        app:layout_constraintBottom_toBottomOf="@id/lib_tab_layout"
+        app:layout_constraintLeft_toRightOf="@id/lib_tab_layout"
+        app:layout_constraintTop_toTopOf="@id/lib_tab_layout" />
 
     <com.angcyo.widget.progress.DslSeekBar
         android:id="@+id/seek_bar"

@@ -22,6 +22,11 @@ class CurveTextDemo : AppDslFragment() {
 
                 itemBindOverride = { itemHolder, itemPosition, adapterItem, payloads ->
                     val curveTextView = itemHolder.v<CurveTextView>(R.id.curve_text_view)
+                    itemHolder.check(R.id.debug_box, false) { buttonView, isChecked ->
+                        curveTextView?.isCurveDebug = isChecked
+                        curveTextView?.invalidate()
+                    }
+
                     itemHolder.v<DslSeekBar>(R.id.seek_bar)?.apply {
                         progressTextFormatAction = {
                             "${progressValue.toInt()}"
