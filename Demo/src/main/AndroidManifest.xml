@@ -4,6 +4,7 @@
     package="com.angcyo.uicore.demo">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!--谷歌市场不允许声明此权限-->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <!--android 11+-->
