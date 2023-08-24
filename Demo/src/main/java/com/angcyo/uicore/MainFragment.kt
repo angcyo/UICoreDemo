@@ -482,6 +482,7 @@ class MainFragment : BaseDemoDslFragment() {
         renderDemoListItem("CameraXPreviewDemo")
         renderDemoListItem("SingleMatrixViewDemo")
         renderDemoListItem("CurveTextDemo")
+        renderDemoListItem("JxlDemo")
 
         //https://github.com/sinawangnan7/CurrentActivity
         //renderDemoListItem("CurrentActivityDemo $GO")

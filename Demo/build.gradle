@@ -125,6 +125,7 @@ dependencies {
     //implementation project(allModule.v8)//2023-6-5
     implementation project(allModule.QuickJS)//2023-6-5
     implementation project(allModule.web)//2023-6-8
+    implementation project(allModule.jxl)//2023-8-24
 
     //https://github.com/airbnb/lottie-android
     //http://airbnb.io/lottie
