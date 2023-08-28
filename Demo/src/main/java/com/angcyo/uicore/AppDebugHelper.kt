@@ -16,6 +16,7 @@ import com.angcyo.laserpacker.LPDataConstant
 import com.angcyo.laserpacker.device.DeviceHelper
 import com.angcyo.laserpacker.device.ble.CommandFragment
 import com.angcyo.laserpacker.device.ble.ConnectFragment
+import com.angcyo.laserpacker.device.ble.EngraveExperimentalFragment
 import com.angcyo.laserpacker.device.ble.TransferDataFragment
 import com.angcyo.laserpacker.device.wifi.AddWifiDeviceFragment
 import com.angcyo.library.annotation.CallPoint
@@ -121,6 +122,15 @@ object AppDebugHelper {
             action = { _, _ ->
                 lastContext.dslAHelper {
                     start(AddWifiDeviceFragment::class)
+                }
+            }
+        }
+
+        DebugFragment.addDebugAction {
+            name = "LP实验性"
+            action = { _, _ ->
+                lastContext.dslAHelper {
+                    start(EngraveExperimentalFragment::class)
                 }
             }
         }
