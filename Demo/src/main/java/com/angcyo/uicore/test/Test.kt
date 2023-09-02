@@ -1,11 +1,8 @@
 package com.angcyo.uicore.test
 
-import android.graphics.RectF
-import com.angcyo.library.Library
+import com.angcyo.library.L
 import com.angcyo.library.annotation.TestPoint
-import com.angcyo.library.ex.limitInRect
-import com.angcyo.quickjs.QuickJSEngine
-import com.orhanobut.hawk.HawkValueParserHelper
+import com.angcyo.library.component.parser.parseDateTemplate
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
@@ -59,6 +56,13 @@ object Test {
 
         //V8Engine.test()
         //QuickJSEngine.test()
+
+        testTemplateParse()
+    }
+
+    private fun testTemplateParse() {
+        val result = "[[YYYYescape] [[angcyo]] YYYY-MM-DDTHH:mm:ss:SS Z[Z] d dd ZZ A a".parseDateTemplate()
+        L.d(result)
     }
 
 }

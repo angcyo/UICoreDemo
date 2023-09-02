@@ -3,9 +3,11 @@ package com.angcyo.uicore.demo
 import android.net.Uri
 import android.os.Bundle
 import com.angcyo.base.dslFHelper
+import com.angcyo.component.hawkInstallAndRestore
 import com.angcyo.core.component.fileSelector
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.jxl.Jxl
+import com.angcyo.library.component.parser.parseDateTemplate
 import com.angcyo.library.ex._color
 import com.angcyo.library.ex.decode
 import com.angcyo.library.ex.toStr
@@ -13,6 +15,7 @@ import com.angcyo.library.libCacheFile
 import com.angcyo.library.libFolderPath
 import com.angcyo.library.utils.fileNameTime
 import com.angcyo.uicore.base.AppDslFragment
+import com.angcyo.widget.base.string
 import com.angcyo.widget.span.span
 
 /**
@@ -30,6 +33,8 @@ class JxlDemo : AppDslFragment() {
 
         renderDslAdapter {
             bindItem(R.layout.demo_jxl_layout) { itemHolder, itemPosition, adapterItem, payloads ->
+                itemHolder.hawkInstallAndRestore("_jxl_demo")
+
                 itemHolder.click(R.id.select_button) {
                     dslFHelper {
                         fileSelector({
@@ -75,6 +80,13 @@ class JxlDemo : AppDslFragment() {
                     val file = libCacheFile(fileNameTime(suffix = ".xls"))
                     Jxl.writeExcel(file, createExcelData())
                     itemHolder.tv(R.id.result_text_view)?.text = "$file"
+                }
+
+                //---
+
+                itemHolder.click(R.id.parse_date_button) {
+                    val text = itemHolder.tv(R.id.edit_text)?.string(false)
+                    itemHolder.tv(R.id.result_text_view)?.text = text?.parseDateTemplate()
                 }
             }
         }

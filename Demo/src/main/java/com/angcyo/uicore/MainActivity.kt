@@ -187,12 +187,12 @@ class MainActivity : BasePermissionsActivity() {
         //densityAdapterFrom(2183)
         BaiduTraceService.start(this, BaiduTraceService.FLAG_RESUME)
 
-        val b1 = RBackground.isCreatedActivity(MainActivity::class)
-        val b2 = RBackground.isLastActivity(MainActivity::class)
+        //val b1 = RBackground.isCreatedActivity(MainActivity::class)
+        //val b2 = RBackground.isLastActivity(MainActivity::class)
 
         try {
-            PathTest.test()
-            HttpTest.test()
+            //PathTest.test()
+            //HttpTest.test()
             Test.test()
 
             if (BuildConfig.BUILD_TYPE.isBuildDebug()) {
