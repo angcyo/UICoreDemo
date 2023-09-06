@@ -1,5 +1,6 @@
 package com.angcyo.uicore.test
 
+import android.graphics.Color
 import android.graphics.PointF
 import com.angcyo.library.L
 import com.angcyo.library.annotation.TestPoint
@@ -10,6 +11,8 @@ import com.angcyo.library.component.pool.release
 import com.angcyo.library.ex.angle
 import com.angcyo.library.ex.mapPoint
 import com.angcyo.library.ex.rotate
+import com.angcyo.library.ex.toBitmap
+import com.angcyo.vector.toPath
 import kotlin.math.atan
 import kotlin.math.tan
 
@@ -68,6 +71,7 @@ object Test {
 
         //testPoint()
         //testTemplateParse()
+        testSvg()
     }
 
     private fun testTemplateParse() {
@@ -127,5 +131,35 @@ object Test {
         tempPointF.release()
         reverseMatrix.release()
         L.i(builder)
+    }
+
+    private fun testSvg() {
+        //svg <rect x="0.5" y="0.5" width="15" height="15" rx="3.5" fill="#FBCA37" stroke="white"/>
+        //转成 pathData 数据M L C
+        //val pathData = "M0.5,0.5L15.5,0.5L15.5,15.5L0.5,15.5L0.5,0.5Z"
+        //rx ry 转换成 C
+
+        val x = 0.5f
+        val y = 0.5f
+        val width = 15f
+        val height = 15f
+        val rx = 3.5f
+        val ry = 3.5f
+        //M L Q
+        val pathData = buildString {
+            append("M${x + rx},$y ")
+            append("L${x + width - rx},$y ")
+            append("Q${x + width},$y ${x + width},${y + ry} ")
+            append("L${x + width},${y + height - ry} ")
+            append("Q${x + width},${y + height} ${x + width - rx},${y + height} ")
+            append("L${x + rx},${y + height} ")
+            append("Q$x,${y + height} $x,${y + height - ry} ")
+            append("L$x,${y + ry} ")
+            append("Q$x,$y ${x + rx},$y ")
+            append("Z")
+        }
+        //"M$x,$y L${x + width - rx},$y Q${x + width},$y ${x + width},$y${y + height - ry} L${x + width},${y + height} Q${x + width},${y + height} ${x + width},${y + height} L${x + rx},${y + height} Q$x,${y + height} $x,${y + height} L$x,${y + ry} Q$x,$y $x,$y Z"
+        val bitmap = pathData.toPath().toBitmap(Color.RED)
+        L.i(pathData)
     }
 }

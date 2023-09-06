@@ -118,10 +118,10 @@ class ExampleUnitTest {
             print("$int->${int.toHexString(1)} ")
         }
         println()
-        println(QueryCmd(0).toHexCommandString())
-        println(QueryCmd(1).toHexCommandString())
-        println(QueryCmd(2).toHexCommandString())
-        println(QueryCmd(3).toHexCommandString())
+        println(QueryCmd("", 0).toHexCommandString())
+        println(QueryCmd("", 1).toHexCommandString())
+        println(QueryCmd("", 2).toHexCommandString())
+        println(QueryCmd("", 3).toHexCommandString())
         println("AA".padHexString(4))
         println("AA".padHexString(4, 1))
         println("AA".toInt(16))
@@ -378,5 +378,29 @@ class ExampleUnitTest {
 
         println("time:$time ${sum shr 32}")
         println("num:$num ${sum and 0xFFFFFFFF}")
+    }
+
+    @Test
+    fun testSvg() {
+        val x = 0.5f
+        val y = 0.5f
+        val width = 15f
+        val height = 15f
+        val rx = 3.5f
+        val ry = 3.5f
+        //M L Q
+        val pathData = buildString {
+            append("M${x + rx},$y ")
+            append("L${x + width - rx},$y ")
+            append("Q${x + width},$y ${x + width},${y + ry} ")
+            append("L${x + width},${y + height - ry} ")
+            append("Q${x + width},${y + height} ${x + width - rx},${y + height} ")
+            append("L${x + rx},${y + height} ")
+            append("Q$x,${y + height} $x,${y + height - ry} ")
+            append("L$x,${y + ry} ")
+            append("Q$x,$y ${x + rx},$y ")
+            append("Z")
+        }
+        println(pathData)
     }
 }
