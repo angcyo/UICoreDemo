@@ -13,7 +13,9 @@ import com.angcyo.core.component.model.toBatteryPluggedStr
 import com.angcyo.core.component.model.toBatteryStatusStr
 import com.angcyo.core.vmCore
 import com.angcyo.dialog2.dslitem.DslLabelWheelItem
+import com.angcyo.dialog2.dslitem.itemSelectedIndex
 import com.angcyo.dialog2.dslitem.itemWheelBean
+import com.angcyo.dialog2.dslitem.itemWheelList
 import com.angcyo.dsladapter.findItemByTag
 import com.angcyo.item.DslButtonItem
 import com.angcyo.item.DslLabelEditItem
@@ -117,7 +119,7 @@ class LockDemo : AppDslFragment() {
                 )
                 itemChangeListener = {
                     it.onItemChangeListener(it)
-                    it.itemWheelBean<String>()?.let {
+                    itemWheelBean<String>()?.let {
                         TTS.configParams {
                             setVoiceType(it.split("-").getOrNull(0)?.toIntOrNull() ?: 0)
                         }
