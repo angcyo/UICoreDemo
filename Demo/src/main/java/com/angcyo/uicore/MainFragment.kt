@@ -483,6 +483,7 @@ class MainFragment : BaseDemoDslFragment() {
         renderDemoListItem("SingleMatrixViewDemo")
         renderDemoListItem("CurveTextDemo")
         renderDemoListItem("JxlDemo")
+        renderDemoListItem("InnerFileManageDemo")
 
         //https://github.com/sinawangnan7/CurrentActivity
         //renderDemoListItem("CurrentActivityDemo $GO")
