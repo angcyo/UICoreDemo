@@ -109,8 +109,8 @@ class AppWifiP2pItem : DslTextItem(), IFragmentItem {
         }
     }
 
-    override fun onSetItemData(data: Any?) {
-        super.onSetItemData(data)
+    override fun onSelfSetItemData(data: Any?) {
+        super.onSelfSetItemData(data)
 
         (data as? WifiP2pDeviceWrap)?.apply {
             itemText = span {
