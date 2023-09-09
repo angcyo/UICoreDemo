@@ -126,6 +126,8 @@ dependencies {
     implementation project(allModule.QuickJS)//2023-6-5
     implementation project(allModule.web)//2023-6-8
     implementation project(allModule.jxl)//2023-8-24
+    //无法访问[com.google.zxing.BarcodeFormat]
+    compileOnly 'com.google.zxing:core:3.4.1'//2023-9-9
 
     //https://github.com/airbnb/lottie-android
     //http://airbnb.io/lottie

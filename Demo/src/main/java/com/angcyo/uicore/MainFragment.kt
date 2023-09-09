@@ -484,6 +484,7 @@ class MainFragment : BaseDemoDslFragment() {
         renderDemoListItem("CurveTextDemo")
         renderDemoListItem("JxlDemo")
         renderDemoListItem("InnerFileManageDemo")
+        renderDemoListItem("BarcodeFormatDemo")
 
         //https://github.com/sinawangnan7/CurrentActivity
         //renderDemoListItem("CurrentActivityDemo $GO")
