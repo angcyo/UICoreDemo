@@ -111,7 +111,7 @@ class SlideSwitchView(context: Context, attrs: AttributeSet? = null) : View(cont
         GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
 
             override fun onFling(
-                e1: MotionEvent?,
+                e1: MotionEvent,
                 e2: MotionEvent,
                 velocityX: Float,
                 velocityY: Float
@@ -126,7 +126,7 @@ class SlideSwitchView(context: Context, attrs: AttributeSet? = null) : View(cont
             }
 
             override fun onScroll(
-                e1: MotionEvent?,
+                e1: MotionEvent,
                 e2: MotionEvent,
                 distanceX: Float,
                 distanceY: Float
