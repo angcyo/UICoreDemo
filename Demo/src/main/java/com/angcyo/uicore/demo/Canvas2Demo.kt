@@ -1,6 +1,5 @@
 package com.angcyo.uicore.demo
 
-import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
@@ -45,6 +44,7 @@ import com.angcyo.canvas2.laser.pecker.manager.restoreProjectStateV2
 import com.angcyo.canvas2.laser.pecker.manager.saveProjectStateV2
 import com.angcyo.canvas2.laser.pecker.util.LPElementHelper
 import com.angcyo.canvas2.laser.pecker.util.lpElement
+import com.angcyo.core.component.file.writeTo
 import com.angcyo.core.component.file.writeToLog
 import com.angcyo.core.component.fileSelector
 import com.angcyo.core.showIn
@@ -88,10 +88,12 @@ import com.angcyo.library.ex.nowTimeString
 import com.angcyo.library.ex.randomColor
 import com.angcyo.library.ex.toHexString
 import com.angcyo.library.ex.toListOf
+import com.angcyo.library.ex.wrapLog
 import com.angcyo.library.libCacheFile
 import com.angcyo.library.libFolderPath
 import com.angcyo.library.toast
 import com.angcyo.library.toastQQ
+import com.angcyo.library.utils.Constant
 import com.angcyo.library.utils.fileNameTime
 import com.angcyo.objectbox.laser.pecker.entity.EntitySync
 import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
@@ -101,7 +103,6 @@ import com.angcyo.toGCodeContent
 import com.angcyo.toSVGContent
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.getRandomText
-import com.angcyo.vector.toPath
 import com.angcyo.widget.DslViewHolder
 import com.angcyo.widget.span.span
 
@@ -110,6 +111,18 @@ import com.angcyo.widget.span.span
  * @since 2023-2-11
  */
 class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
+
+    companion object {
+        /**写入到同步日志*/
+        fun CharSequence.writeToSync(
+            logLevel: Int = L.DEBUG,
+            name: String = "sync.log"
+        ): CharSequence {
+            wrapLog().writeTo(Constant.LOG_FOLDER_NAME, name)
+            L.log(logLevel, this)
+            return this
+        }
+    }
 
     init {
         enableSoftInput = false
@@ -751,6 +764,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     private fun testDemo(itemHolder: DslViewHolder) {
         //test
         itemHolder.click(R.id.test_button) {
+            "测试写入".writeToSync()
             /*LPTransferHelper.startCreateTransferData(
                 vmApp(),
                 "test-${uuid()}",
@@ -759,13 +773,13 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
             toastQQ("test")*/
             //EngraveTransitionHelper.saveTaskAerialView("e2bebf35ff624b9bba2f9bce86633524")
 
-            "M12.981 6.677c.006.122.008.243.008.366a7.991 7.991 0 0 1-8.046 8.047 8.01 8.01 0 0 1-4.335-1.271 5.805 5.805 0 0 0 .675.04 5.68 5.68 0 0 0 3.513-1.21 2.832 2.832 0 0 1-2.642-1.965 2.813 2.813 0 0 0 .531.051 2.865 2.865 0 0 0 .746-.1 2.831 2.831 0 0 1-2.269-2.772v-.037a2.805 2.805 0 0 0 1.281.354 2.828 2.828 0 0 1-.874-3.775 8.024 8.024 0 0 0 5.828 2.954 2.83 2.83 0 0 1 2.755-3.472 2.826 2.826 0 0 1 2.064.893 5.654 5.654 0 0 0 1.796-.686 2.835 2.835 0 0 1-1.244 1.564 5.642 5.642 0 0 0 1.624-.445 5.735 5.735 0 0 1-1.41 1.464z".toPath()
-                .apply {
-                    val matrix = Matrix()
-                    matrix.setScale(10f, 10f)
-                    transform(matrix)
-                    testPath(this)
-                }
+            /* "M12.981 6.677c.006.122.008.243.008.366a7.991 7.991 0 0 1-8.046 8.047 8.01 8.01 0 0 1-4.335-1.271 5.805 5.805 0 0 0 .675.04 5.68 5.68 0 0 0 3.513-1.21 2.832 2.832 0 0 1-2.642-1.965 2.813 2.813 0 0 0 .531.051 2.865 2.865 0 0 0 .746-.1 2.831 2.831 0 0 1-2.269-2.772v-.037a2.805 2.805 0 0 0 1.281.354 2.828 2.828 0 0 1-.874-3.775 8.024 8.024 0 0 0 5.828 2.954 2.83 2.83 0 0 1 2.755-3.472 2.826 2.826 0 0 1 2.064.893 5.654 5.654 0 0 0 1.796-.686 2.835 2.835 0 0 1-1.244 1.564 5.642 5.642 0 0 0 1.624-.445 5.735 5.735 0 0 1-1.41 1.464z".toPath()
+                 .apply {
+                     val matrix = Matrix()
+                     matrix.setScale(10f, 10f)
+                     transform(matrix)
+                     testPath(this)
+                 }*/
 
             /*val sx = 100f
             val sy = 100f
