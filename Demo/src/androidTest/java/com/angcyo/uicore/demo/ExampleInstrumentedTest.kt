@@ -1,11 +1,16 @@
 package com.angcyo.uicore.demo
 
-import android.graphics.*
+import android.graphics.Matrix
+import android.graphics.Path
+import android.graphics.PathMeasure
+import android.graphics.PointF
+import android.graphics.RectF
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.angcyo.http.rsa.AESEncrypt
 import com.angcyo.library.L
 import com.angcyo.library.ex.eachPath
+import com.angcyo.library.ex.replace
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -157,5 +162,12 @@ class ExampleInstrumentedTest {
         val decrypt = AESEncrypt.decrypt(encrypt, "wba2022041620221", "123456")
         println(encrypt)
         println(decrypt)
+    }
+
+    @Test
+    fun testReplace() {
+        val text = "grid[112:*234]\\:/:*\"?<>|[end]"
+        val replace = text.replace("[\\/:*?\"<>|]", "")
+        println("${text}->${replace}")
     }
 }
