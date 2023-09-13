@@ -1,9 +1,9 @@
 package com.angcyo.uicore
 
 import android.app.Application
+import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerConfigHelper
 import com.angcyo.canvas.render.util.toDrawable
 import com.angcyo.canvas2.laser.pecker.dslitem.control.TypefaceItem
-import com.angcyo.canvas2.laser.pecker.engrave.dslitem.preview.GCodeDataOffsetItem
 import com.angcyo.canvas2.laser.pecker.manager.LPProjectManager
 import com.angcyo.canvas2.laser.pecker.manager.ShareProjectInfo
 import com.angcyo.canvas2.laser.pecker.toRendererList
@@ -81,7 +81,7 @@ object LPAppHelper {
             it?.toRendererList()?.toDrawable()
         }
 
-        GCodeDataOffsetItem.onOpenUrlAction = { url ->
+        LaserPeckerConfigHelper.onOpenUrlAction = { url ->
             openUrlWithTbs(url)
         }
 
