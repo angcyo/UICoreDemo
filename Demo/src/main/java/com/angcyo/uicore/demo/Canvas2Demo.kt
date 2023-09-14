@@ -31,6 +31,7 @@ import com.angcyo.canvas.CanvasRenderView
 import com.angcyo.canvas.render.core.CanvasRenderDelegate
 import com.angcyo.canvas2.laser.pecker.IEngraveRenderFragment
 import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
+import com.angcyo.canvas2.laser.pecker.dialog.fontLibraryHandleDialogConfig
 import com.angcyo.canvas2.laser.pecker.dialog.previewPowerSettingDialog
 import com.angcyo.canvas2.laser.pecker.engrave.BaseFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.EngraveFlowLayoutHelper
@@ -444,6 +445,11 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
             dslAHelper {
                 start(DeviceConnectTipActivity::class)
             }
+        }
+
+        //字库
+        itemHolder.click(R.id.font_library_button) {
+            it.context.fontLibraryHandleDialogConfig()
         }
 
         //实验性功能界面

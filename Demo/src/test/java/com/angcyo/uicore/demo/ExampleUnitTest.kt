@@ -314,9 +314,15 @@ class ExampleUnitTest {
 
     @Test
     fun testBit() {
-        val value = 17
+        val value = 421
         println(value.toByte().high4Bit())
         println(value.toByte().low4Bit())
+
+        //高8位
+        val h = (value shr 8).toByte()
+        //低8位
+        val l = (value and 0xFF).toByte()
+        println("h:${h} l:${l}")
     }
 
     @Test
