@@ -409,4 +409,19 @@ class ExampleUnitTest {
         }
         println(pathData)
     }
+
+    @Test
+    fun testIncrease() {
+        val fromIndex = 41
+        val toIndex = 60
+
+        val fromValue = 20f
+        val valueStep = -0.5f
+
+        val list = listOf(fromIndex, fromIndex + 11, toIndex)
+        for (index in list) {
+            val value = fromValue + (index - fromIndex) * valueStep
+            println("$index -> $value")
+        }
+    }
 }
