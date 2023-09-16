@@ -10,6 +10,7 @@ import com.angcyo.library.ex.low4Bit
 import com.angcyo.library.ex.nowTime
 import com.angcyo.library.ex.padHexString
 import com.angcyo.library.ex.patternList
+import com.angcyo.library.ex.size
 import com.angcyo.library.ex.toHexByteArray
 import com.angcyo.library.ex.toHexInt
 import com.angcyo.library.ex.toHexString
@@ -423,5 +424,17 @@ class ExampleUnitTest {
             val value = fromValue + (index - fromIndex) * valueStep
             println("$index -> $value")
         }
+    }
+
+    @Test
+    fun testSlice() {
+        val max = 254
+        val count = 255
+        val list = mutableListOf<Int>()
+        for (i in 0..max step max / (count - 1)) {
+            list.add(i)
+        }
+        print(list.size())
+        println(list)
     }
 }
