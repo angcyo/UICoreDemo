@@ -426,14 +426,26 @@ class ExampleUnitTest {
         }
     }
 
+    /**
+     * [com.angcyo.bluetooth.fsc.laserpacker.bean.DeviceConfigBeanKt.toSliceLevelList]
+     * */
     @Test
     fun testSlice() {
         val max = 254
-        val count = 255
+        val count = 10
+        val step = maxOf(1, max / count)
+
         val list = mutableListOf<Int>()
-        for (i in 0..max step max / (count - 1)) {
-            list.add(i)
+        while (list.size() < count) {
+            val value = maxOf(0, max - step * list.size())
+            if (value == list.lastOrNull()) {
+                break
+            }
+            list.add(value)
         }
+        /*for (i in max downTo 1 step max / maxOf((count - 1), 1)) {
+            list.add(i)
+        }*/
         print(list.size())
         println(list)
     }
