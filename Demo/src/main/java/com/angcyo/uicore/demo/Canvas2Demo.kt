@@ -18,6 +18,7 @@ import com.angcyo.bluetooth.fsc.laserpacker.DeviceStateModel
 import com.angcyo.bluetooth.fsc.laserpacker.HawkEngraveKeys
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
+import com.angcyo.bluetooth.fsc.laserpacker._productName
 import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.FactoryCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.FileModeCmd
@@ -296,7 +297,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         val receiveAction: IReceiveBeanAction = { bean, error ->
             val text = span {
                 append(Thread.currentThread().name)
-                append(" ${vmApp<LaserPeckerModel>().productInfoData.value?.name}")
+                append(" $_productName")
                 append(" ${vmApp<LaserPeckerModel>().deviceVersionData.value?.softwareVersion}")
                 appendln()
                 if (cmdString.isNotEmpty()) {

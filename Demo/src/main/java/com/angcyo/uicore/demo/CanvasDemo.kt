@@ -436,7 +436,7 @@ class CanvasDemo : AppDslFragment(), IEngraveCanvasFragment {
                 val receiveAction: IReceiveBeanAction = { bean, error ->
                     val text = span {
                         append(Thread.currentThread().name)
-                        append(" ${vmApp<LaserPeckerModel>().productInfoData.value?.name}")
+                        append(" ${_productName}")
                         append(" ${vmApp<LaserPeckerModel>().deviceVersionData.value?.softwareVersion}")
                         appendln()
                         if (cmdString.isNotEmpty()) {
