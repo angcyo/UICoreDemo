@@ -7,6 +7,7 @@ import com.angcyo.canvas2.laser.pecker.dslitem.control.TypefaceItem
 import com.angcyo.canvas2.laser.pecker.manager.LPProjectManager
 import com.angcyo.canvas2.laser.pecker.manager.ShareProjectInfo
 import com.angcyo.canvas2.laser.pecker.toRendererList
+import com.angcyo.core.CoreApplication
 import com.angcyo.laserpacker.LPDataConstant
 import com.angcyo.laserpacker.open.CanvasOpenModel
 import com.angcyo.laserpacker.open.CanvasOpenPreviewActivity
@@ -81,7 +82,7 @@ object LPAppHelper {
             it?.toRendererList()?.toDrawable()
         }
 
-        LaserPeckerConfigHelper.onOpenUrlAction = { url ->
+        CoreApplication.onOpenUrlAction = { url ->
             openUrlWithTbs(url)
         }
 
