@@ -20,6 +20,7 @@ import kotlin.math.tan
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
  * @since 2023/06/02
  */
+@TestAnnotation("测试注解")
 object Test {
 
     @TestPoint
@@ -71,7 +72,8 @@ object Test {
 
         //testPoint()
         //testTemplateParse()
-        testSvg()
+        //testSvg()
+        testAnnotation()
     }
 
     private fun testTemplateParse() {
@@ -161,5 +163,13 @@ object Test {
         //"M$x,$y L${x + width - rx},$y Q${x + width},$y ${x + width},$y${y + height - ry} L${x + width},${y + height} Q${x + width},${y + height} ${x + width},${y + height} L${x + rx},${y + height} Q$x,${y + height} $x,${y + height} L$x,${y + ry} Q$x,$y $x,$y Z"
         val bitmap = pathData.toPath().toBitmap(Color.RED)
         L.i(pathData)
+    }
+
+    private fun testAnnotation() {
+        val annotation = Test::class.java.getAnnotation(TestAnnotation::class.java)
+        L.i(annotation)
+        if (annotation != null) {
+            L.i(annotation.des)
+        }
     }
 }
