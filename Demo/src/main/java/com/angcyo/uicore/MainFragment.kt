@@ -42,6 +42,7 @@ import com.angcyo.library.utils.checkApkExist
 import com.angcyo.server.bindAndServer
 import com.angcyo.uicore.activity.FragmentInFragmentActivity
 import com.angcyo.uicore.activity.NfcHandleActivity
+import com.angcyo.uicore.activity.ShareSendActivity
 import com.angcyo.uicore.activity.ViewPager2InFragmentActivity
 import com.angcyo.uicore.activity.ViewPager2InViewPager2Activity
 import com.angcyo.uicore.activity.ViewPagerInFragmentActivity
@@ -486,6 +487,11 @@ class MainFragment : BaseDemoDslFragment() {
         renderDemoListItem("InnerFileManageDemo")
         renderDemoListItem("BarcodeFormatDemo")
         renderDemoListItem("PdfDemo")
+        renderDemoListItem("ShareSendActivity") {
+            dslAHelper {
+                start(ShareSendActivity::class)
+            }
+        }
 
         //https://github.com/sinawangnan7/CurrentActivity
         //renderDemoListItem("CurrentActivityDemo $GO")
