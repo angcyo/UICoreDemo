@@ -66,6 +66,7 @@ import com.angcyo.laserpacker.device.DeviceHelper
 import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFile
 import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFileV2
 import com.angcyo.laserpacker.device.EngraveHelper
+import com.angcyo.laserpacker.device.EngraveNotifyHelper
 import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
 import com.angcyo.laserpacker.device.ble.EngraveExperimentalFragment
 import com.angcyo.laserpacker.device.engraveLoadingAsync
@@ -352,6 +353,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
             cmdString = cmd.toHexCommandString()
             //LaserPeckerHelper.sendCommand(cmd, action = receiveAction)
             cmd.enqueue(action = receiveAction)
+            EngraveNotifyHelper.hideEngraveNotify()//隐藏通知
         }
 
         //当前设备版本
