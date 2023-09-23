@@ -81,7 +81,7 @@ class UsbStorageDemo : AppDslFragment() {
     /**移除界面*/
     private fun removeFragment() {
         dslFHelper {
-            noAnim()
+            //noAnim()
             remove(this@UsbStorageDemo)
         }
     }
