@@ -1,19 +1,17 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
+import com.angcyo.base.dslFHelper
 import com.angcyo.core.vmApp
-import com.angcyo.dsladapter.DslAdapter
 import com.angcyo.dsladapter.DslAdapterStatusItem
-import com.angcyo.dsladapter.select
 import com.angcyo.dsladapter.singleModel
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.isDebugType
 import com.angcyo.uicore.base.AppDslFragment
-import com.angcyo.usb.storage.UsbFileSelectorItem
+import com.angcyo.usb.storage.UsbStorageFolderSelectorHelper
 import com.angcyo.usb.storage.UsbStorageModel
 import com.angcyo.usb.storage.usbFolderSelector
 import com.angcyo.widget.span.span
-import me.jahnen.libaums.core.fs.UsbFile
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
@@ -23,8 +21,19 @@ class UsbStorageDemo : AppDslFragment() {
 
     val usbStorageModel = vmApp<UsbStorageModel>()
 
+    val usbStorageFolderSelectorHelper = UsbStorageFolderSelectorHelper().apply {
+        usbSelectorConfig.isSelectFile = true
+        usbSelectorConfig.isSelectFolder = true
+        usbSelectorConfig.showFileMenu = true
+        removeThisAction = {
+            removeFragment()
+        }
+    }
+
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
+
+        usbStorageFolderSelectorHelper.init(_vh)
 
         _adapter.render {
             setAdapterStatus(DslAdapterStatusItem.ADAPTER_STATUS_LOADING)
@@ -41,19 +50,25 @@ class UsbStorageDemo : AppDslFragment() {
                         fontSize = 12 * dpi
                     }
                 }
-                _adapter.renderUsbFile(it.partitions.firstOrNull()?.fileSystem?.rootDirectory)
+                //_adapter.renderUsbFile(it.partitions.firstOrNull()?.fileSystem?.rootDirectory)
+                usbStorageFolderSelectorHelper.firstLoad(usbStorageModel.selectedFileSystem)
             }
         }
 
         usbStorageModel.startReceiveUsb()
 
         appendRightItem("选择") {
-            usbFolderSelector(usbStorageModel.selectedFileSystem?.rootDirectory) {
+            usbFolderSelector(usbStorageModel.selectedFileSystem) {
                 it?.let {
                     fragmentTitle = it.absolutePath
                 }
             }
         }
+    }
+
+    override fun onBackPressed(): Boolean {
+        usbStorageFolderSelectorHelper.onBackPressed()
+        return false
     }
 
     override fun onDestroy() {
@@ -63,31 +78,11 @@ class UsbStorageDemo : AppDslFragment() {
         }
     }
 
-    /**渲染Usb文件*/
-    fun DslAdapter.renderUsbFile(usbFile: UsbFile?) {
-        render {
-            clearAllItems()
-            if (usbFile == null) {
-            } else if (usbFile.isDirectory) {
-                for (file in usbFile.listFiles()) {
-                    usbFileSelectorItem(file)
-                }
-            } else {
-                usbFileSelectorItem(usbFile)
-            }
-        }
-    }
-
-    fun DslAdapter.usbFileSelectorItem(file: UsbFile) {
-        UsbFileSelectorItem()() {
-            itemData = file
-            itemClick = {
-                if (itemIsFolder(null)) {
-                    renderUsbFile(file)
-                } else {
-                    this@usbFileSelectorItem.select { it == this }
-                }
-            }
+    /**移除界面*/
+    private fun removeFragment() {
+        dslFHelper {
+            noAnim()
+            remove(this@UsbStorageDemo)
         }
     }
 
