@@ -40,7 +40,7 @@ class UsbStorageDemo : AppDslFragment() {
                         fontSize = 12 * dpi
                     }
                 }
-                _adapter.renderUsbFile(it.partitions[0].fileSystem.rootDirectory)
+                _adapter.renderUsbFile(it.partitions.firstOrNull()?.fileSystem?.rootDirectory)
             }
         }
 
@@ -61,10 +61,11 @@ class UsbStorageDemo : AppDslFragment() {
     }
 
     /**渲染Usb文件*/
-    fun DslAdapter.renderUsbFile(usbFile: UsbFile) {
+    fun DslAdapter.renderUsbFile(usbFile: UsbFile?) {
         render {
             clearAllItems()
-            if (usbFile.isDirectory) {
+            if (usbFile == null) {
+            } else if (usbFile.isDirectory) {
                 for (file in usbFile.listFiles()) {
                     usbFileSelectorItem(file)
                 }
