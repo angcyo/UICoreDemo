@@ -128,6 +128,7 @@ dependencies {
     implementation project(allModule.jxl)//2023-8-24
     //无法访问[com.google.zxing.BarcodeFormat]
     compileOnly 'com.google.zxing:core:3.4.1'//2023-9-9
+    implementation project(allModule.usbStorage)//2023-9-22
 
     //https://github.com/airbnb/lottie-android
     //http://airbnb.io/lottie

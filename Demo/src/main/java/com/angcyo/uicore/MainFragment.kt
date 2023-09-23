@@ -492,6 +492,7 @@ class MainFragment : BaseDemoDslFragment() {
                 start(ShareSendActivity::class)
             }
         }
+        renderDemoListItem("UsbStorageDemo")
 
         //https://github.com/sinawangnan7/CurrentActivity
         //renderDemoListItem("CurrentActivityDemo $GO")
