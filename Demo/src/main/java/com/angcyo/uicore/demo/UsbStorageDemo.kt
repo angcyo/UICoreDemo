@@ -7,6 +7,7 @@ import com.angcyo.dsladapter.DslAdapterStatusItem
 import com.angcyo.dsladapter.select
 import com.angcyo.dsladapter.singleModel
 import com.angcyo.library.ex.dpi
+import com.angcyo.library.ex.isDebugType
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.usb.storage.UsbFileSelectorItem
 import com.angcyo.usb.storage.UsbStorageModel
@@ -47,7 +48,7 @@ class UsbStorageDemo : AppDslFragment() {
         usbStorageModel.startReceiveUsb()
 
         appendRightItem("选择") {
-            usbFolderSelector(usbStorageModel.selectedDevice?.partitions?.get(0)?.fileSystem?.rootDirectory) {
+            usbFolderSelector(usbStorageModel.selectedFileSystem?.rootDirectory) {
                 it?.let {
                     fragmentTitle = it.absolutePath
                 }
@@ -57,7 +58,9 @@ class UsbStorageDemo : AppDslFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        usbStorageModel.release()
+        if (!BuildConfig.BUILD_TYPE.isDebugType()) {
+            usbStorageModel.release()
+        }
     }
 
     /**渲染Usb文件*/
