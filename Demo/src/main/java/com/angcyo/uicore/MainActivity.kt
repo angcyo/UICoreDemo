@@ -15,7 +15,6 @@ import com.angcyo.haveTargetFragment
 import com.angcyo.library.L
 import com.angcyo.library.component.DslShortcut
 import com.angcyo.library.component.MultiFingeredHelper
-import com.angcyo.library.component.RBackground
 import com.angcyo.library.component.RSoundPool
 import com.angcyo.library.component._delay
 import com.angcyo.library.component.dslShortcut
@@ -31,8 +30,6 @@ import com.angcyo.uicore.component.ScreenShotFileObserver
 import com.angcyo.uicore.component.ScreenShotFileObserverManager
 import com.angcyo.uicore.demo.BuildConfig
 import com.angcyo.uicore.demo.R
-import com.angcyo.uicore.test.HttpTest
-import com.angcyo.uicore.test.PathTest
 import com.angcyo.uicore.test.Test
 
 /**
@@ -193,6 +190,7 @@ class MainActivity : BasePermissionsActivity() {
         try {
             //PathTest.test()
             //HttpTest.test()
+
             Test.test()
 
             if (BuildConfig.BUILD_TYPE.isBuildDebug()) {
