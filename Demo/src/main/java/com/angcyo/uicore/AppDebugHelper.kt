@@ -5,6 +5,7 @@ import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.fsc.laserpacker.HawkEngraveKeys
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
+import com.angcyo.bluetooth.fsc.laserpacker._deviceSettingBean
 import com.angcyo.core.component.CacheFragment
 import com.angcyo.core.component.model.CacheInfo
 import com.angcyo.core.component.model.CacheModel
@@ -159,6 +160,20 @@ object AppDebugHelper {
             defValue = HawkEngraveKeys.batchEngraveSupportFirmware.run {
                 if (isNullOrBlank()) {
                     DeviceHelper.batchEngraveSupportFirmware
+                } else {
+                    this
+                }
+            }
+        }
+
+        DebugFragment.addDebugAction {
+            label = "支持自动激光雕刻的固件范围"
+            des = "格式:x~xx xx~xxx"
+            key = HawkEngraveKeys::autoCncEngraveSupportFirmware.name
+            type = String::class.java
+            defValue = HawkEngraveKeys.autoCncEngraveSupportFirmware.run {
+                if (isNullOrBlank()) {
+                    _deviceSettingBean?.autoCncRange
                 } else {
                     this
                 }
