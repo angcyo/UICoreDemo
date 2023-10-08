@@ -3,6 +3,7 @@
     <color name="colorPrimary">#FFC107</color>
     <color name="colorPrimaryDark">#A88006</color>
     <color name="colorAccent">#FCCA3C</color>
+    <color name="colorAccentTran">#50FCCA3C</color>
 
     <color name="status_bar_color">#80800080</color>
     <color name="navigation_bar_color">@color/status_bar_color</color>
