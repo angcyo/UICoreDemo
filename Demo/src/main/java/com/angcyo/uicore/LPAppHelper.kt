@@ -1,7 +1,6 @@
 package com.angcyo.uicore
 
 import android.app.Application
-import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerConfigHelper
 import com.angcyo.canvas.render.util.toDrawable
 import com.angcyo.canvas2.laser.pecker.dslitem.control.TypefaceItem
 import com.angcyo.canvas2.laser.pecker.manager.LPProjectManager
@@ -18,7 +17,6 @@ import com.angcyo.library.ex.file
 import com.angcyo.library.ex.isDebug
 import com.angcyo.library.ex.isDebugType
 import com.angcyo.library.ex.save
-import com.angcyo.library.ex.shareFile
 import com.angcyo.library.ex.toBitmapOfBase64
 import com.angcyo.library.libCacheFile
 import com.angcyo.library.utils.uuid
@@ -95,16 +93,16 @@ object LPAppHelper {
         }
 
         //分享工程
-        ProjectListItem.onShareProjectAction = {
-            val file = it._filePath?.file()
+        ProjectListItem.onShareProjectAction = { bean, projectName ->
+            val file = bean._filePath?.file()
             if (isDebug()) {
-                file?.shareFile()
+                ProjectListItem.projectFileShareAction(bean, projectName)
             } else if (file != null) {
-                val bitmap = it._previewImgBitmap ?: it.preview_img?.toBitmapOfBase64()
+                val bitmap = bean._previewImgBitmap ?: bean.preview_img?.toBitmapOfBase64()
                 val previewFile = libCacheFile("${uuid()}${LPDataConstant.EXT_PREVIEW}")
                 bitmap?.save(previewFile)
                 LPProjectManager.onShareProjectAction.invoke(
-                    ShareProjectInfo(null, file, previewFile, it)
+                    ShareProjectInfo(null, file, previewFile, bean, projectName)
                 )
             }
         }
