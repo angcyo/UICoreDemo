@@ -68,6 +68,7 @@ import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFileV2
 import com.angcyo.laserpacker.device.EngraveHelper
 import com.angcyo.laserpacker.device.EngraveNotifyHelper
 import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
+import com.angcyo.laserpacker.device.ble.DeviceSettingFragment
 import com.angcyo.laserpacker.device.ble.EngraveExperimentalFragment
 import com.angcyo.laserpacker.device.engraveLoadingAsync
 import com.angcyo.laserpacker.device.toLaserTypeString
@@ -617,6 +618,14 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 itemText = "激光点预览功率设置"
                 itemClick = {
                     it.context.previewPowerSettingDialog()
+                }
+            }
+            addDialogItem {
+                itemText = "模式设置"
+                itemClick = {
+                    this@Canvas2Demo.dslFHelper {
+                        show(DeviceSettingFragment::class.java)
+                    }
                 }
             }
         }
