@@ -181,6 +181,20 @@ object AppDebugHelper {
         }
 
         DebugFragment.addDebugAction {
+            label = "支持GCode转换成路径数据的固件范围"
+            des = "格式:x~xx xx~xxx"
+            key = HawkEngraveKeys::gcodeUsePathDataSupportFirmware.name
+            type = String::class.java
+            defValue = HawkEngraveKeys.gcodeUsePathDataSupportFirmware.run {
+                if (isNullOrBlank()) {
+                    _deviceSettingBean?.gcodeUsePathDataRange
+                } else {
+                    this
+                }
+            }
+        }
+
+        DebugFragment.addDebugAction {
             label = "激活设备过滤"
             des = "蓝牙搜索列表,设备数量大于多少时,显示过滤布局."
             key = HawkEngraveKeys::showDeviceFilterCount.name
