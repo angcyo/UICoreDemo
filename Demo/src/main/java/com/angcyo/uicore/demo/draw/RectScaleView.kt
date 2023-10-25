@@ -1,7 +1,14 @@
 package com.angcyo.uicore.demo.draw
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.DashPathEffect
+import android.graphics.Matrix
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.PointF
+import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -11,7 +18,17 @@ import com.angcyo.library.component.pool.acquireTempMatrix
 import com.angcyo.library.component.pool.acquireTempPointF
 import com.angcyo.library.component.pool.acquireTempRectF
 import com.angcyo.library.component.pool.release
-import com.angcyo.library.ex.*
+import com.angcyo.library.ex.computePathBounds
+import com.angcyo.library.ex.density
+import com.angcyo.library.ex.dp
+import com.angcyo.library.ex.eachPath
+import com.angcyo.library.ex.flipHorizontal
+import com.angcyo.library.ex.flipVertical
+import com.angcyo.library.ex.interceptParentTouchEvent
+import com.angcyo.library.ex.mapPoint
+import com.angcyo.library.ex.paint
+import com.angcyo.library.ex.rotate
+import com.angcyo.library.ex.textHeight
 import com.angcyo.library.gesture.RectScaleGestureHandler
 
 /**
@@ -193,7 +210,7 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         canvas.drawPath(line1, paint)
         val pathBounds = line1.computePathBounds()
         L.i(pathBounds)
-        line1.eachPath { index, ratio, contourIndex, posArray ->
+        line1.eachPath { index, ratio, contourIndex, posArray, _ ->
             L.i(posArray)
         }
         val matrix = Matrix()
@@ -204,7 +221,7 @@ class RectScaleView(context: Context, attrs: AttributeSet? = null) : View(contex
         line1.transform(matrix)
         paint.color = Color.BLUE
         canvas.drawPath(line1, paint)
-        line1.eachPath { index, ratio, contourIndex, posArray ->
+        line1.eachPath { index, ratio, contourIndex, posArray, _ ->
             L.w(posArray)
         }
 
