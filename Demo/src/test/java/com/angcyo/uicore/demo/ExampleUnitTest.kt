@@ -20,6 +20,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import kotlin.math.absoluteValue
 import kotlin.math.pow
+import kotlin.math.roundToInt
 
 
 /**
@@ -447,6 +448,53 @@ class ExampleUnitTest {
             list.add(i)
         }*/
         print(list.size())
+        println(list)
+    }
+
+    /**
+     * [com.angcyo.engrave2.transition.EngraveTransitionHelper.getSliceThresholdList]
+     * */
+    @Test
+    fun testSliceList() {
+        //图片中存在的色阶值
+        val colors = listOf(250, 245, 235, 0)
+        //最黑色颜色
+        val minColor = colors.minOrNull() ?: 0
+        //最白色颜色
+        val maxColor = colors.maxOrNull() ?: 255
+
+        //需要切片的数量
+        val sliceCount = 255 - minColor
+
+        //预估每一片的理论色阶值
+        val sliceList = mutableListOf<Int>()
+        if (sliceCount <= 1) {
+            sliceList.add(maxColor)
+        } else {
+            for (i in 0 until sliceCount) {
+                val value =
+                    maxColor - ((maxColor - minColor) * 1f / (sliceCount - 1) * i).roundToInt()
+                sliceList.add(value)
+            }
+        }
+        sliceList.sortDescending() //从大到小排序
+        println(sliceList)
+
+        val list = mutableListOf<Int>()
+        for (i in 0 until sliceCount) {
+            val ref = sliceList[i]
+            val value = colors.minByOrNull {
+                if (it <= ref) {
+                    (it - ref).absoluteValue
+                } else {
+                    Int.MAX_VALUE
+                }
+            } ?: 0
+            list.add(value)
+        }
+
+        println(colors)
+        print("->${list.size()}")
         println(list)
     }
 }
