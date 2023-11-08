@@ -5,7 +5,6 @@ import android.graphics.Path
 import android.graphics.PointF
 import com.angcyo.library.L
 import com.angcyo.library.annotation.TestPoint
-import com.angcyo.library.component.hawk.LibHawkKeys
 import com.angcyo.library.component.parser.parseDateTemplate
 import com.angcyo.library.component.pool.acquireTempMatrix
 import com.angcyo.library.component.pool.acquireTempPointF
@@ -84,8 +83,14 @@ object Test {
     }
 
     private fun testEachPath() {
-        val path = Path()
-        path.addCircle(10f, 10f, 10f, Path.Direction.CW)
+        val path = Path().apply {
+            val r = 5f
+            addCircle(r, r, r, Path.Direction.CW)
+        }
+        val path2 = Path().apply {
+            val r = 100f
+            addCircle(r, r, r, Path.Direction.CW)
+        }
 
         //0 0.0 0 p:20.0,10.0 t:0.0,1.0
         //5843 0.9359128 0 p:19.203424,6.0888658 t:0.39111337,0.9203425
@@ -96,30 +101,40 @@ object Test {
 
         val gcodeBuilder = StringBuilder()
         var lastRadians = 0f //弧度
+        var prevRadians = 0f //前一个点的弧度
         var lastX = 0f
         var lastY = 0f
-        path.eachPath(LibHawkKeys._pathAcceptableError) { index, ratio, contourIndex, posArray, tanArray ->
-            L.i(
-                "eachPath:$index $ratio $contourIndex p:${posArray[0]},${posArray[1]} t:${tanArray[0]},${tanArray[1]} ${tanArray[2]}:${
-                    tanArray[2].toDegrees().adjustDegrees()
-                }"
-            )
-            val radians = tanArray[2]
-            if (index == 0) { //第一个点
-                gcodeBuilder.appendLine("G0X${posArray[0]}Y${posArray[1]}")
-            } else if (ratio == 1f) { //最后一个点
-                gcodeBuilder.appendLine("G1X${posArray[0]}Y${posArray[1]}")
-            } else {
-                val dr = (radians - lastRadians).absoluteValue.toDegrees()
-                if (dr >= LibHawkKeys.pathAcceptableRadians) { //超过10度, 则G1
-                    gcodeBuilder.appendLine("G1X${lastX}Y${lastY}F1000")
-                    lastRadians = radians
+        val step = 1f //LibHawkKeys._pathAcceptableError
+        listOf(path, path2).forEachIndexed { pathIndex, path ->
+            lastRadians = 0f
+            lastX = 0f
+            lastY = 0f
+            path.eachPath(step) { index, ratio, contourIndex, posArray, tanArray ->
+                val radians = tanArray[2]//当前点的弧度
+                L.i(
+                    "eachPath:$index $ratio $contourIndex p:${posArray[0]},${posArray[1]} t:${tanArray[0]},${tanArray[1]} ${radians}:${
+                        radians.toDegrees().adjustDegrees()
+                    }:增量弧度:${radians - prevRadians} 增量角度:${(radians - prevRadians).absoluteValue.toDegrees()}"
+                )
+                prevRadians = radians
+                if (index == 0) { //第一个点
+                    gcodeBuilder.appendLine()
+                    gcodeBuilder.appendLine("G0X${posArray[0]}Y${posArray[1]}")
+                } else if (ratio == 1f) { //最后一个点
+                    gcodeBuilder.appendLine("G1X${posArray[0]}Y${posArray[1]}")
+                } else {
+                    val dr = (radians - lastRadians).absoluteValue.toDegrees()
+                    if (dr >= 10 /*LibHawkKeys.pathAcceptableRadians*/) { //超过10度, 则G1
+                        gcodeBuilder.appendLine("G1X${lastX}Y${lastY}F1000")
+                        lastRadians = radians
+                    }
                 }
+                lastX = posArray[0]
+                lastY = posArray[1]
             }
-            lastX = posArray[0]
-            lastY = posArray[1]
+            L.w("Path:$pathIndex↓")
+            L.w(gcodeBuilder)
         }
-        L.w(gcodeBuilder)
     }
 
     private fun testTemplateParse() {

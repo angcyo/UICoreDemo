@@ -6,6 +6,7 @@ import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.fsc.laserpacker.HawkEngraveKeys
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.bluetooth.fsc.laserpacker._deviceSettingBean
+import com.angcyo.canvas2.laser.pecker.manager.FileManagerFragment
 import com.angcyo.core.component.CacheFragment
 import com.angcyo.core.component.model.CacheInfo
 import com.angcyo.core.component.model.CacheModel
@@ -136,6 +137,15 @@ object AppDebugHelper {
             }
         }
 
+        DebugFragment.addDebugAction {
+            name = "LP文件管理"
+            action = { _, _ ->
+                lastContext.dslAHelper {
+                    start(FileManagerFragment::class)
+                }
+            }
+        }
+
         //---
 
         DebugFragment.addDebugAction {
@@ -240,6 +250,14 @@ object AppDebugHelper {
             key = HawkEngraveKeys::maxEngraveItemCountLimit.name
             type = Int::class.java
             defValue = HawkEngraveKeys.maxEngraveItemCountLimit
+        }
+
+        DebugFragment.addDebugAction {
+            label = "弧度采样步长(角度)"
+            des = "采样角度变化大于此值时,是否关键点"
+            key = LibHawkKeys::pathAcceptableDegrees.name
+            type = Float::class.java
+            defValue = LibHawkKeys.pathAcceptableDegrees
         }
 
         DebugFragment.addDebugAction {
