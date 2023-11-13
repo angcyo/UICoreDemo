@@ -253,6 +253,14 @@ object AppDebugHelper {
         }
 
         DebugFragment.addDebugAction {
+            label = "路径采样步长(mm)"
+            des = "每隔多少mm采样一个点"
+            key = LibHawkKeys::pathAcceptableErrorMM.name
+            type = Float::class.java
+            defValue = LibHawkKeys.pathAcceptableErrorMM
+        }
+
+        DebugFragment.addDebugAction {
             label = "弧度采样步长(角度)"
             des = "采样角度变化大于此值时,是否关键点"
             key = LibHawkKeys::pathAcceptableDegrees.name
