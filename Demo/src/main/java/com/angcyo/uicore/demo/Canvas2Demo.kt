@@ -785,12 +785,12 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         //test
         itemHolder.click(R.id.test_button) {
             GuideManager.checkOrShowGuide(
-                requireActivity().window.contentView(),
+                activity?.window?.contentView(),
                 it,
                 1
             )
             GuideManager.checkOrShowGuide(
-                requireActivity().window.contentView(),
+                activity?.window?.contentView(),
                 itemHolder.view(R.id.engrave_preview_button),
                 2
             )
