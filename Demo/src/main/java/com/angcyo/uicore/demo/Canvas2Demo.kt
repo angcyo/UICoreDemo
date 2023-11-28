@@ -8,6 +8,7 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
+import com.angcyo.base.contentView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.fsc.FscBleApiModel
@@ -41,6 +42,7 @@ import com.angcyo.canvas2.laser.pecker.engrave.dslitem.transfer.TransferDataPxIt
 import com.angcyo.canvas2.laser.pecker.engrave.isEngraveFlow
 import com.angcyo.canvas2.laser.pecker.history.EngraveHistoryFragment
 import com.angcyo.canvas2.laser.pecker.manager.FileManagerFragment
+import com.angcyo.canvas2.laser.pecker.manager.GuideManager
 import com.angcyo.canvas2.laser.pecker.manager.LPProjectManager
 import com.angcyo.canvas2.laser.pecker.manager.restoreProjectStateV2
 import com.angcyo.canvas2.laser.pecker.manager.saveProjectStateV2
@@ -782,7 +784,18 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     private fun testDemo(itemHolder: DslViewHolder) {
         //test
         itemHolder.click(R.id.test_button) {
-            "测试写入".writeToSync()
+            GuideManager.checkOrShowGuide(
+                requireActivity().window.contentView(),
+                it,
+                1
+            )
+            GuideManager.checkOrShowGuide(
+                requireActivity().window.contentView(),
+                itemHolder.view(R.id.engrave_preview_button),
+                2
+            )
+
+            //"测试写入".writeToSync()
             /*LPTransferHelper.startCreateTransferData(
                 vmApp(),
                 "test-${uuid()}",
@@ -861,7 +874,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     override fun canSwipeBack(): Boolean = false
 
     override fun onBackPressed(): Boolean {
-        return super.onBackPressed()
+        return !GuideManager.backGuid() && super.onBackPressed()
     }
 
     override fun onFragmentFirstShow(bundle: Bundle?) {
