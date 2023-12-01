@@ -877,6 +877,16 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         return !GuideManager.backGuid() && super.onBackPressed()
     }
 
+    override fun onFragmentShow(bundle: Bundle?) {
+        super.onFragmentShow(bundle)
+        GuideManager.pauseGuideIndex = -1
+    }
+
+    override fun onFragmentHide() {
+        super.onFragmentHide()
+        GuideManager.pauseGuideIndex = 1
+    }
+
     override fun onFragmentFirstShow(bundle: Bundle?) {
         super.onFragmentFirstShow(bundle)
         //restore
