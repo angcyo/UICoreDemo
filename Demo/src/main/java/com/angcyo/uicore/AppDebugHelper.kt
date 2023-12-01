@@ -6,6 +6,7 @@ import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.fsc.laserpacker.HawkEngraveKeys
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.bluetooth.fsc.laserpacker._deviceSettingBean
+import com.angcyo.bluetooth.fsc.laserpacker.bean._pathTolerance
 import com.angcyo.canvas2.laser.pecker.manager.FileManagerFragment
 import com.angcyo.core.component.CacheFragment
 import com.angcyo.core.component.model.CacheInfo
@@ -257,7 +258,7 @@ object AppDebugHelper {
             des = "矢量拟合公差,差值内的弧形视为直线."
             key = LibHawkKeys::pathTolerance.name
             type = Float::class.java
-            defValue = LibHawkKeys.pathTolerance
+            defValue = _pathTolerance
         }
 
         DebugFragment.addDebugAction {
