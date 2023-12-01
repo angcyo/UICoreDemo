@@ -16,7 +16,7 @@ import com.angcyo.library.ex.mapPoint
 import com.angcyo.library.ex.rotate
 import com.angcyo.library.ex.toBitmap
 import com.angcyo.library.ex.toDegrees
-import com.angcyo.vector.toPath
+import com.angcyo.vector.toPathObj
 import kotlin.math.absoluteValue
 import kotlin.math.atan
 import kotlin.math.tan
@@ -222,7 +222,7 @@ object Test {
             append("Z")
         }
         //"M$x,$y L${x + width - rx},$y Q${x + width},$y ${x + width},$y${y + height - ry} L${x + width},${y + height} Q${x + width},${y + height} ${x + width},${y + height} L${x + rx},${y + height} Q$x,${y + height} $x,${y + height} L$x,${y + ry} Q$x,$y $x,$y Z"
-        val bitmap = pathData.toPath().toBitmap(Color.RED)
+        val bitmap = pathData.toPathObj().toBitmap(Color.RED)
         L.i(pathData)
     }
 

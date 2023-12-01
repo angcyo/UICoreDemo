@@ -12,7 +12,7 @@ import androidx.core.graphics.withTranslation
 import com.angcyo.library.component.pool.acquireTempPointF
 import com.angcyo.library.ex.*
 import com.angcyo.vector.VectorHelper
-import com.angcyo.vector.toPath
+import com.angcyo.vector.toPathObj
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
@@ -344,7 +344,7 @@ class DrawPathView(context: Context, attributeSet: AttributeSet? = null) :
         canvas.drawPath(test, paint)
 
         val svg = "M${sx},${sy} Q${cx},${cy},${ex},${ey}"
-        val svgPath = svg.toPath()
+        val svgPath = svg.toPathObj()
         canvas.drawPath(svgPath, paint)
 
         val path = Path()
