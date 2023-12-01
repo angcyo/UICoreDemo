@@ -1,6 +1,5 @@
 package com.angcyo.uicore.demo
 
-import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
 import android.os.Bundle
@@ -84,7 +83,6 @@ import com.angcyo.library.canvas.core.Reason
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component.RBackground
 import com.angcyo.library.component._delay
-import com.angcyo.library.component.hawk.LibLpHawkKeys
 import com.angcyo.library.component.pad.isInPadMode
 import com.angcyo.library.ex._drawable
 import com.angcyo.library.ex.dp
@@ -95,7 +93,6 @@ import com.angcyo.library.ex.randomColor
 import com.angcyo.library.ex.toHexString
 import com.angcyo.library.ex.toListOf
 import com.angcyo.library.ex.wrapLog
-import com.angcyo.library.libCacheFile
 import com.angcyo.library.libFolderPath
 import com.angcyo.library.toast
 import com.angcyo.library.toastQQ
@@ -103,10 +100,6 @@ import com.angcyo.library.utils.Constant
 import com.angcyo.library.utils.fileNameTime
 import com.angcyo.objectbox.laser.pecker.entity.EntitySync
 import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
-import com.angcyo.path.toGCodePathContent
-import com.angcyo.path.toSvgPathContent
-import com.angcyo.toGCodeContent
-import com.angcyo.toSVGContent
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.getRandomText
 import com.angcyo.widget.DslViewHolder
@@ -855,7 +848,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     }
 
     private fun testPath(path: Path) {
-        val bool = LibLpHawkKeys.enableVectorArc
+        /*val bool = LibLpHawkKeys.enableVectorArc
         LibLpHawkKeys.enableVectorArc = true
         val svgFile = path.toListOf().toSVGContent(libCacheFile("svg.txt"), Paint.Style.STROKE)
         val svgSysFile = path.toListOf().toSvgPathContent(libCacheFile("svg-sys.txt"))
@@ -864,7 +857,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         val gcodeSysFile = path.toListOf().toGCodePathContent(libCacheFile("gcode-sys.txt"))
         LibLpHawkKeys.enableVectorArc = bool
         val text = svgFile.readText()
-        L.i(text)
+        L.i(text)*/
     }
 
     //endregion---test---
