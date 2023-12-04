@@ -7,7 +7,6 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
-import com.angcyo.base.contentView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.fsc.FscBleApiModel
@@ -59,6 +58,7 @@ import com.angcyo.engrave2.transition.EngraveTransitionHelper
 import com.angcyo.fragment.AbsLifecycleFragment
 import com.angcyo.http.rx.doMain
 import com.angcyo.item.component.DebugFragment
+import com.angcyo.item.keyboard.numberKeyboardDialog
 import com.angcyo.item.style.itemCurrentIndex
 import com.angcyo.laserpacker.LPDataConstant
 import com.angcyo.laserpacker.bean.LPElementBean
@@ -777,7 +777,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     private fun testDemo(itemHolder: DslViewHolder) {
         //test
         itemHolder.click(R.id.test_button) {
-            GuideManager.checkOrShowGuide(
+            /*GuideManager.checkOrShowGuide(
                 activity?.window?.contentView(),
                 it,
                 1
@@ -786,7 +786,19 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 activity?.window?.contentView(),
                 itemHolder.view(R.id.engrave_preview_button),
                 2
-            )
+            )*/
+
+            fContext().numberKeyboardDialog {
+                //dialogTitle = "输入测试..."
+                dialogMessage = "80.8"
+                numberInputHint = "数字"
+                //removeDecimal()
+                //removePlusMinus()
+                onNumberResultAction = {
+                    toast(it)
+                    false
+                }
+            }
 
             //"测试写入".writeToSync()
             /*LPTransferHelper.startCreateTransferData(
