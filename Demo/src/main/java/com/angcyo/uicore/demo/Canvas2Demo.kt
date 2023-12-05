@@ -795,7 +795,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 //removeDecimal()
                 //removePlusMinus()
                 onNumberResultAction = {
-                    toast(it)
+                    toast(it?.toString())
                     false
                 }
             }
