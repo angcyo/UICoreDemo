@@ -270,6 +270,24 @@ object AppDebugHelper {
         }
 
         DebugFragment.addDebugAction {
+            label = "Wifi发送延迟字节数(bytes)"
+            des = "每发送多少字节后,进行延迟."
+            key = LibLpHawkKeys::wifiSendDelayByteCount.name
+            type = Long::class.java
+            defValue = LibLpHawkKeys.wifiSendDelayByteCount
+            useNewNumberKeyboardDialog = true
+        }
+
+        DebugFragment.addDebugAction {
+            label = "Wifi发送延迟时长(毫秒)"
+            des = "延迟时长"
+            key = LibLpHawkKeys::wifiSendDelay.name
+            type = Long::class.java
+            defValue = LibLpHawkKeys::wifiSendDelay
+            useNewNumberKeyboardDialog = true
+        }
+
+        DebugFragment.addDebugAction {
             label = "使用调试配置信息"
             des = "使用调试device_config/setting_config配置信息, 用于测试"
             key = HawkEngraveKeys::useDebugConfig.name
