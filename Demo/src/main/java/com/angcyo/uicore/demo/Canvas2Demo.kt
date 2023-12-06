@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
+import com.angcyo.base.contentView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.fsc.FscBleApiModel
@@ -781,12 +782,12 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 activity?.window?.contentView(),
                 it,
                 1
-            )
+            )*/
             GuideManager.checkOrShowGuide(
                 activity?.window?.contentView(),
                 itemHolder.view(R.id.engrave_preview_button),
                 2
-            )*/
+            )
 
             fContext().numberKeyboardDialog {
                 //dialogTitle = "输入测试..."
