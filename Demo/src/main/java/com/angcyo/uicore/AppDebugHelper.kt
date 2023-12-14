@@ -296,6 +296,14 @@ object AppDebugHelper {
         }
 
         DebugFragment.addDebugAction {
+            label = "使用循环数据指令"
+            des = "切片浮雕数据是否使用循环指令."
+            key = HawkEngraveKeys::loopGcodeDataCmd.name
+            type = Boolean::class.java
+            defValue = HawkEngraveKeys.loopGcodeDataCmd
+        }
+
+        DebugFragment.addDebugAction {
             label = "使用调试配置信息"
             des = "使用调试device_config/setting_config配置信息, 用于测试"
             key = HawkEngraveKeys::useDebugConfig.name
