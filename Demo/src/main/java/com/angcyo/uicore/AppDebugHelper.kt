@@ -288,6 +288,14 @@ object AppDebugHelper {
         }
 
         DebugFragment.addDebugAction {
+            label = "支架自动回升"
+            des = "切片浮雕雕刻完成后, 支持自动回升到开始的位置."
+            key = HawkEngraveKeys::autoPickUp.name
+            type = Boolean::class.java
+            defValue = HawkEngraveKeys.autoPickUp
+        }
+
+        DebugFragment.addDebugAction {
             label = "使用调试配置信息"
             des = "使用调试device_config/setting_config配置信息, 用于测试"
             key = HawkEngraveKeys::useDebugConfig.name
