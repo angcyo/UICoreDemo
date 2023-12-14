@@ -15,6 +15,8 @@ import com.angcyo.library.ex.toHexByteArray
 import com.angcyo.library.ex.toHexInt
 import com.angcyo.library.ex.toHexString
 import com.angcyo.library.ex.uuid
+import com.angcyo.library.utils.CRC16.crc16
+import com.angcyo.library.utils.CRC16.crc16Hex
 import com.angcyo.uicore.test.PathTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -496,5 +498,17 @@ class ExampleUnitTest {
         println(colors)
         print("->${list.size()}")
         println(list)
+    }
+
+    @Test
+    fun testCRC16() {
+        val data1 = MutableList(100, init = { it.toByte() })
+        val data2 = MutableList(100, init = { (it % 10).toByte() })
+        val crc1 = data1.toByteArray().crc16Hex()
+        val crc2 = data2.toByteArray().crc16Hex()
+        println(data1)
+        println(crc1)
+        println(data2)
+        println(crc2)
     }
 }
