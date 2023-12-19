@@ -34,6 +34,7 @@ import com.angcyo.canvas2.laser.pecker.IEngraveRenderFragment
 import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
 import com.angcyo.canvas2.laser.pecker.dialog.fontLibraryHandleDialogConfig
 import com.angcyo.canvas2.laser.pecker.dialog.previewPowerSettingDialog
+import com.angcyo.canvas2.laser.pecker.dialog.speedConvertDialogConfig
 import com.angcyo.canvas2.laser.pecker.engrave.BaseFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.EngraveFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.LPEngraveHelper
@@ -857,6 +858,10 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 addCircle(100f, 100f, 100f, Path.Direction.CW)
                 testPath(this)
             }*/
+        }
+
+        itemHolder.click(R.id.speed_convert_button) {
+            it.context.speedConvertDialogConfig()
         }
     }
 
