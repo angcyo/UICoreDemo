@@ -11,11 +11,12 @@ import com.angcyo.library.ex.nowTime
 import com.angcyo.library.ex.padHexString
 import com.angcyo.library.ex.patternList
 import com.angcyo.library.ex.size
+import com.angcyo.library.ex.toAsciiInt
+import com.angcyo.library.ex.toAsciiString
 import com.angcyo.library.ex.toHexByteArray
 import com.angcyo.library.ex.toHexInt
 import com.angcyo.library.ex.toHexString
 import com.angcyo.library.ex.uuid
-import com.angcyo.library.utils.CRC16.crc16
 import com.angcyo.library.utils.CRC16.crc16Hex
 import com.angcyo.uicore.test.PathTest
 import org.junit.Assert.assertEquals
@@ -510,5 +511,16 @@ class ExampleUnitTest {
         println(crc1)
         println(data2)
         println(crc2)
+    }
+
+    @Test
+    fun testAscii() {
+        val int = 2116779516
+        //将二进制int转成ascii码对应的字符串
+        val ascii = int.toAsciiString()
+        println(ascii)
+        //反解ascii成int
+        println(ascii.toAsciiInt())
+        println("7abc483c".toAsciiInt())
     }
 }
