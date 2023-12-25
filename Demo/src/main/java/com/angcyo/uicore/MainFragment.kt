@@ -493,6 +493,7 @@ class MainFragment : BaseDemoDslFragment() {
             }
         }
         renderDemoListItem("UsbStorageDemo")
+        renderDemoListItem("NsdDemo")
 
         //https://github.com/sinawangnan7/CurrentActivity
         //renderDemoListItem("CurrentActivityDemo $GO")
