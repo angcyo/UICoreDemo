@@ -311,6 +311,7 @@ class FscThroughputFragment : AppDslFragment() {
                                     0,
                                     60,
                                     20,
+                                    null,
                                     HawkEngraveKeys.lastPwrProgress,
                                     0
                                 ).toHexCommandString(),
