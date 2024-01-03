@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.Path
 import android.graphics.PointF
 import com.angcyo.library.L
+import com.angcyo.library.LTime
 import com.angcyo.library.annotation.TestPoint
 import com.angcyo.library.component.parser.parseDateTemplate
 import com.angcyo.library.component.pool.acquireTempMatrix
@@ -80,6 +81,9 @@ object Test {
         //testSvg()
         //testAnnotation()
         //testEachPath()
+
+        //2024-1-3
+        //testTime()
     }
 
     private fun testEachPath() {
@@ -231,6 +235,44 @@ object Test {
         L.i(annotation)
         if (annotation != null) {
             L.i(annotation.des)
+        }
+    }
+
+    /**
+     * ```
+     * 循环200000000次:-645128448, 耗时:0s389
+     * 循环300000000次:-302797184, 耗时:0s559
+     * 循环400000000次:1914453504, 耗时:0s765
+     * 循环500000000次:1711656320, 耗时:0s943
+     * 循环600000000次:-911188736, 耗时:1s116
+     * 循环700000000次:-1659114368, 耗时:1s304
+     * 循环800000000次:-532120576, 耗时:1s491
+     * 循环900000000次:-1825174656, 耗时:1s676
+     * 循环1000000000次:-1243309312, 耗时:1s855
+     * 循环1100000000次:1213475456, 耗时:2s47
+     *
+     * 循环200000000次:-645128448, 耗时:0s393
+     * 循环300000000次:-302797184, 耗时:0s562
+     * 循环400000000次:1914453504, 耗时:0s744
+     * 循环500000000次:1711656320, 耗时:0s935
+     * 循环600000000次:-911188736, 耗时:1s114
+     * 循环700000000次:-1659114368, 耗时:1s299
+     * 循环800000000次:-532120576, 耗时:1s485
+     * 循环900000000次:-1825174656, 耗时:1s673
+     * 循环1000000000次:-1243309312, 耗时:1s856
+     * 循环1100000000次:1213475456, 耗时:2s40
+     * ```
+     * */
+    private fun testTime() {
+        var c = 0
+        while (c++ < 10) {
+            LTime.tick()
+            val count = 10000000 * 10 * (c + 1)
+            var sum = 0
+            for (i in 0 until count) {
+                sum += i
+            }
+            L.i("循环${count}次:$sum, 耗时:${LTime.time()}");
         }
     }
 }
