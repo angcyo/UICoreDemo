@@ -523,4 +523,45 @@ class ExampleUnitTest {
         println(ascii.toAsciiInt())
         println("7abc483c".toAsciiInt())
     }
+
+    @Test
+    fun testSum() {
+        //给定N个数
+        val numList = listOf(1, 5, 4, 3)
+        //给定目标值
+        var sum = 7
+        //求出使用最少数相加等于目标值的算法
+        val resultList = mutableListOf<Int>()
+
+        while (sum > 0) {
+            val value = findMaxNumIn(numList, sum)
+            if (value != null) {
+                resultList.add(value)
+                sum -= value
+            } else {
+                println(sum)
+                break
+            }
+        }
+
+        println(resultList)
+    }
+
+    /**查找最大的小于[sum]的数*/
+    fun findMaxNumIn(list: List<Int>, sum: Int): Int? {
+        var result: Int? = null
+        var dx = Int.MAX_VALUE
+
+        for (num in list) {
+            if (num <= sum) {
+                val d = sum - num
+                if (d < dx) {
+                    dx = d
+                    result = num
+                }
+            }
+        }
+
+        return result
+    }
 }
