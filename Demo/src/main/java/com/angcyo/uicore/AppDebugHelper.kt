@@ -246,7 +246,7 @@ object AppDebugHelper {
         }
 
         DebugFragment.addDebugAction {
-            label = "最大允许雕刻数量"
+            label = "最大允许文件图层数量"
             des = "可以同时勾选多少个元素雕刻"
             key = HawkEngraveKeys::maxEngraveItemCountLimit.name
             type = Int::class.java
