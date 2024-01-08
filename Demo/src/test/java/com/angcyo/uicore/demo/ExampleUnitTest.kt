@@ -22,6 +22,7 @@ import com.angcyo.uicore.test.PathTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import kotlin.math.absoluteValue
+import kotlin.math.min
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
@@ -527,19 +528,19 @@ class ExampleUnitTest {
     @Test
     fun testSum() {
         //给定N个数
-        val numList = listOf(1, 5, 4, 3)
+        val numList = listOf(8, 16, 23, 32, 40, 48)
+        var target = 24
         //给定目标值
-        var sum = 7
         //求出使用最少数相加等于目标值的算法
         val resultList = mutableListOf<Int>()
 
-        while (sum > 0) {
-            val value = findMaxNumIn(numList, sum)
+        while (target > 0) {
+            val value = findMaxNumIn(numList, target)
             if (value != null) {
                 resultList.add(value)
-                sum -= value
+                target -= value
             } else {
-                println(sum)
+                println(target)
                 break
             }
         }
@@ -563,5 +564,43 @@ class ExampleUnitTest {
         }
 
         return result
+    }
+
+    @Test
+    fun testSum2() {
+        //N数求和/最接近目标值的组合
+        val numList = listOf(8, 16, 23, 32, 40, 48)
+        val target = 24
+
+        println(findCombinationNumbers(target, numList))
+    }
+
+    fun findCombinationNumbers(target: Int, numList: List<Int>): List<Int> {
+        val resultList = mutableListOf<Int>()
+        val remainder = findCombinationNumbers(target, numList, resultList)
+        if (remainder > 0 && remainder < numList.min()) {
+            println(remainder)
+            //还有余数
+            return findCombinationNumbers(target + 1, numList)
+        }
+        return resultList
+    }
+
+    fun findCombinationNumbers(target: Int, numList: List<Int>, resultList: MutableList<Int>): Int {
+        val array = IntArray(target + 1)
+        array.fill(Int.MAX_VALUE)
+        for (num in numList) {
+            for (i in num..target) {
+                array[i] = min(array[i], array[i - num] + 1)
+            }
+        }
+        var currentSum = target
+        for (num in numList) {
+            while (currentSum >= num && array[currentSum] == array[currentSum - num] + 1) {
+                resultList.add(num)
+                currentSum -= num
+            }
+        }
+        return currentSum
     }
 }
