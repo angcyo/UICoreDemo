@@ -23,6 +23,7 @@ import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.FactoryCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.FileModeCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.QueryCmd
+import com.angcyo.bluetooth.fsc.laserpacker.command.WifiUpdateCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.toLaserPeckerPower
 import com.angcyo.bluetooth.fsc.laserpacker.parse.FileTransferParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryLogParser
@@ -53,6 +54,7 @@ import com.angcyo.core.component.file.writeToLog
 import com.angcyo.core.component.fileSelector
 import com.angcyo.core.showIn
 import com.angcyo.core.vmApp
+import com.angcyo.dialog.inputDialog
 import com.angcyo.dialog.itemsDialog
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave2.data.TransitionParam
@@ -867,6 +869,30 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
 
         itemHolder.click(R.id.speed_convert_button) {
             it.context.speedConvertDialogConfig()
+        }
+
+        itemHolder.click(R.id.wifi_upgrade_button) {
+            it.context.inputDialog {
+                dialogTitle = "固件地址"
+                defaultInputString =
+                    "https://gitee.com/angcyo/file/raw/master/firmware/wifi/V8.01.02.bin"
+                
+                onInputResult = { dialog, inputText ->
+                    val url = inputText.toString()
+                    if (url.isEmpty()) {
+                        toastQQ("地址为空")
+                    } else {
+                        WifiUpdateCmd(url).enqueue { bean, error ->
+                            if (error == null) {
+                                dialog.dismiss()
+                            } else {
+                                toastQQ(error.message)
+                            }
+                        }
+                    }
+                    false
+                }
+            }
         }
     }
 
