@@ -31,6 +31,7 @@ import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
 import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasRenderView
 import com.angcyo.canvas.render.core.CanvasRenderDelegate
+import com.angcyo.canvas.render.renderer.CanvasElementRenderer
 import com.angcyo.canvas2.laser.pecker.IEngraveRenderFragment
 import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
 import com.angcyo.canvas2.laser.pecker.dialog.fontLibraryHandleDialogConfig
@@ -49,6 +50,7 @@ import com.angcyo.canvas2.laser.pecker.manager.restoreProjectStateV2
 import com.angcyo.canvas2.laser.pecker.manager.saveProjectStateV2
 import com.angcyo.canvas2.laser.pecker.util.LPElementHelper
 import com.angcyo.canvas2.laser.pecker.util.lpElement
+import com.angcyo.canvas2.laser.pecker.util.lpPathElement
 import com.angcyo.core.component.file.writeTo
 import com.angcyo.core.component.file.writeToLog
 import com.angcyo.core.component.fileSelector
@@ -94,9 +96,11 @@ import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.isDebugType
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.library.ex.randomColor
+import com.angcyo.library.ex.shareFile
 import com.angcyo.library.ex.toHexString
 import com.angcyo.library.ex.toListOf
 import com.angcyo.library.ex.wrapLog
+import com.angcyo.library.libCacheFile
 import com.angcyo.library.libFolderPath
 import com.angcyo.library.toast
 import com.angcyo.library.toastQQ
@@ -104,6 +108,7 @@ import com.angcyo.library.utils.Constant
 import com.angcyo.library.utils.fileNameTime
 import com.angcyo.objectbox.laser.pecker.entity.EntitySync
 import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
+import com.angcyo.toSVGStrokeContentStr
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.getRandomText
 import com.angcyo.widget.DslViewHolder
@@ -876,7 +881,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 dialogTitle = "固件地址"
                 defaultInputString =
                     "https://gitee.com/angcyo/file/raw/master/firmware/wifi/V8.01.02.bin"
-                
+
                 onInputResult = { dialog, inputText ->
                     val url = inputText.toString()
                     if (url.isEmpty()) {
@@ -891,6 +896,21 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                         }
                     }
                     false
+                }
+            }
+        }
+
+        itemHolder.click(R.id.export_svg_button) {
+            renderDelegate?.selectorManager?.getSelectorRendererList(true)?.forEach {
+                if (it is CanvasElementRenderer) {
+                    val element = it.lpPathElement()
+                    /*element?.getEngravePathData()?.toSvgPathContent(
+                        libCacheFile("${element.elementBean.name ?: element.elementBean.uuid}.svg")
+                    )?.shareFile()*/
+                    element?.getEngravePathData()?.toSVGStrokeContentStr(
+                        libCacheFile("${element.elementBean.name ?: element.elementBean.uuid}.svg"),
+                        wrapSvgXml = true
+                    )?.shareFile()
                 }
             }
         }
