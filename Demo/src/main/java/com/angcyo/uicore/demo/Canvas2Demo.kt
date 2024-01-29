@@ -55,6 +55,7 @@ import com.angcyo.core.component.file.writeTo
 import com.angcyo.core.component.file.writeToLog
 import com.angcyo.core.component.fileSelector
 import com.angcyo.core.showIn
+import com.angcyo.core.tgStrokeLoading
 import com.angcyo.core.vmApp
 import com.angcyo.dialog.inputDialog
 import com.angcyo.dialog.itemsDialog
@@ -90,6 +91,7 @@ import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component.RBackground
 import com.angcyo.library.component._delay
 import com.angcyo.library.component.pad.isInPadMode
+import com.angcyo.library.component.runOnBackground
 import com.angcyo.library.ex._drawable
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.dpi
@@ -907,10 +909,15 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     /*element?.getEngravePathData()?.toSvgPathContent(
                         libCacheFile("${element.elementBean.name ?: element.elementBean.uuid}.svg")
                     )?.shareFile()*/
-                    element?.getEngravePathData()?.toSVGStrokeContentStr(
-                        libCacheFile("${element.elementBean.name ?: element.elementBean.uuid}.svg"),
-                        wrapSvgXml = true
-                    )?.shareFile()
+                    itemHolder.context.tgStrokeLoading { isCancel, loadEnd ->
+                        runOnBackground {
+                            element?.getEngravePathData()?.toSVGStrokeContentStr(
+                                libCacheFile("${element.elementBean.name ?: element.elementBean.uuid}.svg"),
+                                wrapSvgXml = true
+                            )?.shareFile()
+                            loadEnd(true, null)
+                        }
+                    }
                 }
             }
         }
