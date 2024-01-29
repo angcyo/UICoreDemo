@@ -882,7 +882,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
             it.context.inputDialog {
                 dialogTitle = "固件地址"
                 defaultInputString =
-                    "https://gitee.com/angcyo/file/raw/master/firmware/wifi/V8.01.02.bin"
+                    "https://gitcode.net/angcyo/file/-/raw/master/firmware/wifi/V8.01.02.bin"
 
                 onInputResult = { dialog, inputText ->
                     val url = inputText.toString()
