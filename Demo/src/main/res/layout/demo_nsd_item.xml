@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="服务类型"
-            android:text="_test._http._tcp" />
+            android:text="_http._tcp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="发现服务类型"
-            android:text="_test._http._tcp" />
+            android:text="_http._tcp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.angcyo.widget.layout.DslFlowLayout
