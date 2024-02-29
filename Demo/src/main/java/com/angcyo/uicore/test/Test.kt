@@ -1,6 +1,5 @@
 package com.angcyo.uicore.test
 
-import android.graphics.Color
 import android.graphics.Path
 import android.graphics.PointF
 import com.angcyo.library.L
@@ -10,14 +9,15 @@ import com.angcyo.library.component.parser.parseDateTemplate
 import com.angcyo.library.component.pool.acquireTempMatrix
 import com.angcyo.library.component.pool.acquireTempPointF
 import com.angcyo.library.component.pool.release
+import com.angcyo.library.component.runOnBackground
 import com.angcyo.library.ex.adjustDegrees
 import com.angcyo.library.ex.angle
 import com.angcyo.library.ex.eachPath
 import com.angcyo.library.ex.mapPoint
 import com.angcyo.library.ex.rotate
-import com.angcyo.library.ex.toBitmap
 import com.angcyo.library.ex.toDegrees
-import com.angcyo.vector.toPathObj
+import java.net.InetSocketAddress
+import java.net.Socket
 import kotlin.math.absoluteValue
 import kotlin.math.atan
 import kotlin.math.tan
@@ -84,6 +84,18 @@ object Test {
 
         //2024-1-3
         //testTime()
+
+        runOnBackground {
+            try {
+                val socket = Socket()
+                //java.net.UnknownHostException: LP5-43323E
+                val socketAddress = InetSocketAddress("LP5-43323E.local", 1111)
+                socket.connect(socketAddress, 4000)
+                L.d("isConnected:${socket.isConnected}")
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     private fun testEachPath() {
@@ -226,7 +238,7 @@ object Test {
             append("Z")
         }
         //"M$x,$y L${x + width - rx},$y Q${x + width},$y ${x + width},$y${y + height - ry} L${x + width},${y + height} Q${x + width},${y + height} ${x + width},${y + height} L${x + rx},${y + height} Q$x,${y + height} $x,${y + height} L$x,${y + ry} Q$x,$y $x,$y Z"
-        val bitmap = pathData.toPathObj().toBitmap(Color.RED)
+        //val bitmap = pathData.toPathObj().toBitmap(Color.RED)
         L.i(pathData)
     }
 

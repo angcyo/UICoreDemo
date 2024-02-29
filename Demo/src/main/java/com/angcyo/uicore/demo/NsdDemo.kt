@@ -45,10 +45,10 @@ class NsdDemo : AppDslFragment() {
                             append("服务名:${serviceInfo.serviceName}")
                             append(" 服务类型:${serviceInfo.serviceType}")
                             append(" 端口:${serviceInfo.port}")
+                            appendLine()
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                                 append("network:${serviceInfo.network}")
                             }
-                            appendLine()
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                                 append("hostAddresses:${serviceInfo.hostAddresses}")
                             } else {
