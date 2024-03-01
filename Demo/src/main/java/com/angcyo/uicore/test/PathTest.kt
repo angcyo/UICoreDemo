@@ -9,7 +9,7 @@ import com.angcyo.library.L
 import com.angcyo.library.annotation.TestPoint
 import com.angcyo.library.ex.op
 import com.angcyo.library.unit.toPixel
-import com.angcyo.toSVGStrokeContentStr
+import com.angcyo.toSVGStrokeContentVectorStr
 import kotlin.math.atan
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -71,7 +71,7 @@ object PathTest {
             path.transform(matrix)
         }*/
         //val svg = newPathList.op(Path.Op.DIFFERENCE).toSvgPathContent()
-        val svg = newPathList.op(Path.Op.DIFFERENCE).toSVGStrokeContentStr {
+        val svg = newPathList.op(Path.Op.DIFFERENCE).toSVGStrokeContentVectorStr {
             it.isSinglePath = true
         }
         L.e(svg)

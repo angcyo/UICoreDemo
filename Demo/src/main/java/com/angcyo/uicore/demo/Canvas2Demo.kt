@@ -70,6 +70,7 @@ import com.angcyo.item.style.itemCurrentIndex
 import com.angcyo.laserpacker.LPDataConstant
 import com.angcyo.laserpacker.bean.LPElementBean
 import com.angcyo.laserpacker.bean.LPProjectBean
+import com.angcyo.laserpacker.device.AddDeviceFragment
 import com.angcyo.laserpacker.device.DeviceHelper
 import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFile
 import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFileV2
@@ -110,7 +111,7 @@ import com.angcyo.library.utils.Constant
 import com.angcyo.library.utils.fileNameTime
 import com.angcyo.objectbox.laser.pecker.entity.EntitySync
 import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
-import com.angcyo.toSVGStrokeContentStr
+import com.angcyo.toSVGStrokeContentVectorStr
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.getRandomText
 import com.angcyo.widget.DslViewHolder
@@ -329,6 +330,13 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         }
 
         //---
+
+        //添加设备
+        itemHolder.click(R.id.add_device_button) {
+            dslFHelper {
+                show(AddDeviceFragment::class)
+            }
+        }
 
         //配网
         itemHolder.click(R.id.wifi_button) {
@@ -911,7 +919,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     )?.shareFile()*/
                     itemHolder.context.tgStrokeLoading { isCancel, loadEnd ->
                         runOnBackground {
-                            element?.getEngravePathData()?.toSVGStrokeContentStr(
+                            element?.getEngravePathData()?.toSVGStrokeContentVectorStr(
                                 libCacheFile("${element.elementBean.name ?: element.elementBean.uuid}.svg"),
                                 wrapSvgXml = true
                             )?.shareFile()
