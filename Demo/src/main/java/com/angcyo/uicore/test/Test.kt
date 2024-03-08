@@ -1,5 +1,6 @@
 package com.angcyo.uicore.test
 
+import android.graphics.Matrix
 import android.graphics.Path
 import android.graphics.PointF
 import com.angcyo.library.L
@@ -9,15 +10,12 @@ import com.angcyo.library.component.parser.parseDateTemplate
 import com.angcyo.library.component.pool.acquireTempMatrix
 import com.angcyo.library.component.pool.acquireTempPointF
 import com.angcyo.library.component.pool.release
-import com.angcyo.library.component.runOnBackground
 import com.angcyo.library.ex.adjustDegrees
 import com.angcyo.library.ex.angle
 import com.angcyo.library.ex.eachPath
 import com.angcyo.library.ex.mapPoint
 import com.angcyo.library.ex.rotate
 import com.angcyo.library.ex.toDegrees
-import java.net.InetSocketAddress
-import java.net.Socket
 import kotlin.math.absoluteValue
 import kotlin.math.atan
 import kotlin.math.tan
@@ -85,7 +83,7 @@ object Test {
         //2024-1-3
         //testTime()
 
-        runOnBackground {
+        /*runOnBackground {
             try {
                 val socket = Socket()
                 //java.net.UnknownHostException: LP5-43323E
@@ -95,7 +93,10 @@ object Test {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-        }
+        }*/
+
+        //2024-3-8
+        testMatrix()
     }
 
     private fun testEachPath() {
@@ -286,5 +287,19 @@ object Test {
             }
             L.i("循环${count}次:$sum, 耗时:${LTime.time()}");
         }
+    }
+
+    private fun testMatrix() {
+        val rotateMatrix1 = Matrix()
+        rotateMatrix1.postTranslate(100f, 100f)
+        val rotateMatrix2 = Matrix()
+        rotateMatrix2.setRotate(180f)
+        rotateMatrix2.postTranslate(100f, 100f)
+
+        val rotateMatrix3 = Matrix()
+        rotateMatrix3.setRotate(180f)
+        rotateMatrix3.preTranslate(100f, 100f)
+
+        val translateMatrix = Matrix()
     }
 }
