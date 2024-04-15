@@ -42,6 +42,7 @@ import com.angcyo.canvas2.laser.pecker.engrave.EngraveFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.LPEngraveHelper
 import com.angcyo.canvas2.laser.pecker.engrave.dslitem.transfer.TransferDataPxItem
 import com.angcyo.canvas2.laser.pecker.engrave.isEngraveFlow
+import com.angcyo.canvas2.laser.pecker.engrave.newflow.NewFlowConfigFragment
 import com.angcyo.canvas2.laser.pecker.history.EngraveHistoryFragment
 import com.angcyo.canvas2.laser.pecker.manager.FileManagerFragment
 import com.angcyo.canvas2.laser.pecker.manager.GuideManager
@@ -225,6 +226,16 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                         flowLayoutHelper.engraveFlow =
                             BaseFlowLayoutHelper.ENGRAVE_FLOW_TRANSFER_BEFORE_CONFIG
                         flowLayoutHelper.showIn(this@Canvas2Demo)
+                    }
+                }
+
+                //雕刻2-新流程
+                itemHolder.click(R.id.engrave_button2) {
+                    dslFHelper {
+                        anim(R.anim.lib_y_show_enter_holder, 0)
+                        show(NewFlowConfigFragment::class) {
+                            (this as NewFlowConfigFragment).canvasRenderDelegate = renderDelegate
+                        }
                     }
                 }
 
