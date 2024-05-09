@@ -122,7 +122,7 @@ if (gradle.gradleVersion.charAt(0) < '8') {
             //System.err.println("user:$userName os:$os") //user:angcyo os:Mac OS X //user:angcyo os:Windows 10
             if (userName == "angcyo") {
                 if (osName.contains("windows")) {
-                    maven { url "E:/AndroidProjects/maven" }
+                    maven { url "F:/maven" }
                 } else {
                     maven { url "/Users/angcyo/project/maven/hingin" }
                 }
