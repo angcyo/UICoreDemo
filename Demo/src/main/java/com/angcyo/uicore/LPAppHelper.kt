@@ -1,9 +1,11 @@
 package com.angcyo.uicore
 
 import android.app.Application
+import com.angcyo.base.dslFHelper
 import com.angcyo.canvas.render.util.toDrawable
 import com.angcyo.canvas2.laser.pecker.applyMatrix
 import com.angcyo.canvas2.laser.pecker.dslitem.control.TypefaceItem
+import com.angcyo.canvas2.laser.pecker.manager.FileManagerFragment
 import com.angcyo.canvas2.laser.pecker.manager.LPProjectManager
 import com.angcyo.canvas2.laser.pecker.manager.ShareProjectInfo
 import com.angcyo.canvas2.laser.pecker.toRendererList
@@ -12,6 +14,7 @@ import com.angcyo.laserpacker.HandleKtx
 import com.angcyo.laserpacker.LPDataConstant
 import com.angcyo.laserpacker.open.CanvasOpenModel
 import com.angcyo.laserpacker.open.CanvasOpenPreviewActivity
+import com.angcyo.laserpacker.project.ProjectListFragment
 import com.angcyo.laserpacker.project.dslitem.ProjectListItem
 import com.angcyo.library.annotation.CallPoint
 import com.angcyo.library.component.FontManager
@@ -110,6 +113,13 @@ object LPAppHelper {
                 LPProjectManager.onShareProjectAction.invoke(
                     ShareProjectInfo(null, file, previewFile, bean, projectName)
                 )
+            }
+        }
+
+        //2024-5-10 打开文件管理
+        ProjectListFragment.onShowFileManagerAction = {
+            it.dslFHelper {
+                show(FileManagerFragment::class)
             }
         }
     }
