@@ -27,6 +27,7 @@ import com.angcyo.bluetooth.fsc.laserpacker.command.toLaserPeckerPower
 import com.angcyo.bluetooth.fsc.laserpacker.parse.FileTransferParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryLogParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
+import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryWifiVersionParser
 import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasRenderView
 import com.angcyo.canvas.render.core.CanvasRenderDelegate
@@ -570,6 +571,21 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                                 val log = it.log ?: "no log!"
                                 toast(log)
                                 itemHolder.tv(R.id.result_text_view)?.text = log
+                            }
+                        }
+                    }
+                }
+            }
+            addDialogItem {
+                itemText = "查询Wifi固件版本"
+                itemClick = {
+                    QueryCmd.wifiVersion.enqueue { bean, error ->
+                        if (error == null) {
+                            bean?.parse<QueryWifiVersionParser>()?.let {
+                                L.i(it)
+                                val version = it.wifiVersion ?: "未查询到."
+                                toast(version)
+                                itemHolder.tv(R.id.result_text_view)?.text = version
                             }
                         }
                     }
