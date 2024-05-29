@@ -3,10 +3,14 @@ package com.angcyo.uicore
 import androidx.fragment.app.FragmentActivity
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
+import com.angcyo.bluetooth.fsc.enqueue
 import com.angcyo.bluetooth.fsc.laserpacker.HawkEngraveKeys
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.bluetooth.fsc.laserpacker._deviceSettingBean
 import com.angcyo.bluetooth.fsc.laserpacker.bean._pathTolerance
+import com.angcyo.bluetooth.fsc.laserpacker.command.QueryCmd
+import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryWifiVersionParser
+import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas2.laser.pecker.manager.FileManagerFragment
 import com.angcyo.core.component.CacheFragment
 import com.angcyo.core.component.model.CacheInfo
@@ -28,6 +32,7 @@ import com.angcyo.library.component.RBackground
 import com.angcyo.library.component.hawk.LibHawkKeys
 import com.angcyo.library.component.hawk.LibLpHawkKeys
 import com.angcyo.library.component.lastContext
+import com.angcyo.library.toast
 import com.angcyo.library.utils.Constant
 import com.angcyo.library.utils.appFolderPath
 import com.angcyo.server.DslAndServer
@@ -125,6 +130,20 @@ object AppDebugHelper {
             action = { _, _ ->
                 lastContext.dslAHelper {
                     start(AddWifiDeviceFragment::class)
+                }
+            }
+        }
+
+        DebugFragment.addDebugAction {
+            name = "查询Wifi固件版本"
+            action = { _, _ ->
+                QueryCmd.wifiVersion.enqueue { bean, error ->
+                    if (error == null) {
+                        bean?.parse<QueryWifiVersionParser>()?.let {
+                            val version = it.wifiVersion ?: "未查询到."
+                            toast(version)
+                        }
+                    }
                 }
             }
         }
