@@ -1072,6 +1072,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     renderLayoutHelper.delegate?.showRectBounds(it, offsetRectTop = true)
                 }
             } else if (to == BaseFlowLayoutHelper.ENGRAVE_FLOW_BEFORE_CONFIG) {
+                //2024-6-26 移除雕刻时的自动保存, 漂移错误的问题?
                 renderLayoutHelper.delegate?.saveProjectStateV2(flowLayoutHelper.flowTaskId)
             }
         }
