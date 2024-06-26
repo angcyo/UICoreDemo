@@ -31,6 +31,7 @@ if (gradle.gradleVersion.charAt(0) >= '8') {
             //maven { url file('E:/AndroidProjects/maven') }
             //maven { url "https://gitcode.net/angcyo/maven/-/raw/master" }
             //maven { url "https://gitcode.net/angcyo/maven/-/raw/hingin" }
+            //maven { url "https://raw.gitcode.com/angcyo/res/raw/master" }
 
             def os = System.getProperty("os.name")
             def osName = os.toLowerCase()
