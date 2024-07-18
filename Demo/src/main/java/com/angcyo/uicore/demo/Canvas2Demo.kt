@@ -32,6 +32,7 @@ import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasRenderView
 import com.angcyo.canvas.render.core.CanvasRenderDelegate
 import com.angcyo.canvas.render.renderer.CanvasElementRenderer
+import com.angcyo.canvas.render.renderer.CanvasGroupRenderer
 import com.angcyo.canvas2.laser.pecker.IEngraveRenderFragment
 import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
 import com.angcyo.canvas2.laser.pecker.dialog.fontLibraryHandleDialogConfig
@@ -40,7 +41,6 @@ import com.angcyo.canvas2.laser.pecker.dialog.speedConvertDialogConfig
 import com.angcyo.canvas2.laser.pecker.engrave.BaseFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.EngraveFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.LPEngraveHelper
-import com.angcyo.canvas2.laser.pecker.engrave.checkShowEjectSmokeDialog
 import com.angcyo.canvas2.laser.pecker.engrave.dslitem.transfer.TransferDataPxItem
 import com.angcyo.canvas2.laser.pecker.engrave.isEngraveFlow
 import com.angcyo.canvas2.laser.pecker.engrave.newflow.NewFlowConfigFragment
@@ -827,7 +827,12 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     private fun testDemo(itemHolder: DslViewHolder) {
         //test
         itemHolder.click(R.id.test_button) {
-            fContext().checkShowEjectSmokeDialog()
+            val originBounds = CanvasGroupRenderer.getRendererListRenderProperty(
+                renderDelegate!!.getSelectorOrAllElementRendererList()
+            ).getRenderBounds(RectF())
+            L.w("边界:$originBounds 宽:${originBounds.width()} 高:${originBounds.height()}")
+
+            //fContext().checkShowEjectSmokeDialog()
 
             /*GuideManager.checkOrShowGuide(
                 activity?.window?.contentView(),
