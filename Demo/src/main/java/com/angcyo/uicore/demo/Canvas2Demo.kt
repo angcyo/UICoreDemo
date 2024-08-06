@@ -127,8 +127,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     companion object {
         /**写入到同步日志*/
         fun CharSequence.writeToSync(
-            logLevel: Int = L.DEBUG,
-            name: String = "sync.log"
+            logLevel: Int = L.DEBUG, name: String = "sync.log"
         ): CharSequence {
             wrapLog().writeTo(Constant.LOG_FOLDER_NAME, name)
             L.log(logLevel, this)
@@ -274,14 +273,11 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                             }
 
                             is LPElementBean -> LPProjectManager().openElementBean(
-                                delegate,
-                                bean,
-                                true
+                                delegate, bean, true
                             )
 
                             is List<*> -> LPProjectManager().openElementBeanList(
-                                delegate,
-                                bean as List<LPElementBean>?, true
+                                delegate, bean as List<LPElementBean>?, true
                             )
                         }
                     }
@@ -298,8 +294,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     if (deviceState.error == 0) {
                         //无错误
                         flowLayoutHelper.deviceStateModel.startLoopCheckState(
-                            !deviceState.isModeIdle(),
-                            reason = "恢复雕刻进度"
+                            !deviceState.isModeIdle(), reason = "恢复雕刻进度"
                         )
                     }
                 }
@@ -496,7 +491,8 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                         projectName = "save-v1-${nowTimeString()}"
                         val file = saveProjectV1To(
                             flowLayoutHelper.flowTaskId,
-                            _defaultProjectOutputFile("LP-${fileNameTime()}"), renderDelegate!!
+                            _defaultProjectOutputFile("LP-${fileNameTime()}"),
+                            renderDelegate!!
                         )
                         L.i(file)
                         EntitySync.saveProjectSyncEntity(projectName, file?.absolutePath)
@@ -722,7 +718,8 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                         L.i(
                             EngraveTransitionHelper.transitionToBitmapDithering(
                                 element, transferConfigEntity, TransitionParam(
-                                    isBitmapInvert = false, invert = CLICK_COUNT++ % 2 == 1,
+                                    isBitmapInvert = false,
+                                    invert = CLICK_COUNT++ % 2 == 1,
                                     useNewDithering = false
                                 )
                             )
@@ -737,7 +734,8 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                         L.i(
                             EngraveTransitionHelper.transitionToBitmapDithering(
                                 element, transferConfigEntity, TransitionParam(
-                                    isBitmapInvert = false, invert = CLICK_COUNT++ % 2 == 1,
+                                    isBitmapInvert = false,
+                                    invert = CLICK_COUNT++ % 2 == 1,
                                     useNewDithering = true
                                 )
                             )
@@ -766,6 +764,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                                 element, transferConfigEntity, TransitionParam()
                             )
                         )
+                        EngraveTransitionHelper.tempTransitionFilePath?.shareFile()
                     }
                 }
             }
@@ -780,6 +779,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                                 )
                             )
                         )
+                        EngraveTransitionHelper.tempTransitionFilePath?.shareFile()
                     }
                 }
             }
@@ -796,6 +796,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                                 )
                             )
                         )
+                        EngraveTransitionHelper.tempTransitionFilePath?.shareFile()
                     }
                 }
             }
@@ -838,8 +839,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 activity?.window?.contentView(),
                 it,
                 1
-            )*/
-            /*GuideManager.checkOrShowGuide(
+            )*//*GuideManager.checkOrShowGuide(
                 activity?.window?.contentView(),
                 itemHolder.view(R.id.engrave_preview_button),
                 2
@@ -946,8 +946,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         itemHolder.click(R.id.export_svg_button) {
             renderDelegate?.selectorManager?.getSelectorRendererList(true)?.forEach {
                 if (it is CanvasElementRenderer) {
-                    val element = it.lpPathElement()
-                    /*element?.getEngravePathData()?.toSvgPathContent(
+                    val element = it.lpPathElement()/*element?.getEngravePathData()?.toSvgPathContent(
                         libCacheFile("${element.elementBean.name ?: element.elementBean.uuid}.svg")
                     )?.shareFile()*/
                     itemHolder.context.tgStrokeLoading { isCancel, loadEnd ->
@@ -964,8 +963,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         }
     }
 
-    private fun testPath(path: Path) {
-        /*val bool = LibLpHawkKeys.enableVectorArc
+    private fun testPath(path: Path) {/*val bool = LibLpHawkKeys.enableVectorArc
         LibLpHawkKeys.enableVectorArc = true
         val svgFile = path.toListOf().toSVGContent(libCacheFile("svg.txt"), Paint.Style.STROKE)
         val svgSysFile = path.toListOf().toSvgPathContent(libCacheFile("svg-sys.txt"))
@@ -1010,8 +1008,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         "CanvasDemo:onDestroyView".writeToLog()
         vmApp<DeviceStateModel>().exitIfNeed()
         renderLayoutHelper.delegate?.saveProjectStateV2(
-            flowLayoutHelper.flowTaskId,
-            !RBackground.isBackground()
+            flowLayoutHelper.flowTaskId, !RBackground.isBackground()
         )
         super.onDestroyView()
     }
