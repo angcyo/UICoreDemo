@@ -32,7 +32,6 @@ import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasRenderView
 import com.angcyo.canvas.render.core.CanvasRenderDelegate
 import com.angcyo.canvas.render.renderer.CanvasElementRenderer
-import com.angcyo.canvas.render.renderer.CanvasGroupRenderer
 import com.angcyo.canvas2.laser.pecker.IEngraveRenderFragment
 import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
 import com.angcyo.canvas2.laser.pecker.dialog.fontLibraryHandleDialogConfig
@@ -77,6 +76,7 @@ import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFile
 import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFileV2
 import com.angcyo.laserpacker.device.EngraveHelper
 import com.angcyo.laserpacker.device.EngraveNotifyHelper
+import com.angcyo.laserpacker.device.SlideAdjustFragment
 import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
 import com.angcyo.laserpacker.device.ble.DeviceSettingFragment
 import com.angcyo.laserpacker.device.ble.EngraveExperimentalFragment
@@ -828,10 +828,14 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     private fun testDemo(itemHolder: DslViewHolder) {
         //test
         itemHolder.click(R.id.test_button) {
-            val originBounds = CanvasGroupRenderer.getRendererListRenderProperty(
+            dslFHelper {
+                show(SlideAdjustFragment::class)
+            }
+
+            /*val originBounds = CanvasGroupRenderer.getRendererListRenderProperty(
                 renderDelegate!!.getSelectorOrAllElementRendererList()
             ).getRenderBounds(RectF())
-            L.w("边界:$originBounds 宽:${originBounds.width()} 高:${originBounds.height()}")
+            L.w("边界:$originBounds 宽:${originBounds.width()} 高:${originBounds.height()}")*/
 
             //fContext().checkShowEjectSmokeDialog()
 
