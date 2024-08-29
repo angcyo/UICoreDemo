@@ -17,7 +17,9 @@ import com.angcyo.bluetooth.fsc.laserpacker.DeviceStateModel
 import com.angcyo.bluetooth.fsc.laserpacker.HawkEngraveKeys
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
+import com.angcyo.bluetooth.fsc.laserpacker._deviceSettingBean
 import com.angcyo.bluetooth.fsc.laserpacker._productName
+import com.angcyo.bluetooth.fsc.laserpacker.bean.matchesProductVersion
 import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.FactoryCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.FileModeCmd
@@ -60,6 +62,7 @@ import com.angcyo.core.tgStrokeLoading
 import com.angcyo.core.vmApp
 import com.angcyo.dialog.inputDialog
 import com.angcyo.dialog.itemsDialog
+import com.angcyo.dialog.messageDialog
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave2.data.TransitionParam
 import com.angcyo.engrave2.transition.EngraveTransitionHelper
@@ -76,7 +79,7 @@ import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFile
 import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFileV2
 import com.angcyo.laserpacker.device.EngraveHelper
 import com.angcyo.laserpacker.device.EngraveNotifyHelper
-import com.angcyo.laserpacker.device.SlideAdjustFragment
+import com.angcyo.laserpacker.device.FocalDistanceAdjustFragment
 import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
 import com.angcyo.laserpacker.device.ble.DeviceSettingFragment
 import com.angcyo.laserpacker.device.ble.EngraveExperimentalFragment
@@ -95,8 +98,10 @@ import com.angcyo.library.component._delay
 import com.angcyo.library.component.pad.isInPadMode
 import com.angcyo.library.component.runOnBackground
 import com.angcyo.library.ex._drawable
+import com.angcyo.library.ex._string
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.dpi
+import com.angcyo.library.ex.hawkGetBoolean
 import com.angcyo.library.ex.isDebugType
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.library.ex.randomColor
@@ -172,6 +177,33 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 }
             }
         }
+        /*vmApp<LaserPeckerModel>().initializeOnceData.observeOnce(false) {
+            if (it != null && it) {
+                //设备初始化成功后, 检查是否要双红光校准
+                if (_deviceSettingBean?.supportFocalDistanceAdjustRange.matchesProductVersion() && !DeviceSettingFragment.focalDistanceAdjustPromptKey.hawkGetBoolean()) {
+                    //DeviceSettingFragment.focalDistanceAdjustPromptKey.hawkPut(true)
+                    fContext().messageDialog {
+                        dialogTitle =
+                            _string(com.angcyo.laserpacker.device.R.string.focal_distance_adjust_label)
+                        dialogMessage =
+                            _string(com.angcyo.laserpacker.device.R.string.focal_distance_adjust_des)
+
+                        negativeButtonText =
+                            _string(com.angcyo.laserpacker.device.R.string.dialog_negative)
+
+                        positiveButton(_string(com.angcyo.laserpacker.device.R.string.start_calibration)) { dialog, dialogViewHolder ->
+                            dialog.dismiss()
+                            this@Canvas2Demo.dslFHelper {
+                                show(FocalDistanceAdjustFragment::class)
+                            }
+                        }
+                    }
+                }
+                true
+            } else {
+                false
+            }
+        }*/
     }
 
     override fun initBaseView(savedInstanceState: Bundle?) {
@@ -829,7 +861,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         //test
         itemHolder.click(R.id.test_button) {
             dslFHelper {
-                show(SlideAdjustFragment::class)
+                show(FocalDistanceAdjustFragment::class)
             }
 
             /*val originBounds = CanvasGroupRenderer.getRendererListRenderProperty(

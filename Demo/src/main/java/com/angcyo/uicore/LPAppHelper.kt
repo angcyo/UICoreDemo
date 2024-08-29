@@ -2,6 +2,7 @@ package com.angcyo.uicore
 
 import android.app.Application
 import com.angcyo.base.dslFHelper
+import com.angcyo.bluetooth.fsc.laserpacker._deviceConfigBean
 import com.angcyo.canvas.render.util.toDrawable
 import com.angcyo.canvas2.laser.pecker.applyMatrix
 import com.angcyo.canvas2.laser.pecker.dslitem.control.TypefaceItem
@@ -10,8 +11,10 @@ import com.angcyo.canvas2.laser.pecker.manager.LPProjectManager
 import com.angcyo.canvas2.laser.pecker.manager.ShareProjectInfo
 import com.angcyo.canvas2.laser.pecker.toRendererList
 import com.angcyo.core.CoreApplication
+import com.angcyo.engrave2.model.TransferModel
 import com.angcyo.laserpacker.HandleKtx
 import com.angcyo.laserpacker.LPDataConstant
+import com.angcyo.laserpacker.device.FocalDistanceAdjustStep1
 import com.angcyo.laserpacker.open.CanvasOpenModel
 import com.angcyo.laserpacker.open.CanvasOpenPreviewActivity
 import com.angcyo.laserpacker.project.ProjectListFragment
@@ -120,6 +123,25 @@ object LPAppHelper {
         ProjectListFragment.onShowFileManagerAction = {
             it.dslFHelper {
                 show(FileManagerFragment::class)
+            }
+        }
+
+        //2024-8-28 雕刻双红光数据
+        FocalDistanceAdjustStep1.engraveFocalDistanceAdjustAction = { callback ->
+            _deviceConfigBean?.focalDistanceAdjustData?.split(" ")?.let {
+                if (it.size >= 8) {
+                    TransferModel.engraveBitmapPath(
+                        it[0].toInt(),
+                        it[1].toInt(),
+                        it[2].toInt(),
+                        it[3].toInt(),
+                        it[4].toInt(),
+                        it[5].toInt(),
+                        it[6].toInt(),
+                        it[7].toInt(),
+                        callback,
+                    )
+                }
             }
         }
     }
