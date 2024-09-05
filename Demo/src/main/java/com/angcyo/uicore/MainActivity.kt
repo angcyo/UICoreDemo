@@ -149,12 +149,12 @@ class MainActivity : BasePermissionsActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        BaiduTraceService.start(this, BaiduTraceService.FLAG_START)
+        /*BaiduTraceService.start(this, BaiduTraceService.FLAG_START)
         //dslBaiduTrace.startTrace(applicationContext)
 
         RSoundPool().apply {
             //playDefaultRingtone(RingtoneManager.TYPE_RINGTONE)
-        }
+        }*/
     }
 
     override fun onStart() {
@@ -182,7 +182,7 @@ class MainActivity : BasePermissionsActivity() {
         //densityAdapter(750, 2f)
         //densityRestore()
         //densityAdapterFrom(2183)
-        BaiduTraceService.start(this, BaiduTraceService.FLAG_RESUME)
+        /*BaiduTraceService.start(this, BaiduTraceService.FLAG_RESUME)*/
 
         //val b1 = RBackground.isCreatedActivity(MainActivity::class)
         //val b2 = RBackground.isLastActivity(MainActivity::class)
@@ -193,7 +193,7 @@ class MainActivity : BasePermissionsActivity() {
 
             Test.test()
 
-            if (BuildConfig.BUILD_TYPE.isBuildDebug()) {
+            /*if (BuildConfig.BUILD_TYPE.isBuildDebug()) {
                 val soundPool: RSoundPool = RSoundPool().apply {
                     init(lastContext)
                     loadDefaultRingtone(RingtoneManager.TYPE_RINGTONE)
@@ -201,7 +201,7 @@ class MainActivity : BasePermissionsActivity() {
                 _delay(1000L) {
                     soundPool.playDefaultRingtone(RingtoneManager.TYPE_RINGTONE)
                 }
-            }
+            }*/
         } catch (e: Exception) {
             e.printStackTrace()
         }
