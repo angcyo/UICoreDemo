@@ -16,10 +16,9 @@ import com.angcyo.bluetooth.fsc.enqueue
 import com.angcyo.bluetooth.fsc.laserpacker.DeviceStateModel
 import com.angcyo.bluetooth.fsc.laserpacker.HawkEngraveKeys
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
+import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper.sendCommand
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
-import com.angcyo.bluetooth.fsc.laserpacker._deviceSettingBean
 import com.angcyo.bluetooth.fsc.laserpacker._productName
-import com.angcyo.bluetooth.fsc.laserpacker.bean.matchesProductVersion
 import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.FactoryCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.FileModeCmd
@@ -28,6 +27,7 @@ import com.angcyo.bluetooth.fsc.laserpacker.command.WifiUpdateCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.toLaserPeckerPower
 import com.angcyo.bluetooth.fsc.laserpacker.parse.FileTransferParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryLogParser
+import com.angcyo.bluetooth.fsc.laserpacker.parse.QuerySettingParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryWifiVersionParser
 import com.angcyo.bluetooth.fsc.parse
@@ -62,7 +62,6 @@ import com.angcyo.core.tgStrokeLoading
 import com.angcyo.core.vmApp
 import com.angcyo.dialog.inputDialog
 import com.angcyo.dialog.itemsDialog
-import com.angcyo.dialog.messageDialog
 import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave2.data.TransitionParam
 import com.angcyo.engrave2.transition.EngraveTransitionHelper
@@ -98,10 +97,8 @@ import com.angcyo.library.component._delay
 import com.angcyo.library.component.pad.isInPadMode
 import com.angcyo.library.component.runOnBackground
 import com.angcyo.library.ex._drawable
-import com.angcyo.library.ex._string
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.dpi
-import com.angcyo.library.ex.hawkGetBoolean
 import com.angcyo.library.ex.isDebugType
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.library.ex.randomColor
@@ -584,6 +581,20 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                         bean?.parse<QueryStateParser>()?.let {
                             doMain {
                                 itemHolder.tv(R.id.result_text_view)?.text = "$it"
+                            }
+                        }
+                    }
+                }
+            }
+            addDialogItem {
+                itemText = "查询设备设置"
+                itemClick = {
+                    sendCommand(QueryCmd.settingState) { bean, error ->
+                        bean?.let {
+                            it.parse<QuerySettingParser>()?.let {
+                                doMain {
+                                    itemHolder.tv(R.id.result_text_view)?.text = "$it"
+                                }
                             }
                         }
                     }
