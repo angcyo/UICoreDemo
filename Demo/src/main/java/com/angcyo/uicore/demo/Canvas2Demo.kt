@@ -173,8 +173,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     }
                 }
             }
-        }
-        /*vmApp<LaserPeckerModel>().initializeOnceData.observeOnce(false) {
+        }/*vmApp<LaserPeckerModel>().initializeOnceData.observeOnce(false) {
             if (it != null && it) {
                 //设备初始化成功后, 检查是否要双红光校准
                 if (_deviceSettingBean?.supportFocalDistanceAdjustRange.matchesProductVersion() && !DeviceSettingFragment.focalDistanceAdjustPromptKey.hawkGetBoolean()) {
@@ -201,6 +200,12 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 false
             }
         }*/
+        /*vmApp<DeviceStateModel>().flameAlarmData.observe {
+            if (it != null) {
+                toastQQ("火焰报警$it")
+            }
+        }*/
+        /*CoverFlameAlarmDialogConfig.observer(this)*/
     }
 
     override fun initBaseView(savedInstanceState: Bundle?) {
