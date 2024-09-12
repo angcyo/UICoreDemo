@@ -5,7 +5,11 @@ import android.widget.TextView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.lightStatusBar
 import com.angcyo.drawable.loading.PathLoadingDrawable
-import com.angcyo.library.ex.*
+import com.angcyo.library.ex._drawable
+import com.angcyo.library.ex.animatorOf
+import com.angcyo.library.ex.fullscreen
+import com.angcyo.library.ex.lowProfile
+import com.angcyo.library.ex.nowTimeString
 import com.angcyo.library.toastQQ
 import com.angcyo.putData
 import com.angcyo.uicore.activity.ShortcutActivity
@@ -53,9 +57,27 @@ class WidgetDemo : AppTitleFragment() {
 
         //spinner
         _vh.spinner(R.id.spinner)
-            ?.setStrings(listOf("angcyo1", "angcyo2", "测试文本1", "测试文本2", "22222", "333333333"))
+            ?.setStrings(
+                listOf(
+                    "angcyo1",
+                    "angcyo2",
+                    "测试文本1",
+                    "测试文本2",
+                    "22222",
+                    "333333333"
+                )
+            )
         _vh.spinner(R.id.spinner2)
-            ?.setStrings(listOf("angcyo1", "angcyo2", "测试文本1", "测试文本2", "22222", "333333333"))
+            ?.setStrings(
+                listOf(
+                    "angcyo1",
+                    "angcyo2",
+                    "测试文本1",
+                    "测试文本2",
+                    "22222",
+                    "333333333"
+                )
+            )
 
         //scroll
         _vh.tv(R.id.scroll_text_view)?.text = span {
@@ -114,14 +136,14 @@ class WidgetDemo : AppTitleFragment() {
         }
 
         //hs progress
-        _vh.selectorClick(R.id.start_hs) {
+        _vh.selectorClick(R.id.start_hs, listener = {
             if (it) {
                 _vh.v<HSProgressView>(R.id.hs_progress_view)?.startAnimator()
             } else {
                 _vh.v<HSProgressView>(R.id.hs_progress_view)?.stopAnimator()
             }
             false
-        }
+        })
 
         //跳板测试
         _vh.click(R.id.jump) {
