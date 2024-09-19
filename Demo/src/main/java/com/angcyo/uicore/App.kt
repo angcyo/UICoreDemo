@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager
 import com.angcyo.DslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.base.restore
+import com.angcyo.bluetooth.fsc.CameraApiModel
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
 import com.angcyo.bluetooth.fsc.laserpacker.parse.toLaserPeckerVersionName
@@ -138,6 +139,25 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
                         textSize = _dimen(R.dimen.text_sub_size).toFloat()
                     }
                     itemClick = {}//清空事件
+                }
+            }
+        }
+
+        //保护罩固件升级
+        DeviceSettingFragment.createCoverFirmwareUpdateItemAction = { fragment, adapter ->
+            DslTextInfoItem().apply {
+                itemInfoText = _string(R.string.cover_firmware_version)
+                itemDarkText = vmApp<CameraApiModel>().coverVersionData.value?.hostVersionStr
+                configInfoTextStyle {
+                    textSize = _dimen(R.dimen.text_sub_size).toFloat()
+                }
+                itemClick = {}//清空事件
+                vmApp<CameraApiModel>().fetchCoverVersion { data, error ->
+                    if (data != null) {
+                        itemDarkText =
+                            vmApp<CameraApiModel>().coverVersionData.value?.hostVersionStr
+                        updateAdapterItem()
+                    }
                 }
             }
         }
