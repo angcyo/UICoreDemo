@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
+import com.angcyo.bluetooth.fsc.CameraApiModel
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.IReceiveBeanAction
 import com.angcyo.bluetooth.fsc.WifiApiModel
@@ -97,6 +98,7 @@ import com.angcyo.library.component._delay
 import com.angcyo.library.component.pad.isInPadMode
 import com.angcyo.library.component.runOnBackground
 import com.angcyo.library.ex._drawable
+import com.angcyo.library.ex._string
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.isDebugType
@@ -973,7 +975,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
 
         itemHolder.click(R.id.wifi_upgrade_button) {
             it.context.inputDialog {
-                dialogTitle = "固件地址"
+                dialogTitle = "Wifi固件地址"
                 defaultInputString =
                     "https://gitcode.net/angcyo/file/-/raw/master/firmware/wifi/V8.01.02.bin"
 
@@ -987,6 +989,34 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                                 dialog.dismiss()
                             } else {
                                 toastQQ(error.message)
+                            }
+                        }
+                    }
+                    false
+                }
+            }
+        }
+
+        itemHolder.click(R.id.camera_upgrade_button) {
+            it.context.inputDialog {
+                dialogTitle = "摄像头固件地址"
+                defaultInputString =
+                    "https://gitcode.net/angcyo/file/-/raw/master/firmware/camera/camera_V80306.bin"
+
+                onInputResult = { dialog, inputText ->
+                    val url = inputText.toString()
+                    if (url.isEmpty()) {
+                        toastQQ("地址为空")
+                    } else {
+                        fContext().tgStrokeLoading { isCancel, loadEnd ->
+                            vmApp<CameraApiModel>().startUpdateCamera(url) { firmwareFilePath, error ->
+                                loadEnd(firmwareFilePath, error)
+                                firmwareFilePath?.let {
+                                    toastQQ(_string(R.string.upgrade_completed))
+                                }
+                                error?.let {
+                                    toastQQ("升级失败:${it}")
+                                }
                             }
                         }
                     }
