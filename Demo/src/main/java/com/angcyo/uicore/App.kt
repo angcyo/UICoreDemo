@@ -117,7 +117,8 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
         super.onCreateMain()
 
         //url
-        Gitee.BASE = "https://gitcode.net/angcyo/file/-/raw/master/UICoreDemo"
+        Gitee.BASE = "https://gitee.com/angcyo/file/raw/master/UICoreDemo"
+        Gitee.BASE_BACKUP = "https://gitlab.com/angcyo/file/-/raw/master/UICoreDemo"
 
         DslTbs.init(this)
 
