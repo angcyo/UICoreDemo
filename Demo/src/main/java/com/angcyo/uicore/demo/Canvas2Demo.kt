@@ -27,6 +27,7 @@ import com.angcyo.bluetooth.fsc.laserpacker.command.QueryCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.WifiUpdateCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.toLaserPeckerPower
 import com.angcyo.bluetooth.fsc.laserpacker.parse.FileTransferParser
+import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryCameraInfoParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryLogParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QuerySettingParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
@@ -632,6 +633,20 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                                 val version = it.wifiVersion ?: "未查询到."
                                 toast(version)
                                 itemHolder.tv(R.id.result_text_view)?.text = version
+                            }
+                        }
+                    }
+                }
+            }
+            addDialogItem {
+                itemText = "查询摄像头域名"
+                itemClick = {
+                    QueryCmd.cameraInfo.enqueue { bean, error ->
+                        if (error == null) {
+                            bean?.parse<QueryCameraInfoParser>()?.let {
+                                L.i(it)
+                                toast(it.toString())
+                                itemHolder.tv(R.id.result_text_view)?.text = it.toString()
                             }
                         }
                     }
