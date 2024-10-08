@@ -7,6 +7,7 @@
 //apply from: "$gradleHost/master/init.gradle"
 //apply from: "$gradleHost/master/discardCache.gradle" //禁用缓存?
 
+//all buildscript {} blocks must appear before any plugins {} blocks in the script
 buildscript {
     /*ext {
         buildToolsVersion = "30.0.2"
@@ -66,11 +67,11 @@ buildscript {
 //only buildscript {}, pluginManagement {} and other plugins {} script blocks are allowed before
 // plugins {} blocks, no other statements are allowed
 //if (gradle.gradleVersion.charAt(0) >= '8'){ }
-/*plugins {
-    id 'com.android.application' version '8.1.0-rc01' apply false
-    id 'org.jetbrains.kotlin.android' version "$kotlin_version" apply false
-    id 'com.android.library' version '8.1.0-rc01' apply false
-}*/
+plugins {
+    id 'com.android.application' version '8.7.0' apply false
+    id 'com.android.library' version '8.7.0' apply false
+    id 'org.jetbrains.kotlin.android' version '1.9.24' apply false
+}
 
 //2: 自动初始化基础脚本, find模块
 //apply from: "$gradleHost/master/init.gradle"

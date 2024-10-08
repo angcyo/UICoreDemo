@@ -1,7 +1,13 @@
 if (gradle.gradleVersion.charAt(0) >= '8') {
     pluginManagement {
         repositories {
-            google()
+            google {
+                content {
+                    includeGroupByRegex("com\\.android.*")
+                    includeGroupByRegex("com\\.google.*")
+                    includeGroupByRegex("androidx.*")
+                }
+            }
             mavenCentral()
             gradlePluginPortal()
         }
@@ -10,8 +16,8 @@ if (gradle.gradleVersion.charAt(0) >= '8') {
         repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
         repositories {
             google()
+            //jcenter()
             mavenCentral()
-
             maven { url 'https://jcenter.bintray.com' }
 
             //maven { url 'https://maven.aliyun.com/repository/public' }
@@ -39,7 +45,7 @@ if (gradle.gradleVersion.charAt(0) >= '8') {
             //System.err.println("user:$userName os:$os") //user:angcyo os:Mac OS X //user:angcyo os:Windows 10
             if (userName == "angcyo") {
                 if (osName.contains("windows")) {
-                    maven { url "E:/AndroidProjects/maven" }
+                    maven { url "F:/maven" }
                 } else {
                     maven { url "/Users/angcyo/project/maven/hingin" }
                 }
