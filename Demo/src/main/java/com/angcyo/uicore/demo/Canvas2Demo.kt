@@ -74,6 +74,7 @@ import com.angcyo.item.style.itemCurrentIndex
 import com.angcyo.laserpacker.LPDataConstant
 import com.angcyo.laserpacker.bean.LPElementBean
 import com.angcyo.laserpacker.bean.LPProjectBean
+import com.angcyo.laserpacker.device.AddCameraFragment
 import com.angcyo.laserpacker.device.AddDeviceFragment
 import com.angcyo.laserpacker.device.DeviceHelper
 import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFile
@@ -378,6 +379,13 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         itemHolder.click(R.id.add_device_button) {
             dslFHelper {
                 show(AddDeviceFragment::class)
+            }
+        }
+
+        //添加摄像头
+        itemHolder.click(R.id.add_camera_button) {
+            dslFHelper {
+                show(AddCameraFragment::class)
             }
         }
 
