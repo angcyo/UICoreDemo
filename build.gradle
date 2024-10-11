@@ -68,8 +68,10 @@ buildscript {
 // plugins {} blocks, no other statements are allowed
 //if (Integer.parseInt(gradle.gradleVersion.split("\\.")[0]) >= 8){ }
 plugins {
+    // https://mvnrepository.com/artifact/com.android.application/com.android.application.gradle.plugin
     id 'com.android.application' version '8.7.0' apply false
     id 'com.android.library' version '8.7.0' apply false
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlin.android/org.jetbrains.kotlin.android.gradle.plugi
     id 'org.jetbrains.kotlin.android' version '1.9.24' apply false
 }
 
