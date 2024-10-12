@@ -36,6 +36,9 @@ buildscript {
 
         //https://repo.maven.apache.org/maven2
         //https://repo1.maven.org/maven2/
+
+        //umeng/Luban
+        maven { url 'https://repo1.maven.org/maven2/' }
     }
     dependencies {
         //7.x + Could not find method compile()
@@ -45,7 +48,7 @@ buildscript {
         // 8.0.2/gradle-8.0
         //https://developer.android.google.cn/studio/releases/gradle-plugin?hl=zh_cn#updating-gradle
         //https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google
-        if (gradle.gradleVersion.charAt(0) < '8') {
+        if (Integer.parseInt(gradle.gradleVersion.split("\\.")[0]) < 8) {
             classpath 'com.android.tools.build:gradle:7.4.2'
             classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         }
@@ -92,7 +95,7 @@ apply from: allGradle.mergeExcel
 //apply from: allGradle.discardCache
 apply from: allGradle.skuSplit
 
-if (gradle.gradleVersion.charAt(0) < '8') {
+if (Integer.parseInt(gradle.gradleVersion.split("\\.")[0]) < 8) {
 
     allprojects {
         repositories {
