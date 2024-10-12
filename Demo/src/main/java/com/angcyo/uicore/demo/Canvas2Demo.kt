@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
-import com.angcyo.bluetooth.fsc.CameraApiModel
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.IReceiveBeanAction
 import com.angcyo.bluetooth.fsc.WifiApiModel
@@ -17,29 +16,16 @@ import com.angcyo.bluetooth.fsc.enqueue
 import com.angcyo.bluetooth.fsc.laserpacker.DeviceStateModel
 import com.angcyo.bluetooth.fsc.laserpacker.HawkEngraveKeys
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
-import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper.sendCommand
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
 import com.angcyo.bluetooth.fsc.laserpacker._productName
 import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
-import com.angcyo.bluetooth.fsc.laserpacker.command.FactoryCmd
-import com.angcyo.bluetooth.fsc.laserpacker.command.FileModeCmd
-import com.angcyo.bluetooth.fsc.laserpacker.command.QueryCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.WifiUpdateCmd
-import com.angcyo.bluetooth.fsc.laserpacker.command.toLaserPeckerPower
-import com.angcyo.bluetooth.fsc.laserpacker.parse.FileTransferParser
-import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryCameraInfoParser
-import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryLogParser
-import com.angcyo.bluetooth.fsc.laserpacker.parse.QuerySettingParser
-import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
-import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryWifiVersionParser
-import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas.CanvasRenderView
 import com.angcyo.canvas.render.core.CanvasRenderDelegate
 import com.angcyo.canvas.render.renderer.CanvasElementRenderer
 import com.angcyo.canvas2.laser.pecker.IEngraveRenderFragment
 import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
 import com.angcyo.canvas2.laser.pecker.dialog.fontLibraryHandleDialogConfig
-import com.angcyo.canvas2.laser.pecker.dialog.previewPowerSettingDialog
 import com.angcyo.canvas2.laser.pecker.dialog.speedConvertDialogConfig
 import com.angcyo.canvas2.laser.pecker.engrave.BaseFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.EngraveFlowLayoutHelper
@@ -83,10 +69,8 @@ import com.angcyo.laserpacker.device.EngraveHelper
 import com.angcyo.laserpacker.device.EngraveNotifyHelper
 import com.angcyo.laserpacker.device.FocalDistanceAdjustFragment
 import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
-import com.angcyo.laserpacker.device.ble.DeviceSettingFragment
 import com.angcyo.laserpacker.device.ble.EngraveExperimentalFragment
 import com.angcyo.laserpacker.device.engraveLoadingAsync
-import com.angcyo.laserpacker.device.toLaserTypeString
 import com.angcyo.laserpacker.device.wifi.AddWifiDeviceFragment
 import com.angcyo.laserpacker.open.CanvasOpenModel
 import com.angcyo.laserpacker.project.ProjectListFragment
@@ -100,7 +84,6 @@ import com.angcyo.library.component._delay
 import com.angcyo.library.component.pad.isInPadMode
 import com.angcyo.library.component.runOnBackground
 import com.angcyo.library.ex._drawable
-import com.angcyo.library.ex._string
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.isDebugType
@@ -112,13 +95,13 @@ import com.angcyo.library.ex.toListOf
 import com.angcyo.library.ex.wrapLog
 import com.angcyo.library.libCacheFile
 import com.angcyo.library.libFolderPath
-import com.angcyo.library.toast
 import com.angcyo.library.toastQQ
 import com.angcyo.library.utils.Constant
 import com.angcyo.library.utils.fileNameTime
 import com.angcyo.objectbox.laser.pecker.entity.EntitySync
 import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
 import com.angcyo.toSVGStrokeContentVectorStr
+import com.angcyo.uicore.AppDebugHelper
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.getRandomText
 import com.angcyo.widget.DslViewHolder
@@ -405,7 +388,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
 
         //设备指令
         itemHolder.click(R.id.device_command_button) {
-            showDeviceCommand(itemHolder)
+            AppDebugHelper.showDeviceCommand(itemHolder, fContext())
         }
 
         //测试算法
@@ -581,159 +564,6 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                                 LPProjectManager().openProjectUri(renderDelegate!!, it.fileUri)
                             })
                         }
-                    }
-                }
-            }
-        }
-    }
-
-    /**设备指令*/
-    private fun showDeviceCommand(itemHolder: DslViewHolder) {
-        fContext().itemsDialog {
-            addDialogItem {
-                itemText = "查询设备状态"
-                itemClick = {
-                    vmApp<DeviceStateModel>().queryDeviceState { bean, error ->
-                        bean?.parse<QueryStateParser>()?.let {
-                            doMain {
-                                itemHolder.tv(R.id.result_text_view)?.text = "$it"
-                            }
-                        }
-                    }
-                }
-            }
-            addDialogItem {
-                itemText = "查询设备设置"
-                itemClick = {
-                    sendCommand(QueryCmd.settingState) { bean, error ->
-                        bean?.let {
-                            it.parse<QuerySettingParser>()?.let {
-                                doMain {
-                                    itemHolder.tv(R.id.result_text_view)?.text = "$it"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            addDialogItem {
-                itemText = "查询机器日志"
-                itemClick = {
-                    QueryCmd.log.enqueue { bean, error ->
-                        if (error == null) {
-                            bean?.parse<QueryLogParser>()?.let {
-                                L.i(it)
-                                val log = it.log ?: "no log!"
-                                toast(log)
-                                itemHolder.tv(R.id.result_text_view)?.text = log
-                            }
-                        }
-                    }
-                }
-            }
-            addDialogItem {
-                itemText = "查询Wifi固件版本"
-                itemClick = {
-                    QueryCmd.wifiVersion.enqueue { bean, error ->
-                        if (error == null) {
-                            bean?.parse<QueryWifiVersionParser>()?.let {
-                                L.i(it)
-                                val version = it.wifiVersion ?: "未查询到."
-                                toast(version)
-                                itemHolder.tv(R.id.result_text_view)?.text = version
-                            }
-                        }
-                    }
-                }
-            }
-            addDialogItem {
-                itemText = "查询摄像头域名"
-                itemClick = {
-                    QueryCmd.cameraInfo.enqueue { bean, error ->
-                        if (error == null) {
-                            bean?.parse<QueryCameraInfoParser>()?.let {
-                                L.i(it)
-                                toast(it.toString())
-                                itemHolder.tv(R.id.result_text_view)?.text = it.toString()
-                            }
-                        }
-                    }
-                }
-            }
-            addDialogItem {
-                itemText = "清除设备所有历史"
-                itemClick = {
-                    FileModeCmd.deleteAllHistory().enqueue { bean, error ->
-                        if (bean?.parse<FileTransferParser>()?.isFileDeleteSuccess() == true) {
-                            toast("清除成功")
-                        }
-                        error?.let { toast(it.message) }
-                    }
-                }
-            }
-            //---工厂指令---
-            addDialogItem {
-                itemText = "无较正范围预览"
-                itemClick = {
-                    FactoryCmd(0x05).enqueue { bean, error ->
-                        error?.let { toast(it.message) }
-                    }
-
-                    /*BytesCmd(commandByteWriter {
-                        write(0x0f)
-                        write(0x05)
-                        write(0, 4)//补齐4个字节
-                    }).enqueue { bean, error ->
-                        error?.let { toast(it.message) }
-                    }*/
-                }
-            }
-            addDialogItem {
-                itemText = "较正数据传输完成"
-                itemClick = {
-                    FactoryCmd.finishAdjustDataCmd(0).enqueue { bean, error ->
-                        error?.let { toast(it.message) }
-                    }
-                }
-            }
-            val x = 8192
-            val y = 8192
-            addDialogItem {
-                itemText = buildString {
-                    append("跳至指定AD值[x:$x,y:$y]")
-                    append(" ${HawkEngraveKeys.lastPwrProgress.toLaserPeckerPower()}")
-                    append(" ${HawkEngraveKeys.lastType.toLaserTypeString(true)}")
-                }
-                itemClick = {
-                    FactoryCmd.jumpToAdCmd(
-                        x,
-                        y,
-                        HawkEngraveKeys.lastPwrProgress.toLaserPeckerPower(),
-                        HawkEngraveKeys.lastType.toByte()
-                    ).enqueue { bean, error ->
-                        error?.let { toast(it.message) }
-                    }
-                }
-            }
-            addDialogItem {
-                itemText = "跳至指定坐标[x:$x,y:$y]"
-                itemClick = {
-                    FactoryCmd.jumpToCoordCmd(x, y).enqueue { bean, error ->
-                        error?.let { toast(it.message) }
-                    }
-                }
-            }
-            addDialogItem {
-                itemText = "激光点预览功率设置"
-                itemClick = {
-                    it.context.previewPowerSettingDialog()
-                }
-            }
-            addDialogItem {
-                itemText = "模式设置"
-                itemClick = {
-                    this@Canvas2Demo.dslFHelper {
-                        show(DeviceSettingFragment::class.java)
                     }
                 }
             }
@@ -1021,31 +851,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         }
 
         itemHolder.click(R.id.camera_upgrade_button) {
-            it.context.inputDialog {
-                dialogTitle = "摄像头固件地址"
-                defaultInputString =
-                    "https://gitcode.net/angcyo/file/-/raw/master/firmware/camera/camera_V80306.bin"
-
-                onInputResult = { dialog, inputText ->
-                    val url = inputText.toString()
-                    if (url.isEmpty()) {
-                        toastQQ("地址为空")
-                    } else {
-                        fContext().tgStrokeLoading { isCancel, loadEnd ->
-                            vmApp<CameraApiModel>().startUpdateCamera(url) { firmwareFilePath, error ->
-                                loadEnd(firmwareFilePath, error)
-                                firmwareFilePath?.let {
-                                    toastQQ(_string(R.string.upgrade_completed))
-                                }
-                                error?.let {
-                                    toastQQ("升级失败:${it}")
-                                }
-                            }
-                        }
-                    }
-                    false
-                }
-            }
+            AppDebugHelper.showCameraUpgrade()
         }
 
         itemHolder.click(R.id.export_svg_button) {
