@@ -157,6 +157,6 @@ apply from: allGradle.bugly
 
 //2022-4-27
 //apply from: allGradle.fscaar
-apply from: allGradle.libumeng_lp
+//apply from: allGradle.libumeng_lp
 
 
