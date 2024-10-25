@@ -673,14 +673,15 @@ object AppDebugHelper {
         val ctx = context ?: lastActivity
         ctx?.inputDialog {
             dialogTitle = "保护罩固件地址"
-            defaultInputString =
-                "https://gitlab.com/angcyo/file/-/raw/master/firmware/camera/LP_Protection_Cover_V80210_241010.bin"
+            defaultInputString = HawkEngraveKeys.lastCoverFirmwareUrl
+                ?: "https://gitlab.com/angcyo/file/-/raw/master/firmware/camera/LP_Protection_Cover_V80210_241010.bin"
 
             onInputResult = { dialog, inputText ->
                 val url = inputText.toString()
                 if (url.isEmpty()) {
                     toastQQ("地址为空")
                 } else {
+                    HawkEngraveKeys.lastCoverFirmwareUrl = url
                     ctx.tgStrokeLoading { isCancel, loadEnd ->
                         vmApp<CameraApiModel>().startUpdateCover(url) { firmwareFilePath, error ->
                             loadEnd(firmwareFilePath, error)
@@ -703,14 +704,15 @@ object AppDebugHelper {
         val ctx = context ?: lastActivity
         ctx?.inputDialog {
             dialogTitle = "摄像头固件地址"
-            defaultInputString =
-                "https://gitlab.com/angcyo/file/-/raw/master/firmware/camera/camera_V80306.bin"
+            defaultInputString = HawkEngraveKeys.lastCameraFirmwareUrl
+                ?: "https://gitlab.com/angcyo/file/-/raw/master/firmware/camera/camera_V80306.bin"
 
             onInputResult = { dialog, inputText ->
                 val url = inputText.toString()
                 if (url.isEmpty()) {
                     toastQQ("地址为空")
                 } else {
+                    HawkEngraveKeys.lastCameraFirmwareUrl = url
                     ctx.tgStrokeLoading { isCancel, loadEnd ->
                         vmApp<CameraApiModel>().startUpdateCamera(url) { firmwareFilePath, error ->
                             loadEnd(firmwareFilePath, error)
