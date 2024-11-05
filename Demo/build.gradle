@@ -140,6 +140,9 @@ dependencies {
     //http://airbnb.io/lottie/#/android
     //https://lottiefiles.com/
     implementation 'com.airbnb.android:lottie:5.2.0'
+
+    //2024-11-5
+    implementation "com.angcyo:opencv:${opencv_version}"
 }
 
 //apply from: allGradle.v7a

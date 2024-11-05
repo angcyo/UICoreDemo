@@ -49,6 +49,7 @@ if (Integer.parseInt(gradle.gradleVersion.split("\\.")[0]) >= 8) {
             if (userName == "angcyo") {
                 if (osName.contains("windows")) {
                     maven { url "F:/maven" }
+                    //maven { url "F:/maven1104" }
                 } else {
                     maven { url "/Users/angcyo/project/maven/hingin" }
                 }
