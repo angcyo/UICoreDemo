@@ -11,6 +11,7 @@ import com.angcyo.bluetooth.fsc.laserpacker.DeviceStateModel
 import com.angcyo.bluetooth.fsc.laserpacker.HawkEngraveKeys
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper.sendCommand
+import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
 import com.angcyo.bluetooth.fsc.laserpacker._deviceSettingBean
 import com.angcyo.bluetooth.fsc.laserpacker.bean._pathTolerance
 import com.angcyo.bluetooth.fsc.laserpacker.command.FactoryCmd
@@ -22,6 +23,7 @@ import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryCameraInfoParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryLogParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QuerySettingParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryStateParser
+import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryVersionParser
 import com.angcyo.bluetooth.fsc.laserpacker.parse.QueryWifiVersionParser
 import com.angcyo.bluetooth.fsc.parse
 import com.angcyo.canvas2.laser.pecker.dialog.previewPowerSettingDialog
@@ -484,6 +486,22 @@ object AppDebugHelper {
     fun showDeviceCommand(holder: DslViewHolder? = null, context: Context? = null) {
         val ctx = context ?: lastActivity
         ctx?.itemsDialog {
+            addDialogItem {
+                itemText = "查询设备版本"
+                itemClick = {
+                    vmApp<LaserPeckerModel>().queryDeviceVersion { bean, error ->
+                        bean?.parse<QueryVersionParser>()?.let {
+                            doMain {
+                                if (holder == null) {
+                                    toastQQ("$it")
+                                } else {
+                                    holder.tv(R.id.result_text_view)?.text = "$it"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             addDialogItem {
                 itemText = "查询设备状态"
                 itemClick = {
