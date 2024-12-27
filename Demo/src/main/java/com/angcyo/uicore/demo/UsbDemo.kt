@@ -32,6 +32,7 @@ import kotlin.concurrent.thread
  * User has not given 10053/com.angcyo.uicore.demo permission to access device /dev/bus/usb/002/002
  * ```
  * https://blog.csdn.net/gd6321374/article/details/78014255
+ * https://blog.csdn.net/zhoupuxian/article/details/125343811
  */
 class UsbDemo : AppDslFragment() {
 
