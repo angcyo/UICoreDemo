@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# Turn off echo 关闭回显
+set +x
+
+# 将工作目录设置为脚本所在目录
+cd "$(dirname "$0")"
+
+git rebase origin/master
+
+coreFolder="UICore"
+if [ -d "$PWD/$coreFolder" ]; then
+    cd $coreFolder
+    echo "准备拉取仓库：$coreFolder"
+    git fetch
+    git rebase origin/master
+    cd ..
+else
+    echo "准备克隆仓库：$coreFolder"
+    git clone git@github.com:angcyo/UICore.git
+fi
+
+extendFolder="UICoreEx"
+if [ -d "$PWD/$extendFolder" ]; then
+    cd $extendFolder
+    echo "准备拉取仓库：$extendFolder"
+    git fetch
+    git rebase origin/master
+    cd ..
+else
+    echo "准备克隆仓库：$extendFolder"
+    git clone git@github.com:angcyo/UICoreEx.git
+fi
+
+read -n 1 -s -r -p "!结束! Press any key to continue..."
