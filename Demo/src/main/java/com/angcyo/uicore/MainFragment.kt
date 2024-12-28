@@ -494,7 +494,8 @@ class MainFragment : BaseDemoDslFragment() {
         }
         renderDemoListItem("UsbStorageDemo")
         renderDemoListItem("NsdDemo")
-        renderDemoListItem("UsbDemo")
+        renderDemoListItem("UsbHidDemo")
+        renderDemoListItem("UsbSerialDemo")
 
         //https://github.com/sinawangnan7/CurrentActivity
         //renderDemoListItem("CurrentActivityDemo $GO")

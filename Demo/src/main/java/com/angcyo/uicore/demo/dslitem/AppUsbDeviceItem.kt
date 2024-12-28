@@ -15,10 +15,14 @@ import com.angcyo.library.component.Speed
 import com.angcyo.library.component.onMain
 import com.angcyo.library.ex.fileSizeString
 import com.angcyo.library.ex.nowTimeString
+import com.angcyo.library.ex.sleep
 import com.angcyo.library.ex.toHexString
 import com.angcyo.uicore.demo.R
-import com.angcyo.uicore.demo.UsbDemo.Companion.ACTION_USB_PERMISSION
+import com.angcyo.uicore.demo.UsbHidDemo.Companion.ACTION_USB_PERMISSION
 import com.angcyo.widget.DslViewHolder
+import com.felhr.usbserial.UsbSerialDevice
+import com.felhr.usbserial.UsbSerialInterface
+import com.felhr.usbserial.UsbSerialInterface.UsbReadCallback
 import kotlin.concurrent.thread
 import kotlin.math.min
 
@@ -32,6 +36,14 @@ class AppUsbDeviceItem : DslAdapterItem() {
     var itemUsbManager: UsbManager? = null
     var itemUsbDevice: UsbDevice? = null
 
+    //--
+
+    /**是否要使用串口设备通信
+     * https://github.com/felHR85/UsbSerial?
+     * */
+    var itemUseSerial = false
+    var serialDevice: UsbSerialDevice? = null
+
     init {
         itemLayoutId = R.layout.app_item_usb_device
     }
@@ -40,6 +52,10 @@ class AppUsbDeviceItem : DslAdapterItem() {
     val sendBytes = ByteArray(64) { 0xF0.toByte() }
     var deviceConnection: UsbDeviceConnection? = null
     var permissionIntent: PendingIntent? = null
+
+    //--
+
+    var readCallback: UsbReadCallback? = null
 
     override fun onItemBind(
         itemHolder: DslViewHolder,
@@ -67,6 +83,23 @@ class AppUsbDeviceItem : DslAdapterItem() {
                 if (connection != null) {
                     deviceConnection = connection
                     itemHolder.tv(R.id.lib_des_view)?.text = "连接成功${nowTimeString()}"
+
+                    if (itemUseSerial) {
+                        serialDevice =
+                            UsbSerialDevice.createUsbSerialDevice(itemUsbDevice!!, connection)
+
+                        serialDevice!!.open()
+                        //serialDevice!!.setBaudRate(115_200)
+                        serialDevice!!.setBaudRate(2_000_000)
+                        serialDevice!!.setDataBits(UsbSerialInterface.DATA_BITS_8)
+                        serialDevice!!.setParity(UsbSerialInterface.PARITY_ODD)
+                        serialDevice!!.setFlowControl(UsbSerialInterface.FLOW_CONTROL_OFF)
+
+                        /*serialDevice!!.setRTS(true) // Raised
+                        serialDevice!!.setRTS(false) // Not Raised
+                        serialDevice!!.setDTR(true) // Raised
+                        serialDevice!!.setDTR(false) // Not Raised*/
+                    }
                 } else {
                     itemHolder.tv(R.id.lib_des_view)?.text = "连接失败${nowTimeString()}"
                     itemUsbManager?.requestPermission(itemUsbDevice!!, permissionIntent!!)
@@ -77,8 +110,7 @@ class AppUsbDeviceItem : DslAdapterItem() {
         }
         itemHolder.click(R.id.close_button) {
             if (deviceConnection != null) {
-                deviceConnection?.close()
-                deviceConnection = null
+                closeDevice()
                 itemHolder.tv(R.id.lib_des_view)?.text = "连接已断开${nowTimeString()}"
             } else {
                 itemHolder.tv(R.id.lib_des_view)?.text = "设备未连接${nowTimeString()}"
@@ -86,55 +118,11 @@ class AppUsbDeviceItem : DslAdapterItem() {
         }
         //--
         itemHolder.click(R.id.read_button) {
-            if (deviceConnection != null) {/*val intf = itemUsbDevice!!.getInterface(0)
-                deviceConnection!!.claimInterface(intf, true)*/
-
-                thread {
-                    onMain {
-                        itemHolder.tv(R.id.lib_des_view)?.text = "等待读取数据...${nowTimeString()}"
-                    }
-
-                    val pari = getReadEndpoint(itemUsbDevice!!)
-                    if (deviceConnection!!.claimInterface(pari.first, true)) {
-                        val length = deviceConnection!!.bulkTransfer(
-                            pari.second, readBytes, readBytes.size, 5000
-                        ) //do in another thread
-                        if (length > 0) {
-                            onMain {
-                                itemHolder.tv(R.id.lib_des_view)?.text =
-                                    "读取成功:${readBytes.toHexString()}"
-                            }
-                        } else {
-                            onMain {
-                                itemHolder.tv(R.id.lib_des_view)?.text =
-                                    "读取失败:${nowTimeString()}"
-                            }
-                        }
-                    } else {
-                        onMain {
-                            itemHolder.tv(R.id.lib_des_view)?.text =
-                                "读取失败.claimInterface:${nowTimeString()}"
-                        }
-                    }
-                }
-            }
+            raedData(itemHolder)
         }
         itemHolder.click(R.id.write_bulk_button) {
             if (deviceConnection != null) {
-                val pari = getWriteEndpoint(itemUsbDevice!!)
-                val length = deviceConnection!!.bulkTransfer(
-                    pari.second, sendBytes, sendBytes.size, 5000
-                ) //do in another thread
-                if (length > 0) {
-                    onMain {
-                        itemHolder.tv(R.id.lib_des_view)?.text =
-                            "写入成功:$length ${nowTimeString()}"
-                    }
-                } else {
-                    onMain {
-                        itemHolder.tv(R.id.lib_des_view)?.text = "写入失败:${nowTimeString()}"
-                    }
-                }
+                sendData(itemHolder, null)
             }
         }
         itemHolder.click(R.id.write_bulk_100k_button) {
@@ -174,27 +162,93 @@ class AppUsbDeviceItem : DslAdapterItem() {
 
     override fun onItemViewDetachedToWindow(itemHolder: DslViewHolder, itemPosition: Int) {
         super.onItemViewDetachedToWindow(itemHolder, itemPosition)
+        closeDevice()
+    }
+
+    fun closeDevice() {
+        serialDevice?.close()
+        serialDevice = null
         deviceConnection?.close()
+        deviceConnection = null
+    }
+
+    /**读取数据*/
+    fun raedData(itemHolder: DslViewHolder) {
+        if (deviceConnection != null) {/*val intf = itemUsbDevice!!.getInterface(0)
+                deviceConnection!!.claimInterface(intf, true)*/
+
+            thread {
+                onMain {
+                    itemHolder.tv(R.id.lib_des_view)?.text = "等待读取数据...${nowTimeString()}"
+                }
+
+                if (itemUseSerial) {
+                    if (readCallback == null) {
+                        val callback = UsbReadCallback { bytes ->
+                            onMain {
+                                itemHolder.tv(R.id.lib_des_view)?.text =
+                                    "读取成功:${bytes.toHexString()}"
+                            }
+                        }
+                        readCallback = callback
+                        serialDevice?.read(callback)
+                    }
+                } else {
+                    val pari = getReadEndpoint(itemUsbDevice!!)
+                    if (deviceConnection!!.claimInterface(pari.first, true)) {
+                        val length = deviceConnection!!.bulkTransfer(
+                            pari.second, readBytes, readBytes.size, 5000
+                        ) //do in another thread
+                        if (length > 0) {
+                            onMain {
+                                itemHolder.tv(R.id.lib_des_view)?.text =
+                                    "读取成功:${readBytes.toHexString()}"
+                            }
+                        } else {
+                            onMain {
+                                itemHolder.tv(R.id.lib_des_view)?.text =
+                                    "读取失败:${nowTimeString()}"
+                            }
+                        }
+                    } else {
+                        onMain {
+                            itemHolder.tv(R.id.lib_des_view)?.text =
+                                "读取失败.claimInterface:${nowTimeString()}"
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**发送数据
-     * [byteCount]需要发送的数据字节大小*/
-    fun sendData(itemHolder: DslViewHolder, byteCount: Long) {
+     * [sendByteCount]需要发送的数据字节大小*/
+    fun sendData(itemHolder: DslViewHolder, sendByteCount: Long?) {
         if (deviceConnection != null) {
             thread {
                 val speed = Speed()
                 val pari = getWriteEndpoint(itemUsbDevice!!)
-                val packetSize = pari.second!!.maxPacketSize
+                val packetSize = pari.second?.maxPacketSize ?: 8192
+                val byteCount = sendByteCount ?: packetSize.toLong()
 
-                var sendCount = 0
-                /*val bytes = ByteArray(packetSize) { 0x00 }*/
+                var sendCount = 0/*val bytes = ByteArray(packetSize) { 0x00 }*/
                 while (sendCount < byteCount) {
-                    val count = min(16384 /*packetSize*/, (byteCount - sendCount).toInt())
+                    val count = min(/*16384*/ packetSize, (byteCount - sendCount).toInt())
                     val bytes = ByteArray(count) { if (sendCount == 0) 0xF0.toByte() else 0x00 }
 
-                    val length = deviceConnection!!.bulkTransfer(
-                        pari.second, bytes, bytes.size, 5000
-                    ) //do in another thread
+                    val length = if (itemUseSerial) {
+                        serialDevice?.write(bytes)
+                        bytes.size
+                    } else {
+                        deviceConnection!!.bulkTransfer(
+                            pari.second, bytes, bytes.size, 5000
+                        ) //do in another thread
+                    }
+
+                    if (packetSize < 1024) {
+                        sleep(1)
+                    }
+
                     doMain {
                         L.d("sendData: $length $sendCount/$byteCount")
                     }

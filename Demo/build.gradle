@@ -143,6 +143,9 @@ dependencies {
 
     //2024-11-5
     implementation "com.angcyo:opencv:${opencv_version}"
+
+    //2024-12-28
+    implementation 'com.github.felHR85:UsbSerial:6.1.0'
 }
 
 //apply from: allGradle.v7a

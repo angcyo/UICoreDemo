@@ -11,6 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import com.angcyo.library.L
 import com.angcyo.uicore.base.AppDslFragment
+import com.angcyo.uicore.demo.UsbHidDemo.Companion.ACTION_USB_PERMISSION
 import com.angcyo.uicore.demo.dslitem.AppUsbDeviceItem
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -19,22 +20,9 @@ import java.util.concurrent.atomic.AtomicBoolean
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
  * @since 2024/12/27
  *
- * https://developer.android.com/develop/connectivity/usb?hl=zh-cn
- * https://developer.android.com/develop/connectivity/usb/host?hl=zh-cn
- *
- *
- * [UsbManager.openDevice]需要权限
- * ```
- * User has not given 10053/com.angcyo.uicore.demo permission to access device /dev/bus/usb/002/002
- * ```
- * https://blog.csdn.net/gd6321374/article/details/78014255
- * https://blog.csdn.net/zhoupuxian/article/details/125343811
+ * [UsbHidDemo]
  */
-class UsbDemo : AppDslFragment() {
-
-    companion object {
-        val ACTION_USB_PERMISSION = "com.android.angcyo.USB_PERMISSION"
-    }
+class UsbSerialDemo : AppDslFragment() {
 
     var usbManager: UsbManager? = null
 
@@ -42,7 +30,6 @@ class UsbDemo : AppDslFragment() {
         enableRefresh = true
         enableAdapterRefresh = false
     }
-
 
     private val usbReceiver = object : BroadcastReceiver() {
 
@@ -106,6 +93,7 @@ class UsbDemo : AppDslFragment() {
                     itemUsbManager = usbManager
                     itemUsbDevice = device
                     itemDeviceIndex = index
+                    itemUseSerial = true
                 }
             }
         }
