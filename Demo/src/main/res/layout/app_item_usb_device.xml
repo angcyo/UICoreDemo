@@ -59,6 +59,27 @@
             android:text="写入数据(bulkTransfer)" />
 
         <com.angcyo.widget.DslButton
+            android:id="@+id/write_bulk_100k_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="写入数据(bulkTransfer)(100KB)" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/write_bulk_1_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="写入数据(bulkTransfer)(1MB)" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/write_bulk_10_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="写入数据(bulkTransfer)(10MB)" />
+
+        <com.angcyo.widget.DslButton
             android:id="@+id/write_control_button"
             style="@style/DefaultButtonStyleNormal"
             android:layout_width="wrap_content"

@@ -2,17 +2,25 @@ package com.angcyo.uicore.demo.dslitem
 
 import android.app.PendingIntent
 import android.content.Intent
+import android.hardware.usb.UsbConstants
 import android.hardware.usb.UsbDevice
 import android.hardware.usb.UsbDeviceConnection
+import android.hardware.usb.UsbEndpoint
+import android.hardware.usb.UsbInterface
 import android.hardware.usb.UsbManager
 import com.angcyo.dsladapter.DslAdapterItem
+import com.angcyo.http.rx.doMain
+import com.angcyo.library.L
+import com.angcyo.library.component.Speed
 import com.angcyo.library.component.onMain
+import com.angcyo.library.ex.fileSizeString
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.library.ex.toHexString
 import com.angcyo.uicore.demo.R
 import com.angcyo.uicore.demo.UsbDemo.Companion.ACTION_USB_PERMISSION
 import com.angcyo.widget.DslViewHolder
 import kotlin.concurrent.thread
+import kotlin.math.min
 
 /**
  * @author <a href="mailto:angcyo@126.com">angcyo</a>
@@ -29,7 +37,7 @@ class AppUsbDeviceItem : DslAdapterItem() {
     }
 
     val readBytes = ByteArray(64) { 0x00 }
-    val sendBytes = ByteArray(64 * 2) { 0xF0.toByte() }
+    val sendBytes = ByteArray(64) { 0xF0.toByte() }
     var deviceConnection: UsbDeviceConnection? = null
     var permissionIntent: PendingIntent? = null
 
@@ -48,6 +56,9 @@ class AppUsbDeviceItem : DslAdapterItem() {
         }
 
         itemHolder.tv(R.id.lib_text_view)?.text = "$itemDeviceIndex->${itemUsbDevice}"
+        itemHolder.tv(R.id.lib_des_view)?.text = logUsbDevice(itemUsbDevice).apply {
+            L.d(this)
+        }
 
         //--
         itemHolder.click(R.id.connect_button) {
@@ -75,25 +86,34 @@ class AppUsbDeviceItem : DslAdapterItem() {
         }
         //--
         itemHolder.click(R.id.read_button) {
-            if (deviceConnection != null) {
-                val intf = itemUsbDevice!!.getInterface(0)
-                deviceConnection!!.claimInterface(intf, true)
+            if (deviceConnection != null) {/*val intf = itemUsbDevice!!.getInterface(0)
+                deviceConnection!!.claimInterface(intf, true)*/
 
                 thread {
                     onMain {
                         itemHolder.tv(R.id.lib_des_view)?.text = "等待读取数据...${nowTimeString()}"
                     }
-                    val length = deviceConnection!!.bulkTransfer(
-                        intf.getEndpoint(0), readBytes, readBytes.size, 5000
-                    ) //do in another thread
-                    if (length > 0) {
-                        onMain {
-                            itemHolder.tv(R.id.lib_des_view)?.text =
-                                "读取成功:${readBytes.toHexString()}"
+
+                    val pari = getReadEndpoint(itemUsbDevice!!)
+                    if (deviceConnection!!.claimInterface(pari.first, true)) {
+                        val length = deviceConnection!!.bulkTransfer(
+                            pari.second, readBytes, readBytes.size, 5000
+                        ) //do in another thread
+                        if (length > 0) {
+                            onMain {
+                                itemHolder.tv(R.id.lib_des_view)?.text =
+                                    "读取成功:${readBytes.toHexString()}"
+                            }
+                        } else {
+                            onMain {
+                                itemHolder.tv(R.id.lib_des_view)?.text =
+                                    "读取失败:${nowTimeString()}"
+                            }
                         }
                     } else {
                         onMain {
-                            itemHolder.tv(R.id.lib_des_view)?.text = "读取失败:${nowTimeString()}"
+                            itemHolder.tv(R.id.lib_des_view)?.text =
+                                "读取失败.claimInterface:${nowTimeString()}"
                         }
                     }
                 }
@@ -101,13 +121,14 @@ class AppUsbDeviceItem : DslAdapterItem() {
         }
         itemHolder.click(R.id.write_bulk_button) {
             if (deviceConnection != null) {
-                val intf = itemUsbDevice!!.getInterface(0)
+                val pari = getWriteEndpoint(itemUsbDevice!!)
                 val length = deviceConnection!!.bulkTransfer(
-                    intf.getEndpoint(1), sendBytes, sendBytes.size, 5000
+                    pari.second, sendBytes, sendBytes.size, 5000
                 ) //do in another thread
                 if (length > 0) {
                     onMain {
-                        itemHolder.tv(R.id.lib_des_view)?.text = "写入成功:$length ${nowTimeString()}"
+                        itemHolder.tv(R.id.lib_des_view)?.text =
+                            "写入成功:$length ${nowTimeString()}"
                     }
                 } else {
                     onMain {
@@ -115,6 +136,15 @@ class AppUsbDeviceItem : DslAdapterItem() {
                     }
                 }
             }
+        }
+        itemHolder.click(R.id.write_bulk_100k_button) {
+            sendData(itemHolder, 100 * 1024)
+        }
+        itemHolder.click(R.id.write_bulk_1_button) {
+            sendData(itemHolder, 1 * 1024 * 1024)
+        }
+        itemHolder.click(R.id.write_bulk_10_button) {
+            sendData(itemHolder, 10 * 1024 * 1024)
         }
         itemHolder.click(R.id.write_control_button) {
             if (deviceConnection != null) {
@@ -130,7 +160,8 @@ class AppUsbDeviceItem : DslAdapterItem() {
                     )
                 if (length > 0) {
                     onMain {
-                        itemHolder.tv(R.id.lib_des_view)?.text = "写入成功:$length ${nowTimeString()}"
+                        itemHolder.tv(R.id.lib_des_view)?.text =
+                            "写入成功:$length ${nowTimeString()}"
                     }
                 } else {
                     onMain {
@@ -144,5 +175,103 @@ class AppUsbDeviceItem : DslAdapterItem() {
     override fun onItemViewDetachedToWindow(itemHolder: DslViewHolder, itemPosition: Int) {
         super.onItemViewDetachedToWindow(itemHolder, itemPosition)
         deviceConnection?.close()
+    }
+
+    /**发送数据
+     * [byteCount]需要发送的数据字节大小*/
+    fun sendData(itemHolder: DslViewHolder, byteCount: Long) {
+        if (deviceConnection != null) {
+            thread {
+                val speed = Speed()
+                val pari = getWriteEndpoint(itemUsbDevice!!)
+                val packetSize = pari.second!!.maxPacketSize
+
+                var sendCount = 0
+                /*val bytes = ByteArray(packetSize) { 0x00 }*/
+                while (sendCount < byteCount) {
+                    val count = min(16384 /*packetSize*/, (byteCount - sendCount).toInt())
+                    val bytes = ByteArray(count) { if (sendCount == 0) 0xF0.toByte() else 0x00 }
+
+                    val length = deviceConnection!!.bulkTransfer(
+                        pari.second, bytes, bytes.size, 5000
+                    ) //do in another thread
+                    doMain {
+                        L.d("sendData: $length $sendCount/$byteCount")
+                    }
+                    if (length > 0) {
+                        speed.update(count.toLong(), byteCount)
+                        sendCount += count
+
+                        onMain {
+                            itemHolder.tv(R.id.lib_des_view)?.text =
+                                "写入成功:$length $sendCount/${byteCount} ${nowTimeString()}"
+                        }
+                    } else {
+                        onMain {
+                            itemHolder.tv(R.id.lib_des_view)?.text = "写入失败:${nowTimeString()}"
+                        }
+                        break
+                    }
+                }
+                if (sendCount >= byteCount) {
+                    onMain {
+                        itemHolder.tv(R.id.lib_des_view)?.text =
+                            "写入成功:$sendCount ${nowTimeString()} 耗时:${speed.duration()}ms 速率:${speed.speed.fileSizeString()}/s"
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * [UsbConstants.USB_ENDPOINT_XFER_INT]
+     * [UsbConstants.USB_DIR_IN]  0x80 128
+     * [UsbConstants.USB_DIR_OUT] 0x00 0
+     * */
+    fun logUsbDevice(device: UsbDevice?): String = buildString {
+        if (device == null) {
+            append("null\n")
+        } else {
+            for (i in 0 until device.interfaceCount) {
+                val inter = device.getInterface(i)
+                for (j in 0 until inter.endpointCount) {
+                    val endpoint = inter.getEndpoint(j)/*if (endpoint.type == UsbConstants.USB_ENDPOINT_XFER_INT && endpoint.direction == UsbConstants.USB_DIR_IN) {
+                    }*/
+                    //0:0->type:3,direction:128,address:129,maxPacketSize:64,interval:10
+                    //0:1->type:3,direction:0,address:1,maxPacketSize:64,interval:10
+                    append("$i:$j->type:${endpoint.type},direction:${endpoint.direction},address:${endpoint.address},maxPacketSize:${endpoint.maxPacketSize},interval:${endpoint.interval}\n")
+                }
+            }
+        }
+    }
+
+    fun getReadEndpoint(device: UsbDevice?): Pair<UsbInterface?, UsbEndpoint?> {
+        if (device != null) {
+            for (i in 0 until device.interfaceCount) {
+                val inter = device.getInterface(i)
+                for (j in 0 until inter.endpointCount) {
+                    val endpoint = inter.getEndpoint(j)
+                    if (endpoint.type == UsbConstants.USB_ENDPOINT_XFER_INT && endpoint.direction == UsbConstants.USB_DIR_IN) {
+                        return inter to endpoint
+                    }
+                }
+            }
+        }
+        return null to null
+    }
+
+    fun getWriteEndpoint(device: UsbDevice?): Pair<UsbInterface?, UsbEndpoint?> {
+        if (device != null) {
+            for (i in 0 until device.interfaceCount) {
+                val inter = device.getInterface(i)
+                for (j in 0 until inter.endpointCount) {
+                    val endpoint = inter.getEndpoint(j)
+                    if (endpoint.type == UsbConstants.USB_ENDPOINT_XFER_INT && endpoint.direction == UsbConstants.USB_DIR_OUT) {
+                        return inter to endpoint
+                    }
+                }
+            }
+        }
+        return null to null
     }
 }
