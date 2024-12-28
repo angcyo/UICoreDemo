@@ -9,14 +9,10 @@ import android.hardware.usb.UsbDevice
 import android.hardware.usb.UsbManager
 import android.os.Build
 import android.os.Bundle
-import com.angcyo.item.DslTextItem
-import com.angcyo.item.style.itemText
 import com.angcyo.library.L
-import com.angcyo.library.ex.toHexString
-import com.angcyo.library.toastQQ
 import com.angcyo.uicore.base.AppDslFragment
+import com.angcyo.uicore.demo.dslitem.AppUsbDeviceItem
 import java.util.concurrent.atomic.AtomicBoolean
-import kotlin.concurrent.thread
 
 
 /**
@@ -36,17 +32,17 @@ import kotlin.concurrent.thread
  */
 class UsbDemo : AppDslFragment() {
 
-    var usbManager: UsbManager? = null
+    companion object {
+        val ACTION_USB_PERMISSION = "com.android.angcyo.USB_PERMISSION"
+    }
 
-    val readBytes = ByteArray(64) { 0x00 }
-    val sendBytes = ByteArray(64 * 2) { 0x00 }
+    var usbManager: UsbManager? = null
 
     init {
         enableRefresh = true
         enableAdapterRefresh = false
     }
 
-    private val ACTION_USB_PERMISSION = "com.android.angcyo.USB_PERMISSION"
 
     private val usbReceiver = object : BroadcastReceiver() {
 
@@ -90,7 +86,7 @@ class UsbDemo : AppDslFragment() {
 
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
-        onLoadData();
+        onLoadData()
     }
 
     var isDestroy = AtomicBoolean(false)
@@ -106,77 +102,10 @@ class UsbDemo : AppDslFragment() {
             val deviceList = usbManager?.deviceList
             deviceList?.onEachIndexed { index, entry ->
                 val device = entry.value
-                DslTextItem()() {
-                    itemText = "$index->${entry.key}\n$device"
-                    itemClick = {
-                        val connection = usbManager?.openDevice(device)
-                        if (connection != null) {
-                            toastQQ("打开成功")
-                            thread {
-                                val intf = device.getInterface(0)
-                                connection.claimInterface(intf, true)
-                                while (!isDestroy.get()) {
-                                    _adapter.addLastItem(DslTextItem().apply {
-                                        itemText = "开始监听数据..."
-                                    })
-                                    _adapter.updateItemDepend()
-
-                                    val length = connection.bulkTransfer(
-                                        intf.getEndpoint(0), readBytes, readBytes.size, 0
-                                    ) //do in another thread
-                                    if (length > 0) {
-                                        toastQQ("读取成功:$length")
-                                        _adapter.addLastItem(DslTextItem().apply {
-                                            itemText = readBytes.toHexString()
-                                        })
-                                        _adapter.updateItemDepend()
-
-                                        // 控制传输参数
-                                        val requestType = 0x21
-                                        //UsbConstants.USB_TYPE_VENDOR // 或者 USB_TYPE_CLASS, 根据你的设备类型
-                                        val request = 0x09 // HID 命令
-                                        val value = 0x301 // 对于 HID 通常是 0
-                                        val index = 0 // 通常是 0
-                                        val length = connection.controlTransfer(
-                                            /*UsbConstants.USB_TYPE_VENDOR, 0,0,0,*/
-                                            requestType,
-                                            request,
-                                            value,
-                                            index,
-                                            sendBytes,
-                                            sendBytes.size,
-                                            5000
-                                        )
-
-                                        if (length > 0) {
-                                            toastQQ("写入成功:$length")
-                                            _adapter.addLastItem(DslTextItem().apply {
-                                                itemText = "写入成功:$length"
-                                            })
-                                            _adapter.updateItemDepend()
-                                        } else {
-                                            toastQQ("写入失败")
-                                            _adapter.addLastItem(DslTextItem().apply {
-                                                itemText = "写入失败:${length}"
-                                            })
-                                            _adapter.updateItemDepend()
-                                        }
-
-                                    } else {
-                                        toastQQ("读取失败")
-                                        _adapter.addLastItem(DslTextItem().apply {
-                                            itemText = "读取失败:${length}"
-                                        })
-                                        _adapter.updateItemDepend()
-                                        break
-                                    }
-                                }
-                            }
-                        } else {
-                            usbManager?.requestPermission(device, permissionIntent)
-                            toastQQ("打开失败")
-                        }
-                    }
+                AppUsbDeviceItem()() {
+                    itemUsbManager = usbManager
+                    itemUsbDevice = device
+                    itemDeviceIndex = index
                 }
             }
         }

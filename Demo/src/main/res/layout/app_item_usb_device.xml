@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.angcyo.widget.text.DslTextView
+        android:id="@+id/lib_text_view"
+        style="@style/LibBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/lib_hdpi"
+        tools:text="angcyo" />
+
+    <com.angcyo.widget.text.DslTextView
+        android:id="@+id/lib_des_view"
+        style="@style/LibDesTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/lib_hdpi"
+        android:text="..."
+        app:layout_constraintTop_toBottomOf="@id/lib_text_view" />
+
+    <com.angcyo.widget.layout.DslFlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/lib_hdpi"
+        app:layout_constraintTop_toBottomOf="@id/lib_des_view"
+        app:r_flow_item_horizontal_space="@dimen/lib_xhdpi"
+        app:r_flow_item_vertical_space="@dimen/lib_xhdpi">
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/connect_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="连接" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/close_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="关闭" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/read_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="读取数据" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/write_bulk_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="写入数据(bulkTransfer)" />
+
+        <com.angcyo.widget.DslButton
+            android:id="@+id/write_control_button"
+            style="@style/DefaultButtonStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="写入数据(controlTransfer)" />
+
+    </com.angcyo.widget.layout.DslFlowLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
