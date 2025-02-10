@@ -6,6 +6,7 @@ set +x
 # 将工作目录设置为脚本所在目录
 cd "$(dirname "$0")"
 
+git fetch
 git rebase origin/master
 
 coreFolder="UICore"
