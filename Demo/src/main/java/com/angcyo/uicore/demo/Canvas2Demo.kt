@@ -38,6 +38,7 @@ import com.angcyo.canvas2.laser.pecker.manager.GuideManager
 import com.angcyo.canvas2.laser.pecker.manager.LPProjectManager
 import com.angcyo.canvas2.laser.pecker.manager.restoreProjectStateV2
 import com.angcyo.canvas2.laser.pecker.manager.saveProjectStateV2
+import com.angcyo.canvas2.laser.pecker.toGcode
 import com.angcyo.canvas2.laser.pecker.toSvgXml
 import com.angcyo.canvas2.laser.pecker.util.LPElementHelper
 import com.angcyo.canvas2.laser.pecker.util.lpElement
@@ -875,6 +876,14 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     }
                 }
             }*/
+        }
+
+        itemHolder.click(R.id.export_gcode_button) {
+            val rendererList = renderDelegate?.getSelectorOrAllElementRendererList(true)
+            if (!isNil(rendererList)) {
+                val gcode = rendererList!!.toGcode(byEngrave = true)
+                gcode?.writeToFile(libCacheFile("export_test.gcode"))?.shareFile()
+            }
         }
     }
 
