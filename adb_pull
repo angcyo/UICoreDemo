@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Turn off echo 关闭回显
+set +x
+
+adb pull /sdcard/Android/data/com.angcyo.uicore.demo/cache/export_test.svg ~/Downloads/export/
+code ~/Downloads/export/
+# open ~/Downloads/export/

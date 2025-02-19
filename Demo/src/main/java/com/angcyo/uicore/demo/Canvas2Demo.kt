@@ -22,7 +22,6 @@ import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.WifiUpdateCmd
 import com.angcyo.canvas.CanvasRenderView
 import com.angcyo.canvas.render.core.CanvasRenderDelegate
-import com.angcyo.canvas.render.renderer.CanvasElementRenderer
 import com.angcyo.canvas2.laser.pecker.IEngraveRenderFragment
 import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
 import com.angcyo.canvas2.laser.pecker.dialog.fontLibraryHandleDialogConfig
@@ -39,14 +38,13 @@ import com.angcyo.canvas2.laser.pecker.manager.GuideManager
 import com.angcyo.canvas2.laser.pecker.manager.LPProjectManager
 import com.angcyo.canvas2.laser.pecker.manager.restoreProjectStateV2
 import com.angcyo.canvas2.laser.pecker.manager.saveProjectStateV2
+import com.angcyo.canvas2.laser.pecker.toSvgXml
 import com.angcyo.canvas2.laser.pecker.util.LPElementHelper
 import com.angcyo.canvas2.laser.pecker.util.lpElement
-import com.angcyo.canvas2.laser.pecker.util.lpPathElement
 import com.angcyo.core.component.file.writeTo
 import com.angcyo.core.component.file.writeToLog
 import com.angcyo.core.component.fileSelector
 import com.angcyo.core.showIn
-import com.angcyo.core.tgStrokeLoading
 import com.angcyo.core.vmApp
 import com.angcyo.dialog.inputDialog
 import com.angcyo.dialog.itemsDialog
@@ -82,11 +80,11 @@ import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component.RBackground
 import com.angcyo.library.component._delay
 import com.angcyo.library.component.pad.isInPadMode
-import com.angcyo.library.component.runOnBackground
 import com.angcyo.library.ex._drawable
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.isDebugType
+import com.angcyo.library.ex.isNil
 import com.angcyo.library.ex.nowTimeString
 import com.angcyo.library.ex.randomColor
 import com.angcyo.library.ex.shareFile
@@ -98,9 +96,9 @@ import com.angcyo.library.libFolderPath
 import com.angcyo.library.toastQQ
 import com.angcyo.library.utils.Constant
 import com.angcyo.library.utils.fileNameTime
+import com.angcyo.library.utils.writeToFile
 import com.angcyo.objectbox.laser.pecker.entity.EntitySync
 import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
-import com.angcyo.toSVGStrokeContentVectorStr
 import com.angcyo.uicore.AppDebugHelper
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.getRandomText
@@ -855,11 +853,17 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         }
 
         itemHolder.click(R.id.export_svg_button) {
-            renderDelegate?.selectorManager?.getSelectorRendererList(true)?.forEach {
+            val rendererList = renderDelegate?.getSelectorOrAllElementRendererList(true)
+            if (!isNil(rendererList)) {
+                val svgXml = rendererList!!.toSvgXml(byEngrave = true)
+                svgXml?.writeToFile(libCacheFile("export_test.svg"))?.shareFile()
+            }
+
+            /*renderDelegate?.selectorManager?.getSelectorRendererList(true)?.forEach {
                 if (it is CanvasElementRenderer) {
-                    val element = it.lpPathElement()/*element?.getEngravePathData()?.toSvgPathContent(
+                    val element = it.lpPathElement()*//*element?.getEngravePathData()?.toSvgPathContent(
                         libCacheFile("${element.elementBean.name ?: element.elementBean.uuid}.svg")
-                    )?.shareFile()*/
+                    )?.shareFile()*//*
                     itemHolder.context.tgStrokeLoading { isCancel, loadEnd ->
                         runOnBackground {
                             element?.getEngravePathData()?.toSVGStrokeContentVectorStr(
@@ -870,7 +874,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                         }
                     }
                 }
-            }
+            }*/
         }
     }
 
