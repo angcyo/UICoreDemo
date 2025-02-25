@@ -10,6 +10,7 @@ import androidx.lifecycle.Lifecycle
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.fsc.FscBleApiModel
+import com.angcyo.bluetooth.fsc.HttpApiModel
 import com.angcyo.bluetooth.fsc.IReceiveBeanAction
 import com.angcyo.bluetooth.fsc.WifiApiModel
 import com.angcyo.bluetooth.fsc.enqueue
@@ -22,6 +23,7 @@ import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.WifiUpdateCmd
 import com.angcyo.canvas.CanvasRenderView
 import com.angcyo.canvas.render.core.CanvasRenderDelegate
+import com.angcyo.canvas.render.element.rendererBounds
 import com.angcyo.canvas2.laser.pecker.IEngraveRenderFragment
 import com.angcyo.canvas2.laser.pecker.RenderLayoutHelper
 import com.angcyo.canvas2.laser.pecker.dialog.fontLibraryHandleDialogConfig
@@ -47,6 +49,7 @@ import com.angcyo.core.component.file.writeToLog
 import com.angcyo.core.component.fileSelector
 import com.angcyo.core.showIn
 import com.angcyo.core.vmApp
+import com.angcyo.dialog.gridMenuDialog
 import com.angcyo.dialog.inputDialog
 import com.angcyo.dialog.itemsDialog
 import com.angcyo.dsladapter.bindItem
@@ -95,6 +98,7 @@ import com.angcyo.library.ex.wrapLog
 import com.angcyo.library.libCacheFile
 import com.angcyo.library.libFolderPath
 import com.angcyo.library.toastQQ
+import com.angcyo.library.unit.toRectMm
 import com.angcyo.library.utils.Constant
 import com.angcyo.library.utils.fileNameTime
 import com.angcyo.library.utils.writeToFile
@@ -705,6 +709,25 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         }
     }
 
+    /**Lx2测试*/
+    private fun showLx2TestHandle(itemHolder: DslViewHolder) {
+        val list = renderDelegate?.getSelectorOrAllElementRendererList(true, false)
+        /*if(isNil(list)){
+            return
+        }*/
+        fContext().gridMenuDialog {
+            addGridItem(false) {
+                itemText = "预览"
+                itemClick = {
+                    vmApp<HttpApiModel>().preview(
+                        LPDataConstant.kLpBaseFeed * 60f,
+                        list?.mapNotNull { it.rendererBounds?.toRectMm() }
+                    )
+                }
+            }
+        }
+    }
+
     private fun wrapDuration(itemHolder: DslViewHolder, action: () -> Unit) {
         engraveLoadingAsync({
             LTime.tick()
@@ -884,6 +907,11 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 val gcode = rendererList!!.toGcode(byEngrave = true)
                 gcode?.writeToFile(libCacheFile("export_test.gcode"))?.shareFile()
             }
+        }
+
+        //lx2
+        itemHolder.click(R.id.lx2_test_button) {
+            showLx2TestHandle(itemHolder)
         }
     }
 
