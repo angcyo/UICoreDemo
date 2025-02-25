@@ -85,6 +85,7 @@ fun backTest() {
 
         val j = try {
             i?.await()
+            //i?.cancel()
         } catch (e: Exception) {
             L.e("2...${e.message}")
         }
