@@ -496,6 +496,7 @@ class MainFragment : BaseDemoDslFragment() {
         renderDemoListItem("NsdDemo")
         renderDemoListItem("UsbHidDemo")
         renderDemoListItem("UsbSerialDemo")
+        renderDemoListItem("OpenGLDemo")
 
         //https://github.com/sinawangnan7/CurrentActivity
         //renderDemoListItem("CurrentActivityDemo $GO")
