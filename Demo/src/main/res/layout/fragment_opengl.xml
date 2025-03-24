@@ -3,9 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.angcyo.opengl.OpenGLView
+    <com.angcyo.opengl.OpenGLSurfaceView
         android:id="@+id/opengl_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <!--<com.angcyo.opengl.OpenGLTextureView
+        android:id="@+id/opengl_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />-->
 
 </FrameLayout>
