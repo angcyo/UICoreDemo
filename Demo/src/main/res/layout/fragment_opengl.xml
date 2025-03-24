@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<com.angcyo.opengl.OpenGLSurfaceView
+    <!--<com.angcyo.opengl.core.OpenGLSurfaceView
         android:id="@+id/opengl_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />-->
 
-    <com.angcyo.opengl.OpenGLTextureView
+    <com.angcyo.opengl.core.OpenGLTextureView
         android:id="@+id/opengl_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

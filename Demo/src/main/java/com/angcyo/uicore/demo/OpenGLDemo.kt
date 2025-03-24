@@ -1,8 +1,8 @@
 package com.angcyo.uicore.demo
 
 import android.os.Bundle
-import com.angcyo.opengl.BaseOpenGLRenderer
-import com.angcyo.opengl.IOpenGLSurface
+import com.angcyo.opengl.core.BaseOpenGLRenderer
+import com.angcyo.opengl.core.IOpenGLSurface
 import com.angcyo.opengl.TestOpenGLObject
 import com.angcyo.uicore.base.AppTitleFragment
 
