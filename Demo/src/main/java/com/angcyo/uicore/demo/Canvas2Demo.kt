@@ -878,9 +878,9 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
 
         itemHolder.click(R.id.export_svg_button) {
             val rendererList = renderDelegate?.getSelectorOrAllElementRendererList(true)
-            if (!isNil(rendererList)) {
-                val svgXml = rendererList!!.toSvgXml(byEngrave = true)
-                svgXml?.writeToFile(libCacheFile("export_test.svg"))?.shareFile()
+            if (rendererList != null && !isNil(rendererList)) {
+                val svgXml = rendererList.toSvgXml(byEngrave = true)
+                svgXml?.writeToFile(libCacheFile("export_svg_test.svg"))?.shareFile()
             }
 
             /*renderDelegate?.selectorManager?.getSelectorRendererList(true)?.forEach {
@@ -903,9 +903,9 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
 
         itemHolder.click(R.id.export_gcode_button) {
             val rendererList = renderDelegate?.getSelectorOrAllElementRendererList(true)
-            if (!isNil(rendererList)) {
-                val gcode = rendererList!!.toGcode(byEngrave = true)
-                gcode?.writeToFile(libCacheFile("export_test.gcode"))?.shareFile()
+            if (rendererList != null && !isNil(rendererList)) {
+                val gcode = rendererList.toGcode(byEngrave = true)
+                gcode?.writeToFile(libCacheFile("export_gcode_test.gcode"))?.shareFile()
             }
         }
 
