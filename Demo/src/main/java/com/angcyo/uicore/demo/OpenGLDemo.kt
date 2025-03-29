@@ -29,19 +29,13 @@ class OpenGLDemo : AppTitleFragment() {
     override fun initBaseView(savedInstanceState: Bundle?) {
         super.initBaseView(savedInstanceState)
         val seekBar = _vh.seek(R.id.seek_bar) { value, fraction, fromUser ->
-            openglGCodeLine?.setRendererProgress(fraction)
+            openglGCodeLine?.renderProgress = fraction
         }
 
         val openGlSurface: IOpenGLSurface? = _vh.view(R.id.opengl_view) as IOpenGLSurface?
         openGlSurface?.setSurfaceRenderer(object : BaseOpenGLRenderer(fContext()) {
             override fun initScene() {
                 //getCurrentScene().addChild(TestOpenGLObject())
-                val colors = intArrayOf(
-                    Color.RED,
-                    Color.GREEN,
-                    Color.BLUE,
-                    Color.YELLOW,
-                )
                 getCurrentScene().addChild(
                     OpenGLLine(
                         stackOf(
@@ -49,7 +43,13 @@ class OpenGLDemo : AppTitleFragment() {
                             Vector3(0f, 0.5f, 0f),
                             Vector3(0f, -0.5f, 0f),
                             Vector3(0.5f, -0.5f, 0f),
-                        ), colors
+                        ),
+                        intArrayOf(
+                            Color.RED,
+                            Color.GREEN,
+                            Color.BLUE,
+                            Color.YELLOW,
+                        ),
                     )
                 )
                 getCurrentScene().addChild(
@@ -77,7 +77,10 @@ class OpenGLDemo : AppTitleFragment() {
                     }
                 )
 
-                getCurrentScene().scaleSceneBy(0.25f, 0.25f)
+                //--
+                //getCurrentScene().scaleSceneBy(0.25f, 0.25f)
+                //getCurrentScene().translateSceneBy(0f, 0f,0f)
+                getCurrentScene().testMatrix()
             }
         })
     }
