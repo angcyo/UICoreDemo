@@ -725,6 +725,34 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     )
                 }
             }
+            vmApp<HttpApiModel>().websocketGcodeResponseData.observe {
+            }
+            addGridItem(false) {
+                itemText = "测距"
+                itemClick = {
+                    vmApp<HttpApiModel>().detectDistance(
+                        30f, 30f
+                    ) { z, error ->
+                        toastQQ(error?.toString() ?: "$z")
+                    }
+                }
+            }
+            addGridItem(false) {
+                itemText = "重启MCU"
+                itemClick = {
+                    vmApp<HttpApiModel>().restartMcu { data, error ->
+                        toastQQ(error?.toString() ?: "$data")
+                    }
+                }
+            }
+            addGridItem(false) {
+                itemText = "重启Klipper"
+                itemClick = {
+                    vmApp<HttpApiModel>().restartKlipper { data, error ->
+                        toastQQ(error?.toString() ?: "$data")
+                    }
+                }
+            }
         }
     }
 
