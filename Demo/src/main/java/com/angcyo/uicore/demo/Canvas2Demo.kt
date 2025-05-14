@@ -1,6 +1,7 @@
 package com.angcyo.uicore.demo
 
 import android.graphics.Path
+import android.graphics.PointF
 import android.graphics.RectF
 import android.os.Bundle
 import android.view.Gravity
@@ -56,6 +57,7 @@ import com.angcyo.dsladapter.bindItem
 import com.angcyo.engrave2.data.TransitionParam
 import com.angcyo.engrave2.transition.EngraveTransitionHelper
 import com.angcyo.fragment.AbsLifecycleFragment
+import com.angcyo.http.base.toJson
 import com.angcyo.http.rx.doMain
 import com.angcyo.item.component.DebugFragment
 import com.angcyo.item.style.itemCurrentIndex
@@ -85,6 +87,7 @@ import com.angcyo.library.component.RBackground
 import com.angcyo.library.component._delay
 import com.angcyo.library.component.pad.isInPadMode
 import com.angcyo.library.ex._drawable
+import com.angcyo.library.ex.base64Encode
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.dpi
 import com.angcyo.library.ex.isDebugType
@@ -718,6 +721,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         fContext().gridMenuDialog {
             addGridItem(false) {
                 itemText = "预览"
+                itemGridIcon = R.drawable.lib_ic_info
                 itemClick = {
                     vmApp<HttpApiModel>().preview(
                         LPDataConstant.kLpBaseFeed * 60f,
@@ -729,6 +733,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
             }
             addGridItem(false) {
                 itemText = "测距"
+                itemGridIcon = R.drawable.lib_ic_info
                 itemClick = {
                     vmApp<HttpApiModel>().detectDistance(
                         30f, 30f
@@ -739,6 +744,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
             }
             addGridItem(false) {
                 itemText = "重启MCU"
+                itemGridIcon = R.drawable.lib_ic_info
                 itemClick = {
                     vmApp<HttpApiModel>().restartMcu { data, error ->
                         toastQQ(error?.toString() ?: "$data")
@@ -747,8 +753,73 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
             }
             addGridItem(false) {
                 itemText = "重启Klipper"
+                itemGridIcon = R.drawable.lib_ic_info
                 itemClick = {
                     vmApp<HttpApiModel>().restartKlipper { data, error ->
+                        toastQQ(error?.toString() ?: "$data")
+                    }
+                }
+            }
+            addGridItem(false) {
+                itemText = "SAVE_VARIABLE"
+                itemGridIcon = R.drawable.lib_ic_info
+                itemClick = {
+                    val cameraCalibration = listOf(
+                        PointF(1744f, 1029f),
+                        PointF(2498f, 1031f),
+                        PointF(2495f, 1786f),
+                        PointF(1738f, 1782f)
+                    )
+                    vmApp<HttpApiModel>().saveVariable(
+                        "camera_calibration",
+                        cameraCalibration.toJson()?.base64Encode()
+                    ) { data, error ->
+                        toastQQ(error?.toString() ?: "$data")
+                    }
+                    val cameraRectify = mapOf(
+                        "intrinsic_matrix" to listOf(
+                            listOf(
+                                39389.034491756116,
+                                0.0,
+                                1986.3704946841995
+                            ),
+                            listOf(
+                                0.0, 36882.84609273625, 1505.8006987027738
+                            ),
+                            listOf(
+                                0.0, 0.0, 1.0
+                            ),
+                        ),
+                        "distortion_coeff" to listOf(
+                            listOf(
+                                6.150073312790283,
+                                2787.7942716389457,
+                                0.21965962720085916,
+                                0.08806865699064705,
+                                0.9399111131795392,
+                                0.64957580346988,
+                                4243.834350883954,
+                                -0.8678932943770115,
+                                -0.0906487255207549,
+                                -2.1630892856201553,
+                                -0.22360973877996665,
+                                2.5916286535080686
+                            )
+                        )
+                    )
+                    vmApp<HttpApiModel>().saveVariable(
+                        "camera_rectify",
+                        cameraRectify.toJson()?.base64Encode()
+                    ) { data, error ->
+                        toastQQ(error?.toString() ?: "$data")
+                    }
+                }
+            }
+            addGridItem(false) {
+                itemText = "获取相机畸变数据"
+                itemGridIcon = R.drawable.lib_ic_info
+                itemClick = {
+                    vmApp<HttpApiModel>().getCameraData { data, error ->
                         toastQQ(error?.toString() ?: "$data")
                     }
                 }
