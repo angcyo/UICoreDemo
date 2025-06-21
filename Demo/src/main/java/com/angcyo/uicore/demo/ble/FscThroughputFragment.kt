@@ -120,8 +120,7 @@ class FscThroughputFragment : AppDslFragment() {
                     if (payloads.isUpdatePart()) {
                         //进度更新
                         fscModel.findProgressCache(fscDevice?.address)?.let {
-                            val time =
-                                max(1, ((System.currentTimeMillis() - it.startTime) / 1000))
+                            val time = max(1, ((System.currentTimeMillis() - it.startTime) / 1000))
                             val rate = "${it.sendBytesSize / time} bytes/s"
                             if (it.percentage >= 0) {
                                 packetProgressView?.setProgress(it.percentage)
@@ -189,15 +188,12 @@ class FscThroughputFragment : AppDslFragment() {
                                 //fscModel.send(device.address, byteBuffer)
 
                                 LaserPeckerHelper.waitCmdReturn(
-                                    fscModel,
-                                    device.address,
-                                    byteBuffer, progress = {
+                                    fscModel, device.address, byteBuffer, progress = {
                                         doMain {
                                             itemHolder.tv(R.id.result_text_view)?.text =
                                                 "发送中:${it.sendPacketPercentage}%"
                                         }
-                                    }
-                                ) { bean, error ->
+                                    }) { bean, error ->
                                     doMain {
                                         bean?.let {
                                             receiveBuffer = it.receivePacket
@@ -297,25 +293,16 @@ class FscThroughputFragment : AppDslFragment() {
                         itemHolder.click(R.id.preview_command0) {
                             setCommand(
                                 EngravePreviewCmd.previewFlashBitmapCmd(
-                                    defaultName,
-                                    HawkEngraveKeys.lastPwrProgress
-                                ).toHexCommandString(),
-                                EngravePreviewParser::class.java
+                                    defaultName, HawkEngraveKeys.lastPwrProgress
+                                ).toHexCommandString(), EngravePreviewParser::class.java
                             )
                         }
                         //指令-预览范围
                         itemHolder.click(R.id.preview_command1) {
                             setCommand(
                                 EngravePreviewCmd._previewRangeCmd(
-                                    0,
-                                    0,
-                                    60,
-                                    20,
-                                    null,
-                                    HawkEngraveKeys.lastPwrProgress,
-                                    0
-                                ).toHexCommandString(),
-                                EngravePreviewParser::class.java
+                                    0, 0, 60, 20, null, HawkEngraveKeys.lastPwrProgress, 0
+                                ).toHexCommandString(), EngravePreviewParser::class.java
                             )
                         }
                         //指令-结束预览
@@ -380,13 +367,22 @@ class FscThroughputFragment : AppDslFragment() {
 
     fun handleResult(holder: DslViewHolder, bean: ReceivePacket) {
         when (cmdClass) {
-            QueryStateParser::class.java -> QueryStateParser().parse(bean.receivePacket)
-            QueryEngraveFileParser::class.java -> QueryEngraveFileParser().parse(bean.receivePacket)
-            QuerySettingParser::class.java -> QuerySettingParser().parse(bean.receivePacket)
-            QueryVersionParser::class.java -> QueryVersionParser().parse(bean.receivePacket)
-            QuerySafeCodeParser::class.java -> QuerySafeCodeParser().parse(bean.receivePacket)
-            EngraveReceiveParser::class.java -> EngraveReceiveParser().parse(bean.receivePacket)
-            EngravePreviewParser::class.java -> EngravePreviewParser().parse(bean.receivePacket)
+            QueryStateParser::class.java -> QueryStateParser().parse(null, bean.receivePacket)
+            QueryEngraveFileParser::class.java -> QueryEngraveFileParser().parse(
+                null, bean.receivePacket
+            )
+
+            QuerySettingParser::class.java -> QuerySettingParser().parse(null, bean.receivePacket)
+            QueryVersionParser::class.java -> QueryVersionParser().parse(null, bean.receivePacket)
+            QuerySafeCodeParser::class.java -> QuerySafeCodeParser().parse(null, bean.receivePacket)
+            EngraveReceiveParser::class.java -> EngraveReceiveParser().parse(
+                null, bean.receivePacket
+            )
+
+            EngravePreviewParser::class.java -> EngravePreviewParser().parse(
+                null, bean.receivePacket
+            )
+
             else -> null
         }?.let {
             holder.tv(R.id.result_text_view)?.text = it.toString()
