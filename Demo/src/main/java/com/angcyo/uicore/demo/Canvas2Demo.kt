@@ -37,7 +37,7 @@ import com.angcyo.canvas2.laser.pecker.engrave.isEngraveFlow
 import com.angcyo.canvas2.laser.pecker.engrave.newflow.NewFlowConfigFragment
 import com.angcyo.canvas2.laser.pecker.history.EngraveHistoryFragment
 import com.angcyo.canvas2.laser.pecker.manager.FileManagerFragment
-import com.angcyo.canvas2.laser.pecker.manager.GuideManager
+import com.angcyo.canvas2.laser.pecker.manager.AppGuideManager
 import com.angcyo.canvas2.laser.pecker.manager.LPProjectManager
 import com.angcyo.canvas2.laser.pecker.manager.restoreProjectStateV2
 import com.angcyo.canvas2.laser.pecker.manager.saveProjectStateV2
@@ -1033,17 +1033,17 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     override fun canSwipeBack(): Boolean = false
 
     override fun onBackPressed(): Boolean {
-        return !GuideManager.backGuid() && super.onBackPressed()
+        return !AppGuideManager.backGuid() && super.onBackPressed()
     }
 
     override fun onFragmentShow(bundle: Bundle?) {
         super.onFragmentShow(bundle)
-        GuideManager.pauseGuideIndex = -1
+        AppGuideManager.pauseGuideIndex = -1
     }
 
     override fun onFragmentHide() {
         super.onFragmentHide()
-        GuideManager.pauseGuideIndex = 1
+        AppGuideManager.pauseGuideIndex = 1
     }
 
     override fun onFragmentFirstShow(bundle: Bundle?) {
