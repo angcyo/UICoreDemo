@@ -12,6 +12,7 @@ import com.angcyo.base.dslFHelper
 import com.angcyo.base.restore
 import com.angcyo.bluetooth.fsc.CameraApiModel
 import com.angcyo.bluetooth.fsc.FscBleApiModel
+import com.angcyo.bluetooth.fsc.laserpacker.DeviceStateModel
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
 import com.angcyo.bluetooth.fsc.laserpacker.parse.toLaserPeckerVersionName
 import com.angcyo.bugly.Bugly
@@ -130,12 +131,26 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
         //website
         //AutoEngraveHelper.init()
 
-        //固件升级
+        //主机固件升级
         DeviceSettingFragment.createFirmwareUpdateItemAction = { fragment, adapter ->
             vmApp<LaserPeckerModel>().productInfoData.value?.softwareVersion?.run {
                 DslTextInfoItem().apply {
                     itemInfoText = _string(R.string.firmware_version)
                     itemDarkText = toLaserPeckerVersionName()
+                    configInfoTextStyle {
+                        textSize = _dimen(R.dimen.text_sub_size).toFloat()
+                    }
+                    itemClick = {}//清空事件
+                }
+            }
+        }
+
+        //WIFI固件升级
+        DeviceSettingFragment.createWifiFirmwareUpdateItemAction = { fragment, adapter ->
+            vmApp<DeviceStateModel>().wifiVersionData.value?.run {
+                DslTextInfoItem().apply {
+                    itemInfoText = _string(R.string.text_wifi_version)
+                    itemDarkText = "V${this@run}"
                     configInfoTextStyle {
                         textSize = _dimen(R.dimen.text_sub_size).toFloat()
                     }
