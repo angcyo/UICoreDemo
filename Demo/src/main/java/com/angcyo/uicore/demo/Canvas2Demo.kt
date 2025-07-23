@@ -36,8 +36,8 @@ import com.angcyo.canvas2.laser.pecker.engrave.dslitem.transfer.TransferDataPxIt
 import com.angcyo.canvas2.laser.pecker.engrave.isEngraveFlow
 import com.angcyo.canvas2.laser.pecker.engrave.newflow.NewFlowConfigFragment
 import com.angcyo.canvas2.laser.pecker.history.EngraveHistoryFragment
-import com.angcyo.canvas2.laser.pecker.manager.FileManagerFragment
 import com.angcyo.canvas2.laser.pecker.manager.AppGuideManager
+import com.angcyo.canvas2.laser.pecker.manager.FileManagerFragment
 import com.angcyo.canvas2.laser.pecker.manager.LPProjectManager
 import com.angcyo.canvas2.laser.pecker.manager.restoreProjectStateV2
 import com.angcyo.canvas2.laser.pecker.manager.saveProjectStateV2
@@ -48,6 +48,7 @@ import com.angcyo.canvas2.laser.pecker.util.lpElement
 import com.angcyo.core.component.file.writeTo
 import com.angcyo.core.component.file.writeToLog
 import com.angcyo.core.component.fileSelector
+import com.angcyo.core.component.model.LanguageModel
 import com.angcyo.core.showIn
 import com.angcyo.core.vmApp
 import com.angcyo.dialog.gridMenuDialog
@@ -71,7 +72,6 @@ import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFile
 import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFileV2
 import com.angcyo.laserpacker.device.EngraveHelper
 import com.angcyo.laserpacker.device.EngraveNotifyHelper
-import com.angcyo.laserpacker.device.FocalDistanceAdjustFragment
 import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
 import com.angcyo.laserpacker.device.ble.EngraveExperimentalFragment
 import com.angcyo.laserpacker.device.engraveLoadingAsync
@@ -87,6 +87,7 @@ import com.angcyo.library.component.RBackground
 import com.angcyo.library.component._delay
 import com.angcyo.library.component.pad.isInPadMode
 import com.angcyo.library.ex._drawable
+import com.angcyo.library.ex._string
 import com.angcyo.library.ex.base64Encode
 import com.angcyo.library.ex.dp
 import com.angcyo.library.ex.dpi
@@ -852,9 +853,14 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     private fun testDemo(itemHolder: DslViewHolder) {
         //test
         itemHolder.click(R.id.test_button) {
-            dslFHelper {
+            val str = _string(R.string.label_move_path)
+            L.i("->$str")
+            L.i("systemLocale->${LanguageModel.systemLocale}")
+            L.i("appLocale->${LanguageModel.appLocale}")
+
+            /*dslFHelper {
                 show(FocalDistanceAdjustFragment::class)
-            }
+            }*/
 
             /*val originBounds = CanvasGroupRenderer.getRendererListRenderProperty(
                 renderDelegate!!.getSelectorOrAllElementRendererList()
