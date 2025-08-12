@@ -825,6 +825,24 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     }
                 }
             }
+            addGridItem(false) {
+                itemText = "升级固件"
+                itemGridIcon = R.drawable.lib_ic_info
+                itemClick = {
+                    vmApp<HttpApiModel>().startUpgrade("https://oss.laserpecker.net/apply/firmware/LX2_V90031.zip") { data, error ->
+                        toastQQ(error?.toString() ?: "$data")
+                    }
+                }
+            }
+            addGridItem(false) {
+                itemText = "查询升级进度"
+                itemGridIcon = R.drawable.lib_ic_info
+                itemClick = {
+                    vmApp<HttpApiModel>().queryUpgradeProgress { data, error ->
+                        toastQQ(error?.toString() ?: "$data")
+                    }
+                }
+            }
         }
     }
 
