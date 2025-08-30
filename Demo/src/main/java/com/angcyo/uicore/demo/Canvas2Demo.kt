@@ -843,6 +843,15 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     }
                 }
             }
+            addGridItem(false) {
+                itemText = "获取探针状态"
+                itemGridIcon = R.drawable.lib_ic_info
+                itemClick = {
+                    vmApp<HttpApiModel>().getProbeState { data, error ->
+                        toastQQ(error?.toString() ?: "$data")
+                    }
+                }
+            }
         }
     }
 
