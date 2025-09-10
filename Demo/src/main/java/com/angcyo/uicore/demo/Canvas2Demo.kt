@@ -1139,9 +1139,6 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     /**Canvas2布局*/
     private val _renderLayoutHelper = RenderLayoutHelper(this)
 
-    override val renderLayoutHelper: RenderLayoutHelper
-        get() = _renderLayoutHelper
-
     /**雕刻布局*/
     private val _engraveFlowLayoutHelper = EngraveFlowLayoutHelper().apply {
         backPressedDispatcherOwner = this@Canvas2Demo
@@ -1206,6 +1203,9 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
 
     override val dangerLayoutContainer: ViewGroup?
         get() = fragment._vh.group(R.id.canvas_wrap_layout) ?: _vh.itemView as ViewGroup
+
+    override val renderLayoutHelper: RenderLayoutHelper
+        get() = _renderLayoutHelper
 
     //</editor-fold desc="IEngraveCanvasFragment">
 }
