@@ -33,6 +33,7 @@ import com.angcyo.canvas2.laser.pecker.engrave.BaseFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.EngraveFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.LPEngraveHelper
 import com.angcyo.canvas2.laser.pecker.engrave.dslitem.transfer.TransferDataPxItem
+import com.angcyo.canvas2.laser.pecker.engrave.inclineDialogConfig
 import com.angcyo.canvas2.laser.pecker.engrave.isEngraveFlow
 import com.angcyo.canvas2.laser.pecker.engrave.newflow.NewFlowConfigFragment
 import com.angcyo.canvas2.laser.pecker.history.EngraveHistoryFragment
@@ -849,6 +850,15 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 itemClick = {
                     vmApp<HttpApiModel>().getProbeState { data, error ->
                         toastQQ(error?.toString() ?: "$data")
+                    }
+                }
+            }
+            addGridItem(false) {
+                itemText = "弹窗测试"
+                itemGridIcon = R.drawable.lib_ic_info
+                itemClick = {
+                    fContext().inclineDialogConfig {
+
                     }
                 }
             }
