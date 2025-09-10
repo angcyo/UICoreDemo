@@ -1137,7 +1137,10 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
     //<editor-fold desc="init">
 
     /**Canvas2布局*/
-    private val renderLayoutHelper = RenderLayoutHelper(this)
+    private val _renderLayoutHelper = RenderLayoutHelper(this)
+
+    override val renderLayoutHelper: RenderLayoutHelper
+        get() = _renderLayoutHelper
 
     /**雕刻布局*/
     private val _engraveFlowLayoutHelper = EngraveFlowLayoutHelper().apply {
