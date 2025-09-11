@@ -33,7 +33,6 @@ import com.angcyo.canvas2.laser.pecker.engrave.BaseFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.EngraveFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.LPEngraveHelper
 import com.angcyo.canvas2.laser.pecker.engrave.dslitem.transfer.TransferDataPxItem
-import com.angcyo.canvas2.laser.pecker.engrave.inclineDialogConfig
 import com.angcyo.canvas2.laser.pecker.engrave.isEngraveFlow
 import com.angcyo.canvas2.laser.pecker.engrave.newflow.NewFlowConfigFragment
 import com.angcyo.canvas2.laser.pecker.history.EngraveHistoryFragment
@@ -73,9 +72,11 @@ import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFile
 import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFileV2
 import com.angcyo.laserpacker.device.EngraveHelper
 import com.angcyo.laserpacker.device.EngraveNotifyHelper
+import com.angcyo.laserpacker.device.MaterialHelper
 import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
 import com.angcyo.laserpacker.device.ble.EngraveExperimentalFragment
 import com.angcyo.laserpacker.device.engraveLoadingAsync
+import com.angcyo.laserpacker.device.machineParamsViewDialog
 import com.angcyo.laserpacker.device.wifi.AddWifiDeviceFragment
 import com.angcyo.laserpacker.open.CanvasOpenModel
 import com.angcyo.laserpacker.project.ProjectListFragment
@@ -857,7 +858,12 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 itemText = "弹窗测试"
                 itemGridIcon = R.drawable.lib_ic_info
                 itemClick = {
-                    fContext().inclineDialogConfig {
+                    /*fContext().inclineDialogConfig {
+
+                    }*/
+                    //MaterialHelper.saveLx2CustomMaterial(MaterialHelper.lx2MaterialList)
+                    //val list = MaterialHelper.loadLx2CustomMaterial()
+                    fContext().machineParamsViewDialog {
 
                     }
                 }
