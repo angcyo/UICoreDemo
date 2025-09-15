@@ -110,6 +110,8 @@ import com.angcyo.library.utils.fileNameTime
 import com.angcyo.library.utils.writeToFile
 import com.angcyo.objectbox.laser.pecker.entity.EntitySync
 import com.angcyo.objectbox.laser.pecker.entity.TransferConfigEntity
+import com.angcyo.server.startFileServer
+import com.angcyo.server.stopFileServer
 import com.angcyo.uicore.AppDebugHelper
 import com.angcyo.uicore.base.AppDslFragment
 import com.angcyo.uicore.getRandomText
@@ -866,6 +868,20 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     fContext().machineParamsViewDialog {
 
                     }
+                }
+            }
+            addGridItem(false) {
+                itemText = "Start"
+                itemGridIcon = R.drawable.lib_ic_info
+                itemClick = {
+                    fContext().startFileServer()
+                }
+            }
+            addGridItem(false) {
+                itemText = "Stop"
+                itemGridIcon = R.drawable.lib_ic_info
+                itemClick = {
+                    fContext().stopFileServer()
                 }
             }
         }
