@@ -72,11 +72,11 @@ buildscript {
 //if (Integer.parseInt(gradle.gradleVersion.split("\\.")[0]) >= 8){ }
 plugins {
     // https://mvnrepository.com/artifact/com.android.application/com.android.application.gradle.plugin
-    id 'com.android.application' version '8.7.3' apply false
+    id 'com.android.application' version '8.13.0' apply false
     // https://mvnrepository.com/artifact/com.android.library/com.android.library.gradle.plugin
-    id 'com.android.library' version '8.7.3' apply false
+    id 'com.android.library' version '8.13.0' apply false
     // https://mvnrepository.com/artifact/org.jetbrains.kotlin.android/org.jetbrains.kotlin.android.gradle.plugin
-    id 'org.jetbrains.kotlin.android' version '1.9.25' apply false
+    id 'org.jetbrains.kotlin.android' version "$kotlin_version" apply false
 }
 
 //2: 自动初始化基础脚本, find模块
