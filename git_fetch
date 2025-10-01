@@ -4,17 +4,22 @@
 set +x
 
 # 将工作目录设置为脚本所在目录
+# shellcheck disable=SC2164
 cd "$(dirname "$0")"
 
+git remote -v
 git fetch
 git rebase origin/master
 
 coreFolder="UICore"
 if [ -d "$PWD/$coreFolder" ]; then
+    # shellcheck disable=SC2164
     cd $coreFolder
     echo "准备拉取仓库：$coreFolder"
+    git remote -v
     git fetch
     git rebase origin/master
+    # shellcheck disable=SC2103
     cd ..
 else
     echo "准备克隆仓库：$coreFolder"
@@ -23,10 +28,13 @@ fi
 
 extendFolder="UICoreEx"
 if [ -d "$PWD/$extendFolder" ]; then
+    # shellcheck disable=SC2164
     cd $extendFolder
     echo "准备拉取仓库：$extendFolder"
+    git remote -v
     git fetch
     git rebase origin/master
+    # shellcheck disable=SC2103
     cd ..
 else
     echo "准备克隆仓库：$extendFolder"
