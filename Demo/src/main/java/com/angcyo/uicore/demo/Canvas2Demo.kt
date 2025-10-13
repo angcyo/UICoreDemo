@@ -547,7 +547,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     LPProjectManager().apply {
                         projectName = "save-v2-${nowTimeString()}"
                         val file = saveProjectV2To(
-                            flowLayoutHelper.flowTaskId,
+                            flowLayoutHelper.lastFlowTaskId,
                             _defaultProjectOutputFileV2("LP-${fileNameTime()}"),
                             renderDelegate!!
                         )
