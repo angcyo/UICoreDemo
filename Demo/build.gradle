@@ -146,6 +146,7 @@ dependencies {
 
     //2024-12-28
     //maven { url "https://gitlab.com/angcyo/maven/-/raw/master" }
+    //maven { url "https://raw.githubusercontent.com/angcyo/master_maven/refs/heads/main" }
     implementation 'com.github.felHR85:UsbSerial:6.1.0'
     //implementation 'com.github.BeebLaser:UsbSerial:6.7.1-fix1'
 }
