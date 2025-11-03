@@ -92,6 +92,12 @@ if (Integer.parseInt(gradle.gradleVersion.split("\\.")[0]) >= 8) {
 
             //本地仓库依赖
             //maven { url = 'E:/maven' /*'E:/AndroidProjects/maven'}*/ }
+
+            //2025-10-31
+            maven {
+                url "http://172.30.3.220/chenjunhong/Android_aar/-/raw/main/"
+                allowInsecureProtocol = true
+            }
         }
     }
 }
