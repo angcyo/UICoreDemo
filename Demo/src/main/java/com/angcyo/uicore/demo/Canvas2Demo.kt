@@ -20,6 +20,7 @@ import com.angcyo.bluetooth.fsc.laserpacker.HawkEngraveKeys
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerHelper
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
 import com.angcyo.bluetooth.fsc.laserpacker._productName
+import com.angcyo.bluetooth.fsc.laserpacker.alg.HxAlg
 import com.angcyo.bluetooth.fsc.laserpacker.command.ExitCmd
 import com.angcyo.bluetooth.fsc.laserpacker.command.WifiUpdateCmd
 import com.angcyo.canvas.CanvasRenderView
@@ -72,7 +73,6 @@ import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFile
 import com.angcyo.laserpacker.device.DeviceHelper._defaultProjectOutputFileV2
 import com.angcyo.laserpacker.device.EngraveHelper
 import com.angcyo.laserpacker.device.EngraveNotifyHelper
-import com.angcyo.laserpacker.device.MaterialHelper
 import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
 import com.angcyo.laserpacker.device.ble.EngraveExperimentalFragment
 import com.angcyo.laserpacker.device.engraveLoadingAsync
@@ -882,6 +882,13 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 itemGridIcon = R.drawable.lib_ic_info
                 itemClick = {
                     fContext().stopFileServer()
+                }
+            }
+            addGridItem(false) {
+                itemText = "HxAlg Test"
+                itemGridIcon = R.drawable.lib_ic_info
+                itemClick = {
+                    HxAlg.initAlg()
                 }
             }
         }
