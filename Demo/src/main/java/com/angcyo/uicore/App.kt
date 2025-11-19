@@ -14,7 +14,6 @@ import com.angcyo.bluetooth.fsc.CameraApiModel
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.laserpacker.DeviceStateModel
 import com.angcyo.bluetooth.fsc.laserpacker.LaserPeckerModel
-import com.angcyo.bluetooth.fsc.laserpacker.parse.toLaserPeckerVersionName
 import com.angcyo.bugly.Bugly
 import com.angcyo.core.CoreApplication
 import com.angcyo.core.Debug
@@ -42,14 +41,27 @@ import com.angcyo.library.annotation.CallComplianceAfter
 import com.angcyo.library.component.RBackground
 import com.angcyo.library.component.lastContext
 import com.angcyo.library.component.pad.IPadAdaptive
-import com.angcyo.library.ex.*
+import com.angcyo.library.ex._dimen
+import com.angcyo.library.ex._drawable
+import com.angcyo.library.ex._string
+import com.angcyo.library.ex.base64Decoder
+import com.angcyo.library.ex.base64Encode
+import com.angcyo.library.ex.dp
+import com.angcyo.library.ex.padding
+import com.angcyo.library.ex.randomColor
+import com.angcyo.library.ex.randomString
 import com.angcyo.library.isMainProgress
 import com.angcyo.objectbox.DslBox
 import com.angcyo.quickjs.QuickJSEngine
 import com.angcyo.quickjs.api.Api
 import com.angcyo.speech.TTS
 import com.angcyo.tbs.DslTbs
-import com.angcyo.uicore.demo.*
+import com.angcyo.uicore.demo.BuildConfig
+import com.angcyo.uicore.demo.GlideImageDemo
+import com.angcyo.uicore.demo.MediaPickerDemo
+import com.angcyo.uicore.demo.NotifyDemo
+import com.angcyo.uicore.demo.R
+import com.angcyo.uicore.demo.RefreshDemo
 import com.angcyo.uicore.demo.draw.DrawTextView
 import com.angcyo.uicore.fragment.RecyclerTextFragment
 import io.objectbox.Box
@@ -133,10 +145,11 @@ class App : CoreApplication(), CameraXConfig.Provider, IPadAdaptive {
 
         //主机固件升级
         DeviceSettingFragment.createFirmwareUpdateItemAction = { fragment, adapter ->
-            vmApp<LaserPeckerModel>().productInfoData.value?.softwareVersion?.run {
+            val productInfoData = vmApp<LaserPeckerModel>().productInfoData.value
+            productInfoData?.showVersionName?.let { versionName ->
                 DslTextInfoItem().apply {
                     itemInfoText = _string(R.string.firmware_version)
-                    itemDarkText = toLaserPeckerVersionName()
+                    itemDarkText = versionName
                     configInfoTextStyle {
                         textSize = _dimen(R.dimen.text_sub_size).toFloat()
                     }
