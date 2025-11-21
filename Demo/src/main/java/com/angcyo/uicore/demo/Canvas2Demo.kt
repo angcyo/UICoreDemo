@@ -35,6 +35,7 @@ import com.angcyo.canvas2.laser.pecker.engrave.EngraveFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.LPEngraveHelper
 import com.angcyo.canvas2.laser.pecker.engrave.dslitem.transfer.TransferDataPxItem
 import com.angcyo.canvas2.laser.pecker.engrave.isEngraveFlow
+import com.angcyo.canvas2.laser.pecker.engrave.lowFireWarning2DialogConfig
 import com.angcyo.canvas2.laser.pecker.engrave.newflow.NewFlowConfigFragment
 import com.angcyo.canvas2.laser.pecker.history.EngraveHistoryFragment
 import com.angcyo.canvas2.laser.pecker.manager.AppGuideManager
@@ -889,6 +890,14 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                 itemGridIcon = R.drawable.lib_ic_info
                 itemClick = {
                     HxAlg.initAlg()
+                }
+            }
+
+            addGridItem(false) {
+                itemText = "火焰误检提示"
+                itemGridIcon = R.drawable.lib_ic_info
+                itemClick = {
+                    fContext().lowFireWarning2DialogConfig {}
                 }
             }
         }
