@@ -870,8 +870,8 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     /*fContext().machineParamsViewDialog {
 
                     }*/
-                    /*fContext().fireWarningDialogConfig(LX2DeviceErrorCode.LOW_FIRE_WARNING) {}*/
-                    fContext().fireWarningDialogConfig(LX2DeviceErrorCode.LARGE_FIRE_WARNING) {}
+                    fContext().fireWarningDialogConfig(LX2DeviceErrorCode.LOW_FIRE_WARNING) {}
+                    /*fContext().fireWarningDialogConfig(LX2DeviceErrorCode.LARGE_FIRE_WARNING) {}*/
                 }
             }
             addGridItem(false) {
