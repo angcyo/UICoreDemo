@@ -13,6 +13,7 @@ import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.fsc.FscBleApiModel
 import com.angcyo.bluetooth.fsc.HttpApiModel
 import com.angcyo.bluetooth.fsc.IReceiveBeanAction
+import com.angcyo.bluetooth.fsc.LX2DeviceErrorCode
 import com.angcyo.bluetooth.fsc.WifiApiModel
 import com.angcyo.bluetooth.fsc.enqueue
 import com.angcyo.bluetooth.fsc.laserpacker.DeviceStateModel
@@ -34,6 +35,7 @@ import com.angcyo.canvas2.laser.pecker.engrave.BaseFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.EngraveFlowLayoutHelper
 import com.angcyo.canvas2.laser.pecker.engrave.LPEngraveHelper
 import com.angcyo.canvas2.laser.pecker.engrave.dslitem.transfer.TransferDataPxItem
+import com.angcyo.canvas2.laser.pecker.engrave.fireWarningDialogConfig
 import com.angcyo.canvas2.laser.pecker.engrave.isEngraveFlow
 import com.angcyo.canvas2.laser.pecker.engrave.lowFireWarning2DialogConfig
 import com.angcyo.canvas2.laser.pecker.engrave.newflow.NewFlowConfigFragment
@@ -77,7 +79,6 @@ import com.angcyo.laserpacker.device.EngraveNotifyHelper
 import com.angcyo.laserpacker.device.ble.DeviceConnectTipActivity
 import com.angcyo.laserpacker.device.ble.EngraveExperimentalFragment
 import com.angcyo.laserpacker.device.engraveLoadingAsync
-import com.angcyo.laserpacker.device.machineParamsViewDialog
 import com.angcyo.laserpacker.device.wifi.AddWifiDeviceFragment
 import com.angcyo.laserpacker.open.CanvasOpenModel
 import com.angcyo.laserpacker.project.ProjectListFragment
@@ -866,9 +867,11 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
                     }*/
                     //MaterialHelper.saveLx2CustomMaterial(MaterialHelper.lx2MaterialList)
                     //val list = MaterialHelper.loadLx2CustomMaterial()
-                    fContext().machineParamsViewDialog {
+                    /*fContext().machineParamsViewDialog {
 
-                    }
+                    }*/
+                    /*fContext().fireWarningDialogConfig(LX2DeviceErrorCode.LOW_FIRE_WARNING) {}*/
+                    fContext().fireWarningDialogConfig(LX2DeviceErrorCode.LARGE_FIRE_WARNING) {}
                 }
             }
             addGridItem(false) {
