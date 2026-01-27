@@ -8,6 +8,7 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
+import com.angcyo.base.contentView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.fsc.FscBleApiModel
@@ -89,6 +90,7 @@ import com.angcyo.library.canvas.core.Reason
 import com.angcyo.library.component.MultiFingeredHelper
 import com.angcyo.library.component.RBackground
 import com.angcyo.library.component._delay
+import com.angcyo.library.component.lastActivity
 import com.angcyo.library.component.pad.isInPadMode
 import com.angcyo.library.ex._drawable
 import com.angcyo.library.ex._string
@@ -1095,6 +1097,11 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         //lx2
         itemHolder.click(R.id.lx2_test_button) {
             showLx2TestHandle(itemHolder)
+        }
+
+        //guide
+        itemHolder.click(R.id.guide_test_button) {
+            AppGuideManager.checkOrShowGuide(lastActivity?.window?.contentView(), it, 2)
         }
     }
 
