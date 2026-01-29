@@ -8,7 +8,6 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
-import com.angcyo.base.contentView
 import com.angcyo.base.dslAHelper
 import com.angcyo.base.dslFHelper
 import com.angcyo.bluetooth.fsc.FscBleApiModel
@@ -43,6 +42,7 @@ import com.angcyo.canvas2.laser.pecker.engrave.newflow.NewFlowConfigFragment
 import com.angcyo.canvas2.laser.pecker.history.EngraveHistoryFragment
 import com.angcyo.canvas2.laser.pecker.manager.AppGuideManager
 import com.angcyo.canvas2.laser.pecker.manager.FileManagerFragment
+import com.angcyo.canvas2.laser.pecker.manager.FunGuideDialog
 import com.angcyo.canvas2.laser.pecker.manager.LPProjectManager
 import com.angcyo.canvas2.laser.pecker.manager.restoreProjectStateV2
 import com.angcyo.canvas2.laser.pecker.manager.saveProjectStateV2
@@ -1101,8 +1101,9 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
 
         //guide
         itemHolder.click(R.id.guide_test_button) {
-            AppGuideManager.checkOrShowGuide(lastActivity?.window?.contentView(), it, 1)
+            //AppGuideManager.checkOrShowGuide(lastActivity?.window?.contentView(), it, 1)
             //AppGuideManager.checkOrShowGuide(lastActivity?.window?.contentView(), it, 2)
+            FunGuideDialog.checkOrShowGuide(lastActivity)
         }
     }
 
