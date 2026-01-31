@@ -366,6 +366,15 @@ object AppDebugHelper {
         }
 
         DebugFragment.addDebugAction {
+            label = "Wifi发送首个包延迟时长(毫秒)"
+            des = "首个数据包延迟时长"
+            key = LibLpHawkKeys::firstSendDelay.name
+            type = Long::class.java
+            defValue = LibLpHawkKeys::firstSendDelay
+            useNewNumberKeyboardDialog = true
+        }
+
+        DebugFragment.addDebugAction {
             label = "支架自动回升"
             des = "切片浮雕雕刻完成后, 支持自动回升到开始的位置."
             key = HawkEngraveKeys::autoPickUp.name

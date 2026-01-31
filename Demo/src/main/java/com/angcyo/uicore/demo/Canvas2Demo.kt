@@ -1103,6 +1103,7 @@ class Canvas2Demo : AppDslFragment(), IEngraveRenderFragment {
         itemHolder.click(R.id.guide_test_button) {
             //AppGuideManager.checkOrShowGuide(lastActivity?.window?.contentView(), it, 1)
             //AppGuideManager.checkOrShowGuide(lastActivity?.window?.contentView(), it, 2)
+            FunGuideDialog.isFunGuideEnd = false
             FunGuideDialog.checkOrShowGuide(lastActivity)
         }
     }
