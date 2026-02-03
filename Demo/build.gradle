@@ -151,6 +151,9 @@ dependencies {
     //maven { url "https://raw.githubusercontent.com/angcyo/master_maven/refs/heads/main" }
     implementation 'com.github.felHR85:UsbSerial:6.1.0'
     //implementation 'com.github.BeebLaser:UsbSerial:6.7.1-fix1'
+
+    //2025-10-31 lx2 视觉算法/畸变/对齐
+    //implementation "com.lp:HxAlg:1.0.9"
 }
 
 //apply from: allGradle.v7a
