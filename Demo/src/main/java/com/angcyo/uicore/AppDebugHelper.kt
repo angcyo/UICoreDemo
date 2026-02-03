@@ -225,6 +225,13 @@ object AppDebugHelper {
             }
         }
 
+        DebugFragment.addDebugAction {
+            name = "分享日志"
+            action = { _, _ ->
+                DeviceHelper.shareEngraveLog()
+            }
+        }
+
         //---
 
         DebugFragment.addDebugAction {
