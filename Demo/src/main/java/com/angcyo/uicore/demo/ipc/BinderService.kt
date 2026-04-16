@@ -6,7 +6,6 @@ import android.os.IBinder
 import android.os.Parcel
 import com.angcyo.core.vmApp
 import com.angcyo.library.L
-import com.angcyo.uicore.demo.IBinderService
 
 /**
  *
@@ -19,7 +18,7 @@ import com.angcyo.uicore.demo.IBinderService
  */
 class BinderService : Service() {
 
-    val binder = BinderBinder()
+    /*val binder = BinderBinder()*/
 
     override fun onCreate() {
         super.onCreate()
@@ -36,19 +35,19 @@ class BinderService : Service() {
     }
 
     override fun onBind(intent: Intent?): IBinder {
-        return binder
+        TODO("Not yet implemented")
     }
 
     /**AIDL 接口*/
-    class BinderBinder : IBinderService.Stub() {
+    /*class BinderBinder : IBinderService.Stub() {
 
-        /*fun addData(data: String): Boolean {
+        *//*fun addData(data: String): Boolean {
             return vmApp<IpcModel>().dataList.add(data)
         }
 
         fun getData(): List<String> {
             return vmApp<IpcModel>().dataList
-        }*/
+        }*//*
 
         override fun addData(data: IpcData): Boolean {
             return vmApp<IpcModel>().dataList.add(data)
@@ -58,9 +57,9 @@ class BinderService : Service() {
             return vmApp<IpcModel>().dataList
         }
 
-        /**此处可用于权限拦截**/
+        *//**此处可用于权限拦截**//*
         override fun onTransact(code: Int, data: Parcel, reply: Parcel?, flags: Int): Boolean {
             return super.onTransact(code, data, reply, flags)
         }
-    }
+    }*/
 }

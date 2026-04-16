@@ -29,12 +29,12 @@ import com.angcyo.widget.span.span
  */
 class BinderDemo : AppDslFragment() {
 
-    var binderService: IBinderService? = null
+    /*var binderService: IBinderService? = null*/
 
     val binderServiceConnection = object : ServiceConnection {
 
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            binderService = IBinderService.Stub.asInterface(service)
+            /*binderService = IBinderService.Stub.asInterface(service)*/
 
             _adapter.adapterItems.firstOrNull()?.itemViewHolder()?.apply {
                 tv(R.id.tip_view2)?.text = span {
@@ -46,7 +46,7 @@ class BinderDemo : AppDslFragment() {
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
-            binderService = null
+            /*binderService = null*/
         }
     }
 
@@ -89,7 +89,7 @@ class BinderDemo : AppDslFragment() {
                         getData(itemHolder)
                     }
                     itemHolder.click(R.id.add_remote_data_button) {
-                        if (binderService == null) {
+                        /*if (binderService == null) {
                             showTip2("服务未连接")
                         } else {
                             binderService?.addData(
@@ -98,25 +98,25 @@ class BinderDemo : AppDslFragment() {
                                     "来自${getProcessName(app())}进程的数据:${nowTimeString()}"
                                 )
                             )
-                        }
+                        }*/
                     }
 
                     itemHolder.click(R.id.get_data_button) {
                         getData(itemHolder)
                     }
                     itemHolder.click(R.id.get_remote_data_button) {
-                        if (binderService == null) {
+                        /*if (binderService == null) {
                             showTip2("服务未连接")
                         } else {
                             showData(itemHolder, binderService?.getData())
-                        }
+                        }*/
                     }
 
                     itemHolder.click(R.id.start_service_button) {
                         activity?.startService(Intent(app(), BinderService::class.java))
                     }
                     itemHolder.click(R.id.connect_service_button) {
-                        if (binderService == null) {
+                        /*if (binderService == null) {
                             activity?.bindService(
                                 Intent(app(), BinderService::class.java),
                                 binderServiceConnection,
@@ -127,7 +127,7 @@ class BinderDemo : AppDslFragment() {
                             }
                         } else {
                             showTip2("服务已连接")
-                        }
+                        }*/
                     }
                     itemHolder.click(R.id.start_process_button) {
                         dslAHelper {
@@ -162,9 +162,9 @@ class BinderDemo : AppDslFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (binderService != null) {
+        /*if (binderService != null) {
             activity?.unbindService(binderServiceConnection)
-        }
+        }*/
     }
 
 }

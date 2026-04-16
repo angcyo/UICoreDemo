@@ -51,15 +51,17 @@ if (Integer.parseInt(gradle.gradleVersion.split("\\.")[0]) >= 8) {
             //user:angcyo os:Windows 10
             if (userName == "angcyo") {
                 if (osName.contains("windows")) {
-                    maven { url "F:/maven" }
+                    //maven { url "F:/maven" }
                     //maven { url "F:/maven1104" }
+                    maven { url "https://raw.githubusercontent.com/LaserPeckerIst/maven_5.11.0/refs/heads/main" }
                 } else {
                     maven { url "/Users/angcyo/project/maven/hingin" }
                     maven { url "/Users/angcyo/project/maven/master" }
                 }
             } else {
                 //maven { url "https://gitcode.net/angcyo/maven/-/raw/hingin" }
-                maven { url "https://gitlab.com/angcyo/maven/-/raw/hingin" }
+                //maven { url "https://gitlab.com/angcyo/maven/-/raw/hingin" }
+                maven { url "https://raw.githubusercontent.com/LaserPeckerIst/maven_5.11.0/refs/heads/main" }
             }
             //maven { url "https://gitlab.net/angcyo/maven/-/raw/hingin" }
 
@@ -94,10 +96,10 @@ if (Integer.parseInt(gradle.gradleVersion.split("\\.")[0]) >= 8) {
             //maven { url = 'E:/maven' /*'E:/AndroidProjects/maven'}*/ }
 
             //2025-10-31
-            maven {
+            /*maven {
                 url "http://172.30.3.220/chenjunhong/Android_aar/-/raw/main/"
                 allowInsecureProtocol = true
-            }
+            }*/
         }
     }
 }
